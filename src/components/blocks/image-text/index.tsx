@@ -11,6 +11,7 @@ export type ImageTextProps = {
   heading: React.ReactNode;
   body: React.ReactNode | React.ReactNode[];
   bulletList?: React.ReactNode[];
+  bulletIcon?: "check" | "cross";
   cta?: ImageTextCta;
   image: React.ReactNode;
 };
@@ -39,6 +40,17 @@ const CHECK = (
   </svg>
 );
 
+const CROSS = (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+    <path
+      d="M6 6l12 12M18 6L6 18"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export function ImageText({
   variant,
   imageVariant = "imageRight",
@@ -46,6 +58,7 @@ export function ImageText({
   heading,
   body,
   bulletList,
+  bulletIcon = "check",
   cta,
   image,
 }: ImageTextProps) {
@@ -68,7 +81,13 @@ export function ImageText({
         <ul className="image-text-list">
           {bulletList!.map((it, i) => (
             <li key={i}>
-              <span className="image-text-list-check">{CHECK}</span>
+              <span
+                className={`image-text-list-check${
+                  bulletIcon === "cross" ? " image-text-list-check--cross" : ""
+                }`}
+              >
+                {bulletIcon === "cross" ? CROSS : CHECK}
+              </span>
               <span>{it}</span>
             </li>
           ))}

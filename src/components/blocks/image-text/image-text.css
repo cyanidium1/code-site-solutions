@@ -185,6 +185,11 @@
   margin-top: 1px;
 }
 
+.image-text-list-check--cross {
+  background: oklch(0.65 0.18 25 / 0.15);
+  color: oklch(0.78 0.16 25);
+}
+
 .image-text-cta {
   margin-top: 32px;
 }
