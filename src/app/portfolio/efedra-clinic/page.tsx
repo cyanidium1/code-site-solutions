@@ -380,6 +380,7 @@ export default function EfedraCasePage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
+        bulletIcon="cross"
         eyebrow="/ 02 CHALLENGE"
         heading={
           <>
