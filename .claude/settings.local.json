@@ -19,7 +19,8 @@
       "Bash(cp src/components/blocks/image-text/image-text.css /tmp/codesite-backup/image-text.css)",
       "Bash(git init *)",
       "Bash(git config *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
