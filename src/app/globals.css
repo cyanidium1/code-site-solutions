@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+
+  --bg: #121212;
+  --bg-subtle: #1a1620;
+  --bg-raised: #1f1a26;
+
+  --ink: oklch(0.97 0.005 300);
+  --ink-dim: oklch(0.78 0.012 300);
+  --ink-muted: oklch(0.55 0.01 70);
+
+  --line: oklch(1 0 0 / 0.08);
+  --line-strong: oklch(1 0 0 / 0.14);
+
+  --accent: oklch(0.55 0.18 295);
+  --accent-soft: oklch(0.7 0.14 295);
+  --accent-deep: oklch(0.45 0.2 285);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  font-feature-settings: "ss01", "cv01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* italic glyphs slant past the inline-box edge — додаємо padding,
+   щоб background-clip:text gradient не різав хвостик курсиву */
+em {
+  padding-inline-end: 0.08em;
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(
+      180deg,
+      oklch(0.97 0.005 300) 0%,
+      oklch(0.78 0.012 300) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(
+      180deg,
+      var(--accent-soft) 0%,
+      var(--accent) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-gradient-soft {
+    background: linear-gradient(
+      180deg,
+      oklch(0.97 0.005 300) 0%,
+      oklch(0.78 0.012 300) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .dotted-bg {
+    background-image: radial-gradient(
+      circle,
+      oklch(1 0 0 / 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+
+  .container-page {
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .ease-soft {
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}

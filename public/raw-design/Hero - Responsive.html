@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero — Desktop · Tablet · Mobile</title>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  body { margin: 0; background: oklch(0.12 0.005 60); font-family: 'Inter', system-ui, sans-serif; }
+  .frames {
+    display: flex; gap: 40px; padding: 60px 40px;
+    align-items: flex-start; justify-content: center;
+    overflow-x: auto; min-height: 100vh;
+  }
+  .frame-col { display: flex; flex-direction: column; gap: 14px; flex-shrink: 0; }
+  .frame-label {
+    color: oklch(0.7 0.008 70); font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .frame-label .size {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: oklch(0.5 0.008 70); letter-spacing: 0.04em; text-transform: none;
+  }
+  .frame-label .dot { width: 6px; height: 6px; border-radius: 50%; background: oklch(0.55 0.18 295); }
+  .frame {
+    border: 1px solid oklch(1 0 0 / 0.08);
+    border-radius: 24px;
+    overflow: hidden;
+    background: oklch(0.155 0.006 60);
+    box-shadow: 0 30px 60px oklch(0 0 0 / 0.5);
+  }
+  .frame iframe { display: block; border: none; background: transparent; }
+  .desktop-frame { width: 1440px; height: 900px; }
+  .desktop-frame iframe { width: 1440px; height: 900px; }
+  .tablet-frame { width: 820px; height: 1100px; border-radius: 32px; }
+  .tablet-frame iframe { width: 820px; height: 1100px; }
+  .mobile-frame { width: 390px; height: 844px; border-radius: 40px; }
+  .mobile-frame iframe { width: 390px; height: 844px; }
+</style>
+</head>
+<body>
+<div class="frames">
+  <div class="frame-col">
+    <div class="frame-label"><span class="dot"></span>DESKTOP <span class="size">1440 × 900</span></div>
+    <div class="frame desktop-frame"><iframe src="Hero.html" title="Desktop"></iframe></div>
+  </div>
+  <div class="frame-col">
+    <div class="frame-label"><span class="dot"></span>TABLET <span class="size">820 × 1100</span></div>
+    <div class="frame tablet-frame"><iframe src="Hero.html" title="Tablet"></iframe></div>
+  </div>
+  <div class="frame-col">
+    <div class="frame-label"><span class="dot"></span>MOBILE <span class="size">390 × 844</span></div>
+    <div class="frame mobile-frame"><iframe src="Hero.html" title="Mobile"></iframe></div>
+  </div>
+</div>
+</body>
+</html>

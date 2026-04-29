@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(rm src/components/blocks/Hero.tsx src/components/blocks/LogoMarquee.tsx src/components/blocks/SolutionsGrid.tsx src/components/blocks/BentoGrid.tsx src/components/blocks/ProcessTimeline.tsx src/components/blocks/CasesPreview.tsx src/components/blocks/PricingPreview.tsx src/components/blocks/TechStack.tsx src/components/blocks/Testimonial.tsx src/components/blocks/FinalCTA.tsx src/components/blocks/Newsletter.tsx src/components/ui/CodeEditorMockup.tsx src/components/ui/Section.tsx src/components/layout/Header.tsx src/components/layout/Footer.tsx src/lib/data.ts)",
+      "Bash(rmdir src/components/ui src/components/layout)",
+      "Bash(cp \"C:/Users/User/Documents/GitHub/code-site-frontend/public/images/sitesForPage/medicine/efedra.png\" \"C:/Users/User/Documents/GitHub/code-site-solutions/public/raw-design/assets/mockup.png\")",
+      "Bash(cp \"C:/Users/User/Documents/GitHub/code-site-frontend/public/images/sitesForPage/medicine/before.jpg\" \"C:/Users/User/Documents/GitHub/code-site-solutions/public/raw-design/assets/case-before.png\")",
+      "Bash(cp \"C:/Users/User/Documents/GitHub/code-site-frontend/public/images/sitesForPage/medicine/after.jpg\" \"C:/Users/User/Documents/GitHub/code-site-solutions/public/raw-design/assets/case-after.png\")",
+      "Bash(cp \"C:/Users/User/Documents/GitHub/code-site-frontend/public/images/sitesForPage/medicine/benefit-services.jpg\" \"C:/Users/User/Documents/GitHub/code-site-solutions/public/raw-design/assets/benefit-services.jpg\")",
+      "Bash(cp \"C:/Users/User/Documents/GitHub/code-site-frontend/public/images/sitesForPage/medicine/benefit-booking.png\" \"C:/Users/User/Documents/GitHub/code-site-solutions/public/raw-design/assets/benefit-booking.png\")",
+      "Bash(curl -s http://localhost:3000/sites-for/medicine)",
+      "Bash(mkdir -p /tmp/codesite-backup)",
+      "Bash(cp src/app/portfolio/page.tsx /tmp/codesite-backup/portfolio-page.tsx)",
+      "Bash(cp src/app/portfolio/efedra-clinic/page.tsx /tmp/codesite-backup/efedra-page.tsx)",
+      "Bash(cp src/components/blocks/image-text/index.tsx /tmp/codesite-backup/image-text-index.tsx)",
+      "Bash(cp src/components/blocks/image-text/image-text.css /tmp/codesite-backup/image-text.css)",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git add *)"
+    ]
+  }
+}

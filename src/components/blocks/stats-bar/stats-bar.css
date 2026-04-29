@@ -1,0 +1,102 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   STATS-BAR — standalone-секція з 3-4 числами в ряд.
+   Перенесено з .stats / .stat / .stat-num / .stat-lbl / .stat-div в hero.css.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.stats-bar {
+  position: relative;
+  padding: 48px 48px;
+  background: var(--bg);
+}
+
+.stats-bar-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.stats-bar-grid {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 100%;
+  background: oklch(1 0 0 / 0.02);
+  backdrop-filter: blur(8px);
+}
+
+.stats-bar-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stats-bar-cell + .stats-bar-cell {
+  border-left: 1px solid var(--line);
+  padding-left: 24px;
+}
+
+.stats-bar-value {
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.stats-bar-value em {
+  font-style: italic;
+  background: linear-gradient(
+    180deg,
+    var(--accent-soft) 0%,
+    var(--accent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.stats-bar-suffix {
+  font-size: 14px;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.stats-bar-label {
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+}
+
+@media (max-width: 800px) {
+  .stats-bar {
+    padding: 32px 24px;
+  }
+  .stats-bar-grid {
+    flex-wrap: wrap;
+    padding: 16px 18px;
+    gap: 14px;
+  }
+  .stats-bar-cell {
+    flex: 1 1 calc(50% - 7px);
+    min-width: 120px;
+  }
+  .stats-bar-cell + .stats-bar-cell {
+    border-left: none;
+    padding-left: 0;
+  }
+  .stats-bar-value {
+    font-size: 22px;
+  }
+  .stats-bar-label {
+    font-size: 9px;
+  }
+}

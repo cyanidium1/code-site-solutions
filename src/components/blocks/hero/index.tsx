@@ -1,0 +1,270 @@
+import "./hero.css";
+
+export type Feature = { label: string; sub: string };
+
+export function Nav({
+  brandMark = "</>",
+  brandName = "CODE-SITE",
+  brandDot = ".ART",
+  links = ["Портфоліо", "Послуги", "Блог", "Контакти"],
+  lang = "UA",
+  ctaLabel = "Обговорити проєкт",
+}: {
+  brandMark?: string;
+  brandName?: string;
+  brandDot?: string;
+  links?: string[];
+  lang?: string;
+  ctaLabel?: string;
+}) {
+  return (
+    <nav className="nav">
+      <div className="nav-inner">
+        <div className="brand">
+          <span className="brand-mark">{brandMark}</span>
+          <span className="brand-name">
+            {brandName}
+            <span className="brand-dot">{brandDot}</span>
+          </span>
+        </div>
+        <div className="nav-links">
+          {links.map((l) => (
+            <a key={l}>{l}</a>
+          ))}
+        </div>
+        <div className="nav-right">
+          <button className="lang">
+            {lang} <span>▾</span>
+          </button>
+          <button className="nav-cta">
+            <span className="nav-cta-dot"></span>
+            {ctaLabel}
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+export function DeviceMockup({
+  src = "/raw-design/assets/mockup.png",
+  alt = "Сайт клініки на ноутбуці та телефоні",
+}: {
+  src?: string;
+  alt?: string;
+}) {
+  return (
+    <div className="mockup">
+      <img src={src} alt={alt} />
+    </div>
+  );
+}
+
+export function FeatureChip({ label, sub }: Feature) {
+  return (
+    <div className="feat">
+      <div className="feat-check">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M4 12l5 5L20 6"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+      <div className="feat-text">
+        <div className="feat-label">{label}</div>
+        <div className="feat-sub">{sub}</div>
+      </div>
+    </div>
+  );
+}
+
+const ARROW_ICON = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+    <path
+      d="M5 12h14M13 5l7 7-7 7"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export type HeroStats = { num: string; lbl: React.ReactNode };
+
+export type HeroEditorialProps = {
+  eyebrow?: { label: string; em: string };
+  h1Lines?: React.ReactNode[];
+  h1Num?: string;
+  h1NumLabel?: React.ReactNode;
+  lede?: React.ReactNode;
+  features?: Feature[];
+  ctaPrimaryLabel?: string;
+  ctaSecondaryLabel?: string;
+  showStats?: boolean;
+  stats?: HeroStats[];
+  showTicker?: boolean;
+  tickerItems?: string[];
+  deviceTags?: { kind: "default" | "good"; primary: string; mini?: string }[];
+  deviceMockupSrc?: string;
+};
+
+export function HeroEditorial({
+  eyebrow = { label: "САЙТИ ДЛЯ МЕДИЧНОЇ ГАЛУЗІ", em: "від $3 500" },
+  h1Lines = [
+    <>Клініка, до якої</>,
+    <>
+      <em>записуються</em>
+    </>,
+  ],
+  h1Num = "50+",
+  h1NumLabel = (
+    <>
+      пацієнтів
+      <br />
+      на місяць
+    </>
+  ),
+  lede = (
+    <>
+      Кастомні сайти для стоматологій, багатопрофільних клінік і діагностичних
+      центрів. Запуск за <em>4–6 тижнів</em>, гарантія 1 рік.
+    </>
+  ),
+  features = [
+    { label: "Онлайн-запис", sub: "за 2 кліки" },
+    { label: "Локальне SEO", sub: "під район" },
+    { label: "Інтеграція CRM", sub: "Bitrix · AmoCRM" },
+    { label: "Юр. коректно", sub: "за вимогами МОЗ" },
+  ],
+  ctaPrimaryLabel = "Обговорити мій проєкт",
+  ctaSecondaryLabel = "Подивитися кейси клінік",
+  showStats = true,
+  stats = [
+    { num: "47", lbl: <>клінік<br/>запущено</> },
+    { num: "4.9/5", lbl: <>середня<br/>оцінка</> },
+    { num: "×3.2", lbl: <>більше<br/>записів</> },
+  ],
+  showTicker = true,
+  tickerItems = [
+    "Стоматології",
+    "Багатопрофільні клініки",
+    "Діагностичні центри",
+    "Косметологія",
+    "Реабілітація",
+    "Лабораторії",
+  ],
+  deviceTags = [
+    { kind: "default", primary: "Онлайн-запис" },
+    { kind: "default", primary: "Адаптив", mini: "100/100" },
+    { kind: "good", primary: "Lighthouse", mini: "98" },
+  ],
+  deviceMockupSrc = "/raw-design/assets/mockup.png",
+}: HeroEditorialProps) {
+  return (
+    <>
+      <div className="hero-bg"></div>
+      <div className="hero-grain"></div>
+
+      <main className="hero">
+        <div className="hero-grid">
+          <div className="hero-left">
+            <div className="eyebrow">
+              <span className="eyebrow-dot"></span>
+              <span>{eyebrow.label}</span>
+              <span className="eyebrow-sep">/</span>
+              <span className="eyebrow-em">{eyebrow.em}</span>
+            </div>
+
+            <h1 className="h1">
+              {h1Lines.map((line, i) => (
+                <span key={i} className="h1-line">
+                  {line}
+                </span>
+              ))}
+              <span className="h1-line h1-accent">
+                <span className="h1-num">{h1Num}</span>
+                <span className="h1-num-label">{h1NumLabel}</span>
+              </span>
+            </h1>
+
+            <p className="lede">{lede}</p>
+
+            <div className="features">
+              {features.map((f) => (
+                <FeatureChip key={f.label} label={f.label} sub={f.sub} />
+              ))}
+            </div>
+
+            <div className="cta-row">
+              <button className="btn-primary">
+                <span>{ctaPrimaryLabel}</span>
+                {ARROW_ICON}
+              </button>
+              <button className="btn-ghost">
+                <span className="btn-play">▶</span>
+                <span>{ctaSecondaryLabel}</span>
+              </button>
+            </div>
+
+            {showStats && (
+              <div className="stats">
+                {stats.map((s, i) => (
+                  <span key={i} style={{ display: "contents" }}>
+                    {i > 0 && <div className="stat-div"></div>}
+                    <div className="stat">
+                      <div className="stat-num">{s.num}</div>
+                      <div className="stat-lbl">{s.lbl}</div>
+                    </div>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="hero-right">
+            <div className="device-stage">
+              <div className="device-glow"></div>
+              <div className="device-grid"></div>
+              <DeviceMockup src={deviceMockupSrc} />
+              {deviceTags.map((t, i) => (
+                <div key={i} className={`device-tag device-tag-${i + 1}`}>
+                  {i === 0 && <span className="dt-dot"></span>}
+                  <span>{t.primary}</span>
+                  {t.mini && (
+                    <span
+                      className={`dt-mini${t.kind === "good" ? " dt-good" : ""}`}
+                    >
+                      {t.mini}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {showTicker && (
+          <div className="ticker">
+            <div className="ticker-track">
+              {[...Array(2)].map((_, i) => (
+                <div className="ticker-row" key={i}>
+                  {tickerItems.map((it, j) => (
+                    <span key={j} style={{ display: "contents" }}>
+                      <span>{it}</span>
+                      <span>•</span>
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </main>
+    </>
+  );
+}
