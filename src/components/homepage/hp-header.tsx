@@ -47,10 +47,10 @@ export function HpHeader() {
           <Link href="/about">Про нас</Link>
           <Link href="/blog">Блог</Link>
           <Link href="/calculator">Калькулятор</Link>
-          <Link href="/#cases" onClick={closeDd}>
+          <Link href="/portfolio" onClick={closeDd}>
             Кейси
           </Link>
-          <Link href="/#pricing" onClick={closeDd}>
+          <Link href="/pricing" onClick={closeDd}>
             Прайс
           </Link>
           <Link href="/#process" onClick={closeDd}>

@@ -1,24 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   CTA-BANNER — centered heading + sub + 2 buttons.
-   Reusable: /process, /portfolio, /vs/*, industry pages.
+   CTA-BANNER — fragile bits only.
+   Marker classes (`cta-banner-card`, `cta-banner-eyebrow`) carry zero own
+   element rules; they exist to anchor pseudo-elements and the layered
+   gradient background. Everything else lives in JSX as Tailwind utilities.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-.cta-banner {
-  position: relative;
-  padding: 100px 48px;
-  background: var(--bg);
-}
-
-.cta-banner-container {
-  max-width: 1240px;
-  margin: 0 auto;
-}
-
 .cta-banner-card {
-  position: relative;
-  padding: 64px 48px;
-  border: 1px solid var(--line);
-  border-radius: 28px;
   background:
     radial-gradient(
       ellipse 70% 80% at 50% 0%,
@@ -31,11 +18,6 @@
       transparent 70%
     ),
     oklch(1 0 0 / 0.02);
-  overflow: hidden;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .cta-banner-card::before {
@@ -65,22 +47,6 @@
   pointer-events: none;
 }
 
-.cta-banner-eyebrow {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: oklch(1 0 0 / 0.03);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  color: var(--ink-3);
-  text-transform: uppercase;
-  margin-bottom: 24px;
-}
 .cta-banner-eyebrow::before {
   content: "";
   width: 6px;
@@ -90,120 +56,8 @@
   box-shadow: 0 0 8px oklch(from var(--accent) l c h / 0.6);
 }
 
-.cta-banner-heading {
-  position: relative;
-  margin: 0;
-  font-family: "Manrope", sans-serif;
-  font-weight: 700;
-  font-size: clamp(28px, 3.6vw, 48px);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  max-width: 780px;
-}
-.cta-banner-heading em {
-  font-style: italic;
-  background: linear-gradient(
-    180deg,
-    var(--accent-soft) 0%,
-    var(--accent) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-.cta-banner-sub {
-  position: relative;
-  margin: 18px 0 0;
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
-  line-height: 1.55;
-  color: var(--ink-2);
-  max-width: 620px;
-}
-
-.cta-banner-actions {
-  position: relative;
-  margin-top: 36px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.cta-banner-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 26px;
-  border-radius: 999px;
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  font-size: 13.5px;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s,
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-}
-
-.cta-banner-btn-primary {
-  background: linear-gradient(
-    180deg,
-    var(--accent-soft) 0%,
-    var(--accent) 100%
-  );
-  color: #fff;
-  box-shadow: 0 4px 24px oklch(0.55 0.18 295 / 0.35);
-}
-.cta-banner-btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 32px oklch(0.55 0.18 295 / 0.45);
-}
-
-.cta-banner-btn-secondary {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--line-2);
-}
-.cta-banner-btn-secondary:hover {
-  border-color: oklch(from var(--accent) l c h / 0.5);
-  color: var(--ink);
-  background: oklch(1 0 0 / 0.04);
-}
-
 @media (max-width: 800px) {
-  .cta-banner {
-    padding: 60px 24px;
-  }
-  .cta-banner-card {
-    padding: 44px 24px;
-    border-radius: 22px;
-  }
   .cta-banner-card::before {
     inset-inline: 16px;
-  }
-  .cta-banner-heading {
-    font-size: clamp(24px, 6.5vw, 34px);
-  }
-  .cta-banner-sub {
-    font-size: 14.5px;
-  }
-  .cta-banner-actions {
-    margin-top: 28px;
-    flex-direction: column;
-    width: 100%;
-    align-items: stretch;
-  }
-  .cta-banner-btn {
-    justify-content: center;
-    padding: 14px 22px;
   }
 }

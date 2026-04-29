@@ -470,6 +470,8 @@ type CaseItem = {
   metrics: string;
   gradient: string;
   href: string;
+  coverImage?: string;
+  coverImageAlt?: string;
 };
 
 const DEFAULT_CASES: CaseItem[] = [
@@ -482,6 +484,8 @@ const DEFAULT_CASES: CaseItem[] = [
     metrics: "×3.2 inquiries · LCP 0.8s · Top-3 Google",
     gradient: "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.45 0.18 250) 100%)",
     href: "/portfolio/efedra-clinic",
+    coverImage: "/EfedraCaseCreenshots/efedra-main-after.png",
+    coverImageAlt: "Efedra Clinic — новий сайт після редизайну",
   },
   {
     name: "NBYG Bornholm",
@@ -535,17 +539,43 @@ export function Cases({
                   style={{ background: c.gradient }}
                 />
                 <div className="hp-case-cover-dots" />
-                <div className="hp-case-shot">
+                <div
+                  className="hp-case-shot"
+                  style={
+                    c.coverImage
+                      ? { display: "flex", flexDirection: "column" }
+                      : undefined
+                  }
+                >
                   <div className="hp-case-shot-bar">
                     <span className="hp-case-shot-dot" />
                     <span className="hp-case-shot-dot" />
                     <span className="hp-case-shot-dot" />
                   </div>
-                  <div className="hp-case-shot-body">
-                    <div className="hp-case-shot-line s1" />
-                    <div className="hp-case-shot-line s2" />
-                    <div className="hp-case-shot-line s3" />
-                  </div>
+                  {c.coverImage ? (
+                    <div
+                      className="hp-case-shot-body"
+                      style={{
+                        flex: 1,
+                        minHeight: 0,
+                        padding: 0,
+                        position: "relative",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <img
+                        src={c.coverImage}
+                        alt={c.coverImageAlt ?? c.name}
+                        className="absolute inset-0 block h-full w-full object-cover object-top"
+                      />
+                    </div>
+                  ) : (
+                    <div className="hp-case-shot-body">
+                      <div className="hp-case-shot-line s1" />
+                      <div className="hp-case-shot-line s2" />
+                      <div className="hp-case-shot-line s3" />
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="hp-case-body">
@@ -644,13 +674,17 @@ export function PullQuote({
   initials = "SH",
   name = "Søren Hansen",
   role = "Owner, NBYG Bornholm Aps",
-  liHref = "#",
+  liHref,
+  showAvatar = true,
 }: Partial<{
   quote: React.ReactNode;
   initials: string;
   name: string;
   role: string;
-  liHref: string;
+  /** Якщо не передано — блок LinkedIn не показується. */
+  liHref?: string;
+  /** Круг з ініціалами; `false` — лише ім’я та роль (без «фото» клієнта). */
+  showAvatar?: boolean;
 }> = {}) {
   return (
     <section className="hp-section">
@@ -659,14 +693,23 @@ export function PullQuote({
         <div className="hp-pull-inner">
           <p className="hp-pull-quote">«{quote}»</p>
           <div className="hp-pull-author">
-            <div className="hp-pull-avatar">{initials}</div>
+            {showAvatar ? (
+              <div className="hp-pull-avatar">{initials}</div>
+            ) : null}
             <div>
               <div className="hp-pull-name">{name}</div>
               <div className="hp-pull-role">{role}</div>
             </div>
-            <a href={liHref} className="hp-pull-li" target="_blank" rel="noreferrer">
-              <Linkedin size={12} strokeWidth={1.6} /> LinkedIn
-            </a>
+            {liHref ? (
+              <a
+                href={liHref}
+                className="hp-pull-li"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Linkedin size={12} strokeWidth={1.6} /> LinkedIn
+              </a>
+            ) : null}
           </div>
         </div>
       </div>
@@ -774,12 +817,12 @@ const SOLUTIONS_LINKS = [
 ];
 const COMPANY_LINKS = [
   { label: "About", href: "/about" },
-  { label: "Process", href: "/process" },
+  { label: "Process", href: "/#process" },
   { label: "Pricing", href: "/pricing" },
   { label: "Calculator", href: "/calculator" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
-  { label: "Contacts", href: "/contacts" },
+  { label: "Contacts", href: "/#contact" },
 ];
 const COMPARE_LINKS = [
   { label: "vs WordPress", href: "/vs/wordpress" },

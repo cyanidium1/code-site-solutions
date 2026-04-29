@@ -239,7 +239,10 @@ export function Comparison({
   contactSubmit = "Надіслати — відповімо за 1–2 години",
   contactFoot = (
     <>
-      Або одразу пишіть у Telegram — <a href="#">@fedirdev</a>
+      Або одразу пишіть у Telegram —{" "}
+      <a href="https://t.me/fedirdev" target="_blank" rel="noreferrer">
+        @fedirdev
+      </a>
     </>
   ),
   pricingHeading = "Скільки коштує сайт для клініки",

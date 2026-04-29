@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import "./final.css";
 
 function PlusIcon() {
@@ -29,6 +31,13 @@ function CheckIcon() {
 }
 
 export type SocialKind = "li" | "ig" | "tg" | "tt";
+
+const FOOTER_SOCIAL_HREFS: Record<SocialKind, string> = {
+  li: "https://linkedin.com/in/fedirdev",
+  ig: "https://instagram.com/fedirdev",
+  tg: "https://t.me/fedirdev",
+  tt: "https://tiktok.com/@fedirdev",
+};
 
 export function SocialIcon({ kind }: { kind: SocialKind }) {
   const paths: Record<SocialKind, React.ReactElement> = {
@@ -238,18 +247,35 @@ const DEFAULT_FOOT_COLS: FootColumn[] = [
       <span key="phone-note" className="nolink">Для дзвінка</span>,
       <span key="email" className="nolink">Hi@code-site.art</span>,
       <span key="write-note" className="nolink">Для письмового зв&#39;язку</span>,
-      <a key="tg-link" href="#">@fedirdev</a>,
+      <a
+        key="tg-link"
+        href="https://t.me/fedirdev"
+        target="_blank"
+        rel="noreferrer"
+      >
+        @fedirdev
+      </a>,
       <span key="tg-note" className="nolink">Telegram — швидкий зв&#39;язок</span>,
     ],
   },
   {
     h: "Меню",
     items: [
-      <a key="portfolio" href="#">Портфоліо</a>,
-      <a key="home" href="#">Головна</a>,
-      <a key="services" href="#">Послуги</a>,
-      <a key="blog" href="#">Блог</a>,
-      <a key="contacts" href="#">Контакти</a>,
+      <Link key="portfolio" href="/portfolio">
+        Портфоліо
+      </Link>,
+      <Link key="home" href="/">
+        Головна
+      </Link>,
+      <Link key="services" href="/#solutions">
+        Послуги
+      </Link>,
+      <Link key="blog" href="/blog">
+        Блог
+      </Link>,
+      <Link key="contacts" href="/#contact">
+        Контакти
+      </Link>,
     ],
   },
   {
@@ -293,7 +319,13 @@ export function ClinicFooter({
           <p className="foot-brand-desc">{brandDesc}</p>
           <div className="foot-social">
             {socials.map((kind) => (
-              <a key={kind} href="#" aria-label={labels[kind]}>
+              <a
+                key={kind}
+                href={FOOTER_SOCIAL_HREFS[kind]}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={labels[kind]}
+              >
                 <SocialIcon kind={kind} />
               </a>
             ))}

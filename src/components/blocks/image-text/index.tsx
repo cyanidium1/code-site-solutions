@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 import "./image-text.css";
 
 export type ImageTextCta = { label: string; href: string };
@@ -14,6 +16,8 @@ export type ImageTextProps = {
   bulletIcon?: "check" | "cross";
   cta?: ImageTextCta;
   image: React.ReactNode;
+  /** Додаткові класи для `<section>` (наприклад, зменшений верхній відступ після галереї). */
+  sectionClassName?: string;
 };
 
 const ARROW = (
@@ -61,31 +65,61 @@ export function ImageText({
   bulletIcon = "check",
   cta,
   image,
+  sectionClassName,
 }: ImageTextProps) {
   const bodyArr = Array.isArray(body) ? body : [body];
   const showList =
     variant === "side-with-list" && bulletList && bulletList.length > 0;
   const showCta = variant === "side-with-list" && cta;
+  const isCentered = variant === "centered";
 
-  const imageBlock = <div className="image-text-image">{image}</div>;
+  const containerClass = isCentered
+    ? "max-w-container mx-auto grid grid-cols-1 gap-12 text-center"
+    : "max-w-container mx-auto grid grid-cols-2 gap-16 items-center max-[800px]:grid-cols-1 max-[800px]:gap-8";
+
+  const imageClass = isCentered
+    ? "rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[16/9] [&>:is(img,svg)]:w-full [&>:is(img,svg)]:h-full [&>:is(img,svg)]:object-cover [&>:is(img,svg)]:block max-[800px]:aspect-[4/3]"
+    : "rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] [&>:is(img,svg)]:w-full [&>:is(img,svg)]:h-full [&>:is(img,svg)]:object-cover [&>:is(img,svg)]:block max-[800px]:-order-1";
+
+  const contentClass = isCentered
+    ? "flex flex-col max-w-[720px] mx-auto items-center"
+    : "flex flex-col";
+
+  const eyebrowClass = `image-text-eyebrow inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)] ${
+    isCentered ? "self-center" : "self-start"
+  }`;
+
+  const listClass = `mt-7 flex flex-col gap-3 ${
+    isCentered ? "self-center text-left" : ""
+  }`;
+
+  const checkBaseClass =
+    "inline-flex items-center justify-center w-5 h-5 shrink-0 rounded-full mt-px";
+  const checkColorClass =
+    bulletIcon === "cross"
+      ? "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.78_0.16_25)]"
+      : "bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] text-accent-soft";
+
+  const imageBlock = <div className={imageClass}>{image}</div>;
   const contentBlock = (
-    <div className="image-text-content">
-      {eyebrow ? <span className="image-text-eyebrow">{eyebrow}</span> : null}
-      <h2 className="image-text-h2">{heading}</h2>
-      <div className="image-text-body">
+    <div className={contentClass}>
+      {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
+      <h2 className="mt-6 font-display font-bold text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent max-[800px]:text-[clamp(24px,6vw,36px)]">
+        {heading}
+      </h2>
+      <div className="mt-6 flex flex-col gap-4 [&_p]:text-[16px] [&_p]:leading-[1.6] [&_p]:text-[var(--ink-2)] [&_p_em]:italic [&_p_em]:text-ink">
         {bodyArr.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </div>
       {showList ? (
-        <ul className="image-text-list">
+        <ul className={listClass}>
           {bulletList!.map((it, i) => (
-            <li key={i}>
-              <span
-                className={`image-text-list-check${
-                  bulletIcon === "cross" ? " image-text-list-check--cross" : ""
-                }`}
-              >
+            <li
+              key={i}
+              className="flex gap-3 items-start font-sans text-[15px] text-[var(--ink-2)] leading-[1.5]"
+            >
+              <span className={`${checkBaseClass} ${checkColorClass}`}>
                 {bulletIcon === "cross" ? CROSS : CHECK}
               </span>
               <span>{it}</span>
@@ -94,8 +128,11 @@ export function ImageText({
         </ul>
       ) : null}
       {showCta ? (
-        <div className="image-text-cta">
-          <a href={cta!.href} className="image-text-btn">
+        <div className="mt-8">
+          <a
+            href={cta!.href}
+            className="inline-flex items-center gap-2.5 px-[22px] py-3 rounded-full bg-brand-gradient text-white font-sans font-semibold text-[13px] tracking-[0.04em] no-underline transition-transform duration-200 shadow-[0_4px_20px_oklch(0.55_0.18_295/_0.3)] hover:-translate-y-px"
+          >
             {cta!.label}
             {ARROW}
           </a>
@@ -104,11 +141,15 @@ export function ImageText({
     </div>
   );
 
-  // centered: image on top, content below
-  if (variant === "centered") {
+  const sectionClass = cn(
+    "relative py-[100px] px-12 bg-bg max-[800px]:py-[60px] max-[800px]:px-6",
+    sectionClassName,
+  );
+
+  if (isCentered) {
     return (
-      <section className="image-text image-text--centered">
-        <div className="image-text-container">
+      <section className={sectionClass}>
+        <div className={containerClass}>
           {imageBlock}
           {contentBlock}
         </div>
@@ -116,11 +157,10 @@ export function ImageText({
     );
   }
 
-  // side / side-with-list: order depends on imageVariant
   const reverse = imageVariant === "imageRight";
   return (
-    <section className={`image-text image-text--${variant}`}>
-      <div className="image-text-container">
+    <section className={sectionClass}>
+      <div className={containerClass}>
         {reverse ? (
           <>
             {contentBlock}

@@ -140,7 +140,7 @@ function FounderAvatar() {
 
 const FOUNDER_SOCIALS = [
   { Icon: Linkedin, href: "https://www.linkedin.com/in/fediralpatov/", label: "LinkedIn" },
-  { Icon: Github, href: "#", label: "GitHub" },
+  { Icon: Github, href: "https://github.com/fedirdev", label: "GitHub" },
   { Icon: Send, href: "https://t.me/fedirdev", label: "Telegram" },
   { Icon: Music2, href: "https://www.tiktok.com/@cyanidium.dev", label: "TikTok" },
   { Icon: Instagram, href: "https://www.instagram.com/cyanidium/", label: "Instagram" },
@@ -525,7 +525,7 @@ export default function AboutPage() {
             socials: [
               { kind: "li", href: "https://www.linkedin.com/in/fediralpatov/" },
               { kind: "tg", href: "https://t.me/fedirdev" },
-              { kind: "gh", href: "#" },
+              { kind: "gh", href: "https://github.com/fedirdev" },
               { kind: "ig", href: "https://www.instagram.com/cyanidium/" },
               { kind: "tt", href: "https://www.tiktok.com/@cyanidium.dev" },
             ],

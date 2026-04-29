@@ -6,6 +6,10 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { ImageText } from "@/components/blocks/image-text";
 import {
+  EfedraCaseGallery,
+  type EfedraGalleryTile,
+} from "@/components/portfolio/efedra-case-gallery";
+import {
   HpHeader,
   HpFooter,
   PullQuote,
@@ -28,54 +32,59 @@ export const metadata: Metadata = {
   },
 };
 
-/* ─── Placeholder visual ────────────────────────────────────────────────── */
+/* ─── Case media: public/EfedraCaseCreenshots (файли з узгодженими іменами) ─ */
 
-function GradPlaceholder({
-  from,
-  to,
-  label,
+const EFEDRA = "/EfedraCaseCreenshots" as const;
+
+const EFEDRA_CASE_MEDIA = {
+  before: `${EFEDRA}/efedra-main-before.jpg`,
+  after: `${EFEDRA}/efedra-main-after.png`,
+  gallery: [
+    `${EFEDRA}/efedra-main-gallery-1.png`,
+    `${EFEDRA}/efedra-gallery-2.png`,
+    `${EFEDRA}/efedra-mobile.png`,
+    `${EFEDRA}/efedra-admin.png`,
+  ],
+} as const;
+
+/** Відео в блоці Outcome (перед PullQuote) — https://youtu.be/4asVKZhnY9c */
+const EFEDRA_OUTCOME_VIDEO_ID = "4asVKZhnY9c";
+
+function CaseShot({
+  src,
+  alt,
+  priority,
+  className,
 }: {
-  from: string;
-  to: string;
-  label?: string;
+  src: string;
+  alt: string;
+  priority?: boolean;
+  className?: string;
 }) {
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)`,
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-          opacity: 0.5,
-        }}
+    <img
+      src={src}
+      alt={alt}
+      decoding="async"
+      fetchPriority={priority ? "high" : "auto"}
+      loading={priority ? "eager" : "lazy"}
+      className={className ?? "h-full w-full object-cover block"}
+    />
+  );
+}
+
+function OutcomeYoutubeEmbed({ videoId }: { videoId: string }) {
+  return (
+    <div className="relative block h-full min-h-[200px] w-full overflow-hidden rounded-[inherit]">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+        title="Efedra Clinic — відео з кейсу (YouTube)"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+        loading="lazy"
+        className="absolute inset-0 z-0 h-full w-full border-0"
       />
-      {label ? (
-        <span
-          style={{
-            position: "relative",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 11,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.85)",
-          }}
-        >
-          {label}
-        </span>
-      ) : null}
     </div>
   );
 }
@@ -105,64 +114,10 @@ function MetaStrip() {
       >
         <span>· Industry: Healthcare</span>
         <span>· Region: Odesa, Ukraine</span>
-        <span>· Year: 2024</span>
-        <span>· Stack: Next.js · Sanity · Vercel</span>
+        <span>· Year: 2025</span>
+        <span>· Stack: Next.js, Sanity, Vercel</span>
         <span>· Duration: 6 weeks</span>
-        <span>· Budget: ~$6 500</span>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Simple 2x2 gallery (fallback for ImageGallery block) ──────────────── */
-
-function SimpleGallery() {
-  const tiles = [
-    {
-      label: "Desktop home",
-      from: "oklch(0.55 0.18 230)",
-      to: "oklch(0.45 0.20 250)",
-    },
-    {
-      label: "Mobile home",
-      from: "oklch(0.55 0.16 200)",
-      to: "oklch(0.45 0.18 230)",
-    },
-    {
-      label: "Booking flow",
-      from: "oklch(0.55 0.14 180)",
-      to: "oklch(0.45 0.16 210)",
-    },
-    {
-      label: "CMS admin",
-      from: "oklch(0.50 0.12 270)",
-      to: "oklch(0.40 0.10 250)",
-    },
-  ];
-  return (
-    <section className="hp-section">
-      <div className="hp-inner">
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: 20,
-          }}
-        >
-          {tiles.map((t) => (
-            <div
-              key={t.label}
-              style={{
-                aspectRatio: "16/10",
-                borderRadius: 22,
-                overflow: "hidden",
-                border: "1px solid var(--line)",
-              }}
-            >
-              <GradPlaceholder from={t.from} to={t.to} label={t.label} />
-            </div>
-          ))}
-        </div>
+        <span>· Budget: $5,000</span>
       </div>
     </section>
   );
@@ -341,6 +296,29 @@ const jsonLd = {
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 
 export default function EfedraCasePage() {
+  const galleryTiles: EfedraGalleryTile[] = [
+    {
+      label: "Головна",
+      src: EFEDRA_CASE_MEDIA.gallery[0],
+      alt: "Efedra Clinic — головна сторінка сайту",
+    },
+    {
+      label: "Приклади дизайну внутрішніх сторінок",
+      src: EFEDRA_CASE_MEDIA.gallery[1],
+      alt: "Efedra Clinic — приклади дизайну внутрішніх сторінок",
+    },
+    {
+      label: "Мобільна версія",
+      src: EFEDRA_CASE_MEDIA.gallery[2],
+      alt: "Efedra Clinic — мобільна версія сайту",
+    },
+    {
+      label: "Адмінпанель (Sanity CMS)",
+      src: EFEDRA_CASE_MEDIA.gallery[3],
+      alt: "Efedra Clinic — адмінпанель Sanity CMS",
+    },
+  ];
+
   return (
     <>
       <script
@@ -387,20 +365,23 @@ export default function EfedraCasePage() {
             З чим <em>прийшов клієнт</em>
           </>
         }
-        body="Efedra мала старий сайт на WordPress 2019 року. Він не індексувався в Google Odesa, не приймав онлайн-записи (тільки email і дзвінки), і втрачав 60%+ потенційних пацієнтів вечорами і у вихідні."
+        body="Клієнт мав застарілий сайт на Tilda 2021 року. Він не підтримував онлайн-запис, мав слабкий маркетинг і втрачав 60%+ потенційних пацієнтів через поганий UX та відсутність інструментів конверсії."
         bulletList={[
-          "Сайт вантажився 4.2 секунди на мобільному",
-          "Не індексувався в Google по «стоматологія Одеса»",
-          "Не було онлайн-форми запису — лише телефон",
-          "Російська як основна мова через локаль Одеси, але без UA-альтернативи",
-          "Адмінка через WordPress: будь-яка зміна = час розробника",
-          "Сайт періодично падав під час маркетингових кампаній",
+          "Сайт завантажувався понад 5 секунд на мобільному",
+          "Не ранжувався в Google за ключовими запитами",
+          "Не було зручної форми запису — лише базові контакти",
+          "Відсутня маркетингова система (CTA, воронка, логіка конверсії)",
+          "Мультимовність реалізована некоректно (змішані RU/UA тексти, без перемикання)",
+          "Адмінка на Tilda була обмежена та незручна з телефону",
+          "Висока абонплата через тарифну модель Tilda",
+          "Сайт працював нестабільно та періодично падав",
+          "Не було чіткого розділення послуг (стоматологія + краса)",
         ]}
         image={
-          <GradPlaceholder
-            from="oklch(0.45 0.18 25)"
-            to="oklch(0.30 0.12 290)"
-            label="було · WordPress 2019"
+          <CaseShot
+            src={EFEDRA_CASE_MEDIA.before}
+            alt="Старий сайт Efedra Clinic на Tilda до редизайну"
+            priority
           />
         }
       />
@@ -415,32 +396,34 @@ export default function EfedraCasePage() {
             Що ми <em>зробили</em>
           </>
         }
-        body="Перенесли на Next.js + Sanity CMS. Зробили мобільну версію основною, додали онлайн-запис з SMS-нагадуваннями і інтегрували двонапрямкову структуру (стоматологія + краса) без розриву SEO."
+        body="Ми розробили новий сайт з нуля на Next.js + Sanity CMS. Структурували послуги (стоматологія та краса), покращили UX і впровадили систему конверсії з коректною SEO- та мультимовною архітектурою."
         bulletList={[
-          "Перенесли на Next.js — швидкість 0.8 секунди",
-          "Sanity CMS для самостійних правок без розробника",
-          "Адаптив mobile-first з фокусом на онлайн-запис",
-          "Локальне SEO під «стоматологія Одеса» + райони",
-          "UA + RU багатомовність з коректним hreflang",
-          "Інтеграція з HubSpot CRM для лідів",
-          "Sticky-кнопка «Записатись» на мобільному",
-          "Schema.org MedicalBusiness розмітка",
+          "Повністю кастомний сайт на Next.js + Sanity CMS",
+          "Швидкий mobile-first досвід з оптимізованою продуктивністю",
+          "Онлайн-запис із продуманим користувацьким сценарієм",
+          "Чітке розділення напрямків (стоматологія + краса)",
+          "Зручні та зрозумілі прайси послуг",
+          "CMS для простого редагування, у тому числі з телефону",
+          "Відсутність абонплати — повний контроль над платформою",
+          "Коректна мультимовність з SEO-індексацією",
+          "Інтеграція з Telegram для обробки лідів",
+          "SEO ведеться 3 місяці → вже є заявки з органічного трафіку",
         ]}
         image={
-          <GradPlaceholder
-            from="oklch(0.55 0.18 230)"
-            to="oklch(0.45 0.20 250)"
-            label="стало · Next.js + Sanity"
+          <CaseShot
+            src={EFEDRA_CASE_MEDIA.after}
+            alt="Новий сайт Efedra Clinic на Next.js та Sanity після запуску"
           />
         }
       />
 
       {/* Section 5: Image gallery (2x2 fallback) */}
-      <SimpleGallery />
+      <EfedraCaseGallery tiles={galleryTiles} />
 
       {/* Section 6: Outcome */}
       <ImageText
         variant="centered"
+        sectionClassName="pt-5 max-[800px]:pt-5"
         eyebrow="/ 04 OUTCOME"
         heading={
           <>
@@ -459,21 +442,24 @@ export default function EfedraCasePage() {
           "Bounce rate: 68% → 41%",
         ]}
         image={
-          <GradPlaceholder
-            from="oklch(0.55 0.16 145)"
-            to="oklch(0.45 0.18 230)"
-            label="metrics · 3 months post-launch"
-          />
+          <OutcomeYoutubeEmbed videoId={EFEDRA_OUTCOME_VIDEO_ID} />
         }
       />
 
       {/* Section 7: Client quote */}
       <PullQuote
-        quote="Цитата клієнта буде додана після підтвердження від клініки."
-        initials="A"
-        name="Anna [TBD]"
-        role="Адміністратор, Efedra Clinic"
-        liHref="#"
+        quote={
+          <>
+            Все працює і я задоволена. Дякую величезне!) Якщо комусь буде
+            потрібна ваша допомога, обов&apos;язково порекомендую.
+            <br />
+            <br />
+            П.С. ще й нарешті заявки з органіки пішли!
+          </>
+        }
+        showAvatar={false}
+        name="Марія К."
+        role="СЕО Проекту"
       />
 
       {/* Section 8: Related cases */}

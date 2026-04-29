@@ -35,6 +35,9 @@ type CaseRow = {
   metrics: string;
   status: "live" | "coming-soon";
   gradient: string;
+  /** Прев’ю в «вікні» картки замість смужок-мокапу */
+  coverImage?: string;
+  coverImageAlt?: string;
 };
 
 const CASES: CaseRow[] = [
@@ -50,6 +53,8 @@ const CASES: CaseRow[] = [
     status: "live",
     gradient:
       "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.55 0.16 200) 100%)",
+    coverImage: "/EfedraCaseCreenshots/efedra-main-after.png",
+    coverImageAlt: "Efedra Clinic — новий сайт після редизайну",
   },
   {
     slug: "nbyg-bornholm",
@@ -153,17 +158,43 @@ function PortfolioCard({ row }: { row: CaseRow }) {
     <div className="hp-case-cover">
       <div className="hp-case-cover-bg" style={{ background: row.gradient }} />
       <div className="hp-case-cover-dots" />
-      <div className="hp-case-shot">
+      <div
+        className="hp-case-shot"
+        style={
+          row.coverImage
+            ? { display: "flex", flexDirection: "column" }
+            : undefined
+        }
+      >
         <div className="hp-case-shot-bar">
           <span className="hp-case-shot-dot" />
           <span className="hp-case-shot-dot" />
           <span className="hp-case-shot-dot" />
         </div>
-        <div className="hp-case-shot-body">
-          <div className="hp-case-shot-line s1" />
-          <div className="hp-case-shot-line s2" />
-          <div className="hp-case-shot-line s3" />
-        </div>
+        {row.coverImage ? (
+          <div
+            className="hp-case-shot-body"
+            style={{
+              flex: 1,
+              minHeight: 0,
+              padding: 0,
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src={row.coverImage}
+              alt={row.coverImageAlt ?? row.name}
+              className="absolute inset-0 block h-full w-full object-cover object-top"
+            />
+          </div>
+        ) : (
+          <div className="hp-case-shot-body">
+            <div className="hp-case-shot-line s1" />
+            <div className="hp-case-shot-line s2" />
+            <div className="hp-case-shot-line s3" />
+          </div>
+        )}
       </div>
       {disabled ? (
         <span

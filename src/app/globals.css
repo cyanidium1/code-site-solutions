@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 :root {
   color-scheme: dark;
@@ -12,13 +11,17 @@
   --ink: oklch(0.97 0.005 300);
   --ink-dim: oklch(0.78 0.012 300);
   --ink-muted: oklch(0.55 0.01 70);
+  --ink-2: oklch(0.78 0.012 300);
+  --ink-3: oklch(0.55 0.01 300);
 
   --line: oklch(1 0 0 / 0.08);
   --line-strong: oklch(1 0 0 / 0.14);
+  --line-2: oklch(1 0 0 / 0.14);
 
   --accent: oklch(0.55 0.18 295);
   --accent-soft: oklch(0.7 0.14 295);
   --accent-deep: oklch(0.45 0.2 285);
+  --accent-2: oklch(0.45 0.20 285);
 }
 
 html {

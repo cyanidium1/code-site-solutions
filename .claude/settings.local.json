@@ -20,7 +20,16 @@
       "Bash(git init *)",
       "Bash(git config *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(curl -s \"http://localhost:59319/_next/static/css/app/layout.css?v=1777491112351\" -o /tmp/layout.css)",
+      "Read(//tmp/**)",
+      "Bash(curl -s \"http://localhost:59319/stories/page-hero\")",
+      "Bash(curl -s \"http://localhost:59319/_next/static/css/app/stories/page-hero/page.css?v=1777491974027\")",
+      "Bash(curl -s \"http://localhost:61560/stories/stats-bar\")",
+      "Bash(curl -s \"http://localhost:61560/_next/static/css/app/layout.css?v=1777494300828\")",
+      "Bash(curl -sv \"http://localhost:61560/_next/static/css/app/layout.css?v=1777494300828\")"
     ]
   }
 }
