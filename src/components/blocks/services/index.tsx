@@ -219,7 +219,7 @@ export function Services({
               <span className="testimonial-eyebrow-dot" />
               <span>{testimonialEyebrow}</span>
             </div>
-            <div className="testimonial-mark">"</div>
+            <div className="testimonial-mark">&quot;</div>
             <p className="testimonial-quote">{testimonialQuote}</p>
             <div className="testimonial-author">
               <div className="testimonial-avatar">{testimonialAuthorInitials}</div>

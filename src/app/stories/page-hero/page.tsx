@@ -59,7 +59,7 @@ export default function PageHeroStory() {
           { label: "Контакти" },
         ]}
         eyebrow="/ CONTACTS"
-        headline={<>Як <em>зв'язатися</em> з нами</>}
+        headline={<>Як <em>зв&#39;язатися</em> з нами</>}
         sub="Telegram — найшвидший канал, відповідь за 30 хв. Email і дзвінок — 2-4 робочі години. Особиста зустріч — Київ, або Zoom-консультація з будь-якої точки."
       />
     </>

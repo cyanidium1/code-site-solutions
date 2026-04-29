@@ -235,29 +235,29 @@ const DEFAULT_FOOT_COLS: FootColumn[] = [
   {
     h: "+380-97-006-67-07",
     items: [
-      <span className="nolink">Для дзвінка</span>,
-      <span className="nolink">Hi@code-site.art</span>,
-      <span className="nolink">Для письмового зв'язку</span>,
-      <a href="#">@fedirdev</a>,
-      <span className="nolink">Telegram — швидкий зв'язок</span>,
+      <span key="phone-note" className="nolink">Для дзвінка</span>,
+      <span key="email" className="nolink">Hi@code-site.art</span>,
+      <span key="write-note" className="nolink">Для письмового зв&#39;язку</span>,
+      <a key="tg-link" href="#">@fedirdev</a>,
+      <span key="tg-note" className="nolink">Telegram — швидкий зв&#39;язок</span>,
     ],
   },
   {
     h: "Меню",
     items: [
-      <a href="#">Портфоліо</a>,
-      <a href="#">Головна</a>,
-      <a href="#">Послуги</a>,
-      <a href="#">Блог</a>,
-      <a href="#">Контакти</a>,
+      <a key="portfolio" href="#">Портфоліо</a>,
+      <a key="home" href="#">Головна</a>,
+      <a key="services" href="#">Послуги</a>,
+      <a key="blog" href="#">Блог</a>,
+      <a key="contacts" href="#">Контакти</a>,
     ],
   },
   {
     h: "Юридичні дані",
     items: [
-      <a href="#">Публічний договір</a>,
-      <a href="#">Оферта</a>,
-      <a href="#">Конфіденційність</a>,
+      <a key="public-contract" href="#">Публічний договір</a>,
+      <a key="offer" href="#">Оферта</a>,
+      <a key="privacy" href="#">Конфіденційність</a>,
     ],
   },
 ];

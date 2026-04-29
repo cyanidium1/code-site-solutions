@@ -216,12 +216,11 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                 priceLabel={`from ${formatEur(item.basePrice)}`}
                 selected={value.projectType === id}
                 onClick={() => setProjectType(id as ProjectType)}
-                children={
-                  <span className="calc-project-icon">
-                    {id === "landing" ? <LayoutTemplate size={14} /> : id === "multiPage" ? <Code2 size={14} /> : <ShoppingCart size={14} />}
-                  </span>
-                }
-              />
+              >
+                <span className="calc-project-icon">
+                  {id === "landing" ? <LayoutTemplate size={14} /> : id === "multiPage" ? <Code2 size={14} /> : <ShoppingCart size={14} />}
+                </span>
+              </OptionCard>
             ))}
           </div>
 
