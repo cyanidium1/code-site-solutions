@@ -3,6 +3,7 @@ import { Manrope, Inter, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
+import { SITE_ORIGIN } from "@/lib/site";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -27,14 +28,14 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Code-Site.Art — Custom-coded сайти від $1 000 з Києва",
+  title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
   description:
-    "Бутик-студія в Києві. Робимо сайти для клінік, юристів, бухгалтерських компаній, e-commerce і SaaS на Next.js. Запуск 4-10 тижнів, гарантія 1 рік.",
-  metadataBase: new URL("https://code-site.art"),
+    "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
+  metadataBase: new URL(SITE_ORIGIN),
   openGraph: {
-    title: "Code-Site.Art — Custom-coded сайти від $1 000 з Києва",
+    title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
     description:
-      "Бутик-студія в Києві. Сайти для клінік, юристів, бухгалтерії, e-commerce і SaaS на Next.js.",
+      "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
     type: "website",
     locale: "uk_UA",
   },
@@ -52,21 +53,6 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={`${manrope.variable} ${inter.variable} ${jetbrains.variable}`}
     >
-      <head>
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-        />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300..800&display=swap"
-        />
-      </head>
       <body className="font-sans bg-bg text-ink antialiased">
         <NextIntlClientProvider messages={messages}>
           <Providers>{children}</Providers>

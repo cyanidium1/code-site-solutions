@@ -58,11 +58,23 @@ function CheckIcon() {
   );
 }
 
+/** Default medicine-feature icons in the order used by `DEFAULT_FEATURES`.
+ *  Re-exported so the CMS-driven `[slug]` page can reuse them by index — the
+ *  industryPage schema doesn't carry an icon field. */
+export const MEDICINE_FEATURE_ICONS: React.ReactNode[] = [
+  <IcCalendar key="cal" />,
+  <IcDoctors key="doc" />,
+  <IcPrice key="price" />,
+  <IcServices key="svc" />,
+  <IcShield key="shield" />,
+  <IcPin key="pin" />,
+];
+
 export type Feature = {
   icon: React.ReactNode;
   bg: string;
   title: string;
-  items: string[];
+  items: React.ReactNode[];
 };
 
 export function FeatureCard({ icon, title, items, bg }: Feature) {
@@ -84,7 +96,7 @@ export function FeatureCard({ icon, title, items, bg }: Feature) {
             <span className="w-4 h-4 rounded-full bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.25)] mt-0.5 inline-flex items-center justify-center shrink-0">
               <CheckIcon />
             </span>
-            <span dangerouslySetInnerHTML={{ __html: it }} />
+            <span>{it}</span>
           </li>
         ))}
       </ul>
@@ -98,8 +110,8 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&q=80",
     title: "Онлайн-запис 24/7",
     items: [
-      "Запис у <em>2 кліки</em>. SMS-підтвердження пацієнту, Telegram-сповіщення лікарю",
-      "Інтеграція з <em>Dental4Windows</em>, Medesk, MedAI, Helsi, KeyCRM",
+      <>Запис у <em>2 кліки</em>. SMS-підтвердження пацієнту, Telegram-сповіщення лікарю</>,
+      <>Інтеграція з <em>Dental4Windows</em>, Medesk, MedAI, Helsi, KeyCRM</>,
       "Автоматичні нагадування за день до прийому",
     ],
   },
@@ -118,7 +130,7 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
     title: "Прозорий прайс",
     items: [
-      "Структурований прайс-лист, маркетолог оновлює ціни <em>за 2 хвилини</em>",
+      <>Структурований прайс-лист, маркетолог оновлює ціни <em>за 2 хвилини</em></>,
       "Юридично коректне оформлення (стоп-таблиця для пацієнтів)",
       "Можливість приховати окремі позиції від індексації",
     ],
@@ -128,7 +140,7 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80",
     title: "Каталог послуг",
     items: [
-      "Детальний опис процедур з фото <em>«до/після»</em> (з дозволу пацієнтів)",
+      <>Детальний опис процедур з фото <em>«до/після»</em> (з дозволу пацієнтів)</>,
       "Повʼязані послуги і пакетні пропозиції",
       "Відеоматеріали від лікарів",
     ],
@@ -138,8 +150,8 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
     title: "Інтеграція зі страховими",
     items: [
-      "Список <em>ДМС-програм</em> з онлайн-розрахунком покриття",
-      "Інтеграція з <em>Helsi</em> для держстраховок (НСЗУ)",
+      <>Список <em>ДМС-програм</em> з онлайн-розрахунком покриття</>,
+      <>Інтеграція з <em>Helsi</em> для держстраховок (НСЗУ)</>,
       "Запис із зазначенням страховки",
     ],
   },
@@ -148,7 +160,7 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     title: "Локальне SEO та аналітика",
     items: [
-      "<em>Schema.org</em> розмітка MedicalOrganization, оптимізація під «стоматолог + район»",
+      <><em>Schema.org</em> розмітка MedicalOrganization, оптимізація під «стоматолог + район»</>,
       "Налаштування Google Business Profile, карта проїзду з парковкою",
       "Аналітика трафіку і воронки від перегляду до запису",
     ],

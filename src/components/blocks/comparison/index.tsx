@@ -1,10 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import "./comparison.css";
 
 function TierCheck() {
   return (
-    <svg className="tier-check" viewBox="0 0 24 24" fill="none">
+    <svg
+      className="w-3.5 h-3.5 shrink-0 mt-0.5 text-accent-soft"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
       <path
         d="M4 12l5 5L20 6"
         stroke="currentColor"
@@ -17,7 +22,11 @@ function TierCheck() {
 }
 function TierX() {
   return (
-    <svg className="tier-x" viewBox="0 0 24 24" fill="none">
+    <svg
+      className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[var(--ink-3)] opacity-50"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
       <path
         d="M6 6l12 12M18 6L6 18"
         stroke="currentColor"
@@ -44,25 +53,59 @@ export function TableRow({
 }: TableRowData & { labels: string[] }) {
   return (
     <tr>
-      <td className="cmp-td-param" data-label={labels[0]}>{param}</td>
-      <td className="cmp-td-bad" data-label={labels[1]}>{wp}</td>
-      <td className="cmp-td-bad" data-label={labels[2]}>{wix}</td>
-      <td className="cmp-td-good" data-label={labels[3]}>{custom}</td>
+      <td className="cmp-td-param" data-label={labels[0]}>
+        {param}
+      </td>
+      <td className="cmp-td-bad" data-label={labels[1]}>
+        {wp}
+      </td>
+      <td className="cmp-td-bad" data-label={labels[2]}>
+        {wix}
+      </td>
+      <td className="cmp-td-good" data-label={labels[3]}>
+        {custom}
+      </td>
     </tr>
   );
 }
 
 export type TierProps = {
-  name: string;
+  name: React.ReactNode;
   price: string;
   weeks: string;
   popular?: boolean;
   popularLabel?: string;
-  includes: { heading: string; items: string[] };
-  excludes?: { items: string[] };
+  includes: { heading: string; items: React.ReactNode[] };
+  excludes?: { heading?: string; items: React.ReactNode[] };
   ctaLabel: string;
   ctaGhost?: boolean;
+  ctaHref?: string;
 };
+
+const TIER_BASE =
+  "relative pt-8 px-7 pb-8 border rounded-[18px] flex flex-col gap-6 transition-[border-color,transform] duration-[250ms] max-[700px]:px-[22px] max-[700px]:py-[26px] max-[700px]:gap-5";
+
+const TIER_DEFAULT =
+  "border-line bg-[oklch(0.16_0.005_300)] hover:border-[var(--line-2)] hover:-translate-y-0.5";
+
+const TIER_POP =
+  "border-[oklch(from_var(--accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] -translate-y-2 hover:-translate-y-2.5 max-[1100px]:translate-y-0 max-[1100px]:hover:-translate-y-0.5";
+
+const TIER_BTN_BASE =
+  "w-full px-5 py-3.5 rounded-full font-sans text-[11px] font-bold tracking-[0.12em] uppercase cursor-pointer transition-all duration-[250ms]";
+
+const TIER_BTN_PRIMARY =
+  "bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] border-0 shadow-[0_6px_18px_oklch(from_var(--accent)_l_c_h_/_0.3)] hover:-translate-y-0.5 hover:shadow-[0_10px_24px_oklch(from_var(--accent)_l_c_h_/_0.4)]";
+
+const TIER_BTN_GHOST =
+  "bg-transparent border border-[var(--line-2)] text-ink shadow-none hover:border-accent-soft hover:text-accent-soft hover:bg-[oklch(from_var(--accent)_l_c_h_/_0.08)]";
+
+const TIER_LIST_BASE =
+  "list-none flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[13px] [&>li]:leading-[1.45] [&>li_em]:not-italic";
+
+const TIER_LIST_DEFAULT = "[&>li]:text-[var(--ink-2)]";
+
+const TIER_LIST_MUTED = "[&>li]:text-[var(--ink-3)]";
 
 export function Tier({
   name,
@@ -74,29 +117,37 @@ export function Tier({
   excludes,
   ctaLabel,
   ctaGhost,
+  ctaHref,
 }: TierProps) {
   return (
-    <div className={"cmp-tier" + (popular ? " cmp-tier-pop" : "")}>
-      {popular && <div className="cmp-tier-badge">{popularLabel}</div>}
-      <div className="cmp-tier-head">
-        <div
-          className="cmp-tier-name"
-          dangerouslySetInnerHTML={{ __html: name }}
-        />
-        <h3 className="cmp-tier-price">
+    <div className={`${TIER_BASE} ${popular ? TIER_POP : TIER_DEFAULT}`}>
+      {popular && (
+        <div className="absolute top-[-1px] left-6 px-3 py-[5px] bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] font-display text-[9px] font-bold tracking-[0.14em] uppercase rounded-b-lg shadow-[0_4px_12px_oklch(from_var(--accent)_l_c_h_/_0.4)]">
+          {popularLabel}
+        </div>
+      )}
+      <div className="flex flex-col gap-3.5">
+        <div className="font-display font-bold text-[13px] tracking-[0.14em] uppercase text-ink leading-[1.2] max-[700px]:text-[12px]">
+          {name}
+        </div>
+        <h3 className="font-display font-bold text-[38px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-[var(--ink-3)] [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 max-[700px]:text-[32px]">
           <em>від</em>
           {price}
         </h3>
-        <div className="cmp-tier-meta">{weeks}</div>
+        <div className="text-[12px] text-[var(--ink-3)] tracking-[0.04em]">
+          {weeks}
+        </div>
       </div>
 
       <div>
-        <h4 className="cmp-tier-section-h good">{includes.heading}</h4>
-        <ul className="cmp-tier-list">
+        <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-3">
+          {includes.heading}
+        </h4>
+        <ul className={`${TIER_LIST_BASE} ${TIER_LIST_DEFAULT}`}>
           {includes.items.map((it, i) => (
             <li key={i}>
               <TierCheck />
-              <span dangerouslySetInnerHTML={{ __html: it }} />
+              <span>{it}</span>
             </li>
           ))}
         </ul>
@@ -104,14 +155,16 @@ export function Tier({
 
       {excludes && excludes.items.length > 0 && (
         <>
-          <div className="cmp-tier-divider" />
+          <div className="h-px bg-line m-0" />
           <div>
-            <h4 className="cmp-tier-section-h">Не входить</h4>
-            <ul className="cmp-tier-list muted">
+            <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--ink-3)] mb-3">
+              {excludes.heading ?? "Не входить"}
+            </h4>
+            <ul className={`${TIER_LIST_BASE} ${TIER_LIST_MUTED}`}>
               {excludes.items.map((it, i) => (
                 <li key={i}>
                   <TierX />
-                  <span dangerouslySetInnerHTML={{ __html: it }} />
+                  <span>{it}</span>
                 </li>
               ))}
             </ul>
@@ -119,10 +172,21 @@ export function Tier({
         </>
       )}
 
-      <div className="cmp-tier-cta">
-        <button className={"cmp-tier-btn" + (ctaGhost ? " cmp-tier-btn-ghost" : "")}>
-          {ctaLabel}
-        </button>
+      <div className="mt-auto pt-2">
+        {ctaHref ? (
+          <Link
+            href={ctaHref}
+            className={`${TIER_BTN_BASE} ${ctaGhost ? TIER_BTN_GHOST : TIER_BTN_PRIMARY} inline-flex items-center justify-center text-center no-underline`}
+          >
+            {ctaLabel}
+          </Link>
+        ) : (
+          <button
+            className={`${TIER_BTN_BASE} ${ctaGhost ? TIER_BTN_GHOST : TIER_BTN_PRIMARY}`}
+          >
+            {ctaLabel}
+          </button>
+        )}
       </div>
     </div>
   );
@@ -141,7 +205,7 @@ const DEFAULT_ROWS: TableRowData[] = [
 
 const DEFAULT_TIERS: TierProps[] = [
   {
-    name: "Базовий сайт<br />клініки",
+    name: <>Базовий сайт<br />клініки</>,
     price: "$3 500",
     weeks: "4 тижні",
     includes: {
@@ -152,7 +216,7 @@ const DEFAULT_TIERS: TierProps[] = [
         "Каталог лікарів і послуг",
         "Прозорий прайс",
         "Відгуки пацієнтів",
-        "Базове <em>SEO</em>",
+        <>Базове <em>SEO</em></>,
         "Мобільна адаптація",
       ],
     },
@@ -175,11 +239,11 @@ const DEFAULT_TIERS: TierProps[] = [
       heading: "Все з базового +",
       items: [
         "Блог і SEO-сторінки",
-        "<em>ДМС-інтеграція</em>",
+        <><em>ДМС-інтеграція</em></>,
         "Фото-кейси до/після",
         "Історія відвідувань і нагадування",
         "Онлайн-консультація",
-        "Інтеграція з медичною <em>CRM</em>",
+        <>Інтеграція з медичною <em>CRM</em></>,
       ],
     },
     excludes: {
@@ -192,17 +256,17 @@ const DEFAULT_TIERS: TierProps[] = [
     ctaLabel: "Замовити розширений",
   },
   {
-    name: "Преміум / мережа<br />клінік",
+    name: <>Преміум / мережа<br />клінік</>,
     price: "$12 000",
     weeks: "8–10 тижнів",
     includes: {
       heading: "Все з розширеного +",
       items: [
         "Багатофіліальна структура",
-        "Повна <em>CRM</em>-інтеграція",
+        <>Повна <em>CRM</em>-інтеграція</>,
         "Багатомовність",
         "Кастомні модулі під вашу спеціалізацію",
-        "Підтримка по <em>SLA</em>",
+        <>Підтримка по <em>SLA</em></>,
       ],
     },
     excludes: {
@@ -215,6 +279,12 @@ const DEFAULT_TIERS: TierProps[] = [
     ctaGhost: true,
   },
 ];
+
+const CMP_H2_CLASSES =
+  "font-display font-bold text-[clamp(34px,4.4vw,56px)] leading-none tracking-[-0.035em] mb-14 text-ink text-balance max-w-[22ch] uppercase max-[1100px]:text-[clamp(28px,5vw,44px)] max-[1100px]:mb-9 max-[700px]:text-[clamp(24px,8vw,34px)] max-[700px]:mb-7 [&_em]:italic [&_em]:font-light [&_em]:normal-case [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:inline-block [&_em]:pr-[0.12em] [&_em]:[margin-right:-0.04em] [&_.upper-em]:text-accent-soft [&_.upper-em]:uppercase [&_.upper-em]:not-italic [&_.upper-em]:font-bold";
+
+const CMP_INPUT_BASE =
+  "w-full px-5 py-3.5 bg-[oklch(0.13_0.005_300_/_0.7)] border border-[var(--line-2)] text-ink text-[14px] outline-none transition-[border-color,background] duration-200 placeholder:text-[var(--ink-3)] focus:border-accent-soft focus:bg-[oklch(0.13_0.005_300_/_0.9)] max-[700px]:px-[18px] max-[700px]:py-[13px] max-[700px]:text-[13px]";
 
 export function Comparison({
   tableHeading = (
@@ -264,12 +334,12 @@ export function Comparison({
   tiers: TierProps[];
 }> = {}) {
   return (
-    <section className="cmp">
-      <div className="cmp-bg" />
-      <div className="cmp-inner">
-        <h2 className="cmp-h2">{tableHeading}</h2>
+    <section className="relative py-[100px] px-12 bg-bg overflow-hidden max-[1100px]:py-20 max-[1100px]:px-8 max-[700px]:py-14 max-[700px]:px-[18px]">
+      <div className="cmp-bg absolute inset-0 z-0 pointer-events-none" />
+      <div className="relative z-[2] max-w-container mx-auto">
+        <h2 className={CMP_H2_CLASSES}>{tableHeading}</h2>
 
-        <div className="cmp-table-wrap">
+        <div className="border border-line rounded-[18px] overflow-hidden mb-8 bg-[oklch(0.155_0.005_300)] max-[700px]:rounded-[14px]">
           <table className="cmp-table">
             <thead>
               <tr>
@@ -287,28 +357,55 @@ export function Comparison({
           </table>
         </div>
 
-        <div className="cmp-table-cta">
-          <button className="cmp-btn-primary">{tableCtaPrimary}</button>
-          <button className="cmp-btn-ghost">{tableCtaGhost}</button>
+        <div className="flex gap-3 flex-wrap mb-[120px] max-[1100px]:mb-20 max-[700px]:flex-col max-[700px]:gap-2.5 max-[700px]:mb-14">
+          <button className="bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] border-0 px-[22px] py-[13px] rounded-full font-sans text-[11px] font-bold tracking-[0.1em] uppercase cursor-pointer transition-all duration-[250ms] shadow-[0_8px_24px_oklch(from_var(--accent)_l_c_h_/_0.35)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_oklch(from_var(--accent)_l_c_h_/_0.45)] max-[700px]:w-full max-[700px]:px-[18px] max-[700px]:py-[13px] max-[700px]:text-[10px]">
+            {tableCtaPrimary}
+          </button>
+          <button className="bg-transparent text-ink border border-[var(--line-2)] px-5 py-3 rounded-full font-sans text-[11px] font-semibold tracking-[0.1em] uppercase cursor-pointer transition-all duration-200 hover:border-[var(--ink-2)] hover:bg-[oklch(1_0_0_/_0.04)] max-[700px]:w-full max-[700px]:px-[18px] max-[700px]:py-[13px] max-[700px]:text-[10px]">
+            {tableCtaGhost}
+          </button>
         </div>
 
-        <div className="cmp-contact">
-          <div className="cmp-contact-inner">
-            <h2 className="cmp-contact-h">{contactHeading}</h2>
-            <p className="cmp-contact-sub">{contactSub}</p>
-            <form className="cmp-form" onSubmit={(e) => e.preventDefault()}>
-              <input className="cmp-input" type="text" placeholder={contactName} />
-              <input className="cmp-input" type="text" placeholder={contactChannel} />
-              <textarea className="cmp-textarea" placeholder={contactBrief} />
-              <button className="cmp-submit" type="submit">
+        <div className="cmp-contact relative px-12 py-16 mb-[120px] border border-[var(--line-2)] rounded-3xl overflow-hidden text-center max-[1100px]:px-8 max-[1100px]:py-12 max-[1100px]:mb-20 max-[700px]:px-[22px] max-[700px]:py-9 max-[700px]:mb-14 max-[700px]:rounded-[18px]">
+          <div className="max-w-[560px] mx-auto">
+            <h2 className="font-display font-bold text-[clamp(28px,3.6vw,44px)] leading-none tracking-[-0.03em] mb-3.5 uppercase text-ink max-[700px]:text-[26px]">
+              {contactHeading}
+            </h2>
+            <p className="text-[14px] leading-[1.6] text-[var(--ink-2)] mb-8 text-pretty max-[700px]:text-[13px] max-[700px]:mb-[22px]">
+              {contactSub}
+            </p>
+            <form
+              className="flex flex-col gap-3"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                className={`${CMP_INPUT_BASE} rounded-full`}
+                type="text"
+                placeholder={contactName}
+              />
+              <input
+                className={`${CMP_INPUT_BASE} rounded-full`}
+                type="text"
+                placeholder={contactChannel}
+              />
+              <textarea
+                className={`${CMP_INPUT_BASE} rounded-[22px] resize-none min-h-[110px] px-5 py-4 max-[700px]:px-[18px] max-[700px]:py-[13px]`}
+                placeholder={contactBrief}
+              />
+              <button
+                className="w-full px-[22px] py-4 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[12px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--accent)_l_c_h_/_0.3)] mt-1.5 hover:-translate-y-0.5 max-[700px]:px-[18px] max-[700px]:py-3.5 max-[700px]:text-[11px]"
+                type="submit"
+              >
                 {contactSubmit}
               </button>
             </form>
-            <div className="cmp-contact-foot">{contactFoot}</div>
+            <div className="text-[12px] text-[var(--ink-3)] mt-5 [&_a]:text-accent-soft [&_a]:no-underline [&_a]:font-semibold [&_a:hover]:underline">
+              {contactFoot}
+            </div>
           </div>
         </div>
 
-        <h2 className="cmp-h2">{pricingHeading}</h2>
+        <h2 className={CMP_H2_CLASSES}>{pricingHeading}</h2>
 
         <div className="cmp-pricing-grid">
           {tiers.map((t, i) => (

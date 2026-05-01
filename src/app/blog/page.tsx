@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Майбутні публікації про запуск сайтів на Next.js, інтеграції та досвід студії.",
   alternates: { canonical: "/blog" },
+  robots: { index: false, follow: false },
 };
 
 export default function BlogPage() {

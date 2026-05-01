@@ -7,13 +7,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed:medicine": "tsx scripts/seed-medicine.ts",
+    "seed:renovation": "tsx scripts/seed-renovation.ts",
+    "patch:industry-heroes": "tsx scripts/patch-industry-heroes.ts"
   },
   "dependencies": {
     "@heroui/react": "^2.8.10",
     "@heroui/system": "^2.4.28",
     "@heroui/theme": "^2.4.26",
+    "@sanity/client": "^7.22.0",
     "clsx": "^2.1.1",
+    "formik": "^2.4.9",
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.469.0",
     "next": "^15.5.15",
@@ -22,7 +27,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.5.0",
-    "yet-another-react-lightbox": "^3.31.0"
+    "yet-another-react-lightbox": "^3.31.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
@@ -35,6 +41,7 @@
     "eslint-config-next": "^15.5.15",
     "postcss": "^8.5.12",
     "tailwindcss": "^4.2.4",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }

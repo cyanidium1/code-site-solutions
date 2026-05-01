@@ -65,7 +65,7 @@ const DEFAULT_MARQUEE = [
 ];
 
 export function Marquee({
-  label = "TRUSTED BY 47+ BUSINESSES IN UA · EU · US",
+  label = "TRUSTED BY 47+ BUSINESSES IN UA · EU · US · DK",
   items = DEFAULT_MARQUEE,
 }: {
   label?: string;
@@ -469,7 +469,8 @@ type CaseItem = {
   chips: string[];
   metrics: string;
   gradient: string;
-  href: string;
+  /** `null` рендерить картку як coming-soon (без посилання). */
+  href: string | null;
   coverImage?: string;
   coverImageAlt?: string;
 };
@@ -495,7 +496,7 @@ const DEFAULT_CASES: CaseItem[] = [
     chips: ["Real Estate", "Next.js"],
     metrics: "×6 traffic · 24 inquiries/mo · Top-1 local",
     gradient: "linear-gradient(135deg, oklch(0.55 0.20 25) 0%, oklch(0.55 0.18 50) 100%)",
-    href: "/portfolio/nbyg-bornholm",
+    href: null,
   },
   {
     name: "Tatarka",
@@ -505,7 +506,7 @@ const DEFAULT_CASES: CaseItem[] = [
     chips: ["Real Estate", "Next.js"],
     metrics: "$4M raised · Investor portal · Multi-lang",
     gradient: "linear-gradient(135deg, oklch(0.6 0.16 70) 0%, oklch(0.45 0.20 295) 100%)",
-    href: "/portfolio/tatarka",
+    href: null,
   },
 ];
 
@@ -531,8 +532,9 @@ export function Cases({
       <div className="hp-inner">
         <SectionHead eyebrow={eyebrow} heading={heading} />
         <div className="hp-cases-grid">
-          {items.map((c) => (
-            <Link key={c.href} href={c.href} className="hp-case-link">
+          {items.map((c) => {
+            const disabled = !c.href;
+            const cover = (
               <div className="hp-case-cover">
                 <div
                   className="hp-case-cover-bg"
@@ -577,7 +579,30 @@ export function Cases({
                     </div>
                   )}
                 </div>
+                {disabled ? (
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: 14,
+                      right: 14,
+                      padding: "4px 10px",
+                      border: "1px solid oklch(1 0 0 / 0.18)",
+                      borderRadius: 999,
+                      background: "oklch(0 0 0 / 0.40)",
+                      backdropFilter: "blur(6px)",
+                      fontFamily: "JetBrains Mono, monospace",
+                      fontSize: 10,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: "oklch(1 0 0 / 0.85)",
+                    }}
+                  >
+                    Coming soon
+                  </span>
+                ) : null}
               </div>
+            );
+            const body = (
               <div className="hp-case-body">
                 <div className="hp-case-chips">
                   {c.chips.map((ch) => (
@@ -588,19 +613,43 @@ export function Cases({
                 </div>
                 <div className="hp-case-name-row">
                   <h3 className="hp-case-name">{c.name}</h3>
-                  <ArrowUpRight
-                    size={20}
-                    strokeWidth={1.6}
-                    className="hp-case-arrow"
-                  />
+                  {!disabled ? (
+                    <ArrowUpRight
+                      size={20}
+                      strokeWidth={1.6}
+                      className="hp-case-arrow"
+                    />
+                  ) : null}
                 </div>
                 <div className="hp-case-meta">
                   {c.industry} · {c.region} · {c.year}
                 </div>
                 <div className="hp-case-metrics">{c.metrics}</div>
               </div>
-            </Link>
-          ))}
+            );
+            if (!c.href) {
+              return (
+                <div
+                  key={c.name}
+                  className="hp-case-link"
+                  style={{
+                    cursor: "default",
+                    pointerEvents: "none",
+                    opacity: 0.78,
+                  }}
+                >
+                  {cover}
+                  {body}
+                </div>
+              );
+            }
+            return (
+              <Link key={c.href} href={c.href} className="hp-case-link">
+                {cover}
+                {body}
+              </Link>
+            );
+          })}
         </div>
         <Link href={ctaHref} className="hp-link">
           {ctaLabel}
@@ -856,8 +905,8 @@ export function HpFooter({
             <em>Code-Site</em>.art
           </div>
           <p className="hp-footer-desc">
-            European boutique studio з Києва. Custom-coded сайти для бізнесу
-            з 2023 року.
+            European boutique studio з Києва. Custom-coded сайти для бізнесу —
+            47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.
           </p>
           <div className="hp-footer-contacts">
             <a href="tel:+380970068707">+380-97-006-87-07</a>

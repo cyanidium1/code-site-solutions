@@ -19,7 +19,7 @@ import {
 import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { ImageText } from "@/components/blocks/image-text";
-import { TeamCards } from "@/components/blocks/team-cards";
+import { TeamSection } from "@/components/about/team-section";
 import { FAQ } from "@/components/blocks/final";
 import {
   HpHeader,
@@ -31,16 +31,24 @@ import {
   FinalCta3,
   type BentoCell,
 } from "@/components/homepage";
+import {
+  ORG_ID,
+  SITE_CONTACT,
+  SITE_ORIGIN,
+  WEBSITE_ID,
+  pageUrl,
+} from "@/lib/site";
+import type { RichText } from "@/lib/rich-text";
 
 export const metadata: Metadata = {
   title: "Про нас — Code-Site.Art, бутик-студія з Києва",
   description:
-    "Невелика команда сильних сеньйорів. Робимо custom-coded сайти для бізнесу з 2023 року. 30+ проектів в Україні, ЄС, США, Данії.",
+    "Невелика команда сильних сеньйорів. 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK. Кастомні сайти для бізнесу з фіксованою ціною і неустойкою за зрив.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "Про нас — Code-Site.Art, бутик-студія з Києва",
     description:
-      "Невелика команда сильних сеньйорів. Custom-coded сайти для бізнесу з 2023 року.",
+      "Невелика команда сильних сеньйорів. 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.",
     type: "website",
     locale: "uk_UA",
     url: "/about",
@@ -315,79 +323,113 @@ const VS_CELLS: BentoCell[] = [
 
 /* ─── FAQ items ──────────────────────────────────────────────────────────── */
 
-const ABOUT_FAQ = [
+const ABOUT_FAQ: { q: string; a: RichText }[] = [
   {
     q: "Скільки людей у команді?",
-    a: "Постійне ядро — Fedir + 2 контрактори (senior-дизайнер, backend-розробник). Для більших проектів підключаємо до <em>5-7 людей</em> з перевіреної мережі: 2-3 frontend, контент-маркетолог, SEO-спеціаліст, QA. Все — наші партнери з 2+ років співпраці.",
+    a: [
+      "Постійне ядро — Fedir + 2 контрактори (senior-дизайнер, backend-розробник). Для більших проектів підключаємо до ",
+      { em: "5-7 людей" },
+      " з перевіреної мережі: 2-3 frontend, контент-маркетолог, SEO-спеціаліст, QA. Все — наші партнери з 2+ років співпраці.",
+    ],
   },
   {
     q: "Ви робите проекти за кордоном?",
-    a: "Так. Маємо клієнтів у <em>Данії</em> (NBYG Bornholm), Україні, ЄС, США. Працюємо в таймзоні клієнта — українські клієнти отримують активний робочий час, європейські — 09:00-17:00 CET, американські (East Coast) — overlap до 14:00 EST.",
+    a: [
+      "Так. Маємо клієнтів у ",
+      { em: "Данії" },
+      " (NBYG Bornholm), Україні, ЄС, США. Працюємо в таймзоні клієнта — українські клієнти отримують активний робочий час, європейські — 09:00-17:00 CET, американські (East Coast) — overlap до 14:00 EST.",
+    ],
   },
   {
     q: "Як швидко ви відповідаєте на запити?",
-    a: "Telegram (@fedirdev): <em>30 хв</em> в робочий час, до 2-4 годин у вихідні. Email (hi@code-site.art): 2-4 робочі години. Телефон (+380-97-006-87-07): під час дзвінка або callback за 30 хв.",
+    a: [
+      "Telegram (@fedirdev): ",
+      { em: "30 хв" },
+      " в робочий час, до 2-4 годин у вихідні. Email (hi@code-site.art): 2-4 робочі години. Телефон (+380-97-006-87-07): під час дзвінка або callback за 30 хв.",
+    ],
   },
   {
     q: "Чи можна зустрітися особисто?",
-    a: "Так — <em>Київ</em>. Можемо в наш офіс або в кав'ярню на ваш вибір. Якщо ви не в Києві або в іншій країні — Zoom-консультація 30 хв безкоштовно.",
+    a: [
+      "Так — ",
+      { em: "Київ" },
+      ". Можемо в наш офіс або в кав'ярню на ваш вибір. Якщо ви не в Києві або в іншій країні — Zoom-консультація 30 хв безкоштовно.",
+    ],
   },
   {
     q: "Чи можу побачити приклади незавершених проектів?",
-    a: "Так, під <em>NDA</em>. На дзвінку покажемо роботу на staging-середовищі, GitHub-комміти, dev-процес, який ми використовуємо. Розуміємо що публічно показати work-in-progress без згоди клієнтів не можемо.",
+    a: [
+      "Так, під ",
+      { em: "NDA" },
+      ". На дзвінку покажемо роботу на staging-середовищі, GitHub-комміти, dev-процес, який ми використовуємо. Розуміємо що публічно показати work-in-progress без згоди клієнтів не можемо.",
+    ],
   },
   {
     q: "Чи беретеся за маленькі проекти ($1-3k)?",
-    a: "Так — через <em>Starter-пакет</em>. Лендинг за 1-2 тижні. Не нав'язуємо команду чи багатотижневий процес — для одного лендингу не потрібен PM. Прямо: ви + Fedir + 1 дизайнер = запуск.",
+    a: [
+      "Так — через ",
+      { em: "Starter-пакет" },
+      ". Лендинг за 1-2 тижні. Не нав'язуємо команду чи багатотижневий процес — для одного лендингу не потрібен PM. Прямо: ви + Fedir + 1 дизайнер = запуск.",
+    ],
   },
   {
     q: "Чи беретеся за enterprise проекти ($30k+)?",
-    a: "Так — через <em>Enterprise-пакет</em> з SLA, dedicated team і архітектурною сесією. Підключаємо до 7 людей з нашої мережі під проект. Маємо досвід будувати SaaS, multi-language платформи, e-commerce 1000+ SKU. Якщо проект більше $50k — обговорюємо окремо, можемо дати референси.",
+    a: [
+      "Так — через ",
+      { em: "Enterprise-пакет" },
+      " з SLA, dedicated team і архітектурною сесією. Підключаємо до 7 людей з нашої мережі під проект. Маємо досвід будувати SaaS, multi-language платформи, e-commerce 1000+ SKU. Якщо проект більше $50k — обговорюємо окремо, можемо дати референси.",
+    ],
   },
   {
     q: "Чи робите ребрендинг або логотип?",
-    a: "<em>Ні</em>, це не наша експертиза. Брендинг (логотип, фірмовий стиль, brand book) — окрема студія. Можемо рекомендувати 3-х перевірених брендингових партнерів в Україні і ЄС, з якими ми вже робили спільні проекти.",
+    a: [
+      { em: "Ні" },
+      ", це не наша експертиза. Брендинг (логотип, фірмовий стиль, brand book) — окрема студія. Можемо рекомендувати 3-х перевірених брендингових партнерів в Україні і ЄС, з якими ми вже робили спільні проекти.",
+    ],
   },
 ];
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
+
+const ABOUT_URL = pageUrl("/about");
+const FOUNDER_ID = `${ABOUT_URL}#fedir-alpatov`;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "AboutPage",
-      "@id": "https://code-site.art/about#aboutpage",
-      url: "https://code-site.art/about",
+      "@id": `${ABOUT_URL}#aboutpage`,
+      url: ABOUT_URL,
       name: "Про нас — Code-Site.Art",
       description:
-        "Невелика команда сильних сеньйорів. Робимо custom-coded сайти для бізнесу з 2023 року.",
+        "Невелика команда сильних сеньйорів. 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.",
       inLanguage: "uk",
-      isPartOf: { "@id": "https://code-site.art/#website" },
-      about: { "@id": "https://code-site.art/#organization" },
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": ORG_ID },
     },
     {
       "@type": "Person",
-      "@id": "https://code-site.art/about#fedir-alpatov",
+      "@id": FOUNDER_ID,
       name: "Fedir Alpatov",
       jobTitle: "Founder, Code-Site.Art",
-      worksFor: { "@id": "https://code-site.art/#organization" },
+      worksFor: { "@id": ORG_ID },
       sameAs: [
         "https://www.linkedin.com/in/fediralpatov/",
-        "https://t.me/fedirdev",
+        SITE_CONTACT.telegram,
         "https://www.tiktok.com/@cyanidium.dev",
         "https://www.instagram.com/cyanidium/",
       ],
     },
     {
       "@type": "Organization",
-      "@id": "https://code-site.art/#organization",
+      "@id": ORG_ID,
       name: "Code-Site.Art",
-      url: "https://code-site.art",
-      email: "hi@code-site.art",
-      telephone: "+380-97-006-87-07",
+      url: SITE_ORIGIN,
+      email: SITE_CONTACT.email,
+      telephone: SITE_CONTACT.phone,
       foundingDate: "2023",
-      founder: { "@id": "https://code-site.art/about#fedir-alpatov" },
+      founder: { "@id": FOUNDER_ID },
       address: {
         "@type": "PostalAddress",
         addressLocality: "Kyiv",
@@ -402,13 +444,13 @@ const jsonLd = {
           "@type": "ListItem",
           position: 1,
           name: "Головна",
-          item: "https://code-site.art",
+          item: SITE_ORIGIN,
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Про нас",
-          item: "https://code-site.art/about",
+          item: ABOUT_URL,
         },
       ],
     },
@@ -439,16 +481,16 @@ export default function AboutPage() {
             <em>корпоративної</em> шкарлупи.
           </>
         }
-        sub="Code-Site.Art — бутик-студія з Києва. Робимо custom-coded сайти для бізнесу з 2023 року. Команда в Україні, проєкти в Україні, ЄС, США, Данії."
+        sub="Code-Site.Art — бутик-студія з Києва. 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK. Команда в Україні, проєкти по всьому світу."
       />
 
       {/* Section 2: Stats */}
       <StatsBar
         items={[
-          { value: "30+", label: "проектів запущено" },
-          { value: "5", label: "країн (UA, EU, US, DK)" },
+          { value: "47", label: "проєктів за 3 роки" },
+          { value: "UA · EU · US · DK", label: "країни запуску" },
           { value: "4.9/5", label: "середня оцінка" },
-          { value: "з 2023", label: "року на ринку" },
+          { value: "×3.2", label: "більше заявок у середньому" },
         ]}
       />
 
@@ -475,84 +517,48 @@ export default function AboutPage() {
         }
       />
 
-      {/* Section 4: Founder */}
-      <ImageText
-        variant="side-with-list"
-        imageVariant="imageLeft"
-        eyebrow="/ 03 FOUNDER"
-        heading={
-          <>
-            Fedir <em>Alpatov</em>
-          </>
-        }
-        body={[
-          "Засновник Code-Site.Art. До студії — 8+ років у розробці на різних позиціях: фріланс, продуктові команди, агенції.",
-          "Code-Site.Art відкрив у 2023 коли побачив, скільки часу і грошей клієнти зливають у WordPress, плагіни, фрилансерів-одинаків. Зробив студію, яка робить навпаки: custom-код, прозорий прайс, фіксовані терміни.",
-        ]}
-        bulletList={[
-          "8+ років у веб-розробці",
-          "30+ проектів як founder",
-          "Спеціалізація: Next.js, Astro, headless CMS",
-          "Спікер на українських dev-конференціях",
-          "Open-source contributor",
-        ]}
-        cta={{
-          label: "Написати в Telegram",
-          href: "https://t.me/fedirdev",
-        }}
-        image={<FounderAvatar />}
-      />
-      <FounderSocials />
+      {/* Section 4: Founder — тимчасово приховано до готовності контенту */}
+      {false && (
+        <>
+          <ImageText
+            variant="side-with-list"
+            imageVariant="imageLeft"
+            eyebrow="/ 03 FOUNDER"
+            heading={
+              <>
+                Fedir <em>Alpatov</em>
+              </>
+            }
+            body={[
+              "Засновник Code-Site.Art. До студії — 8+ років у розробці на різних позиціях: фріланс, продуктові команди, агенції.",
+              "Code-Site.Art відкрив у 2023 коли побачив, скільки часу і грошей клієнти зливають у WordPress, плагіни, фрилансерів-одинаків. Зробив студію, яка робить навпаки: custom-код, прозорий прайс, фіксовані терміни.",
+            ]}
+            bulletList={[
+              "8+ років у веб-розробці",
+              "47 проєктів за 3 роки як founder",
+              "Спеціалізація: Next.js, Astro, headless CMS",
+              "Спікер на українських dev-конференціях",
+              "Open-source contributor",
+            ]}
+            cta={{
+              label: "Написати в Telegram",
+              href: "https://t.me/fedirdev",
+            }}
+            image={<FounderAvatar />}
+          />
+          <FounderSocials />
+        </>
+      )}
 
       {/* Section 5: Team */}
-      <TeamCards
+      <TeamSection
         eyebrow="/ 04 TEAM"
         heading={
           <>
             Маленька команда. <em>Без</em> прошарків.
           </>
         }
-        sub="Постійне ядро — Fedir + 2 контрактори, з якими працюємо постійно. Між вами і людьми, які пишуть код, немає аккаунт-менеджерів."
-        members={[
-          {
-            name: "Fedir Alpatov",
-            role: "Founder · Full-stack",
-            initials: "FA",
-            experience: "8+ років",
-            location: "Київ",
-            tag: "Available",
-            spec: "Next.js, Astro, headless CMS. 30+ проектів як founder.",
-            socials: [
-              { kind: "li", href: "https://www.linkedin.com/in/fediralpatov/" },
-              { kind: "tg", href: "https://t.me/fedirdev" },
-              { kind: "gh", href: "https://github.com/fedirdev" },
-              { kind: "ig", href: "https://www.instagram.com/cyanidium/" },
-              { kind: "tt", href: "https://www.tiktok.com/@cyanidium.dev" },
-            ],
-          },
-          {
-            name: "Senior Designer",
-            role: "Design · UX",
-            initials: "SD",
-            experience: "6+ років",
-            location: "Київ",
-            tag: "Contractor",
-            spec: "Figma, дослідження користувачів, brand systems.",
-            quote:
-              "Дизайн без UX-research — це декорування. Кожен проект починаю з реальних користувачів, не з трендів.",
-          },
-          {
-            name: "Backend Engineer",
-            role: "Backend · DevOps",
-            initials: "BE",
-            experience: "7+ років",
-            location: "Київ",
-            tag: "Contractor",
-            spec: "Node.js, Postgres, Vercel/Cloudflare. Мед.CRM, бух-системи, e-commerce.",
-            quote:
-              "Кожна інтеграція з legacy CRM — окрема історія. Робимо з backup-планом і feature flags, щоб ваша база не лягла на запуску.",
-          },
-        ]}
+        sub="Постійне ядро + перевірена мережа партнерів. Між вами і людьми, які пишуть код, немає аккаунт-менеджерів."
       />
 
       {/* Section 6: Values */}

@@ -6,6 +6,7 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
+import { SITE_ORIGIN, pageUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Портфоліо — 30+ кейсів від Code-Site.Art",
@@ -275,8 +276,7 @@ function PortfolioCard({ row }: { row: CaseRow }) {
 
 /* ─── JSON-LD ───────────────────────────────────────────────────────────── */
 
-const SITE_ORIGIN = "https://code-site.art";
-const PORTFOLIO_URL = `${SITE_ORIGIN}/portfolio`;
+const PORTFOLIO_URL = pageUrl("/portfolio");
 
 const jsonLd = {
   "@context": "https://schema.org",

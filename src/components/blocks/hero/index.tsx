@@ -2,60 +2,26 @@ import "./hero.css";
 
 export type Feature = { label: string; sub: string };
 
-export function Nav({
-  brandMark = "</>",
-  brandName = "CODE-SITE",
-  brandDot = ".ART",
-  links = ["Портфоліо", "Послуги", "Блог", "Контакти"],
-  lang = "UA",
-  ctaLabel = "Обговорити проєкт",
-}: {
-  brandMark?: string;
-  brandName?: string;
-  brandDot?: string;
-  links?: string[];
-  lang?: string;
-  ctaLabel?: string;
-}) {
-  return (
-    <nav className="nav">
-      <div className="nav-inner">
-        <div className="brand">
-          <span className="brand-mark">{brandMark}</span>
-          <span className="brand-name">
-            {brandName}
-            <span className="brand-dot">{brandDot}</span>
-          </span>
-        </div>
-        <div className="nav-links">
-          {links.map((l) => (
-            <a key={l}>{l}</a>
-          ))}
-        </div>
-        <div className="nav-right">
-          <button className="lang">
-            {lang} <span>▾</span>
-          </button>
-          <button className="nav-cta">
-            <span className="nav-cta-dot"></span>
-            {ctaLabel}
-          </button>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
 export function DeviceMockup({
-  src = "/raw-design/assets/mockup.png",
-  alt = "Сайт клініки на ноутбуці та телефоні",
+  src,
+  alt = "",
 }: {
   src?: string;
   alt?: string;
 }) {
   return (
     <div className="mockup">
-      <img src={src} alt={alt} />
+      {src ? (
+        <img src={src} alt={alt} />
+      ) : (
+        <div className="mockup-placeholder" aria-hidden="true">
+          <div className="mockup-placeholder-bar">
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -74,7 +40,7 @@ export function FeatureChip({ label, sub }: Feature) {
           />
         </svg>
       </div>
-      <div className="feat-text">
+      <div>
         <div className="feat-label">{label}</div>
         <div className="feat-sub">{sub}</div>
       </div>
@@ -97,7 +63,7 @@ const ARROW_ICON = (
 export type HeroStats = { num: string; lbl: React.ReactNode };
 
 export type HeroEditorialProps = {
-  eyebrow?: { label: string; em: string };
+  eyebrow?: { label: string; em?: string };
   h1Lines?: React.ReactNode[];
   h1Num?: string;
   h1NumLabel?: React.ReactNode;
@@ -121,14 +87,8 @@ export function HeroEditorial({
       <em>записуються</em>
     </>,
   ],
-  h1Num = "50+",
-  h1NumLabel = (
-    <>
-      пацієнтів
-      <br />
-      на місяць
-    </>
-  ),
+  h1Num,
+  h1NumLabel,
   lede = (
     <>
       Кастомні сайти для стоматологій, багатопрофільних клінік і діагностичних
@@ -163,21 +123,25 @@ export function HeroEditorial({
     { kind: "default", primary: "Адаптив", mini: "100/100" },
     { kind: "good", primary: "Lighthouse", mini: "98" },
   ],
-  deviceMockupSrc = "/raw-design/assets/mockup.png",
+  deviceMockupSrc,
 }: HeroEditorialProps) {
   return (
     <>
-      <div className="hero-bg"></div>
-      <div className="hero-grain"></div>
+      <div className="hero-bg" />
+      <div className="hero-grain" />
 
       <main className="hero">
         <div className="hero-grid">
           <div className="hero-left">
             <div className="eyebrow">
-              <span className="eyebrow-dot"></span>
+              <span className="eyebrow-dot" />
               <span>{eyebrow.label}</span>
-              <span className="eyebrow-sep">/</span>
-              <span className="eyebrow-em">{eyebrow.em}</span>
+              {eyebrow.em ? (
+                <>
+                  <span className="eyebrow-sep">/</span>
+                  <span className="eyebrow-em">{eyebrow.em}</span>
+                </>
+              ) : null}
             </div>
 
             <h1 className="h1">
@@ -186,10 +150,14 @@ export function HeroEditorial({
                   {line}
                 </span>
               ))}
-              <span className="h1-line h1-accent">
-                <span className="h1-num">{h1Num}</span>
-                <span className="h1-num-label">{h1NumLabel}</span>
-              </span>
+              {h1Num ? (
+                <span className="h1-line h1-accent">
+                  <span className="h1-num">{h1Num}</span>
+                  {h1NumLabel ? (
+                    <span className="h1-num-label">{h1NumLabel}</span>
+                  ) : null}
+                </span>
+              ) : null}
             </h1>
 
             <p className="lede">{lede}</p>
@@ -215,7 +183,7 @@ export function HeroEditorial({
               <div className="stats">
                 {stats.map((s, i) => (
                   <span key={i} style={{ display: "contents" }}>
-                    {i > 0 && <div className="stat-div"></div>}
+                    {i > 0 && <div className="stat-div" />}
                     <div className="stat">
                       <div className="stat-num">{s.num}</div>
                       <div className="stat-lbl">{s.lbl}</div>
@@ -228,12 +196,12 @@ export function HeroEditorial({
 
           <div className="hero-right">
             <div className="device-stage">
-              <div className="device-glow"></div>
-              <div className="device-grid"></div>
+              <div className="device-glow" />
+              <div className="device-grid" />
               <DeviceMockup src={deviceMockupSrc} />
               {deviceTags.map((t, i) => (
                 <div key={i} className={`device-tag device-tag-${i + 1}`}>
-                  {i === 0 && <span className="dt-dot"></span>}
+                  {i === 0 && <span className="dt-dot" />}
                   <span>{t.primary}</span>
                   {t.mini && (
                     <span

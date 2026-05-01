@@ -16,6 +16,7 @@ import {
   FinalCta3,
 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Efedra Clinic — кейс редизайну сайту клініки в Одесі",
@@ -238,8 +239,8 @@ function RelatedCard({ row }: { row: Related }) {
 
 /* ─── JSON-LD ───────────────────────────────────────────────────────────── */
 
-const SITE_ORIGIN = "https://code-site.art";
-const CASE_URL = `${SITE_ORIGIN}/portfolio/efedra-clinic`;
+const CASE_URL = pageUrl("/portfolio/efedra-clinic");
+const ABOUT_URL = pageUrl("/about");
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -257,7 +258,7 @@ const jsonLd = {
           "@type": "ListItem",
           position: 2,
           name: "Портфоліо",
-          item: `${SITE_ORIGIN}/portfolio`,
+          item: pageUrl("/portfolio"),
         },
         {
           "@type": "ListItem",
@@ -278,14 +279,14 @@ const jsonLd = {
       datePublished: "2024-09-01",
       author: {
         "@type": "Person",
-        "@id": "https://code-site.art/about#fedir-alpatov",
+        "@id": `${ABOUT_URL}#fedir-alpatov`,
         name: "Fedir Alpatov",
         jobTitle: "Founder, Code-Site.Art",
-        url: "https://code-site.art/about",
+        url: ABOUT_URL,
       },
       publisher: {
         "@type": "Organization",
-        "@id": "https://code-site.art/#organization",
+        "@id": ORG_ID,
         name: "Code-Site.Art",
       },
       about: "Healthcare website redesign — Efedra Clinic, Odesa, Ukraine",

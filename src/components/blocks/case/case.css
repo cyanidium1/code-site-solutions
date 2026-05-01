@@ -225,6 +225,42 @@
   object-fit: cover; object-position: top center;
 }
 
+/* Placeholder shown inside .case-shot-img when no screenshot is uploaded.
+   Mimics a generic page layout (heading bar + content grid) with the same
+   gradient palette as other hero/case placeholders, so industries without
+   real before/after assets still get a legible visual. */
+.case-shot-placeholder {
+  position: absolute; inset: 0;
+  padding: 28px 22px;
+  display: flex; flex-direction: column; gap: 14px;
+  background:
+    radial-gradient(ellipse at 30% 20%, oklch(from var(--accent) l c h / 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 78% 80%, oklch(0.5 0.18 280 / 0.16) 0%, transparent 55%),
+    linear-gradient(160deg, oklch(0.16 0.012 240) 0%, oklch(0.11 0.006 250) 100%);
+}
+.case-shot-placeholder-line {
+  height: 14px;
+  width: 70%;
+  border-radius: 4px;
+  background: oklch(1 0 0 / 0.10);
+}
+.case-shot-placeholder-line-short {
+  width: 45%;
+  background: oklch(1 0 0 / 0.06);
+}
+.case-shot-placeholder-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+.case-shot-placeholder-grid span {
+  border-radius: 6px;
+  background: oklch(1 0 0 / 0.04);
+  border: 1px solid oklch(1 0 0 / 0.05);
+}
+
 /* ─── Tagline ────────────────────────────────────────────────────────────── */
 .case-tagline {
   font-family: 'Manrope', sans-serif;

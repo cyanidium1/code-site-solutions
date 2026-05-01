@@ -44,7 +44,7 @@ export function CaseShot({
   url,
   alt,
 }: {
-  src: string;
+  src?: string;
   url: string;
   alt: string;
 }) {
@@ -57,7 +57,20 @@ export function CaseShot({
         <span className="case-shot-url">{url}</span>
       </div>
       <div className="case-shot-img">
-        <img src={src} alt={alt} />
+        {src ? (
+          <img src={src} alt={alt} />
+        ) : (
+          <div className="case-shot-placeholder" aria-hidden="true">
+            <div className="case-shot-placeholder-line" />
+            <div className="case-shot-placeholder-line case-shot-placeholder-line-short" />
+            <div className="case-shot-placeholder-grid">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -124,7 +137,7 @@ export function Case({
     { strong: "UA + RU", text: "локалізація під SEO" },
   ],
   beforeNum = "EFEDRA · v1 · 2022",
-  beforeShotSrc = "/raw-design/assets/case-before.png",
+  beforeShotSrc,
   beforeShotUrl = "efedraclinic.com.ua",
   beforeShotAlt = "Старий сайт клініки Ефедра",
   beforeTagline = "Сайт, що не продає",
@@ -136,7 +149,7 @@ export function Case({
     </>
   ),
   afterNum = "EFEDRA · v2 · 2025",
-  afterShotSrc = "/raw-design/assets/case-after.png",
+  afterShotSrc,
   afterShotUrl = "efedra.com.ua",
   afterShotAlt = "Новий сайт клініки Ефедра",
   afterTagline = "Сайт, що приводить пацієнтів",
@@ -162,14 +175,14 @@ export function Case({
   lede: React.ReactNode;
   meta: { strong: string; text: string }[];
   beforeNum: string;
-  beforeShotSrc: string;
+  beforeShotSrc?: string;
   beforeShotUrl: string;
   beforeShotAlt: string;
   beforeTagline: string;
   beforeList: React.ReactNode[];
   beforeFoot: React.ReactNode;
   afterNum: string;
-  afterShotSrc: string;
+  afterShotSrc?: string;
   afterShotUrl: string;
   afterShotAlt: string;
   afterTagline: string;

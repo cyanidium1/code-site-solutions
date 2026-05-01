@@ -14,24 +14,47 @@ function CheckIcon() {
   );
 }
 
+const VISUAL_SHELL =
+  "benefit-visual relative rounded-[18px] border border-[var(--line-2)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.14_0.006_300))] aspect-[4/3] overflow-hidden flex items-center justify-center shadow-[0_30px_60px_oklch(0_0_0_/_0.4)] max-[700px]:aspect-[16/11] max-[700px]:rounded-[14px]";
+
+const VISUAL_BAR =
+  "absolute top-0 left-0 right-0 h-[30px] flex items-center gap-1.5 px-3.5 bg-[oklch(0.16_0.004_300)] border-b border-[oklch(1_0_0_/_0.06)] [&>span:not(.url)]:w-[9px] [&>span:not(.url)]:h-[9px] [&>span:not(.url)]:rounded-full [&>span:not(.url)]:bg-[oklch(0.3_0.005_60)]";
+
+const VISUAL_URL =
+  "url flex-1 ml-2 h-4 bg-[oklch(0.22_0.005_300)] rounded font-mono text-[9px] text-[var(--ink-3)] inline-flex items-center px-2.5 max-w-[200px]";
+
+const VISUAL_CONTENT =
+  "absolute inset-x-0 bottom-0 top-[30px] p-6 flex flex-col gap-3.5";
+
+const CHECK_PILL =
+  "w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.3)]";
+
+const BENEFIT_LIST =
+  "flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[14px] [&>li]:leading-[1.55] [&>li]:text-[var(--ink-2)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium [&>li_mark]:bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] [&>li_mark]:text-accent-soft [&>li_mark]:px-1.5 [&>li_mark]:py-px [&>li_mark]:rounded [&>li_mark]:font-medium max-[700px]:[&>li]:text-[13px]";
+
 export function MockPages({
-  url = "efedra.com.ua/послуги",
-  tags = ["Стомат.", "Естетика", "Інше"],
-}: { url?: string; tags?: string[] } = {}) {
+  url,
+  tags,
+}: { url: string; tags: React.ReactNode[] }) {
   return (
-    <div className="benefit-visual">
-      <div className="benefit-visual-bar">
+    <div className={VISUAL_SHELL}>
+      <div className={VISUAL_BAR}>
         <span /><span /><span />
-        <span className="url">{url}</span>
+        <span className={VISUAL_URL}>{url}</span>
       </div>
-      <div className="benefit-visual-content">
-        <div className="mock-pages">
+      <div className={VISUAL_CONTENT}>
+        <div className="grid grid-cols-3 gap-3 h-full max-[700px]:gap-2">
           {tags.map((t, i) => (
-            <div className="mock-page" key={i}>
-              <div className="mock-page-tag">{t}</div>
-              <div className="mock-page-thumb" />
-              <div className="mock-page-line" />
-              <div className="mock-page-line short" />
+            <div
+              key={i}
+              className="bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-lg px-2.5 py-3 flex flex-col gap-2 max-[700px]:px-1.5 max-[700px]:py-2"
+            >
+              <div className="font-mono text-[8px] text-accent-soft tracking-[0.08em] uppercase">
+                {t}
+              </div>
+              <div className="h-[32%] min-h-9 bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.2),oklch(0.3_0.01_300))] rounded-[5px]" />
+              <div className="h-1 bg-[oklch(1_0_0_/_0.1)] rounded-[2px]" />
+              <div className="h-1 bg-[oklch(1_0_0_/_0.1)] rounded-[2px] w-[60%]" />
             </div>
           ))}
         </div>
@@ -40,55 +63,34 @@ export function MockPages({
   );
 }
 
-export function MockBookingForm({
-  url = "efedra.com.ua/запис",
-}: { url?: string } = {}) {
+export function MockBookingForm({ url }: { url: string }) {
   return (
-    <div className="benefit-visual">
-      <div className="benefit-visual-bar">
+    <div className={VISUAL_SHELL}>
+      <div className={VISUAL_BAR}>
         <span /><span /><span />
-        <span className="url">{url}</span>
+        <span className={VISUAL_URL}>{url}</span>
       </div>
-      <div className="benefit-visual-content">
-        <div className="mock-form">
-          <div className="mock-form-title">Запис на консультацію</div>
-          <div className="mock-form-field">Олена Петрова</div>
-          <div className="mock-form-row">
-            <div className="mock-form-field">+380 ··</div>
-            <div className="mock-form-field">17:30</div>
+      <div className={VISUAL_CONTENT}>
+        <div className="bg-[oklch(0.16_0.005_300)] border border-[oklch(1_0_0_/_0.08)] rounded-[10px] p-[18px] m-auto w-[70%] flex flex-col gap-2.5 shadow-[0_20px_40px_oklch(0_0_0_/_0.4)] max-[700px]:w-[86%] max-[700px]:p-3.5">
+          <div className="font-display text-[11px] font-semibold text-ink mb-1 tracking-[-0.01em]">
+            Запис на консультацію
           </div>
-          <div className="mock-form-field">Стоматологія / гігієна</div>
-          <div className="mock-form-btn">Записатися</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function MockAdmin({
-  url = "admin.efedra.com.ua",
-}: { url?: string } = {}) {
-  return (
-    <div className="benefit-visual">
-      <div className="benefit-visual-bar">
-        <span /><span /><span />
-        <span className="url">{url}</span>
-      </div>
-      <div className="benefit-visual-content">
-        <div className="mock-admin">
-          <div className="mock-admin-side">
-            <div className="mock-admin-side-item" />
-            <div className="mock-admin-side-item active" />
-            <div className="mock-admin-side-item" />
-            <div className="mock-admin-side-item" />
-            <div className="mock-admin-side-item" />
-            <div className="mock-admin-side-item" />
+          <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--ink-3)]">
+            Олена Петрова
           </div>
-          <div className="mock-admin-main">
-            <div className="mock-admin-fld" />
-            <div className="mock-admin-fld" />
-            <div className="mock-admin-fld tall" />
-            <div className="mock-admin-fld" />
+          <div className="grid grid-cols-2 gap-2">
+            <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--ink-3)]">
+              +380 ··
+            </div>
+            <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--ink-3)]">
+              17:30
+            </div>
+          </div>
+          <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--ink-3)]">
+            Стоматологія / гігієна
+          </div>
+          <div className="h-[30px] mt-1 bg-[linear-gradient(180deg,var(--accent-soft),var(--accent))] rounded-md flex items-center justify-center font-display text-[10px] font-semibold text-[oklch(1_0_0_/_0.95)] tracking-[0.02em]">
+            Записатися
           </div>
         </div>
       </div>
@@ -96,221 +98,210 @@ export function MockAdmin({
   );
 }
 
-export function Outcome() {
+export function MockAdmin({ url }: { url: string }) {
   return (
-    <section className="outcome">
-      <div className="outcome-bg" />
-      <div className="outcome-inner">
-        <div className="recap-pull">
-          <div className="recap-pull-mark">
-            <span className="recap-pull-mark-dot" />
-            <span>РЕЗУЛЬТАТ ЧЕРЕЗ 6 МІСЯЦІВ</span>
+    <div className={VISUAL_SHELL}>
+      <div className={VISUAL_BAR}>
+        <span /><span /><span />
+        <span className={VISUAL_URL}>{url}</span>
+      </div>
+      <div className={VISUAL_CONTENT}>
+        <div className="grid grid-cols-[110px_1fr] gap-3 h-full">
+          <div className="bg-[oklch(0.16_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-lg pt-3.5 px-2.5 pb-3.5 flex flex-col gap-2">
+            <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />
+            <div className="h-[18px] bg-[oklch(from_var(--accent)_l_c_h_/_0.3)] border-l-2 border-l-accent-soft rounded" />
+            <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />
+            <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />
+            <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />
+            <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />
           </div>
-          <p className="recap-pull-text">
-            За <strong>6 місяців</strong> після запуску клініка{" "}
-            <em>«Ефедра»</em> отримала вимірний приріст заявок з Google і повний
-            контроль над контентом сайту. Це типовий результат переробки сайту
-            клініки — перетворення з «візитки без заявок» на <em>інструмент</em>,
-            який реально приводить пацієнтів.
+          <div className="bg-[oklch(0.16_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-lg p-3.5 flex flex-col gap-2.5">
+            <div className="h-[22px] bg-[oklch(0.22_0.005_300)] rounded" />
+            <div className="h-[22px] bg-[oklch(0.22_0.005_300)] rounded" />
+            <div className="h-[60px] bg-[oklch(0.22_0.005_300)] rounded" />
+            <div className="h-[22px] bg-[oklch(0.22_0.005_300)] rounded" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const BENEFIT_ROW_BASE =
+  "grid grid-cols-2 gap-12 items-center py-14 border-t border-line relative last:border-b last:border-line max-[1100px]:grid-cols-1 max-[1100px]:gap-7 max-[1100px]:py-10 max-[700px]:py-8 max-[700px]:gap-[22px]";
+
+const BENEFIT_ROW_REVERSE_ORDER =
+  "[&>:first-child]:order-2 [&>:last-child]:order-1 max-[1100px]:[&>:first-child]:-order-1 max-[1100px]:[&>:last-child]:order-0";
+
+const BENEFIT_TEXT = "px-2 max-[1100px]:px-0";
+
+const BENEFIT_ROW_NUM =
+  "benefit-row-num font-mono text-[11px] text-[var(--ink-3)] tracking-[0.08em] mb-3.5 inline-flex items-center gap-2.5";
+
+const BENEFIT_H3 =
+  "font-display font-bold text-[clamp(24px,2.6vw,32px)] leading-[1.1] tracking-[-0.025em] mb-6 text-ink text-balance max-w-[18ch] max-[1100px]:max-w-full max-[700px]:text-[22px] [&_em]:italic [&_em]:font-light [&_em]:text-accent-soft";
+
+export type OutcomeBenefitRow = {
+  feature: string;
+  heading: React.ReactNode;
+  items: React.ReactNode[];
+  mock: React.ReactNode;
+};
+
+export type OutcomeProps = {
+  recapEyebrow: React.ReactNode;
+  recapText: React.ReactNode;
+  directionsEyebrow: React.ReactNode;
+  directionsTitle: React.ReactNode;
+  directionsLede: React.ReactNode;
+  replaceLabel: React.ReactNode;
+  replaceItems: React.ReactNode[];
+  allowedLabel: React.ReactNode;
+  allowedItems: React.ReactNode[];
+  benefitsHeading: React.ReactNode;
+  benefitsSub: React.ReactNode;
+  benefitHeroValue: React.ReactNode;
+  benefitHeroLede: React.ReactNode;
+  benefitHeroSource: React.ReactNode;
+  benefitHeroBullets: React.ReactNode[];
+  benefitRows: OutcomeBenefitRow[];
+};
+
+export function Outcome({
+  recapEyebrow,
+  recapText,
+  directionsEyebrow,
+  directionsTitle,
+  directionsLede,
+  replaceLabel,
+  replaceItems,
+  allowedLabel,
+  allowedItems,
+  benefitsHeading,
+  benefitsSub,
+  benefitHeroValue,
+  benefitHeroLede,
+  benefitHeroSource,
+  benefitHeroBullets,
+  benefitRows,
+}: OutcomeProps) {
+  return (
+    <section className="relative pt-[100px] px-12 pb-[100px] bg-bg overflow-hidden max-[1100px]:py-20 max-[1100px]:px-8 max-[700px]:py-14 max-[700px]:px-[18px]">
+      <div className="outcome-bg absolute inset-0 z-0 pointer-events-none" />
+      <div className="relative z-[2] max-w-container mx-auto">
+        {/* Recap pull-quote */}
+        <div className="max-w-[760px] mx-auto mb-20 text-center relative max-[1100px]:mb-14">
+          <div className="inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-[var(--line-2)] rounded-full text-[11px] font-medium tracking-[0.12em] text-[var(--ink-2)] bg-[oklch(1_0_0_/_0.025)] mb-7">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]" />
+            <span>{recapEyebrow}</span>
+          </div>
+          <p className="font-display font-normal text-[clamp(20px,2.2vw,28px)] leading-[1.4] tracking-[-0.015em] text-ink text-balance max-[700px]:text-[18px] max-[700px]:leading-[1.45] [&_em]:italic [&_em]:font-medium [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_strong]:text-ink [&_strong]:font-bold">
+            {recapText}
           </p>
         </div>
 
-        <article className="directions">
-          <div className="directions-eyebrow">SOLUTION · ARCHITECTURE</div>
-          <h3 className="directions-h3">
-            Як ми вирішили задачу
-            <br />з <em>двома напрямками</em>
+        {/* Directions card */}
+        <article className="directions relative border border-[var(--line-2)] rounded-3xl bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] pt-11 px-12 pb-11 mb-[120px] overflow-hidden max-[1100px]:p-8 max-[1100px]:mb-20 max-[700px]:px-5 max-[700px]:py-6 max-[700px]:mb-14 max-[700px]:rounded-[18px]">
+          <div className="directions-eyebrow inline-flex items-center gap-2.5 font-mono text-[10px] tracking-[0.12em] text-accent-soft uppercase mb-3.5">
+            {directionsEyebrow}
+          </div>
+          <h3 className="font-display font-bold text-[clamp(26px,3.2vw,38px)] leading-[1.05] tracking-[-0.025em] mb-[18px] text-ink text-balance max-w-[24ch] max-[700px]:text-[22px] [&_em]:italic [&_em]:font-light [&_em]:text-accent-soft">
+            {directionsTitle}
           </h3>
-          <p className="directions-lede">
-            У клієнта було два напрямки: <em>стоматологія</em> і{" "}
-            <em>студія краси</em>. Ми не стали робити два окремі сайти — це
-            здешевило б проєкт, але роздробило б SEO і вдвічі підвищило б
-            вартість підтримки.
+          <p className="text-[15px] leading-[1.7] text-[var(--ink-2)] mb-9 max-w-[70ch] max-[700px]:text-[14px] max-[700px]:mb-[26px] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium">
+            {directionsLede}
           </p>
-          <div className="directions-cols">
-            <div className="directions-col">
-              <h4 className="directions-col-h">
-                <span className="directions-col-h-dot" />
-                Замість цього
+          <div className="grid grid-cols-2 gap-12 pt-7 border-t border-dashed border-line max-[1100px]:gap-8 max-[700px]:grid-cols-1 max-[700px]:gap-7 max-[700px]:pt-[22px]">
+            <div>
+              <h4 className="font-display text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ink-3)] mb-[18px] flex items-center gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.65_0.05_60)]" />
+                {replaceLabel}
               </h4>
-              <ul className="directions-list">
-                <li>
-                  <span className="directions-bullet">●</span>
-                  <span>
-                    одна головна сторінка для клініки <em>в цілому</em>
-                  </span>
-                </li>
-                <li>
-                  <span className="directions-bullet">●</span>
-                  <span>дві окремі підголовні: стоматологія і студія краси</span>
-                </li>
-                <li>
-                  <span className="directions-bullet">●</span>
-                  <span>
-                    послуги, лікарі і контент розділені <em>за напрямками</em>
-                  </span>
-                </li>
+              <ul className="list-none flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[14px] [&>li]:leading-[1.55] [&>li]:text-[var(--ink-2)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium max-[700px]:[&>li]:text-[13px]">
+                {replaceItems.map((it, i) => (
+                  <li key={i}>
+                    <span className="w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center text-[4px] text-[var(--ink-3)] border border-[var(--line-2)]">
+                      ●
+                    </span>
+                    <span>{it}</span>
+                  </li>
+                ))}
               </ul>
             </div>
-            <div className="directions-col">
-              <h4 className="directions-col-h">
-                <span className="directions-col-h-dot" />
-                Це дозволило
+            <div>
+              <h4 className="font-display text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ink-3)] mb-[18px] flex items-center gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-soft shadow-[0_0_8px_var(--accent-soft)]" />
+                {allowedLabel}
               </h4>
-              <ul className="directions-list">
-                <li>
-                  <span className="directions-check"><CheckIcon /></span>
-                  <span>
-                    не дробити <em>SEO</em> між двома доменами
-                  </span>
-                </li>
-                <li>
-                  <span className="directions-check"><CheckIcon /></span>
-                  <span>
-                    не втрачати трафік на <em>301-редиректах</em>
-                  </span>
-                </li>
-                <li>
-                  <span className="directions-check"><CheckIcon /></span>
-                  <span>
-                    чітко розділити напрямки <em>для пацієнта</em>
-                  </span>
-                </li>
+              <ul className="list-none flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[14px] [&>li]:leading-[1.55] [&>li]:text-[var(--ink-2)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium max-[700px]:[&>li]:text-[13px]">
+                {allowedItems.map((it, i) => (
+                  <li key={i}>
+                    <span className={CHECK_PILL}><CheckIcon /></span>
+                    <span>{it}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </article>
 
-        <header className="benefits-header">
-          <h2 className="benefits-h2">
-            Що ви отримаєте
-            <br />
-            на прикладі <em>реального</em> проєкту
+        {/* Benefits header */}
+        <header className="mb-14 pb-7 border-b border-line grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-14 items-end max-[1100px]:grid-cols-1 max-[1100px]:items-start max-[1100px]:gap-6 max-[1100px]:mb-10 max-[1100px]:pb-[22px]">
+          <h2 className="font-display font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] text-ink text-balance max-w-[16ch] max-[1100px]:max-w-full max-[700px]:text-[clamp(28px,9vw,38px)] [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+            {benefitsHeading}
           </h2>
-          <p className="benefits-sub">
-            Не просто «<em>красивий сайт</em>». Інструменти, що реально впливають
-            на потік пацієнтів — структура під SEO, онлайн-запис, керована
-            редактором адмінка.
+          <p className="text-[15px] leading-[1.65] text-[var(--ink-2)] text-pretty pb-2 max-[700px]:text-[14px] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium">
+            {benefitsSub}
           </p>
         </header>
 
-        <div className="benefit-hero">
-          <div className="benefit-hero-stat">
-            <div className="benefit-hero-num">×3,4</div>
-            <div className="benefit-hero-lbl">
-              зростання потоку заявок після редизайну
+        {/* Benefit hero */}
+        <div className="benefit-hero grid grid-cols-2 gap-12 items-center py-11 px-12 mb-8 border border-[oklch(from_var(--accent)_l_c_h_/_0.35)] rounded-3xl bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.10),oklch(from_var(--accent-2)_l_c_h_/_0.06)_60%,transparent)] relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] max-[1100px]:grid-cols-1 max-[1100px]:gap-7 max-[1100px]:p-8 max-[700px]:px-[22px] max-[700px]:py-6 max-[700px]:gap-[22px] max-[700px]:rounded-[18px]">
+          <div className="relative z-[2]">
+            <div className="font-display font-bold text-[clamp(72px,11vw,140px)] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 max-[1100px]:text-[clamp(64px,14vw,110px)] max-[700px]:text-[72px]">
+              {benefitHeroValue}
             </div>
-            <div className="benefit-hero-src">
-              — за словами власниці клініки «Ефедра»
+            <div className="text-[15px] leading-[1.5] text-ink font-medium mb-2 max-[700px]:text-[14px]">
+              {benefitHeroLede}
+            </div>
+            <div className="font-mono text-[11px] text-[var(--ink-3)] tracking-[0.04em]">
+              {benefitHeroSource}
             </div>
           </div>
-          <ul className="benefit-hero-list">
-            <li>
-              <span className="directions-check"><CheckIcon /></span>
-              <span>зручний дизайн без перевантаження</span>
-            </li>
-            <li>
-              <span className="directions-check"><CheckIcon /></span>
-              <span>працює на будь-яких пристроях і браузерах</span>
-            </li>
+          <ul className="list-none flex flex-col gap-3.5 relative z-[2] [&>li]:flex [&>li]:items-center [&>li]:gap-3 [&>li]:text-[15px] [&>li]:text-ink [&>li]:font-medium max-[700px]:[&>li]:text-[14px]">
+            {benefitHeroBullets.map((b, i) => (
+              <li key={i}>
+                <span className={CHECK_PILL}><CheckIcon /></span>
+                <span>{b}</span>
+              </li>
+            ))}
           </ul>
         </div>
 
-        <div className="benefit-row">
-          <MockPages />
-          <div className="benefit-text">
-            <div className="benefit-row-num">FEATURE · 01 / 03</div>
-            <h3 className="benefit-h3">
-              Зрозуміла структура під <em>реальні послуги</em>
-            </h3>
-            <ul className="benefit-list">
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>
-                  розділення на <em>стоматологію</em> і <em>студію краси</em>
-                </span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>
-                  окремі сторінки під <mark>кожну послугу</mark>
-                </span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>логічна навігація без перевантаження</span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>швидкий доступ до запису</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="benefit-row reverse">
-          <MockBookingForm />
-          <div className="benefit-text">
-            <div className="benefit-row-num">FEATURE · 02 / 03</div>
-            <h3 className="benefit-h3">
-              Система запису, яка <em>реально</em> працює
-            </h3>
-            <ul className="benefit-list">
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>
-                  запис у <mark>2 кліки</mark>
-                </span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>вибір послуги і спеціаліста</span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>форми заявок і зворотного звʼязку</span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>
-                  інтеграція з <em>CRM</em> / сповіщення
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="benefit-row">
-          <MockAdmin />
-          <div className="benefit-text">
-            <div className="benefit-row-num">FEATURE · 03 / 03</div>
-            <h3 className="benefit-h3">
-              Ви керуєте сайтом <em>самі</em>
-            </h3>
-            <ul className="benefit-list">
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>
-                  зміна <em>цін</em> з телефона
-                </span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>додавання послуг і лікарів</span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>публікація акцій і новин</span>
-              </li>
-              <li>
-                <span className="directions-check"><CheckIcon /></span>
-                <span>
-                  без <mark>постійної оплати</mark> розробнику
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        {/* Benefit rows */}
+        {benefitRows.map((row, idx) => {
+          const reverse = idx % 2 === 1;
+          return (
+            <div
+              key={idx}
+              className={`${BENEFIT_ROW_BASE}${reverse ? ` ${BENEFIT_ROW_REVERSE_ORDER}` : ""}`}
+            >
+              {row.mock}
+              <div className={BENEFIT_TEXT}>
+                <div className={BENEFIT_ROW_NUM}>{row.feature}</div>
+                <h3 className={BENEFIT_H3}>{row.heading}</h3>
+                <ul className={BENEFIT_LIST}>
+                  {row.items.map((it, i) => (
+                    <li key={i}>
+                      <span className={CHECK_PILL}><CheckIcon /></span>
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

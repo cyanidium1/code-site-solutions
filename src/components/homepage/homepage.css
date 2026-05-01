@@ -693,7 +693,7 @@
   flex-direction: column;
 }
 
-/* 4-col pricing grid wrapper для /pricing (раз_design Tier × 4) */
+/* 4-col pricing grid wrapper для /pricing (raw_design Tier × 4) */
 .pricing-tier-grid-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1117,6 +1117,25 @@
   transition: color 0.2s;
 }
 .hp-header-nav a:hover { color: var(--ink); }
+.hp-header-nav a.active,
+.hp-nav-dd > summary.hp-nav-dd-trigger.active {
+  color: var(--ink);
+  position: relative;
+}
+.hp-header-nav a.active::after,
+.hp-nav-dd > summary.hp-nav-dd-trigger.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-soft), var(--accent));
+}
+.hp-nav-dd-link.active {
+  background: oklch(from var(--accent) l c h / 0.1);
+  color: var(--ink);
+}
 
 .hp-nav-dd {
   position: relative;
