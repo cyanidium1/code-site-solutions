@@ -1,19 +1,19 @@
 .turnkey-list {
   position: relative;
-  padding: 120px 48px;
+  padding: 56px 48px;
   background: var(--bg);
   overflow: hidden;
 }
 
 @media (max-width: 1100px) {
   .turnkey-list {
-    padding: 96px 32px;
+    padding: 48px 32px;
   }
 }
 
 @media (max-width: 700px) {
   .turnkey-list {
-    padding: 72px 18px;
+    padding: 36px 18px;
   }
 }
 
@@ -203,17 +203,61 @@
 
 .turnkey-list-foot {
   margin: 32px 0 0;
-  padding: 18px 22px;
-  border: 1px dashed var(--line-2);
-  border-radius: 14px;
-  background: oklch(1 0 0 / 0.015);
+  padding: 0;
   font-family: "Inter", sans-serif;
+}
+
+.turnkey-list-not {
+  padding: 22px 26px 24px;
+  border: 1px dashed var(--line-2);
+  border-radius: 16px;
+  background: oklch(1 0 0 / 0.02);
+}
+
+.turnkey-list-not-head {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 14px;
+}
+
+.turnkey-list-not-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 28px;
+}
+
+@media (max-width: 700px) {
+  .turnkey-list-not-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.turnkey-list-not-list li {
+  position: relative;
+  padding-left: 18px;
   font-size: 13.5px;
-  line-height: 1.6;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.turnkey-list-not-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  top: 0;
   color: var(--ink-3);
 }
 
-.turnkey-list-foot strong {
-  font-weight: 600;
-  color: var(--ink-2);
+.turnkey-list-not-foot {
+  margin: 16px 0 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  font-style: italic;
 }

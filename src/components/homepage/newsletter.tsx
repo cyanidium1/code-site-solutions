@@ -1,18 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
-export function Newsletter({
-  heading = "Newsletter",
-  sub = "Раз на місяць — добірка з 3 сильних статей. Без спаму.",
-  placeholder = "email@example.com",
-  buttonLabel = "Subscribe",
-}: Partial<{
-  heading: string;
-  sub: string;
-  placeholder: string;
-  buttonLabel: string;
-}> = {}) {
+export function Newsletter() {
+  const t = useTranslations("Newsletter");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   return (
@@ -20,8 +12,8 @@ export function Newsletter({
       <div className="hp-inner">
         <div className="hp-news-card">
           <div>
-            <div className="hp-news-h">{heading}</div>
-            <p className="hp-news-sub">{sub}</p>
+            <div className="hp-news-h">{t("heading")}</div>
+            <p className="hp-news-sub">{t("sub")}</p>
           </div>
           <form
             className="hp-news-form"
@@ -33,13 +25,13 @@ export function Newsletter({
             <input
               type="email"
               required
-              placeholder={placeholder}
+              placeholder={t("placeholder")}
               className="hp-news-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <button type="submit" className="hp-news-btn">
-              {submitted ? "Готово ✓" : buttonLabel}
+              {submitted ? t("success") : t("button")}
             </button>
           </form>
         </div>

@@ -26,13 +26,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }).catch(() => [] as IndustryPageRef[]);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map(
-    ({ path, changeFrequency, priority }) => ({
-      url: `${SITE_ORIGIN}${path === "/" ? "" : path}`,
-      lastModified,
-      changeFrequency,
-      priority,
-    }),
+    ({ path, changeFrequency, priority }) => {
+      const url = `${SITE_ORIGIN}${path === "/" ? "" : path}`;
+      const entry: MetadataRoute.Sitemap[number] = {
+        url,
+        lastModified,
+        changeFrequency,
+        priority,
+      };
+      // Only the homepage has an EN counterpart so far. When more pages
+      // get localized, add their alternates here too.
+      if (path === "/") {
+        entry.alternates = {
+          languages: {
+            uk: SITE_ORIGIN,
+            en: `${SITE_ORIGIN}/en`,
+            "x-default": SITE_ORIGIN,
+          },
+        };
+      }
+      return entry;
+    },
   );
+
+  const enHomepage: MetadataRoute.Sitemap[number] = {
+    url: `${SITE_ORIGIN}/en`,
+    lastModified,
+    changeFrequency: "weekly",
+    priority: 0.9,
+    alternates: {
+      languages: {
+        uk: SITE_ORIGIN,
+        en: `${SITE_ORIGIN}/en`,
+        "x-default": SITE_ORIGIN,
+      },
+    },
+  };
 
   const industryEntries: MetadataRoute.Sitemap = industryPages.map((p) => ({
     url: `${SITE_ORIGIN}/sites-for/${p.slug}`,
@@ -41,5 +70,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticEntries, ...industryEntries];
+  return [...staticEntries, enHomepage, ...industryEntries];
 }

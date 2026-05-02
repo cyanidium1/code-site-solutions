@@ -15,6 +15,11 @@ export async function sanityFetch<T>({
   revalidate = 60,
   tags,
 }: SanityFetchOptions): Promise<T> {
+  if (!sanityClient) {
+    throw new Error(
+      "Sanity client is not configured: missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET",
+    );
+  }
   return sanityClient.fetch<T>(query, params ?? {}, {
     next: {
       revalidate: revalidate === false ? undefined : revalidate,

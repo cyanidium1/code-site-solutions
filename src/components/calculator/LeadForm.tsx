@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Input, Select, SelectItem, Textarea } from "@heroui/react";
-import { Mail, MessageCircleMore, Phone, ShieldCheck } from "lucide-react";
+import { Quote, Clock, Phone, FileCheck2 } from "lucide-react";
 import type { CalculatorEstimate, CalculatorInput } from "@/lib/pricing-calculator-config";
 import { formatEur } from "./formatters";
 
@@ -26,6 +26,24 @@ const INITIAL_FORM: FormState = {
   projectBrief: "",
   preferredMethod: "email",
 };
+
+const AFTER_SUBMIT_STEPS = [
+  {
+    icon: Clock,
+    when: "Within 4 hours",
+    body: "You get a reply with a confirmed price and clarifying questions.",
+  },
+  {
+    icon: Phone,
+    when: "Within 2 days",
+    body: "30-minute call: we walk through the project and show relevant cases.",
+  },
+  {
+    icon: FileCheck2,
+    when: "Within a week",
+    body: "Final proposal — fixed price, fixed deadline, penalty clause for delays.",
+  },
+];
 
 export function LeadForm({ input, estimate }: LeadFormProps) {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
@@ -65,8 +83,8 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
   return (
     <div className="calc-lead-layout">
       <form className="calc-lead" onSubmit={onSubmit}>
-        <h3>Get final estimate</h3>
-        <p>We will review your calculator result and send a realistic project plan, timeline, and final price range.</p>
+        <h3>Project brief</h3>
+        <p>We'll review your calculator result and reply with a confirmed range, timeline, and next steps.</p>
 
         <Input
           label="Name"
@@ -174,30 +192,38 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
         {status === "success" ? <div className="calc-success">Saved locally. We can now connect this form to API.</div> : null}
       </form>
 
-      <aside className="calc-contact-card">
-        <h4>Prefer to talk directly?</h4>
-        <p>
-          Send us your calculator result or describe your project. We will help define the structure before
-          development.
-        </p>
-        <ul>
-          <li><Mail size={13} /> Email: hi@code-site.art</li>
-          <li><MessageCircleMore size={13} /> Telegram: @fedirdev</li>
-          <li><Phone size={13} /> WhatsApp: +380-97-006-87-07</li>
-        </ul>
-        <div className="calc-contact-links">
-          <a href="mailto:hi@code-site.art">Email us</a>
-          <a href="https://t.me/fedirdev" target="_blank" rel="noreferrer">
-            Message on Telegram
-          </a>
-          <a href="tel:+380970068707">WhatsApp</a>
+      <aside className="calc-side-column">
+        <div className="calc-after-submit">
+          <h4>What happens after you submit</h4>
+          <ol>
+            {AFTER_SUBMIT_STEPS.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <li key={i}>
+                  <span className="calc-after-icon">
+                    <Icon size={14} strokeWidth={1.7} />
+                  </span>
+                  <span className="calc-after-body">
+                    <strong>{step.when}</strong>
+                    <span>{step.body}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ol>
         </div>
-        <ul className="calc-contact-trust">
-          <li><ShieldCheck size={13} /> Custom-coded websites</li>
-          <li><ShieldCheck size={13} /> CMS-ready architecture</li>
-          <li><ShieldCheck size={13} /> SEO-first structure</li>
-          <li><ShieldCheck size={13} /> No builders or templates</li>
-        </ul>
+
+        <figure className="calc-side-testimonial">
+          <Quote size={16} strokeWidth={1.6} className="calc-side-testimonial-icon" />
+          <blockquote>
+            Before the new site we got 3 enquiries a month. Now we get
+            <strong> 24</strong>.
+          </blockquote>
+          <figcaption>
+            <span className="calc-side-testimonial-name">Søren Hansen</span>
+            <span className="calc-side-testimonial-role">Owner, NBYG Bornholm Aps</span>
+          </figcaption>
+        </figure>
       </aside>
     </div>
   );

@@ -72,6 +72,8 @@ export function TableRow({
 export type TierProps = {
   name: React.ReactNode;
   price: string;
+  /** Small label rendered before the price ("від" / "from"). Defaults to "від". */
+  priceLabel?: string;
   weeks: string;
   popular?: boolean;
   popularLabel?: string;
@@ -110,6 +112,7 @@ const TIER_LIST_MUTED = "[&>li]:text-[var(--ink-3)]";
 export function Tier({
   name,
   price,
+  priceLabel = "від",
   weeks,
   popular,
   popularLabel = "Популярно",
@@ -131,7 +134,7 @@ export function Tier({
           {name}
         </div>
         <h3 className="font-display font-bold text-[38px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-[var(--ink-3)] [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 max-[700px]:text-[32px]">
-          <em>від</em>
+          <em>{priceLabel}</em>
           {price}
         </h3>
         <div className="text-[12px] text-[var(--ink-3)] tracking-[0.04em]">

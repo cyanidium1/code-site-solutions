@@ -1,0 +1,79 @@
+{
+  "Meta": {
+    "title": "Code-Site.Art — Custom websites that book meetings 24/7. Live in 4–10 weeks.",
+    "description": "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline."
+  },
+  "Nav": {
+    "services": "Services",
+    "about": "About",
+    "blog": "Blog",
+    "calculator": "Calculator",
+    "work": "Work",
+    "pricing": "Pricing",
+    "process": "Process",
+    "contact": "Contact",
+    "cta": "Discuss a project",
+    "menuLabel": "Main menu",
+    "allServicesFooter": "All industries →"
+  },
+  "ServiceNav": {
+    "medicine": "Healthcare",
+    "legal": "Legal",
+    "accounting": "Accounting",
+    "ecommerce": "E-commerce",
+    "saas": "SaaS",
+    "realestate": "Real Estate",
+    "cosmetology": "Cosmetology",
+    "education": "Education"
+  },
+  "Footer": {
+    "brandDesc": "Boutique studio out of Kyiv. Custom-coded websites for businesses — 47 builds across 4 regions: UA · EU · US · DK.",
+    "solutionsHeading": "/ SOLUTIONS",
+    "companyHeading": "/ COMPANY",
+    "compareHeading": "/ COMPARE",
+    "legalHeading": "/ LEGAL",
+    "solutions": {
+      "healthcare": "Healthcare",
+      "legal": "Legal",
+      "accounting": "Accounting",
+      "ecommerce": "E-commerce",
+      "saas": "SaaS",
+      "realestate": "Real Estate",
+      "cosmetology": "Cosmetology",
+      "education": "Education"
+    },
+    "company": {
+      "about": "About",
+      "process": "Process",
+      "pricing": "Pricing",
+      "calculator": "Calculator",
+      "portfolio": "Work",
+      "blog": "Blog",
+      "contacts": "Contact"
+    },
+    "compare": {
+      "wordpress": "vs WordPress",
+      "constructors": "vs Constructors",
+      "freelancers": "vs Freelancers"
+    },
+    "legal": {
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "publicContract": "Public Offer",
+      "legalData": "Legal Info"
+    },
+    "copy": "© 2026 Code-Site.Art — Made in Kyiv"
+  },
+  "Newsletter": {
+    "heading": "Newsletter",
+    "sub": "Once a month — a curated 3-article digest. No spam.",
+    "placeholder": "email@example.com",
+    "button": "Subscribe",
+    "success": "Done ✓"
+  },
+  "LocaleSwitcher": {
+    "ariaLabel": "Site language",
+    "uk": "UK",
+    "en": "EN"
+  }
+}

@@ -1,0 +1,566 @@
+import type { Metadata } from "next";
+import {
+  Stethoscope,
+  Scale,
+  Calculator,
+  ShoppingCart,
+  Rocket,
+  Building,
+  Sparkles,
+  GraduationCap,
+  Gauge,
+  Github,
+  DollarSign,
+  Shield,
+  ArrowRightLeft,
+  Calendar,
+  MessageCircle,
+  Mail,
+  FileText,
+  Palette,
+  Smartphone,
+  Code,
+  LayoutDashboard,
+  Lock,
+  Cloud,
+  LifeBuoy,
+} from "lucide-react";
+import { HeroEditorial } from "@/components/blocks/hero";
+import { TurnkeyList } from "@/components/blocks/turnkey-list";
+import { Tier, type TierProps } from "@/components/blocks/comparison";
+import "@/components/blocks/comparison/comparison.css";
+import {
+  HpHeader,
+  Marquee,
+  Industries,
+  Bento,
+  Process,
+  Cases,
+  Stack,
+  PullQuote,
+  FinalCta3,
+  Newsletter,
+  HpFooter,
+  type Industry,
+  type BentoCell,
+} from "@/components/homepage";
+import "@/components/homepage/homepage.css";
+import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title:
+    "Code-Site.Art — Custom websites that book meetings 24/7. Live in 4–10 weeks.",
+  description:
+    "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.",
+  alternates: {
+    canonical: `${SITE_ORIGIN}/en`,
+    languages: {
+      uk: SITE_ORIGIN,
+      en: `${SITE_ORIGIN}/en`,
+      "x-default": SITE_ORIGIN,
+    },
+  },
+  openGraph: {
+    title:
+      "Custom websites that book meetings 24/7 — Code-Site.Art",
+    description:
+      "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.",
+    type: "website",
+    locale: "en_US",
+    url: `${SITE_ORIGIN}/en`,
+  },
+};
+
+const EN_INDUSTRIES: Industry[] = [
+  {
+    icon: Stethoscope,
+    color: "#0EA5E9",
+    title: "Healthcare",
+    description: "Sites for clinics, dental practices, diagnostic centers",
+    tags: ["EHR", "HIPAA", "Online booking"],
+    price: "From $3,500 · 4–10 weeks",
+    href: null,
+  },
+  {
+    icon: Scale,
+    color: "#8B5CF6",
+    title: "Legal & Attorneys",
+    description: "Sites for law firms, attorney offices, solo practitioners",
+    tags: ["Clio", "Diia.Sign", "Online consult"],
+    price: "From $3,500 · 4–10 weeks",
+    href: null,
+  },
+  {
+    icon: Calculator,
+    color: "#10B981",
+    title: "Accounting & Bookkeeping",
+    description:
+      "Sites for outsourced accounting, auditors, tax consultants",
+    tags: ["MEDoc", "iFin", "1C/BAS"],
+    price: "From $3,500 · 4–10 weeks",
+    href: null,
+  },
+  {
+    icon: ShoppingCart,
+    color: "#F59E0B",
+    title: "E-commerce",
+    description: "Online stores, marketplaces, B2B catalogs",
+    tags: ["Stripe", "LiqPay", "Nova Poshta"],
+    price: "From $5,000 · 6–10 weeks",
+    href: null,
+  },
+  {
+    icon: Rocket,
+    color: "#0070F3",
+    title: "SaaS & Startups",
+    description:
+      "Marketing sites and landing pages for SaaS products and pre-seed startups",
+    tags: ["Stripe", "PostHog", "HubSpot"],
+    price: "From $4,000 · 3–6 weeks",
+    href: null,
+  },
+  {
+    icon: Building,
+    color: "#EF4444",
+    title: "Real Estate / Construction",
+    description:
+      "Sites for developers, real-estate agencies, contractors",
+    tags: ["CRM", "Listings", "Calculator"],
+    price: "From $3,000 · 4–8 weeks",
+    href: null,
+  },
+  {
+    icon: Sparkles,
+    color: "#EC4899",
+    title: "Cosmetology",
+    description:
+      "Sites for beauty studios and aesthetic-medicine clinics",
+    tags: ["YClients", "Booksy", "Booking"],
+    price: "From $3,000 · 4–8 weeks",
+    href: null,
+  },
+  {
+    icon: GraduationCap,
+    color: "#14B8A6",
+    title: "Education / Online courses",
+    description: "Sites for online courses, schools, tutors",
+    tags: ["Stripe", "Teachable", "Zoom"],
+    price: "From $3,000 · 3–6 weeks",
+    href: null,
+  },
+];
+
+const EN_BENTO: BentoCell[] = [
+  {
+    title: "Loads in under 1 second",
+    icon: Gauge,
+    stat: "98 LH",
+    body: "Custom code, zero plugins. Tested on real 3G/4G connections.",
+    span: "1x1",
+    visual: "lh",
+  },
+  {
+    title: "Code in your GitHub",
+    icon: Github,
+    stat: "100%",
+    body: "Not in ours. Yours from the first commit.",
+    span: "1x1",
+    visual: "commits",
+  },
+  {
+    title: "Live in 4 weeks",
+    icon: Rocket,
+    stat: "4 WK",
+    body: "Industry-ready turnkey site.",
+    span: "1x1",
+    visual: "weeks",
+  },
+  {
+    title: "Pricing in the brief",
+    icon: DollarSign,
+    stat: "$3.5K+",
+    body: "No “request a quote.” A real number, in writing.",
+    span: "1x1",
+    visual: "price",
+  },
+  {
+    title: "Warranty + rebate",
+    icon: Shield,
+    stat: "1Y",
+    body: "1 year of fixes. We pay you 30% if we miss the deadline.",
+    span: "1x1",
+    visual: "warranty",
+  },
+  {
+    title: "Migrate without losing SEO",
+    icon: ArrowRightLeft,
+    stat: "47 / 0",
+    body: "301 redirects, content move, schema.org. Typically 2 weeks with no ranking drop.",
+    span: "1x1",
+    visual: "mig",
+  },
+];
+
+const EN_TIERS: TierProps[] = [
+  {
+    name: "Landing",
+    price: "$1,000",
+    priceLabel: "from",
+    weeks: "1–2 weeks",
+    includes: {
+      heading: "Includes",
+      items: [
+        "Responsive build",
+        "SEO-first structure",
+        "Form integrations",
+        "1-year warranty",
+      ],
+    },
+    ctaLabel: "Choose Starter",
+  },
+  {
+    popular: true,
+    popularLabel: "★ MOST POPULAR",
+    name: "Spec for industry",
+    price: "$3,500",
+    priceLabel: "from",
+    weeks: "4–8 weeks",
+    includes: {
+      heading: "Everything in Landing, plus",
+      items: [
+        "CMS, blog",
+        "5+ integrations",
+        "Local SEO",
+        <>Compliance: <em>GDPR / HIPAA-ready</em></>,
+        "EN + 1 extra language",
+      ],
+    },
+    ctaLabel: "Choose Industry Pro",
+  },
+  {
+    name: "Custom",
+    price: "$14,000",
+    priceLabel: "from",
+    weeks: "8–16 weeks",
+    includes: {
+      heading: "Everything in Industry Pro, plus",
+      items: [
+        "Architectural session",
+        "Dedicated team",
+        <><em>SLA</em> + 24/7 support</>,
+        "Custom integrations",
+      ],
+    },
+    ctaLabel: "Talk to us",
+    ctaGhost: true,
+  },
+];
+
+const EN_CASES = [
+  {
+    name: "Efedra Clinic",
+    industry: "Healthcare",
+    region: "Odesa",
+    year: "2024",
+    chips: ["Healthcare", "Next.js"],
+    metrics: "×3.2 inquiries · LCP 0.8s · Top-3 Google",
+    gradient:
+      "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.45 0.18 250) 100%)",
+    href: "/portfolio/efedra-clinic",
+    coverImage: "/EfedraCaseCreenshots/efedra-main-after.png",
+    coverImageAlt: "Efedra Clinic — new site after redesign",
+  },
+  {
+    name: "NBYG Bornholm",
+    industry: "Construction",
+    region: "Denmark",
+    year: "2024",
+    chips: ["Real Estate", "Next.js"],
+    metrics: "×6 traffic · 24 inquiries/mo · Top-1 local",
+    gradient:
+      "linear-gradient(135deg, oklch(0.55 0.20 25) 0%, oklch(0.55 0.18 50) 100%)",
+    href: null,
+  },
+  {
+    name: "Tatarka",
+    industry: "Real Estate Investment",
+    region: "Kyiv",
+    year: "2025",
+    chips: ["Real Estate", "Next.js"],
+    metrics: "$4M raised · Investor portal · Multi-language",
+    gradient:
+      "linear-gradient(135deg, oklch(0.6 0.16 70) 0%, oklch(0.45 0.20 295) 100%)",
+    href: null,
+  },
+];
+
+const EN_FINAL_CTA = [
+  {
+    icon: Calendar,
+    title: "Book a call",
+    body: "30-min Zoom. We'll show real cases and talk through your project.",
+    cta: "Open Calendly →",
+    href: "https://calendly.com/fedirdev",
+    featured: true,
+  },
+  {
+    icon: Mail,
+    title: "Send a brief",
+    body: "Detailed form. Describe the project — we'll come back within 4 business hours.",
+    cta: "Open form →",
+    href: "/contacts",
+  },
+  {
+    icon: MessageCircle,
+    title: "Telegram",
+    body: "Fast async channel. We usually reply within 30 minutes.",
+    cta: "Write @fedirdev →",
+    href: "https://t.me/fedirdev?text=Hi%2C+I%27d+like+to+discuss+a+project",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: "Code-Site.Art",
+      url: SITE_ORIGIN,
+      email: SITE_CONTACT.email,
+      telephone: SITE_CONTACT.phone,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Kyiv",
+        addressCountry: "UA",
+      },
+      sameAs: [
+        SITE_CONTACT.telegram,
+        SITE_CONTACT.linkedin,
+        SITE_CONTACT.github,
+      ],
+      foundingDate: "2023",
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${WEBSITE_ID}#en`,
+      url: `${SITE_ORIGIN}/en`,
+      name: "Code-Site.Art",
+      description:
+        "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.",
+      inLanguage: "en",
+      publisher: { "@id": ORG_ID },
+    },
+  ],
+};
+
+export default function HomePageEn() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <HpHeader />
+
+      <HeroEditorial
+        eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
+        h1Lines={[
+          <>Your site books meetings</>,
+          <em key="hero-em">while you sleep.</em>,
+        ]}
+        lede={
+          <>
+            A custom-coded website with copy, design, and integrations —
+            shipped in <em>4–10 weeks</em>. We write the content, wire up the
+            forms, and set up local SEO. You spend <em>5 hours</em>, total.
+            Within a month, leads start coming in on autopilot.
+          </>
+        }
+        features={[
+          { label: "Leads 24/7", sub: "Web form + Telegram bridge" },
+          { label: "4–10 weeks", sub: "Brief to launch" },
+          { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
+          { label: "End-to-end", sub: "Copy + design + code + hosting" },
+        ]}
+        ctaPrimaryLabel="Get an estimate"
+        ctaSecondaryLabel="See the work"
+        ctaSecondaryShowPlay
+        showStats
+        stats={[
+          { num: "47", lbl: <>builds<br />in 3 years</> },
+          { num: "4", lbl: <>regions<br />UA · EU · US · DK</> },
+          { num: "×3.2", lbl: <>avg.<br />lead lift</> },
+          { num: "4.9/5", lbl: <>client<br />rating</> },
+        ]}
+        showTicker={false}
+        deviceTags={[
+          { kind: "default", primary: "Custom code" },
+          { kind: "default", primary: "TypeScript", mini: "5.7" },
+          { kind: "good", primary: "Lighthouse", mini: "98" },
+        ]}
+        deviceMockupSrc="/raw-design/assets/hero-devices.webp"
+      />
+
+      <Marquee label="TRUSTED BY 47+ BUSINESSES ACROSS THE US, EU, AND DK" />
+
+      <TurnkeyList
+        eyebrow="/ 02 SCOPE"
+        heading={
+          <>
+            9 things <em>we do for you.</em>
+          </>
+        }
+        sub="You pay a fixed price and get a finished site. No briefs to write, no references to hunt down, no photographer to chase. Here's what's in every project — no upsells:"
+        items={[
+          { icon: FileText, title: "Copywriting", line: "Hero, SEO articles, opening cases" },
+          { icon: Palette, title: "Design", line: "2 rounds of revisions included" },
+          { icon: Smartphone, title: "Frontend", line: "Responsive: mobile / tablet / desktop" },
+          { icon: Code, title: "Engineering", line: "Next.js, all integrations" },
+          { icon: LayoutDashboard, title: "CMS", line: "Sanity — edit content from your phone" },
+          { icon: Lock, title: "Domain & SSL", line: "We set it up for you" },
+          { icon: Cloud, title: "Hosting", line: "Vercel or Cloudflare on your account" },
+          { icon: Rocket, title: "Launch", line: "Search Console, Analytics, 301s" },
+          { icon: LifeBuoy, title: "1 year of support", line: "Bugs, updates, advice" },
+        ]}
+        footer={
+          <p
+            style={{
+              maxWidth: 720,
+              margin: "0 auto",
+              textAlign: "center",
+              fontSize: 13,
+              lineHeight: 1.6,
+              color: "var(--ink-3)",
+            }}
+          >
+            Not included — <em>product photography</em> and{" "}
+            <em>full logo branding</em>. If you need them, we'll connect you
+            with vetted partners.
+          </p>
+        }
+      />
+
+      <Industries
+        eyebrow=""
+        heading={
+          <>
+            Built for <em>your industry.</em>
+          </>
+        }
+        sub="Not just a website — a full solution with the integrations and compliance your sector expects."
+        items={EN_INDUSTRIES}
+      />
+
+      <Bento
+        eyebrow="/ 03 WHY US"
+        heading={
+          <>
+            Built to convert, <em>not just to look pretty.</em>
+          </>
+        }
+        cells={EN_BENTO}
+      />
+
+      <Process
+        eyebrow="/ 04 PROCESS · 4-10 WEEKS END-TO-END"
+        heading={
+          <>
+            Launch in 5 steps. <em>No surprises.</em>
+          </>
+        }
+        steps={[
+          { n: "01", name: "Brief", duration: "1 day · free", body: "Goals, audience, scope" },
+          { n: "02", name: "Design", duration: "1–2 weeks", body: "Wireframes → hi-fi" },
+          { n: "03", name: "Development", duration: "2–6 weeks", body: "Custom code, weekly demos" },
+          { n: "04", name: "Testing", duration: "1 week", body: "60-point QA checklist" },
+          { n: "05", name: "Launch + Support", duration: "+ 1 year", body: "Support included" },
+        ]}
+        ctaLabel="See the full process →"
+        ctaHref="/process"
+      />
+
+      <Cases
+        eyebrow="/ 05 CASES"
+        heading={
+          <>
+            Real projects with <em>real metrics.</em>
+          </>
+        }
+        items={EN_CASES}
+        ctaLabel="See all work →"
+        ctaHref="/portfolio"
+      />
+
+      <PullQuote
+        quote={
+          <>
+            Before launching the new site we had 3 inquiries a month. After
+            launch — <em>24</em>, in our first month live. The team writes
+            content, runs the QA, and ships. We just got the keys.
+          </>
+        }
+        initials="SH"
+        name="Søren Hansen"
+        role="Owner, NBYG Bornholm Aps"
+      />
+
+      <section className="hp-section" id="pricing">
+        <div className="hp-inner">
+          <div className="hp-section-head">
+            <div className="hp-eyebrow">
+              <span className="hp-eyebrow-dot" />
+              <span>/ 06 PRICING</span>
+            </div>
+            <h2 className="hp-h2">
+              Transparent pricing — from <em>$1,000</em> to <em>$14,000+</em>
+            </h2>
+            <p className="hp-sub">
+              No &ldquo;request a quote.&rdquo; No hidden fees.
+            </p>
+          </div>
+          <div className="cmp-pricing-grid">
+            {EN_TIERS.map((t, i) => (
+              <Tier key={i} {...t} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Stack
+        eyebrow="/ 07 STACK"
+        heading={
+          <>
+            Tools <em>we use.</em>
+          </>
+        }
+        sub="We don't chase trends. We work with 10 tools we know inside out."
+        items={[
+          { name: "Next.js", cat: "Framework" },
+          { name: "Astro", cat: "Static sites" },
+          { name: "React", cat: "UI library" },
+          { name: "TypeScript", cat: "Language" },
+          { name: "Tailwind", cat: "Styling" },
+          { name: "HeroUI", cat: "Components" },
+          { name: "Sanity", cat: "CMS" },
+          { name: "Strapi", cat: "Headless CMS" },
+          { name: "Vercel", cat: "Hosting" },
+          { name: "Cloudflare", cat: "CDN + DNS" },
+        ]}
+      />
+
+      <FinalCta3
+        eyebrow="/ 11 GET IN TOUCH"
+        heading={
+          <>
+            Ready to <em>discuss your project?</em>
+          </>
+        }
+        sub="Free 30-minute consult. No commitment. We'll know in 15 minutes if we're a fit."
+        cards={EN_FINAL_CTA}
+      />
+      <Newsletter />
+      <HpFooter />
+    </>
+  );
+}

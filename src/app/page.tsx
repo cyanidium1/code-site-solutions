@@ -2,6 +2,7 @@ import { HeroEditorial } from "@/components/blocks/hero";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, type TierProps } from "@/components/blocks/comparison";
 import "@/components/blocks/comparison/comparison.css";
+import { FAQ, type FAQItem } from "@/components/blocks/final";
 import {
   HpHeader,
   Marquee,
@@ -9,7 +10,6 @@ import {
   Bento,
   Process,
   Cases,
-  Stack,
   PullQuote,
   FinalCta3,
   Newsletter,
@@ -22,7 +22,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
   {
     name: "Landing",
     price: "$1 000",
-    weeks: "1-2 нед",
+    weeks: "1-2 тижні",
     includes: {
       heading: "Що входить",
       items: [
@@ -39,7 +39,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
     popularLabel: "★ MOST POPULAR",
     name: "Spec for industry",
     price: "$3 500",
-    weeks: "4-8 нед",
+    weeks: "4-8 тижнів",
     includes: {
       heading: "Все з Landing +",
       items: [
@@ -55,7 +55,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
   {
     name: "Custom",
     price: "$14 000",
-    weeks: "8-16 weeks",
+    weeks: "8-16 тижнів",
     includes: {
       heading: "Все з Industry Pro +",
       items: [
@@ -67,6 +67,81 @@ const HOMEPAGE_TIERS: TierProps[] = [
     },
     ctaLabel: "Talk to us",
     ctaGhost: true,
+  },
+];
+
+const HOMEPAGE_FAQ: FAQItem[] = [
+  {
+    q: "Скільки коштує мій сайт?",
+    a: [
+      "Залежить від типу. Лендінг — від ",
+      { em: "$1 000" },
+      ". Сайт під індустрію (медицина, юристи, бухгалтерія, нерухомість і т.д.) — від ",
+      { em: "$3 500" },
+      ". Custom-проєкти з нестандартною архітектурою — від ",
+      { em: "$14 000" },
+      ". Точна цифра — у ",
+      { link: { href: "/calculator", text: "калькуляторі" } },
+      " або після 30-хв розмови.",
+    ],
+  },
+  {
+    q: "Скільки часу від брифу до запуску?",
+    a: [
+      "Лендінг — ",
+      { em: "1-2 тижні" },
+      ". Industry-сайт — ",
+      { em: "4-8 тижнів" },
+      ". Custom — ",
+      { em: "8-16 тижнів" },
+      ". Це з усіма правками, контентом і SEO. Без сюрпризів — фіксована дата в договорі.",
+    ],
+  },
+  {
+    q: "Що якщо мій бюджет менше за ваш мінімум?",
+    a: [
+      "Чесно скажемо, що не зробимо за цю ціну, і порадимо, до кого звернутися. Не беремо проєкти, які не можемо зробити якісно за вашими грошима.",
+    ],
+  },
+  {
+    q: "Що якщо я не знаю точно, що мені потрібно?",
+    a: [
+      "Це нормально. На безкоштовній 30-хв розмові ми задамо ",
+      { em: "10-15 питань" },
+      " і самі сформуємо ТЗ. Ваше завдання — описати бізнес.",
+    ],
+  },
+  {
+    q: "Я можу побачити код, перш ніж заплатити повністю?",
+    a: [
+      "Так. Після першого етапу (дизайн) ви отримуєте доступ до ",
+      { em: "репозиторію" },
+      ". Дивитеся, ставите коментарі, приймаєте рішення продовжувати.",
+    ],
+  },
+  {
+    q: "Що ви робите після запуску?",
+    a: [
+      "Перші ",
+      { em: "2 місяці" },
+      " — безкоштовні правки, моніторинг і фікси. Далі — 1 рік гарантії в ціні (баги фіксимо за 4 робочі години). Підтримка/розвиток — за фіксованою ставкою без сюрпризів.",
+    ],
+  },
+  {
+    q: "Можна почати з лендінгу і пізніше дорости до повного сайту?",
+    a: [
+      "Так. Архітектура, яку ми пишемо, ",
+      { em: "масштабується" },
+      ". Стартуєте з Landing — через рік додаємо CMS, блог, додаткові індустрії — без переписування з нуля.",
+    ],
+  },
+  {
+    q: "Що якщо у мене вже є дизайнер / контент / логотип?",
+    a: [
+      "Тоді працюємо з вашими файлами або Figma. Це ",
+      { em: "-10-15% від ціни" },
+      " і коротший термін. У договорі прописуємо, що ви даєте і коли.",
+    ],
   },
 ];
 
@@ -124,11 +199,9 @@ export default function HomePage() {
         ]}
         lede={
           <>
-            Готовий сайт з текстами, дизайном і інтеграціями за{" "}
-            <em>4-10 тижнів</em>. Без вашої участі більше ніж{" "}
-            <em>5 годин</em> — ми пишемо контент, ставимо онлайн-форми,
-            налаштовуємо локальне SEO. Через місяць він починає приводити
-            клієнтів сам.
+            Готовий сайт за <em>4-10 тижнів</em>. Ваша участь —{" "}
+            <em>5 годин</em>, далі сайт працює сам: пише заявки, веде клієнтів
+            і ранжується в Google.
           </>
         }
         features={[
@@ -139,12 +212,13 @@ export default function HomePage() {
         ]}
         ctaPrimaryLabel="Розрахувати вартість"
         ctaSecondaryLabel="Подивитись кейси"
+        ctaSecondaryShowPlay={false}
         showStats
         stats={[
           { num: "47", lbl: <>проєктів<br/>за 3 роки</> },
-          { num: "5", lbl: <>країн<br/>UA · EU · US · DK</> },
+          { num: "4", lbl: <>країни<br/>UA · EU · US · DK</> },
           { num: "×3.2", lbl: <>заявок<br/>у середньому</> },
-          { num: "4.9/5", lbl: <>середня<br/>оцінка</> },
+          { num: "0.6s", lbl: <>LCP<br/>швидкість</> },
         ]}
         showTicker={false}
         deviceTags={[
@@ -167,7 +241,7 @@ export default function HomePage() {
           <div className="hp-section-head">
             <div className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 06 PRICING</span>
+              <span>/ 07 PRICING</span>
             </div>
             <h2 className="hp-h2">
               Прозорий прайс — від <em>$1 000</em> до <em>$14 000+</em>
@@ -182,9 +256,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Stack />
       <PullQuote />
-      <FinalCta3 />
+      <FAQ heading="Найчастіші питання перед стартом" items={HOMEPAGE_FAQ} />
+      <FinalCta3
+        urgency={
+          <>
+            Найближчий старт — <strong>через 2 тижні</strong>. На цей квартал
+            лишилося <strong>2 з 4 слотів</strong>. Відповідаємо на заявку за
+            4 робочі години.
+          </>
+        }
+      />
       <Newsletter />
       <HpFooter />
     </>

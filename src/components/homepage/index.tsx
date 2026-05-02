@@ -12,6 +12,7 @@ import {
   Github,
   DollarSign,
   Shield,
+  Clock,
   ArrowRightLeft,
   ArrowRight,
   ArrowUpRight,
@@ -19,12 +20,12 @@ import {
   MessageCircle,
   Mail,
   Linkedin,
-  Send,
-  Instagram,
-  Music2,
+  Layers,
+  Check,
   type LucideIcon,
 } from "lucide-react";
 import "./homepage.css";
+import { ScrollReveal } from "./scroll-reveal";
 
 export { HpHeader } from "./hp-header";
 
@@ -35,16 +36,18 @@ function SectionHead({
   heading,
   sub,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   heading: React.ReactNode;
   sub?: React.ReactNode;
 }) {
   return (
     <div className="hp-section-head">
-      <div className="hp-eyebrow">
-        <span className="hp-eyebrow-dot" />
-        <span>{eyebrow}</span>
-      </div>
+      {eyebrow ? (
+        <div className="hp-eyebrow">
+          <span className="hp-eyebrow-dot" />
+          <span>{eyebrow}</span>
+        </div>
+      ) : null}
       <h2 className="hp-h2">{heading}</h2>
       {sub ? <p className="hp-sub">{sub}</p> : null}
     </div>
@@ -53,15 +56,25 @@ function SectionHead({
 
 /* ═══ Marquee ══════════════════════════════════════════════════════════════ */
 
-const DEFAULT_MARQUEE = [
-  "Efedra Clinic",
-  "NBYG Bornholm",
-  "Tatarka",
-  "Webbond",
-  "so2-lab",
-  "aleko-course",
-  "solide-renovation",
-  "ScanMe",
+type MarqueeLogo = { src: string; alt: string };
+
+const DEFAULT_MARQUEE: MarqueeLogo[] = [
+  { src: "/partners/efedra.webp", alt: "Efedra Clinic" },
+  { src: "/partners/tatarka.webp", alt: "Tatarka" },
+  { src: "/partners/aleko.webp", alt: "Aleko" },
+  { src: "/partners/solid-renovation.webp", alt: "Solid Renovation" },
+  { src: "/partners/art-lover.webp", alt: "Art Lover" },
+  { src: "/partners/bravo.webp", alt: "Bravo" },
+  { src: "/partners/clarion.webp", alt: "Clarion" },
+  { src: "/partners/finance-league.webp", alt: "Finance League" },
+  { src: "/partners/glimmer.webp", alt: "Glimmer" },
+  { src: "/partners/grinchenko.webp", alt: "Grinchenko" },
+  { src: "/partners/kondor.webp", alt: "Kondor" },
+  { src: "/partners/raul-auto.webp", alt: "Raul Auto" },
+  { src: "/partners/sytnykov.webp", alt: "Sytnykov" },
+  { src: "/partners/uneed.webp", alt: "Uneed" },
+  { src: "/partners/way-to-ireland.webp", alt: "Way to Ireland" },
+  { src: "/partners/yangoly.webp", alt: "Yangoly" },
 ];
 
 export function Marquee({
@@ -69,7 +82,7 @@ export function Marquee({
   items = DEFAULT_MARQUEE,
 }: {
   label?: string;
-  items?: string[];
+  items?: MarqueeLogo[];
 }) {
   const repeated = [...items, ...items];
   return (
@@ -78,9 +91,14 @@ export function Marquee({
       <div className="hp-marquee-fade">
         <div className="hp-marquee-track">
           {repeated.map((it, i) => (
-            <span key={i} style={{ display: "contents" }}>
-              <span className="hp-marquee-item">{it}</span>
-              <span className="hp-marquee-sep">·</span>
+            <span key={i} className="hp-marquee-item" title={it.alt}>
+              <img
+                src={it.src}
+                alt={it.alt}
+                loading="lazy"
+                decoding="async"
+                className="hp-marquee-logo"
+              />
             </span>
           ))}
         </div>
@@ -98,7 +116,8 @@ export type Industry = {
   description: string;
   tags: string[];
   price: string;
-  href: string;
+  /** `null` rendert die Karte als nicht-klickbar (для EN-локалі, поки не вийшли галузеві лендинги). */
+  href: string | null;
 };
 
 const DEFAULT_INDUSTRIES: Industry[] = [
@@ -177,7 +196,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
 ];
 
 export function Industries({
-  eyebrow = "/ 02 SOLUTIONS",
+  eyebrow = "/ 03 SOLUTIONS",
   heading = (
     <>
       Спеціалізовані рішення під <em>вашу галузь</em>
@@ -196,15 +215,10 @@ export function Industries({
       <div className="hp-inner">
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
         <div className="hp-industries-grid">
-          {items.map((ind) => {
+          {items.map((ind, i) => {
             const Icon = ind.icon;
-            return (
-              <Link
-                key={ind.href}
-                href={ind.href}
-                className="hp-industry-card"
-                style={{ ["--accent-color" as string]: ind.color }}
-              >
+            const inner = (
+              <>
                 <div className="hp-industry-icon">
                   <Icon size={20} strokeWidth={1.6} />
                 </div>
@@ -219,12 +233,36 @@ export function Industries({
                 </div>
                 <div className="hp-industry-foot">
                   <span className="hp-industry-price">{ind.price}</span>
-                  <ArrowUpRight
-                    size={16}
-                    strokeWidth={1.8}
-                    className="hp-industry-arrow"
-                  />
+                  {ind.href ? (
+                    <ArrowUpRight
+                      size={16}
+                      strokeWidth={1.8}
+                      className="hp-industry-arrow"
+                    />
+                  ) : null}
                 </div>
+              </>
+            );
+            const cardStyle = { ["--accent-color" as string]: ind.color };
+            if (!ind.href) {
+              return (
+                <div
+                  key={ind.title + i}
+                  className="hp-industry-card is-disabled"
+                  style={cardStyle}
+                >
+                  {inner}
+                </div>
+              );
+            }
+            return (
+              <Link
+                key={ind.href}
+                href={ind.href}
+                className="hp-industry-card"
+                style={cardStyle}
+              >
+                {inner}
               </Link>
             );
           })}
@@ -271,22 +309,6 @@ function LighthouseVisual() {
           <small>score</small>
         </div>
       </div>
-      <div className="hp-lh-bars">
-        <div className="hp-lh-bar-row">
-          <span>WordPress</span>
-          <span style={{ color: "oklch(0.7 0.18 25)" }}>LCP 4.2s</span>
-        </div>
-        <div className="hp-lh-bar">
-          <div className="hp-lh-bar-fill bad" />
-        </div>
-        <div className="hp-lh-bar-row">
-          <span>Code-Site.Art</span>
-          <span style={{ color: "oklch(0.78 0.16 145)" }}>LCP 0.6s</span>
-        </div>
-        <div className="hp-lh-bar">
-          <div className="hp-lh-bar-fill good" />
-        </div>
-      </div>
     </div>
   );
 }
@@ -295,15 +317,180 @@ function MigrationVisual() {
   return (
     <div className="hp-mig">
       <div className="hp-mig-pill bad">
-        WordPress <strong>LCP 4.2s</strong>
+        WP <strong>4.2s</strong>
       </div>
       <span className="hp-mig-arrow">→</span>
       <div className="hp-mig-pill good">
-        Next.js <strong>LCP 0.8s</strong>
+        Next <strong>0.8s</strong>
       </div>
-      <span className="hp-mig-stat">47 migrations · 0 SEO drops</span>
     </div>
   );
+}
+
+function StackVisual() {
+  const layers = ["Тексти", "Дизайн", "Код", "SEO + хостинг"];
+  return (
+    <div className="hp-bento-vis hp-bento-stack" aria-hidden="true">
+      {layers.map((l) => (
+        <div key={l} className="hp-bento-stack-row">
+          <span className="hp-bento-stack-check">
+            <Check size={11} strokeWidth={2.4} />
+          </span>
+          <span className="hp-bento-stack-label">{l}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CommitLogVisual() {
+  const rows = [
+    { msg: "initial setup", meta: "2024" },
+    { msg: "launch", meta: "+6 wk" },
+    { msg: "handover", meta: "you ⤴", accent: true },
+  ];
+  return (
+    <div className="hp-bento-vis hp-bento-commits" aria-hidden="true">
+      {rows.map((r) => (
+        <div key={r.msg} className="hp-bento-commit-row">
+          <span className="hp-bento-commit-tag">feat:</span>
+          <span className="hp-bento-commit-msg">{r.msg}</span>
+          <span
+            className={`hp-bento-commit-meta${r.accent ? " is-accent" : ""}`}
+          >
+            {r.meta}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function WeeksProgressVisual() {
+  const steps = [
+    { name: "Brief", wk: "wk 1" },
+    { name: "Design", wk: "wk 2" },
+    { name: "Dev", wk: "wk 3" },
+    { name: "Launch", wk: "wk 4", target: true },
+  ];
+  return (
+    <div className="hp-bento-vis hp-bento-weeks" aria-hidden="true">
+      {steps.map((s) => (
+        <div key={s.name} className="hp-bento-week-row">
+          <span className="hp-bento-week-name">{s.name}</span>
+          <span
+            className={`hp-bento-week-bar${s.target ? " is-target" : ""}`}
+          />
+          <span
+            className={`hp-bento-week-wk${s.target ? " is-target" : ""}`}
+          >
+            {s.wk}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PriceTableVisual() {
+  const rows = [
+    { name: "Landing", price: "$1,000+" },
+    { name: "Industry", price: "$3,500+", accent: true },
+    { name: "Custom", price: "$14,000+" },
+  ];
+  return (
+    <div className="hp-bento-vis hp-bento-price" aria-hidden="true">
+      {rows.map((r) => (
+        <div key={r.name} className="hp-bento-price-row">
+          <span className="hp-bento-price-name">{r.name}</span>
+          <span className="hp-bento-price-dots" />
+          <span
+            className={`hp-bento-price-num${r.accent ? " is-accent" : ""}`}
+          >
+            {r.price}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function WarrantyTimelineVisual() {
+  const points = [
+    { label: "Старт" },
+    { label: "Запуск", mid: true },
+    { label: "+1 рік", end: true },
+  ];
+  return (
+    <div className="hp-bento-vis hp-bento-tl" aria-hidden="true">
+      <div className="hp-bento-tl-track">
+        <div className="hp-bento-tl-line" />
+        <div className="hp-bento-tl-points">
+          {points.map((p) => (
+            <div key={p.label} className="hp-bento-tl-point">
+              <span
+                className={`hp-bento-tl-dot${p.mid ? " is-mid" : ""}${p.end ? " is-end" : ""}`}
+              />
+              <span className="hp-bento-tl-label">{p.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="hp-bento-tl-foot">
+        <span className="hp-bento-tl-foot-l">Зрив дедлайну</span>
+        <span className="hp-bento-tl-foot-arrow">→</span>
+        <span className="hp-bento-tl-foot-r">−30%</span>
+      </div>
+    </div>
+  );
+}
+
+function SupportTimerVisual() {
+  return (
+    <div className="hp-bento-vis hp-bento-timer" aria-hidden="true">
+      <div className="hp-bento-timer-row">
+        <span className="hp-bento-timer-seg">00</span>
+        <span className="hp-bento-timer-sep">:</span>
+        <span className="hp-bento-timer-seg is-accent">04</span>
+        <span className="hp-bento-timer-sep">:</span>
+        <span className="hp-bento-timer-seg">00</span>
+      </div>
+      <div className="hp-bento-timer-sub">робочих годин SLA</div>
+    </div>
+  );
+}
+
+type BentoVisualKind =
+  | "lh"
+  | "mig"
+  | "commits"
+  | "weeks"
+  | "price"
+  | "warranty"
+  | "support"
+  | "stack";
+
+function BentoVisual({ kind }: { kind: BentoVisualKind }) {
+  switch (kind) {
+    case "lh":
+      return <LighthouseVisual />;
+    case "mig":
+      return <MigrationVisual />;
+    case "commits":
+      return <CommitLogVisual />;
+    case "weeks":
+      return <WeeksProgressVisual />;
+    case "price":
+      return <PriceTableVisual />;
+    case "warranty":
+      return <WarrantyTimelineVisual />;
+    case "support":
+      return <SupportTimerVisual />;
+    case "stack":
+      return <StackVisual />;
+    default:
+      return null;
+  }
 }
 
 export type BentoCell = {
@@ -312,16 +499,16 @@ export type BentoCell = {
   stat?: string;
   body: React.ReactNode;
   span: "1x1" | "2x2" | "3x1";
-  visual?: "lh" | "mig";
+  visual?: BentoVisualKind;
 };
 
 const DEFAULT_BENTO: BentoCell[] = [
   {
-    title: "Завантаження < 1 секунди",
+    title: "Завантаження < 1 сек",
     icon: Gauge,
-    stat: "98 LIGHTHOUSE",
-    body: "Custom code, нуль плагінів. Перевірено на реальних 3G/4G в Україні.",
-    span: "2x2",
+    stat: "98 LH",
+    body: "Custom code, нуль плагінів. Перевірено на 3G/4G в Україні.",
+    span: "1x1",
     visual: "lh",
   },
   {
@@ -330,6 +517,7 @@ const DEFAULT_BENTO: BentoCell[] = [
     stat: "100%",
     body: "Не у нас. З першого коміту.",
     span: "1x1",
+    visual: "commits",
   },
   {
     title: "Запуск за 4 тижні",
@@ -337,6 +525,7 @@ const DEFAULT_BENTO: BentoCell[] = [
     stat: "4 wk",
     body: "Industry-сайт під ключ.",
     span: "1x1",
+    visual: "weeks",
   },
   {
     title: "Прозорий прайс",
@@ -344,6 +533,7 @@ const DEFAULT_BENTO: BentoCell[] = [
     stat: "$3.5k+",
     body: "Не «під запит». Цифра в брифі.",
     span: "1x1",
+    visual: "price",
   },
   {
     title: "Гарантія + неустойка",
@@ -351,18 +541,36 @@ const DEFAULT_BENTO: BentoCell[] = [
     stat: "1y",
     body: "1 рік. За зрив — повертаємо 30%.",
     span: "1x1",
+    visual: "warranty",
   },
   {
-    title: "Перенесення без втрати SEO",
+    title: "Підтримка за 4 год",
+    icon: Clock,
+    stat: "4h",
+    body: "Зламалось не з нашої вини — фіксимо за 4 робочі години.",
+    span: "1x1",
+    visual: "support",
+  },
+  {
+    title: "Перенесення без SEO-втрат",
     icon: ArrowRightLeft,
-    body: "301-redirects, перенос контенту, schema.org. Зазвичай 2 тижні без падіння.",
-    span: "3x1",
+    stat: "0 DROPS",
+    body: "301-redirects, контент, schema.org. 2 тижні без падіння.",
+    span: "1x1",
     visual: "mig",
+  },
+  {
+    title: "Все під ключ",
+    icon: Layers,
+    stat: "100%",
+    body: "Тексти + дизайн + код + інтеграції. Без 5 підрядників.",
+    span: "1x1",
+    visual: "stack",
   },
 ];
 
 export function Bento({
-  eyebrow = "/ 03 WHY US",
+  eyebrow = "/ 04 WHY US",
   heading = (
     <>
       Сайт як <em>інструмент</em> бізнесу, не вітрина
@@ -378,11 +586,15 @@ export function Bento({
     <section className="hp-section" id="why-us">
       <div className="hp-inner">
         <SectionHead eyebrow={eyebrow} heading={heading} />
-        <div className="hp-bento-grid">
+        <ScrollReveal className="hp-bento-grid">
           {cells.map((c, i) => {
             const Icon = c.icon;
             return (
-              <div key={i} className={`hp-bento-cell hp-bento-cell--${c.span}`}>
+              <div
+                key={i}
+                className={`hp-bento-cell hp-bento-cell--${c.span}`}
+                style={{ ["--i" as string]: i }}
+              >
                 <div className="hp-bento-head">
                   <div className="hp-bento-icon">
                     <Icon size={18} strokeWidth={1.6} />
@@ -391,12 +603,11 @@ export function Bento({
                 </div>
                 <h3 className="hp-bento-title">{c.title}</h3>
                 <div className="hp-bento-body">{typeof c.body === "string" ? <p>{c.body}</p> : c.body}</div>
-                {c.visual === "lh" ? <LighthouseVisual /> : null}
-                {c.visual === "mig" ? <MigrationVisual /> : null}
+                {c.visual ? <BentoVisual kind={c.visual} /> : null}
               </div>
             );
           })}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -404,60 +615,7 @@ export function Bento({
 
 /* ═══ Process timeline ════════════════════════════════════════════════════ */
 
-type ProcessStep = {
-  n: string;
-  name: string;
-  duration: string;
-  body: string;
-};
-
-const DEFAULT_PROCESS: ProcessStep[] = [
-  { n: "01", name: "Brief", duration: "1 day · free", body: "Цілі, аудиторія, scope" },
-  { n: "02", name: "Design", duration: "1-2 weeks", body: "Wireframes → hi-fi" },
-  { n: "03", name: "Development", duration: "2-6 weeks", body: "Custom code, weekly demos" },
-  { n: "04", name: "Testing", duration: "1 week", body: "60-point QA checklist" },
-  { n: "05", name: "Launch + Support", duration: "+ 1 year", body: "Підтримка включена" },
-];
-
-export function Process({
-  eyebrow = "/ 04 PROCESS · 4-10 WEEKS END-TO-END",
-  heading = (
-    <>
-      Запуск за 5 кроків. <em>Без сюрпризів.</em>
-    </>
-  ),
-  steps = DEFAULT_PROCESS,
-  ctaLabel = "Дивитись детальний процес",
-  ctaHref = "/process",
-}: {
-  eyebrow?: string;
-  heading?: React.ReactNode;
-  steps?: ProcessStep[];
-  ctaLabel?: string;
-  ctaHref?: string;
-} = {}) {
-  return (
-    <section className="hp-section" id="process">
-      <div className="hp-inner">
-        <SectionHead eyebrow={eyebrow} heading={heading} />
-        <ol className="hp-process-list">
-          {steps.map((s) => (
-            <li className="hp-process-step" key={s.n}>
-              <div className="hp-process-num">{s.n}</div>
-              <div className="hp-process-name">{s.name}</div>
-              <div className="hp-process-duration">{s.duration}</div>
-              <div className="hp-process-body">{s.body}</div>
-            </li>
-          ))}
-        </ol>
-        <Link href={ctaHref} className="hp-link">
-          {ctaLabel}
-          <ArrowRight size={14} strokeWidth={1.8} />
-        </Link>
-      </div>
-    </section>
-  );
-}
+export { Process } from "./process";
 
 /* ═══ Cases preview (3 cards) ═════════════════════════════════════════════ */
 
@@ -511,7 +669,7 @@ const DEFAULT_CASES: CaseItem[] = [
 ];
 
 export function Cases({
-  eyebrow = "/ 05 CASES",
+  eyebrow = "/ 06 CASES",
   heading = (
     <>
       Реальні кейси з <em>реальними</em> метриками
@@ -803,7 +961,7 @@ const DEFAULT_CTA: CtaCard[] = [
 ];
 
 export function FinalCta3({
-  eyebrow = "/ 11 GET IN TOUCH",
+  eyebrow = "/ 09 GET IN TOUCH",
   heading = (
     <>
       Готові <em>обговорити</em> проєкт?
@@ -811,16 +969,24 @@ export function FinalCta3({
   ),
   sub = "Безкоштовна 30-хв консультація. Без зобов'язань. Розуміємо за 15 хв, чи підходимо одне одному.",
   cards = DEFAULT_CTA,
+  urgency,
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
   sub?: React.ReactNode;
   cards?: CtaCard[];
+  urgency?: React.ReactNode;
 } = {}) {
   return (
     <section className="hp-section" id="contact">
       <div className="hp-inner">
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
+        {urgency ? (
+          <div className="hp-urgency">
+            <span className="hp-urgency-dot" aria-hidden="true" />
+            <span className="hp-urgency-text">{urgency}</span>
+          </div>
+        ) : null}
         <div className="hp-finalcta-grid">
           {cards.map((c, i) => {
             const Icon = c.icon;
@@ -852,136 +1018,6 @@ export function FinalCta3({
 
 export { Newsletter } from "./newsletter";
 
-/* ═══ Homepage Footer (5-col) ════════════════════════════════════════════ */
+/* ═══ Homepage Footer ═════════════════════════════════════════════════════ */
 
-const SOLUTIONS_LINKS = [
-  { label: "Healthcare", href: "/sites-for/medicine" },
-  { label: "Legal", href: "/sites-for/legal" },
-  { label: "Accounting", href: "/sites-for/accounting" },
-  { label: "E-commerce", href: "/sites-for/ecommerce" },
-  { label: "SaaS", href: "/sites-for/saas" },
-  { label: "Real Estate", href: "/sites-for/real-estate" },
-  { label: "Cosmetology", href: "/sites-for/cosmetology" },
-  { label: "Education", href: "/sites-for/education" },
-];
-const COMPANY_LINKS = [
-  { label: "About", href: "/about" },
-  { label: "Process", href: "/#process" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Calculator", href: "/calculator" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contacts", href: "/#contact" },
-];
-const COMPARE_LINKS = [
-  { label: "vs WordPress", href: "/vs/wordpress" },
-  { label: "vs Constructors", href: "/vs/constructors" },
-  { label: "vs Freelancers", href: "/vs/freelancers" },
-];
-const LEGAL_LINKS = [
-  { label: "Privacy", href: "/policy" },
-  { label: "Terms", href: "/offer" },
-  { label: "Public contract", href: "/public-contract" },
-  { label: "Legal data", href: "/legal" },
-];
-
-type SocialDef = { icon: LucideIcon; href: string; label: string };
-const DEFAULT_SOCIALS: SocialDef[] = [
-  { icon: Linkedin, href: "https://linkedin.com/in/fedirdev", label: "LinkedIn" },
-  { icon: Send, href: "https://t.me/fedirdev", label: "Telegram" },
-  { icon: Instagram, href: "https://instagram.com/fedirdev", label: "Instagram" },
-  { icon: Music2, href: "https://tiktok.com/@fedirdev", label: "TikTok" },
-  { icon: Github, href: "https://github.com/fedirdev", label: "GitHub" },
-];
-
-export function HpFooter({
-  socials = DEFAULT_SOCIALS,
-}: { socials?: SocialDef[] } = {}) {
-  return (
-    <footer className="hp-footer">
-      <div className="hp-footer-inner">
-        <div>
-          <div className="hp-footer-brand">
-            <em>Code-Site</em>.art
-          </div>
-          <p className="hp-footer-desc">
-            European boutique studio з Києва. Custom-coded сайти для бізнесу —
-            47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.
-          </p>
-          <div className="hp-footer-contacts">
-            <a href="tel:+380970068707">+380-97-006-87-07</a>
-            <a href="mailto:hi@code-site.art">hi@code-site.art</a>
-            <a href="https://t.me/fedirdev" target="_blank" rel="noreferrer">
-              @fedirdev
-            </a>
-          </div>
-        </div>
-        <div>
-          <div className="hp-footer-col-h">/ SOLUTIONS</div>
-          <ul className="hp-footer-col-list">
-            {SOLUTIONS_LINKS.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href}>{l.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <div className="hp-footer-col-h">/ COMPANY</div>
-          <ul className="hp-footer-col-list">
-            {COMPANY_LINKS.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href}>{l.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <div className="hp-footer-col-section">
-            <div className="hp-footer-col-h">/ COMPARE</div>
-            <ul className="hp-footer-col-list">
-              {COMPARE_LINKS.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href}>{l.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div>
-          <div className="hp-footer-col-section">
-            <div className="hp-footer-col-h">/ LEGAL</div>
-            <ul className="hp-footer-col-list">
-              {LEGAL_LINKS.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href}>{l.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="hp-footer-bottom">
-        <span className="hp-footer-copy">
-          © 2026 Code-Site.art · Made in Kyiv 🇺🇦
-        </span>
-        <div className="hp-footer-social">
-          {socials.map((s) => {
-            const Icon = s.icon;
-            return (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={s.label}
-              >
-                <Icon size={18} strokeWidth={1.6} />
-              </a>
-            );
-          })}
-        </div>
-      </div>
-    </footer>
-  );
-}
+export { HpFooter } from "./hp-footer";

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Manrope, Inter, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -32,12 +33,21 @@ export const metadata: Metadata = {
   description:
     "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
   metadataBase: new URL(SITE_ORIGIN),
+  alternates: {
+    canonical: SITE_ORIGIN,
+    languages: {
+      uk: SITE_ORIGIN,
+      en: `${SITE_ORIGIN}/en`,
+      "x-default": SITE_ORIGIN,
+    },
+  },
   openGraph: {
     title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
     description:
       "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
     type: "website",
     locale: "uk_UA",
+    alternateLocale: ["en_US"],
   },
 };
 
@@ -47,9 +57,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const messages = await getMessages();
+  const pathname = (await headers()).get("x-pathname") ?? "/";
+  const lang = pathname.startsWith("/en") ? "en" : "uk";
   return (
     <html
-      lang="uk"
+      lang={lang}
       suppressHydrationWarning
       className={`${manrope.variable} ${inter.variable} ${jetbrains.variable}`}
     >

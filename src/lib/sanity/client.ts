@@ -1,4 +1,4 @@
-import { createClient } from "@sanity/client";
+import { createClient, type SanityClient } from "@sanity/client";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
@@ -10,23 +10,24 @@ const useCdn =
 const token =
   process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_TOKEN;
 
-if (!projectId || !dataset) {
-  throw new Error(
-    "Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET env vars",
-  );
-}
-
 export const SANITY_PROJECT_ID = projectId;
 export const SANITY_DATASET = dataset;
 export const SANITY_API_VERSION = apiVersion;
 
-export const sanityClient = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  // Token reads bypass the CDN (CDN is unauthenticated), so disable it when
-  // a token is present.
-  useCdn: token ? false : useCdn,
-  perspective: "published",
-  token,
-});
+// When env vars aren't configured (e.g. preview builds without Sanity wired
+// up), export a null client instead of throwing at module load. Callers in
+// `fetch.ts` surface a clear runtime error so individual data fetches fail
+// gracefully without taking down the whole build.
+export const sanityClient: SanityClient | null =
+  projectId && dataset
+    ? createClient({
+        projectId,
+        dataset,
+        apiVersion,
+        // Token reads bypass the CDN (CDN is unauthenticated), so disable it
+        // when a token is present.
+        useCdn: token ? false : useCdn,
+        perspective: "published",
+        token,
+      })
+    : null;

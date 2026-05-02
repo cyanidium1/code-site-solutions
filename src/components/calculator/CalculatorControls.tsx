@@ -158,14 +158,17 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
     </>
   );
 
+  const PRESET_ANCHORS: Record<string, string> = {
+    starterLanding:
+      "Compare to: Tilda + premium plugins ≈ $600/year + ongoing config. After 3 years, costs more — and you don't own the code.",
+    growthWebsite:
+      "Compare to: a UA WordPress agency = $7,000–12,000 + $2,000+/year support.",
+    ecommerceStarter:
+      "Compare to: Shopify Plus starts at $2,000/month. Custom code — no monthly subscription.",
+  };
+
   return (
     <div className="calc-controls">
-      <div className="calc-top-actions">
-        <button type="button" className="calc-reset-btn" onClick={resetToBasicSetup}>
-          Use basic setup
-        </button>
-      </div>
-
       <section className="calc-group calc-preset-section">
         <h3>Start with a recommended package</h3>
         <div className="calc-group-content">
@@ -191,7 +194,8 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-                <span>{preset.estimatedRange}</span>
+                <span className="calc-preset-price">{preset.estimatedRange}</span>
+                <p className="calc-preset-anchor">{PRESET_ANCHORS[preset.id]}</p>
                 <b>Use this package</b>
               </button>
             ))}
@@ -200,12 +204,17 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       </section>
 
       <div className="calc-manual-intro">
-        <h3>Customize your estimate</h3>
+        <div className="calc-manual-intro-head">
+          <h3>Customize your estimate</h3>
+          <button type="button" className="calc-reset-btn" onClick={resetToBasicSetup}>
+            Reset to basic setup
+          </button>
+        </div>
         <p>Use the recommended package as a starting point, or adjust the scope manually below.</p>
       </div>
 
       <details open className="calc-group">
-        <summary>1. Project basics</summary>
+        <summary>/ 01 Project basics</summary>
         <div className="calc-group-content">
           <div className="calc-grid-3">
             {Object.entries(PROJECT_TYPE_CONFIG).map(([id, item]) => (
@@ -308,7 +317,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       </details>
 
       <details open className="calc-group">
-        <summary>2. Design & languages</summary>
+        <summary>/ 02 Design & languages</summary>
         <div className="calc-group-content">
           <label>Design complexity</label>
           <div className="calc-design-grid">
@@ -371,7 +380,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       </details>
 
       <details className="calc-group">
-        <summary>3. CMS & SEO</summary>
+        <summary>/ 03 CMS & SEO</summary>
         <div className="calc-group-content">
           <label className="calc-subgroup-title">
             <Database size={14} /> CMS / content management
@@ -428,7 +437,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       </details>
 
       <details className="calc-group">
-        <summary>4. Features & integrations</summary>
+        <summary>/ 04 Features & integrations</summary>
         <div className="calc-group-content">
           {renderFeatureGroup("Lead capture", leadCaptureFeatures)}
           {renderFeatureGroup("Conversion & tracking", conversionFeatures)}
@@ -437,7 +446,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       </details>
 
       <details className="calc-group">
-        <summary>5. Content & timeline</summary>
+        <summary>/ 05 Content & timeline</summary>
         <div className="calc-group-content">
           <label>Content / copywriting</label>
           <div className="calc-segment">
@@ -473,12 +482,6 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           </p>
         </div>
       </details>
-
-      <div className="calc-recommended">
-        <h4>Recommended setup for most businesses</h4>
-        <p>Multi-page website, 5-8 pages, 2 languages, custom design.</p>
-        <strong>Estimated: $4,500 - $7,000</strong>
-      </div>
 
       {previewDesign ? (
         <div

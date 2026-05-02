@@ -71,6 +71,7 @@ export type HeroEditorialProps = {
   features?: Feature[];
   ctaPrimaryLabel?: string;
   ctaSecondaryLabel?: string;
+  ctaSecondaryShowPlay?: boolean;
   showStats?: boolean;
   stats?: HeroStats[];
   showTicker?: boolean;
@@ -103,6 +104,7 @@ export function HeroEditorial({
   ],
   ctaPrimaryLabel = "Обговорити мій проєкт",
   ctaSecondaryLabel = "Подивитися кейси клінік",
+  ctaSecondaryShowPlay = true,
   showStats = true,
   stats = [
     { num: "47", lbl: <>клінік<br/>запущено</> },
@@ -174,8 +176,21 @@ export function HeroEditorial({
                 {ARROW_ICON}
               </button>
               <button className="btn-ghost">
-                <span className="btn-play">▶</span>
+                {ctaSecondaryShowPlay ? (
+                  <span className="btn-play">▶</span>
+                ) : null}
                 <span>{ctaSecondaryLabel}</span>
+                {!ctaSecondaryShowPlay ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5 12h14M13 5l7 7-7 7"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                ) : null}
               </button>
             </div>
 

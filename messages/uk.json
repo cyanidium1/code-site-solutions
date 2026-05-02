@@ -2,5 +2,78 @@
   "Meta": {
     "title": "Code-Site.Art — Custom-coded сайти від $1 000 з Києва",
     "description": "Бутик-студія в Києві. Робимо сайти для клінік, юристів, бухгалтерських компаній, e-commerce і SaaS на Next.js. Запуск 4-10 тижнів, гарантія 1 рік."
+  },
+  "Nav": {
+    "services": "Послуги",
+    "about": "Про нас",
+    "blog": "Блог",
+    "calculator": "Калькулятор",
+    "work": "Кейси",
+    "pricing": "Прайс",
+    "process": "Процес",
+    "contact": "Контакти",
+    "cta": "Обговорити проєкт",
+    "menuLabel": "Головне меню",
+    "allServicesFooter": "Усі галузі →"
+  },
+  "ServiceNav": {
+    "medicine": "Медицина",
+    "legal": "Юриспруденція",
+    "accounting": "Бухгалтерія",
+    "ecommerce": "E-commerce",
+    "saas": "SaaS",
+    "realestate": "Нерухомість",
+    "cosmetology": "Косметологія",
+    "education": "Освіта"
+  },
+  "Footer": {
+    "brandDesc": "European boutique studio з Києва. Custom-coded сайти для бізнесу — 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.",
+    "solutionsHeading": "/ SOLUTIONS",
+    "companyHeading": "/ COMPANY",
+    "compareHeading": "/ COMPARE",
+    "legalHeading": "/ LEGAL",
+    "solutions": {
+      "healthcare": "Healthcare",
+      "legal": "Legal",
+      "accounting": "Accounting",
+      "ecommerce": "E-commerce",
+      "saas": "SaaS",
+      "realestate": "Real Estate",
+      "cosmetology": "Cosmetology",
+      "education": "Education"
+    },
+    "company": {
+      "about": "About",
+      "process": "Process",
+      "pricing": "Pricing",
+      "calculator": "Calculator",
+      "portfolio": "Portfolio",
+      "blog": "Blog",
+      "contacts": "Contacts"
+    },
+    "compare": {
+      "wordpress": "vs WordPress",
+      "constructors": "vs Constructors",
+      "freelancers": "vs Freelancers"
+    },
+    "legal": {
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "publicContract": "Public contract",
+      "legalData": "Legal data"
+    },
+    "copy": "© 2026 Code-Site.art · Made in Kyiv 🇺🇦"
+  },
+  "Newsletter": {
+    "heading": "Як не злити бюджет на сайт",
+    "sub": "Раз на місяць — 1 розбір реального проєкту з цифрами: що зайшло, що ні, скільки коштувало. Для власників бізнесу, які думають замовити сайт. Без новин і без води.",
+    "placeholder": "email@example.com",
+    "button": "Subscribe",
+    "success": "Готово ✓"
+  },
+  "LocaleSwitcher": {
+    "ariaLabel": "Мова сайту",
+    "uk": "UK",
+    "en": "EN"
   }
 }

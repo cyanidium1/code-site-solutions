@@ -67,19 +67,32 @@ const DEFAULT_ITEMS: TurnkeyItem[] = [
   },
 ];
 
+const DEFAULT_NOT_DOING: string[] = [
+  "Фотозйомка об'єктів",
+  "Платна реклама (Google Ads / Facebook)",
+  "Підтримка стороннього коду / WordPress-сайтів",
+];
+
 const DEFAULT_FOOTER = (
-  <>
-    Те, чого тут немає — <strong>фотозйомка об&apos;єктів</strong> і{" "}
-    <strong>повний брендинг логотипа</strong>. Якщо потрібно — порадимо
-    перевірених партнерів.
-  </>
+  <div className="turnkey-list-not">
+    <div className="turnkey-list-not-head">Чого ми не робимо</div>
+    <ul className="turnkey-list-not-list">
+      {DEFAULT_NOT_DOING.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+    <p className="turnkey-list-not-foot">
+      Якщо потрібне — порадимо перевірених партнерів. Не накручуємо ціну за
+      чужу роботу.
+    </p>
+  </div>
 );
 
 export function TurnkeyList({
-  eyebrow = "/ TURNKEY",
+  eyebrow = "/ 02 TURNKEY",
   heading = (
     <>
-      <em>9 речей</em>, які ми робимо за вас
+      Все, <em>що ми робимо за вас</em>
     </>
   ),
   sub = "Ви платите фіксовану суму і отримуєте готовий сайт. Не пишете ТЗ. Не шукаєте референси. Не ловите фотографа. Ось що входить у проєкт без додаткової плати:",
@@ -119,7 +132,7 @@ export function TurnkeyList({
             );
           })}
         </div>
-        {footer ? <p className="turnkey-list-foot">{footer}</p> : null}
+        {footer ? <div className="turnkey-list-foot">{footer}</div> : null}
       </div>
     </section>
   );
