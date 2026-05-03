@@ -73,7 +73,30 @@
       "Bash(cp \"/c/Users/User/Pictures/Screenshots/fedir.jpg\" public/team/fedir.jpg)",
       "Bash(echo \"EXIT $?\")",
       "WebFetch(domain:www.heroui.com)",
-      "WebFetch(domain:v2.heroui.com)"
+      "WebFetch(domain:v2.heroui.com)",
+      "Bash(git -C /c/Users/User/Documents/GitHub/code-site-solutions-admin status)",
+      "Bash(git -C /c/Users/User/Documents/GitHub/code-site-solutions-admin log --oneline -5)",
+      "Bash(git -C /c/Users/User/Documents/GitHub/code-site-solutions-admin remote -v)",
+      "Bash(tasklist)",
+      "Bash(netstat -ano)",
+      "Bash(git branch *)",
+      "Bash(git reset *)",
+      "Bash(git push *)",
+      "Bash(git checkout *)",
+      "Bash(git merge --no-ff feat/i18n-medicine-en -m 'Merge branch '\\\\''feat/i18n-medicine-en'\\\\'' *)",
+      "Bash(curl -s -I -H \"Accept-Language: uk-UA,uk;q=0.9,en;q=0.5\" http://localhost:3000/)",
+      "Bash(curl -s -I http://localhost:3000/)",
+      "Bash(curl -s -I -H \"Accept-Language: en-US,en;q=0.9\" -H \"Cookie: NEXT_LOCALE=uk\" http://localhost:3000/)",
+      "Bash(curl -s -I -H \"Accept-Language: uk-UA,uk;q=0.9\" -H \"Cookie: NEXT_LOCALE=en\" http://localhost:3000/)",
+      "Bash(curl -s -I -H \"Accept-Language: en\" http://localhost:3000/pricing)",
+      "Bash(curl -s -I -H \"Accept-Language: en\" http://localhost:3000/sites-for/medicine)",
+      "Bash(git rev-list *)",
+      "Bash(PORT=3100 npx next start)",
+      "Bash(echo \"started, pid=$!\")",
+      "Bash(curl -s -o /dev/null -w \"/ → %{http_code}\\\\n\" http://localhost:3100/)",
+      "Bash(curl -s -o /dev/null -w \"/en → %{http_code}\\\\n\" http://localhost:3100/en)",
+      "Bash(curl -s -o /dev/null -w \"/vs-wordpress → %{http_code}\\\\n\" http://localhost:3100/vs-wordpress)",
+      "Bash(npm ls *)"
     ]
   }
 }
