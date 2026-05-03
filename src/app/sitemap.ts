@@ -3,6 +3,7 @@ import { SITE_ORIGIN } from "@/lib/site";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { INDUSTRY_PAGES_QUERY } from "@/lib/sanity/queries";
 import type { IndustryPageRef } from "@/lib/sanity/types";
+import { EN_INDUSTRY_SLUGS } from "@/lib/i18n-routes";
 
 const STATIC_ROUTES: {
   path: string;
@@ -61,10 +62,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   );
 
-  // Industries with an English translation. When a new industry ships in EN,
-  // add its slug here so the sitemap emits the EN URL + hreflang alternates.
-  const EN_INDUSTRY_SLUGS = new Set<string>(["medicine"]);
-
+  // EN_INDUSTRY_SLUGS is imported from @/lib/i18n-routes — single source of
+  // truth shared with the locale switcher + header dropdown.
   const industryEntries: MetadataRoute.Sitemap = industryPages.flatMap((p) => {
     const ukUrl = `${SITE_ORIGIN}/sites-for/${p.slug}`;
     const hasEn = EN_INDUSTRY_SLUGS.has(p.slug);

@@ -79,7 +79,7 @@ const EN_INDUSTRIES: Industry[] = [
     description: "Sites for clinics, dental practices, diagnostic centers",
     tags: ["EHR", "HIPAA", "Online booking"],
     price: "From $3,500 · 4–10 weeks",
-    href: null,
+    href: "/en/sites-for/medicine",
   },
   {
     icon: Scale,
