@@ -335,7 +335,7 @@ const STRINGS: Record<string, string> = {
   "низька": "low",
   "середня": "medium",
   "висока (GDPR)": "high (HIPAA-aware, GDPR)",
-  "Юр. коректність МОЗ": "Compliance",
+  "Юр. коректність МОЗ": "Compliance (HIPAA / GDPR)",
   "залежить від теми": "depends on theme",
   "обмежено": "limited",
   "перевіряємо юристом": "lawyer-reviewed",
@@ -415,8 +415,12 @@ const STRINGS: Record<string, string> = {
   "Як захищені дані пацієнтів?": "How is patient data protected?",
   "Чи можна розмістити відгуки пацієнтів?":
     "Can we publish patient reviews on the site?",
+  // EN replaces this question entirely — different audience, different legal
+  // landscape. UA stays focused on pricing-disclosure rules; EN reframes
+  // around healthcare advertising + patient-data law without naming any
+  // specific statute (we're not lawyers).
   "Чи можна за законом розміщувати ціни на медичні послуги?":
-    "Are we legally allowed to publish prices for medical services?",
+    "What about healthcare advertising rules and patient-data law?",
   "Чи можна запустити рекламу медичних послуг у Google і Facebook?":
     "Can we run ads for medical services on Google and Facebook?",
 
@@ -556,9 +560,7 @@ const FAQ_EN: Record<string, Block[]> = {
   ],
   "Чи можна за законом розміщувати ціни на медичні послуги?": [
     block([
-      "Yes — and as of 2024 it's actually required for private clinics in Ukraine (Cabinet of Ministers regulation). We structure pricing with an \"",
-      { em: "estimated cost" },
-      "\" label and a note that the final price is determined after consultation. A lawyer reviews the wording.",
+      "Different in every market — HIPAA plus FTC rules in the US, GDPR plus your national medical board in the EU (Sundhedsdatastyrelsen in Denmark, MDR in Germany). We handle the technical side: privacy notices, consent banners, secure intake forms, transparent pricing displays where they're required. We're not lawyers — for advertising restrictions, licensing, or telehealth specifics, we'll connect you with a healthcare attorney during the brief. That's their lane.",
     ]),
   ],
   "Чи можна запустити рекламу медичних послуг у Google і Facebook?": [
