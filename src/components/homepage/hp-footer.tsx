@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
+import { hasEnIndustry } from "@/lib/i18n-routes";
+
 type SocialDef = { icon: LucideIcon; href: string; label: string };
 const DEFAULT_SOCIALS: SocialDef[] = [
   { icon: Linkedin, href: "https://linkedin.com/in/fedirdev", label: "LinkedIn" },
@@ -55,15 +57,17 @@ export function HpFooter({
   const locale = useLocale();
   const isEn = locale === "en";
 
-  // Per brief: industry pages don't exist in EN, so footer SOLUTIONS items
-  // render as static labels (matching the non-clickable industry cards on
-  // the EN homepage). UA keeps them linked.
-  const renderSolutionItem = (key: string, href: string) =>
-    isEn ? (
-      <span className="hp-footer-disabled">{tSol(key)}</span>
-    ) : (
-      <Link href={href}>{tSol(key)}</Link>
-    );
+  // EN footer: only industries with a translated landing page render as
+  // links (currently medicine). The rest stay as disabled labels — same
+  // pattern as the EN homepage industry cards. UA keeps everything linked.
+  const renderSolutionItem = (key: string, href: string) => {
+    if (!isEn) return <Link href={href}>{tSol(key)}</Link>;
+    const slug = href.replace(/^\/sites-for\//, "");
+    if (hasEnIndustry(slug)) {
+      return <Link href={`/en/sites-for/${slug}`}>{tSol(key)}</Link>;
+    }
+    return <span className="hp-footer-disabled">{tSol(key)}</span>;
+  };
 
   // Company column: Process and Contact resolve to anchors on the EN
   // homepage instead of standalone UA pages.

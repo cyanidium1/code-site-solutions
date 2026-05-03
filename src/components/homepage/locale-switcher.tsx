@@ -38,10 +38,13 @@ function resolveAlternate(pathname: string): { uk: string; en: string } {
     return { uk: pathname.slice(3), en: pathname };
   }
 
-  // UA → EN: industry pages (only when an EN translation exists)
-  const industryMatch = pathname.match(/^\/sites-for\/([^/]+)$/);
+  // UA → EN: industry pages (only when an EN translation exists).
+  // Tolerate an optional trailing slash so `/sites-for/medicine/` also
+  // maps cleanly.
+  const industryMatch = pathname.match(/^\/sites-for\/([^/]+)\/?$/);
   if (industryMatch && hasEnIndustry(industryMatch[1])) {
-    return { uk: pathname, en: `/en${pathname}` };
+    const normalized = `/sites-for/${industryMatch[1]}`;
+    return { uk: normalized, en: `/en${normalized}` };
   }
 
   // UA → EN: paths with no EN counterpart fall back to the EN homepage
@@ -84,6 +87,12 @@ export function LocaleSwitcher() {
         disallowEmptySelection
         onAction={(key) => {
           const target = key === "en" ? enHref : ukHref;
+          // Persist the manual choice so the auto-detect on `/` respects
+          // it on the next visit. 1-year expiry, root path so it covers
+          // every subroute.
+          if (typeof document !== "undefined") {
+            document.cookie = `NEXT_LOCALE=${key}; path=/; max-age=31536000; samesite=lax`;
+          }
           router.push(target);
         }}
         itemClasses={{
