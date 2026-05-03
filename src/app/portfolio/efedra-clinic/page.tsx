@@ -134,18 +134,20 @@ type Related = {
   industryColor: string;
   tech: string;
   gradient: string;
+  href?: string;
 };
 
 const RELATED: Related[] = [
   {
-    name: "NBYG Bornholm",
-    meta: "Construction · Denmark · 2024",
-    metrics: "×6 traffic · 24 inquiries/mo · Top-1 local",
-    industry: "Real Estate",
+    name: "NBYG København",
+    meta: "Construction · Copenhagen + Bornholm, Denmark · 2024",
+    metrics: "×8 inquiries · LCP 0.8s · Top-1 local",
+    industry: "Construction",
     industryColor: "#EF4444",
     tech: "Next.js",
     gradient:
       "linear-gradient(135deg, oklch(0.55 0.20 25) 0%, oklch(0.62 0.18 60) 100%)",
+    href: "/portfolio/nbyg-kobenhavn",
   },
   {
     name: "Tatarka",
@@ -170,30 +172,25 @@ const RELATED: Related[] = [
 ];
 
 function RelatedCard({ row }: { row: Related }) {
-  return (
-    <div
-      className="hp-case-link"
-      style={{
-        cursor: "default",
-        pointerEvents: "none",
-        opacity: 0.78,
-      }}
-    >
-      <div className="hp-case-cover">
-        <div className="hp-case-cover-bg" style={{ background: row.gradient }} />
-        <div className="hp-case-cover-dots" />
-        <div className="hp-case-shot">
-          <div className="hp-case-shot-bar">
-            <span className="hp-case-shot-dot" />
-            <span className="hp-case-shot-dot" />
-            <span className="hp-case-shot-dot" />
-          </div>
-          <div className="hp-case-shot-body">
-            <div className="hp-case-shot-line s1" />
-            <div className="hp-case-shot-line s2" />
-            <div className="hp-case-shot-line s3" />
-          </div>
+  const disabled = !row.href;
+
+  const cover = (
+    <div className="hp-case-cover">
+      <div className="hp-case-cover-bg" style={{ background: row.gradient }} />
+      <div className="hp-case-cover-dots" />
+      <div className="hp-case-shot">
+        <div className="hp-case-shot-bar">
+          <span className="hp-case-shot-dot" />
+          <span className="hp-case-shot-dot" />
+          <span className="hp-case-shot-dot" />
         </div>
+        <div className="hp-case-shot-body">
+          <div className="hp-case-shot-line s1" />
+          <div className="hp-case-shot-line s2" />
+          <div className="hp-case-shot-line s3" />
+        </div>
+      </div>
+      {disabled ? (
         <span
           style={{
             position: "absolute",
@@ -213,27 +210,60 @@ function RelatedCard({ row }: { row: Related }) {
         >
           Coming soon
         </span>
-      </div>
-      <div className="hp-case-body">
-        <div className="hp-case-chips">
-          <span
-            className="hp-case-chip"
-            style={{
-              color: row.industryColor,
-              borderColor: `${row.industryColor}55`,
-            }}
-          >
-            {row.industry}
-          </span>
-          <span className="hp-case-chip">{row.tech}</span>
-        </div>
-        <div className="hp-case-name-row">
-          <h3 className="hp-case-name">{row.name}</h3>
-        </div>
-        <div className="hp-case-meta">{row.meta}</div>
-        <div className="hp-case-metrics">{row.metrics}</div>
-      </div>
+      ) : null}
     </div>
+  );
+
+  const body = (
+    <div className="hp-case-body">
+      <div className="hp-case-chips">
+        <span
+          className="hp-case-chip"
+          style={{
+            color: row.industryColor,
+            borderColor: `${row.industryColor}55`,
+          }}
+        >
+          {row.industry}
+        </span>
+        <span className="hp-case-chip">{row.tech}</span>
+      </div>
+      <div className="hp-case-name-row">
+        <h3 className="hp-case-name">{row.name}</h3>
+        {!disabled ? (
+          <ArrowUpRight
+            size={20}
+            strokeWidth={1.6}
+            className="hp-case-arrow"
+          />
+        ) : null}
+      </div>
+      <div className="hp-case-meta">{row.meta}</div>
+      <div className="hp-case-metrics">{row.metrics}</div>
+    </div>
+  );
+
+  if (disabled) {
+    return (
+      <div
+        className="hp-case-link"
+        style={{
+          cursor: "default",
+          pointerEvents: "none",
+          opacity: 0.78,
+        }}
+      >
+        {cover}
+        {body}
+      </div>
+    );
+  }
+
+  return (
+    <Link href={row.href!} className="hp-case-link">
+      {cover}
+      {body}
+    </Link>
   );
 }
 

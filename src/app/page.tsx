@@ -256,7 +256,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <PullQuote />
+      <PullQuote
+        caseHref="/portfolio/nbyg-kobenhavn"
+        caseLabel="Подивитись повний кейс"
+      />
       <FAQ heading="Найчастіші питання перед стартом" items={HOMEPAGE_FAQ} />
       <FinalCta3
         urgency={

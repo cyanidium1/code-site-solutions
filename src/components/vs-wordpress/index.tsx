@@ -113,6 +113,16 @@ type Content = {
     cards: SeoCard[];
     closing: string;
   };
+  admin: {
+    eyebrow: string;
+    heading: React.ReactNode;
+    sub: string;
+    compareHeaders: { activity: string; wp: string; us: string };
+    compareRows: { activity: string; wp: string; us: string }[];
+    capabilitiesHeading: string;
+    capabilities: { num: string; title: string; body: string }[];
+    foot: React.ReactNode;
+  };
   process: {
     eyebrow: string;
     heading: React.ReactNode;
@@ -304,10 +314,10 @@ const UK: Content = {
     eyebrow: "/ 04 РЕАЛЬНА МІГРАЦІЯ",
     heading: (
       <>
-        NBYG Bornholm. <em>З WordPress на Next.js за 6 тижнів.</em>
+        NBYG København. <em>З WordPress на Next.js за 6 тижнів.</em>
       </>
     ),
-    subEyebrow: "Будівельна компанія · Борнгольм, Данія · 2024",
+    subEyebrow: "Будівельна компанія · Копенгаген + Борнгольм, Данія · 2024",
     beforeLabel: "До міграції (на WordPress)",
     afterLabel: "Після (60 днів на Next.js)",
     before: [
@@ -338,9 +348,9 @@ const UK: Content = {
         запустила. Ми просто отримали ключі.
       </>
     ),
-    quoteAuthor: "Owner, NBYG Bornholm Aps",
+    quoteAuthor: "Owner, NBYG København Aps",
     cta: "Подивитись повний кейс",
-    ctaHref: "/portfolio",
+    ctaHref: "/portfolio/nbyg-kobenhavn",
   },
   seo: {
     eyebrow: "/ 05 SEO-АНКСІЯ",
@@ -396,8 +406,110 @@ const UK: Content = {
     closing:
       "Перші 30 днів після запуску ми моніторимо ваш Search Console щодня. Якщо щось іде не так — фіксимо в той самий день. Це включено в гарантію.",
   },
+  admin: {
+    eyebrow: "/ 06 АДМІНКА",
+    heading: (
+      <>
+        Sanity Studio. <em>Адмінка, з якою працюєш — а не воюєш.</em>
+      </>
+    ),
+    sub: "Найчастіший страх перед міграцією — «а як я буду редагувати без WordPress?». Sanity не схожий на WP. Він кращий: drag-and-drop блоки, які не ламають верстку; повноцінне редагування з телефона; мовність і SEO «з коробки» — без жодного плагіна.",
+    compareHeaders: { activity: "Що робите щодня", wp: "WordPress", us: "Sanity Studio" },
+    compareRows: [
+      {
+        activity: "Drag-and-drop блоки",
+        wp: "через Gutenberg / Elementor — конфлікти з темою",
+        us: "вбудовано, типізовано — верстку не зламати",
+      },
+      {
+        activity: "Редагування з телефона",
+        wp: "теоретично існує, на практиці — біль",
+        us: "повноцінне, як з компʼютера",
+      },
+      {
+        activity: "Створити нову сторінку",
+        wp: "через CMS, але стережись шаблонів",
+        us: "один клік, шаблон вже задано",
+      },
+      {
+        activity: "Створити новий тип блоку",
+        wp: "потрібен PHP-розробник або плагін",
+        us: "drag-and-drop, без коду",
+      },
+      {
+        activity: "Мультимовність",
+        wp: "плагін WPML, $99/рік",
+        us: "вбудовано, безкоштовно",
+      },
+      {
+        activity: "SEO (title, meta, OG, schema)",
+        wp: "Yoast Premium, $99/рік",
+        us: "поля в кожному документі, безкоштовно",
+      },
+      {
+        activity: "Real-time співпраця",
+        wp: "відсутня (тільки запис-блокування)",
+        us: "як Google Docs — кілька осіб одночасно",
+      },
+      {
+        activity: "Історія версій",
+        wp: "базова, тільки на платних хостингах",
+        us: "повна, відкат у 1 клік",
+      },
+      {
+        activity: "Оновлення безпеки",
+        wp: "щотижня — ризик зламати сайт",
+        us: "хостимо ми, ви нічого не оновлюєте",
+      },
+      {
+        activity: "Ціна для команди до 5 осіб",
+        wp: "$30+/міс хостинг + плагіни",
+        us: "$0",
+      },
+    ],
+    capabilitiesHeading: "6 речей, які робите без розробника",
+    capabilities: [
+      {
+        num: "01",
+        title: "Drag-and-drop блоки",
+        body: "Тягнете секції на сторінку — текст, зображення, форма, відгуки, FAQ. Кожен блок має правила, тому верстку не зламаєте.",
+      },
+      {
+        num: "02",
+        title: "Працює з телефона",
+        body: "Реально працює. Не «адаптивна версія для аварії» — повноцінне редагування з мобільного. Прочитали відгук від клієнта на ходу — публікуєте до того, як дійшли до офісу.",
+      },
+      {
+        num: "03",
+        title: "Створюєте нові сторінки самі",
+        body: "Без розробника. Натиснули «новий запис», обрали шаблон, заповнили поля, опублікували. 5 хвилин.",
+      },
+      {
+        num: "04",
+        title: "Мультимовність вбудована",
+        body: "Кожне поле має українську і англійську версії. Перекладаєте тут — рендериться там. Без плагінів, без додаткової оплати.",
+      },
+      {
+        num: "05",
+        title: "SEO без Yoast",
+        body: "Кожна сторінка має поля title, meta-description, OG-image, canonical, schema.org. Заповнили — Google бачить.",
+      },
+      {
+        num: "06",
+        title: "Безкоштовно для команди до 5 осіб",
+        body: "Маркетолог + асистент + копірайтер + редактор + ви — нуль доларів на місяць. Платний тариф починається з 6-ї людини.",
+      },
+    ],
+    foot: (
+      <>
+        <strong>Sanity Studio — open-source.</strong> Якщо вирішите піти від
+        нас через 5 років — Studio залишається у вас, контент експортується в
+        JSON, мігруєте куди хочете. Ніякого вендор-лок-іна.
+      </>
+    ),
+  },
   process: {
-    eyebrow: "/ 06 ПРОЦЕС МІГРАЦІЇ",
+    eyebrow: "/ 07 ПРОЦЕС МІГРАЦІЇ",
     heading: (
       <>
         Як це відбувається. <em>5 кроків.</em>
@@ -437,7 +549,7 @@ const UK: Content = {
     ],
   },
   filter: {
-    eyebrow: "/ 07 ЧЕСНО",
+    eyebrow: "/ 08 ЧЕСНО",
     heading: (
       <>
         Чого ми <em>не робимо.</em>
@@ -461,7 +573,7 @@ const UK: Content = {
     foot: "Якщо ваш кейс не з цього списку — пишіть. На безкоштовному 30-хв розборі скажемо, чи маємо сенс ми, чи варто шукати іншого виконавця.",
   },
   pricing: {
-    eyebrow: "/ 08 ВАРТІСТЬ МІГРАЦІЇ",
+    eyebrow: "/ 09 ВАРТІСТЬ МІГРАЦІЇ",
     heading: (
       <>
         Скільки коштує <em>піти з WordPress.</em>
@@ -530,7 +642,7 @@ const UK: Content = {
     ctaSecondary: "Поговорити зі спеціалістом",
   },
   faq: {
-    eyebrow: "/ 09 ЧАСТІ ПИТАННЯ",
+    eyebrow: "/ 10 ЧАСТІ ПИТАННЯ",
     heading: (
       <>
         Що питають <em>найчастіше.</em>
@@ -572,7 +684,7 @@ const UK: Content = {
     ],
   },
   cta: {
-    eyebrow: "/ 10 ГОТОВІ ПЕРЕЇХАТИ?",
+    eyebrow: "/ 11 ГОТОВІ ПЕРЕЇХАТИ?",
     heading: (
       <>
         Розрахуйте міграцію <em>за 60 секунд.</em>
@@ -756,10 +868,10 @@ const EN: Content = {
     eyebrow: "/ 04 REAL MIGRATION",
     heading: (
       <>
-        NBYG Bornholm. <em>From WordPress to Next.js in 6 weeks.</em>
+        NBYG København. <em>From WordPress to Next.js in 6 weeks.</em>
       </>
     ),
-    subEyebrow: "Construction · Bornholm, Denmark · 2024",
+    subEyebrow: "Construction · Copenhagen + Bornholm, Denmark · 2024",
     beforeLabel: "Before (on WordPress)",
     afterLabel: "After (60 days post-migration)",
     before: [
@@ -787,9 +899,9 @@ const EN: Content = {
         got the keys.
       </>
     ),
-    quoteAuthor: "Owner, NBYG Bornholm Aps",
+    quoteAuthor: "Owner, NBYG København Aps",
     cta: "See the full case study",
-    ctaHref: "/portfolio",
+    ctaHref: "/en/portfolio/nbyg-kobenhavn",
   },
   seo: {
     eyebrow: "/ 05 THE SEO QUESTION",
@@ -845,8 +957,110 @@ const EN: Content = {
     closing:
       "For the first 30 days post-launch, we watch your Search Console daily. If something goes sideways, we fix it the same day. It's covered under your warranty.",
   },
+  admin: {
+    eyebrow: "/ 06 THE ADMIN",
+    heading: (
+      <>
+        Sanity Studio. <em>The admin you work with, not against.</em>
+      </>
+    ),
+    sub: "The biggest fear before migration is “how will I edit without WordPress?” Sanity isn't WordPress. It's better: drag-and-drop blocks that can't break the layout, full mobile editing, multi-language and SEO out of the box — no plugins required.",
+    compareHeaders: { activity: "What you do daily", wp: "WordPress", us: "Sanity Studio" },
+    compareRows: [
+      {
+        activity: "Drag-and-drop blocks",
+        wp: "via Gutenberg / Elementor — theme conflicts",
+        us: "built in, typed — can't break the layout",
+      },
+      {
+        activity: "Mobile editing",
+        wp: "exists in theory, painful in practice",
+        us: "full editing from your phone, same as desktop",
+      },
+      {
+        activity: "Create a new page",
+        wp: "possible, but mind the template",
+        us: "one click, template already set",
+      },
+      {
+        activity: "Create a new block type",
+        wp: "need a PHP dev or a plugin",
+        us: "drag-and-drop, no code",
+      },
+      {
+        activity: "Multi-language",
+        wp: "WPML plugin, $99/year",
+        us: "built in, free",
+      },
+      {
+        activity: "SEO (title, meta, OG, schema)",
+        wp: "Yoast Premium, $99/year",
+        us: "fields on every document, free",
+      },
+      {
+        activity: "Real-time collaboration",
+        wp: "none (just record-locking)",
+        us: "like Google Docs — multiple editors at once",
+      },
+      {
+        activity: "Version history",
+        wp: "basic, only on paid hosting",
+        us: "full, one-click rollback",
+      },
+      {
+        activity: "Security updates",
+        wp: "weekly — risk of breaking the site",
+        us: "we host it, you update nothing",
+      },
+      {
+        activity: "Cost for a team up to 5",
+        wp: "$30+/mo hosting + plugins",
+        us: "$0",
+      },
+    ],
+    capabilitiesHeading: "6 things you do without a developer",
+    capabilities: [
+      {
+        num: "01",
+        title: "Drag-and-drop blocks",
+        body: "Drag sections onto a page — text, image, form, testimonials, FAQ. Every block has rules, so you can't break the layout.",
+      },
+      {
+        num: "02",
+        title: "Works on your phone",
+        body: "Actually works. Not “responsive admin for emergencies” — full editing from mobile. Read a testimonial on the train — publish before you reach the office.",
+      },
+      {
+        num: "03",
+        title: "Create new pages yourself",
+        body: "No developer needed. Click “new entry,” pick a template, fill the fields, publish. 5 minutes.",
+      },
+      {
+        num: "04",
+        title: "Multi-language built in",
+        body: "Every field has UK and EN versions. Translate here — it renders there. No plugins, no extra fees.",
+      },
+      {
+        num: "05",
+        title: "SEO without Yoast",
+        body: "Every page has title, meta-description, OG-image, canonical, schema.org fields. Fill them in — Google sees them.",
+      },
+      {
+        num: "06",
+        title: "Free for teams up to 5",
+        body: "Your marketer + assistant + copywriter + editor + you — zero dollars per month. Paid tier kicks in at editor #6.",
+      },
+    ],
+    foot: (
+      <>
+        <strong>Sanity Studio is open-source.</strong> If you decide to leave
+        us in 5 years — the Studio stays with you, content exports to JSON,
+        you migrate anywhere. No vendor lock-in.
+      </>
+    ),
+  },
   process: {
-    eyebrow: "/ 06 HOW WE MIGRATE",
+    eyebrow: "/ 07 HOW WE MIGRATE",
     heading: (
       <>
         How it works. <em>5 steps.</em>
@@ -886,7 +1100,7 @@ const EN: Content = {
     ],
   },
   filter: {
-    eyebrow: "/ 07 STRAIGHT TALK",
+    eyebrow: "/ 08 STRAIGHT TALK",
     heading: (
       <>
         What we <em>don&apos;t do.</em>
@@ -910,7 +1124,7 @@ const EN: Content = {
     foot: "If your case isn't on this list, talk to us. The 30-minute consult is free — we'll tell you if we're a fit or if you should look elsewhere.",
   },
   pricing: {
-    eyebrow: "/ 08 MIGRATION PRICING",
+    eyebrow: "/ 09 MIGRATION PRICING",
     heading: (
       <>
         What it costs to <em>leave WordPress.</em>
@@ -982,7 +1196,7 @@ const EN: Content = {
     ctaSecondary: "Talk to a migration specialist",
   },
   faq: {
-    eyebrow: "/ 09 FAQ",
+    eyebrow: "/ 10 FAQ",
     heading: (
       <>
         What people <em>ask most.</em>
@@ -1024,7 +1238,7 @@ const EN: Content = {
     ],
   },
   cta: {
-    eyebrow: "/ 10 READY TO MIGRATE?",
+    eyebrow: "/ 11 READY TO MIGRATE?",
     heading: (
       <>
         Get a migration estimate <em>in 60 seconds.</em>
@@ -1285,7 +1499,80 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
         </div>
       </section>
 
-      {/* 06 — Process */}
+      {/* 06 — Sanity vs WordPress admin */}
+      <section className="hp-section">
+        <div className="hp-inner">
+          <SectionHead
+            eyebrow={c.admin.eyebrow}
+            heading={c.admin.heading}
+            sub={c.admin.sub}
+          />
+          {/* Mobile-safe table — horizontal scroll wrapper for narrow viewports */}
+          <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)] mb-12 max-[700px]:overflow-x-auto">
+            <table className="cmp-table" style={{ minWidth: 600 }}>
+              <thead>
+                <tr>
+                  <th>{c.admin.compareHeaders.activity}</th>
+                  <th>{c.admin.compareHeaders.wp}</th>
+                  <th className="cmp-th-good">{c.admin.compareHeaders.us}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {c.admin.compareRows.map((row, i) => (
+                  <tr key={i}>
+                    <td
+                      className="cmp-td-param"
+                      data-label={c.admin.compareHeaders.activity}
+                    >
+                      {row.activity}
+                    </td>
+                    <td
+                      className="cmp-td-bad"
+                      data-label={c.admin.compareHeaders.wp}
+                    >
+                      {row.wp}
+                    </td>
+                    <td
+                      className="cmp-td-good"
+                      data-label={c.admin.compareHeaders.us}
+                    >
+                      {row.us}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
+            {c.admin.capabilitiesHeading}
+          </h3>
+          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+            {c.admin.capabilities.map((cap) => (
+              <div
+                key={cap.num}
+                className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+              >
+                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                  {cap.num}
+                </span>
+                <h4 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
+                  {cap.title}
+                </h4>
+                <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  {cap.body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-8 max-w-[64ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--ink-2)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
+            {c.admin.foot}
+          </p>
+        </div>
+      </section>
+
+      {/* 07 — Process */}
       <section className="hp-section">
         <div className="hp-inner">
           <SectionHead

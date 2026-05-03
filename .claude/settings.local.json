@@ -96,7 +96,10 @@
       "Bash(curl -s -o /dev/null -w \"/ → %{http_code}\\\\n\" http://localhost:3100/)",
       "Bash(curl -s -o /dev/null -w \"/en → %{http_code}\\\\n\" http://localhost:3100/en)",
       "Bash(curl -s -o /dev/null -w \"/vs-wordpress → %{http_code}\\\\n\" http://localhost:3100/vs-wordpress)",
-      "Bash(npm ls *)"
+      "Bash(npm ls *)",
+      "Bash(node -e \"console.log\\(require.resolve\\('@heroui/use-disclosure'\\)\\)\")",
+      "Bash(cp \"/c/Users/User/Pictures/Screenshots/admin-desktop.png\" public/sanity-studio/admin-desktop.png)",
+      "Bash(cp \"/c/Users/User/Pictures/Screenshots/admin-mob.png\" public/sanity-studio/admin-mobile.png)"
     ]
   }
 }

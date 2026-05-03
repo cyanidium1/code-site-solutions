@@ -880,9 +880,11 @@ export function PullQuote({
   ),
   initials = "SH",
   name = "Søren Hansen",
-  role = "Owner, NBYG Bornholm Aps",
+  role = "Owner, NBYG København Aps",
   liHref,
   showAvatar = true,
+  caseHref,
+  caseLabel,
 }: Partial<{
   quote: React.ReactNode;
   initials: string;
@@ -892,6 +894,9 @@ export function PullQuote({
   liHref?: string;
   /** Круг з ініціалами; `false` — лише ім’я та роль (без «фото» клієнта). */
   showAvatar?: boolean;
+  /** Якщо передано — під автором рендериться лінк на повний кейс. */
+  caseHref?: string;
+  caseLabel?: string;
 }> = {}) {
   return (
     <section className="hp-section">
@@ -918,6 +923,14 @@ export function PullQuote({
               </a>
             ) : null}
           </div>
+          {caseHref ? (
+            <div style={{ marginTop: 24, textAlign: "center" }}>
+              <Link href={caseHref} className="hp-link">
+                {caseLabel ?? "Подивитись повний кейс"}
+                <ArrowUpRight size={14} strokeWidth={1.8} />
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

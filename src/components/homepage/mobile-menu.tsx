@@ -1,0 +1,250 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
+import { Drawer, DrawerContent, DrawerBody } from "@heroui/react";
+import { useDisclosure } from "@heroui/use-disclosure";
+import { ChevronRight, X } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+
+import { hasEnIndustry } from "@/lib/i18n-routes";
+import { SERVICE_NAV_LINKS } from "./header-services";
+
+/** Same path mapping as LocaleSwitcher; duplicated to keep mobile-menu
+ *  self-contained and avoid pulling in HeroUI Dropdown internals. */
+function resolveAlternate(pathname: string): { uk: string; en: string } {
+  if (pathname === "/" || pathname === "/en") {
+    return { uk: "/", en: "/en" };
+  }
+  if (pathname.startsWith("/en/")) {
+    return { uk: pathname.slice(3), en: pathname };
+  }
+  const industryMatch = pathname.match(/^\/sites-for\/([^/]+)\/?$/);
+  if (industryMatch && hasEnIndustry(industryMatch[1])) {
+    const normalized = `/sites-for/${industryMatch[1]}`;
+    return { uk: normalized, en: `/en${normalized}` };
+  }
+  return { uk: pathname, en: "/en" };
+}
+
+/** Animated 3-line → X morph. Pure CSS via data-open. */
+function BurgerIcon({ open }: { open: boolean }) {
+  return (
+    <span className="hp-burger-icon" data-open={open ? "true" : "false"} aria-hidden="true">
+      <span className="hp-burger-line" />
+      <span className="hp-burger-line" />
+      <span className="hp-burger-line" />
+    </span>
+  );
+}
+
+export function MobileMenu() {
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const pathname = usePathname() ?? "/";
+  const router = useRouter();
+  const locale = useLocale();
+  const isEn = locale === "en";
+
+  const t = useTranslations("Nav");
+  const tServices = useTranslations("ServiceNav");
+  const tLocale = useTranslations("LocaleSwitcher");
+
+  // Close on route change. Track the pathname we opened on; when it changes,
+  // close. Without this, clicking a link inside the drawer would navigate
+  // but the drawer would stay open over the new page.
+  const openedAt = useRef<string | null>(null);
+  useEffect(() => {
+    if (isOpen && openedAt.current === null) {
+      openedAt.current = pathname;
+    } else if (isOpen && openedAt.current !== pathname) {
+      onClose();
+      openedAt.current = null;
+    } else if (!isOpen) {
+      openedAt.current = null;
+    }
+  }, [isOpen, pathname, onClose]);
+
+  const { uk: ukHref, en: enHref } = resolveAlternate(pathname);
+  const ctaHref = isEn ? "/en#contact" : "/contacts";
+  const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
+
+  // Top-level routes — same set as desktop hp-header, kept in lockstep.
+  const navLinks = [
+    { href: "/about", label: t("about") },
+    { href: "/blog", label: t("blog") },
+    { href: "/calculator", label: t("calculator") },
+    { href: "/portfolio", label: t("work") },
+    { href: "/pricing", label: t("pricing") },
+    { href: "/process", label: t("process") },
+    { href: isEn ? "/en#contact" : "/contacts", label: t("contact") },
+  ];
+
+  const switchLocale = (key: "uk" | "en") => {
+    if (typeof document !== "undefined") {
+      document.cookie = `NEXT_LOCALE=${key}; path=/; max-age=31536000; samesite=lax`;
+    }
+    router.push(key === "en" ? enHref : ukHref);
+    onClose();
+  };
+
+  // Stagger indices, statically computed so DrawerContent's render-prop
+  // can be invoked multiple times per cycle without accumulating a counter.
+  // Order: services eyebrow, services 0..N-1, "all industries", nav 0..N-1,
+  // locale block.
+  const SERVICES_EYEBROW_I = 0;
+  const SERVICES_BASE_I = 1;
+  const ALL_SERVICES_I = SERVICES_BASE_I + SERVICE_NAV_LINKS.length;
+  const NAV_BASE_I = ALL_SERVICES_I + 1;
+  const LOCALE_I = NAV_BASE_I + navLinks.length;
+
+  return (
+    <>
+      <button
+        type="button"
+        className="hp-burger-btn"
+        aria-label={t("menuLabel")}
+        aria-expanded={isOpen}
+        onClick={onOpen}
+      >
+        <BurgerIcon open={isOpen} />
+      </button>
+
+      <Drawer
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="right"
+        size="full"
+        backdrop="blur"
+        hideCloseButton
+        classNames={{
+          base: "hp-drawer-base",
+          backdrop: "hp-drawer-backdrop",
+          wrapper: "hp-drawer-wrapper",
+        }}
+      >
+        <DrawerContent>
+          {(close) => (
+            <>
+              <div className="hp-drawer-head">
+                <Link
+                  href={isEn ? "/en" : "/"}
+                  className="hp-header-brand"
+                  onClick={close}
+                >
+                  <em>Code-Site</em>.art
+                </Link>
+                <button
+                  type="button"
+                  className="hp-drawer-close"
+                  aria-label="Close menu"
+                  onClick={close}
+                >
+                  <X size={20} strokeWidth={1.6} />
+                </button>
+              </div>
+              <DrawerBody className="hp-drawer-body">
+                <div className="hp-drawer-section">
+                  <div
+                    className="hp-drawer-eyebrow hp-drawer-stagger"
+                    style={{ ["--i" as string]: SERVICES_EYEBROW_I }}
+                  >
+                    {t("services")}
+                  </div>
+                  <ul className="hp-drawer-list">
+                    {SERVICE_NAV_LINKS.map((s, idx) => (
+                      <li
+                        key={s.href}
+                        className="hp-drawer-stagger"
+                        style={{ ["--i" as string]: SERVICES_BASE_I + idx }}
+                      >
+                        <Link
+                          href={s.href}
+                          className="hp-drawer-link"
+                          onClick={close}
+                        >
+                          <span>{tServices(s.key)}</span>
+                          <ChevronRight size={14} strokeWidth={1.8} />
+                        </Link>
+                      </li>
+                    ))}
+                    <li
+                      className="hp-drawer-stagger"
+                      style={{ ["--i" as string]: ALL_SERVICES_I }}
+                    >
+                      <Link
+                        href={allServicesHref}
+                        className="hp-drawer-link is-muted"
+                        onClick={close}
+                      >
+                        <span>{t("allServicesFooter")}</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="hp-drawer-divider" />
+
+                <ul className="hp-drawer-list">
+                  {navLinks.map((l, idx) => (
+                    <li
+                      key={l.href}
+                      className="hp-drawer-stagger"
+                      style={{ ["--i" as string]: NAV_BASE_I + idx }}
+                    >
+                      <Link
+                        href={l.href}
+                        className="hp-drawer-link is-primary"
+                        onClick={close}
+                      >
+                        <span>{l.label}</span>
+                        <ChevronRight size={14} strokeWidth={1.8} />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="hp-drawer-divider" />
+
+                <div
+                  className="hp-drawer-locale hp-drawer-stagger"
+                  style={{ ["--i" as string]: LOCALE_I }}
+                  role="group"
+                  aria-label={tLocale("ariaLabel")}
+                >
+                  <button
+                    type="button"
+                    className="hp-drawer-locale-btn"
+                    aria-pressed={!isEn}
+                    onClick={() => switchLocale("uk")}
+                  >
+                    {tLocale("uk")}
+                  </button>
+                  <button
+                    type="button"
+                    className="hp-drawer-locale-btn"
+                    aria-pressed={isEn}
+                    onClick={() => switchLocale("en")}
+                  >
+                    {tLocale("en")}
+                  </button>
+                </div>
+              </DrawerBody>
+
+              <div className="hp-drawer-foot">
+                <Link
+                  href={ctaHref}
+                  className="hp-drawer-cta"
+                  onClick={close}
+                >
+                  {t("cta")}
+                </Link>
+              </div>
+            </>
+          )}
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+}
+

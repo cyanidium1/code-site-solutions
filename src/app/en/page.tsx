@@ -502,7 +502,9 @@ export default function HomePageEn() {
         }
         initials="SH"
         name="Søren Hansen"
-        role="Owner, NBYG Bornholm Aps"
+        role="Owner, NBYG København Aps"
+        caseHref="/en/portfolio/nbyg-kobenhavn"
+        caseLabel="See the full case study"
       />
 
       <section className="hp-section" id="pricing">

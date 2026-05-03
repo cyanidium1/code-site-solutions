@@ -33,10 +33,11 @@ const SOLUTIONS_HREFS: Array<{ key: string; href: string }> = [
   { key: "education", href: "/sites-for/education" },
 ];
 
+// Only entries with a shipped page get rendered. Others would 404.
 const COMPARE_HREFS: Array<{ key: string; href: string }> = [
-  { key: "wordpress", href: "/vs/wordpress" },
-  { key: "constructors", href: "/vs/constructors" },
-  { key: "freelancers", href: "/vs/freelancers" },
+  { key: "wordpress", href: "/vs-wordpress" },
+  { key: "constructors", href: "/vs-constructors" },
+  { key: "freelancers", href: "/vs-freelancers" },
 ];
 
 const LEGAL_HREFS: Array<{ key: string; href: string }> = [
@@ -115,20 +116,18 @@ export function HpFooter({
             ))}
           </ul>
         </div>
-        {!isEn && (
-          <div>
-            <div className="hp-footer-col-section">
-              <div className="hp-footer-col-h">{t("compareHeading")}</div>
-              <ul className="hp-footer-col-list">
-                {COMPARE_HREFS.map(({ key, href }) => (
-                  <li key={key}>
-                    <Link href={href}>{tCmp(key)}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div>
+          <div className="hp-footer-col-section">
+            <div className="hp-footer-col-h">{t("compareHeading")}</div>
+            <ul className="hp-footer-col-list">
+              {COMPARE_HREFS.map(({ key, href }) => (
+                <li key={key}>
+                  <Link href={isEn ? `/en${href}` : href}>{tCmp(key)}</Link>
+                </li>
+              ))}
+          </ul>
           </div>
-        )}
+        </div>
         <div>
           <div className="hp-footer-col-section">
             <div className="hp-footer-col-h">{t("legalHeading")}</div>

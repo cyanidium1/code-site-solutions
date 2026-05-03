@@ -17,6 +17,8 @@ const STATIC_ROUTES: {
   { path: "/portfolio/efedra-clinic", changeFrequency: "monthly", priority: 0.7 },
   { path: "/calculator", changeFrequency: "monthly", priority: 0.7 },
   { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/vs-constructors", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/vs-freelancers", changeFrequency: "monthly", priority: 0.8 },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -29,7 +31,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Routes that are also published under /en. Used to attach hreflang
   // alternates and emit the EN counterpart in the sitemap.
-  const EN_LOCALIZED_PATHS = new Set<string>(["/", "/vs-wordpress"]);
+  const EN_LOCALIZED_PATHS = new Set<string>([
+    "/",
+    "/vs-wordpress",
+    "/vs-constructors",
+    "/vs-freelancers",
+  ]);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.flatMap(
     ({ path, changeFrequency, priority }) => {

@@ -5,8 +5,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { hasEnIndustry } from "@/lib/i18n-routes";
 import { SERVICE_NAV_LINKS } from "./header-services";
 import { LocaleSwitcher } from "./locale-switcher";
+import { MobileMenu } from "./mobile-menu";
 
 function isActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
@@ -49,14 +51,20 @@ export function HpHeader() {
 
   const homeHref = isEn ? "/en" : "/";
   const ctaHref = isEn ? "/en#contact" : "/contacts";
+  const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
 
-  // On EN we collapse the Services dropdown into a single anchor to the
-  // on-page Industries section, since the per-industry landing pages are
-  // UA-only and the brief makes the EN homepage industry cards non-clickable.
-  const servicesHref = isEn ? "/en#solutions" : null;
-  const servicesActive = isEn
-    ? false
-    : SERVICE_NAV_LINKS.some((s) => isActive(pathname, s.href));
+  // EN dropdown items resolve to /en/sites-for/<slug> when an EN translation
+  // exists, otherwise to the EN homepage's Solutions anchor. UA always links
+  // to its own /sites-for/<slug>.
+  const resolveServiceHref = (uaHref: string): string => {
+    if (!isEn) return uaHref;
+    const slug = uaHref.replace(/^\/sites-for\//, "");
+    return hasEnIndustry(slug) ? `/en/sites-for/${slug}` : "/en#solutions";
+  };
+
+  const servicesActive = SERVICE_NAV_LINKS.some((s) =>
+    isActive(pathname, isEn ? `/en${s.href}` : s.href),
+  );
 
   return (
     <header className="hp-header">
@@ -65,40 +73,35 @@ export function HpHeader() {
           <em>Code-Site</em>.art
         </Link>
         <nav className="hp-header-nav" aria-label={t("menuLabel")}>
-          {servicesHref ? (
-            <Link href={servicesHref} onClick={closeDd}>
+          <details ref={ddRef} className="hp-nav-dd">
+            <summary
+              className={`hp-nav-dd-trigger${servicesActive ? " active" : ""}`}
+              aria-current={servicesActive ? "page" : undefined}
+            >
               {t("services")}
-            </Link>
-          ) : (
-            <details ref={ddRef} className="hp-nav-dd">
-              <summary
-                className={`hp-nav-dd-trigger${servicesActive ? " active" : ""}`}
-                aria-current={servicesActive ? "page" : undefined}
-              >
-                {t("services")}
-                <ChevronDown className="hp-nav-dd-chevron" size={14} strokeWidth={2} aria-hidden />
-              </summary>
-              <div className="hp-nav-dd-panel">
-                {SERVICE_NAV_LINKS.map((item) => {
-                  const active = isActive(pathname, item.href);
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`hp-nav-dd-link${active ? " active" : ""}`}
-                      aria-current={active ? "page" : undefined}
-                      onClick={closeDd}
-                    >
-                      {tServices(item.key)}
-                    </Link>
-                  );
-                })}
-                <Link href="/#solutions" className="hp-nav-dd-footer" onClick={closeDd}>
-                  {t("allServicesFooter")}
-                </Link>
-              </div>
-            </details>
-          )}
+              <ChevronDown className="hp-nav-dd-chevron" size={14} strokeWidth={2} aria-hidden />
+            </summary>
+            <div className="hp-nav-dd-panel">
+              {SERVICE_NAV_LINKS.map((item) => {
+                const target = resolveServiceHref(item.href);
+                const active = isActive(pathname, target);
+                return (
+                  <Link
+                    key={item.href}
+                    href={target}
+                    className={`hp-nav-dd-link${active ? " active" : ""}`}
+                    aria-current={active ? "page" : undefined}
+                    onClick={closeDd}
+                  >
+                    {tServices(item.key)}
+                  </Link>
+                );
+              })}
+              <Link href={allServicesHref} className="hp-nav-dd-footer" onClick={closeDd}>
+                {t("allServicesFooter")}
+              </Link>
+            </div>
+          </details>
           {navLinks.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -118,6 +121,7 @@ export function HpHeader() {
         <Link href={ctaHref} className="hp-header-cta" onClick={closeDd}>
           {t("cta")}
         </Link>
+        <MobileMenu />
       </div>
     </header>
   );
