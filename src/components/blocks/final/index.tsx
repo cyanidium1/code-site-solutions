@@ -389,23 +389,69 @@ const DEFAULT_FOOT_COLS: FootColumn[] = [
   },
 ];
 
+const EN_FOOT_COLS: FootColumn[] = [
+  {
+    h: SITE_CONTACT.phone,
+    items: [
+      <span key="phone-note" className="nolink">For calls</span>,
+      <span key="email" className="nolink">Hi@code-site.art</span>,
+      <span key="write-note" className="nolink">For written contact</span>,
+      <a
+        key="tg-link"
+        href="https://t.me/fedirdev"
+        target="_blank"
+        rel="noreferrer"
+      >
+        @fedirdev
+      </a>,
+      <span key="tg-note" className="nolink">Telegram — fast channel</span>,
+    ],
+  },
+  {
+    h: "Menu",
+    items: [
+      <Link key="portfolio" href="/portfolio">Portfolio</Link>,
+      <Link key="home" href="/en">Home</Link>,
+      <Link key="services" href="/en#solutions">Services</Link>,
+      <Link key="blog" href="/blog">Blog</Link>,
+      <Link key="contacts" href="/en#contact">Contact</Link>,
+    ],
+  },
+  {
+    h: "Legal",
+    items: [
+      <a key="public-contract" href="#">Public contract</a>,
+      <a key="offer" href="#">Terms of service</a>,
+      <a key="privacy" href="#">Privacy policy</a>,
+    ],
+  },
+];
+
 export function ClinicFooter({
   brandName = (
     <>
       <em>Code-Site</em>.Art
     </>
   ),
-  brandDesc = "Code-site.art — кастомна розробка сайтів. 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.",
+  brandDesc,
   socials = ["li", "ig", "tg", "tt"] as SocialKind[],
-  cols = DEFAULT_FOOT_COLS,
+  cols,
   bottomText = "© Code-site.art, 2026",
+  locale = "uk",
 }: Partial<{
   brandName: React.ReactNode;
   brandDesc: string;
   socials: SocialKind[];
   cols: FootColumn[];
   bottomText: string;
+  locale: "uk" | "en";
 }> = {}) {
+  const resolvedCols = cols ?? (locale === "en" ? EN_FOOT_COLS : DEFAULT_FOOT_COLS);
+  const resolvedBrandDesc =
+    brandDesc ??
+    (locale === "en"
+      ? "Code-site.art — boutique custom website studio. 47 projects in 3 years across 4 regions: UA · EU · US · DK."
+      : "Code-site.art — кастомна розробка сайтів. 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.");
   const labels: Record<SocialKind, string> = {
     li: "LinkedIn",
     ig: "Instagram",
@@ -420,7 +466,7 @@ export function ClinicFooter({
             {brandName}
           </div>
           <p className="text-[12px] leading-[1.65] text-[var(--ink-3)] max-w-[30ch] mb-5">
-            {brandDesc}
+            {resolvedBrandDesc}
           </p>
           <div className="flex gap-2 [&>a]:w-8 [&>a]:h-8 [&>a]:border [&>a]:border-line [&>a]:rounded-lg [&>a]:inline-flex [&>a]:items-center [&>a]:justify-center [&>a]:text-[var(--ink-2)] [&>a]:transition-all [&>a]:duration-200 [&>a:hover]:text-accent-soft [&>a:hover]:border-[oklch(from_var(--accent)_l_c_h_/_0.4)]">
             {socials.map((kind) => (
@@ -436,7 +482,7 @@ export function ClinicFooter({
             ))}
           </div>
         </div>
-        {cols.map((col, i) => (
+        {resolvedCols.map((col, i) => (
           <div key={i}>
             <div className="font-display text-[11px] font-bold tracking-[0.14em] uppercase text-ink mb-3.5">
               {col.h}

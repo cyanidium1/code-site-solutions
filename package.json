@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "seed:medicine": "tsx scripts/seed-medicine.ts",
     "seed:renovation": "tsx scripts/seed-renovation.ts",
-    "patch:industry-heroes": "tsx scripts/patch-industry-heroes.ts"
+    "patch:industry-heroes": "tsx scripts/patch-industry-heroes.ts",
+    "translate:medicine-en": "tsx scripts/translate-medicine-en.ts"
   },
   "dependencies": {
     "@heroui/react": "^2.8.10",

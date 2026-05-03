@@ -15,6 +15,7 @@ const STATIC_ROUTES: {
   { path: "/portfolio", changeFrequency: "weekly", priority: 0.8 },
   { path: "/portfolio/efedra-clinic", changeFrequency: "monthly", priority: 0.7 },
   { path: "/calculator", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -25,50 +26,73 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     revalidate: 3600,
   }).catch(() => [] as IndustryPageRef[]);
 
-  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map(
+  // Routes that are also published under /en. Used to attach hreflang
+  // alternates and emit the EN counterpart in the sitemap.
+  const EN_LOCALIZED_PATHS = new Set<string>(["/", "/vs-wordpress"]);
+
+  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.flatMap(
     ({ path, changeFrequency, priority }) => {
       const url = `${SITE_ORIGIN}${path === "/" ? "" : path}`;
-      const entry: MetadataRoute.Sitemap[number] = {
-        url,
-        lastModified,
-        changeFrequency,
-        priority,
-      };
-      // Only the homepage has an EN counterpart so far. When more pages
-      // get localized, add their alternates here too.
-      if (path === "/") {
-        entry.alternates = {
-          languages: {
-            uk: SITE_ORIGIN,
-            en: `${SITE_ORIGIN}/en`,
-            "x-default": SITE_ORIGIN,
-          },
-        };
+      if (!EN_LOCALIZED_PATHS.has(path)) {
+        return [{ url, lastModified, changeFrequency, priority }];
       }
-      return entry;
+      const enUrl = `${SITE_ORIGIN}/en${path === "/" ? "" : path}`;
+      const languages = {
+        uk: url,
+        en: enUrl,
+        "x-default": url,
+      };
+      return [
+        {
+          url,
+          lastModified,
+          changeFrequency,
+          priority,
+          alternates: { languages },
+        },
+        {
+          url: enUrl,
+          lastModified,
+          changeFrequency,
+          priority,
+          alternates: { languages },
+        },
+      ];
     },
   );
 
-  const enHomepage: MetadataRoute.Sitemap[number] = {
-    url: `${SITE_ORIGIN}/en`,
-    lastModified,
-    changeFrequency: "weekly",
-    priority: 0.9,
-    alternates: {
-      languages: {
-        uk: SITE_ORIGIN,
-        en: `${SITE_ORIGIN}/en`,
-        "x-default": SITE_ORIGIN,
-      },
-    },
-  };
+  // Industries with an English translation. When a new industry ships in EN,
+  // add its slug here so the sitemap emits the EN URL + hreflang alternates.
+  const EN_INDUSTRY_SLUGS = new Set<string>(["medicine"]);
 
-  const industryEntries: MetadataRoute.Sitemap = industryPages.map((p) => ({
-    url: `${SITE_ORIGIN}/sites-for/${p.slug}`,
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  const industryEntries: MetadataRoute.Sitemap = industryPages.flatMap((p) => {
+    const ukUrl = `${SITE_ORIGIN}/sites-for/${p.slug}`;
+    const hasEn = EN_INDUSTRY_SLUGS.has(p.slug);
+    const ukEntry: MetadataRoute.Sitemap[number] = {
+      url: ukUrl,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    };
+    if (hasEn) {
+      const enUrl = `${SITE_ORIGIN}/en/sites-for/${p.slug}`;
+      const languages = {
+        uk: ukUrl,
+        en: enUrl,
+        "x-default": ukUrl,
+      };
+      ukEntry.alternates = { languages };
+      const enEntry: MetadataRoute.Sitemap[number] = {
+        url: enUrl,
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+        alternates: { languages },
+      };
+      return [ukEntry, enEntry];
+    }
+    return [ukEntry];
+  });
 
-  return [...staticEntries, enHomepage, ...industryEntries];
+  return [...staticEntries, ...industryEntries];
 }

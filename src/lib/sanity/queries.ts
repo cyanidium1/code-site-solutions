@@ -123,6 +123,18 @@ export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
     ...,
     // imageTextBlock — resolve image asset
     image ${IMAGE_WITH_ALT},
+    // faqBlock — pull EN-shadow rich text
+    items[]{
+      ...,
+      answer,
+      answerEn
+    },
+    // reasonsBlock — pull EN-shadow rich text on each reason
+    reasons[]{
+      ...,
+      text,
+      textEn
+    },
     // servicesBlock — resolve nested feature image assets
     features[]{
       ...,

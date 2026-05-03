@@ -435,8 +435,8 @@ export default function HomePageEn() {
             }}
           >
             Not included — <em>product photography</em> and{" "}
-            <em>full logo branding</em>. If you need them, we'll connect you
-            with vetted partners.
+            <em>full logo branding</em>. If you need them, we&apos;ll connect
+            you with vetted partners.
           </p>
         }
       />
