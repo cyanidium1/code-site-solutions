@@ -214,7 +214,7 @@ export function WebsiteCalculator() {
               <span>/ 02 WHY THESE PACKAGES</span>
             </span>
             <h2 className="hp-h2">
-              Three packages cover <em>80% of requests</em>. Here's why.
+              Three packages cover <em>80% of requests</em>. Here&apos;s why.
             </h2>
             <p className="hp-sub">
               Each one solves a different business question. Pick the one that
@@ -413,9 +413,9 @@ export function WebsiteCalculator() {
               Send the brief — get a <em>final price</em>
             </h2>
             <p className="hp-sub">
-              We'll review your calculator result and send a project plan,
+              We&apos;ll review your calculator result and send a project plan,
               timeline, and confirmed price range. Custom-coded websites only —
-              if you need a quick $300 template, we're not the right fit.
+              if you need a quick $300 template, we&apos;re not the right fit.
             </p>
           </div>
           <LeadForm input={input} estimate={estimate} />

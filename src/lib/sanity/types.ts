@@ -88,6 +88,7 @@ export type ImageTextSection = BlockBase<"imageTextBlock"> & {
   variant?: "side" | "side-with-list" | "centered";
   imageVariant?: "imageLeft" | "imageRight";
   body?: RichTextSimple;
+  bodyEn?: RichTextSimple;
   bulletList?: LocalizedString[];
   image?: SanityImage | null;
   cta?: CtaAction | null;
@@ -102,6 +103,7 @@ export type FaqSection = BlockBase<"faqBlock"> & {
     _key?: string;
     question?: LocalizedString;
     answer?: RichTextSimple;
+    answerEn?: RichTextSimple;
   }>;
 };
 
@@ -164,6 +166,7 @@ export type ReasonsSection = BlockBase<"reasonsBlock"> & {
     tag?: LocalizedString;
     title?: LocalizedText;
     text?: RichTextSimple;
+    textEn?: RichTextSimple;
     stat?: {
       value?: string;
       label?: LocalizedString;
@@ -286,6 +289,7 @@ export type CtaSection = BlockBase<"ctaBlock"> & {
 
 export type RichTextSection = BlockBase<"richTextBlock"> & {
   content?: RichTextSimple;
+  contentEn?: RichTextSimple;
 };
 
 export type IndustrySection =

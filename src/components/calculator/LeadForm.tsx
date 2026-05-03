@@ -84,7 +84,7 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
     <div className="calc-lead-layout">
       <form className="calc-lead" onSubmit={onSubmit}>
         <h3>Project brief</h3>
-        <p>We'll review your calculator result and reply with a confirmed range, timeline, and next steps.</p>
+        <p>We&apos;ll review your calculator result and reply with a confirmed range, timeline, and next steps.</p>
 
         <Input
           label="Name"

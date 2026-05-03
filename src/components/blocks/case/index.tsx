@@ -168,6 +168,7 @@ export function Case({
     </>
   ),
   ctaLabel = "Подивитися кейси клінік",
+  locale = "uk",
 }: Partial<{
   eyebrow: string;
   eyebrowEm: string;
@@ -191,7 +192,10 @@ export function Case({
   results: { n: string; lbl: string; tag: string }[];
   ctaText: React.ReactNode;
   ctaLabel: string;
+  locale: "uk" | "en";
 }> = {}) {
+  const beforeLabel = locale === "en" ? "BEFORE" : "БУЛО";
+  const afterLabel = locale === "en" ? "AFTER" : "СТАЛО";
   return (
     <section className="case">
       <div className="case-bg" />
@@ -225,7 +229,7 @@ export function Case({
             <div className="case-card-head">
               <span className="case-badge case-badge-before">
                 <span className="case-badge-dot" />
-                <span>БУЛО</span>
+                <span>{beforeLabel}</span>
               </span>
               <span className="case-card-num">{beforeNum}</span>
             </div>
@@ -251,7 +255,7 @@ export function Case({
             <div className="case-card-head">
               <span className="case-badge case-badge-after">
                 <span className="case-badge-dot" />
-                <span>СТАЛО</span>
+                <span>{afterLabel}</span>
               </span>
               <span className="case-card-num">{afterNum}</span>
             </div>
