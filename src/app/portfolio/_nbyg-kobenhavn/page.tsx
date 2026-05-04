@@ -37,6 +37,34 @@ export const metadata: Metadata = {
   },
 };
 
+/* ─── Asset placeholders ────────────────────────────────────────────────── */
+/* TODO: replace with real screenshots from founder. Same layout as Efedra. */
+
+function ScreenshotPending({ label }: { label: string }) {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background:
+          "linear-gradient(135deg, oklch(0.55 0.20 25 / 0.18) 0%, oklch(0.62 0.18 60 / 0.18) 100%)",
+        color: "var(--ink-3)",
+        fontFamily: "JetBrains Mono, monospace",
+        fontSize: 12,
+        letterSpacing: "0.08em",
+        textTransform: "uppercase",
+        textAlign: "center",
+        padding: 24,
+      }}
+    >
+      {label}
+    </div>
+  );
+}
+
 /* ─── Meta strip ────────────────────────────────────────────────────────── */
 
 function MetaStrip() {
@@ -363,6 +391,7 @@ export default function NbygKobenhavnCasePage() {
           "Не було розділення на дві локації (Копенгаген vs Борнгольм)",
           "Адмінка на телефоні була нечитабельна",
         ]}
+        image={<ScreenshotPending label="Скріншот старого WordPress-сайту — незабаром" />}
       />
 
       {/* Section 4: Solution */}
@@ -388,6 +417,7 @@ export default function NbygKobenhavnCasePage() {
           "Vercel hosting + Cloudflare CDN — €0/міс на цьому трафіку",
           "DA primary, EN ready — англомовна версія активується одним кліком",
         ]}
+        image={<ScreenshotPending label="Скріншот нового сайту / адмінки — незабаром" />}
       />
 
       {/* TODO: screenshots gallery — awaiting assets from founder. Mirror Efedra layout when added. */}
@@ -407,6 +437,7 @@ export default function NbygKobenhavnCasePage() {
           "Через 60 днів після запуску — нова версія сайту приносить ×8 заявок на місяць (24 проти 3). Органічний трафік виріс у 6 разів. Сайт займає №1 у локальному пошуку Google за «byggefirma København» і «byggefirma Bornholm». LCP — 0.8 секунди проти 4.5 секунди на старій версії.",
           "Загальний ROI сайту окупився за 2 місяці тільки через додаткові заявки. Власник самостійно створив 4 нові сторінки послуг за перший місяць — без розробника, без звертання до нас.",
         ]}
+        image={<ScreenshotPending label="Відео-walkthrough — незабаром" />}
       />
 
       {/* Section 6: Client quote */}

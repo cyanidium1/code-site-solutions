@@ -37,6 +37,34 @@ export const metadata: Metadata = {
   },
 };
 
+/* ─── Asset placeholders ────────────────────────────────────────────────── */
+/* TODO: replace with real screenshots from founder. Same layout as Efedra. */
+
+function ScreenshotPending({ label }: { label: string }) {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background:
+          "linear-gradient(135deg, oklch(0.55 0.20 25 / 0.18) 0%, oklch(0.62 0.18 60 / 0.18) 100%)",
+        color: "var(--ink-3)",
+        fontFamily: "JetBrains Mono, monospace",
+        fontSize: 12,
+        letterSpacing: "0.08em",
+        textTransform: "uppercase",
+        textAlign: "center",
+        padding: 24,
+      }}
+    >
+      {label}
+    </div>
+  );
+}
+
 /* ─── Meta strip ────────────────────────────────────────────────────────── */
 
 function MetaStrip() {
@@ -363,6 +391,7 @@ export default function NbygKobenhavnEnCasePage() {
           "No proper split between the two locations (Copenhagen vs Bornholm)",
           "Admin on mobile was unusable",
         ]}
+        image={<ScreenshotPending label="Old WordPress site screenshot — coming soon" />}
       />
 
       {/* Section 4: Solution */}
@@ -388,6 +417,7 @@ export default function NbygKobenhavnEnCasePage() {
           "Vercel hosting + Cloudflare CDN — €0/mo at this traffic",
           "DA primary, EN ready — English version activates with one click",
         ]}
+        image={<ScreenshotPending label="New site / admin screenshot — coming soon" />}
       />
 
       {/* TODO: screenshots gallery — awaiting assets from founder. Mirror Efedra layout when added. */}
@@ -407,6 +437,7 @@ export default function NbygKobenhavnEnCasePage() {
           "Sixty days after launch, the new site is bringing 8× more inquiries per month (24 vs. 3). Organic traffic is up 6×. The site ranks #1 in Google local search for “byggefirma København” and “byggefirma Bornholm.” LCP is 0.8 seconds versus 4.5 seconds on the old site.",
           "Total site ROI paid back in 2 months just from the new inquiries. The owner has independently created 4 new service pages in the first month — no developer involved, no calls to us.",
         ]}
+        image={<ScreenshotPending label="Video walkthrough — coming soon" />}
       />
 
       {/* Section 6: Client quote */}

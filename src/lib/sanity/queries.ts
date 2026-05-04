@@ -79,6 +79,64 @@ const CASE_STUDY_REF = /* groq */ `{
   featured
 }`;
 
+export const CASE_STUDIES_QUERY = /* groq */ `
+*[_type == "caseStudy" && status == "published" && defined(slug.current)]{
+  _id,
+  "slug": slug.current,
+  title ${LOCALIZED_STRING},
+  client,
+  region ${LOCALIZED_STRING},
+  year,
+  "industrySlug": industry->slug.current,
+  "coverImage": coverImage ${IMAGE_WITH_ALT},
+  status,
+  featured,
+  hero{
+    metrics[] ${METRIC}
+  }
+} | order(featured desc, year desc, _createdAt desc)
+`;
+
+export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
+*[_type == "caseStudy" && status == "published" && slug.current == $slug][0]{
+  _id,
+  "slug": slug.current,
+  title ${LOCALIZED_STRING},
+  client,
+  "industry": industry->{ _id, "slug": slug.current, title ${LOCALIZED_STRING} },
+  region ${LOCALIZED_STRING},
+  year,
+  date,
+  duration ${LOCALIZED_STRING},
+  budget,
+  stack,
+  "coverImage": coverImage ${IMAGE_WITH_ALT},
+  seo ${SEO_FIELDS},
+  hero{
+    eyebrow ${LOCALIZED_STRING},
+    heading ${LOCALIZED_TEXT},
+    subheading ${LOCALIZED_TEXT},
+    metrics[] ${METRIC}
+  },
+  sections[]{
+    _type,
+    _key,
+    ...,
+    image ${IMAGE_WITH_ALT},
+    images[]{
+      ...,
+      "asset": image.asset->{ _id, url, metadata { lqip, dimensions } },
+      "hotspot": image.hotspot,
+      "crop": image.crop
+    },
+    before{ ..., image ${IMAGE_WITH_ALT} },
+    after{ ..., image ${IMAGE_WITH_ALT} }
+  },
+  "relatedPosts": relatedPosts[]->${BLOG_POST_REF},
+  featured
+}
+`;
+
 export const INDUSTRY_PAGES_QUERY = /* groq */ `
 *[_type == "industryPage" && status == "published" && defined(slug.current)]{
   _id,

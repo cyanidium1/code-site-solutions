@@ -292,6 +292,38 @@ export type RichTextSection = BlockBase<"richTextBlock"> & {
   contentEn?: RichTextSimple;
 };
 
+export type QuoteSection = BlockBase<"quoteBlock"> & {
+  variant?: "side" | "side-with-list" | "centered"; // unused for quoteBlock; kept for type-narrowing parity
+  quote?: LocalizedText;
+  authorName?: string;
+  authorRole?: LocalizedString;
+  authorAvatar?: SanityImage | null;
+};
+
+export type MediaGallerySection = BlockBase<"mediaGalleryBlock"> & {
+  images?: Array<{
+    _key?: string;
+    image?: SanityImage["asset"];
+    asset?: SanityAsset | null;
+    hotspot?: SanityImage["hotspot"];
+    crop?: SanityImage["crop"];
+    alt?: LocalizedString;
+    caption?: LocalizedString;
+  }>;
+};
+
+export type BeforeAfterSection = BlockBase<"beforeAfterBlock"> & {
+  before?: { image?: SanityImage | null; label?: LocalizedString };
+  after?: { image?: SanityImage | null; label?: LocalizedString };
+};
+
+export type TestimonialSection = BlockBase<"testimonialBlock"> & {
+  quote?: LocalizedText;
+  authorName?: string;
+  authorRole?: LocalizedString;
+  authorAvatar?: SanityImage | null;
+};
+
 export type IndustrySection =
   | ImageTextSection
   | StatsSection
@@ -367,4 +399,41 @@ export type BlogPostRef = {
   excerpt?: LocalizedText;
   coverImage?: SanityImage | null;
   status?: "draft" | "published";
+};
+
+/* ─── caseStudy document ─────────────────────────────────────────────────── */
+
+export type CaseStudySection =
+  | ImageTextSection
+  | StatsSection
+  | QuoteSection
+  | MediaGallerySection
+  | BeforeAfterSection
+  | TestimonialSection
+  | CtaSection
+  | RichTextSection;
+
+export type CaseStudyDoc = {
+  _id: string;
+  slug: string;
+  title?: LocalizedString;
+  client?: string;
+  industry?: { _id: string; slug: string; title?: LocalizedString } | null;
+  region?: LocalizedString;
+  year?: number;
+  date?: string;
+  duration?: LocalizedString;
+  budget?: string;
+  stack?: string[];
+  coverImage?: SanityImage | null;
+  seo?: SeoFields;
+  hero?: {
+    eyebrow?: LocalizedString;
+    heading?: LocalizedText;
+    subheading?: LocalizedText;
+    metrics?: Metric[];
+  };
+  sections?: CaseStudySection[];
+  relatedPosts?: BlogPostRef[];
+  featured?: boolean;
 };

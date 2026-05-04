@@ -15,6 +15,7 @@ const STATIC_ROUTES: {
   { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
   { path: "/portfolio", changeFrequency: "weekly", priority: 0.8 },
   { path: "/portfolio/efedra-clinic", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/portfolio/nbyg-kobenhavn", changeFrequency: "monthly", priority: 0.7 },
   { path: "/calculator", changeFrequency: "monthly", priority: 0.7 },
   { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-constructors", changeFrequency: "monthly", priority: 0.8 },
@@ -36,6 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/vs-wordpress",
     "/vs-constructors",
     "/vs-freelancers",
+    "/portfolio/nbyg-kobenhavn",
   ]);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.flatMap(
