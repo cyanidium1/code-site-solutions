@@ -18,13 +18,7 @@
   },
   "ServiceNav": {
     "medicine": "Медицина",
-    "legal": "Юриспруденція",
-    "accounting": "Бухгалтерія",
-    "ecommerce": "E-commerce",
-    "saas": "SaaS",
-    "realestate": "Нерухомість",
-    "cosmetology": "Косметологія",
-    "education": "Освіта"
+    "renovation": "Будівництво / ремонт"
   },
   "Footer": {
     "brandDesc": "European boutique studio з Києва. Custom-coded сайти для бізнесу — 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.",
@@ -34,13 +28,7 @@
     "legalHeading": "/ LEGAL",
     "solutions": {
       "healthcare": "Healthcare",
-      "legal": "Legal",
-      "accounting": "Accounting",
-      "ecommerce": "E-commerce",
-      "saas": "SaaS",
-      "realestate": "Real Estate",
-      "cosmetology": "Cosmetology",
-      "education": "Education"
+      "renovation": "Construction / Renovation"
     },
     "company": {
       "about": "About",

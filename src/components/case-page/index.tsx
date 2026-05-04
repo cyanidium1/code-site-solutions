@@ -45,6 +45,7 @@ import {
   plainPortable,
 } from "@/lib/sanity/portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { presentationForCase } from "@/lib/case-presentation";
 
 /* ─── locale / path helpers ───────────────────────────────────────────── */
 
@@ -204,7 +205,9 @@ function MetaStrip({
 
   const industry = doc.industry?.title
     ? loc(doc.industry.title, locale)
-    : INDUSTRY_LABEL[CASE_SLUG_TO_INDUSTRY[doc.slug] ?? ""] ?? null;
+    : presentationForCase(doc.slug).label !== "Other"
+      ? presentationForCase(doc.slug).label
+      : null;
   const region = loc(doc.region, locale);
   const year = doc.year ? String(doc.year) : null;
   const stack = doc.stack?.length ? doc.stack.join(", ") : null;
@@ -450,51 +453,6 @@ function SectionBlock({
 
 /* ─── related-cases card (Sanity-driven) ─────────────────────────────── */
 
-const INDUSTRY_PRESENTATION: Record<
-  string,
-  { color: string; gradient: string; tech: string }
-> = {
-  healthcare: {
-    color: "#0EA5E9",
-    gradient:
-      "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.55 0.16 200) 100%)",
-    tech: "Next.js",
-  },
-  construction: {
-    color: "#EF4444",
-    gradient:
-      "linear-gradient(135deg, oklch(0.55 0.20 25) 0%, oklch(0.62 0.18 60) 100%)",
-    tech: "Next.js",
-  },
-  // Fallback below covers anything not listed.
-};
-const DEFAULT_INDUSTRY_PRESENTATION = {
-  color: "#8B5CF6",
-  gradient:
-    "linear-gradient(135deg, oklch(0.50 0.20 295) 0%, oklch(0.40 0.18 280) 100%)",
-  tech: "Next.js",
-  label: "Other",
-};
-
-/* Mirror of the per-slug fallback used in /portfolio listing. Drop both
-   when every caseStudy has an `industry` reference set in the CMS. */
-const CASE_SLUG_TO_INDUSTRY: Record<string, string> = {
-  "efedra-clinic": "healthcare",
-  "nbyg-kobenhavn": "construction",
-};
-const INDUSTRY_LABEL: Record<string, string> = {
-  healthcare: "Healthcare",
-  construction: "Construction",
-};
-
-function presentationFor(caseSlug: string, industrySlug?: string) {
-  const key = industrySlug ?? CASE_SLUG_TO_INDUSTRY[caseSlug];
-  if (!key) return DEFAULT_INDUSTRY_PRESENTATION;
-  const base = INDUSTRY_PRESENTATION[key];
-  if (!base) return DEFAULT_INDUSTRY_PRESENTATION;
-  return { ...base, label: INDUSTRY_LABEL[key] ?? "Other" };
-}
-
 function buildMetaLine(c: CaseStudyRef, locale: Locale, label: string): string {
   const region = loc(c.region, locale);
   const year = c.year ? String(c.year) : null;
@@ -508,7 +466,7 @@ function RelatedCard({
   c: CaseStudyRef;
   locale: Locale;
 }) {
-  const pres = presentationFor(c.slug, c.industrySlug);
+  const pres = presentationForCase(c.slug, c.industrySlug);
   const href = pathFor(c.slug, locale);
   const name = loc(c.title, locale) || c.client || c.slug;
   const meta = buildMetaLine(c, locale, pres.label);

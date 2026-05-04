@@ -9,6 +9,7 @@ import "@/components/homepage/homepage.css";
 import { fetchCaseStudies } from "@/components/case-page";
 import { loc } from "@/lib/sanity/locale";
 import type { CaseStudyRef } from "@/lib/sanity/types";
+import { presentationForCase } from "@/lib/case-presentation";
 import { SITE_ORIGIN, pageUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -28,52 +29,10 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-/* ─── industry → presentation map (mirror of case-page renderer) ──────── */
-
-const INDUSTRY_PRESENTATION: Record<
-  string,
-  { color: string; gradient: string; tech: string; label: string }
-> = {
-  healthcare: {
-    color: "#0EA5E9",
-    gradient:
-      "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.55 0.16 200) 100%)",
-    tech: "Next.js",
-    label: "Healthcare",
-  },
-  construction: {
-    color: "#EF4444",
-    gradient:
-      "linear-gradient(135deg, oklch(0.55 0.20 25) 0%, oklch(0.62 0.18 60) 100%)",
-    tech: "Next.js",
-    label: "Construction",
-  },
-};
-const DEFAULT_PRESENTATION = {
-  color: "#8B5CF6",
-  gradient:
-    "linear-gradient(135deg, oklch(0.50 0.20 295) 0%, oklch(0.40 0.18 280) 100%)",
-  tech: "Next.js",
-  label: "Other",
-};
-
-/* Until every caseStudy has an `industry` reference set in the CMS, use this
-   per-slug fallback so the chip / gradient still match the case's domain. */
-const CASE_SLUG_TO_INDUSTRY: Record<string, string> = {
-  "efedra-clinic": "healthcare",
-  "nbyg-kobenhavn": "construction",
-};
-
-function presentationFor(caseSlug: string, industrySlug?: string) {
-  const key = industrySlug ?? CASE_SLUG_TO_INDUSTRY[caseSlug];
-  if (!key) return DEFAULT_PRESENTATION;
-  return INDUSTRY_PRESENTATION[key] ?? DEFAULT_PRESENTATION;
-}
-
 /* ─── card ────────────────────────────────────────────────────────────── */
 
 function PortfolioCard({ c }: { c: CaseStudyRef }) {
-  const pres = presentationFor(c.slug, c.industrySlug);
+  const pres = presentationForCase(c.slug, c.industrySlug);
   const name = loc(c.title, "uk") || c.client || c.slug;
   const meta = [pres.label, loc(c.region, "uk"), c.year ? String(c.year) : null]
     .filter(Boolean)

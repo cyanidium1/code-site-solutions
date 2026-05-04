@@ -22,15 +22,12 @@ const DEFAULT_SOCIALS: SocialDef[] = [
   { icon: Github, href: "https://github.com/fedirdev", label: "GitHub" },
 ];
 
+// Only render entries that resolve to a published industryPage in Sanity.
+// Add new entries as the marketing team ships them in Studio. Translation
+// keys (`key`) live in `messages/{uk,en}.json` → `Footer.solutions`.
 const SOLUTIONS_HREFS: Array<{ key: string; href: string }> = [
   { key: "healthcare", href: "/sites-for/medicine" },
-  { key: "legal", href: "/sites-for/legal" },
-  { key: "accounting", href: "/sites-for/accounting" },
-  { key: "ecommerce", href: "/sites-for/ecommerce" },
-  { key: "saas", href: "/sites-for/saas" },
-  { key: "realestate", href: "/sites-for/real-estate" },
-  { key: "cosmetology", href: "/sites-for/cosmetology" },
-  { key: "education", href: "/sites-for/education" },
+  { key: "renovation", href: "/sites-for/renovation" },
 ];
 
 // Only entries with a shipped page get rendered. Others would 404.

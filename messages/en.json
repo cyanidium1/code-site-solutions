@@ -18,13 +18,7 @@
   },
   "ServiceNav": {
     "medicine": "Healthcare",
-    "legal": "Legal",
-    "accounting": "Accounting",
-    "ecommerce": "E-commerce",
-    "saas": "SaaS",
-    "realestate": "Real Estate",
-    "cosmetology": "Cosmetology",
-    "education": "Education"
+    "renovation": "Construction / Renovation"
   },
   "Footer": {
     "brandDesc": "Boutique studio out of Kyiv. Custom-coded websites for businesses — 47 builds across 4 regions: UA · EU · US · DK.",
@@ -34,13 +28,7 @@
     "legalHeading": "/ LEGAL",
     "solutions": {
       "healthcare": "Healthcare",
-      "legal": "Legal",
-      "accounting": "Accounting",
-      "ecommerce": "E-commerce",
-      "saas": "SaaS",
-      "realestate": "Real Estate",
-      "cosmetology": "Cosmetology",
-      "education": "Education"
+      "renovation": "Construction / Renovation"
     },
     "company": {
       "about": "About",

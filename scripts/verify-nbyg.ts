@@ -1,4 +1,4 @@
-/* Throw-away verifier — list all caseStudy documents in Sanity. */
+/* Throw-away verifier — list industryPage slugs in Sanity. */
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -34,17 +34,10 @@ const client = createClient({
 });
 
 async function main() {
-  const docs = await client.fetch(`*[_type == "caseStudy"]{
-    _id,
-    status,
-    "slug": slug.current,
-    title,
-    featured,
-    youtubeId,
-    metricsLine,
-    "industrySlug": industry->slug.current,
-    "sectionTypes": sections[]._type
-  } | order(_createdAt asc)`);
+  const docs = await client.fetch(`*[_type == "industryPage"]{
+    _id, status, "slug": slug.current, title, order
+  } | order(order asc, _createdAt asc)`);
+  console.log("INDUSTRY PAGES:");
   console.log(JSON.stringify(docs, null, 2));
 }
 main();

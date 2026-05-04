@@ -256,44 +256,6 @@ const EN_TIERS: TierProps[] = [
   },
 ];
 
-const EN_CASES = [
-  {
-    name: "Efedra Clinic",
-    industry: "Healthcare",
-    region: "Odesa",
-    year: "2024",
-    chips: ["Healthcare", "Next.js"],
-    metrics: "×3.2 inquiries · LCP 0.8s · Top-3 Google",
-    gradient:
-      "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.45 0.18 250) 100%)",
-    href: "/portfolio/efedra-clinic",
-    coverImage: "/EfedraCaseCreenshots/efedra-main-after.png",
-    coverImageAlt: "Efedra Clinic — new site after redesign",
-  },
-  {
-    name: "NBYG Bornholm",
-    industry: "Construction",
-    region: "Denmark",
-    year: "2024",
-    chips: ["Real Estate", "Next.js"],
-    metrics: "×6 traffic · 24 inquiries/mo · Top-1 local",
-    gradient:
-      "linear-gradient(135deg, oklch(0.55 0.20 25) 0%, oklch(0.55 0.18 50) 100%)",
-    href: null,
-  },
-  {
-    name: "Tatarka",
-    industry: "Real Estate Investment",
-    region: "Kyiv",
-    year: "2025",
-    chips: ["Real Estate", "Next.js"],
-    metrics: "$4M raised · Investor portal · Multi-language",
-    gradient:
-      "linear-gradient(135deg, oklch(0.6 0.16 70) 0%, oklch(0.45 0.20 295) 100%)",
-    href: null,
-  },
-];
-
 const EN_FINAL_CTA = [
   {
     icon: Calendar,
@@ -487,7 +449,7 @@ export default function HomePageEn() {
             Real projects with <em>real metrics.</em>
           </>
         }
-        items={EN_CASES}
+        locale="en"
         ctaLabel="See all work →"
         ctaHref="/portfolio"
       />

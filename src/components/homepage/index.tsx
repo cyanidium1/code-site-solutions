@@ -26,6 +26,11 @@ import {
 } from "lucide-react";
 import "./homepage.css";
 import { ScrollReveal } from "./scroll-reveal";
+import { fetchCaseStudies } from "@/components/case-page";
+import { loc } from "@/lib/sanity/locale";
+import { presentationForCase } from "@/lib/case-presentation";
+import { hasEnCase } from "@/lib/i18n-routes";
+import type { CaseStudyRef, Locale } from "@/lib/sanity/types";
 
 export { HpHeader } from "./hp-header";
 
@@ -120,6 +125,9 @@ export type Industry = {
   href: string | null;
 };
 
+// Cards stay in the grid for visual completeness; only those with a
+// published industryPage in Sanity (medicine, renovation) get a live href.
+// The rest render non-clickable until those landing pages ship.
 const DEFAULT_INDUSTRIES: Industry[] = [
   {
     icon: Stethoscope,
@@ -131,13 +139,22 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     href: "/sites-for/medicine",
   },
   {
+    icon: Building,
+    color: "#EF4444",
+    title: "Construction / Renovation",
+    description: "Сайти для будівельних і ремонтних компаній",
+    tags: ["CRM", "Calculator", "Local SEO"],
+    price: "Від $3 000 · 4-8 тижнів",
+    href: "/sites-for/renovation",
+  },
+  {
     icon: Scale,
     color: "#8B5CF6",
     title: "Legal & Attorneys",
     description: "Сайти для юр. фірм, адвокатських бюро, приватних юристів",
     tags: ["Clio", "Diia.Sign", "Online consult"],
     price: "Від $3 500 · 4-10 тижнів",
-    href: "/sites-for/legal",
+    href: null,
   },
   {
     icon: Calculator,
@@ -146,7 +163,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     description: "Сайти для бух-аутсорсингу, аудиторів, податкових консультантів",
     tags: ["MEDoc", "iFin", "1С/BAS"],
     price: "Від $3 500 · 4-10 тижнів",
-    href: "/sites-for/accounting",
+    href: null,
   },
   {
     icon: ShoppingCart,
@@ -155,7 +172,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     description: "Інтернет-магазини, маркетплейси, B2B-каталоги",
     tags: ["Stripe", "LiqPay", "Нова Пошта"],
     price: "Від $5 000 · 6-10 тижнів",
-    href: "/sites-for/ecommerce",
+    href: null,
   },
   {
     icon: Rocket,
@@ -164,16 +181,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     description: "Лендінги для SaaS-продуктів і стартапів",
     tags: ["Stripe", "Posthog", "HubSpot"],
     price: "Від $4 000 · 3-6 тижнів",
-    href: "/sites-for/saas",
-  },
-  {
-    icon: Building,
-    color: "#EF4444",
-    title: "Real Estate / Construction",
-    description: "Сайти для забудовників, агенцій нерухомості, ремонтних компаній",
-    tags: ["CRM", "Listings", "Calculator"],
-    price: "Від $3 000 · 4-8 тижнів",
-    href: "/sites-for/real-estate",
+    href: null,
   },
   {
     icon: Sparkles,
@@ -182,7 +190,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     description: "Сайти для beauty-студій і клінік естетичної медицини",
     tags: ["YClients", "Booksy", "Booking"],
     price: "Від $3 000 · 4-8 тижнів",
-    href: "/sites-for/cosmetology",
+    href: null,
   },
   {
     icon: GraduationCap,
@@ -191,7 +199,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     description: "Сайти для онлайн-курсів, шкіл, репетиторів",
     tags: ["Stripe", "Teachable", "Zoom"],
     price: "Від $3 000 · 3-6 тижнів",
-    href: "/sites-for/education",
+    href: null,
   },
 ];
 
@@ -633,64 +641,64 @@ type CaseItem = {
   coverImageAlt?: string;
 };
 
-const DEFAULT_CASES: CaseItem[] = [
-  {
-    name: "Efedra Clinic",
-    industry: "Healthcare",
-    region: "Odesa",
-    year: "2024",
-    chips: ["Healthcare", "Next.js"],
-    metrics: "×3.2 inquiries · LCP 0.8s · Top-3 Google",
-    gradient: "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.45 0.18 250) 100%)",
-    href: "/portfolio/efedra-clinic",
-    coverImage: "/EfedraCaseCreenshots/efedra-main-after.png",
-    coverImageAlt: "Efedra Clinic — новий сайт після редизайну",
-  },
-  {
-    name: "NBYG Bornholm",
-    industry: "Construction",
-    region: "Denmark",
-    year: "2024",
-    chips: ["Real Estate", "Next.js"],
-    metrics: "×6 traffic · 24 inquiries/mo · Top-1 local",
-    gradient: "linear-gradient(135deg, oklch(0.55 0.20 25) 0%, oklch(0.55 0.18 50) 100%)",
-    href: null,
-  },
-  {
-    name: "Tatarka",
-    industry: "Real Estate Investment",
-    region: "Kyiv",
-    year: "2025",
-    chips: ["Real Estate", "Next.js"],
-    metrics: "$4M raised · Investor portal · Multi-lang",
-    gradient: "linear-gradient(135deg, oklch(0.6 0.16 70) 0%, oklch(0.45 0.20 295) 100%)",
-    href: null,
-  },
-];
+function refToCaseItem(c: CaseStudyRef, locale: Locale): CaseItem {
+  const pres = presentationForCase(c.slug, c.industrySlug);
+  const name = loc(c.title, locale) || c.client || c.slug;
+  const region = loc(c.region, locale);
+  const year = c.year ? String(c.year) : "";
+  // EN listing should deep-link into /en/portfolio/<slug> only when the
+  // case actually has EN content; otherwise fall back to the UA URL so
+  // the user doesn't bounce to a 404 on click.
+  const href =
+    locale === "en"
+      ? hasEnCase(c.slug)
+        ? `/en/portfolio/${c.slug}`
+        : `/portfolio/${c.slug}`
+      : `/portfolio/${c.slug}`;
+  return {
+    name,
+    industry: pres.label,
+    region,
+    year,
+    chips: [pres.label, pres.tech],
+    metrics: loc(c.metricsLine, locale) || "",
+    gradient: pres.gradient,
+    href,
+    coverImage: c.coverImage?.asset?.url,
+    coverImageAlt: loc(c.coverImage?.alt, locale) || name,
+  };
+}
 
-export function Cases({
+export async function Cases({
   eyebrow = "/ 06 CASES",
   heading = (
     <>
       Реальні кейси з <em>реальними</em> метриками
     </>
   ),
-  items = DEFAULT_CASES,
+  items,
+  locale = "uk",
   ctaLabel = "Всі кейси",
   ctaHref = "/portfolio",
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
   items?: CaseItem[];
+  /** Used when `items` is not provided — fetches Sanity case studies in
+   *  the given locale and maps them into card data. */
+  locale?: Locale;
   ctaLabel?: string;
   ctaHref?: string;
 } = {}) {
+  const finalItems: CaseItem[] =
+    items ??
+    (await fetchCaseStudies()).slice(0, 3).map((c) => refToCaseItem(c, locale));
   return (
     <section className="hp-section" id="cases">
       <div className="hp-inner">
         <SectionHead eyebrow={eyebrow} heading={heading} />
         <div className="hp-cases-grid">
-          {items.map((c) => {
+          {finalItems.map((c) => {
             const disabled = !c.href;
             const cover = (
               <div className="hp-case-cover">
