@@ -11,6 +11,7 @@
     "seed:medicine": "tsx scripts/seed-medicine.ts",
     "seed:renovation": "tsx scripts/seed-renovation.ts",
     "seed:nbyg-kobenhavn": "tsx scripts/seed-nbyg-kobenhavn.ts",
+    "seed:efedra-clinic": "tsx scripts/seed-efedra-clinic.ts",
     "patch:industry-heroes": "tsx scripts/patch-industry-heroes.ts",
     "translate:medicine-en": "tsx scripts/translate-medicine-en.ts"
   },

@@ -344,6 +344,10 @@ async function main() {
     year: 2024,
     duration: bi("6 тижнів", "6 weeks"),
     stack: ["Next.js", "Sanity", "Vercel"],
+    metricsLine: bi(
+      "×8 заявок · LCP 0.8s · Top-1 local",
+      "×8 inquiries · LCP 0.8s · Top-1 local",
+    ),
     // industry reference + budget intentionally omitted (no construction
     // industryPage in repo, and budget is a marketer estimate).
 

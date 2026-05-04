@@ -386,9 +386,12 @@ export type CaseStudyRef = {
   client?: string;
   region?: LocalizedString;
   year?: number;
+  industrySlug?: string;
   coverImage?: SanityImage | null;
   status?: "draft" | "published";
   featured?: boolean;
+  metricsLine?: LocalizedString;
+  hero?: { metrics?: Metric[] };
 };
 
 export type BlogPostRef = {
@@ -425,6 +428,8 @@ export type CaseStudyDoc = {
   duration?: LocalizedString;
   budget?: string;
   stack?: string[];
+  metricsLine?: LocalizedString;
+  youtubeId?: string;
   coverImage?: SanityImage | null;
   seo?: SeoFields;
   hero?: {

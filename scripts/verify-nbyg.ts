@@ -1,4 +1,4 @@
-/* Throw-away verifier — fetch NBYG doc from Sanity and dump fields. */
+/* Throw-away verifier — list all caseStudy documents in Sanity. */
 
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -34,23 +34,17 @@ const client = createClient({
 });
 
 async function main() {
-const doc = await client.fetch(`*[_id == "caseStudy.nbyg-kobenhavn"][0]{
-  _id, _type, status, order, featured,
-  "slug": slug.current,
-  title, client, region, year, duration, stack, budget,
-  seo,
-  hero,
-  sections[]{
-    _type, _key,
-    variant, imageVariant, bulletIcon,
-    eyebrow, heading, subheading,
-    body, bodyEn,
-    bulletList,
-    items,
-    quote, authorName, authorRole
-  }
-}`);
-
-console.log(JSON.stringify(doc, null, 2));
+  const docs = await client.fetch(`*[_type == "caseStudy"]{
+    _id,
+    status,
+    "slug": slug.current,
+    title,
+    featured,
+    youtubeId,
+    metricsLine,
+    "industrySlug": industry->slug.current,
+    "sectionTypes": sections[]._type
+  } | order(_createdAt asc)`);
+  console.log(JSON.stringify(docs, null, 2));
 }
 main();

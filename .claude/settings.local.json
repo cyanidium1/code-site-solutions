@@ -100,7 +100,8 @@
       "Bash(node -e \"console.log\\(require.resolve\\('@heroui/use-disclosure'\\)\\)\")",
       "Bash(cp \"/c/Users/User/Pictures/Screenshots/admin-desktop.png\" public/sanity-studio/admin-desktop.png)",
       "Bash(cp \"/c/Users/User/Pictures/Screenshots/admin-mob.png\" public/sanity-studio/admin-mobile.png)",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "Bash(curl -s -o /tmp/portfolio.html -w \"%{http_code}\\\\n\" http://localhost:3000/portfolio)"
     ]
   }
 }

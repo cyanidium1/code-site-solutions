@@ -1,6 +1,6 @@
 /**
- * Sanity-driven case-study page renderer. Mirrors the layout of the (now
- * disabled) hardcoded NBYG / Efedra pages: header, hero, meta-strip,
+ * Sanity-driven case-study page renderer. Mirrors the layout of the
+ * (now disabled) hardcoded NBYG / Efedra pages: header, hero, meta-strip,
  * sections via a section-mapper, related cases, footer CTA.
  */
 
@@ -12,6 +12,10 @@ import { ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { ImageText } from "@/components/blocks/image-text";
+import {
+  EfedraCaseGallery,
+  type EfedraGalleryTile,
+} from "@/components/portfolio/efedra-case-gallery";
 import {
   HpHeader,
   HpFooter,
@@ -30,9 +34,11 @@ import type {
   CaseStudyRef,
   CaseStudySection,
   Locale,
+  MediaGallerySection,
   RichTextSimple,
 } from "@/lib/sanity/types";
 import { loc } from "@/lib/sanity/locale";
+import { SanityImg } from "@/lib/sanity/image";
 import {
   PortableInline,
   formatLine,
@@ -135,10 +141,7 @@ function buildJsonLd(
   const homeName = locale === "en" ? "Home" : "Головна";
   const homeUrl = locale === "en" ? `${SITE_ORIGIN}/en` : SITE_ORIGIN;
   const portfolioName = locale === "en" ? "Portfolio" : "Портфоліо";
-  const portfolioUrl =
-    locale === "en"
-      ? `${SITE_ORIGIN}/portfolio`
-      : `${SITE_ORIGIN}/portfolio`;
+  const portfolioUrl = `${SITE_ORIGIN}/portfolio`;
 
   return {
     "@context": "https://schema.org",
@@ -190,28 +193,18 @@ function MetaStrip({
   doc: CaseStudyDoc;
   locale: Locale;
 }) {
-  const labels =
-    locale === "en"
-      ? {
-          industry: "Industry",
-          region: "Region",
-          year: "Year",
-          stack: "Stack",
-          duration: "Duration",
-          budget: "Budget",
-        }
-      : {
-          industry: "Industry",
-          region: "Region",
-          year: "Year",
-          stack: "Stack",
-          duration: "Duration",
-          budget: "Budget",
-        };
+  const labels = {
+    industry: "Industry",
+    region: "Region",
+    year: "Year",
+    stack: "Stack",
+    duration: "Duration",
+    budget: "Budget",
+  };
 
   const industry = doc.industry?.title
     ? loc(doc.industry.title, locale)
-    : null;
+    : INDUSTRY_LABEL[CASE_SLUG_TO_INDUSTRY[doc.slug] ?? ""] ?? null;
   const region = loc(doc.region, locale);
   const year = doc.year ? String(doc.year) : null;
   const stack = doc.stack?.length ? doc.stack.join(", ") : null;
@@ -256,7 +249,8 @@ function MetaStrip({
   );
 }
 
-/* ─── asset placeholder (reused from hardcoded layout) ────────────────── */
+/* ─── asset placeholder for inline screenshots that haven't been
+   uploaded yet (e.g. NBYG inline images, until founder supplies them). */
 
 function ScreenshotPending({ label }: { label: string }) {
   return (
@@ -283,21 +277,102 @@ function ScreenshotPending({ label }: { label: string }) {
   );
 }
 
+/* ─── YouTube embed (used inside OUTCOME imageTextBlock) ──────────────── */
+
+function YouTubeEmbed({ videoId, title }: { videoId: string; title: string }) {
+  return (
+    <div className="relative block h-full min-h-[200px] w-full overflow-hidden rounded-[inherit]">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+        loading="lazy"
+        className="absolute inset-0 z-0 h-full w-full border-0"
+      />
+    </div>
+  );
+}
+
+/* ─── mediaGalleryBlock rendering ─────────────────────────────────────── */
+
+function GalleryRenderer({
+  section,
+  locale,
+}: {
+  section: MediaGallerySection;
+  locale: Locale;
+}) {
+  const tiles: EfedraGalleryTile[] =
+    section.images
+      ?.map((img) => {
+        const asset = img.asset;
+        if (!asset?.url) return null;
+        return {
+          label: loc(img.caption, locale),
+          src: asset.url,
+          alt: loc(img.alt, locale),
+        } satisfies EfedraGalleryTile;
+      })
+      .filter((t): t is EfedraGalleryTile => t !== null) ?? [];
+
+  if (!tiles.length) return null;
+
+  return <EfedraCaseGallery tiles={tiles} />;
+}
+
 /* ─── section mapper ─────────────────────────────────────────────────── */
 
 function SectionBlock({
   section,
   locale,
+  doc,
 }: {
   section: CaseStudySection;
   locale: Locale;
+  doc: CaseStudyDoc;
 }) {
   switch (section._type) {
     case "imageTextBlock": {
-      const placeholderLabel =
-        locale === "en"
-          ? "Screenshot — coming soon"
-          : "Скріншот — незабаром";
+      const isCentered = section.variant === "centered";
+      const hasImage = Boolean(section.image?.asset?.url);
+
+      // Centered OUTCOME-style block: render YouTube if doc.youtubeId is set
+      // and no image is uploaded; otherwise fall back to image or placeholder.
+      let imageNode: React.ReactNode;
+      if (hasImage) {
+        imageNode = (
+          <SanityImg
+            image={section.image}
+            alt={
+              loc(section.image?.alt, locale) ||
+              loc(section.heading, locale) ||
+              loc(doc.title, locale)
+            }
+            fill
+            className="object-cover"
+          />
+        );
+      } else if (isCentered && doc.youtubeId) {
+        imageNode = (
+          <YouTubeEmbed
+            videoId={doc.youtubeId}
+            title={`${loc(doc.title, locale)} — video walkthrough`}
+          />
+        );
+      } else {
+        imageNode = (
+          <ScreenshotPending
+            label={
+              locale === "en"
+                ? "Screenshot — coming soon"
+                : "Скріншот — незабаром"
+            }
+          />
+        );
+      }
+
       return (
         <ImageText
           variant={section.variant ?? "side"}
@@ -314,7 +389,7 @@ function SectionBlock({
             />
           }
           bulletList={section.bulletList?.map((b) => loc(b, locale))}
-          image={<ScreenshotPending label={placeholderLabel} />}
+          image={imageNode}
           cta={
             section.cta?.label
               ? {
@@ -324,9 +399,7 @@ function SectionBlock({
               : undefined
           }
           sectionClassName={
-            section.variant === "centered"
-              ? "pt-5 max-[800px]:pt-5"
-              : undefined
+            isCentered ? "pt-5 max-[800px]:pt-5" : undefined
           }
         />
       );
@@ -365,198 +438,155 @@ function SectionBlock({
         />
       );
 
-    /* TODO: render mediaGalleryBlock / beforeAfterBlock / testimonialBlock /
-       ctaBlock / richTextBlock once a case actually uses them. NBYG doesn't,
-       so they're skipped here to keep the mapper minimal. */
+    case "mediaGalleryBlock":
+      return <GalleryRenderer section={section} locale={locale} />;
+
+    /* TODO: render beforeAfterBlock / testimonialBlock / ctaBlock /
+       richTextBlock once a case actually uses them. */
     default:
       return null;
   }
 }
 
-/* ─── related cases (fallback to hardcoded list while only NBYG is in CMS) */
+/* ─── related-cases card (Sanity-driven) ─────────────────────────────── */
 
-type Related = {
-  name: string;
-  meta: string;
-  metrics: string;
-  industry: string;
-  industryColor: string;
-  tech: string;
-  gradient: string;
-  href?: string;
-  coverImage?: string;
-  coverImageAlt?: string;
-};
-
-/* TODO: once Tatarka/Webbond migrate into Sanity, drop this hardcoded list
-   and populate from CASE_STUDIES_QUERY (excluding the current slug). */
-const RELATED_FALLBACK_UK: Related[] = [
-  {
-    name: "Efedra Clinic",
-    meta: "Healthcare · Odesa · 2024",
-    metrics: "×3.2 inquiries · LCP 0.8s · Top-3 Google",
-    industry: "Healthcare",
-    industryColor: "#0EA5E9",
-    tech: "Next.js",
+const INDUSTRY_PRESENTATION: Record<
+  string,
+  { color: string; gradient: string; tech: string }
+> = {
+  healthcare: {
+    color: "#0EA5E9",
     gradient:
       "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.55 0.16 200) 100%)",
-    href: "/portfolio/efedra-clinic",
-    coverImage: "/EfedraCaseCreenshots/efedra-main-after.png",
-    coverImageAlt: "Efedra Clinic — новий сайт після редизайну",
-  },
-  {
-    name: "Tatarka",
-    meta: "Real Estate Investment · Kyiv · 2025",
-    metrics: "$4M raised · Investor portal · Multi-lang",
-    industry: "Real Estate",
-    industryColor: "#EF4444",
     tech: "Next.js",
-    gradient:
-      "linear-gradient(135deg, oklch(0.62 0.16 65) 0%, oklch(0.55 0.18 40) 100%)",
   },
-  {
-    name: "Webbond",
-    meta: "Digital Agency · Kyiv · 2024",
-    metrics: "Кастомний дизайн · Складний portfolio · Багатомовність",
-    industry: "Digital Agency",
-    industryColor: "#8B5CF6",
+  construction: {
+    color: "#EF4444",
+    gradient:
+      "linear-gradient(135deg, oklch(0.55 0.20 25) 0%, oklch(0.62 0.18 60) 100%)",
     tech: "Next.js",
-    gradient:
-      "linear-gradient(135deg, oklch(0.50 0.20 295) 0%, oklch(0.40 0.18 280) 100%)",
   },
-];
+  // Fallback below covers anything not listed.
+};
+const DEFAULT_INDUSTRY_PRESENTATION = {
+  color: "#8B5CF6",
+  gradient:
+    "linear-gradient(135deg, oklch(0.50 0.20 295) 0%, oklch(0.40 0.18 280) 100%)",
+  tech: "Next.js",
+  label: "Other",
+};
 
-const RELATED_FALLBACK_EN: Related[] = [
-  {
-    ...RELATED_FALLBACK_UK[0],
-    coverImageAlt: "Efedra Clinic — new site after redesign",
-  },
-  RELATED_FALLBACK_UK[1],
-  {
-    ...RELATED_FALLBACK_UK[2],
-    metrics: "Custom design · Complex portfolio · Multi-language",
-  },
-];
+/* Mirror of the per-slug fallback used in /portfolio listing. Drop both
+   when every caseStudy has an `industry` reference set in the CMS. */
+const CASE_SLUG_TO_INDUSTRY: Record<string, string> = {
+  "efedra-clinic": "healthcare",
+  "nbyg-kobenhavn": "construction",
+};
+const INDUSTRY_LABEL: Record<string, string> = {
+  healthcare: "Healthcare",
+  construction: "Construction",
+};
 
-function RelatedCard({ row }: { row: Related }) {
-  const disabled = !row.href;
+function presentationFor(caseSlug: string, industrySlug?: string) {
+  const key = industrySlug ?? CASE_SLUG_TO_INDUSTRY[caseSlug];
+  if (!key) return DEFAULT_INDUSTRY_PRESENTATION;
+  const base = INDUSTRY_PRESENTATION[key];
+  if (!base) return DEFAULT_INDUSTRY_PRESENTATION;
+  return { ...base, label: INDUSTRY_LABEL[key] ?? "Other" };
+}
 
-  const cover = (
-    <div className="hp-case-cover">
-      <div className="hp-case-cover-bg" style={{ background: row.gradient }} />
-      <div className="hp-case-cover-dots" />
-      <div
-        className="hp-case-shot"
-        style={
-          row.coverImage
-            ? { display: "flex", flexDirection: "column" }
-            : undefined
-        }
-      >
-        <div className="hp-case-shot-bar">
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
+function buildMetaLine(c: CaseStudyRef, locale: Locale, label: string): string {
+  const region = loc(c.region, locale);
+  const year = c.year ? String(c.year) : null;
+  return [label, region, year].filter(Boolean).join(" · ");
+}
+
+function RelatedCard({
+  c,
+  locale,
+}: {
+  c: CaseStudyRef;
+  locale: Locale;
+}) {
+  const pres = presentationFor(c.slug, c.industrySlug);
+  const href = pathFor(c.slug, locale);
+  const name = loc(c.title, locale) || c.client || c.slug;
+  const meta = buildMetaLine(c, locale, pres.label);
+  const metrics = loc(c.metricsLine, locale);
+  const industryLabel = pres.label;
+
+  return (
+    <Link href={href} className="hp-case-link">
+      <div className="hp-case-cover">
+        <div
+          className="hp-case-cover-bg"
+          style={{ background: pres.gradient }}
+        />
+        <div className="hp-case-cover-dots" />
+        <div
+          className="hp-case-shot"
+          style={
+            c.coverImage?.asset?.url
+              ? { display: "flex", flexDirection: "column" }
+              : undefined
+          }
+        >
+          <div className="hp-case-shot-bar">
+            <span className="hp-case-shot-dot" />
+            <span className="hp-case-shot-dot" />
+            <span className="hp-case-shot-dot" />
+          </div>
+          {c.coverImage?.asset?.url ? (
+            <div
+              className="hp-case-shot-body"
+              style={{
+                flex: 1,
+                minHeight: 0,
+                padding: 0,
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={c.coverImage.asset.url}
+                alt={loc(c.coverImage.alt, locale) || name}
+                className="absolute inset-0 block h-full w-full object-cover object-top"
+              />
+            </div>
+          ) : (
+            <div className="hp-case-shot-body">
+              <div className="hp-case-shot-line s1" />
+              <div className="hp-case-shot-line s2" />
+              <div className="hp-case-shot-line s3" />
+            </div>
+          )}
         </div>
-        {row.coverImage ? (
-          <div
-            className="hp-case-shot-body"
+      </div>
+      <div className="hp-case-body">
+        <div className="hp-case-chips">
+          <span
+            className="hp-case-chip"
             style={{
-              flex: 1,
-              minHeight: 0,
-              padding: 0,
-              position: "relative",
-              overflow: "hidden",
+              color: pres.color,
+              borderColor: `${pres.color}55`,
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={row.coverImage}
-              alt={row.coverImageAlt ?? row.name}
-              className="absolute inset-0 block h-full w-full object-cover object-top"
-            />
-          </div>
-        ) : (
-          <div className="hp-case-shot-body">
-            <div className="hp-case-shot-line s1" />
-            <div className="hp-case-shot-line s2" />
-            <div className="hp-case-shot-line s3" />
-          </div>
-        )}
-      </div>
-      {disabled ? (
-        <span
-          style={{
-            position: "absolute",
-            top: 14,
-            right: 14,
-            padding: "4px 10px",
-            border: "1px solid oklch(1 0 0 / 0.18)",
-            borderRadius: 999,
-            background: "oklch(0 0 0 / 0.40)",
-            backdropFilter: "blur(6px)",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 10,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: "oklch(1 0 0 / 0.85)",
-          }}
-        >
-          Coming soon
-        </span>
-      ) : null}
-    </div>
-  );
-
-  const body = (
-    <div className="hp-case-body">
-      <div className="hp-case-chips">
-        <span
-          className="hp-case-chip"
-          style={{
-            color: row.industryColor,
-            borderColor: `${row.industryColor}55`,
-          }}
-        >
-          {row.industry}
-        </span>
-        <span className="hp-case-chip">{row.tech}</span>
-      </div>
-      <div className="hp-case-name-row">
-        <h3 className="hp-case-name">{row.name}</h3>
-        {!disabled ? (
+            {industryLabel}
+          </span>
+          <span className="hp-case-chip">{pres.tech}</span>
+        </div>
+        <div className="hp-case-name-row">
+          <h3 className="hp-case-name">{name}</h3>
           <ArrowUpRight
             size={20}
             strokeWidth={1.6}
             className="hp-case-arrow"
           />
-        ) : null}
+        </div>
+        <div className="hp-case-meta">{meta}</div>
+        {metrics ? <div className="hp-case-metrics">{metrics}</div> : null}
       </div>
-      <div className="hp-case-meta">{row.meta}</div>
-      <div className="hp-case-metrics">{row.metrics}</div>
-    </div>
-  );
-
-  if (disabled) {
-    return (
-      <div
-        className="hp-case-link"
-        style={{
-          cursor: "default",
-          pointerEvents: "none",
-          opacity: 0.78,
-        }}
-      >
-        {cover}
-        {body}
-      </div>
-    );
-  }
-
-  return (
-    <Link href={row.href!} className="hp-case-link">
-      {cover}
-      {body}
     </Link>
   );
 }
@@ -574,6 +604,12 @@ export async function CasePageView({
   if (!doc) notFound();
   if (locale === "en" && !hasEnglishCaseContent(doc)) notFound();
 
+  const allCases = await fetchCaseStudies();
+  const related = allCases
+    .filter((c) => c.slug !== doc.slug)
+    .filter((c) => locale !== "en" || Boolean(c.title?.en))
+    .slice(0, 3);
+
   const title = loc(doc.title, locale);
   const eyebrow = loc(doc.hero?.eyebrow, locale);
   const heading = formatLine(loc(doc.hero?.heading, locale));
@@ -582,8 +618,6 @@ export async function CasePageView({
   const homeLabel = locale === "en" ? "Home" : "Головна";
   const portfolioLabel = locale === "en" ? "Portfolio" : "Портфоліо";
 
-  const related =
-    locale === "en" ? RELATED_FALLBACK_EN : RELATED_FALLBACK_UK;
   const relatedHeading =
     locale === "en" ? (
       <>
@@ -633,32 +667,31 @@ export async function CasePageView({
       <MetaStrip doc={doc} locale={locale} />
 
       {doc.sections?.map((s) => (
-        <SectionBlock key={s._key} section={s} locale={locale} />
+        <SectionBlock key={s._key} section={s} locale={locale} doc={doc} />
       ))}
 
-      <section className="hp-section">
-        <div className="hp-inner">
-          <div className="hp-section-head">
-            <div className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
-              <span>/ 06 RELATED</span>
+      {related.length > 0 ? (
+        <section className="hp-section">
+          <div className="hp-inner">
+            <div className="hp-section-head">
+              <div className="hp-eyebrow">
+                <span className="hp-eyebrow-dot" />
+                <span>/ 06 RELATED</span>
+              </div>
+              <h2 className="hp-h2">{relatedHeading}</h2>
             </div>
-            <h2 className="hp-h2">{relatedHeading}</h2>
+            <div className="hp-cases-grid">
+              {related.map((r) => (
+                <RelatedCard key={r._id} c={r} locale={locale} />
+              ))}
+            </div>
+            <Link href="/portfolio" className="hp-link">
+              {relatedLink}
+              <ArrowUpRight size={14} strokeWidth={1.8} />
+            </Link>
           </div>
-          <div className="hp-cases-grid">
-            {related.map((r) => (
-              <RelatedCard key={r.name} row={r} />
-            ))}
-          </div>
-          <Link
-            href={locale === "en" ? "/portfolio" : "/portfolio"}
-            className="hp-link"
-          >
-            {relatedLink}
-            <ArrowUpRight size={14} strokeWidth={1.8} />
-          </Link>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <FinalCta3
         eyebrow="/ GET IN TOUCH"

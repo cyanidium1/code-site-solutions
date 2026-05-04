@@ -91,6 +91,7 @@ export const CASE_STUDIES_QUERY = /* groq */ `
   "coverImage": coverImage ${IMAGE_WITH_ALT},
   status,
   featured,
+  metricsLine ${LOCALIZED_STRING},
   hero{
     metrics[] ${METRIC}
   }
@@ -110,6 +111,8 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
   duration ${LOCALIZED_STRING},
   budget,
   stack,
+  metricsLine ${LOCALIZED_STRING},
+  youtubeId,
   "coverImage": coverImage ${IMAGE_WITH_ALT},
   seo ${SEO_FIELDS},
   hero{
