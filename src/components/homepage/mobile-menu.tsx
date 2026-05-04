@@ -8,25 +8,8 @@ import { useDisclosure } from "@heroui/use-disclosure";
 import { ChevronRight, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { hasEnIndustry } from "@/lib/i18n-routes";
+import { resolveLocaleAlternate } from "@/lib/i18n-routes";
 import { SERVICE_NAV_LINKS } from "./header-services";
-
-/** Same path mapping as LocaleSwitcher; duplicated to keep mobile-menu
- *  self-contained and avoid pulling in HeroUI Dropdown internals. */
-function resolveAlternate(pathname: string): { uk: string; en: string } {
-  if (pathname === "/" || pathname === "/en") {
-    return { uk: "/", en: "/en" };
-  }
-  if (pathname.startsWith("/en/")) {
-    return { uk: pathname.slice(3), en: pathname };
-  }
-  const industryMatch = pathname.match(/^\/sites-for\/([^/]+)\/?$/);
-  if (industryMatch && hasEnIndustry(industryMatch[1])) {
-    const normalized = `/sites-for/${industryMatch[1]}`;
-    return { uk: normalized, en: `/en${normalized}` };
-  }
-  return { uk: pathname, en: "/en" };
-}
 
 /** Animated 3-line → X morph. Pure CSS via data-open. */
 function BurgerIcon({ open }: { open: boolean }) {
@@ -65,7 +48,7 @@ export function MobileMenu() {
     }
   }, [isOpen, pathname, onClose]);
 
-  const { uk: ukHref, en: enHref } = resolveAlternate(pathname);
+  const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname);
   const ctaHref = isEn ? "/en#contact" : "/contacts";
   const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
 

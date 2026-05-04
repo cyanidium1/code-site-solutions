@@ -5,45 +5,7 @@ import { useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 
-import { hasEnIndustry } from "@/lib/i18n-routes";
-
-/**
- * Map the current pathname to its UA / EN counterpart.
- *
- * - `/`            ↔ `/en`
- * - `/en/<rest>`   ↔ `/<rest>`
- * - `/sites-for/<slug>` ↔ `/en/sites-for/<slug>` IFF the slug has an EN
- *   translation; otherwise the EN side falls back to `/en` (homepage)
- *   so the user doesn't land on a 404. UA→EN bouncing without this
- *   mapping was the bug — switching languages on the medicine page
- *   used to send you to `/en` instead of `/en/sites-for/medicine`.
- *
- * For paths we haven't localized yet (e.g. /pricing, /process), the EN
- * side returns `/en` — the user lands on the EN homepage rather than
- * a non-existent EN counterpart.
- */
-function resolveAlternate(pathname: string): { uk: string; en: string } {
-  if (pathname === "/" || pathname === "/en") {
-    return { uk: "/", en: "/en" };
-  }
-
-  // EN → UA: strip the /en prefix
-  if (pathname.startsWith("/en/")) {
-    return { uk: pathname.slice(3), en: pathname };
-  }
-
-  // UA → EN: industry pages (only when an EN translation exists).
-  // Tolerate an optional trailing slash so `/sites-for/medicine/` also
-  // maps cleanly.
-  const industryMatch = pathname.match(/^\/sites-for\/([^/]+)\/?$/);
-  if (industryMatch && hasEnIndustry(industryMatch[1])) {
-    const normalized = `/sites-for/${industryMatch[1]}`;
-    return { uk: normalized, en: `/en${normalized}` };
-  }
-
-  // UA → EN: paths with no EN counterpart fall back to the EN homepage
-  return { uk: pathname, en: "/en" };
-}
+import { resolveLocaleAlternate } from "@/lib/i18n-routes";
 
 /**
  * Native `<details>` dropdown. We swapped off HeroUI's Dropdown after a
@@ -60,7 +22,7 @@ export function LocaleSwitcher() {
   const router = useRouter();
   const t = useTranslations("LocaleSwitcher");
 
-  const { uk: ukHref, en: enHref } = resolveAlternate(pathname);
+  const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname);
   const currentLabel = locale === "en" ? t("en") : t("uk");
 
   // Close on route change (covers the locale switch we trigger ourselves)
