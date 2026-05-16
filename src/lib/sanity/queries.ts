@@ -183,6 +183,33 @@ ${BLOG_POST_LIST_ITEM}
 `;
 
 /**
+ * EN listing — only posts that have BOTH a published EN slug AND an EN
+ * title (so an empty titleEn doesn't surface a half-translated post).
+ * Projected fields prefer the EN variant, fallback to UA where missing
+ * (UA field used as the source of truth for date / category / tags etc.).
+ */
+const BLOG_POST_LIST_ITEM_EN = /* groq */ `{
+  _id,
+  "slug": slugEn.current,
+  "title": coalesce(titleEn, title),
+  "eyebrow": coalesce(eyebrowEn, eyebrow),
+  "lede": coalesce(ledeEn, lede),
+  category,
+  publishedAt,
+  readingTimeMinutes,
+  "coverImage": {
+    "src": coverImage.src,
+    "alt": coalesce(coverImage.altEn, coverImage.alt)
+  }
+}`;
+
+export const BLOG_POSTS_LIST_QUERY_EN = /* groq */ `
+*[_type == "blogPost" && status == "published" && defined(slugEn.current) && defined(titleEn)]
+${BLOG_POST_LIST_ITEM_EN}
+| order(publishedAt desc, _createdAt desc)
+`;
+
+/**
  * Per-slug lookup used by related-articles resolution. Accepts a $slugs
  * array — empty array returns []. Order is not guaranteed; caller should
  * re-order against the requested slugs.
@@ -190,6 +217,17 @@ ${BLOG_POST_LIST_ITEM}
 export const BLOG_POSTS_BY_SLUGS_QUERY = /* groq */ `
 *[_type == "blogPost" && status == "published" && slug.current in $slugs]
 ${BLOG_POST_LIST_ITEM}
+`;
+
+/**
+ * EN related-by-slug resolver. Accepts UA $slugs (the source of truth on
+ * `relatedPostSlugs`) and projects EN fields. Result: only items whose
+ * EN slug is published get returned — partially-translated posts are
+ * skipped on the EN side.
+ */
+export const BLOG_POSTS_BY_SLUGS_QUERY_EN = /* groq */ `
+*[_type == "blogPost" && status == "published" && slug.current in $slugs && defined(slugEn.current) && defined(titleEn)]
+${BLOG_POST_LIST_ITEM_EN}
 `;
 
 /**
@@ -201,6 +239,7 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
 *[_type == "blogPost" && status == "published" && slug.current == $slug][0]{
   _id,
   "slug": slug.current,
+  "alternateSlug": slugEn.current,
   title,
   metaTitle,
   metaDescription,
@@ -232,6 +271,61 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
     }
   },
   faq[]{ _key, question, answer },
+  relatedPostSlugs
+}
+`;
+
+/**
+ * EN post fetch. Match by slugEn (separate from UA per Sprint 2BC).
+ * Projects EN-preferred fields with coalesce() fallback to UA so a
+ * partially-translated post still renders, falling back to UA blocks
+ * where the EN field is empty.
+ */
+export const BLOG_POST_BY_SLUG_QUERY_EN = /* groq */ `
+*[_type == "blogPost" && status == "published" && slugEn.current == $slug][0]{
+  _id,
+  "slug": slugEn.current,
+  "alternateSlug": slug.current,
+  "title": coalesce(titleEn, title),
+  "metaTitle": coalesce(metaTitleEn, metaTitle),
+  "metaDescription": coalesce(metaDescriptionEn, metaDescription),
+  "eyebrow": coalesce(eyebrowEn, eyebrow),
+  "lede": coalesce(ledeEn, lede),
+  category,
+  tags,
+  publishedAt,
+  updatedAt,
+  readingTimeMinutes,
+  "coverImage": {
+    "src": coverImage.src,
+    "alt": coalesce(coverImage.altEn, coverImage.alt)
+  },
+  "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
+  author{ name, role, photoUrl, bio },
+  "body": coalesce(bodyEn[]{
+    ...,
+    _type == "blogImage" => {
+      _type,
+      _key,
+      "asset": asset->{ _id, url, metadata { lqip, dimensions } },
+      hotspot,
+      crop,
+      alt,
+      caption
+    }
+  }, body[]{
+    ...,
+    _type == "blogImage" => {
+      _type,
+      _key,
+      "asset": asset->{ _id, url, metadata { lqip, dimensions } },
+      hotspot,
+      crop,
+      alt,
+      caption
+    }
+  }),
+  "faq": coalesce(faqEn[]{ _key, question, answer }, faq[]{ _key, question, answer }),
   relatedPostSlugs
 }
 `;

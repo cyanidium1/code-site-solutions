@@ -484,6 +484,12 @@ export type BlogCover = {
 };
 
 /* ─── Blog post — listing item (lightweight) ──────────────────────────────── */
+/* Sprint 2BC: the listing query now resolves locale at the GROQ
+   projection layer — `title` / `lede` / etc. come back already
+   picked for the requested locale (EN preferred when present,
+   otherwise the UA field), so the frontend doesn't need separate
+   EN shadow fields on the type. The `slug` field reflects the
+   locale-specific slug (slug.current for UK, slugEn.current for EN). */
 
 export type BlogPostListItem = {
   _id: string;
@@ -518,6 +524,8 @@ export type BlogPostDoc = {
   body?: BlogBody;
   faq?: BlogFaqItem[];
   relatedPostSlugs?: string[];
+  /** Hand of the other-locale slug for hreflang alternates on the post page. */
+  alternateSlug?: string;
 };
 
 /* ─── caseStudy document ─────────────────────────────────────────────────── */
