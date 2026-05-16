@@ -1,3 +1,4 @@
+import Link from "next/link";
 import "./hero.css";
 
 export type Feature = { label: string; sub: string };
@@ -70,8 +71,11 @@ export type HeroEditorialProps = {
   lede?: React.ReactNode;
   features?: Feature[];
   ctaPrimaryLabel?: string;
+  ctaPrimaryHref?: string;
   ctaSecondaryLabel?: string;
+  ctaSecondaryHref?: string;
   ctaSecondaryShowPlay?: boolean;
+  ctaFootnote?: React.ReactNode;
   showStats?: boolean;
   stats?: HeroStats[];
   showTicker?: boolean;
@@ -103,8 +107,11 @@ export function HeroEditorial({
     { label: "Юр. коректно", sub: "за вимогами МОЗ" },
   ],
   ctaPrimaryLabel = "Обговорити мій проєкт",
+  ctaPrimaryHref,
   ctaSecondaryLabel = "Подивитися кейси клінік",
+  ctaSecondaryHref,
   ctaSecondaryShowPlay = true,
+  ctaFootnote,
   showStats = true,
   stats = [
     { num: "47", lbl: <>клінік<br/>запущено</> },
@@ -171,28 +178,56 @@ export function HeroEditorial({
             </div>
 
             <div className="cta-row">
-              <button className="btn-primary">
-                <span>{ctaPrimaryLabel}</span>
-                {ARROW_ICON}
-              </button>
-              <button className="btn-ghost">
-                {ctaSecondaryShowPlay ? (
-                  <span className="btn-play">▶</span>
-                ) : null}
-                <span>{ctaSecondaryLabel}</span>
-                {!ctaSecondaryShowPlay ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M5 12h14M13 5l7 7-7 7"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                ) : null}
-              </button>
+              {ctaPrimaryHref ? (
+                <Link href={ctaPrimaryHref} className="btn-primary">
+                  <span>{ctaPrimaryLabel}</span>
+                  {ARROW_ICON}
+                </Link>
+              ) : (
+                <button className="btn-primary">
+                  <span>{ctaPrimaryLabel}</span>
+                  {ARROW_ICON}
+                </button>
+              )}
+              {ctaSecondaryHref ? (
+                <Link href={ctaSecondaryHref} className="btn-ghost">
+                  {ctaSecondaryShowPlay ? (
+                    <span className="btn-play">▶</span>
+                  ) : null}
+                  <span>{ctaSecondaryLabel}</span>
+                  {!ctaSecondaryShowPlay ? (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M5 12h14M13 5l7 7-7 7"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : null}
+                </Link>
+              ) : (
+                <button className="btn-ghost">
+                  {ctaSecondaryShowPlay ? (
+                    <span className="btn-play">▶</span>
+                  ) : null}
+                  <span>{ctaSecondaryLabel}</span>
+                  {!ctaSecondaryShowPlay ? (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M5 12h14M13 5l7 7-7 7"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : null}
+                </button>
+              )}
             </div>
+            {ctaFootnote ? <p className="cta-footnote">{ctaFootnote}</p> : null}
 
             {showStats && (
               <div className="stats">

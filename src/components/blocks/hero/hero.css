@@ -316,7 +316,19 @@
   gap: 12px;
   flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 36px;
+  margin-bottom: 14px;
+}
+.cta-footnote {
+  font-family: inherit;
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+  color: var(--ink-3);
+  margin: 0 0 30px;
+  line-height: 1.5;
+}
+a.btn-primary,
+a.btn-ghost {
+  text-decoration: none;
 }
 .btn-primary {
   background: var(--ink);
