@@ -125,6 +125,12 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
     return { ...INITIAL, tier };
   }, [searchParams]);
 
+  // URL `?source=` overrides the prop when present so links like
+  // /contacts?source=hero-audit get recorded as the real entry point
+  // in the Telegram lead message instead of the page-level default.
+  const urlSource = searchParams?.get("source");
+  const resolvedSource = urlSource && urlSource.trim() ? urlSource : source;
+
   const isCompact = variant === "compact";
   const [showDetails, setShowDetails] = useState<boolean>(
     !isCompact || Boolean(initialValues.tier),
@@ -175,7 +181,7 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
           const res = await fetch("/api/lead", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...values, source }),
+            body: JSON.stringify({ ...values, source: resolvedSource }),
           });
           if (!res.ok) throw new Error("API error");
           setStatus("success");
