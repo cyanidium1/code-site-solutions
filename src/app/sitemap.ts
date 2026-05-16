@@ -2,10 +2,15 @@ import type { MetadataRoute } from "next";
 import { SITE_ORIGIN } from "@/lib/site";
 import { sanityFetch } from "@/lib/sanity/fetch";
 import {
+  BLOG_POSTS_LIST_QUERY,
   CASE_STUDIES_QUERY,
   INDUSTRY_PAGES_QUERY,
 } from "@/lib/sanity/queries";
-import type { CaseStudyRef, IndustryPageRef } from "@/lib/sanity/types";
+import type {
+  BlogPostListItem,
+  CaseStudyRef,
+  IndustryPageRef,
+} from "@/lib/sanity/types";
 import { EN_INDUSTRY_SLUGS } from "@/lib/i18n-routes";
 
 const STATIC_ROUTES: {
@@ -17,6 +22,7 @@ const STATIC_ROUTES: {
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
   { path: "/portfolio", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
   { path: "/calculator", changeFrequency: "monthly", priority: 0.7 },
   { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-constructors", changeFrequency: "monthly", priority: 0.8 },
@@ -26,7 +32,7 @@ const STATIC_ROUTES: {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
 
-  const [industryPages, caseStudies] = await Promise.all([
+  const [industryPages, caseStudies, blogPosts] = await Promise.all([
     sanityFetch<IndustryPageRef[]>({
       query: INDUSTRY_PAGES_QUERY,
       revalidate: 3600,
@@ -35,6 +41,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       query: CASE_STUDIES_QUERY,
       revalidate: 3600,
     }).catch(() => [] as CaseStudyRef[]),
+    sanityFetch<BlogPostListItem[]>({
+      query: BLOG_POSTS_LIST_QUERY,
+      revalidate: 3600,
+    }).catch(() => [] as BlogPostListItem[]),
   ]);
 
   // Routes that are also published under /en. Used to attach hreflang
@@ -139,5 +149,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [ukEntry];
   });
 
-  return [...staticEntries, ...industryEntries, ...caseEntries];
+  // Blog posts — UA only for Sprint 2A. EN counterparts land in Sprint 5.
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.map((p) => ({
+    url: `${SITE_ORIGIN}/blog/${p.slug}`,
+    lastModified: p.publishedAt ? new Date(p.publishedAt) : lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...industryEntries, ...caseEntries, ...blogEntries];
 }
