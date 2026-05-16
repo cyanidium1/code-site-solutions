@@ -11,6 +11,8 @@ import {
   useDisclosure,
 } from "@heroui/react";
 
+import type { Locale } from "@/lib/sanity/types";
+
 export type TeamMember = {
   id: string;
   name: string;
@@ -21,72 +23,150 @@ export type TeamMember = {
   tags: string[];
 };
 
-/**
- * Фото покласти в `public/team/` під відповідним іменем (webp).
- * Якщо файлу немає — карточка graceful fallback показує ініціали.
- */
-const TEAM_MEMBERS: TeamMember[] = [
-  {
-    id: "fedir",
-    name: "Федір Алпатов",
-    role: "Tech Lead · Засновник",
-    image: "/team/fedir.jpg",
-    shortDescription:
-      "«Кожен сайт — це інструмент продажів. Усе технічне має служити цьому, а не навпаки.»",
-    fullDescription: [
-      "Федір — техлід і засновник студії. Працює з кодовими сайтами понад 6 років і спеціалізується на проєктах, де стандартні рішення не працюють.",
-      "Його сильна сторона — вміння брати складні або розмиті вимоги і перетворювати їх у чітку технічну реалізацію.",
-      "Він однаково добре розуміє бізнес, маркетинг і розробку, тому проєкти не просто виглядають добре, а вирішують конкретні задачі: заявки, продажі, масштабування і зручне керування контентом.",
-      "Окремий скіл — пояснювати складні технічні речі простою мовою.",
+type TeamLocale = Extract<Locale, "uk" | "en">;
+
+type TeamData = {
+  members: TeamMember[];
+  detailsButton: string;
+  closeButton: string;
+};
+
+// Locale-aware team content. Photos under public/team/ are shared; only
+// the textual fields (name, role, short quote, full bio, tags) differ.
+const TEAM: Record<TeamLocale, TeamData> = {
+  uk: {
+    detailsButton: "Детальніше",
+    closeButton: "Закрити",
+    members: [
+      {
+        id: "fedir",
+        name: "Федір Алпатов",
+        role: "Tech Lead · Засновник",
+        image: "/team/fedir.jpg",
+        shortDescription:
+          "«Кожен сайт — це інструмент продажів. Усе технічне має служити цьому, а не навпаки.»",
+        fullDescription: [
+          "Федір — техлід і засновник студії. Працює з кодовими сайтами понад 6 років і спеціалізується на проєктах, де стандартні рішення не працюють.",
+          "Його сильна сторона — вміння брати складні або розмиті вимоги і перетворювати їх у чітку технічну реалізацію.",
+          "Він однаково добре розуміє бізнес, маркетинг і розробку, тому проєкти не просто виглядають добре, а вирішують конкретні задачі: заявки, продажі, масштабування і зручне керування контентом.",
+          "Окремий скіл — пояснювати складні технічні речі простою мовою.",
+        ],
+        tags: ["Next.js", "Sanity", "Architecture", "Tech Lead"],
+      },
+      {
+        id: "diana",
+        name: "Діана Меркатун",
+        role: "Lead Designer",
+        image: "/team/diana.jpg",
+        shortDescription:
+          "«Дизайн має продавати, а не отримувати лайки на Behance. Тому я думаю про конверсію раніше, ніж про сітку і кольори.»",
+        fullDescription: [
+          "Діана відповідає за візуальну частину продуктів і користувацький досвід.",
+          "Її підхід — не просто зробити красиво, а побудувати дизайн, який допомагає користувачу прийняти рішення: залишити заявку, купити або перейти до наступного кроку.",
+          "Вона працює на перетині естетики, структури і бізнес-логіки.",
+          "Результат — сайти, які виглядають як продуманий продукт, а не набір випадкових блоків.",
+        ],
+        tags: ["UI/UX", "Visual Design", "Conversion", "Product Design"],
+      },
+      {
+        id: "olga",
+        name: "Ольга Михалкова",
+        role: "Senior Frontend",
+        image: "/team/olga.jpg",
+        shortDescription:
+          "«Сайт, що вантажиться 5 секунд, втрачає половину клієнтів. Тому я доводжу швидкість до 90+ балів Lighthouse, поки інші ще пишуть TZ.»",
+        fullDescription: [
+          "Ольга — senior frontend developer, яка уважно ставиться до деталей і якості реалізації.",
+          "Вона не залишає дрібниць у стилі «потім доробимо», бо саме з дрібниць складається відчуття дорогого і стабільного продукту.",
+          "Її зона відповідальності — чистий інтерфейс, коректна адаптивність, стабільна логіка і акуратна взаємодія користувача з сайтом.",
+          "До кожного проєкту ставиться так, ніби це її власний продукт.",
+        ],
+        tags: ["Frontend", "React", "UI Logic", "Quality"],
+      },
+      {
+        id: "kristina",
+        name: "Кристина Бондаренко",
+        role: "SEO & Marketing Strategy",
+        image: "/team/kristina.jpg",
+        shortDescription:
+          "«Сайт без трафіку — як магазин у глухому провулку. Я роблю так, щоб клієнти знаходили вас у Google за 3 місяці після релізу.»",
+        fullDescription: [
+          "Кристина — SEO-спеціаліст і маркетолог з фокусом на B2B та складні ніші.",
+          "Її робота — не просто «просунути сайт», а побудувати систему, яка приводить релевантних клієнтів.",
+          "Вона створює SEO і контент-стратегії з урахуванням бізнес-цілей, конкурентного середовища і поведінки цільової аудиторії.",
+          "Основний фокус — європейські ринки, де важлива не тільки видимість у пошуку, а й правильне позиціонування продукту.",
+        ],
+        tags: ["SEO", "B2B", "Content Strategy", "Europe"],
+      },
     ],
-    tags: ["Next.js", "Sanity", "Architecture", "Tech Lead"],
   },
-  {
-    id: "diana",
-    name: "Діана Меркатун",
-    role: "Lead Designer",
-    image: "/team/diana.jpg",
-    shortDescription:
-      "«Дизайн має продавати, а не отримувати лайки на Behance. Тому я думаю про конверсію раніше, ніж про сітку і кольори.»",
-    fullDescription: [
-      "Діана відповідає за візуальну частину продуктів і користувацький досвід.",
-      "Її підхід — не просто зробити красиво, а побудувати дизайн, який допомагає користувачу прийняти рішення: залишити заявку, купити або перейти до наступного кроку.",
-      "Вона працює на перетині естетики, структури і бізнес-логіки.",
-      "Результат — сайти, які виглядають як продуманий продукт, а не набір випадкових блоків.",
+  en: {
+    detailsButton: "Details",
+    closeButton: "Close",
+    members: [
+      {
+        id: "fedir",
+        name: "Fedir Alpatov",
+        role: "Tech Lead · Founder",
+        image: "/team/fedir.jpg",
+        shortDescription:
+          "“Every site is a sales tool. Everything technical should serve that, not the other way around.”",
+        fullDescription: [
+          "Fedir is the tech lead and founder of the studio. He's been building custom-coded websites for over 6 years and specializes in projects where off-the-shelf solutions don't work.",
+          "His strength is taking complex or vague requirements and turning them into clear technical implementations.",
+          "He understands business, marketing, and development equally well, so projects don't just look good — they solve concrete problems: leads, sales, scaling, and easy content management.",
+          "A particular skill: explaining complex technical things in plain language.",
+        ],
+        tags: ["Next.js", "Sanity", "Architecture", "Tech Lead"],
+      },
+      {
+        id: "diana",
+        name: "Diana Merkatun",
+        role: "Lead Designer",
+        image: "/team/diana.jpg",
+        shortDescription:
+          "“Design should sell, not get likes on Behance. So I think about conversion before grid and colors.”",
+        fullDescription: [
+          "Diana owns the visual side of our products and the user experience.",
+          "Her approach: not just “make it pretty” — build a design that helps the user make a decision: send an inquiry, buy, or move to the next step.",
+          "She works at the intersection of aesthetics, structure, and business logic.",
+          "The result: sites that feel like a thoughtful product, not a pile of random blocks.",
+        ],
+        tags: ["UI/UX", "Visual Design", "Conversion", "Product Design"],
+      },
+      {
+        id: "olga",
+        name: "Olga Mykhalkova",
+        role: "Senior Frontend",
+        image: "/team/olga.jpg",
+        shortDescription:
+          "“A site that loads in 5 seconds loses half its visitors. So I push speed to 90+ on Lighthouse while others are still writing specs.”",
+        fullDescription: [
+          "Olga is a senior frontend developer who pays attention to detail and quality.",
+          "She doesn't let small things slide as “we'll fix it later” — because the feeling of a polished, stable product is made of small things.",
+          "Her responsibilities: clean UI, correct responsiveness, stable logic, and careful user interaction.",
+          "Treats every project as if it were her own product.",
+        ],
+        tags: ["Frontend", "React", "UI Logic", "Quality"],
+      },
+      {
+        id: "kristina",
+        name: "Kristina Bondarenko",
+        role: "SEO & Marketing Strategy",
+        image: "/team/kristina.jpg",
+        shortDescription:
+          "“A site without traffic is a shop in a back alley. I make sure clients find you on Google within 3 months of launch.”",
+        fullDescription: [
+          "Kristina is an SEO specialist and marketer focused on B2B and complex niches.",
+          "Her work isn't just “rank the site” — it's building a system that brings in relevant clients.",
+          "She creates SEO and content strategies based on business goals, competitive landscape, and audience behavior.",
+          "Primary focus: European markets, where visibility in search matters less than correct product positioning.",
+        ],
+        tags: ["SEO", "B2B", "Content Strategy", "Europe"],
+      },
     ],
-    tags: ["UI/UX", "Visual Design", "Conversion", "Product Design"],
   },
-  {
-    id: "olga",
-    name: "Ольга Михалкова",
-    role: "Senior Frontend",
-    image: "/team/olga.jpg",
-    shortDescription:
-      "«Сайт, що вантажиться 5 секунд, втрачає половину клієнтів. Тому я доводжу швидкість до 90+ балів Lighthouse, поки інші ще пишуть TZ.»",
-    fullDescription: [
-      "Ольга — senior frontend developer, яка уважно ставиться до деталей і якості реалізації.",
-      "Вона не залишає дрібниць у стилі «потім доробимо», бо саме з дрібниць складається відчуття дорогого і стабільного продукту.",
-      "Її зона відповідальності — чистий інтерфейс, коректна адаптивність, стабільна логіка і акуратна взаємодія користувача з сайтом.",
-      "До кожного проєкту ставиться так, ніби це її власний продукт.",
-    ],
-    tags: ["Frontend", "React", "UI Logic", "Quality"],
-  },
-  {
-    id: "kristina",
-    name: "Кристина Бондаренко",
-    role: "SEO & Marketing Strategy",
-    image: "/team/kristina.jpg",
-    shortDescription:
-      "«Сайт без трафіку — як магазин у глухому провулку. Я роблю так, щоб клієнти знаходили вас у Google за 3 місяці після релізу.»",
-    fullDescription: [
-      "Кристина — SEO-спеціаліст і маркетолог з фокусом на B2B та складні ніші.",
-      "Її робота — не просто «просунути сайт», а побудувати систему, яка приводить релевантних клієнтів.",
-      "Вона створює SEO і контент-стратегії з урахуванням бізнес-цілей, конкурентного середовища і поведінки цільової аудиторії.",
-      "Основний фокус — європейські ринки, де важлива не тільки видимість у пошуку, а й правильне позиціонування продукту.",
-    ],
-    tags: ["SEO", "B2B", "Content Strategy", "Europe"],
-  },
-];
+};
 
 function getInitials(name: string): string {
   return name
@@ -149,9 +229,11 @@ function MemberPhoto({
 function MemberCard({
   member,
   onOpen,
+  detailsLabel,
 }: {
   member: TeamMember;
   onOpen: () => void;
+  detailsLabel: string;
 }) {
   return (
     <article className="group flex flex-col rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-[oklch(from_var(--accent)_l_c_h_/_0.4)] hover:-translate-y-0.5">
@@ -173,7 +255,7 @@ function MemberCard({
           size="sm"
           className="mt-5 self-start font-mono tracking-[0.06em] text-[11px] border-line hover:border-[oklch(from_var(--accent)_l_c_h_/_0.5)] text-[var(--ink-2)] hover:text-ink"
         >
-          Детальніше
+          {detailsLabel}
         </Button>
       </div>
     </article>
@@ -184,10 +266,12 @@ function TeamModal({
   member,
   isOpen,
   onOpenChange,
+  closeLabel,
 }: {
   member: TeamMember | null;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
+  closeLabel: string;
 }) {
   return (
     <Modal
@@ -244,7 +328,7 @@ function TeamModal({
                   radius="full"
                   className="font-mono tracking-[0.06em] text-[11px] bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] text-ink"
                 >
-                  Закрити
+                  {closeLabel}
                 </Button>
               </ModalFooter>
             </>
@@ -259,13 +343,16 @@ export function TeamSection({
   eyebrow,
   heading,
   sub,
+  locale = "uk",
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
   sub?: React.ReactNode;
+  locale?: TeamLocale;
 } = {}) {
   const { isOpen, onOpenChange, onOpen } = useDisclosure();
   const [active, setActive] = useState<TeamMember | null>(null);
+  const data = TEAM[locale];
 
   const handleOpen = (member: TeamMember) => {
     setActive(member);
@@ -296,8 +383,13 @@ export function TeamSection({
         )}
 
         <div className="grid grid-cols-4 gap-5 max-[1100px]:grid-cols-2 max-[600px]:grid-cols-1">
-          {TEAM_MEMBERS.map((m) => (
-            <MemberCard key={m.id} member={m} onOpen={() => handleOpen(m)} />
+          {data.members.map((m) => (
+            <MemberCard
+              key={m.id}
+              member={m}
+              onOpen={() => handleOpen(m)}
+              detailsLabel={data.detailsButton}
+            />
           ))}
         </div>
       </div>
@@ -306,6 +398,7 @@ export function TeamSection({
         member={active}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        closeLabel={data.closeButton}
       />
     </section>
   );
