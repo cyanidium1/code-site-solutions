@@ -468,6 +468,12 @@ export type BlogFaqItem = {
   answer?: string;
 };
 
+/** Static-asset cover for a blog post — file lives under /public/blog/. */
+export type BlogCover = {
+  src?: string;
+  alt?: string;
+};
+
 /* ─── Blog post — listing item (lightweight) ──────────────────────────────── */
 
 export type BlogPostListItem = {
@@ -479,7 +485,7 @@ export type BlogPostListItem = {
   category?: string;
   publishedAt?: string;
   readingTimeMinutes?: number;
-  coverImage?: SanityImage | null;
+  coverImage?: BlogCover | null;
 };
 
 /* ─── Blog post — full document (post page) ───────────────────────────────── */
@@ -497,7 +503,7 @@ export type BlogPostDoc = {
   publishedAt?: string;
   updatedAt?: string;
   readingTimeMinutes?: number;
-  coverImage?: SanityImage | null;
+  coverImage?: BlogCover | null;
   ogImage?: SanityAsset | null;
   author?: BlogAuthor;
   body?: BlogBody;

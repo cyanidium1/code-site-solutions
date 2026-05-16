@@ -72,14 +72,10 @@ export default async function BlogPage() {
                   const metrics = [reading].filter(
                     (m): m is string => Boolean(m),
                   );
-                  const cover = p.coverImage?.asset?.url
+                  const cover = p.coverImage?.src
                     ? {
-                        src: p.coverImage.asset.url,
-                        alt:
-                          p.coverImage.alt?.uk ??
-                          p.coverImage.alt?.en ??
-                          p.title ??
-                          "",
+                        src: p.coverImage.src,
+                        alt: p.coverImage.alt ?? p.title ?? "",
                       }
                     : undefined;
                   return (

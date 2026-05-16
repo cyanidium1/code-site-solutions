@@ -166,16 +166,7 @@ const BLOG_POST_LIST_ITEM = /* groq */ `{
   category,
   publishedAt,
   readingTimeMinutes,
-  "coverImage": coverImage{
-    "asset": asset->{
-      _id,
-      url,
-      metadata { lqip, dimensions }
-    },
-    hotspot,
-    crop,
-    "alt": alt
-  }
+  coverImage{ src, alt }
 }`;
 
 export const BLOG_POSTS_LIST_QUERY = /* groq */ `
@@ -213,16 +204,7 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
   publishedAt,
   updatedAt,
   readingTimeMinutes,
-  "coverImage": coverImage{
-    "asset": asset->{
-      _id,
-      url,
-      metadata { lqip, dimensions }
-    },
-    hotspot,
-    crop,
-    "alt": alt
-  },
+  coverImage{ src, alt },
   "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
   author{ name, role, photoUrl, bio },
   body[]{

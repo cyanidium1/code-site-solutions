@@ -52,7 +52,9 @@ export async function generateMetadata({
   const title = post.metaTitle ?? post.title ?? "";
   const description = post.metaDescription ?? post.lede ?? "";
   const path = `/blog/${slug}`;
-  const ogUrl = post.ogImage?.url ?? post.coverImage?.asset?.url;
+  // OG image: prefer explicit Sanity ogImage, else the static coverImage path
+  // (relative paths are resolved against the site origin by Next).
+  const ogUrl = post.ogImage?.url ?? post.coverImage?.src;
 
   return {
     title,
@@ -92,8 +94,14 @@ function buildJsonLd(
   post: BlogPostDoc,
 ): Record<string, unknown> {
   const url = pageUrl(`/blog/${post.slug}`);
-  const imageUrl =
-    post.ogImage?.url ?? post.coverImage?.asset?.url ?? undefined;
+  // JSON-LD wants an absolute URL — the static cover path needs SITE_ORIGIN
+  // prepended; Sanity ogImage is already absolute.
+  const coverAbs = post.coverImage?.src
+    ? post.coverImage.src.startsWith("http")
+      ? post.coverImage.src
+      : `${SITE_ORIGIN}${post.coverImage.src}`
+    : undefined;
+  const imageUrl = post.ogImage?.url ?? coverAbs ?? undefined;
 
   const graph: Record<string, unknown>[] = [
     {
@@ -216,6 +224,20 @@ export default async function BlogPostPage({
       />
       <HpHeader />
       <main>
+        {/* Hero cover — rendered above the H1. Sticky header is in normal
+            flow so a small top breathing room is all the cover needs. */}
+        {post.coverImage?.src ? (
+          <section className="bg-bg px-12 pt-10 max-[800px]:px-5 max-[800px]:pt-6">
+            <div className="max-w-[1080px] mx-auto">
+              <img
+                src={post.coverImage.src}
+                alt={post.coverImage.alt ?? post.title ?? ""}
+                className="w-full h-auto rounded-2xl border border-line block"
+              />
+            </div>
+          </section>
+        ) : null}
+
         <PageHero
           breadcrumbs={[
             { label: "Головна", href: "/" },
@@ -254,26 +276,6 @@ export default async function BlogPostPage({
             ) : null}
           </div>
         </section>
-
-        {/* Cover image (optional) */}
-        {post.coverImage?.asset?.url ? (
-          <section className="bg-bg px-12 max-[700px]:px-5">
-            <div className="max-w-[1080px] mx-auto pt-10 max-[700px]:pt-6">
-              <img
-                src={post.coverImage.asset.url}
-                alt={
-                  post.coverImage.alt?.uk ??
-                  post.coverImage.alt?.en ??
-                  post.title ??
-                  ""
-                }
-                className="w-full h-auto rounded-2xl border border-line block"
-                width={post.coverImage.asset.metadata?.dimensions?.width}
-                height={post.coverImage.asset.metadata?.dimensions?.height}
-              />
-            </div>
-          </section>
-        ) : null}
 
         {/* Body */}
         <section className="relative bg-bg pt-16 px-12 pb-20 max-[700px]:pt-10 max-[700px]:px-5 max-[700px]:pb-14">
@@ -326,14 +328,10 @@ export default async function BlogPostPage({
                   const metrics = [reading].filter(
                     (m): m is string => Boolean(m),
                   );
-                  const cover = p.coverImage?.asset?.url
+                  const cover = p.coverImage?.src
                     ? {
-                        src: p.coverImage.asset.url,
-                        alt:
-                          p.coverImage.alt?.uk ??
-                          p.coverImage.alt?.en ??
-                          p.title ??
-                          "",
+                        src: p.coverImage.src,
+                        alt: p.coverImage.alt ?? p.title ?? "",
                       }
                     : undefined;
                   return (
