@@ -122,10 +122,9 @@ const EN_INDUSTRIES: Industry[] = [
   {
     icon: Building,
     color: "#EF4444",
-    title: "Real Estate / Construction",
-    description:
-      "Sites for developers, real-estate agencies, contractors",
-    tags: ["CRM", "Listings", "Calculator"],
+    title: "Construction / Renovation",
+    description: "Sites for construction and renovation companies",
+    tags: ["CRM", "Calculator", "Local SEO"],
     price: "From $3,000 · 4–8 weeks",
     href: null,
   },
