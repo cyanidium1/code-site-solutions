@@ -211,8 +211,11 @@ export default function HomePage() {
           { label: "Все під ключ", sub: "тексти + дизайн + код + хостинг" },
         ]}
         ctaPrimaryLabel="Розрахувати вартість"
-        ctaSecondaryLabel="Подивитись кейси"
+        ctaPrimaryHref="/calculator"
+        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 год →"
+        ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
+        ctaFootnote="Без розмови з sales. Без email-розсилки. Просто аудит."
         showStats
         stats={[
           { num: "47", lbl: <>проєктів<br/>за 3 роки</> },

@@ -346,8 +346,11 @@ export default function HomePageEn() {
           { label: "End-to-end", sub: "Copy + design + code + hosting" },
         ]}
         ctaPrimaryLabel="Get an estimate"
-        ctaSecondaryLabel="See the work"
-        ctaSecondaryShowPlay
+        ctaPrimaryHref="/calculator"
+        ctaSecondaryLabel="Free site audit within 24 hours →"
+        ctaSecondaryHref="/contacts?source=hero-audit"
+        ctaSecondaryShowPlay={false}
+        ctaFootnote="No sales call. No email list. Just an audit."
         showStats
         stats={[
           { num: "47", lbl: <>builds<br />in 3 years</> },
