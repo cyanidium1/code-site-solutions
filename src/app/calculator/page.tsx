@@ -1,52 +1,58 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
 import { HpFooter, HpHeader } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { WebsiteCalculator } from "@/components/calculator";
 
-export const metadata: Metadata = {
-  title: "Website Cost Calculator — Code-Site.Art",
-  description:
-    "Estimate your custom-coded website in 60 seconds. Honest range, no 'price on request', no sales pressure. See what drives the price.",
-  alternates: { canonical: "/calculator" },
-  openGraph: {
-    title: "Website Cost Calculator — Code-Site.Art",
-    description:
-      "Estimate your custom-coded website in 60 seconds. Honest range, no 'price on request'.",
-    type: "website",
-    locale: "en_US",
-    url: "/calculator",
-  },
-};
+const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
-export default function CalculatorPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Calculator.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      canonical: "/calculator",
+      languages: {
+        uk: "/calculator",
+        en: "/en/calculator",
+        "x-default": "/calculator",
+      },
+    },
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "website",
+      locale: "uk_UA",
+      url: "/calculator",
+    },
+  };
+}
+
+export default async function CalculatorPage() {
+  const t = await getTranslations("Calculator");
+  const stats: { value: string; label: string }[] = ["projects", "range", "weeks", "warranty"].map((k) => ({
+    value: t(`stats.${k}.value` as never),
+    label: t(`stats.${k}.label` as never),
+  }));
   return (
     <>
       <HpHeader />
 
       <PageHero
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Calculator" },
+          { label: t("pageHero.breadcrumbHome"), href: "/" },
+          { label: t("pageHero.breadcrumbSelf") },
         ]}
-        eyebrow="/ CALCULATOR"
-        headline={
-          <>
-            Know your website price <em>in 60 seconds</em>
-          </>
-        }
-        sub="No sales call, no “price on request”, no hidden lines. An honest range — and a clear breakdown of what drives it. Built for people deciding right now."
+        eyebrow={t("pageHero.eyebrow")}
+        headline={t.rich("pageHero.title", { em: emChunk })}
+        sub={t("pageHero.sub")}
       />
 
-      <StatsBar
-        items={[
-          { value: "47", label: "projects · last 3 years" },
-          { value: "$1,500–$10,000", label: "typical price range" },
-          { value: "4–10 weeks", label: "from brief to launch" },
-          { value: "1 year", label: "warranty included" },
-        ]}
-      />
+      <StatsBar items={stats} />
 
       <WebsiteCalculator />
       <HpFooter />

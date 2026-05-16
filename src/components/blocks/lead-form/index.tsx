@@ -60,8 +60,8 @@ const BUSINESS_OPTS = [
 
 const TIER_OPTS = [
   { key: "starter", label: "Starter — від $1 000" },
-  { key: "business", label: "Business — від $3 000" },
   { key: "industry", label: "Industry Pro — від $3 500" },
+  { key: "proplus", label: "Pro Plus — від $7 500" },
   { key: "enterprise", label: "Enterprise — від $14 000" },
   { key: "undecided", label: "Не визначився" },
 ];
@@ -87,16 +87,21 @@ const SELECT_CLASSNAMES = {
 
 const SELECT_ITEM_CLASS = "lead-form-popover-item";
 
+// `business` is the deprecated Multi-page tier (dropped Sprint 1). The alias
+// stays so old emails/sitemap URLs with ?tier=business still resolve to a
+// real form option — they now route to Industry Pro since that is the closest
+// match in the new ladder.
 const TIER_ALIASES: Record<string, string> = {
   basic: "starter",
   starter: "starter",
-  business: "business",
-  multi: "business",
-  multipage: "business",
+  business: "industry",
+  multi: "industry",
+  multipage: "industry",
   advanced: "industry",
   industry: "industry",
   industrypro: "industry",
   specialized: "industry",
+  proplus: "proplus",
   premium: "enterprise",
   enterprise: "enterprise",
   custom: "enterprise",
@@ -124,6 +129,12 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
     const tier = normalizeTier(searchParams?.get("tier") ?? null);
     return { ...INITIAL, tier };
   }, [searchParams]);
+
+  // URL `?source=` overrides the prop when present so links like
+  // /contacts?source=hero-audit get recorded as the real entry point
+  // in the Telegram lead message instead of the page-level default.
+  const urlSource = searchParams?.get("source");
+  const resolvedSource = urlSource && urlSource.trim() ? urlSource : source;
 
   const isCompact = variant === "compact";
   const [showDetails, setShowDetails] = useState<boolean>(
@@ -175,7 +186,7 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
           const res = await fetch("/api/lead", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...values, source }),
+            body: JSON.stringify({ ...values, source: resolvedSource }),
           });
           if (!res.ok) throw new Error("API error");
           setStatus("success");

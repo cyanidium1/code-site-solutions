@@ -44,6 +44,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/vs-wordpress",
     "/vs-constructors",
     "/vs-freelancers",
+    "/calculator",
   ]);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.flatMap(

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Database,
   SearchCheck,
@@ -21,80 +22,16 @@ import {
   type MaintenancePlan,
   type SeoGrowthPlan,
 } from "@/lib/pricing-calculator-config";
-import { FAQ } from "@/components/blocks/final";
-import type { RichText } from "@/lib/rich-text";
+import { FAQ, type FAQItem } from "@/components/blocks/final";
 import { CalculatorControls } from "./CalculatorControls";
 import { EstimateSummary } from "./EstimateSummary";
 import { LeadForm } from "./LeadForm";
 import { formatEur } from "./formatters";
 import "./calculator.css";
 
-const CALCULATOR_FAQ: { q: string; a: RichText }[] = [
-  {
-    q: "What if my budget is below the calculator's lowest price?",
-    a: [
-      "If you have ",
-      { em: "$800" },
-      ", we will tell you honestly that we can't deliver well at that price — and recommend a person we trust who can. We don't take projects we can't ship at the standard we want our name on.",
-    ],
-  },
-  {
-    q: "What if the final price is higher than the calculator shows?",
-    a: [
-      "The calculator gives a realistic range ",
-      { em: "9 times out of 10" },
-      ". If something falls outside it, we tell you before signing — never after. The contract carries a fixed sum: no surprises, no scope-creep invoices.",
-    ],
-  },
-  {
-    q: "Can I start with one package and upgrade later?",
-    a: [
-      "Yes. We design the architecture to ",
-      { em: "scale" },
-      ". Launch as Starter; a year later, when traffic grows, add CMS, blog, or SEO — without rewriting from zero.",
-    ],
-  },
-  {
-    q: "What if I need only one page?",
-    a: [
-      "We do landings starting at ",
-      { em: "$1,500" },
-      ". Anything below that is either a templated solution or we're the wrong fit — we'll point you to who isn't.",
-    ],
-  },
-  {
-    q: "Do I need to know exactly what I want?",
-    a: [
-      "No. On the call we ask 10–15 questions and write the spec ",
-      { em: "for you" },
-      ". Most clients arrive with a rough idea — that's normal.",
-    ],
-  },
-  {
-    q: "What if I have my own designer or brand book?",
-    a: [
-      "Then ",
-      { em: "−10–15% off the price" },
-      " and a shorter timeline. We work directly from your Figma or design files.",
-    ],
-  },
-  {
-    q: "Can I see the code before paying full?",
-    a: [
-      "Yes. After the design phase we hand over the GitHub repo. You review, leave comments, then we continue. Transparent from day one — no ",
-      { em: "code held hostage" },
-      ".",
-    ],
-  },
-  {
-    q: "What's NOT included in the price?",
-    a: [
-      "Content copywriting, post-launch SEO promotion, and translation work. We can recommend trusted specialists for each — or quote them as add-ons. Everything else (design, code, CMS, hosting setup, 1-year warranty) is ",
-      { em: "in the price" },
-      ".",
-    ],
-  },
-];
+// Renders <em>…</em> chunks inside next-intl rich messages. Reused for every
+// section heading on the calculator that uses italic emphasis on one phrase.
+const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
 /* ─── Reusable info-card grid (no outer border, matches /about VALUES) ──── */
 
@@ -123,65 +60,75 @@ function InfoCardGrid({ cards }: { cards: InfoCard[] }) {
   );
 }
 
-const HOW_IT_WORKS: InfoCard[] = [
-  {
-    icon: Layers3,
-    title: "Base project",
-    body: "Website type, CMS setup, responsive layout, and launch-ready structure.",
-  },
-  {
-    icon: SlidersHorizontal,
-    title: "Scope add-ons",
-    body: "Pages, languages, design level, integrations, and content increase the project scope.",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Final review",
-    body: "The calculator gives a realistic range. Final price is confirmed after scope review.",
-  },
-];
-
-const WHY_PACKAGES: InfoCard[] = [
-  {
-    icon: Rocket,
-    title: "Starter",
-    body: "For people launching one service or testing a hypothesis. No CMS, no 20 pages — you need to validate demand fast.",
-  },
-  {
-    icon: SearchCheck,
-    title: "Growth",
-    body: "For people with paying clients but no website that sells. Cases, blog, SEO, lead form — everything that brings traffic and converts it into calls.",
-  },
-  {
-    icon: Database,
-    title: "E-commerce",
-    body: "For people selling products. Not a landing page with “buy via DM” — a real store: cart, payments, CMS to manage stock.",
-  },
-];
-
-const WHY_ESTIMATE: InfoCard[] = [
-  {
-    icon: SearchCheck,
-    title: "SEO structure",
-    body: "Pages, metadata, headings, internal linking, and scalable landing architecture.",
-  },
-  {
-    icon: Database,
-    title: "CMS architecture",
-    body: "CMS setup for editing pages, posts, cases, services, products, and multilingual content.",
-  },
-  {
-    icon: Rocket,
-    title: "Conversion logic",
-    body: "Forms, CTAs, tracking, integrations, and UX decisions that turn visits into leads.",
-  },
-];
-
 /* ─── Page ─────────────────────────────────────────────────────────────── */
 
 export function WebsiteCalculator() {
   const [input, setInput] = useState(DEFAULT_CALCULATOR_INPUT);
   const estimate = useMemo(() => calculateWebsiteEstimate(input), [input]);
+  const t = useTranslations("Calculator");
+
+  const howItWorks: InfoCard[] = [
+    {
+      icon: Layers3,
+      title: t("howItWorks.cards.base.title"),
+      body: t("howItWorks.cards.base.body"),
+    },
+    {
+      icon: SlidersHorizontal,
+      title: t("howItWorks.cards.scope.title"),
+      body: t("howItWorks.cards.scope.body"),
+    },
+    {
+      icon: ClipboardCheck,
+      title: t("howItWorks.cards.final.title"),
+      body: t("howItWorks.cards.final.body"),
+    },
+  ];
+
+  const whyPackages: InfoCard[] = [
+    {
+      icon: Rocket,
+      title: t("whyPackages.cards.starter.title"),
+      body: t("whyPackages.cards.starter.body"),
+    },
+    {
+      icon: SearchCheck,
+      title: t("whyPackages.cards.growth.title"),
+      body: t("whyPackages.cards.growth.body"),
+    },
+    {
+      icon: Database,
+      title: t("whyPackages.cards.ecommerce.title"),
+      body: t("whyPackages.cards.ecommerce.body"),
+    },
+  ];
+
+  const whyEstimate: InfoCard[] = [
+    {
+      icon: SearchCheck,
+      title: t("underHood.cards.seo.title"),
+      body: t("underHood.cards.seo.body"),
+    },
+    {
+      icon: Database,
+      title: t("underHood.cards.cms.title"),
+      body: t("underHood.cards.cms.body"),
+    },
+    {
+      icon: Rocket,
+      title: t("underHood.cards.conversion.title"),
+      body: t("underHood.cards.conversion.body"),
+    },
+  ];
+
+  const faqItems: FAQItem[] = (t.raw("faq.items") as { q: string; a: string }[]).map(
+    (it) => ({ q: it.q, a: [it.a] }),
+  );
+
+  const socialLogos = t.raw("social.logos") as string[];
+
+  const monthSuffixMaintenance = t("afterLaunch.maintenance.monthSuffix");
+  const monthSuffixGrowth = t("afterLaunch.growth.monthSuffix");
 
   return (
     <>
@@ -191,17 +138,12 @@ export function WebsiteCalculator() {
           <div className="calc-section-head">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 01 HOW IT WORKS</span>
+              <span>{t("howItWorks.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">
-              How this estimate <em>works</em>
-            </h2>
-            <p className="hp-sub">
-              Three layers shape every project. The calculator separates a simple
-              site from a scalable business platform.
-            </p>
+            <h2 className="hp-h2">{t.rich("howItWorks.title", { em: emChunk })}</h2>
+            <p className="hp-sub">{t("howItWorks.sub")}</p>
           </div>
-          <InfoCardGrid cards={HOW_IT_WORKS} />
+          <InfoCardGrid cards={howItWorks} />
         </div>
       </section>
 
@@ -211,17 +153,12 @@ export function WebsiteCalculator() {
           <div className="calc-section-head">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 02 WHY THESE PACKAGES</span>
+              <span>{t("whyPackages.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">
-              Three packages cover <em>80% of requests</em>. Here&apos;s why.
-            </h2>
-            <p className="hp-sub">
-              Each one solves a different business question. Pick the one that
-              matches where you are now — not where you might be in 3 years.
-            </p>
+            <h2 className="hp-h2">{t.rich("whyPackages.title", { em: emChunk })}</h2>
+            <p className="hp-sub">{t("whyPackages.sub")}</p>
           </div>
-          <InfoCardGrid cards={WHY_PACKAGES} />
+          <InfoCardGrid cards={whyPackages} />
         </div>
       </section>
 
@@ -231,15 +168,10 @@ export function WebsiteCalculator() {
           <div className="calc-section-head">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 03 CUSTOMIZER</span>
+              <span>{t("customizer.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">
-              Configure your <em>scope</em>
-            </h2>
-            <p className="hp-sub">
-              Start with a recommended package or build it manually below.
-              Numbers update live.
-            </p>
+            <h2 className="hp-h2">{t.rich("customizer.title", { em: emChunk })}</h2>
+            <p className="hp-sub">{t("customizer.sub")}</p>
           </div>
 
           <div className="calc-layout">
@@ -259,24 +191,16 @@ export function WebsiteCalculator() {
           <div className="calc-section-head">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 04 AFTER LAUNCH</span>
+              <span>{t("afterLaunch.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">
-              Optional <em>monthly</em> support
-            </h2>
-            <p className="hp-sub">
-              Maintenance keeps the site stable. SEO &amp; Growth grows traffic
-              and leads. Both are optional and separate from the project price.
-            </p>
+            <h2 className="hp-h2">{t.rich("afterLaunch.title", { em: emChunk })}</h2>
+            <p className="hp-sub">{t("afterLaunch.sub")}</p>
           </div>
 
           <div className="calc-after-launch-grid">
             <div className="calc-after-block">
-              <h3 className="calc-after-title">Maintenance / after-launch</h3>
-              <p className="calc-note">
-                Monthly technical support — separate from the one-time project
-                estimate.
-              </p>
+              <h3 className="calc-after-title">{t("afterLaunch.maintenance.title")}</h3>
+              <p className="calc-note">{t("afterLaunch.maintenance.note")}</p>
               <div className="calc-segment">
                 {Object.entries(MAINTENANCE_OPTIONS).map(([id, option]) => (
                   <button
@@ -290,56 +214,69 @@ export function WebsiteCalculator() {
                       }))
                     }
                   >
-                    {option.label}
-                    <small>{formatEur(option.monthlyPrice)} / mo</small>
+                    {t(`options.maintenance.${id}` as `options.maintenance.${MaintenancePlan}`)}
+                    <small>
+                      {formatEur(option.monthlyPrice)}
+                      {monthSuffixMaintenance}
+                    </small>
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="calc-after-block">
-              <h3 className="calc-after-title">SEO &amp; Growth monthly</h3>
-              <p className="calc-note">
-                Ongoing SEO, content, analytics, and conversion work to grow
-                qualified leads after launch.
-              </p>
+              <h3 className="calc-after-title">{t("afterLaunch.growth.title")}</h3>
+              <p className="calc-note">{t("afterLaunch.growth.note")}</p>
               <div className="calc-growth-grid">
-                {Object.entries(SEO_GROWTH_OPTIONS).map(([id, plan]) => (
-                  <button
-                    key={id}
-                    type="button"
-                    className={`calc-growth-plan${
-                      input.seoGrowthPlan === id ? " active" : ""
-                    }${plan.badge ? " is-recommended" : ""}`}
-                    onClick={() =>
-                      setInput((prev) => ({
-                        ...prev,
-                        seoGrowthPlan: id as SeoGrowthPlan,
-                      }))
-                    }
-                  >
-                    <div className="calc-growth-plan-head">
-                      <strong>{plan.label}</strong>
-                      {plan.badge ? <span>{plan.badge}</span> : null}
-                    </div>
-                    <h4>
-                      {plan.priceLabel ? (
-                        plan.priceLabel
-                      ) : (
-                        <>
-                          {formatEur(plan.monthlyPrice)}
-                          <small>/mo</small>
-                        </>
-                      )}
-                    </h4>
-                    <p>{plan.bestFor}</p>
-                    <ul>
-                      {plan.includes.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </button>
-                ))}
+                {Object.entries(SEO_GROWTH_OPTIONS).map(([id, plan]) => {
+                  const includes = t.raw(
+                    `options.seoGrowth.${id}.includes`,
+                  ) as string[];
+                  const priceLabel =
+                    id === "contentEngine"
+                      ? t("options.seoGrowth.contentEngine.priceLabel")
+                      : undefined;
+                  return (
+                    <button
+                      key={id}
+                      type="button"
+                      className={`calc-growth-plan${
+                        input.seoGrowthPlan === id ? " active" : ""
+                      }${plan.badge ? " is-recommended" : ""}`}
+                      onClick={() =>
+                        setInput((prev) => ({
+                          ...prev,
+                          seoGrowthPlan: id as SeoGrowthPlan,
+                        }))
+                      }
+                    >
+                      <div className="calc-growth-plan-head">
+                        <strong>
+                          {t(`options.seoGrowth.${id}.label` as `options.seoGrowth.${SeoGrowthPlan}.label`)}
+                        </strong>
+                        {plan.badge ? <span>{t("options.seoGrowth.badgeRecommended")}</span> : null}
+                      </div>
+                      <h4>
+                        {priceLabel ? (
+                          priceLabel
+                        ) : (
+                          <>
+                            {formatEur(plan.monthlyPrice)}
+                            <small>{monthSuffixGrowth}</small>
+                          </>
+                        )}
+                      </h4>
+                      <p>
+                        {t(`options.seoGrowth.${id}.bestFor` as `options.seoGrowth.${SeoGrowthPlan}.bestFor`)}
+                      </p>
+                      <ul>
+                        {includes.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -352,19 +289,12 @@ export function WebsiteCalculator() {
           <div className="calc-section-head">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 05 UNDER THE HOOD</span>
+              <span>{t("underHood.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">
-              Why we estimate websites <em>this way</em>
-            </h2>
-            <p className="hp-sub">
-              Behind every visible design are page structure, SEO metadata,
-              performance, CMS modeling, responsive layouts, forms, analytics,
-              integrations, and launch prep. The calculator separates those
-              layers honestly.
-            </p>
+            <h2 className="hp-h2">{t.rich("underHood.title", { em: emChunk })}</h2>
+            <p className="hp-sub">{t("underHood.sub")}</p>
           </div>
-          <InfoCardGrid cards={WHY_ESTIMATE} />
+          <InfoCardGrid cards={whyEstimate} />
         </div>
       </section>
 
@@ -373,23 +303,25 @@ export function WebsiteCalculator() {
         <div className="hp-inner">
           <div className="calc-social-card">
             <p className="calc-social-line">
-              <strong>47 companies</strong> ran this calculator and launched
-              with us. Some of them:
+              {t.rich("social.line", {
+                strong: (chunks) => <strong>{chunks}</strong>,
+              })}
             </p>
             <div className="calc-social-logos">
-              <span>NBYG Bornholm</span>
-              <span>Efedra Clinic</span>
-              <span>Tatarka</span>
+              {socialLogos.map((logo) => (
+                <span key={logo}>{logo}</span>
+              ))}
             </div>
             <figure className="calc-testimonial">
               <Quote size={18} strokeWidth={1.6} className="calc-testimonial-icon" />
               <blockquote>
-                Before the new site we got 3 enquiries a month. Now we get
-                <strong> 24</strong>.
+                {t.rich("social.testimonialQuote", {
+                  strong: (chunks) => <strong>{chunks}</strong>,
+                })}
               </blockquote>
               <figcaption>
-                <span className="calc-testimonial-name">Søren Hansen</span>
-                <span className="calc-testimonial-role">Owner, NBYG Bornholm Aps</span>
+                <span className="calc-testimonial-name">{t("social.testimonialName")}</span>
+                <span className="calc-testimonial-role">{t("social.testimonialRole")}</span>
               </figcaption>
             </figure>
           </div>
@@ -398,7 +330,7 @@ export function WebsiteCalculator() {
 
       {/* Section: FAQ — HeroUI accordion via shared component */}
       <section style={{ background: "var(--bg)" }}>
-        <FAQ heading="Questions before requesting an estimate" items={CALCULATOR_FAQ} />
+        <FAQ heading={t("faq.heading")} items={faqItems} />
       </section>
 
       {/* Section: Lead form + after-submit + alt CTA */}
@@ -407,21 +339,15 @@ export function WebsiteCalculator() {
           <div className="calc-section-head">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 06 GET FINAL ESTIMATE</span>
+              <span>{t("getFinal.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">
-              Send the brief — get a <em>final price</em>
-            </h2>
-            <p className="hp-sub">
-              We&apos;ll review your calculator result and send a project plan,
-              timeline, and confirmed price range. Custom-coded websites only —
-              if you need a quick $300 template, we&apos;re not the right fit.
-            </p>
+            <h2 className="hp-h2">{t.rich("getFinal.title", { em: emChunk })}</h2>
+            <p className="hp-sub">{t("getFinal.sub")}</p>
           </div>
           <LeadForm input={input} estimate={estimate} />
 
           <div className="calc-alt-cta-row">
-            <span className="calc-alt-cta-text">Not ready for the form?</span>
+            <span className="calc-alt-cta-text">{t("getFinal.altReady")}</span>
             <a
               href="https://calendly.com/fedirdev"
               className="calc-alt-cta-link"
@@ -429,9 +355,9 @@ export function WebsiteCalculator() {
               rel="noreferrer"
             >
               <CalendarCheck size={14} strokeWidth={1.7} />
-              Book a 30-min call instead
+              {t("getFinal.altCalendly")}
             </a>
-            <span className="calc-alt-cta-or">or</span>
+            <span className="calc-alt-cta-or">{t("getFinal.altOr")}</span>
             <a
               href="https://t.me/fedirdev"
               className="calc-alt-cta-link"
@@ -439,12 +365,12 @@ export function WebsiteCalculator() {
               rel="noreferrer"
             >
               <PhoneCall size={14} strokeWidth={1.7} />
-              Telegram @fedirdev
+              {t("getFinal.altTelegram")}
             </a>
-            <span className="calc-alt-cta-or">·</span>
+            <span className="calc-alt-cta-or">{t("getFinal.altOrSep")}</span>
             <a href="mailto:hi@code-site.art" className="calc-alt-cta-link">
               <Mail size={14} strokeWidth={1.7} />
-              hi@code-site.art
+              {t("getFinal.altEmail")}
             </a>
           </div>
         </div>

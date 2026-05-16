@@ -75,6 +75,10 @@ export type TierProps = {
   /** Small label rendered before the price ("від" / "from"). Defaults to "від". */
   priceLabel?: string;
   weeks: string;
+  /** Optional one-liner shown between price/weeks and the includes list. */
+  bestFor?: React.ReactNode;
+  /** Localized label for the "best for" row. Defaults to "Кому підходить:". */
+  bestForLabel?: string;
   popular?: boolean;
   popularLabel?: string;
   includes: { heading: string; items: React.ReactNode[] };
@@ -114,6 +118,8 @@ export function Tier({
   price,
   priceLabel = "від",
   weeks,
+  bestFor,
+  bestForLabel = "Кому підходить:",
   popular,
   popularLabel = "Популярно",
   includes,
@@ -140,6 +146,16 @@ export function Tier({
         <div className="text-[12px] text-[var(--ink-3)] tracking-[0.04em]">
           {weeks}
         </div>
+        {bestFor ? (
+          <div className="mt-1 pt-3 border-t border-line">
+            <div className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-1.5">
+              {bestForLabel}
+            </div>
+            <p className="m-0 text-[12.5px] leading-[1.5] text-[var(--ink-2)]">
+              {bestFor}
+            </p>
+          </div>
+        ) : null}
       </div>
 
       <div>

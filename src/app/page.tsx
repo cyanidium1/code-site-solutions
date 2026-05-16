@@ -23,6 +23,8 @@ const HOMEPAGE_TIERS: TierProps[] = [
     name: "Landing",
     price: "$1 000",
     weeks: "1-2 тижні",
+    bestFor:
+      "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
     includes: {
       heading: "Що входить",
       items: [
@@ -37,9 +39,11 @@ const HOMEPAGE_TIERS: TierProps[] = [
   {
     popular: true,
     popularLabel: "★ MOST POPULAR",
-    name: "Spec for industry",
+    name: "Industry Pro",
     price: "$3 500",
     weeks: "4-8 тижнів",
+    bestFor:
+      "Бізнесу з compliance вимогами (медицина, право, бухгалтерія), що потребує галузевих інтеграцій.",
     includes: {
       heading: "Все з Landing +",
       items: [
@@ -56,6 +60,8 @@ const HOMEPAGE_TIERS: TierProps[] = [
     name: "Custom",
     price: "$14 000",
     weeks: "8-16 тижнів",
+    bestFor:
+      "Складним продуктам із власною логікою — SaaS, маркетплейс, B2B-портал.",
     includes: {
       heading: "Все з Industry Pro +",
       items: [
@@ -211,8 +217,11 @@ export default function HomePage() {
           { label: "Все під ключ", sub: "тексти + дизайн + код + хостинг" },
         ]}
         ctaPrimaryLabel="Розрахувати вартість"
-        ctaSecondaryLabel="Подивитись кейси"
+        ctaPrimaryHref="/calculator"
+        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 год →"
+        ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
+        ctaFootnote="Без розмови з sales. Без email-розсилки. Просто аудит."
         showStats
         stats={[
           { num: "47", lbl: <>проєктів<br/>за 3 роки</> },

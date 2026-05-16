@@ -29,7 +29,7 @@ import { plainRich, type RichText } from "@/lib/rich-text";
 export const metadata: Metadata = {
   title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
   description:
-    "Прозорі ціни без «під запит». Лендинг від $1 000, корпоративний сайт від $3 000, спеціалізований під галузь від $3 500, enterprise від $14 000. Гарантія 1 рік.",
+    "Прозорі ціни без «під запит». Лендинг від $1 000, Industry Pro від $3 500, Pro Plus від $7 500, enterprise від $14 000. Гарантія 1 рік.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
@@ -100,6 +100,8 @@ const TIERS: TierProps[] = [
     name: "Landing",
     price: "$1 000",
     weeks: "1-2 тижні",
+    bestFor:
+      "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
     includes: {
       heading: "Що входить",
       items: [
@@ -125,41 +127,15 @@ const TIERS: TierProps[] = [
     ctaHref: "/contacts?tier=starter",
   },
   {
-    name: "Multi-page",
-    price: "$3 000",
-    weeks: "2-4 тижні",
-    includes: {
-      heading: "Що входить",
-      items: [
-        "До 10 унікальних сторінок",
-        <><em>CMS</em> (Sanity або Strapi) для самостійних змін</>,
-        "Блог з SEO-структурою",
-        "Інтеграція з 2-3 системами (CRM, email, аналітика)",
-        "Lighthouse 95+",
-        "Schema.org розмітка",
-        "Інтеграція з картами і месенджерами",
-        "Гарантія 1 рік",
-      ],
-    },
-    excludes: {
-      items: [
-        "Багатомовність",
-        "Особистий кабінет клієнта",
-        "Складні воронки",
-        "Compliance під специфічну галузь",
-      ],
-    },
-    ctaLabel: "Choose Business →",
-    ctaHref: "/contacts?tier=business",
-  },
-  {
     popular: true,
     popularLabel: "★ MOST POPULAR",
-    name: "Specialized",
+    name: "Industry Pro",
     price: "$3 500",
     weeks: "4-8 тижнів",
+    bestFor:
+      "Бізнесу з compliance вимогами (медицина, право, бухгалтерія), що потребує галузевих інтеграцій.",
     includes: {
-      heading: "Все з Business +",
+      heading: "Що входить",
       items: [
         <><em>Compliance</em> під галузь (МОЗ / RODO / HIPAA-aware)</>,
         "5+ профільних інтеграцій (Helsi/Clio/MEDoc та ін.)",
@@ -174,20 +150,49 @@ const TIERS: TierProps[] = [
     },
     excludes: {
       items: [
-        "EN-локаль (тільки в Enterprise)",
+        "EN-локаль (доступна в Pro Plus)",
         "Складна SaaS-логіка",
         "SLA 24/7",
       ],
     },
     ctaLabel: "Choose Industry Pro →",
-    ctaHref: "/contacts?tier=advanced",
+    ctaHref: "/contacts?tier=industry",
+  },
+  {
+    name: "Pro Plus",
+    price: "від $7 500",
+    weeks: "6-10 тижнів",
+    bestFor:
+      "Бізнесу, який росте в кількох країнах і потребує EN-локаль, 30+ сторінок і одну глибоку інтеграцію (CRM / ERP / платіжна система).",
+    includes: {
+      heading: "Все з Industry Pro +",
+      items: [
+        <><em>EN-локаль</em></>,
+        "30+ сторінок",
+        "1 кастомна інтеграція",
+        "Виділений PM з щотижневими статусами",
+        "Розширене SEO (програмні landing-pages)",
+        <>Гарантія 1 рік + неустойка <em>30%</em> за зрив</>,
+      ],
+    },
+    excludes: {
+      items: [
+        "SLA 24/7 (тільки в Custom)",
+        "Dedicated team на 5-7 людей",
+        "Складна SaaS-архітектура",
+      ],
+    },
+    ctaLabel: "Choose Pro Plus →",
+    ctaHref: "/contacts?tier=proplus",
   },
   {
     name: "Custom",
     price: "$14 000",
     weeks: "8-16 тижнів",
+    bestFor:
+      "Складним продуктам із власною логікою — SaaS, маркетплейс, B2B-портал.",
     includes: {
-      heading: "Все з Industry Pro +",
+      heading: "Все з Pro Plus +",
       items: [
         "Архітектурна сесія перед стартом",
         "Dedicated team (5-7 людей під проект)",
@@ -272,11 +277,13 @@ const PRICING_FAQ: { q: string; a: RichText }[] = [
     ],
   },
   {
-    q: "Чому індустріальні сайти (Industry Pro) дорожчі за Business?",
+    q: "Чим Pro Plus відрізняється від Industry Pro і коли вибирати який?",
     a: [
-      "Бо включають специфічні інтеграції (",
+      "Industry Pro ($3 500) — для бізнесу з compliance вимогами і галузевими інтеграціями (",
       { em: "Helsi, Clio, MEDoc" },
-      ") які потребують технічного дослідження і реалізації. Плюс compliance під галузь (МОЗ для медицини, RODO для юристів, GDPR для бухгалтерії). Це окремий рівень роботи. Деталі на сторінках /sites-for/medicine, /sites-for/legal, /sites-for/accounting.",
+      ") в одній мові. Pro Plus ($7 500) додає ",
+      { em: "EN-локаль" },
+      ", 30+ сторінок, одну глибоку інтеграцію (CRM / ERP / платіжна) і виділеного PM з щотижневими статусами. Беріть Pro Plus, якщо клієнти не лише з України, або обсяг контенту виходить за межі 30 сторінок. Деталі — на сторінках /sites-for/medicine, /sites-for/legal, /sites-for/accounting.",
     ],
   },
   {
@@ -352,26 +359,26 @@ const jsonLd = {
             "@type": "Offer",
             name: "Starter — Landing",
             description:
-              "Односторінковий сайт під одну ціль. Стартапи, тест ніш, промо-кампанії, портфоліо.",
+              "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
             price: "1000",
             priceCurrency: "USD",
             url: PRICING_URL,
           },
           {
             "@type": "Offer",
-            name: "Business — Multi-page",
+            name: "Industry Pro",
             description:
-              "Корпоративний сайт з блогом, кейсами, послугами. Експерти, агенції, B2B-довіра.",
-            price: "3000",
+              "Сайт під специфіку галузі: медицина, юристи, бухгалтерія. З compliance і профільними інтеграціями.",
+            price: "3500",
             priceCurrency: "USD",
             url: PRICING_URL,
           },
           {
             "@type": "Offer",
-            name: "Industry Pro — Specialized",
+            name: "Pro Plus",
             description:
-              "Сайт під специфіку галузі: медицина, юристи, бухгалтерія. З compliance і профільними інтеграціями.",
-            price: "3500",
+              "Бізнесу, який росте в кількох країнах і потребує EN-локаль, 30+ сторінок і одну глибоку інтеграцію (CRM / ERP / платіжна система).",
+            price: "7500",
             priceCurrency: "USD",
             url: PRICING_URL,
           },

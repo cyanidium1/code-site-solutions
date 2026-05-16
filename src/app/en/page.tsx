@@ -207,6 +207,8 @@ const EN_TIERS: TierProps[] = [
     price: "$1,000",
     priceLabel: "from",
     weeks: "1–2 weeks",
+    bestFor: "Fast launch of one offer, MVP, hypothesis testing.",
+    bestForLabel: "Best for:",
     includes: {
       heading: "Includes",
       items: [
@@ -221,10 +223,13 @@ const EN_TIERS: TierProps[] = [
   {
     popular: true,
     popularLabel: "★ MOST POPULAR",
-    name: "Spec for industry",
+    name: "Industry Pro",
     price: "$3,500",
     priceLabel: "from",
     weeks: "4–8 weeks",
+    bestFor:
+      "Businesses with compliance needs (healthcare, legal, accounting) that need industry-specific integrations.",
+    bestForLabel: "Best for:",
     includes: {
       heading: "Everything in Landing, plus",
       items: [
@@ -242,6 +247,9 @@ const EN_TIERS: TierProps[] = [
     price: "$14,000",
     priceLabel: "from",
     weeks: "8–16 weeks",
+    bestFor:
+      "Complex products with bespoke logic — SaaS, marketplace, B2B portal.",
+    bestForLabel: "Best for:",
     includes: {
       heading: "Everything in Industry Pro, plus",
       items: [
@@ -346,8 +354,11 @@ export default function HomePageEn() {
           { label: "End-to-end", sub: "Copy + design + code + hosting" },
         ]}
         ctaPrimaryLabel="Get an estimate"
-        ctaSecondaryLabel="See the work"
-        ctaSecondaryShowPlay
+        ctaPrimaryHref="/en/calculator"
+        ctaSecondaryLabel="Free site audit within 24 hours →"
+        ctaSecondaryHref="/contacts?source=hero-audit"
+        ctaSecondaryShowPlay={false}
+        ctaFootnote="No sales call. No email list. Just an audit."
         showStats
         stats={[
           { num: "47", lbl: <>builds<br />in 3 years</> },
