@@ -1,5 +1,6 @@
 import { LeadForm, type LeadFormVariant } from "@/components/blocks/lead-form";
 import { CHANNELS, CONTACT_META } from "@/lib/contacts";
+import { HeroAuditBanner } from "./HeroAuditBanner";
 import "./contact-split.css";
 
 export function ContactSplit({
@@ -11,6 +12,7 @@ export function ContactSplit({
 } = {}) {
   return (
     <section className="contact-split">
+      <HeroAuditBanner />
       <div className="contact-split-inner">
         <aside className="contact-split-channels">
           <div className="contact-split-eyebrow">/ CHANNELS</div>

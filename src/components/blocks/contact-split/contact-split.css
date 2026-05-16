@@ -8,6 +8,57 @@
   );
 }
 
+.hero-audit-banner {
+  max-width: 1180px;
+  margin: 0 auto 32px;
+  padding: 18px 22px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  border: 1px solid oklch(from var(--accent) l c h / 0.4);
+  background: oklch(from var(--accent) l c h / 0.08);
+  border-radius: 14px;
+}
+.hero-audit-banner-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  margin-top: 7px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px oklch(from var(--accent) l c h / 0.15);
+}
+.hero-audit-banner-body {
+  flex: 1;
+  min-width: 0;
+}
+.hero-audit-banner-title {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.hero-audit-banner-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin: 0;
+}
+@media (max-width: 700px) {
+  .hero-audit-banner {
+    margin-bottom: 22px;
+    padding: 14px 16px;
+  }
+  .hero-audit-banner-title {
+    font-size: 13px;
+  }
+  .hero-audit-banner-text {
+    font-size: 12.5px;
+  }
+}
+
 @media (max-width: 1100px) {
   .contact-split {
     padding: 64px 32px;
