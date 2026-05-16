@@ -18,7 +18,13 @@
   },
   "ServiceNav": {
     "medicine": "Healthcare",
-    "renovation": "Construction / Renovation"
+    "renovation": "Construction / Renovation",
+    "legal": "Legal & Attorneys",
+    "accounting": "Accounting & Bookkeeping",
+    "ecommerce": "E-commerce",
+    "saas": "SaaS & Startups",
+    "cosmetology": "Cosmetology",
+    "education": "Education & Courses"
   },
   "Footer": {
     "brandDesc": "Boutique studio out of Kyiv. Custom-coded websites for businesses — 47 builds across 4 regions: UA · EU · US · DK.",
@@ -28,7 +34,13 @@
     "legalHeading": "/ LEGAL",
     "solutions": {
       "healthcare": "Healthcare",
-      "renovation": "Construction / Renovation"
+      "renovation": "Construction / Renovation",
+      "legal": "Legal & Attorneys",
+      "accounting": "Accounting & Bookkeeping",
+      "ecommerce": "E-commerce",
+      "saas": "SaaS & Startups",
+      "cosmetology": "Cosmetology",
+      "education": "Education & Courses"
     },
     "company": {
       "about": "About",
@@ -53,8 +65,8 @@
     "copy": "© 2026 Code-Site.Art — Made in Kyiv"
   },
   "Newsletter": {
-    "heading": "Newsletter",
-    "sub": "Once a month — a curated 3-article digest. No spam.",
+    "heading": "How not to burn your website budget",
+    "sub": "Once a month — one real-project breakdown with numbers: what worked, what didn't, what it cost. For business owners thinking about commissioning a site. No news, no fluff.",
     "placeholder": "email@example.com",
     "button": "Subscribe",
     "success": "Done ✓"
@@ -161,10 +173,10 @@
     },
     "social": {
       "line": "<strong>47 companies</strong> ran this calculator and launched with us. Some of them:",
-      "logos": ["NBYG Bornholm", "Efedra Clinic", "Tatarka"],
+      "logos": ["NBYG København", "Efedra Clinic", "Tatarka"],
       "testimonialQuote": "Before the new site we got 3 enquiries a month. Now we get <strong>24</strong>.",
       "testimonialName": "Søren Hansen",
-      "testimonialRole": "Owner, NBYG Bornholm Aps"
+      "testimonialRole": "Owner, NBYG København Aps"
     },
     "faq": {
       "heading": "Questions before requesting an estimate",
@@ -531,7 +543,7 @@
       "after1wBody": "Final proposal — fixed price, fixed deadline, penalty clause for delays.",
       "testimonialQuote": "Before the new site we got 3 enquiries a month. Now we get <strong>24</strong>.",
       "testimonialName": "Søren Hansen",
-      "testimonialRole": "Owner, NBYG Bornholm Aps"
+      "testimonialRole": "Owner, NBYG København Aps"
     }
   }
 }

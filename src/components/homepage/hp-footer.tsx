@@ -22,12 +22,20 @@ const DEFAULT_SOCIALS: SocialDef[] = [
   { icon: Github, href: "https://github.com/fedirdev", label: "GitHub" },
 ];
 
-// Only render entries that resolve to a published industryPage in Sanity.
-// Add new entries as the marketing team ships them in Studio. Translation
+// All 8 industries render in the footer column for visual completeness.
+// Entries with a published Sanity page get a live link; unpublished ones
+// render as disabled labels via `renderSolutionItem` below. Translation
 // keys (`key`) live in `messages/{uk,en}.json` → `Footer.solutions`.
-const SOLUTIONS_HREFS: Array<{ key: string; href: string }> = [
-  { key: "healthcare", href: "/sites-for/medicine" },
-  { key: "renovation", href: "/sites-for/renovation" },
+// When a new industry ships a page, flip its `published` flag.
+const SOLUTIONS_HREFS: Array<{ key: string; href: string; published: boolean }> = [
+  { key: "healthcare", href: "/sites-for/medicine", published: true },
+  { key: "renovation", href: "/sites-for/renovation", published: true },
+  { key: "legal", href: "/sites-for/legal", published: false },
+  { key: "accounting", href: "/sites-for/accounting", published: false },
+  { key: "ecommerce", href: "/sites-for/ecommerce", published: false },
+  { key: "saas", href: "/sites-for/saas", published: false },
+  { key: "cosmetology", href: "/sites-for/cosmetology", published: false },
+  { key: "education", href: "/sites-for/education", published: false },
 ];
 
 // Only entries with a shipped page get rendered. Others would 404.
@@ -55,10 +63,19 @@ export function HpFooter({
   const locale = useLocale();
   const isEn = locale === "en";
 
-  // EN footer: only industries with a translated landing page render as
-  // links (currently medicine). The rest stay as disabled labels — same
-  // pattern as the EN homepage industry cards. UA keeps everything linked.
-  const renderSolutionItem = (key: string, href: string) => {
+  // Render rules:
+  //   - UA: if the industry page is published, link to /sites-for/<slug>;
+  //     otherwise render a disabled label so the column shows all 8 names.
+  //   - EN: same, but the link only resolves when an EN translation also
+  //     exists (per `EN_INDUSTRY_SLUGS` in lib/i18n-routes.ts). Industries
+  //     published only in UA still render as disabled on EN — same
+  //     visual completeness as the homepage industry cards.
+  const renderSolutionItem = (
+    key: string,
+    href: string,
+    published: boolean,
+  ) => {
+    if (!published) return <span className="hp-footer-disabled">{tSol(key)}</span>;
     if (!isEn) return <Link href={href}>{tSol(key)}</Link>;
     const slug = href.replace(/^\/sites-for\//, "");
     if (hasEnIndustry(slug)) {
@@ -98,8 +115,8 @@ export function HpFooter({
         <div>
           <div className="hp-footer-col-h">{t("solutionsHeading")}</div>
           <ul className="hp-footer-col-list">
-            {SOLUTIONS_HREFS.map(({ key, href }) => (
-              <li key={key}>{renderSolutionItem(key, href)}</li>
+            {SOLUTIONS_HREFS.map(({ key, href, published }) => (
+              <li key={key}>{renderSolutionItem(key, href, published)}</li>
             ))}
           </ul>
         </div>

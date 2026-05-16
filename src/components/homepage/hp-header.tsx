@@ -62,7 +62,7 @@ export function HpHeader() {
     return hasEnIndustry(slug) ? `/en/sites-for/${slug}` : "/en#solutions";
   };
 
-  const servicesActive = SERVICE_NAV_LINKS.some((s) =>
+  const servicesActive = SERVICE_NAV_LINKS.filter((s) => s.published).some((s) =>
     isActive(pathname, isEn ? `/en${s.href}` : s.href),
   );
 
@@ -83,6 +83,20 @@ export function HpHeader() {
             </summary>
             <div className="hp-nav-dd-panel">
               {SERVICE_NAV_LINKS.map((item) => {
+                if (!item.published) {
+                  // No Sanity page yet — show the label but make it
+                  // non-clickable so the dropdown lists the full industry
+                  // line-up without leading visitors to a 404.
+                  return (
+                    <span
+                      key={item.href}
+                      className="hp-nav-dd-link is-disabled"
+                      aria-disabled="true"
+                    >
+                      {tServices(item.key)}
+                    </span>
+                  );
+                }
                 const target = resolveServiceHref(item.href);
                 const active = isActive(pathname, target);
                 return (
