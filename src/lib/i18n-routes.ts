@@ -32,13 +32,51 @@ export function hasEnCase(slug: string): boolean {
  * Top-level routes that have a fully-translated EN counterpart at
  * `/en<path>`. Used by the locale switcher to keep the user on the
  * same page when toggling languages instead of bouncing to `/en`.
+ *
+ * Sprint 2BC: added /pricing, /about, /process, /contacts, /portfolio,
+ * /blog. /blog/[slug] handled separately via EN_BLOG_SLUG_MAP below.
  */
 export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = new Set([
   "/vs-wordpress",
   "/vs-constructors",
   "/vs-freelancers",
   "/calculator",
+  "/pricing",
+  "/about",
+  "/process",
+  "/contacts",
+  "/portfolio",
+  "/blog",
 ]);
+
+/**
+ * UA blog slug → EN blog slug map. Sprint 2BC: each /blog/<ua-slug>
+ * resolves to a different EN URL slug for SEO clarity. The map is
+ * hardcoded because there are only 3 entries today and dynamic Sanity
+ * lookup from a sync render path is awkward — see sprint-2bc-inventory
+ * §4 for the trade-off.
+ *
+ * Update when a new blogPost ships with both slug + slugEn populated.
+ */
+export const EN_BLOG_SLUG_MAP: Readonly<Record<string, string>> = {
+  "skilky-koshtuye-sayt-2026": "website-cost-2026-breakdown",
+  "tilda-7200-za-3-roky": "tilda-7200-over-3-years",
+  "dohovir-z-veb-studieyu-7-punktiv": "web-studio-contract-7-items",
+};
+
+/** Reverse map for EN → UA lookups. Derived once at module load. */
+export const UK_BLOG_SLUG_MAP: Readonly<Record<string, string>> =
+  Object.fromEntries(
+    Object.entries(EN_BLOG_SLUG_MAP).map(([uk, en]) => [en, uk]),
+  );
+
+export function ukBlogSlugForEn(enSlug: string): string | undefined {
+  return UK_BLOG_SLUG_MAP[enSlug];
+}
+
+export function enBlogSlugForUk(ukSlug: string): string | undefined {
+  return EN_BLOG_SLUG_MAP[ukSlug];
+}
 
 /**
  * Map current pathname to its UA / EN counterpart so the locale switcher
@@ -57,10 +95,16 @@ export function resolveLocaleAlternate(
     return { uk: "/", en: "/en" };
   }
 
-  // EN → UA: strip the /en prefix to get the UA path. We assume the UA
-  // mirror exists since /en/ routes are only published when there's a
-  // matching UA route — but if a future /en-only path appears, the
-  // caller can null-check.
+  // EN → UA: handle /en/blog/<slug> via the slug map. Other /en/ paths
+  // strip the prefix and assume a UA mirror exists.
+  if (pathname.startsWith("/en/blog/")) {
+    const enSlug = pathname.slice("/en/blog/".length).replace(/\/$/, "");
+    const ukSlug = ukBlogSlugForEn(enSlug);
+    return {
+      uk: ukSlug ? `/blog/${ukSlug}` : null,
+      en: pathname,
+    };
+  }
   if (pathname.startsWith("/en/")) {
     return { uk: pathname.slice(3), en: pathname };
   }
@@ -85,7 +129,18 @@ export function resolveLocaleAlternate(
     };
   }
 
-  // UA → EN: top-level localized roots (vs-* compare pages, /calculator).
+  // UA → EN: blog post slug (only when an EN translation exists, via the map).
+  const blogMatch = pathname.match(/^\/blog\/([^/]+)\/?$/);
+  if (blogMatch) {
+    const normalized = `/blog/${blogMatch[1]}`;
+    const enSlug = enBlogSlugForUk(blogMatch[1]);
+    return {
+      uk: normalized,
+      en: enSlug ? `/en/blog/${enSlug}` : null,
+    };
+  }
+
+  // UA → EN: top-level localized roots.
   const rootMatch = pathname.match(/^(\/[^/]+)\/?$/);
   if (rootMatch) {
     const root = rootMatch[1];
@@ -95,8 +150,6 @@ export function resolveLocaleAlternate(
     };
   }
 
-  // Catch-all for any other UA path (e.g. /blog, /blog/<slug>): UA side
-  // is the current path; EN side has no counterpart yet (Sprint 5
-  // ships /en/blog).
+  // Catch-all for any other UA path.
   return { uk: pathname, en: null };
 }
