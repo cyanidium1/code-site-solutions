@@ -29,13 +29,9 @@ import { LeadForm } from "./LeadForm";
 import { formatEur } from "./formatters";
 import "./calculator.css";
 
-function richTitle(value: string): React.ReactNode {
-  const parts = value.split(/(<em>.*?<\/em>)/g).filter(Boolean);
-  return parts.map((part, i) => {
-    const m = part.match(/^<em>(.*)<\/em>$/);
-    return m ? <em key={i}>{m[1]}</em> : <span key={i}>{part}</span>;
-  });
-}
+// Renders <em>…</em> chunks inside next-intl rich messages. Reused for every
+// section heading on the calculator that uses italic emphasis on one phrase.
+const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
 /* ─── Reusable info-card grid (no outer border, matches /about VALUES) ──── */
 
@@ -144,7 +140,7 @@ export function WebsiteCalculator() {
               <span className="hp-eyebrow-dot" />
               <span>{t("howItWorks.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{richTitle(t("howItWorks.title"))}</h2>
+            <h2 className="hp-h2">{t.rich("howItWorks.title", { em: emChunk })}</h2>
             <p className="hp-sub">{t("howItWorks.sub")}</p>
           </div>
           <InfoCardGrid cards={howItWorks} />
@@ -159,7 +155,7 @@ export function WebsiteCalculator() {
               <span className="hp-eyebrow-dot" />
               <span>{t("whyPackages.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{richTitle(t("whyPackages.title"))}</h2>
+            <h2 className="hp-h2">{t.rich("whyPackages.title", { em: emChunk })}</h2>
             <p className="hp-sub">{t("whyPackages.sub")}</p>
           </div>
           <InfoCardGrid cards={whyPackages} />
@@ -174,7 +170,7 @@ export function WebsiteCalculator() {
               <span className="hp-eyebrow-dot" />
               <span>{t("customizer.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{richTitle(t("customizer.title"))}</h2>
+            <h2 className="hp-h2">{t.rich("customizer.title", { em: emChunk })}</h2>
             <p className="hp-sub">{t("customizer.sub")}</p>
           </div>
 
@@ -197,7 +193,7 @@ export function WebsiteCalculator() {
               <span className="hp-eyebrow-dot" />
               <span>{t("afterLaunch.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{richTitle(t("afterLaunch.title"))}</h2>
+            <h2 className="hp-h2">{t.rich("afterLaunch.title", { em: emChunk })}</h2>
             <p className="hp-sub">{t("afterLaunch.sub")}</p>
           </div>
 
@@ -295,7 +291,7 @@ export function WebsiteCalculator() {
               <span className="hp-eyebrow-dot" />
               <span>{t("underHood.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{richTitle(t("underHood.title"))}</h2>
+            <h2 className="hp-h2">{t.rich("underHood.title", { em: emChunk })}</h2>
             <p className="hp-sub">{t("underHood.sub")}</p>
           </div>
           <InfoCardGrid cards={whyEstimate} />
@@ -345,7 +341,7 @@ export function WebsiteCalculator() {
               <span className="hp-eyebrow-dot" />
               <span>{t("getFinal.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{richTitle(t("getFinal.title"))}</h2>
+            <h2 className="hp-h2">{t.rich("getFinal.title", { em: emChunk })}</h2>
             <p className="hp-sub">{t("getFinal.sub")}</p>
           </div>
           <LeadForm input={input} estimate={estimate} />

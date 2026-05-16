@@ -7,13 +7,7 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { WebsiteCalculator } from "@/components/calculator";
 
-function richTitle(value: string): React.ReactNode {
-  const parts = value.split(/(<em>.*?<\/em>)/g).filter(Boolean);
-  return parts.map((part, i) => {
-    const m = part.match(/^<em>(.*)<\/em>$/);
-    return m ? <em key={i}>{m[1]}</em> : <span key={i}>{part}</span>;
-  });
-}
+const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Calculator.meta");
@@ -54,7 +48,7 @@ export default async function CalculatorPage() {
           { label: t("pageHero.breadcrumbSelf") },
         ]}
         eyebrow={t("pageHero.eyebrow")}
-        headline={richTitle(t("pageHero.title"))}
+        headline={t.rich("pageHero.title", { em: emChunk })}
         sub={t("pageHero.sub")}
       />
 

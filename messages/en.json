@@ -128,14 +128,14 @@
     "afterLaunch": {
       "eyebrow": "/ 04 AFTER LAUNCH",
       "title": "Optional <em>monthly</em> support",
-      "sub": "Maintenance keeps the site stable. SEO &amp; Growth grows traffic and leads. Both are optional and separate from the project price.",
+      "sub": "Maintenance keeps the site stable. SEO & Growth grows traffic and leads. Both are optional and separate from the project price.",
       "maintenance": {
         "title": "Maintenance / after-launch",
         "note": "Monthly technical support — separate from the one-time project estimate.",
         "monthSuffix": " / mo"
       },
       "growth": {
-        "title": "SEO &amp; Growth monthly",
+        "title": "SEO & Growth monthly",
         "note": "Ongoing SEO, content, analytics, and conversion work to grow qualified leads after launch.",
         "monthSuffix": "/mo"
       }
@@ -475,7 +475,7 @@
         "Integrations = additional development and testing"
       ],
       "maintenanceMonth": "Maintenance / month",
-      "seoGrowthMonth": "SEO &amp; Growth / month",
+      "seoGrowthMonth": "SEO & Growth / month",
       "roiTitle": "What this means for you",
       "roiBody": "At a 3% conversion rate and a $1,000 average order — the site pays for itself in <strong>12–15 enquiries</strong>. Roughly 3–6 months of work. After that, it earns for years.",
       "scarcity": "Next available start: <strong>in 2 weeks</strong>. <strong>2 slots</strong> left this quarter.",

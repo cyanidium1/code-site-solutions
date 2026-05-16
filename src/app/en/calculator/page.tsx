@@ -10,6 +10,9 @@ import { WebsiteCalculator } from "@/components/calculator";
 const T = enMessages.Calculator;
 
 function richTitle(value: string): React.ReactNode {
+  // The /en/calculator page reads the JSON directly (no next-intl server
+  // context), so it parses the static `<em>…</em>` tags out of the message
+  // string by hand. The client-side calculator uses next-intl `t.rich`.
   const parts = value.split(/(<em>.*?<\/em>)/g).filter(Boolean);
   return parts.map((part, i) => {
     const m = part.match(/^<em>(.*)<\/em>$/);
