@@ -18,7 +18,13 @@
   },
   "ServiceNav": {
     "medicine": "Медицина",
-    "renovation": "Будівництво / ремонт"
+    "renovation": "Будівництво / ремонт",
+    "legal": "Юристи і адвокати",
+    "accounting": "Бухгалтерія",
+    "ecommerce": "Інтернет-магазини",
+    "saas": "SaaS і стартапи",
+    "cosmetology": "Косметологія",
+    "education": "Освіта і курси"
   },
   "Footer": {
     "brandDesc": "European boutique studio з Києва. Custom-coded сайти для бізнесу — 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.",
@@ -28,7 +34,13 @@
     "legalHeading": "/ LEGAL",
     "solutions": {
       "healthcare": "Healthcare",
-      "renovation": "Construction / Renovation"
+      "renovation": "Construction / Renovation",
+      "legal": "Legal & Attorneys",
+      "accounting": "Accounting & Bookkeeping",
+      "ecommerce": "E-commerce",
+      "saas": "SaaS & Startups",
+      "cosmetology": "Cosmetology",
+      "education": "Education & Courses"
     },
     "company": {
       "about": "About",
@@ -161,10 +173,10 @@
     },
     "social": {
       "line": "<strong>47 компаній</strong> прокатали цей калькулятор і запустилися з нами. Деякі з них:",
-      "logos": ["NBYG Bornholm", "Efedra Clinic", "Tatarka"],
+      "logos": ["NBYG København", "Efedra Clinic", "Tatarka"],
       "testimonialQuote": "До нового сайту ми отримували 3 заявки на місяць. Тепер — <strong>24</strong>.",
       "testimonialName": "Søren Hansen",
-      "testimonialRole": "Owner, NBYG Bornholm Aps"
+      "testimonialRole": "Owner, NBYG København Aps"
     },
     "faq": {
       "heading": "Питання перед заявкою на оцінку",
@@ -531,7 +543,7 @@
       "after1wBody": "Фінальна пропозиція — фіксована ціна, фіксований термін, неустойка за зрив.",
       "testimonialQuote": "До нового сайту ми отримували 3 заявки на місяць. Тепер — <strong>24</strong>.",
       "testimonialName": "Søren Hansen",
-      "testimonialRole": "Owner, NBYG Bornholm Aps"
+      "testimonialRole": "Owner, NBYG København Aps"
     }
   }
 }
