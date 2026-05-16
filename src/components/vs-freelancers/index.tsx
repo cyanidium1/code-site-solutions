@@ -876,10 +876,10 @@ const EN: Content = {
     ],
     foot: (
       <>
-        Each of these 6 isn't an exceptional story. It's a{" "}
+        Each of these 6 isn&apos;t an exceptional story. It&apos;s a{" "}
         <strong>typical pattern</strong>. 12 of our 47 projects are rescues
         after a freelancer or another agency. If you recognize yourself — talk
-        to us. The free 30-minute consult will tell you straight what's
+        to us. The free 30-minute consult will tell you straight what&apos;s
         salvageable.
       </>
     ),
