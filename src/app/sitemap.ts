@@ -11,7 +11,11 @@ import type {
   CaseStudyRef,
   IndustryPageRef,
 } from "@/lib/sanity/types";
-import { EN_INDUSTRY_SLUGS } from "@/lib/i18n-routes";
+import {
+  EN_BLOG_SLUG_MAP,
+  EN_INDUSTRY_SLUGS,
+  enBlogSlugForUk,
+} from "@/lib/i18n-routes";
 
 const STATIC_ROUTES: {
   path: string;
@@ -22,6 +26,8 @@ const STATIC_ROUTES: {
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
   { path: "/portfolio", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/process", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/contacts", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
   { path: "/calculator", changeFrequency: "monthly", priority: 0.7 },
   { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
@@ -47,14 +53,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }).catch(() => [] as BlogPostListItem[]),
   ]);
 
-  // Routes that are also published under /en. Used to attach hreflang
-  // alternates and emit the EN counterpart in the sitemap.
+  // Routes that are also published under /en. Sprint 2BC promoted the
+  // five core pages + blog listing into this set after their /en/*
+  // counterparts landed.
   const EN_LOCALIZED_PATHS = new Set<string>([
     "/",
+    "/about",
+    "/pricing",
+    "/portfolio",
+    "/process",
+    "/contacts",
+    "/blog",
+    "/calculator",
     "/vs-wordpress",
     "/vs-constructors",
     "/vs-freelancers",
-    "/calculator",
   ]);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.flatMap(
@@ -149,13 +162,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [ukEntry];
   });
 
-  // Blog posts — UA only for Sprint 2A. EN counterparts land in Sprint 5.
-  const blogEntries: MetadataRoute.Sitemap = blogPosts.map((p) => ({
-    url: `${SITE_ORIGIN}/blog/${p.slug}`,
-    lastModified: p.publishedAt ? new Date(p.publishedAt) : lastModified,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  // Blog posts — UA always; EN only when the slug is in EN_BLOG_SLUG_MAP
+  // (i.e. bodyEn has been seeded and the post is intended to be visible
+  // in EN). Slugs differ between locales — pull the EN slug from the map.
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.flatMap((p) => {
+    const ukUrl = `${SITE_ORIGIN}/blog/${p.slug}`;
+    const enSlug = enBlogSlugForUk(p.slug);
+    const ukEntry: MetadataRoute.Sitemap[number] = {
+      url: ukUrl,
+      lastModified: p.publishedAt ? new Date(p.publishedAt) : lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    };
+    if (enSlug && EN_BLOG_SLUG_MAP[p.slug]) {
+      const enUrl = `${SITE_ORIGIN}/en/blog/${enSlug}`;
+      const languages = {
+        uk: ukUrl,
+        en: enUrl,
+        "x-default": ukUrl,
+      };
+      ukEntry.alternates = { languages };
+      const enEntry: MetadataRoute.Sitemap[number] = {
+        url: enUrl,
+        lastModified: ukEntry.lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: { languages },
+      };
+      return [ukEntry, enEntry];
+    }
+    return [ukEntry];
+  });
 
   return [...staticEntries, ...industryEntries, ...caseEntries, ...blogEntries];
 }
