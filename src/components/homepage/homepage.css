@@ -1670,6 +1670,23 @@
   background: oklch(1 0 0 / 0.06);
   color: var(--ink);
 }
+.hp-nav-dd-link.is-disabled {
+  color: var(--ink-3);
+  cursor: default;
+  opacity: 0.55;
+}
+.hp-nav-dd-link.is-disabled:hover {
+  background: transparent;
+  color: var(--ink-3);
+}
+.hp-drawer-link.is-disabled {
+  color: var(--ink-3);
+  cursor: default;
+  opacity: 0.55;
+}
+.hp-drawer-link.is-disabled:hover {
+  background: transparent;
+}
 .hp-nav-dd-footer {
   display: block;
   margin-top: 4px;

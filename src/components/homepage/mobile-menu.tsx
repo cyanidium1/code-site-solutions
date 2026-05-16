@@ -141,14 +141,23 @@ export function MobileMenu() {
                         className="hp-drawer-stagger"
                         style={{ ["--i" as string]: SERVICES_BASE_I + idx }}
                       >
-                        <Link
-                          href={s.href}
-                          className="hp-drawer-link"
-                          onClick={close}
-                        >
-                          <span>{tServices(s.key)}</span>
-                          <ChevronRight size={14} strokeWidth={1.8} />
-                        </Link>
+                        {s.published ? (
+                          <Link
+                            href={s.href}
+                            className="hp-drawer-link"
+                            onClick={close}
+                          >
+                            <span>{tServices(s.key)}</span>
+                            <ChevronRight size={14} strokeWidth={1.8} />
+                          </Link>
+                        ) : (
+                          <span
+                            className="hp-drawer-link is-disabled"
+                            aria-disabled="true"
+                          >
+                            <span>{tServices(s.key)}</span>
+                          </span>
+                        )}
                       </li>
                     ))}
                     <li
