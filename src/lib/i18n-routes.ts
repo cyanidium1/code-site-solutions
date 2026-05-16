@@ -42,41 +42,61 @@ export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = new Set([
 
 /**
  * Map current pathname to its UA / EN counterpart so the locale switcher
- * keeps page context. Falls back to the EN homepage only when no EN
- * counterpart is known to exist (avoids 404s).
+ * keeps page context.
+ *
+ * Returns `null` for a locale when no counterpart exists for the current
+ * pathname — the switcher renders that locale's button in a disabled
+ * state (see LocaleSwitcher / MobileMenu) instead of silently bouncing
+ * to the homepage. Always returns a non-null value for the locale the
+ * user is currently on (the "current" side is just the pathname itself).
  */
 export function resolveLocaleAlternate(
   pathname: string,
-): { uk: string; en: string } {
+): { uk: string | null; en: string | null } {
   if (pathname === "/" || pathname === "/en") {
     return { uk: "/", en: "/en" };
   }
 
-  // EN → UA: strip the /en prefix
+  // EN → UA: strip the /en prefix to get the UA path. We assume the UA
+  // mirror exists since /en/ routes are only published when there's a
+  // matching UA route — but if a future /en-only path appears, the
+  // caller can null-check.
   if (pathname.startsWith("/en/")) {
     return { uk: pathname.slice(3), en: pathname };
   }
 
   // UA → EN: industry pages (only when an EN translation exists).
   const industryMatch = pathname.match(/^\/sites-for\/([^/]+)\/?$/);
-  if (industryMatch && hasEnIndustry(industryMatch[1])) {
+  if (industryMatch) {
     const normalized = `/sites-for/${industryMatch[1]}`;
-    return { uk: normalized, en: `/en${normalized}` };
+    return {
+      uk: normalized,
+      en: hasEnIndustry(industryMatch[1]) ? `/en${normalized}` : null,
+    };
   }
 
   // UA → EN: case-study pages (only when EN content exists).
   const caseMatch = pathname.match(/^\/portfolio\/([^/]+)\/?$/);
-  if (caseMatch && hasEnCase(caseMatch[1])) {
+  if (caseMatch) {
     const normalized = `/portfolio/${caseMatch[1]}`;
-    return { uk: normalized, en: `/en${normalized}` };
+    return {
+      uk: normalized,
+      en: hasEnCase(caseMatch[1]) ? `/en${normalized}` : null,
+    };
   }
 
-  // UA → EN: top-level localized roots (vs-* compare pages).
+  // UA → EN: top-level localized roots (vs-* compare pages, /calculator).
   const rootMatch = pathname.match(/^(\/[^/]+)\/?$/);
-  if (rootMatch && EN_LOCALIZED_ROOTS.has(rootMatch[1])) {
-    return { uk: rootMatch[1], en: `/en${rootMatch[1]}` };
+  if (rootMatch) {
+    const root = rootMatch[1];
+    return {
+      uk: root,
+      en: EN_LOCALIZED_ROOTS.has(root) ? `/en${root}` : null,
+    };
   }
 
-  // No known EN counterpart — bounce to EN homepage to avoid 404.
-  return { uk: pathname, en: "/en" };
+  // Catch-all for any other UA path (e.g. /blog, /blog/<slug>): UA side
+  // is the current path; EN side has no counterpart yet (Sprint 5
+  // ships /en/blog).
+  return { uk: pathname, en: null };
 }

@@ -1796,6 +1796,16 @@
   background: oklch(from var(--accent) l c h / 0.12);
   color: var(--ink);
 }
+.hp-locale-panel-item.is-disabled {
+  color: var(--ink-3);
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.hp-locale-panel-item.is-disabled:hover {
+  background: transparent;
+  color: var(--ink-3);
+}
 
 /* ─── Mobile burger trigger ──────────────────────────────────────────────── */
 .hp-burger-btn {
@@ -1993,6 +2003,13 @@
 .hp-drawer-locale-btn[aria-pressed="true"] {
   background: linear-gradient(135deg, var(--accent-soft), var(--accent));
   color: oklch(1 0 0 / 0.98);
+}
+.hp-drawer-locale-btn.is-disabled,
+.hp-drawer-locale-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  color: var(--ink-3);
 }
 .hp-drawer-foot {
   padding: 16px 22px calc(20px + env(safe-area-inset-bottom));

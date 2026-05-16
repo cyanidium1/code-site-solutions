@@ -11,6 +11,150 @@
     radial-gradient(ellipse 40% 50% at 5% 80%, oklch(from var(--accent-2) l c h / 0.04), transparent 70%);
 }
 
+/* ─── Magazine layout ─────────────────────────────────────────────────────
+   Outer .blog-prose article sits at the site standard width (1240px) so
+   custom blocks (tldrBox, ctaCallout, blogTable, blogImage) span full
+   width. Prose elements (paragraphs, headings, lists, blockquotes) cap
+   themselves to ~720px reading measure via the rules below.
+   ─────────────────────────────────────────────────────────────────────── */
+.blog-prose .blog-p,
+.blog-prose .blog-h2,
+.blog-prose .blog-h3,
+.blog-prose .blog-h4,
+.blog-prose .blog-blockquote,
+.blog-prose .blog-ul,
+.blog-prose .blog-ol {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog-prose .blog-p {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.blog-prose .blog-h2 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-top: 56px;
+  margin-bottom: 16px;
+}
+.blog-prose .blog-h3 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: clamp(20px, 2.2vw, 24px);
+  line-height: 1.25;
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+.blog-prose .blog-h4 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 17px;
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+.blog-prose .blog-blockquote {
+  position: relative;
+  margin-top: 28px;
+  margin-bottom: 28px;
+  padding-left: 20px;
+  border-left: 3px solid var(--accent);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+  font-style: italic;
+}
+.blog-prose .blog-ul,
+.blog-prose .blog-ol {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 0;
+  list-style: none;
+}
+.blog-prose .blog-ol {
+  counter-reset: blog-ol;
+}
+.blog-prose .blog-ul .blog-li {
+  position: relative;
+  padding-left: 24px;
+  margin: 8px 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.blog-prose .blog-ul .blog-li::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.blog-prose .blog-ol .blog-li {
+  position: relative;
+  padding-left: 36px;
+  margin: 10px 0;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  counter-increment: blog-ol;
+}
+.blog-prose .blog-ol .blog-li::before {
+  content: counter(blog-ol) '.';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent-soft);
+  font-weight: 600;
+  font-size: 15px;
+}
+.blog-prose strong { color: var(--ink); font-weight: 600; }
+.blog-prose a {
+  color: var(--accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s;
+}
+.blog-prose a:hover { color: var(--ink); }
+.blog-prose code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  background: oklch(1 0 0 / 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Custom blocks span full container width (no max-width cap). The width
+   they get is whatever the outer .blog-prose article width is. */
+.blog-prose .blog-tldr,
+.blog-prose .blog-cta,
+.blog-prose .blog-image {
+  /* Optional: cap the breakout slightly to feel comfortable inside the
+     1240px outer container without going all the way edge-to-edge. */
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.blog-prose .blog-table {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ─── Reused table styles — same skeleton as cmp-table ──────────────────── */
 .blog-table {
   width: 100%;

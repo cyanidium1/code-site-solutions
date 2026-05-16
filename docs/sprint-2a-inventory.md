@@ -392,3 +392,30 @@ at `scripts/seed-blog-posts.ts` over hand-authoring in Studio:
    pagination needed for 3 posts.
 
 Awaiting approval before Phase 1.
+
+---
+
+## Sprint 2C scope (deferred) — full EN locale for blog
+
+Sprint 2A ships UA-only blog content. The locale switcher gracefully
+disables the EN button on `/blog` and `/blog/<slug>` (see
+`resolveLocaleAlternate` returning `en: null` and the disabled state in
+`LocaleSwitcher` / `MobileMenu`), so EN visitors can still navigate the
+rest of the site.
+
+Full EN coverage is **Sprint 2C** — a separate PR. Scope:
+
+- Extend `blogPost` schema with EN shadow fields:
+  `titleEn`, `metaTitleEn`, `metaDescriptionEn`, `eyebrowEn`, `ledeEn`,
+  `bodyEn` (portable text), `faqEn[]`. Mirror the pattern already used by
+  `industryPage` (`title` localized, `richText.*En` shadows).
+- Add routes `app/en/blog/page.tsx` and `app/en/blog/[slug]/page.tsx`.
+- Translate the 3 existing Sprint 2A articles to EN (content file
+  follow-up).
+- Add `/blog` and `/blog/<slug>` to `EN_LOCALIZED_ROOTS` in
+  `src/lib/i18n-routes.ts` once content exists, so the switcher
+  enables and routes correctly instead of disabling.
+
+Estimated effort: 6–10 hours dev + translation content.
+
+Wait for explicit go-ahead before starting.

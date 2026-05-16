@@ -224,11 +224,11 @@ export default async function BlogPostPage({
       />
       <HpHeader />
       <main>
-        {/* Hero cover — rendered above the H1. Sticky header is in normal
-            flow so a small top breathing room is all the cover needs. */}
+        {/* Hero cover — rendered above the H1. Full standard width to
+            match /sites-for/medicine and other site pages. */}
         {post.coverImage?.src ? (
           <section className="bg-bg px-12 pt-10 max-[800px]:px-5 max-[800px]:pt-6">
-            <div className="max-w-[1080px] mx-auto">
+            <div className="max-w-container mx-auto">
               <img
                 src={post.coverImage.src}
                 alt={post.coverImage.alt ?? post.title ?? ""}
@@ -251,7 +251,7 @@ export default async function BlogPostPage({
 
         {/* Meta strip — author + date + updated */}
         <section className="bg-bg px-12 max-[700px]:px-5">
-          <div className="max-w-[880px] mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-[var(--ink-3)] border-b border-line">
+          <div className="max-w-container mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-[var(--ink-3)] border-b border-line">
             {post.author?.name ? (
               <span className="flex items-center gap-2.5">
                 {post.author.photoUrl ? (
@@ -277,28 +277,14 @@ export default async function BlogPostPage({
           </div>
         </section>
 
-        {/* Body */}
+        {/* Body — outer container is full standard width (1240px) so the
+            custom blocks (tldrBox, ctaCallout, blogTable, blogImage) can
+            break out to match the rest of the site. Prose elements are
+            individually capped to a 720px reading measure via the
+            .blog-prose CSS rules. */}
         <section className="relative bg-bg pt-16 px-12 pb-20 max-[700px]:pt-10 max-[700px]:px-5 max-[700px]:pb-14">
           <div className="blog-post-bg absolute inset-0 z-0 pointer-events-none" />
-          <article
-            className="
-              relative z-[1] max-w-[760px] mx-auto
-              [&_.blog-p]:font-sans [&_.blog-p]:text-[17px] [&_.blog-p]:leading-[1.7] [&_.blog-p]:text-[var(--ink-2)] [&_.blog-p]:my-5
-              [&_.blog-h2]:font-display [&_.blog-h2]:font-bold [&_.blog-h2]:text-ink [&_.blog-h2]:text-[clamp(26px,3vw,34px)] [&_.blog-h2]:leading-[1.2] [&_.blog-h2]:tracking-[-0.015em] [&_.blog-h2]:mt-14 [&_.blog-h2]:mb-4
-              [&_.blog-h3]:font-display [&_.blog-h3]:font-semibold [&_.blog-h3]:text-ink [&_.blog-h3]:text-[clamp(20px,2.2vw,24px)] [&_.blog-h3]:leading-[1.25] [&_.blog-h3]:mt-10 [&_.blog-h3]:mb-3
-              [&_.blog-h4]:font-display [&_.blog-h4]:font-semibold [&_.blog-h4]:text-ink [&_.blog-h4]:text-[17px] [&_.blog-h4]:mt-7 [&_.blog-h4]:mb-2
-              [&_.blog-blockquote]:relative [&_.blog-blockquote]:my-7 [&_.blog-blockquote]:pl-5 [&_.blog-blockquote]:border-l-[3px] [&_.blog-blockquote]:border-[var(--accent)] [&_.blog-blockquote]:text-[17px] [&_.blog-blockquote]:leading-[1.6] [&_.blog-blockquote]:text-[var(--ink)] [&_.blog-blockquote]:italic
-              [&_.blog-ul]:my-5 [&_.blog-ul]:pl-0 [&_.blog-ul]:list-none
-              [&_.blog-ol]:my-5 [&_.blog-ol]:pl-0 [&_.blog-ol]:list-none [&_.blog-ol]:[counter-reset:blog-ol]
-              [&_.blog-ul_.blog-li]:relative [&_.blog-ul_.blog-li]:pl-6 [&_.blog-ul_.blog-li]:my-2 [&_.blog-ul_.blog-li]:text-[17px] [&_.blog-ul_.blog-li]:leading-[1.6] [&_.blog-ul_.blog-li]:text-[var(--ink-2)]
-              [&_.blog-ul_.blog-li]:before:content-['']  [&_.blog-ul_.blog-li]:before:absolute [&_.blog-ul_.blog-li]:before:left-[6px] [&_.blog-ul_.blog-li]:before:top-[12px] [&_.blog-ul_.blog-li]:before:w-1.5 [&_.blog-ul_.blog-li]:before:h-1.5 [&_.blog-ul_.blog-li]:before:rounded-full [&_.blog-ul_.blog-li]:before:bg-[var(--accent)]
-              [&_.blog-ol_.blog-li]:relative [&_.blog-ol_.blog-li]:pl-9 [&_.blog-ol_.blog-li]:my-2.5 [&_.blog-ol_.blog-li]:text-[17px] [&_.blog-ol_.blog-li]:leading-[1.6] [&_.blog-ol_.blog-li]:text-[var(--ink-2)] [&_.blog-ol_.blog-li]:[counter-increment:blog-ol]
-              [&_.blog-ol_.blog-li]:before:content-[counter(blog-ol)'.']  [&_.blog-ol_.blog-li]:before:absolute [&_.blog-ol_.blog-li]:before:left-0 [&_.blog-ol_.blog-li]:before:top-0 [&_.blog-ol_.blog-li]:before:font-mono [&_.blog-ol_.blog-li]:before:text-[var(--accent-soft)] [&_.blog-ol_.blog-li]:before:font-semibold [&_.blog-ol_.blog-li]:before:text-[15px]
-              [&_strong]:text-ink [&_strong]:font-semibold
-              [&_a]:text-[var(--accent-soft)] [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-[var(--ink)]
-              [&_code]:font-mono [&_code]:text-[14px] [&_code]:bg-[oklch(1_0_0_/_0.05)] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded
-            "
-          >
+          <article className="blog-prose relative z-[1] max-w-container mx-auto">
             <BlogPortableText value={post.body} />
           </article>
         </section>
