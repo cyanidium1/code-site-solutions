@@ -58,10 +58,13 @@ export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = new Set([
  *
  * Update when a new blogPost ships with both slug + slugEn populated.
  */
+// Sprint 2BC scope: only article 1 has a full EN translation today.
+// Articles 2 and 3 will join the map once their EN bodies ship (the
+// source file PART B has the EN copy — translation to portable text is
+// a follow-up commit). Leaving the entries out keeps the locale
+// switcher from sending users to half-rendered pages.
 export const EN_BLOG_SLUG_MAP: Readonly<Record<string, string>> = {
   "skilky-koshtuye-sayt-2026": "website-cost-2026-breakdown",
-  "tilda-7200-za-3-roky": "tilda-7200-over-3-years",
-  "dohovir-z-veb-studieyu-7-punktiv": "web-studio-contract-7-items",
 };
 
 /** Reverse map for EN → UA lookups. Derived once at module load. */
