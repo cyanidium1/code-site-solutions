@@ -1,0 +1,212 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   BLOG — fragile bits for /blog and /blog/[slug] that don't reduce cleanly
+   to Tailwind utilities. Headings/lists styling lives in the post-body
+   wrapper class .blog-post-body via [&_h2], [&_li], etc.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Body wrapper backdrop (subtle, matches hp pages) ──────────────────── */
+.blog-post-bg {
+  background:
+    radial-gradient(ellipse 50% 40% at 90% 20%, oklch(from var(--accent) l c h / 0.06), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 5% 80%, oklch(from var(--accent-2) l c h / 0.04), transparent 70%);
+}
+
+/* ─── Reused table styles — same skeleton as cmp-table ──────────────────── */
+.blog-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 28px 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.blog-table th,
+.blog-table td {
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.45;
+  vertical-align: middle;
+}
+.blog-table tr:last-child td { border-bottom: none; }
+.blog-table th {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: oklch(1 0 0 / 0.02);
+  border-bottom: 1px solid var(--line-2);
+}
+.blog-table td {
+  color: var(--ink-2);
+  font-family: 'Inter', sans-serif;
+}
+.blog-table td:first-child {
+  font-weight: 500;
+  color: var(--ink);
+}
+.blog-table tr:last-child td:last-child {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .blog-table { font-size: 13px; }
+  .blog-table th,
+  .blog-table td { padding: 10px 12px; }
+}
+
+/* ─── TL;DR box — light accent-bordered callout ─────────────────────────── */
+.blog-tldr {
+  margin: 32px 0;
+  padding: 22px 26px;
+  border-left: 3px solid var(--accent);
+  background: oklch(from var(--accent) l c h / 0.06);
+  border-radius: 0 14px 14px 0;
+}
+.blog-tldr-title {
+  display: block;
+  margin: 0 0 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  font-weight: 600;
+}
+.blog-tldr ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.blog-tldr li {
+  position: relative;
+  padding: 4px 0 4px 18px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.blog-tldr li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.blog-tldr li strong { color: var(--ink); font-weight: 700; }
+
+/* ─── In-article CTA callout (visual style of CtaBanner, condensed) ─────── */
+.blog-cta {
+  position: relative;
+  margin: 40px 0;
+  padding: 32px 36px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: oklch(1 0 0 / 0.02);
+  text-align: center;
+  overflow: hidden;
+}
+.blog-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 0%, oklch(from var(--accent) l c h / 0.10), transparent 70%);
+  pointer-events: none;
+}
+.blog-cta-eyebrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: oklch(1 0 0 / 0.03);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.blog-cta-heading {
+  position: relative;
+  margin: 0 0 8px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.blog-cta-sub {
+  position: relative;
+  margin: 0 0 18px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.blog-cta-actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.blog-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.blog-cta-btn.primary {
+  background: var(--brand-gradient, linear-gradient(135deg, oklch(0.55 0.18 295), oklch(0.55 0.18 250)));
+  color: white;
+  box-shadow: 0 4px 20px oklch(0.55 0.18 295 / 0.30);
+}
+.blog-cta-btn.primary:hover { transform: translateY(-1px); }
+.blog-cta-btn.secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-2);
+}
+.blog-cta-btn.secondary:hover { border-color: oklch(from var(--accent) l c h / 0.5); }
+
+@media (max-width: 700px) {
+  .blog-cta { padding: 24px 20px; }
+  .blog-cta-actions { flex-direction: column; align-items: stretch; }
+}
+
+/* ─── In-body image with caption ────────────────────────────────────────── */
+.blog-image {
+  margin: 32px 0;
+}
+.blog-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+}
+.blog-image figcaption {
+  margin-top: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--ink-3);
+  text-align: center;
+}

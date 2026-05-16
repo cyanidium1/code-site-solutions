@@ -69,6 +69,10 @@ export type PortableBlock = {
   _type: "block";
   _key?: string;
   style?: string;
+  /** "bullet" or "number" when the block belongs to a list. */
+  listItem?: "bullet" | "number";
+  /** Nesting level (default 1). */
+  level?: number;
   children: PortableSpan[];
   markDefs?: PortableLinkAnnotation[];
 };
