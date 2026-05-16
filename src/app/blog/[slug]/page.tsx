@@ -5,7 +5,6 @@ import Link from "next/link";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
 import { RelatedCard } from "@/components/blocks/related-card";
-import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
 import "@/components/blocks/blog/blog.css";
 
@@ -304,19 +303,6 @@ export default async function BlogPostPage({
 
         {/* FAQ */}
         {faqItems.length > 0 ? <FAQ items={faqItems} /> : null}
-
-        {/* End-of-article CTA band */}
-        <CtaBanner
-          eyebrow="/ ОБГОВОРИТИ"
-          heading={
-            <>
-              Обговоримо <em>ваш проєкт</em> за 30 хвилин
-            </>
-          }
-          sub="Безкоштовна консультація. Озвучимо вилку ціни на дзвінку і чесно скажемо, чи підходимо одне одному."
-          ctaPrimary={{ label: "Записатись на дзвінок", href: "/contacts" }}
-          ctaSecondary={{ label: "Калькулятор за 60 секунд", href: "/calculator" }}
-        />
 
         {/* Related articles */}
         {related.length > 0 ? (

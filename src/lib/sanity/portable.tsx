@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
 import type {
   BlogBody,
@@ -35,11 +35,12 @@ function renderSpan(
   }
 
   let node: ReactNode = span.text;
-  if (marks.includes("code")) node = <code key={key}>{node}</code>;
-  if (marks.includes("strong")) node = <strong key={key}>{node}</strong>;
-  if (marks.includes("em")) node = <em key={key}>{node}</em>;
-  if (marks.includes("underline")) node = <u key={key}>{node}</u>;
-  return node;
+  if (marks.includes("code")) node = <code>{node}</code>;
+  if (marks.includes("strong")) node = <strong>{node}</strong>;
+  if (marks.includes("em")) node = <em>{node}</em>;
+  if (marks.includes("underline")) node = <u>{node}</u>;
+  // Always wrap in a keyed Fragment so plain-text spans in arrays carry a key.
+  return <Fragment key={key}>{node}</Fragment>;
 }
 
 export function PortableText({
