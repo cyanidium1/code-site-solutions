@@ -398,13 +398,22 @@ export type CaseStudyRef = {
   hero?: { metrics?: Metric[] };
 };
 
+/**
+ * Lightweight reference shape used by industryPage / caseStudy
+ * `relatedPosts` projections. Sprint 2BC made it match the flat
+ * blogPost fields and added EN shadows. Reads should pick UA or EN
+ * fields based on render locale.
+ */
 export type BlogPostRef = {
   _id: string;
   slug: string;
-  title?: LocalizedString;
+  slugEn?: string;
+  title?: string;
+  titleEn?: string;
   publishedAt?: string;
-  excerpt?: LocalizedText;
-  coverImage?: SanityImage | null;
+  lede?: string;
+  ledeEn?: string;
+  coverImage?: { src?: string; alt?: string; altEn?: string } | null;
   status?: "draft" | "published";
 };
 

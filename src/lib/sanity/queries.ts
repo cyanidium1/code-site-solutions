@@ -57,13 +57,20 @@ const PRICING_TIER = /* groq */ `{
   ctaGhost
 }`;
 
+// blogPost reference projection — used by relatedPosts on industryPage
+// and caseStudy. Sprint 2A made title/lede/coverImage plain (non-localized)
+// strings + {src,alt}. This projection mirrors that. Sprint 2BC adds the
+// titleEn / ledeEn shadows so the consumer can pick by locale.
 const BLOG_POST_REF = /* groq */ `{
   _id,
   "slug": slug.current,
-  title ${LOCALIZED_STRING},
+  "slugEn": slugEn.current,
+  title,
+  titleEn,
   publishedAt,
-  excerpt ${LOCALIZED_TEXT},
-  "coverImage": coverImage ${IMAGE_WITH_ALT},
+  lede,
+  ledeEn,
+  coverImage{ src, alt, altEn },
   status
 }`;
 
