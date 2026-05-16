@@ -1,29 +1,75 @@
 import { LeadForm, type LeadFormVariant } from "@/components/blocks/lead-form";
-import { CHANNELS, CONTACT_META } from "@/lib/contacts";
+import { getChannels, getContactMeta } from "@/lib/contacts";
 import { HeroAuditBanner } from "./HeroAuditBanner";
 import "./contact-split.css";
+
+type Copy = {
+  channelsEyebrow: string;
+  channelsHeading: React.ReactNode;
+  channelsSub: string;
+  briefEyebrow: string;
+  briefHeading: React.ReactNode;
+  briefSub: string;
+};
+
+const COPY_UK: Copy = {
+  channelsEyebrow: "/ CHANNELS",
+  channelsHeading: (
+    <>
+      Виберіть зручний <em>канал</em>
+    </>
+  ),
+  channelsSub:
+    "Telegram — найшвидше. Решта — fallback. Жодного бота — пише сам Fedir.",
+  briefEyebrow: "/ BRIEF",
+  briefHeading: (
+    <>
+      Або надішліть <em>бриф</em>
+    </>
+  ),
+  briefSub: "4 поля. Деталі — за бажанням. Все що тут — конфіденційно.",
+};
+
+const COPY_EN: Copy = {
+  channelsEyebrow: "/ CHANNELS",
+  channelsHeading: (
+    <>
+      Pick your <em>channel</em>
+    </>
+  ),
+  channelsSub:
+    "Telegram is fastest. The rest are fallback. No bots — Fedir replies personally.",
+  briefEyebrow: "/ BRIEF",
+  briefHeading: (
+    <>
+      Or send a <em>brief</em>
+    </>
+  ),
+  briefSub: "4 fields. Details — if you want. Everything here is confidential.",
+};
 
 export function ContactSplit({
   source = "contacts",
   variant = "compact",
+  locale = "uk",
 }: {
   source?: string;
   variant?: LeadFormVariant;
+  locale?: "uk" | "en";
 } = {}) {
+  const copy = locale === "en" ? COPY_EN : COPY_UK;
+  const channels = getChannels(locale);
+  const meta = getContactMeta(locale);
   return (
     <section className="contact-split">
       <HeroAuditBanner />
       <div className="contact-split-inner">
         <aside className="contact-split-channels">
-          <div className="contact-split-eyebrow">/ CHANNELS</div>
-          <h2 className="contact-split-heading">
-            Виберіть зручний <em>канал</em>
-          </h2>
-          <p className="contact-split-sub">
-            Telegram — найшвидше. Решта — fallback. Жодного бота — пише сам Fedir.
-          </p>
+          <div className="contact-split-eyebrow">{copy.channelsEyebrow}</div>
+          <h2 className="contact-split-heading">{copy.channelsHeading}</h2>
+          <p className="contact-split-sub">{copy.channelsSub}</p>
           <ul className="contact-split-list">
-            {CHANNELS.map((c) => {
+            {channels.map((c) => {
               const Icon = c.icon;
               return (
                 <li key={c.kind}>
@@ -49,23 +95,19 @@ export function ContactSplit({
             })}
           </ul>
           <div className="contact-split-meta">
-            <span>📍 {CONTACT_META.city}</span>
+            <span>📍 {meta.city}</span>
             <span className="contact-split-meta-sep">·</span>
-            <span>🕒 {CONTACT_META.hours}</span>
+            <span>🕒 {meta.hours}</span>
             <span className="contact-split-meta-sep">·</span>
-            <span>🌐 {CONTACT_META.languages}</span>
+            <span>🌐 {meta.languages}</span>
           </div>
         </aside>
 
         <div className="contact-split-form">
           <div className="contact-split-form-head">
-            <div className="contact-split-eyebrow">/ BRIEF</div>
-            <h2 className="contact-split-heading">
-              Або надішліть <em>бриф</em>
-            </h2>
-            <p className="contact-split-sub">
-              4 поля. Деталі — за бажанням. Все що тут — конфіденційно.
-            </p>
+            <div className="contact-split-eyebrow">{copy.briefEyebrow}</div>
+            <h2 className="contact-split-heading">{copy.briefHeading}</h2>
+            <p className="contact-split-sub">{copy.briefSub}</p>
           </div>
           <div className="contact-split-form-card">
             <LeadForm source={source} variant={variant} />
