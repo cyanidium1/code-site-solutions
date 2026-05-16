@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Code2, LayoutTemplate, ShoppingCart, Search, Database, Rocket, Zap, Store } from "lucide-react";
 import {
   CMS_UPGRADES,
@@ -34,6 +35,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
   const projectConfig = PROJECT_TYPE_CONFIG[value.projectType];
   const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
   const [previewDesign, setPreviewDesign] = useState<DesignComplexity | null>(null);
+  const t = useTranslations("Calculator");
 
   const setProjectType = (projectType: ProjectType) => {
     const defaults = PROJECT_TYPE_CONFIG[projectType];
@@ -130,6 +132,23 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       seoGrowthPlan: "none",
     });
   };
+
+  const cmsLabel = (id: string) => t(`options.cms.${id}.label` as never);
+  const cmsHint = (id: string): string | null => {
+    const key = `options.cms.${id}.hint` as never;
+    return t.has(key) ? t(key) : null;
+  };
+  const seoLabel = (id: string) => t(`options.seo.${id}.label` as never);
+  const seoHint = (id: string): string | null => {
+    const key = `options.seo.${id}.hint` as never;
+    return t.has(key) ? t(key) : null;
+  };
+  const featLabel = (id: string) => t(`options.feature.${id}.label` as never);
+  const featHint = (id: string): string | null => {
+    const key = `options.feature.${id}.hint` as never;
+    return t.has(key) ? t(key) : null;
+  };
+
   const renderFeatureGroup = (title: string, items: typeof FEATURE_OPTIONS) => (
     <>
       <label>{title}</label>
@@ -148,9 +167,9 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
               }
             />
             <span>
-              {option.label}
-              <strong>{option.price > 0 ? `+${formatEur(option.price)}` : "Included"}</strong>
-              {option.hint ? <small>{option.hint}</small> : null}
+              {featLabel(option.id)}
+              <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
+              {featHint(option.id) ? <small>{featHint(option.id)}</small> : null}
             </span>
           </label>
         ))}
@@ -158,71 +177,94 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
     </>
   );
 
-  const PRESET_ANCHORS: Record<string, string> = {
-    starterLanding:
-      "Compare to: Tilda + premium plugins ≈ $600/year + ongoing config. After 3 years, costs more — and you don't own the code.",
-    growthWebsite:
-      "Compare to: a UA WordPress agency = $7,000–12,000 + $2,000+/year support.",
-    ecommerceStarter:
-      "Compare to: Shopify Plus starts at $2,000/month. Custom code — no monthly subscription.",
-  };
+  const pageLabel =
+    value.projectType === "landing"
+      ? t("controls.sectionsLabel")
+      : value.projectType === "ecommerce"
+        ? t("controls.contentPagesLabel")
+        : t("controls.pagesLabel");
+
+  const pageHelp =
+    value.projectType === "landing"
+      ? t("controls.sectionsHelp")
+      : value.projectType === "ecommerce"
+        ? t("controls.ecommercePagesHelp")
+        : t("controls.pagesHelp");
+
+  const includedTpl =
+    value.projectType === "landing"
+      ? t("controls.sectionsIncludedTpl", {
+          included: String(projectConfig.pages.included),
+          extra: formatEur(projectConfig.pages.extraPrice),
+        })
+      : t("controls.pagesIncludedTpl", {
+          included: String(projectConfig.pages.included),
+          extra: formatEur(projectConfig.pages.extraPrice),
+        });
 
   return (
     <div className="calc-controls">
       <section className="calc-group calc-preset-section">
-        <h3>Start with a recommended package</h3>
+        <h3>{t("controls.presetTitle")}</h3>
         <div className="calc-group-content">
-          <p className="calc-note">Not sure what you need? Choose a preset and adjust it below.</p>
+          <p className="calc-note">{t("controls.presetNote")}</p>
           <div className="calc-preset-grid">
-            {PACKAGE_PRESETS.map((preset) => (
-              <button
-                key={preset.id}
-                type="button"
-                className={`calc-preset-card${selectedPreset === preset.id ? " active" : ""}${preset.id === "growthWebsite" ? " is-recommended" : ""}`}
-                onClick={() => applyPreset(preset.id)}
-              >
-                <div className="calc-preset-top">
-                  <span className="calc-preset-icon">
-                    {preset.id === "starterLanding" ? <Zap size={15} /> : preset.id === "growthWebsite" ? <Rocket size={15} /> : <Store size={15} />}
+            {PACKAGE_PRESETS.map((preset) => {
+              const includes = t.raw(`options.presets.${preset.id}.includes`) as string[];
+              return (
+                <button
+                  key={preset.id}
+                  type="button"
+                  className={`calc-preset-card${selectedPreset === preset.id ? " active" : ""}${preset.id === "growthWebsite" ? " is-recommended" : ""}`}
+                  onClick={() => applyPreset(preset.id)}
+                >
+                  <div className="calc-preset-top">
+                    <span className="calc-preset-icon">
+                      {preset.id === "starterLanding" ? <Zap size={15} /> : preset.id === "growthWebsite" ? <Rocket size={15} /> : <Store size={15} />}
+                    </span>
+                    <em>{t(`options.presets.${preset.id}.badge` as never)}</em>
+                  </div>
+                  <strong>{t(`options.presets.${preset.id}.title` as never)}</strong>
+                  <small>
+                    {t("controls.presetBestForLabel")} {t(`options.presets.${preset.id}.bestFor` as never)}
+                  </small>
+                  <ul>
+                    {includes.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <span className="calc-preset-price">
+                    {t(`options.presets.${preset.id}.estimatedRange` as never)}
                   </span>
-                  <em>{preset.badge}</em>
-                </div>
-                <strong>{preset.title}</strong>
-                <small>Best for: {preset.bestFor}</small>
-                <ul>
-                  {preset.includes.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <span className="calc-preset-price">{preset.estimatedRange}</span>
-                <p className="calc-preset-anchor">{PRESET_ANCHORS[preset.id]}</p>
-                <b>Use this package</b>
-              </button>
-            ))}
+                  <p className="calc-preset-anchor">{t(`controls.compareAnchors.${preset.id}` as never)}</p>
+                  <b>{t("controls.presetUse")}</b>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
 
       <div className="calc-manual-intro">
         <div className="calc-manual-intro-head">
-          <h3>Customize your estimate</h3>
+          <h3>{t("controls.customizeTitle")}</h3>
           <button type="button" className="calc-reset-btn" onClick={resetToBasicSetup}>
-            Reset to basic setup
+            {t("controls.resetBtn")}
           </button>
         </div>
-        <p>Use the recommended package as a starting point, or adjust the scope manually below.</p>
+        <p>{t("controls.customizeNote")}</p>
       </div>
 
       <details open className="calc-group">
-        <summary>/ 01 Project basics</summary>
+        <summary>{t("controls.section01")}</summary>
         <div className="calc-group-content">
           <div className="calc-grid-3">
             {Object.entries(PROJECT_TYPE_CONFIG).map(([id, item]) => (
               <OptionCard
                 key={id}
-                title={item.label}
-                description={item.hint}
-                priceLabel={`from ${formatEur(item.basePrice)}`}
+                title={t(`options.project.${id}.label` as never)}
+                description={t(`options.project.${id}.hint` as never)}
+                priceLabel={t("controls.fromPriceTpl", { price: formatEur(item.basePrice) })}
                 selected={value.projectType === id}
                 onClick={() => setProjectType(id as ProjectType)}
               >
@@ -233,70 +275,31 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
             ))}
           </div>
 
-          {value.projectType !== "landing" ? (
-            <>
-              <label htmlFor="calc-pages">
-                {value.projectType === "ecommerce" ? "Content pages" : "Number of pages"}
-                <span className="calc-help">
-                  {value.projectType === "ecommerce"
-                    ? "Product pages are handled by store structure. This counts static pages like Home, About, Contact, Delivery, Terms."
-                    : "Not sure how many pages you need? Usually a business website starts with Home, Services, About, Cases, Blog, Contact."}
-                </span>
-              </label>
-              <div className="calc-range-row">
-                <input
-                  id="calc-pages"
-                  className="calc-range-input"
-                  type="range"
-                  min={projectConfig.pages.min}
-                  max={projectConfig.pages.max}
-                  value={value.pages}
-                  onChange={(e) => onChange({ ...value, pages: Number(e.target.value) })}
-                />
-                <strong>{value.pages}</strong>
-              </div>
-              <div className="calc-range-meta">
-                <span>{projectConfig.pages.min}</span>
-                <span>{projectConfig.pages.max}</span>
-              </div>
-              <p className="calc-note">
-                Included pages: {projectConfig.pages.included}. Each extra page adds {formatEur(projectConfig.pages.extraPrice)}.
-              </p>
-            </>
-          ) : (
-            <>
-              <label htmlFor="calc-pages">
-                Number of sections
-                <span className="calc-help">
-                  Typical landing page includes 6-8 sections: hero, benefits, services, process, cases, FAQ, and CTA.
-                </span>
-              </label>
-              <div className="calc-range-row">
-                <input
-                  id="calc-pages"
-                  className="calc-range-input"
-                  type="range"
-                  min={projectConfig.pages.min}
-                  max={projectConfig.pages.max}
-                  value={value.pages}
-                  onChange={(e) => onChange({ ...value, pages: Number(e.target.value) })}
-                />
-                <strong>{value.pages}</strong>
-              </div>
-              <div className="calc-range-meta">
-                <span>{projectConfig.pages.min}</span>
-                <span>{projectConfig.pages.max}</span>
-              </div>
-              <p className="calc-note">
-                Included sections: {projectConfig.pages.included}. Each extra section adds{" "}
-                {formatEur(projectConfig.pages.extraPrice)}.
-              </p>
-            </>
-          )}
+          <label htmlFor="calc-pages">
+            {pageLabel}
+            <span className="calc-help">{pageHelp}</span>
+          </label>
+          <div className="calc-range-row">
+            <input
+              id="calc-pages"
+              className="calc-range-input"
+              type="range"
+              min={projectConfig.pages.min}
+              max={projectConfig.pages.max}
+              value={value.pages}
+              onChange={(e) => onChange({ ...value, pages: Number(e.target.value) })}
+            />
+            <strong>{value.pages}</strong>
+          </div>
+          <div className="calc-range-meta">
+            <span>{projectConfig.pages.min}</span>
+            <span>{projectConfig.pages.max}</span>
+          </div>
+          <p className="calc-note">{includedTpl}</p>
 
           {value.projectType === "ecommerce" ? (
             <>
-              <label>Product structure complexity</label>
+              <label>{t("controls.productStructLabel")}</label>
               <div className="calc-segment">
                 {Object.entries(PRODUCT_COMPLEXITY_OPTIONS).map(([id, option]) => (
                   <button
@@ -305,21 +308,21 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                     className={value.productComplexity === id ? "active" : ""}
                     onClick={() => onChange({ ...value, productComplexity: id as ProductComplexity })}
                   >
-                    {option.label}
-                    <small>{option.price > 0 ? `+${formatEur(option.price)}` : "included"}</small>
+                    {t(`options.product.${id}.label` as never)}
+                    <small>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.includedLower")}</small>
                   </button>
                 ))}
               </div>
-              <p className="calc-note">{PRODUCT_COMPLEXITY_OPTIONS[value.productComplexity].hint}</p>
+              <p className="calc-note">{t(`options.product.${value.productComplexity}.hint` as never)}</p>
             </>
           ) : null}
         </div>
       </details>
 
       <details open className="calc-group">
-        <summary>/ 02 Design & languages</summary>
+        <summary>{t("controls.section02")}</summary>
         <div className="calc-group-content">
-          <label>Design complexity</label>
+          <label>{t("controls.designLabel")}</label>
           <div className="calc-design-grid">
             {Object.entries(DESIGN_COMPLEXITY_OPTIONS).map(([id, option]) => (
               <div
@@ -339,10 +342,12 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                   <img src={DESIGN_PREVIEW_CONFIG[id as DesignComplexity][0].src} alt="" />
                 </span>
                 <span className="calc-design-head">
-                  <span>{option.label}</span>
+                  <span>{t(`options.design.${id}.label` as never)}</span>
                   <small>{formatPercent(option.percent)}</small>
                 </span>
-                <span className="calc-design-description">{option.hint}</span>
+                <span className="calc-design-description">
+                  {t(`options.design.${id}.hint` as never)}
+                </span>
                 <button
                   type="button"
                   className="calc-design-link"
@@ -351,14 +356,14 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                     setPreviewDesign(id as DesignComplexity);
                   }}
                 >
-                  View examples →
+                  {t("controls.viewExamples")}
                 </button>
               </div>
             ))}
           </div>
-          <p className="calc-note">{DESIGN_COMPLEXITY_OPTIONS[value.designComplexity].hint}</p>
+          <p className="calc-note">{t(`options.design.${value.designComplexity}.hint` as never)}</p>
 
-          <label>Multilingual support</label>
+          <label>{t("controls.langLabel")}</label>
           <div className="calc-segment">
             {Object.entries(LANGUAGE_OPTIONS).map(([id, option]) => (
               <button
@@ -367,23 +372,21 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                 className={value.languages === id ? "active" : ""}
                 onClick={() => onChange({ ...value, languages: id as LanguageOption })}
               >
-                {option.label}
+                {t(`options.language.${id}` as never)}
                 <small>{formatPercent(option.percent)}</small>
               </button>
             ))}
           </div>
-          <p className="calc-note">
-            Each language requires its own SEO structure, content, and CMS setup.
-          </p>
-          <p className="calc-note">Translations themselves can be handled separately if the client provides content.</p>
+          <p className="calc-note">{t("controls.langNoteSeo")}</p>
+          <p className="calc-note">{t("controls.langNoteTranslations")}</p>
         </div>
       </details>
 
       <details className="calc-group">
-        <summary>/ 03 CMS & SEO</summary>
+        <summary>{t("controls.section03")}</summary>
         <div className="calc-group-content">
           <label className="calc-subgroup-title">
-            <Database size={14} /> CMS / content management
+            <Database size={14} /> {t("controls.cmsSubgroup")}
           </label>
           <div className="calc-checkbox-grid calc-checkbox-grid-cms">
             {CMS_UPGRADES.map((option) => (
@@ -400,16 +403,16 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                   }
                 />
                 <span>
-                  {option.label}
-                  <strong>{option.price > 0 ? `+${formatEur(option.price)}` : "Included"}</strong>
-                  {option.hint ? <small>{option.hint}</small> : null}
+                  {cmsLabel(option.id)}
+                  <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
+                  {cmsHint(option.id) ? <small>{cmsHint(option.id)}</small> : null}
                 </span>
               </label>
             ))}
           </div>
 
           <label className="calc-subgroup-title">
-            <Search size={14} /> SEO architecture
+            <Search size={14} /> {t("controls.seoSubgroup")}
           </label>
           <div className="calc-checkbox-grid calc-checkbox-grid-seo">
             {SEO_OPTIONS.map((option) => (
@@ -426,9 +429,9 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                   }
                 />
                 <span>
-                  {option.label}
-                  <strong>{option.price > 0 ? `+${formatEur(option.price)}` : "Included"}</strong>
-                  {option.hint ? <small>{option.hint}</small> : null}
+                  {seoLabel(option.id)}
+                  <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
+                  {seoHint(option.id) ? <small>{seoHint(option.id)}</small> : null}
                 </span>
               </label>
             ))}
@@ -437,18 +440,18 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       </details>
 
       <details className="calc-group">
-        <summary>/ 04 Features & integrations</summary>
+        <summary>{t("controls.section04")}</summary>
         <div className="calc-group-content">
-          {renderFeatureGroup("Lead capture", leadCaptureFeatures)}
-          {renderFeatureGroup("Conversion & tracking", conversionFeatures)}
-          {renderFeatureGroup("Product / advanced UX", advancedUxFeatures)}
+          {renderFeatureGroup(t("controls.leadCaptureLabel"), leadCaptureFeatures)}
+          {renderFeatureGroup(t("controls.conversionLabel"), conversionFeatures)}
+          {renderFeatureGroup(t("controls.advancedUxLabel"), advancedUxFeatures)}
         </div>
       </details>
 
       <details className="calc-group">
-        <summary>/ 05 Content & timeline</summary>
+        <summary>{t("controls.section05")}</summary>
         <div className="calc-group-content">
-          <label>Content / copywriting</label>
+          <label>{t("controls.contentLabel")}</label>
           <div className="calc-segment">
             {Object.entries(CONTENT_OPTIONS).map(([id, option]) => (
               <button
@@ -457,13 +460,13 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                 className={value.contentOption === id ? "active" : ""}
                 onClick={() => onChange({ ...value, contentOption: id as ContentOption })}
               >
-                {option.label}
-                <small>{option.price > 0 ? `+${formatEur(option.price)}` : "included"}</small>
+                {t(`options.content.${id}` as never)}
+                <small>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.includedLower")}</small>
               </button>
             ))}
           </div>
 
-          <label>Timeline / urgency</label>
+          <label>{t("controls.timelineLabel")}</label>
           <div className="calc-segment">
             {Object.entries(TIMELINE_OPTIONS).map(([id, option]) => (
               <button
@@ -472,14 +475,12 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                 className={value.timeline === id ? "active" : ""}
                 onClick={() => onChange({ ...value, timeline: id as TimelineOption })}
               >
-                {option.label}
+                {t(`options.timeline.${id}.label` as never)}
                 <small>{formatPercent(option.percent)}</small>
               </button>
             ))}
           </div>
-          <p className="calc-note">
-            Faster launches require parallel delivery, extra coordination, and priority production slots.
-          </p>
+          <p className="calc-note">{t("controls.timelineHint")}</p>
         </div>
       </details>
 
@@ -488,14 +489,19 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           className="calc-modal-backdrop"
           role="dialog"
           aria-modal="true"
-          aria-label="Design examples"
+          aria-label={t("controls.designExamplesTitle")}
           onClick={() => setPreviewDesign(null)}
         >
           <div className="calc-modal" onClick={(event) => event.stopPropagation()}>
             <div className="calc-modal-head">
-              <h4>{DESIGN_COMPLEXITY_OPTIONS[previewDesign].label} examples</h4>
-              <button type="button" className="calc-modal-close" onClick={() => setPreviewDesign(null)} aria-label="Close examples">
-                Close
+              <h4>{t(`options.design.${previewDesign}.label` as never)}</h4>
+              <button
+                type="button"
+                className="calc-modal-close"
+                onClick={() => setPreviewDesign(null)}
+                aria-label={t("controls.modalClose")}
+              >
+                {t("controls.modalClose")}
               </button>
             </div>
             <div className="calc-preview-grid">

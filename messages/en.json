@@ -63,5 +63,475 @@
     "ariaLabel": "Site language",
     "uk": "UK",
     "en": "EN"
+  },
+  "Calculator": {
+    "meta": {
+      "title": "Website Cost Calculator — Code-Site.Art",
+      "description": "Estimate your custom-coded website in 60 seconds. Honest range, no 'price on request', no sales pressure. See what drives the price."
+    },
+    "pageHero": {
+      "breadcrumbHome": "Home",
+      "breadcrumbSelf": "Calculator",
+      "eyebrow": "/ CALCULATOR",
+      "title": "Know your website price <em>in 60 seconds</em>",
+      "sub": "No sales call, no “price on request”, no hidden lines. An honest range — and a clear breakdown of what drives it. Built for people deciding right now."
+    },
+    "stats": {
+      "projects": { "value": "47", "label": "projects · last 3 years" },
+      "range": { "value": "$1,500–$10,000", "label": "typical price range" },
+      "weeks": { "value": "4–10 weeks", "label": "from brief to launch" },
+      "warranty": { "value": "1 year", "label": "warranty included" }
+    },
+    "howItWorks": {
+      "eyebrow": "/ 01 HOW IT WORKS",
+      "title": "How this estimate <em>works</em>",
+      "sub": "Three layers shape every project. The calculator separates a simple site from a scalable business platform.",
+      "cards": {
+        "base": {
+          "title": "Base project",
+          "body": "Website type, CMS setup, responsive layout, and launch-ready structure."
+        },
+        "scope": {
+          "title": "Scope add-ons",
+          "body": "Pages, languages, design level, integrations, and content increase the project scope."
+        },
+        "final": {
+          "title": "Final review",
+          "body": "The calculator gives a realistic range. Final price is confirmed after scope review."
+        }
+      }
+    },
+    "whyPackages": {
+      "eyebrow": "/ 02 WHY THESE PACKAGES",
+      "title": "Three packages cover <em>80% of requests</em>. Here's why.",
+      "sub": "Each one solves a different business question. Pick the one that matches where you are now — not where you might be in 3 years.",
+      "cards": {
+        "starter": {
+          "title": "Starter",
+          "body": "For people launching one service or testing a hypothesis. No CMS, no 20 pages — you need to validate demand fast."
+        },
+        "growth": {
+          "title": "Growth",
+          "body": "For people with paying clients but no website that sells. Cases, blog, SEO, lead form — everything that brings traffic and converts it into calls."
+        },
+        "ecommerce": {
+          "title": "E-commerce",
+          "body": "For people selling products. Not a landing page with “buy via DM” — a real store: cart, payments, CMS to manage stock."
+        }
+      }
+    },
+    "customizer": {
+      "eyebrow": "/ 03 CUSTOMIZER",
+      "title": "Configure your <em>scope</em>",
+      "sub": "Start with a recommended package or build it manually below. Numbers update live."
+    },
+    "afterLaunch": {
+      "eyebrow": "/ 04 AFTER LAUNCH",
+      "title": "Optional <em>monthly</em> support",
+      "sub": "Maintenance keeps the site stable. SEO &amp; Growth grows traffic and leads. Both are optional and separate from the project price.",
+      "maintenance": {
+        "title": "Maintenance / after-launch",
+        "note": "Monthly technical support — separate from the one-time project estimate.",
+        "monthSuffix": " / mo"
+      },
+      "growth": {
+        "title": "SEO &amp; Growth monthly",
+        "note": "Ongoing SEO, content, analytics, and conversion work to grow qualified leads after launch.",
+        "monthSuffix": "/mo"
+      }
+    },
+    "underHood": {
+      "eyebrow": "/ 05 UNDER THE HOOD",
+      "title": "Why we estimate websites <em>this way</em>",
+      "sub": "Behind every visible design are page structure, SEO metadata, performance, CMS modeling, responsive layouts, forms, analytics, integrations, and launch prep. The calculator separates those layers honestly.",
+      "cards": {
+        "seo": {
+          "title": "SEO structure",
+          "body": "Pages, metadata, headings, internal linking, and scalable landing architecture."
+        },
+        "cms": {
+          "title": "CMS architecture",
+          "body": "CMS setup for editing pages, posts, cases, services, products, and multilingual content."
+        },
+        "conversion": {
+          "title": "Conversion logic",
+          "body": "Forms, CTAs, tracking, integrations, and UX decisions that turn visits into leads."
+        }
+      }
+    },
+    "social": {
+      "line": "<strong>47 companies</strong> ran this calculator and launched with us. Some of them:",
+      "logos": ["NBYG Bornholm", "Efedra Clinic", "Tatarka"],
+      "testimonialQuote": "Before the new site we got 3 enquiries a month. Now we get <strong>24</strong>.",
+      "testimonialName": "Søren Hansen",
+      "testimonialRole": "Owner, NBYG Bornholm Aps"
+    },
+    "faq": {
+      "heading": "Questions before requesting an estimate",
+      "items": [
+        {
+          "q": "What if my budget is below the calculator's lowest price?",
+          "a": "If you have $800, we will tell you honestly that we can't deliver well at that price — and recommend a person we trust who can. We don't take projects we can't ship at the standard we want our name on."
+        },
+        {
+          "q": "What if the final price is higher than the calculator shows?",
+          "a": "The calculator gives a realistic range 9 times out of 10. If something falls outside it, we tell you before signing — never after. The contract carries a fixed sum: no surprises, no scope-creep invoices."
+        },
+        {
+          "q": "Can I start with one package and upgrade later?",
+          "a": "Yes. We design the architecture to scale. Launch as Starter; a year later, when traffic grows, add CMS, blog, or SEO — without rewriting from zero."
+        },
+        {
+          "q": "What if I need only one page?",
+          "a": "We do landings starting at $1,500. Anything below that is either a templated solution or we're the wrong fit — we'll point you to who isn't."
+        },
+        {
+          "q": "Do I need to know exactly what I want?",
+          "a": "No. On the call we ask 10–15 questions and write the spec for you. Most clients arrive with a rough idea — that's normal."
+        },
+        {
+          "q": "What if I have my own designer or brand book?",
+          "a": "Then −10–15% off the price and a shorter timeline. We work directly from your Figma or design files."
+        },
+        {
+          "q": "Can I see the code before paying full?",
+          "a": "Yes. After the design phase we hand over the GitHub repo. You review, leave comments, then we continue. Transparent from day one — no code held hostage."
+        },
+        {
+          "q": "What's NOT included in the price?",
+          "a": "Content copywriting, post-launch SEO promotion, and translation work. We can recommend trusted specialists for each — or quote them as add-ons. Everything else (design, code, CMS, hosting setup, 1-year warranty) is in the price."
+        }
+      ]
+    },
+    "getFinal": {
+      "eyebrow": "/ 06 GET FINAL ESTIMATE",
+      "title": "Send the brief — get a <em>final price</em>",
+      "sub": "We'll review your calculator result and send a project plan, timeline, and confirmed price range. Custom-coded websites only — if you need a quick $300 template, we're not the right fit.",
+      "altReady": "Not ready for the form?",
+      "altCalendly": "Book a 30-min call instead",
+      "altOr": "or",
+      "altTelegram": "Telegram @fedirdev",
+      "altOrSep": "·",
+      "altEmail": "hi@code-site.art"
+    },
+    "controls": {
+      "presetTitle": "Start with a recommended package",
+      "presetNote": "Not sure what you need? Choose a preset and adjust it below.",
+      "presetUse": "Use this package",
+      "presetBestForLabel": "Best for:",
+      "customizeTitle": "Customize your estimate",
+      "customizeNote": "Use the recommended package as a starting point, or adjust the scope manually below.",
+      "resetBtn": "Reset to basic setup",
+      "section01": "/ 01 Project basics",
+      "section02": "/ 02 Design & languages",
+      "section03": "/ 03 CMS & SEO",
+      "section04": "/ 04 Features & integrations",
+      "section05": "/ 05 Content & timeline",
+      "pagesLabel": "Number of pages",
+      "sectionsLabel": "Number of sections",
+      "contentPagesLabel": "Content pages",
+      "ecommercePagesHelp": "Product pages are handled by store structure. This counts static pages like Home, About, Contact, Delivery, Terms.",
+      "pagesHelp": "Not sure how many pages you need? Usually a business website starts with Home, Services, About, Cases, Blog, Contact.",
+      "sectionsHelp": "Typical landing page includes 6-8 sections: hero, benefits, services, process, cases, FAQ, and CTA.",
+      "pagesIncludedTpl": "Included pages: {included}. Each extra page adds {extra}.",
+      "sectionsIncludedTpl": "Included sections: {included}. Each extra section adds {extra}.",
+      "productStructLabel": "Product structure complexity",
+      "designLabel": "Design complexity",
+      "viewExamples": "View examples →",
+      "designExamplesTitle": "Design examples",
+      "modalClose": "Close",
+      "langLabel": "Multilingual support",
+      "langNoteSeo": "Each language requires its own SEO structure, content, and CMS setup.",
+      "langNoteTranslations": "Translations themselves can be handled separately if the client provides content.",
+      "cmsSubgroup": "CMS / content management",
+      "seoSubgroup": "SEO architecture",
+      "leadCaptureLabel": "Lead capture",
+      "conversionLabel": "Conversion & tracking",
+      "advancedUxLabel": "Product / advanced UX",
+      "contentLabel": "Content / copywriting",
+      "timelineLabel": "Timeline / urgency",
+      "timelineHint": "Faster launches require parallel delivery, extra coordination, and priority production slots.",
+      "fromPriceTpl": "from {price}",
+      "extraPerPageTpl": "+{price}",
+      "included": "Included",
+      "includedLower": "included",
+      "compareAnchors": {
+        "starterLanding": "Compare to: Tilda + premium plugins ≈ $600/year + ongoing config. After 3 years, costs more — and you don't own the code.",
+        "growthWebsite": "Compare to: a UA WordPress agency = $7,000–12,000 + $2,000+/year support.",
+        "ecommerceStarter": "Compare to: Shopify Plus starts at $2,000/month. Custom code — no monthly subscription."
+      }
+    },
+    "options": {
+      "project": {
+        "landing": {
+          "label": "Landing page",
+          "hint": "Best for one offer, service, event, MVP, or focused lead generation."
+        },
+        "multiPage": {
+          "label": "Multi-page website",
+          "hint": "Best for companies that need service pages, about page, cases, blog, SEO structure."
+        },
+        "ecommerce": {
+          "label": "E-commerce",
+          "hint": "Best for product catalog, cart, checkout flow, product pages, filters, and admin-managed products."
+        }
+      },
+      "product": {
+        "simple": {
+          "label": "Small store (up to ~50 products)",
+          "hint": "Basic catalog and standard product pages to start sales quickly."
+        },
+        "medium": {
+          "label": "Growing store (50-500 products)",
+          "hint": "Filters, categories, and stronger structure for scaling campaigns."
+        },
+        "advanced": {
+          "label": "Advanced store",
+          "hint": "Complex catalog logic, custom flows, and advanced UX for conversion growth."
+        }
+      },
+      "design": {
+        "simple": { "label": "Simple / clean", "hint": "Minimal design focused on clarity and speed." },
+        "custom": { "label": "Custom branded", "hint": "Branded layout with stronger visual identity." },
+        "advanced": { "label": "Advanced / premium", "hint": "Complex layouts, animations, and premium UI interactions." }
+      },
+      "language": {
+        "one": "One language",
+        "two": "Two languages",
+        "three": "Three languages",
+        "fourPlus": "Four+ languages"
+      },
+      "cms": {
+        "sanitySetup": { "label": "CMS setup", "hint": "Included in all packages." },
+        "mobileAdmin": { "label": "Mobile-friendly admin", "hint": "Included in all packages." },
+        "advancedBuilder": {
+          "label": "Advanced page builder",
+          "hint": "Manage reusable sections, landing pages, SEO pages, and content blocks without developer changes."
+        },
+        "blogSystem": {
+          "label": "Blog/news system",
+          "hint": "Admin-managed posts, categories, SEO fields, cover images."
+        },
+        "caseSystem": { "label": "Case studies/portfolio system" },
+        "teamServices": { "label": "Team/services dynamic sections" }
+      },
+      "seo": {
+        "basicSeo": {
+          "label": "Basic technical SEO",
+          "hint": "Metadata, semantic headings, sitemap-ready structure included."
+        },
+        "advancedLandingSeo": {
+          "label": "Advanced SEO landing architecture",
+          "hint": "For scalable pages by service, city, language, category, or niche."
+        },
+        "blogSeoSetup": { "label": "Blog SEO setup" },
+        "programmaticSeo": {
+          "label": "Programmatic SEO structure",
+          "hint": "For many structured landing pages generated from CMS data."
+        }
+      },
+      "feature": {
+        "contactForm": { "label": "Contact form" },
+        "leadForm": { "label": "Lead form with custom fields", "hint": "Collect qualified leads with the right questions." },
+        "email": { "label": "Email notifications", "hint": "Get new enquiries sent directly to your inbox." },
+        "telegram": { "label": "Telegram notifications", "hint": "Receive new leads instantly in Telegram." },
+        "crm": { "label": "CRM integration", "hint": "Push leads automatically into your sales pipeline." },
+        "booking": { "label": "Booking/calendar integration", "hint": "Let customers pick time slots and book faster." },
+        "payments": { "label": "Payment integration", "hint": "Accept payments online without manual follow-ups." },
+        "accounts": { "label": "User accounts/auth", "hint": "Give users a personal area for repeat actions." },
+        "uploads": { "label": "File upload forms", "hint": "Allow clients to send briefs, docs, or media files." },
+        "search": { "label": "Advanced filters/search", "hint": "Help visitors find products or services faster." },
+        "mapBasic": { "label": "Basic map", "hint": "Simple location display for office or store." },
+        "mapInteractive": { "label": "Interactive map", "hint": "Custom markers, filters, and advanced UX." },
+        "reviews": { "label": "Reviews/testimonials module", "hint": "Show social proof where users make decisions." },
+        "faqSchema": { "label": "FAQ module with schema markup", "hint": "Answer objections and improve search visibility." },
+        "analytics": { "label": "Analytics/events setup", "hint": "Track key actions and improve conversion over time." },
+        "adsTracking": { "label": "Meta Pixel / Google Ads conversion tracking", "hint": "Measure campaign ROI with conversion events." },
+        "cookie": { "label": "Cookie banner/basic consent", "hint": "Cover basic consent requirements from launch day." }
+      },
+      "content": {
+        "clientProvided": "Client provides all text",
+        "lightPolishing": "Light copy polishing",
+        "fullCopywriting": "Full copywriting for core pages",
+        "seoCopywriting": "SEO copywriting package"
+      },
+      "timeline": {
+        "standard": { "label": "Standard timeline", "hint": "Regular delivery schedule." },
+        "faster": { "label": "Faster delivery", "hint": "We allocate more parallel capacity to launch sooner." },
+        "urgent": { "label": "Urgent launch", "hint": "Priority execution with increased team load and coordination." }
+      },
+      "maintenance": {
+        "none": "No maintenance",
+        "basic": "Basic care",
+        "growth": "Growth support",
+        "dedicated": "Dedicated improvement plan"
+      },
+      "seoGrowth": {
+        "badgeRecommended": "Recommended",
+        "none": {
+          "label": "No SEO / Growth",
+          "bestFor": "No ongoing SEO or content support.",
+          "includes": ["No monthly SEO work"]
+        },
+        "basicSeo": {
+          "label": "Basic SEO",
+          "bestFor": "Small websites starting organic visibility.",
+          "includes": ["1-2 blog posts/month", "Basic keyword targeting", "On-page SEO updates", "Monthly report"]
+        },
+        "growthSeo": {
+          "label": "Growth SEO",
+          "bestFor": "Service businesses that want consistent traffic growth.",
+          "includes": [
+            "4 blog posts/month",
+            "SEO landing pages",
+            "Keyword research",
+            "Internal linking",
+            "Analytics tracking",
+            "Monthly strategy updates"
+          ]
+        },
+        "contentEngine": {
+          "label": "Content Engine",
+          "priceLabel": "$1,200-$1,500 /mo",
+          "bestFor": "Businesses that use SEO as a serious acquisition channel.",
+          "includes": [
+            "8+ articles/month",
+            "Landing page expansion",
+            "Programmatic SEO planning",
+            "CRO ideas",
+            "Analytics review",
+            "Growth roadmap"
+          ]
+        }
+      },
+      "presets": {
+        "starterLanding": {
+          "title": "Starter Landing",
+          "badge": "Fast launch",
+          "bestFor": "Campaigns, MVPs, one-service offers.",
+          "includes": ["Landing page", "6-8 sections", "One language", "Simple / clean design", "Contact form", "Basic technical SEO"],
+          "estimatedRange": "$1,500 - $2,500"
+        },
+        "growthWebsite": {
+          "title": "Growth Website",
+          "badge": "Recommended",
+          "bestFor": "Service businesses that need trust, SEO, and lead generation.",
+          "includes": [
+            "Multi-page website",
+            "5-8 pages",
+            "Two languages",
+            "Custom branded design",
+            "CMS",
+            "Basic SEO",
+            "Lead form",
+            "Analytics/events setup"
+          ],
+          "estimatedRange": "$4,500 - $7,000"
+        },
+        "ecommerceStarter": {
+          "title": "E-commerce Starter",
+          "badge": "Scalable store",
+          "bestFor": "Product businesses that need catalog, checkout, and growth structure.",
+          "includes": [
+            "E-commerce",
+            "Small or growing store structure",
+            "Product pages",
+            "Basic filters/search",
+            "Payment integration",
+            "Analytics/events setup",
+            "CMS"
+          ],
+          "estimatedRange": "$7,000 - $10,000"
+        }
+      }
+    },
+    "summary": {
+      "title": "Estimate summary",
+      "rowProjectType": "Project type",
+      "rowBasePrice": "Base price",
+      "rowLanguages": "Languages",
+      "rowTimeline": "Timeline",
+      "rowContent": "Content",
+      "pageLabelPages": "Pages",
+      "pageLabelSections": "Sections",
+      "pageLabelContentPages": "Content pages",
+      "rangeLabel": "Estimated project range",
+      "rangeNote": "Final price after scope review.",
+      "whatYouGet": "What you get at this price",
+      "whatYouGetItems": [
+        "Custom website (no templates, no builders)",
+        "Fast loading under 1 second",
+        "SEO-ready structure from day one",
+        "Scalable CMS admin panel",
+        "Mobile-friendly content management",
+        "Clean, maintainable codebase"
+      ],
+      "willInclude": "Your website will include",
+      "whyChanges": "Why the price changes",
+      "whyChangesItems": [
+        "More pages = more design and development work",
+        "More languages = separate SEO and CMS structure",
+        "Advanced design = custom UI and interactions",
+        "Integrations = additional development and testing"
+      ],
+      "maintenanceMonth": "Maintenance / month",
+      "seoGrowthMonth": "SEO &amp; Growth / month",
+      "roiTitle": "What this means for you",
+      "roiBody": "At a 3% conversion rate and a $1,000 average order — the site pays for itself in <strong>12–15 enquiries</strong>. Roughly 3–6 months of work. After that, it earns for years.",
+      "scarcity": "Next available start: <strong>in 2 weeks</strong>. <strong>2 slots</strong> left this quarter.",
+      "disclaimer": "This is an estimate, not an invoice. Final price depends on exact requirements, integrations, design references, and content volume.",
+      "primaryCta": "Get exact price & project plan",
+      "ctaMeta": "Takes less than 1 minute.",
+      "ghostCta": "Or book a 30-min call"
+    },
+    "breakdown": {
+      "show": "Show price breakdown",
+      "baseProject": "Base project",
+      "productStruct": "Product structure complexity",
+      "cmsUpgrades": "CMS upgrades",
+      "seoUpgrades": "SEO upgrades",
+      "featuresIntegrations": "Features & integrations",
+      "content": "Content",
+      "subtotal": "Subtotal",
+      "designMultiplier": "Design multiplier",
+      "languageMultiplier": "Language multiplier",
+      "timelineMultiplier": "Timeline multiplier",
+      "selectedAddons": "Selected add-ons",
+      "estimatedRange": "Estimated range",
+      "cmsSetupIncluded": "CMS setup - included",
+      "basicSeoIncluded": "Basic technical SEO - included",
+      "coreFormsIncluded": "Core forms included",
+      "clientContentIncluded": "Client content included"
+    },
+    "leadForm": {
+      "title": "Project brief",
+      "sub": "We'll review your calculator result and reply with a confirmed range, timeline, and next steps.",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "contact": "Contact: email / Telegram / WhatsApp",
+      "contactPlaceholder": "name@company.com or @username",
+      "company": "Company / project name",
+      "companyPlaceholder": "Company or product name",
+      "brief": "Short project description",
+      "briefPlaceholder": "Tell us goals, timeline, and required integrations",
+      "methodLabel": "Preferred contact method",
+      "methodPlaceholder": "Select preferred contact method",
+      "methodEmail": "Email",
+      "methodTelegram": "Telegram",
+      "methodWhatsapp": "WhatsApp",
+      "submit": "Get final estimate",
+      "trustLine": "No spam. You will receive a structured project response, not a generic sales script.",
+      "success": "Saved locally. We can now connect this form to API.",
+      "afterSubmitTitle": "What happens after you submit",
+      "after4hWhen": "Within 4 hours",
+      "after4hBody": "You get a reply with a confirmed price and clarifying questions.",
+      "after2dWhen": "Within 2 days",
+      "after2dBody": "30-minute call: we walk through the project and show relevant cases.",
+      "after1wWhen": "Within a week",
+      "after1wBody": "Final proposal — fixed price, fixed deadline, penalty clause for delays.",
+      "testimonialQuote": "Before the new site we got 3 enquiries a month. Now we get <strong>24</strong>.",
+      "testimonialName": "Søren Hansen",
+      "testimonialRole": "Owner, NBYG Bornholm Aps"
+    }
   }
 }

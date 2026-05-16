@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { formatEur, formatPercent } from "./formatters";
 
 type PriceBreakdownProps = {
@@ -19,13 +22,14 @@ type PriceBreakdownProps = {
 };
 
 export function PriceBreakdown(props: PriceBreakdownProps) {
+  const t = useTranslations("Calculator.breakdown");
   return (
     <details className="calc-breakdown">
-      <summary>Show price breakdown</summary>
+      <summary>{t("show")}</summary>
       <div className="calc-breakdown-inner">
         <ul>
           <li>
-            <span>Base project</span>
+            <span>{t("baseProject")}</span>
             <strong>{formatEur(props.basePrice)}</strong>
           </li>
           <li>
@@ -34,50 +38,50 @@ export function PriceBreakdown(props: PriceBreakdownProps) {
           </li>
           {props.productComplexityCost > 0 ? (
             <li>
-              <span>Product structure complexity</span>
+              <span>{t("productStruct")}</span>
               <strong>{formatEur(props.productComplexityCost)}</strong>
             </li>
           ) : null}
           <li>
-            <span>CMS upgrades</span>
-            <strong>{props.cmsCost > 0 ? formatEur(props.cmsCost) : "CMS setup - included"}</strong>
+            <span>{t("cmsUpgrades")}</span>
+            <strong>{props.cmsCost > 0 ? formatEur(props.cmsCost) : t("cmsSetupIncluded")}</strong>
           </li>
           <li>
-            <span>SEO upgrades</span>
-            <strong>{props.seoCost > 0 ? formatEur(props.seoCost) : "Basic technical SEO - included"}</strong>
+            <span>{t("seoUpgrades")}</span>
+            <strong>{props.seoCost > 0 ? formatEur(props.seoCost) : t("basicSeoIncluded")}</strong>
           </li>
           <li>
-            <span>Features & integrations</span>
-            <strong>{props.featureCost > 0 ? formatEur(props.featureCost) : "Core forms included"}</strong>
+            <span>{t("featuresIntegrations")}</span>
+            <strong>{props.featureCost > 0 ? formatEur(props.featureCost) : t("coreFormsIncluded")}</strong>
           </li>
           <li>
-            <span>Content</span>
-            <strong>{props.contentCost > 0 ? formatEur(props.contentCost) : "Client content included"}</strong>
+            <span>{t("content")}</span>
+            <strong>{props.contentCost > 0 ? formatEur(props.contentCost) : t("clientContentIncluded")}</strong>
           </li>
           <li className="total">
-            <span>Subtotal</span>
+            <span>{t("subtotal")}</span>
             <strong>{formatEur(props.subtotal)}</strong>
           </li>
           <li>
-            <span>Design multiplier</span>
+            <span>{t("designMultiplier")}</span>
             <strong>{formatPercent(props.designPercent)}</strong>
           </li>
           <li>
-            <span>Language multiplier</span>
+            <span>{t("languageMultiplier")}</span>
             <strong>{formatPercent(props.languagePercent)}</strong>
           </li>
           <li>
-            <span>Timeline multiplier</span>
+            <span>{t("timelineMultiplier")}</span>
             <strong>{formatPercent(props.timelinePercent)}</strong>
           </li>
           {props.selectedAddonLabels.length > 0 ? (
             <li className="total">
-              <span>Selected add-ons</span>
+              <span>{t("selectedAddons")}</span>
               <strong>{props.selectedAddonLabels.join(", ")}</strong>
             </li>
           ) : null}
           <li className="total">
-            <span>Estimated range</span>
+            <span>{t("estimatedRange")}</span>
             <strong>
               {formatEur(props.lowEstimate)} - {formatEur(props.highEstimate)}
             </strong>

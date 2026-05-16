@@ -37,6 +37,7 @@ export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = new Set([
   "/vs-wordpress",
   "/vs-constructors",
   "/vs-freelancers",
+  "/calculator",
 ]);
 
 /**

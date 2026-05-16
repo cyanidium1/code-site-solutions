@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { Quote, Clock, Phone, FileCheck2 } from "lucide-react";
 import type { CalculatorEstimate, CalculatorInput } from "@/lib/pricing-calculator-config";
@@ -27,27 +28,11 @@ const INITIAL_FORM: FormState = {
   preferredMethod: "email",
 };
 
-const AFTER_SUBMIT_STEPS = [
-  {
-    icon: Clock,
-    when: "Within 4 hours",
-    body: "You get a reply with a confirmed price and clarifying questions.",
-  },
-  {
-    icon: Phone,
-    when: "Within 2 days",
-    body: "30-minute call: we walk through the project and show relevant cases.",
-  },
-  {
-    icon: FileCheck2,
-    when: "Within a week",
-    body: "Final proposal — fixed price, fixed deadline, penalty clause for delays.",
-  },
-];
-
 export function LeadForm({ input, estimate }: LeadFormProps) {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [status, setStatus] = useState<"idle" | "success">("idle");
+  const t = useTranslations("Calculator.leadForm");
+
   const payload = useMemo(
     () =>
       JSON.stringify(
@@ -80,16 +65,34 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
     setStatus("success");
   };
 
+  const afterSubmitSteps = [
+    {
+      icon: Clock,
+      when: t("after4hWhen"),
+      body: t("after4hBody"),
+    },
+    {
+      icon: Phone,
+      when: t("after2dWhen"),
+      body: t("after2dBody"),
+    },
+    {
+      icon: FileCheck2,
+      when: t("after1wWhen"),
+      body: t("after1wBody"),
+    },
+  ];
+
   return (
     <div className="calc-lead-layout">
       <form className="calc-lead" onSubmit={onSubmit}>
-        <h3>Project brief</h3>
-        <p>We&apos;ll review your calculator result and reply with a confirmed range, timeline, and next steps.</p>
+        <h3>{t("title")}</h3>
+        <p>{t("sub")}</p>
 
         <Input
-          label="Name"
+          label={t("name")}
           labelPlacement="outside"
-          placeholder="Your name"
+          placeholder={t("namePlaceholder")}
           variant="bordered"
           radius="lg"
           size="lg"
@@ -104,9 +107,9 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
         />
 
         <Input
-          label="Contact: email / Telegram / WhatsApp"
+          label={t("contact")}
           labelPlacement="outside"
-          placeholder="name@company.com or @username"
+          placeholder={t("contactPlaceholder")}
           variant="bordered"
           radius="lg"
           size="lg"
@@ -121,9 +124,9 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
         />
 
         <Input
-          label="Company / project name"
+          label={t("company")}
           labelPlacement="outside"
-          placeholder="Company or product name"
+          placeholder={t("companyPlaceholder")}
           variant="bordered"
           radius="lg"
           size="lg"
@@ -137,9 +140,9 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
         />
 
         <Textarea
-          label="Short project description"
+          label={t("brief")}
           labelPlacement="outside"
-          placeholder="Tell us goals, timeline, and required integrations"
+          placeholder={t("briefPlaceholder")}
           variant="bordered"
           radius="lg"
           size="lg"
@@ -154,9 +157,9 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
         />
 
         <Select
-          label="Preferred contact method"
+          label={t("methodLabel")}
           labelPlacement="outside"
-          placeholder="Select preferred contact method"
+          placeholder={t("methodPlaceholder")}
           selectedKeys={[form.preferredMethod]}
           onSelectionChange={(keys) => {
             const selected = Array.from(keys)[0];
@@ -176,27 +179,25 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
             listbox: "calc-ui-select-listbox",
           }}
         >
-          <SelectItem key="email">Email</SelectItem>
-          <SelectItem key="telegram">Telegram</SelectItem>
-          <SelectItem key="whatsapp">WhatsApp</SelectItem>
+          <SelectItem key="email">{t("methodEmail")}</SelectItem>
+          <SelectItem key="telegram">{t("methodTelegram")}</SelectItem>
+          <SelectItem key="whatsapp">{t("methodWhatsapp")}</SelectItem>
         </Select>
 
         <input type="hidden" name="calculatorPayload" value={payload} />
 
         <button type="submit" className="calc-btn-primary calc-lead-submit">
-          Get final estimate
+          {t("submit")}
         </button>
-        <small className="calc-lead-trust-line">
-          No spam. You will receive a structured project response, not a generic sales script.
-        </small>
-        {status === "success" ? <div className="calc-success">Saved locally. We can now connect this form to API.</div> : null}
+        <small className="calc-lead-trust-line">{t("trustLine")}</small>
+        {status === "success" ? <div className="calc-success">{t("success")}</div> : null}
       </form>
 
       <aside className="calc-side-column">
         <div className="calc-after-submit">
-          <h4>What happens after you submit</h4>
+          <h4>{t("afterSubmitTitle")}</h4>
           <ol>
-            {AFTER_SUBMIT_STEPS.map((step, i) => {
+            {afterSubmitSteps.map((step, i) => {
               const Icon = step.icon;
               return (
                 <li key={i}>
@@ -216,12 +217,13 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
         <figure className="calc-side-testimonial">
           <Quote size={16} strokeWidth={1.6} className="calc-side-testimonial-icon" />
           <blockquote>
-            Before the new site we got 3 enquiries a month. Now we get
-            <strong> 24</strong>.
+            {t.rich("testimonialQuote", {
+              strong: (chunks) => <strong>{chunks}</strong>,
+            })}
           </blockquote>
           <figcaption>
-            <span className="calc-side-testimonial-name">Søren Hansen</span>
-            <span className="calc-side-testimonial-role">Owner, NBYG Bornholm Aps</span>
+            <span className="calc-side-testimonial-name">{t("testimonialName")}</span>
+            <span className="calc-side-testimonial-role">{t("testimonialRole")}</span>
           </figcaption>
         </figure>
       </aside>

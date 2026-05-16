@@ -346,7 +346,7 @@ export default function HomePageEn() {
           { label: "End-to-end", sub: "Copy + design + code + hosting" },
         ]}
         ctaPrimaryLabel="Get an estimate"
-        ctaPrimaryHref="/calculator"
+        ctaPrimaryHref="/en/calculator"
         ctaSecondaryLabel="Free site audit within 24 hours →"
         ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
