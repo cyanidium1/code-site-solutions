@@ -1418,7 +1418,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             role="region"
             aria-label={c.compare.criterionHeader}
           >
-            <table className="w-full text-left border-collapse" style={{ minWidth: 880 }}>
+            <table className="w-full text-left border-collapse" style={{ minWidth: 720 }}>
               <thead>
                 <tr className="border-b border-line">
                   <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--ink-3)] px-4 py-4 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
@@ -1443,18 +1443,18 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     key={i}
                     className="border-b border-line last:border-b-0"
                   >
-                    <td className="text-[12px] text-[var(--ink-3)] tracking-[0.02em] uppercase font-medium px-4 py-3.5 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1] whitespace-nowrap">
+                    <td className="text-[12px] text-[var(--ink-3)] tracking-[0.02em] uppercase font-medium px-4 py-3.5 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
                       {row.criterion}
                     </td>
                     {row.values.map((v, j) => (
                       <td
                         key={j}
-                        className="text-[13px] text-[var(--ink-3)] px-4 py-3.5 whitespace-nowrap"
+                        className="text-[13px] text-[var(--ink-3)] px-4 py-3.5"
                       >
                         {v}
                       </td>
                     ))}
-                    <td className="text-[13px] text-accent-soft font-semibold px-4 py-3.5 whitespace-nowrap bg-[oklch(from_var(--accent)_l_c_h_/_0.06)]">
+                    <td className="text-[13px] text-accent-soft font-semibold px-4 py-3.5 bg-[oklch(from_var(--accent)_l_c_h_/_0.06)]">
                       {row.us}
                     </td>
                   </tr>

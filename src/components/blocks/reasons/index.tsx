@@ -116,7 +116,7 @@ export function Reasons({
   footCtaLabel?: string;
 }) {
   return (
-    <section className="relative pt-[120px] px-12 pb-[100px] bg-bg overflow-hidden max-[1100px]:py-20 max-[1100px]:px-8 max-[640px]:py-16 max-[640px]:px-[18px]">
+    <section className="relative py-[var(--section-y-lg)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[640px]:px-[18px]">
       <div className="reasons-bg absolute inset-0 z-0 pointer-events-none" />
 
       <div className="relative z-[2] max-w-container mx-auto">

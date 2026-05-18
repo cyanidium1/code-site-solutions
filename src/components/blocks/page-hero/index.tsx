@@ -15,7 +15,7 @@ export function PageHero({
   sub: React.ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-bg pt-[120px] px-12 pb-20 max-[800px]:pt-20 max-[800px]:px-6 max-[800px]:pb-[60px]">
+    <section className="relative overflow-hidden bg-bg pt-[var(--section-y-lg)] px-12 pb-[var(--section-y)] max-[800px]:px-6">
       <div className="page-hero-bg absolute inset-0 z-0 pointer-events-none" />
       <div className="relative z-[1] max-w-container mx-auto">
         {breadcrumbs.length > 0 && (

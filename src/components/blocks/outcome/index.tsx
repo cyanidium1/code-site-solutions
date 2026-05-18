@@ -186,7 +186,7 @@ export function Outcome({
   benefitRows,
 }: OutcomeProps) {
   return (
-    <section className="relative pt-[100px] px-12 pb-[100px] bg-bg overflow-hidden max-[1100px]:py-20 max-[1100px]:px-8 max-[700px]:py-14 max-[700px]:px-[18px]">
+    <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className="outcome-bg absolute inset-0 z-0 pointer-events-none" />
       <div className="relative z-[2] max-w-container mx-auto">
         {/* Recap pull-quote */}
@@ -258,7 +258,7 @@ export function Outcome({
         {/* Benefit hero */}
         <div className="benefit-hero grid grid-cols-2 gap-12 items-center py-11 px-12 mb-8 border border-[oklch(from_var(--accent)_l_c_h_/_0.35)] rounded-3xl bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.10),oklch(from_var(--accent-2)_l_c_h_/_0.06)_60%,transparent)] relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] max-[1100px]:grid-cols-1 max-[1100px]:gap-7 max-[1100px]:p-8 max-[700px]:px-[22px] max-[700px]:py-6 max-[700px]:gap-[22px] max-[700px]:rounded-[18px]">
           <div className="relative z-[2]">
-            <div className="font-display font-bold text-[clamp(72px,11vw,140px)] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 max-[1100px]:text-[clamp(64px,14vw,110px)] max-[700px]:text-[72px]">
+            <div className="font-display font-bold text-[clamp(56px,8vw,96px)] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 max-[1080px]:text-[clamp(52px,7vw,80px)] max-[700px]:text-[64px]">
               {benefitHeroValue}
             </div>
             <div className="text-[15px] leading-[1.5] text-ink font-medium mb-2 max-[700px]:text-[14px]">

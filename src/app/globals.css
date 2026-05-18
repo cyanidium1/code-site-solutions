@@ -9,19 +9,53 @@
   --bg-raised: #1f1a26;
 
   --ink: oklch(0.97 0.005 300);
-  --ink-dim: oklch(0.78 0.012 300);
-  --ink-muted: oklch(0.55 0.01 70);
   --ink-2: oklch(0.78 0.012 300);
   --ink-3: oklch(0.55 0.01 300);
+  --ink-muted: oklch(0.55 0.01 70);
 
   --line: oklch(1 0 0 / 0.08);
-  --line-strong: oklch(1 0 0 / 0.14);
   --line-2: oklch(1 0 0 / 0.14);
 
   --accent: oklch(0.55 0.18 295);
   --accent-soft: oklch(0.7 0.14 295);
   --accent-deep: oklch(0.45 0.2 285);
   --accent-2: oklch(0.45 0.20 285);
+
+  --container-max: 1240px;
+  --container-max-wide: 1440px;
+  --container-h1: 920px;
+  --container-narrow: 880px;
+  --container-prose: 760px;
+  --container-form: 720px;
+
+  /* Section vertical rhythm — media-query-aware via overrides below.
+     Dominant rhythm is --section-y (100/56). Newer blocks already use
+     this; .hp-section was migrated UP from 56→100 to match. */
+  --section-y: 100px;
+  --section-y-md: 80px;
+  --section-y-tight: 56px;
+  --section-y-lg: 120px;
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --section-y: 80px;
+    --section-y-lg: 100px;
+  }
+}
+
+@media (max-width: 800px) {
+  :root {
+    --section-y-md: 56px;
+    --section-y-tight: 36px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --section-y: 56px;
+    --section-y-lg: 72px;
+  }
 }
 
 html {
@@ -108,7 +142,7 @@ em {
   }
 
   .container-page {
-    max-width: 1240px;
+    max-width: var(--container-max);
     margin-left: auto;
     margin-right: auto;
     padding-left: 1.5rem;

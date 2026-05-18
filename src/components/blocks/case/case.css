@@ -4,7 +4,7 @@
 
 .case {
   position: relative;
-  padding: 120px 48px 100px;
+  padding: var(--section-y-lg) 48px;
   background: var(--bg);
   overflow: hidden;
 }
@@ -17,7 +17,7 @@
 
 .case-inner {
   position: relative; z-index: 2;
-  max-width: 1240px; margin: 0 auto;
+  max-width: var(--container-max); margin: 0 auto;
 }
 
 /* ─── Header ─────────────────────────────────────────────────────────────── */
@@ -401,7 +401,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 1100px) {
-  .case { padding: 80px 32px 80px; }
+  .case { padding: var(--section-y-lg) 32px; }
   .case-header {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -422,7 +422,7 @@
 }
 
 @media (max-width: 700px) {
-  .case { padding: 64px 18px 64px; }
+  .case { padding: var(--section-y-lg) 18px; }
 
   .case-header {
     margin-bottom: 32px;

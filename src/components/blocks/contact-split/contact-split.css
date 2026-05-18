@@ -1,6 +1,6 @@
 .contact-split {
   position: relative;
-  padding: 80px 48px;
+  padding: var(--section-y-md) 48px;
   background: linear-gradient(
     180deg,
     var(--bg) 0%,
@@ -9,7 +9,7 @@
 }
 
 .hero-audit-banner {
-  max-width: 1180px;
+  max-width: var(--container-max);
   margin: 0 auto 32px;
   padding: 18px 22px;
   display: flex;
@@ -61,18 +61,18 @@
 
 @media (max-width: 1100px) {
   .contact-split {
-    padding: 64px 32px;
+    padding: var(--section-y-md) 32px;
   }
 }
 
 @media (max-width: 700px) {
   .contact-split {
-    padding: 48px 18px;
+    padding: var(--section-y-md) 18px;
   }
 }
 
 .contact-split-inner {
-  max-width: 1180px;
+  max-width: var(--container-max);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);

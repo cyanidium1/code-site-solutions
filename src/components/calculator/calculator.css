@@ -786,7 +786,7 @@
   background: linear-gradient(135deg, var(--accent-soft), var(--accent));
   color: oklch(1 0 0 / 0.98);
   padding: 14px 18px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -814,7 +814,7 @@
   background: transparent;
   color: var(--ink-2);
   padding: 11px 18px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;

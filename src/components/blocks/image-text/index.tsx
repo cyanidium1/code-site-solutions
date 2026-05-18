@@ -75,11 +75,11 @@ export function ImageText({
 
   const containerClass = isCentered
     ? "max-w-container mx-auto grid grid-cols-1 gap-12 text-center"
-    : "max-w-container mx-auto grid grid-cols-2 gap-16 items-center max-[800px]:grid-cols-1 max-[800px]:gap-8";
+    : "max-w-container mx-auto grid grid-cols-2 gap-16 items-center max-[1080px]:gap-10 max-[960px]:grid-cols-1 max-[960px]:gap-8";
 
   const imageClass = isCentered
     ? "rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[16/9] [&>:is(img,svg)]:w-full [&>:is(img,svg)]:h-full [&>:is(img,svg)]:object-cover [&>:is(img,svg)]:block max-[800px]:aspect-[4/3]"
-    : "rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] [&>:is(img,svg)]:w-full [&>:is(img,svg)]:h-full [&>:is(img,svg)]:object-cover [&>:is(img,svg)]:block max-[800px]:-order-1";
+    : "rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] [&>:is(img,svg)]:w-full [&>:is(img,svg)]:h-full [&>:is(img,svg)]:object-cover [&>:is(img,svg)]:block max-[960px]:-order-1";
 
   const contentClass = isCentered
     ? "flex flex-col max-w-[720px] mx-auto items-center"
@@ -142,7 +142,7 @@ export function ImageText({
   );
 
   const sectionClass = cn(
-    "relative py-[100px] px-12 bg-bg max-[800px]:py-[60px] max-[800px]:px-6",
+    "relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-6",
     sectionClassName,
   );
 

@@ -1,19 +1,19 @@
 .turnkey-list {
   position: relative;
-  padding: 56px 48px;
+  padding: var(--section-y-tight) 48px;
   background: var(--bg);
   overflow: hidden;
 }
 
 @media (max-width: 1100px) {
   .turnkey-list {
-    padding: 48px 32px;
+    padding: var(--section-y-tight) 32px;
   }
 }
 
 @media (max-width: 700px) {
   .turnkey-list {
-    padding: 36px 18px;
+    padding: var(--section-y-tight) 18px;
   }
 }
 
@@ -38,7 +38,7 @@
 .turnkey-list-inner {
   position: relative;
   z-index: 1;
-  max-width: 1240px;
+  max-width: var(--container-max);
   margin: 0 auto;
 }
 
@@ -96,7 +96,7 @@
 
 .turnkey-list-sub {
   margin: 20px 0 0;
-  font-family: "Inter", sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color: var(--ink-2);
@@ -204,7 +204,7 @@
 .turnkey-list-foot {
   margin: 32px 0 0;
   padding: 0;
-  font-family: "Inter", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .turnkey-list-not {
