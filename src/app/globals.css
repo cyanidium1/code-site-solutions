@@ -92,6 +92,19 @@ body {
   box-decoration-break: clone;
 }
 
+/* About page values-secondary row: collapses to 1-col on mobile, 2-col
+   on tablets. Inline-styled grid in about/page.tsx uses 3-col by default. */
+@media (max-width: 900px) {
+  .about-values-secondary {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 600px) {
+  .about-values-secondary {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 @layer utilities {
   .text-gradient {
     background: linear-gradient(
