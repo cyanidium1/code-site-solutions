@@ -401,9 +401,11 @@ export type CaseStudyRef = {
 export type BlogPostRef = {
   _id: string;
   slug: string;
-  title?: LocalizedString;
+  /** EN-locale slug, present only when the post has an EN translation. */
+  slugEn?: string;
+  title?: string;
   publishedAt?: string;
-  excerpt?: LocalizedText;
+  excerpt?: string;
   coverImage?: SanityImage | null;
   status?: "draft" | "published";
 };

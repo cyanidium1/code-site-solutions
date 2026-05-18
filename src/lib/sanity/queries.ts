@@ -57,12 +57,24 @@ const PRICING_TIER = /* groq */ `{
   ctaGhost
 }`;
 
+/**
+ * Lightweight blog-post projection for related-posts cards.
+ *
+ * Sprint 2A made blogPost.title / .excerpt flat strings (not the
+ * localized {uk,en,ru} objects used elsewhere on the site), so the
+ * earlier LOCALIZED_STRING / LOCALIZED_TEXT projections were stale —
+ * they'd surface objects with empty fields at runtime. Now flat.
+ *
+ * Sprint 2BC adds optional slugEn for EN-only routing (post resolver
+ * uses it to swap UA→EN slugs in related-cards on /en/blog/[slug]).
+ */
 const BLOG_POST_REF = /* groq */ `{
   _id,
   "slug": slug.current,
-  title ${LOCALIZED_STRING},
+  "slugEn": slugEn.current,
+  title,
   publishedAt,
-  excerpt ${LOCALIZED_TEXT},
+  excerpt,
   "coverImage": coverImage ${IMAGE_WITH_ALT},
   status
 }`;
