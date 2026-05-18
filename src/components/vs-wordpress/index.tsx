@@ -1304,8 +1304,10 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             heading={c.costs.heading}
             sub={c.costs.sub}
           />
+          {/* Top 3 hidden-costs as full cards, remaining as a compact
+              secondary row so 6 uniform cards don't read as template. */}
           <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
-            {c.costs.items.map((it) => {
+            {c.costs.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
                 <div
@@ -1333,6 +1335,31 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               );
             })}
           </div>
+          {c.costs.items.length > 3 ? (
+            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+              {c.costs.items.slice(3).map((it) => {
+                const Icon = it.icon;
+                return (
+                  <div
+                    key={it.num}
+                    className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
+                  >
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)]">
+                      <Icon size={16} strokeWidth={1.6} />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight mb-1">
+                        {it.title}
+                      </div>
+                      <div className="text-[12px] font-mono tracking-[0.04em] text-accent-soft">
+                        {it.metric}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
           <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[58ch] mx-auto [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.costs.foot}
           </p>

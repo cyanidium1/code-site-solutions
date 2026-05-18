@@ -1323,8 +1323,9 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             heading={c.outgrew.heading}
             sub={c.outgrew.sub}
           />
+          {/* Top 3 outgrew-reasons as full cards, rest compact. */}
           <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
-            {c.outgrew.items.map((it) => {
+            {c.outgrew.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
                 <div
@@ -1349,6 +1350,26 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               );
             })}
           </div>
+          {c.outgrew.items.length > 3 ? (
+            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+              {c.outgrew.items.slice(3).map((it) => {
+                const Icon = it.icon;
+                return (
+                  <div
+                    key={it.num}
+                    className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
+                  >
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)]">
+                      <Icon size={16} strokeWidth={1.6} />
+                    </span>
+                    <div className="min-w-0 flex-1 font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight">
+                      {it.title}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
           <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[60ch] mx-auto">
             {c.outgrew.foot}
           </p>
