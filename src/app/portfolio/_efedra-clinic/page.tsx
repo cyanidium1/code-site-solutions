@@ -102,7 +102,7 @@ function MetaStrip() {
     >
       <div
         style={{
-          maxWidth: 1240,
+          maxWidth: "var(--container-max)",
           margin: "0 auto",
           display: "flex",
           flexWrap: "wrap",

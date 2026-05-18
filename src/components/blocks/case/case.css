@@ -17,7 +17,7 @@
 
 .case-inner {
   position: relative; z-index: 2;
-  max-width: 1240px; margin: 0 auto;
+  max-width: var(--container-max); margin: 0 auto;
 }
 
 /* ─── Header ─────────────────────────────────────────────────────────────── */

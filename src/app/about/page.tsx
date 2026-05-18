@@ -164,7 +164,7 @@ function FounderSocials() {
     >
       <div
         style={{
-          maxWidth: 1240,
+          maxWidth: "var(--container-max)",
           margin: "0 auto",
           display: "flex",
           flexDirection: "column",

@@ -50,7 +50,12 @@ const config: Config = {
         },
       },
       maxWidth: {
-        container: "1240px",
+        container: "var(--container-max)",
+        "container-wide": "var(--container-max-wide)",
+        "container-h1": "var(--container-h1)",
+        "container-narrow": "var(--container-narrow)",
+        "container-prose": "var(--container-prose)",
+        "container-form": "var(--container-form)",
       },
       backgroundImage: {
         "hero-glow":

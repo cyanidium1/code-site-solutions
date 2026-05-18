@@ -40,7 +40,7 @@ export function LegalStub({
       <section style={{ background: "var(--bg)", padding: "60px 48px" }}>
         <div
           style={{
-            maxWidth: 760,
+            maxWidth: "var(--container-prose)",
             margin: "0 auto",
             fontFamily: "Manrope, sans-serif",
             fontSize: 16,

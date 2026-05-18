@@ -38,7 +38,7 @@
 .turnkey-list-inner {
   position: relative;
   z-index: 1;
-  max-width: 1240px;
+  max-width: var(--container-max);
   margin: 0 auto;
 }
 

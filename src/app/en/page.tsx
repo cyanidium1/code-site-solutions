@@ -398,7 +398,7 @@ export default function HomePageEn() {
         footer={
           <p
             style={{
-              maxWidth: 720,
+              maxWidth: "var(--container-form)",
               margin: "0 auto",
               textAlign: "center",
               fontSize: 13,
