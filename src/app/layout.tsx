@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Manrope, Inter, JetBrains_Mono } from "next/font/google";
+import { Manrope, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
@@ -11,14 +11,7 @@ const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
   variable: "--font-manrope",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-const inter = Inter({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-inter",
-  display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const jetbrains = JetBrains_Mono({
@@ -63,7 +56,7 @@ export default async function RootLayout({
     <html
       lang={lang}
       suppressHydrationWarning
-      className={`${manrope.variable} ${inter.variable} ${jetbrains.variable}`}
+      className={`${manrope.variable} ${jetbrains.variable}`}
     >
       <body className="font-sans bg-bg text-ink antialiased">
         <NextIntlClientProvider messages={messages}>
