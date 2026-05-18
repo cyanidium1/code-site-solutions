@@ -108,6 +108,34 @@ export type Feature = {
   items: React.ReactNode[];
 };
 
+/**
+ * Compact secondary feature — icon + title + first bullet only.
+ * Used for "secondary" services (the last 3 of 6) so the grid isn't
+ * 6 uniform cards (the AI-smell pattern). Visually reads as an
+ * addendum: smaller padding, no bg image, single-line summary.
+ */
+export function SecondaryFeatureCard({ icon, title, items }: Feature) {
+  // Use the first bullet as a one-line description if available.
+  const blurb = items.length > 0 ? items[0] : null;
+  return (
+    <div className="secondary-feature relative px-5 py-4 border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] transition-[border-color,background] duration-[200ms] flex items-center gap-4 hover:border-[var(--line-2)] hover:bg-[oklch(0.18_0.005_300)] max-[700px]:px-4 max-[700px]:py-3.5 max-[700px]:gap-3">
+      <div className="w-9 h-9 shrink-0 rounded-lg bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)] flex items-center justify-center max-[700px]:w-8 max-[700px]:h-8 [&>svg]:w-[18px] [&>svg]:h-[18px]">
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="font-display font-bold text-[13px] tracking-[0.04em] uppercase leading-tight text-ink mb-1 max-[700px]:text-[12px]">
+          {title}
+        </div>
+        {blurb ? (
+          <div className="text-[12.5px] leading-[1.45] text-[var(--ink-2)] line-clamp-1 [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium max-[700px]:text-[11.5px]">
+            {blurb}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 export function FeatureCard({ icon, title, items, bg }: Feature) {
   return (
     <div className="feature-card relative pt-7 px-[26px] pb-[30px] border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] transition-[border-color,transform] duration-[250ms] flex flex-col gap-[18px] overflow-hidden isolate hover:border-[var(--line-2)] hover:-translate-y-0.5 max-[700px]:pt-[22px] max-[700px]:px-5 max-[700px]:pb-6 max-[700px]:gap-3.5">
@@ -305,11 +333,21 @@ export function Services({
           <p className={`pb-2 ${SVC_SUB_BASE}`}>{servicesSub}</p>
         </header>
 
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5 mb-[120px] max-[1100px]:gap-4 max-[1100px]:mb-20 max-[700px]:gap-3 max-[700px]:mb-14">
-          {features.map((f, i) => (
-            <FeatureCard key={i} {...f} />
+        {/* Primary services — top 3 as full cards. Secondary — the
+            rest as compact rows. Splits the otherwise-uniform 6-card
+            grid that read as AI-template rhythm. */}
+        <div className="grid grid-cols-3 gap-5 mb-9 max-[1100px]:grid-cols-2 max-[1100px]:gap-4 max-[700px]:grid-cols-1 max-[700px]:gap-3 max-[700px]:mb-7">
+          {features.slice(0, 3).map((f, i) => (
+            <FeatureCard key={`primary-${i}`} {...f} />
           ))}
         </div>
+        {features.length > 3 ? (
+          <div className="grid grid-cols-3 gap-3 mb-[120px] max-[1100px]:grid-cols-2 max-[1100px]:gap-2.5 max-[1100px]:mb-20 max-[700px]:grid-cols-1 max-[700px]:gap-2 max-[700px]:mb-14">
+            {features.slice(3).map((f, i) => (
+              <SecondaryFeatureCard key={`secondary-${i}`} {...f} />
+            ))}
+          </div>
+        ) : null}
 
         <header className={`mb-12 ${SVC_HEADER_CLASSES}`}>
           <h2 className={SVC_H2_CLASSES}>{integrationsHeading}</h2>
