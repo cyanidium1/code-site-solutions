@@ -24,6 +24,12 @@ export function LocaleSwitcher() {
 
   const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname);
   const currentLabel = locale === "en" ? t("en") : t("uk");
+  // When the target locale has no counterpart for this pathname, the
+  // button is rendered in a disabled state with a "coming soon" tooltip
+  // — never silently bounce to /en or /.
+  const ukDisabled = ukHref === null;
+  const enDisabled = enHref === null;
+  const comingSoon = "EN version coming soon";
 
   // Close on route change (covers the locale switch we trigger ourselves)
   useEffect(() => {
@@ -52,11 +58,13 @@ export function LocaleSwitcher() {
 
   const pick = (key: "uk" | "en") => (e: React.MouseEvent) => {
     e.preventDefault();
+    const target = key === "en" ? enHref : ukHref;
+    if (!target) return; // disabled — guard against keyboard activation
     if (typeof document !== "undefined") {
       document.cookie = `NEXT_LOCALE=${key}; path=/; max-age=31536000; samesite=lax`;
     }
     ref.current?.removeAttribute("open");
-    router.push(key === "en" ? enHref : ukHref);
+    router.push(target);
   };
 
   return (
@@ -74,19 +82,25 @@ export function LocaleSwitcher() {
         aria-label={t("ariaLabel")}
       >
         <a
-          href={ukHref}
+          href={ukHref ?? "#"}
           role="menuitemradio"
           aria-checked={locale !== "en"}
-          className={`hp-locale-panel-item${locale !== "en" ? " is-active" : ""}`}
+          aria-disabled={ukDisabled || undefined}
+          tabIndex={ukDisabled ? -1 : undefined}
+          title={ukDisabled ? comingSoon : undefined}
+          className={`hp-locale-panel-item${locale !== "en" ? " is-active" : ""}${ukDisabled ? " is-disabled" : ""}`}
           onClick={pick("uk")}
         >
           {t("uk")}
         </a>
         <a
-          href={enHref}
+          href={enHref ?? "#"}
           role="menuitemradio"
           aria-checked={locale === "en"}
-          className={`hp-locale-panel-item${locale === "en" ? " is-active" : ""}`}
+          aria-disabled={enDisabled || undefined}
+          tabIndex={enDisabled ? -1 : undefined}
+          title={enDisabled ? comingSoon : undefined}
+          className={`hp-locale-panel-item${locale === "en" ? " is-active" : ""}${enDisabled ? " is-disabled" : ""}`}
           onClick={pick("en")}
         >
           {t("en")}

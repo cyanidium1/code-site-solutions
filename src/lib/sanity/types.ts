@@ -69,6 +69,10 @@ export type PortableBlock = {
   _type: "block";
   _key?: string;
   style?: string;
+  /** "bullet" or "number" when the block belongs to a list. */
+  listItem?: "bullet" | "number";
+  /** Nesting level (default 1). */
+  level?: number;
   children: PortableSpan[];
   markDefs?: PortableLinkAnnotation[];
 };
@@ -402,6 +406,109 @@ export type BlogPostRef = {
   excerpt?: LocalizedText;
   coverImage?: SanityImage | null;
   status?: "draft" | "published";
+};
+
+/* ─── Blog body — extended portable text with custom blocks ───────────────── */
+
+export type TldrBoxBlock = {
+  _type: "tldrBox";
+  _key: string;
+  title?: string;
+  items?: string[];
+};
+
+export type CtaCalloutBlock = {
+  _type: "ctaCallout";
+  _key: string;
+  eyebrow?: string;
+  heading?: string;
+  sub?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaSecondaryLabel?: string;
+  ctaSecondaryHref?: string;
+};
+
+export type BlogTableBlock = {
+  _type: "blogTable";
+  _key: string;
+  headers?: string[];
+  rows?: Array<{ _key?: string; cells?: string[] }>;
+};
+
+export type BlogImageBlock = {
+  _type: "blogImage";
+  _key: string;
+  asset?: SanityAsset | null;
+  hotspot?: SanityImage["hotspot"];
+  crop?: SanityImage["crop"];
+  alt?: string;
+  caption?: string;
+};
+
+export type BlogBodyBlock =
+  | PortableBlock
+  | TldrBoxBlock
+  | CtaCalloutBlock
+  | BlogTableBlock
+  | BlogImageBlock;
+
+export type BlogBody = BlogBodyBlock[];
+
+export type BlogAuthor = {
+  name?: string;
+  role?: string;
+  photoUrl?: string;
+  bio?: string;
+};
+
+export type BlogFaqItem = {
+  _key?: string;
+  question?: string;
+  answer?: string;
+};
+
+/** Static-asset cover for a blog post — file lives under /public/blog/. */
+export type BlogCover = {
+  src?: string;
+  alt?: string;
+};
+
+/* ─── Blog post — listing item (lightweight) ──────────────────────────────── */
+
+export type BlogPostListItem = {
+  _id: string;
+  slug: string;
+  title?: string;
+  eyebrow?: string;
+  lede?: string;
+  category?: string;
+  publishedAt?: string;
+  readingTimeMinutes?: number;
+  coverImage?: BlogCover | null;
+};
+
+/* ─── Blog post — full document (post page) ───────────────────────────────── */
+
+export type BlogPostDoc = {
+  _id: string;
+  slug: string;
+  title?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  eyebrow?: string;
+  lede?: string;
+  category?: string;
+  tags?: string[];
+  publishedAt?: string;
+  updatedAt?: string;
+  readingTimeMinutes?: number;
+  coverImage?: BlogCover | null;
+  ogImage?: SanityAsset | null;
+  author?: BlogAuthor;
+  body?: BlogBody;
+  faq?: BlogFaqItem[];
+  relatedPostSlugs?: string[];
 };
 
 /* ─── caseStudy document ─────────────────────────────────────────────────── */

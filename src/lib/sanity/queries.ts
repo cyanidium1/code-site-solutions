@@ -150,6 +150,85 @@ export const INDUSTRY_PAGES_QUERY = /* groq */ `
 } | order(order asc, _createdAt asc)
 `;
 
+/* ─── Blog post queries ───────────────────────────────────────────────────── */
+
+/**
+ * Lightweight listing projection for /blog and related-articles cards.
+ * Returns simple (non-localized) strings — blog posts are UA-only for Sprint 2A.
+ * EN translations land in Sprint 5.
+ */
+const BLOG_POST_LIST_ITEM = /* groq */ `{
+  _id,
+  "slug": slug.current,
+  title,
+  eyebrow,
+  lede,
+  category,
+  publishedAt,
+  readingTimeMinutes,
+  coverImage{ src, alt }
+}`;
+
+export const BLOG_POSTS_LIST_QUERY = /* groq */ `
+*[_type == "blogPost" && status == "published" && defined(slug.current)]
+${BLOG_POST_LIST_ITEM}
+| order(publishedAt desc, _createdAt desc)
+`;
+
+/**
+ * Per-slug lookup used by related-articles resolution. Accepts a $slugs
+ * array — empty array returns []. Order is not guaranteed; caller should
+ * re-order against the requested slugs.
+ */
+export const BLOG_POSTS_BY_SLUGS_QUERY = /* groq */ `
+*[_type == "blogPost" && status == "published" && slug.current in $slugs]
+${BLOG_POST_LIST_ITEM}
+`;
+
+/**
+ * Full blog post payload. Parameter: $slug.
+ * Mirrors admin/queries/blogPost.ts but with Sprint 2A's extended schema
+ * (flat author object, faq items, related slugs, custom body blocks).
+ */
+export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
+*[_type == "blogPost" && status == "published" && slug.current == $slug][0]{
+  _id,
+  "slug": slug.current,
+  title,
+  metaTitle,
+  metaDescription,
+  eyebrow,
+  lede,
+  category,
+  tags,
+  publishedAt,
+  updatedAt,
+  readingTimeMinutes,
+  coverImage{ src, alt },
+  "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
+  author{ name, role, photoUrl, bio },
+  body[]{
+    ...,
+    // blogImage — resolve asset once
+    _type == "blogImage" => {
+      _type,
+      _key,
+      "asset": asset->{
+        _id,
+        url,
+        metadata { lqip, dimensions }
+      },
+      hotspot,
+      crop,
+      alt,
+      caption
+    }
+  },
+  faq[]{ _key, question, answer },
+  relatedPostSlugs
+}
+`;
+
 export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
 *[_type == "industryPage" && status == "published" && slug.current == $slug][0]{
   _id,

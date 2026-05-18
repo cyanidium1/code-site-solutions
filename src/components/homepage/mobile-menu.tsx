@@ -49,6 +49,8 @@ export function MobileMenu() {
   }, [isOpen, pathname, onClose]);
 
   const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname);
+  const ukDisabled = ukHref === null;
+  const enDisabled = enHref === null;
   const ctaHref = isEn ? "/en#contact" : "/contacts";
   const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
 
@@ -64,10 +66,12 @@ export function MobileMenu() {
   ];
 
   const switchLocale = (key: "uk" | "en") => {
+    const target = key === "en" ? enHref : ukHref;
+    if (!target) return; // disabled — no counterpart for this pathname
     if (typeof document !== "undefined") {
       document.cookie = `NEXT_LOCALE=${key}; path=/; max-age=31536000; samesite=lax`;
     }
-    router.push(key === "en" ? enHref : ukHref);
+    router.push(target);
     onClose();
   };
 
@@ -206,16 +210,20 @@ export function MobileMenu() {
                 >
                   <button
                     type="button"
-                    className="hp-drawer-locale-btn"
+                    className={`hp-drawer-locale-btn${ukDisabled ? " is-disabled" : ""}`}
                     aria-pressed={!isEn}
+                    aria-disabled={ukDisabled || undefined}
+                    disabled={ukDisabled}
                     onClick={() => switchLocale("uk")}
                   >
                     {tLocale("uk")}
                   </button>
                   <button
                     type="button"
-                    className="hp-drawer-locale-btn"
+                    className={`hp-drawer-locale-btn${enDisabled ? " is-disabled" : ""}`}
                     aria-pressed={isEn}
+                    aria-disabled={enDisabled || undefined}
+                    disabled={enDisabled}
                     onClick={() => switchLocale("en")}
                   >
                     {tLocale("en")}

@@ -27,6 +27,7 @@ import {
 import "./homepage.css";
 import { ScrollReveal } from "./scroll-reveal";
 import { fetchCaseStudies } from "@/components/case-page";
+import { RelatedCard } from "@/components/blocks/related-card";
 import { loc } from "@/lib/sanity/locale";
 import { presentationForCase } from "@/lib/case-presentation";
 import { hasEnCase } from "@/lib/i18n-routes";
@@ -702,121 +703,24 @@ export async function Cases({
         <SectionHead eyebrow={eyebrow} heading={heading} />
         <div className="hp-cases-grid">
           {finalItems.map((c) => {
-            const disabled = !c.href;
-            const cover = (
-              <div className="hp-case-cover">
-                <div
-                  className="hp-case-cover-bg"
-                  style={{ background: c.gradient }}
-                />
-                <div className="hp-case-cover-dots" />
-                <div
-                  className="hp-case-shot"
-                  style={
-                    c.coverImage
-                      ? { display: "flex", flexDirection: "column" }
-                      : undefined
-                  }
-                >
-                  <div className="hp-case-shot-bar">
-                    <span className="hp-case-shot-dot" />
-                    <span className="hp-case-shot-dot" />
-                    <span className="hp-case-shot-dot" />
-                  </div>
-                  {c.coverImage ? (
-                    <div
-                      className="hp-case-shot-body"
-                      style={{
-                        flex: 1,
-                        minHeight: 0,
-                        padding: 0,
-                        position: "relative",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <img
-                        src={c.coverImage}
-                        alt={c.coverImageAlt ?? c.name}
-                        className="absolute inset-0 block h-full w-full object-cover object-top"
-                      />
-                    </div>
-                  ) : (
-                    <div className="hp-case-shot-body">
-                      <div className="hp-case-shot-line s1" />
-                      <div className="hp-case-shot-line s2" />
-                      <div className="hp-case-shot-line s3" />
-                    </div>
-                  )}
-                </div>
-                {disabled ? (
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: 14,
-                      right: 14,
-                      padding: "4px 10px",
-                      border: "1px solid oklch(1 0 0 / 0.18)",
-                      borderRadius: 999,
-                      background: "oklch(0 0 0 / 0.40)",
-                      backdropFilter: "blur(6px)",
-                      fontFamily: "JetBrains Mono, monospace",
-                      fontSize: 10,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      color: "oklch(1 0 0 / 0.85)",
-                    }}
-                  >
-                    Coming soon
-                  </span>
-                ) : null}
-              </div>
-            );
-            const body = (
-              <div className="hp-case-body">
-                <div className="hp-case-chips">
-                  {c.chips.map((ch) => (
-                    <span key={ch} className="hp-case-chip">
-                      {ch}
-                    </span>
-                  ))}
-                </div>
-                <div className="hp-case-name-row">
-                  <h3 className="hp-case-name">{c.name}</h3>
-                  {!disabled ? (
-                    <ArrowUpRight
-                      size={20}
-                      strokeWidth={1.6}
-                      className="hp-case-arrow"
-                    />
-                  ) : null}
-                </div>
-                <div className="hp-case-meta">
-                  {c.industry} · {c.region} · {c.year}
-                </div>
-                <div className="hp-case-metrics">{c.metrics}</div>
-              </div>
-            );
-            if (!c.href) {
-              return (
-                <div
-                  key={c.name}
-                  className="hp-case-link"
-                  style={{
-                    cursor: "default",
-                    pointerEvents: "none",
-                    opacity: 0.78,
-                  }}
-                >
-                  {cover}
-                  {body}
-                </div>
-              );
-            }
+            const metaLine = [c.industry, c.region, c.year]
+              .filter(Boolean)
+              .join(" · ");
             return (
-              <Link key={c.href} href={c.href} className="hp-case-link">
-                {cover}
-                {body}
-              </Link>
+              <RelatedCard
+                key={c.href ?? c.name}
+                metrics={c.chips}
+                title={c.name}
+                eyebrow={metaLine || undefined}
+                sub={c.metrics || undefined}
+                coverImage={
+                  c.coverImage
+                    ? { src: c.coverImage, alt: c.coverImageAlt ?? c.name }
+                    : undefined
+                }
+                gradient={c.gradient}
+                href={c.href}
+              />
             );
           })}
         </div>
