@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatPrice } from "@/lib/formatters/price";
 import "./hero.css";
 
 export type Feature = { label: string; sub: string };
@@ -91,7 +92,7 @@ export type HeroEditorialProps = {
 };
 
 export function HeroEditorial({
-  eyebrow = { label: "САЙТИ ДЛЯ МЕДИЧНОЇ ГАЛУЗІ", em: "від $3 500" },
+  eyebrow = { label: "САЙТИ ДЛЯ МЕДИЧНОЇ ГАЛУЗІ", em: formatPrice(3500, { locale: "uk", withPrefix: true }) },
   h1Lines = [
     <>Клініка, до якої</>,
     <>

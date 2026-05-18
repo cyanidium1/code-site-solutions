@@ -19,6 +19,7 @@ import { HeroEditorial } from "@/components/blocks/hero";
 import { Tier, type TierProps } from "@/components/blocks/comparison";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ, type FAQItem } from "@/components/blocks/final";
+import { formatPrice } from "@/lib/formatters/price";
 
 export type VsLocale = "uk" | "en";
 
@@ -582,7 +583,7 @@ const UK: Content = {
     tiers: [
       {
         name: "Лендінг-міграція",
-        price: "$1 000",
+        price: formatPrice(1000, { locale: "uk" }),
         weeks: "1–2 тижні",
         includes: {
           heading: "Для кого",
@@ -600,7 +601,7 @@ const UK: Content = {
         popular: true,
         popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
         name: "Сайт-міграція",
-        price: "$3 500",
+        price: formatPrice(3500, { locale: "uk" }),
         weeks: "4–8 тижнів",
         includes: {
           heading: "Все з лендінгу +",
@@ -616,7 +617,7 @@ const UK: Content = {
       },
       {
         name: "Складна міграція",
-        price: "$5 000",
+        price: formatPrice(5000, { locale: "uk" }),
         weeks: "6–10 тижнів",
         includes: {
           heading: "Все з сайту +",
@@ -1129,7 +1130,7 @@ const EN: Content = {
     tiers: [
       {
         name: "Landing migration",
-        price: "$1,000",
+        price: formatPrice(1000, { locale: "en" }),
         priceLabel: "from",
         weeks: "1–2 weeks",
         includes: {
@@ -1148,7 +1149,7 @@ const EN: Content = {
         popular: true,
         popularLabel: "★ MOST POPULAR",
         name: "Site migration",
-        price: "$3,500",
+        price: formatPrice(3500, { locale: "en" }),
         priceLabel: "from",
         weeks: "4–8 weeks",
         includes: {
@@ -1165,7 +1166,7 @@ const EN: Content = {
       },
       {
         name: "Complex migration",
-        price: "$5,000",
+        price: formatPrice(5000, { locale: "en" }),
         priceLabel: "from",
         weeks: "6–10 weeks",
         includes: {

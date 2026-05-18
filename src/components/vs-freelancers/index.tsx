@@ -35,6 +35,7 @@ import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ, type FAQItem } from "@/components/blocks/final";
+import { formatPrice } from "@/lib/formatters/price";
 
 export type VfLocale = "uk" | "en";
 
@@ -659,7 +660,7 @@ const UK: Content = {
     totalLabel: "Разом за рік",
     s1Title: "Сценарій 1: Лендінг для клініки",
     s1Rows: [
-      { item: "Розробка", freelancer: "$1 500", us: "$3 500" },
+      { item: "Розробка", freelancer: formatPrice(1500, { locale: "uk" }), us: formatPrice(3500, { locale: "uk" }) },
       {
         item: "Підтримка перший рік",
         freelancer: "$50/міс × 12 = $600",
@@ -681,7 +682,7 @@ const UK: Content = {
         us: "$0",
       },
     ],
-    s1Total: { freelancer: "$3 225", us: "$3 500" },
+    s1Total: { freelancer: formatPrice(3225, { locale: "uk" }), us: formatPrice(3500, { locale: "uk" }) },
     s1Verdict: (
       <>
         Різниця: $275. Це <strong>базова ставка ризику</strong>. Через 2 роки
@@ -1254,7 +1255,7 @@ const EN: Content = {
     totalLabel: "Total year 1",
     s1Title: "Scenario 1: Landing for a clinic",
     s1Rows: [
-      { item: "Development", freelancer: "$1,500", us: "$3,500" },
+      { item: "Development", freelancer: formatPrice(1500, { locale: "en" }), us: formatPrice(3500, { locale: "en" }) },
       {
         item: "First-year support",
         freelancer: "$50/mo × 12 = $600",
@@ -1276,7 +1277,7 @@ const EN: Content = {
         us: "$0",
       },
     ],
-    s1Total: { freelancer: "$3,225", us: "$3,500" },
+    s1Total: { freelancer: formatPrice(3225, { locale: "en" }), us: formatPrice(3500, { locale: "en" }) },
     s1Verdict: (
       <>
         Difference: $275. That&apos;s the{" "}

@@ -31,6 +31,7 @@ import { loc } from "@/lib/sanity/locale";
 import { presentationForCase } from "@/lib/case-presentation";
 import { hasEnCase } from "@/lib/i18n-routes";
 import type { CaseStudyRef, Locale } from "@/lib/sanity/types";
+import { formatPrice } from "@/lib/formatters/price";
 
 export { HpHeader } from "./hp-header";
 
@@ -401,10 +402,12 @@ function WeeksProgressVisual() {
 }
 
 function PriceTableVisual() {
+  // Trailing "+" is a "starting from" shorthand in this Bento visual.
+  // formatPrice handles the locale-aware number; we append the suffix.
   const rows = [
-    { name: "Landing", price: "$1,000+" },
-    { name: "Industry", price: "$3,500+", accent: true },
-    { name: "Custom", price: "$14,000+" },
+    { name: "Landing", price: `${formatPrice(1000, { locale: "en" })}+` },
+    { name: "Industry", price: `${formatPrice(3500, { locale: "en" })}+`, accent: true },
+    { name: "Custom", price: `${formatPrice(14000, { locale: "en" })}+` },
   ];
   return (
     <div className="hp-bento-vis hp-bento-price" aria-hidden="true">

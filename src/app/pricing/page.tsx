@@ -247,14 +247,14 @@ const ADDONS_CELLS: BentoCell[] = [
     icon: Zap,
     title: "Швидкий лендинг",
     body: "Спрощений лендинг для термінової кампанії. 7-14 днів від брифу до запуску.",
-    stat: "$1 500",
+    stat: formatPrice(1500, { locale: "uk" }),
     span: "1x1",
   },
   {
     icon: Palette,
     title: "Брендинг (через партнерів)",
     body: "Логотип, фірмовий стиль, brand book. Робимо з нашими перевіреними партнерами.",
-    stat: "від $1 500",
+    stat: formatPrice(1500, { locale: "uk", withPrefix: true }),
     span: "1x1",
   },
   {
