@@ -135,7 +135,7 @@ export default function ContactsPage() {
       <ContactSplit source="contacts" variant="compact" />
 
       <section style={{ background: "var(--bg)" }}>
-        <FAQ heading="Частe запитують перед заявкою" items={CONTACTS_FAQ} />
+        <FAQ heading="Часто запитують перед заявкою" items={CONTACTS_FAQ} />
       </section>
 
       <HpFooter />

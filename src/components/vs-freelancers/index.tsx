@@ -35,6 +35,7 @@ import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ, type FAQItem } from "@/components/blocks/final";
+import { formatPrice } from "@/lib/formatters/price";
 
 export type VfLocale = "uk" | "en";
 
@@ -221,7 +222,7 @@ const UK: Content = {
         Фрілансери чудові — для лендінгу на вечір. Коли йдеться про сайт, від
         якого залежить виручка, потрібна команда: дизайнер, фронтендер, бекенд,
         копірайтер, SEO, QA, PM. Контракт із юридичною особою. Гарантія в
-        письмовому вигляді. Код у вашому <em>GitHub</em> з першого дня.
+        письмовому вигляді. Код у вашому GitHub з першого дня.
       </>
     ),
     badges: [
@@ -659,7 +660,7 @@ const UK: Content = {
     totalLabel: "Разом за рік",
     s1Title: "Сценарій 1: Лендінг для клініки",
     s1Rows: [
-      { item: "Розробка", freelancer: "$1 500", us: "$3 500" },
+      { item: "Розробка", freelancer: formatPrice(1500, { locale: "uk" }), us: formatPrice(3500, { locale: "uk" }) },
       {
         item: "Підтримка перший рік",
         freelancer: "$50/міс × 12 = $600",
@@ -681,7 +682,7 @@ const UK: Content = {
         us: "$0",
       },
     ],
-    s1Total: { freelancer: "$3 225", us: "$3 500" },
+    s1Total: { freelancer: formatPrice(3225, { locale: "uk" }), us: formatPrice(3500, { locale: "uk" }) },
     s1Verdict: (
       <>
         Різниця: $275. Це <strong>базова ставка ризику</strong>. Через 2 роки
@@ -813,7 +814,7 @@ const EN: Content = {
         Freelancers are great — for a landing page over a weekend. When it&apos;s
         a site your revenue depends on, you need a team: designer, frontend,
         backend, copywriter, SEO, QA, PM. A contract with a legal entity. A
-        warranty in writing. Code in your <em>GitHub</em> from day one.
+        warranty in writing. Code in your GitHub from day one.
       </>
     ),
     badges: [
@@ -1254,7 +1255,7 @@ const EN: Content = {
     totalLabel: "Total year 1",
     s1Title: "Scenario 1: Landing for a clinic",
     s1Rows: [
-      { item: "Development", freelancer: "$1,500", us: "$3,500" },
+      { item: "Development", freelancer: formatPrice(1500, { locale: "en" }), us: formatPrice(3500, { locale: "en" }) },
       {
         item: "First-year support",
         freelancer: "$50/mo × 12 = $600",
@@ -1276,7 +1277,7 @@ const EN: Content = {
         us: "$0",
       },
     ],
-    s1Total: { freelancer: "$3,225", us: "$3,500" },
+    s1Total: { freelancer: formatPrice(3225, { locale: "en" }), us: formatPrice(3500, { locale: "en" }) },
     s1Verdict: (
       <>
         Difference: $275. That&apos;s the{" "}
@@ -1415,6 +1416,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           { kind: "default", primary: "→" },
           { kind: "good", primary: "12 people", mini: "0 ghost" },
         ]}
+        variant="compare"
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
       />
 
@@ -1426,8 +1428,9 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.horrorStories.heading}
             sub={c.horrorStories.sub}
           />
+          {/* Top 3 horror-stories as full cards, rest compact. */}
           <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
-            {c.horrorStories.items.map((it) => {
+            {c.horrorStories.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
                 <div
@@ -1452,6 +1455,26 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               );
             })}
           </div>
+          {c.horrorStories.items.length > 3 ? (
+            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+              {c.horrorStories.items.slice(3).map((it) => {
+                const Icon = it.icon;
+                return (
+                  <div
+                    key={it.num}
+                    className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
+                  >
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(0.55_0.18_25_/_0.12)] text-[oklch(0.78_0.15_25)] border border-[oklch(0.55_0.18_25_/_0.3)]">
+                      <Icon size={16} strokeWidth={1.6} />
+                    </span>
+                    <div className="min-w-0 flex-1 font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight">
+                      {it.title}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
           <p className="mt-8 max-w-[68ch] mx-auto text-center text-[14px] leading-[1.65] text-[var(--ink-2)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.horrorStories.foot}
           </p>

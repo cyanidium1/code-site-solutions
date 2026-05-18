@@ -26,7 +26,7 @@ export default function CtaBannerStory() {
         sub="Калькулятор за 60 секунд порахує вилку вартості під ваш проект і пришле детальний прайс на email."
         ctaPrimary={{
           label: "Спробувати калькулятор",
-          href: "/calculator/site-cost",
+          href: "/calculator",
         }}
         ctaSecondary={{ label: "Або обговорити з нами", href: "/contacts" }}
       />

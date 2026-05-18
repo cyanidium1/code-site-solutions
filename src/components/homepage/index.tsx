@@ -31,6 +31,7 @@ import { loc } from "@/lib/sanity/locale";
 import { presentationForCase } from "@/lib/case-presentation";
 import { hasEnCase } from "@/lib/i18n-routes";
 import type { CaseStudyRef, Locale } from "@/lib/sanity/types";
+import { formatPrice } from "@/lib/formatters/price";
 
 export { HpHeader } from "./hp-header";
 
@@ -83,7 +84,7 @@ const DEFAULT_MARQUEE: MarqueeLogo[] = [
 ];
 
 export function Marquee({
-  label = "TRUSTED BY 47+ BUSINESSES IN UA · EU · US · DK",
+  label = "47+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK",
   items = DEFAULT_MARQUEE,
 }: {
   label?: string;
@@ -204,7 +205,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
 ];
 
 export function Industries({
-  eyebrow = "/ 03 SOLUTIONS",
+  eyebrow = "РІШЕННЯ",
   heading = (
     <>
       Спеціалізовані рішення під <em>вашу галузь</em>
@@ -376,10 +377,10 @@ function CommitLogVisual() {
 
 function WeeksProgressVisual() {
   const steps = [
-    { name: "Brief", wk: "wk 1" },
-    { name: "Design", wk: "wk 2" },
-    { name: "Dev", wk: "wk 3" },
-    { name: "Launch", wk: "wk 4", target: true },
+    { name: "Бриф", wk: "тижд. 1" },
+    { name: "Дизайн", wk: "тижд. 2" },
+    { name: "Розробка", wk: "тижд. 3" },
+    { name: "Запуск", wk: "тижд. 4", target: true },
   ];
   return (
     <div className="hp-bento-vis hp-bento-weeks" aria-hidden="true">
@@ -401,10 +402,12 @@ function WeeksProgressVisual() {
 }
 
 function PriceTableVisual() {
+  // Trailing "+" is a "starting from" shorthand in this Bento visual.
+  // formatPrice handles the locale-aware number; we append the suffix.
   const rows = [
-    { name: "Landing", price: "$1,000+" },
-    { name: "Industry", price: "$3,500+", accent: true },
-    { name: "Custom", price: "$14,000+" },
+    { name: "Landing", price: `${formatPrice(1000, { locale: "en" })}+` },
+    { name: "Industry", price: `${formatPrice(3500, { locale: "en" })}+`, accent: true },
+    { name: "Custom", price: `${formatPrice(14000, { locale: "en" })}+` },
   ];
   return (
     <div className="hp-bento-vis hp-bento-price" aria-hidden="true">
@@ -506,7 +509,7 @@ export type BentoCell = {
   icon: LucideIcon;
   stat?: string;
   body: React.ReactNode;
-  span: "1x1" | "2x2" | "3x1";
+  span: "1x1" | "2x1" | "2x2" | "3x1";
   visual?: BentoVisualKind;
 };
 
@@ -516,7 +519,7 @@ const DEFAULT_BENTO: BentoCell[] = [
     icon: Gauge,
     stat: "98 LH",
     body: "Custom code, нуль плагінів. Перевірено на 3G/4G в Україні.",
-    span: "1x1",
+    span: "2x1",
     visual: "lh",
   },
   {
@@ -562,8 +565,8 @@ const DEFAULT_BENTO: BentoCell[] = [
   {
     title: "Перенесення без SEO-втрат",
     icon: ArrowRightLeft,
-    stat: "0 DROPS",
-    body: "301-redirects, контент, schema.org. 2 тижні без падіння.",
+    stat: "0 падінь",
+    body: "301-redirects, контент, schema.org. 2 тижні без падіння в Google.",
     span: "1x1",
     visual: "mig",
   },
@@ -572,13 +575,13 @@ const DEFAULT_BENTO: BentoCell[] = [
     icon: Layers,
     stat: "100%",
     body: "Тексти + дизайн + код + інтеграції. Без 5 підрядників.",
-    span: "1x1",
+    span: "2x1",
     visual: "stack",
   },
 ];
 
 export function Bento({
-  eyebrow = "/ 04 WHY US",
+  eyebrow = "ЧОМУ МИ",
   heading = (
     <>
       Сайт як <em>інструмент</em> бізнесу, не вітрина
@@ -670,7 +673,7 @@ function refToCaseItem(c: CaseStudyRef, locale: Locale): CaseItem {
 }
 
 export async function Cases({
-  eyebrow = "/ 06 CASES",
+  eyebrow = "КЕЙСИ",
   heading = (
     <>
       Реальні кейси з <em>реальними</em> метриками
@@ -844,7 +847,7 @@ const DEFAULT_STACK: StackItem[] = [
 ];
 
 export function Stack({
-  eyebrow = "/ 07 STACK",
+  eyebrow = "СТЕК",
   heading = (
     <>
       Технології, які <em>ми вибрали</em>
@@ -882,8 +885,7 @@ export function Stack({
 export function PullQuote({
   quote = (
     <>
-      Перед запуском нового сайту у нас було 3 заявки на місяць. Зараз —{" "}
-      <em>24</em>.
+      Перед запуском нового сайту у нас було 3 заявки на місяць. Зараз — 24.
     </>
   ),
   initials = "SH",
@@ -982,7 +984,7 @@ const DEFAULT_CTA: CtaCard[] = [
 ];
 
 export function FinalCta3({
-  eyebrow = "/ 09 GET IN TOUCH",
+  eyebrow = "ЗВ'ЯЗОК",
   heading = (
     <>
       Готові <em>обговорити</em> проєкт?

@@ -5,7 +5,7 @@ export const metadata = { title: "Story · team-cards" };
 export default function TeamCardsStory() {
   return (
     <TeamCards
-      eyebrow="/ 04 TEAM"
+      eyebrow="КОМАНДА"
       heading={
         <>
           Маленька команда. <em>Велика</em> мережа.

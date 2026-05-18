@@ -6,7 +6,9 @@ export type Reason = {
   tag: string;
   title: React.ReactNode;
   body: React.ReactNode;
-  stat: { n: string; lbl: string; src: string };
+  /** `src` (data attribution caption) is optional; omitted to remove
+   *  fabricated "BENCHMARK · 2025" / "GLOBAL DATA · 2024" labels. */
+  stat: { n: string; lbl: string; src?: string };
 };
 
 const ARROW_ICON = (
@@ -32,7 +34,7 @@ const DEFAULT_REASONS: Reason[] = [
     ),
     body: (
       <>
-        Пацієнт мусить телефонувати в робочий час. <em>60% записів</em>{" "}
+        Пацієнт мусить телефонувати в робочий час. 60% записів
         втрачається ввечері і у вихідні. Молода аудиторія взагалі не телефонує
         — вона пише в Instagram конкурентам, у яких{" "}
         <mark>онлайн-запис працює</mark>.
@@ -41,7 +43,6 @@ const DEFAULT_REASONS: Reason[] = [
     stat: {
       n: "60%",
       lbl: "дзвінків поза робочим часом залишаються без відповіді",
-      src: "GLOBAL DATA · 2024",
     },
   },
   {
@@ -55,14 +56,13 @@ const DEFAULT_REASONS: Reason[] = [
     body: (
       <>
         Пацієнт не розуміє, до кого потрапить і скільки заплатить. Закриває
-        ваш сайт, йде на сайт клініки, де це є. У <em>2026 році</em>{" "}
+        ваш сайт, йде на сайт клініки, де це є. У 2026 році
         непрозорість — це <mark>втрачені пацієнти</mark>.
       </>
     ),
     stat: {
-      n: "×2.4",
+      n: "×3.2",
       lbl: "вища конверсія у клінік з прозорим прайсом і командою",
-      src: "BENCHMARK · 2025",
     },
   },
   {
@@ -75,8 +75,7 @@ const DEFAULT_REASONS: Reason[] = [
     ),
     body: (
       <>
-        Конкуренти у вашому районі вищі в пошуку за запитом «
-        <em>стоматолог + район</em>» або «<em>клініка + місто</em>».{" "}
+        Конкуренти у вашому районі вищі в пошуку за запитом «стоматолог + район» або «клініка + місто».{" "}
         <mark>80% пацієнтів</mark> не йдуть далі першої сторінки результатів.
       </>
     ),
@@ -129,7 +128,7 @@ export function Reasons({
                 {eyebrowNum}
               </span>
             </div>
-            <h2 className="font-display font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] text-ink max-w-[16ch] text-balance max-[1100px]:text-[clamp(30px,4.2vw,44px)] max-[640px]:text-[clamp(28px,9vw,38px)] max-[640px]:max-w-full [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+            <h2 className="font-display font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] text-ink max-w-[24ch] text-balance max-[1100px]:text-[clamp(30px,4.2vw,44px)] max-[640px]:text-[clamp(28px,9vw,38px)] max-[640px]:max-w-full [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
               {heading}
             </h2>
           </div>
@@ -149,42 +148,78 @@ export function Reasons({
           </div>
         </header>
 
-        <div className="flex flex-col">
-          {items.map((r) => (
-            <article
-              key={r.n}
-              className="reason relative grid grid-cols-[minmax(180px,220px)_minmax(0,1fr)_minmax(180px,280px)] gap-14 py-14 border-t border-line transition-[background] duration-[400ms] ease-out last:border-b last:border-line max-[1100px]:grid-cols-[minmax(140px,160px)_minmax(0,1fr)] max-[1100px]:gap-8 max-[1100px]:py-11 max-[640px]:grid-cols-1 max-[640px]:gap-3.5 max-[640px]:py-8"
-            >
-              <div className="flex flex-col items-start gap-3.5">
-                <div className="font-display font-bold text-[clamp(72px,9vw,128px)] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums max-[1100px]:text-[clamp(64px,8vw,96px)] max-[640px]:text-[64px] max-[640px]:leading-[0.9]">
-                  {r.n}
+        {/* Asymmetric layout: first reason as a large hero card on the
+            left (spans both rows), remaining reasons stacked compact on
+            the right. Collapses to single column ≤1100. */}
+        <ol
+          className="reasons-asymmetric grid grid-cols-[2fr_1fr] grid-rows-[1fr_1fr] gap-6 list-none m-0 p-0 max-[1100px]:grid-cols-1 max-[1100px]:grid-rows-none max-[1100px]:gap-4"
+        >
+          {items.map((r, i) => {
+            const isPrimary = i === 0;
+            return (
+              <li
+                key={r.n}
+                className={`reason relative ${
+                  isPrimary
+                    ? "row-span-2 p-9 max-[1100px]:row-span-1 max-[1100px]:p-7 max-[640px]:p-5"
+                    : "p-7 max-[1100px]:p-6 max-[640px]:p-5"
+                } border border-line rounded-[20px] bg-[oklch(1_0_0_/_0.02)] flex flex-col gap-5 transition-[background,border-color] duration-[400ms] ease-out hover:border-[var(--line-2)] hover:bg-[oklch(1_0_0_/_0.035)]`}
+              >
+                <header className="flex items-start justify-between gap-4">
+                  <div
+                    className={`font-display font-bold leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums ${
+                      isPrimary
+                        ? "text-[clamp(72px,9vw,128px)] max-[1100px]:text-[clamp(64px,8vw,96px)] max-[640px]:text-[64px]"
+                        : "text-[clamp(48px,5vw,72px)] max-[640px]:text-[48px]"
+                    }`}
+                  >
+                    {r.n}
+                  </div>
+                  <span className="font-mono text-[10px] font-medium text-[var(--ink-3)] tracking-[0.08em] px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] shrink-0 max-[640px]:text-[9px]">
+                    {r.tag}
+                  </span>
+                </header>
+                <div className="flex-1 min-w-0">
+                  <h3
+                    className={`font-display font-bold leading-[1.15] tracking-[-0.02em] text-ink mb-3 [&_em]:italic [&_em]:font-normal [&_em]:text-accent-soft ${
+                      isPrimary
+                        ? "text-[clamp(22px,2.4vw,32px)] max-[640px]:text-[20px]"
+                        : "text-[clamp(18px,1.8vw,22px)] max-[640px]:text-[17px]"
+                    }`}
+                  >
+                    {r.title}
+                  </h3>
+                  <p
+                    className={`leading-[1.65] text-[var(--ink-2)] text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium [&_mark]:bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] [&_mark]:text-accent-soft [&_mark]:px-1.5 [&_mark]:py-px [&_mark]:rounded [&_mark]:font-medium ${
+                      isPrimary
+                        ? "text-[15.5px] max-w-[58ch] max-[640px]:text-[14px]"
+                        : "text-[13.5px] max-w-[50ch] max-[640px]:text-[13px]"
+                    }`}
+                  >
+                    {r.body}
+                  </p>
                 </div>
-                <span className="font-mono text-[10px] font-medium text-[var(--ink-3)] tracking-[0.08em] px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] max-[640px]:mt-2 max-[640px]:text-[9px]">
-                  {r.tag}
-                </span>
-              </div>
-              <div className="pt-3 min-w-0 max-[640px]:pt-0">
-                <h3 className="font-display font-bold text-[clamp(20px,2vw,26px)] leading-[1.15] tracking-[-0.02em] text-ink mb-4 flex items-baseline gap-3 flex-wrap max-[640px]:text-[18px] max-[640px]:mb-3 max-[640px]:gap-2 [&_em]:italic [&_em]:font-normal [&_em]:text-accent-soft">
-                  {r.title}
-                </h3>
-                <p className="text-[15px] leading-[1.65] text-[var(--ink-2)] max-w-[56ch] text-pretty max-[640px]:text-[14px] max-[640px]:leading-[1.6] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium [&_mark]:bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] [&_mark]:text-accent-soft [&_mark]:px-1.5 [&_mark]:py-px [&_mark]:rounded [&_mark]:font-medium">
-                  {r.body}
-                </p>
-              </div>
-              <div className="self-stretch flex flex-col justify-center px-[22px] py-[18px] border border-line rounded-[14px] bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] max-[1100px]:col-span-full max-[1100px]:flex-row max-[1100px]:items-center max-[1100px]:justify-start max-[1100px]:gap-5 max-[1100px]:px-[18px] max-[1100px]:py-[14px] max-[1100px]:mt-2 max-[640px]:flex-col max-[640px]:items-stretch max-[640px]:gap-2 max-[640px]:px-4 max-[640px]:py-[14px] max-[640px]:mt-1">
-                <div className="font-display font-bold text-[32px] tracking-[-0.03em] leading-none bg-brand-gradient bg-clip-text text-transparent mb-1.5 max-[1100px]:text-[24px] max-[1100px]:mb-0 max-[640px]:text-[22px]">
-                  {r.stat.n}
-                </div>
-                <div className="text-[11px] text-[var(--ink-3)] leading-[1.4] tracking-[0.02em] max-[1100px]:text-[12px] max-[1100px]:flex-1 max-[640px]:text-[12px] max-[640px]:flex-none">
-                  {r.stat.lbl}
-                </div>
-                <div className="mt-2.5 pt-2.5 border-t border-dashed border-line font-mono text-[9px] text-[var(--ink-3)] tracking-[0.06em] uppercase max-[1100px]:mt-0 max-[1100px]:pt-0 max-[1100px]:pl-3.5 max-[1100px]:border-t-0 max-[1100px]:border-l max-[640px]:pl-0 max-[640px]:pt-2 max-[640px]:mt-0 max-[640px]:border-l-0 max-[640px]:border-t">
-                  {r.stat.src}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+                <footer className="flex items-baseline gap-4 pt-4 border-t border-dashed border-line">
+                  <div
+                    className={`font-display font-bold tracking-[-0.03em] leading-none bg-brand-gradient bg-clip-text text-transparent shrink-0 ${
+                      isPrimary ? "text-[32px] max-[640px]:text-[26px]" : "text-[24px] max-[640px]:text-[20px]"
+                    }`}
+                  >
+                    {r.stat.n}
+                  </div>
+                  <div className="text-[11.5px] text-[var(--ink-3)] leading-[1.4] tracking-[0.02em] flex-1">
+                    {r.stat.lbl}
+                  </div>
+                  {r.stat.src ? (
+                    <div className="font-mono text-[9px] text-[var(--ink-3)] tracking-[0.06em] uppercase shrink-0 max-[640px]:hidden">
+                      {r.stat.src}
+                    </div>
+                  ) : null}
+                </footer>
+              </li>
+            );
+          })}
+        </ol>
 
         <div className="flex items-center justify-between gap-6 flex-wrap mt-12 py-[22px] px-7 border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] max-[640px]:flex-col max-[640px]:items-stretch max-[640px]:rounded-[18px] max-[640px]:p-[18px] max-[640px]:gap-4 max-[640px]:mt-8">
           <div className="text-[14px] text-[var(--ink-2)] flex items-center gap-3 [&_strong]:text-ink [&_strong]:font-semibold max-[640px]:text-[13px] max-[640px]:justify-center max-[640px]:text-center">

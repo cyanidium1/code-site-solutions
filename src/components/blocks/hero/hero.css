@@ -169,9 +169,18 @@
   grid-template-columns: minmax(0, 1000px) minmax(0, 1fr);
   gap: 48px;
   align-items: center;
-  max-width: 1440px;
+  max-width: var(--container-max-wide);
   margin: 0 auto;
-  min-height: 720px;
+  /* Intrinsic-sized: shrinks on 13" laptops (768px tall) where 720px
+     would have consumed the whole viewport. Caps at 720 on big screens. */
+  min-height: clamp(560px, 80vh, 720px);
+}
+/* "compare" variant — vs-* pages: no device mockup, so cap the text
+   column at 50% to prevent visual drift across the wide hero shell. */
+@media (min-width: 1024px) {
+  .hero-grid[data-variant="compare"] {
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+  }
 }
 .hero-left {
   position: relative;
@@ -441,7 +450,9 @@ a.btn-ghost {
   position: relative;
   min-width: 0;
   width: 100%;
-  height: 640px;
+  /* Intrinsic-sized via aspect-ratio: scales with column width instead
+     of the old fixed 640px which dictated the whole hero rhythm. */
+  aspect-ratio: 16 / 10;
   overflow: visible;
   contain: layout;
 }
@@ -450,7 +461,6 @@ a.btn-ghost {
   width: 100%;
   height: 100%;
   min-width: 0;
-  min-height: 640px;
   perspective: 2000px;
   overflow: visible;
 }
@@ -520,14 +530,16 @@ a.btn-ghost {
   overflow: visible;
 }
 .mockup img {
-  width: 230%;
-  max-width: 230%;
+  /* Was 230% locked + translateX(-22%) which overflowed past column on
+     ≥1440px viewports. Clamp keeps it 110-160% of the column, no
+     translate — composition stays balanced across all viewports. */
+  width: clamp(110%, 130%, 160%);
+  max-width: 160%;
   height: auto;
   max-height: 160%;
   object-fit: contain;
   object-position: center;
   filter: drop-shadow(0 50px 60px oklch(0 0 0 / 0.55)) drop-shadow(0 20px 30px oklch(0 0 0 / 0.35));
-  transform: translateX(-22%);
 }
 
 /* Generic device-mockup placeholder used when no asset is provided.
@@ -602,16 +614,10 @@ a.btn-ghost {
   .hero-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 28px;
-    min-height: 620px;
+    /* min-height now inherits from clamp() — no override needed. */
   }
-  .hero-right { height: 560px; }
-  .device-stage { min-height: 560px; }
-  .mockup img {
-    width: 115%;
-    max-width: 115%;
-    max-height: 100%;
-    transform: none;
-  }
+  /* .hero-right uses aspect-ratio: 16/10 globally; no fixed-height
+     override here either. .mockup img clamp handles width. */
 
   .h1 { font-size: clamp(40px, 5.6vw, 56px); }
   .h1-accent { gap: 12px; }
@@ -646,10 +652,8 @@ a.btn-ghost {
 @media (max-width: 1080px) {
   .hero-grid {
     gap: 22px;
-    min-height: 540px;
+    /* min-height + .hero-right aspect-ratio handle sizing intrinsically. */
   }
-  .hero-right { height: 480px; }
-  .device-stage { min-height: 480px; }
   .h1 { font-size: clamp(36px, 5vw, 48px); }
   .lede { max-width: 100%; font-size: 14.5px; }
   .features { max-width: 100%; gap: 8px 14px; }
@@ -670,16 +674,16 @@ a.btn-ghost {
 
   .hero-right {
     order: -1;
+    /* Override the global aspect-ratio so mobile hero stays compact. */
+    aspect-ratio: auto;
     height: 320px;
     margin: 0 -18px -40px;
     width: calc(100% + 36px);
   }
-  .device-stage { min-height: 320px; }
   .mockup img {
     width: 100%;
     max-width: 100%;
     max-height: 100%;
-    transform: none;
   }
   .device-stage::after {
     content: '';

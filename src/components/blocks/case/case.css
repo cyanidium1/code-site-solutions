@@ -341,7 +341,8 @@
 .case-result-num {
   font-family: 'Manrope', sans-serif;
   font-weight: 700;
-  font-size: 36px; letter-spacing: -0.03em;
+  /* Was fixed 36px → small on wide displays. Now scales. */
+  font-size: clamp(28px, 3vw, 44px); letter-spacing: -0.03em;
   line-height: 1;
   background: linear-gradient(180deg, var(--accent-soft), var(--accent));
   -webkit-background-clip: text; background-clip: text;

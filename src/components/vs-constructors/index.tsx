@@ -24,6 +24,7 @@ import { HeroEditorial } from "@/components/blocks/hero";
 import { Tier, type TierProps } from "@/components/blocks/comparison";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ, type FAQItem } from "@/components/blocks/final";
+import { formatPrice } from "@/lib/formatters/price";
 
 export type VcLocale = "uk" | "en";
 
@@ -191,7 +192,7 @@ const UK: Content = {
   metaTitle:
     "Перейти з Tilda, Webflow, Wix на custom code · 0 SEO-падінь | Code-Site.Art",
   metaDescription:
-    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 47 міграцій — 0 SEO-падінь. Від $1 000. Без підписок після запуску.",
+    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $1 000. Без підписок після запуску.",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · КОНСТРУКТОРИ",
     h1Lines: [
@@ -203,12 +204,12 @@ const UK: Content = {
         Tilda, Webflow, Wix, Squarespace, Weblium — кожен мав сенс на старті.
         Коли потік клієнтів виріс, конструктор починає заважати: повільне
         завантаження, лок-ін на платформі, місячна підписка, потолок
-        інтеграцій. Мігруємо на custom code за <em>4 тижні</em>. Зберігаємо
+        інтеграцій. Мігруємо на custom code за 4 тижні. Зберігаємо
         все: SEO, контент, домен, аналітику.
       </>
     ),
     badges: [
-      { label: "47 міграцій", sub: "0 SEO-падінь" },
+      { label: "47 проєктів", sub: "0 SEO-падінь" },
       { label: "4 тижні", sub: "від брифу до запуску" },
       { label: "0 підписок", sub: "платите один раз" },
       { label: "Від $1 000", sub: "за міграцію лендінга" },
@@ -314,7 +315,7 @@ const UK: Content = {
       <>
         За 3 роки на конструкторі ви платите{" "}
         <strong>від $1 800 до $4 500</strong> у підписках. У нас один платіж —
-        від <em>$1 000</em>. Через рік ви вже в плюсі.
+        від $1 000. Через рік ви вже в плюсі.
       </>
     ),
   },
@@ -325,7 +326,7 @@ const UK: Content = {
         Code-Site vs усі <em>топові конструктори.</em>
       </>
     ),
-    sub: "Чесно по фактах. Без перекручувань. На основі 47 міграцій і 3 років роботи з кожним з них.",
+    sub: "Чесно по фактах. Без перекручувань. На основі 47 проєктів і 3 років роботи з кожним з них.",
     criterionHeader: "Критерій",
     builderHeaders: ["Tilda", "Webflow", "Wix", "Squarespace", "Weblium"],
     usHeader: "Code-Site",
@@ -504,8 +505,8 @@ const UK: Content = {
     ],
     foot: (
       <>
-        Ви платили <em>$25–80/міс</em> за платформу + плагіни. Тепер платите{" "}
-        <em>$0/міс</em> за адмінку. Лише хостинг — $0–20 на Vercel/Cloudflare.
+        Ви платили $25–80/міс за платформу + плагіни. Тепер платите{" "}
+        $0/міс за адмінку. Лише хостинг — $0–20 на Vercel/Cloudflare.
         За рік — економія <strong>$300–960</strong>.
       </>
     ),
@@ -592,7 +593,7 @@ const UK: Content = {
     tiers: [
       {
         name: "Лендінг-міграція",
-        price: "$1 000",
+        price: formatPrice(1000, { locale: "uk" }),
         weeks: "1–2 тижні",
         includes: {
           heading: "Для кого",
@@ -608,17 +609,15 @@ const UK: Content = {
       },
       {
         popular: true,
-        popularLabel: "★ MOST POPULAR",
+        popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
         name: "Сайт-міграція",
-        price: "$3 000",
+        price: formatPrice(3000, { locale: "uk" }),
         weeks: "3–6 тижнів",
         includes: {
           heading: "Все з лендінгу +",
           items: [
             "До 30 сторінок",
-            <>
-              <em>CMS</em>, блог, форми
-            </>,
+            "CMS, блог, форми",
             "Перенесення інтеграцій (Mailchimp / Stripe / LiqPay)",
             "Schema.org + Open Graph апгрейд",
             "Більшість клієнтів сюди",
@@ -628,7 +627,7 @@ const UK: Content = {
       },
       {
         name: "Складна міграція",
-        price: "$5 000",
+        price: formatPrice(5000, { locale: "uk" }),
         weeks: "6–10 тижнів",
         includes: {
           heading: "Все з сайту +",
@@ -637,9 +636,7 @@ const UK: Content = {
             "Squarespace store до 200 SKU",
             "Мультимовність",
             "Custom API",
-            <>
-              <em>Dedicated team</em>
-            </>,
+            "Dedicated team",
           ],
         },
         ctaLabel: "Обговорити складну",
@@ -666,7 +663,7 @@ const UK: Content = {
     items: [
       {
         q: "Чи я втрачу позиції в Google після міграції?",
-        a: "Ні. На 47 міграціях — 0 падінь більше ніж на тиждень. Будуємо повну мапу 301-редіректів зі старих URL на нові. Перші 30 днів моніторимо Search Console щодня.",
+        a: "Ні. На 47 проєктах — 0 падінь більше ніж на тиждень. Будуємо повну мапу 301-редіректів зі старих URL на нові. Перші 30 днів моніторимо Search Console щодня.",
       },
       {
         q: "Що з моїм доменом?",
@@ -739,7 +736,7 @@ const EN: Content = {
   metaTitle:
     "Migrate from Tilda, Webflow, Wix to custom code · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate sites from Tilda, Webflow, Wix, Squarespace, Weblium to Next.js in 4–10 weeks. 47 migrations — zero SEO drops. From $1,000. No subscriptions after launch.",
+    "We migrate sites from Tilda, Webflow, Wix, Squarespace, Weblium to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From $1,000. No subscriptions after launch.",
   hero: {
     eyebrowLabel: "/ COMPARE · SITE BUILDERS",
     h1Lines: [
@@ -751,12 +748,12 @@ const EN: Content = {
         Tilda, Webflow, Wix, Squarespace, Weblium — each made sense at the
         start. As your traffic grows, the builder starts pushing back: slow
         loads, vendor lock-in, monthly subscriptions, integration ceiling. We
-        migrate you to custom code in <em>4 weeks</em>. Everything carries
+        migrate you to custom code in 4 weeks. Everything carries
         over — SEO, content, domain, analytics.
       </>
     ),
     badges: [
-      { label: "47 migrations", sub: "0 SEO drops" },
+      { label: "47 projects", sub: "0 SEO drops" },
       { label: "4 weeks", sub: "brief to launch" },
       { label: "0 subscriptions", sub: "pay once, own it" },
       { label: "From $1,000", sub: "for a landing migration" },
@@ -861,7 +858,7 @@ const EN: Content = {
     foot: (
       <>
         Over 3 years on a builder, you pay <strong>$1,800 to $4,500</strong>{" "}
-        in subscriptions. We charge once — from <em>$1,000</em>. You break
+        in subscriptions. We charge once — from $1,000. You break
         even in year one.
       </>
     ),
@@ -873,7 +870,7 @@ const EN: Content = {
         Code-Site vs every <em>major builder.</em>
       </>
     ),
-    sub: "Honest, fact-based. Pulled from 47 migrations and 3 years working with each of these.",
+    sub: "Honest, fact-based. Pulled from 47 projects and 3 years working with each of these.",
     criterionHeader: "Criterion",
     builderHeaders: ["Tilda", "Webflow", "Wix", "Squarespace", "Weblium"],
     usHeader: "Code-Site",
@@ -1058,8 +1055,8 @@ const EN: Content = {
     ],
     foot: (
       <>
-        You were paying <em>$25–80/mo</em> for the platform + plugins. Now you
-        pay <em>$0/mo</em> for the admin. Only hosting — $0–20 on
+        You were paying $25–80/mo for the platform + plugins. Now you
+        pay $0/mo for the admin. Only hosting — $0–20 on
         Vercel/Cloudflare. Annual savings: <strong>$300–960</strong>.
       </>
     ),
@@ -1071,7 +1068,7 @@ const EN: Content = {
         What we see <em>on a typical builder migration.</em>
       </>
     ),
-    sub: "12 of our 47 migrations were from Tilda, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
+    sub: "12 of our 47 projects were from Tilda, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
     headers: {
       metric: "Metric",
       before: "Before (on builder)",
@@ -1146,7 +1143,7 @@ const EN: Content = {
     tiers: [
       {
         name: "Landing migration",
-        price: "$1,000",
+        price: formatPrice(1000, { locale: "en" }),
         priceLabel: "from",
         weeks: "1–2 weeks",
         includes: {
@@ -1165,16 +1162,14 @@ const EN: Content = {
         popular: true,
         popularLabel: "★ MOST POPULAR",
         name: "Site migration",
-        price: "$3,000",
+        price: formatPrice(3000, { locale: "en" }),
         priceLabel: "from",
         weeks: "3–6 weeks",
         includes: {
           heading: "Everything in landing, plus",
           items: [
             "Up to 30 pages",
-            <>
-              <em>CMS</em>, blog, forms
-            </>,
+            "CMS, blog, forms",
             "Integrations (Mailchimp / Stripe / LiqPay) reconnected",
             "Schema.org + Open Graph upgrade",
             "Where most clients land",
@@ -1184,7 +1179,7 @@ const EN: Content = {
       },
       {
         name: "Complex migration",
-        price: "$5,000",
+        price: formatPrice(5000, { locale: "en" }),
         priceLabel: "from",
         weeks: "6–10 weeks",
         includes: {
@@ -1194,9 +1189,7 @@ const EN: Content = {
             "Squarespace store up to 200 SKUs",
             "Multi-language",
             "Custom API",
-            <>
-              <em>Dedicated team</em>
-            </>,
+            "Dedicated team",
           ],
         },
         ctaLabel: "Talk through complex",
@@ -1223,7 +1216,7 @@ const EN: Content = {
     items: [
       {
         q: "Will I lose Google rankings after migration?",
-        a: "No. Across 47 migrations — zero drops longer than a week. We build a complete 301 redirect map from every old URL to the new one. We watch Search Console daily for the first 30 days.",
+        a: "No. Across 47 projects — zero drops longer than a week. We build a complete 301 redirect map from every old URL to the new one. We watch Search Console daily for the first 30 days.",
       },
       {
         q: "What happens to my domain?",
@@ -1319,6 +1312,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           { kind: "default", primary: "→" },
           { kind: "good", primary: "Next.js", mini: "LCP 0.8s" },
         ]}
+        variant="compare"
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
       />
 
@@ -1330,8 +1324,9 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             heading={c.outgrew.heading}
             sub={c.outgrew.sub}
           />
+          {/* Top 3 outgrew-reasons as full cards, rest compact. */}
           <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
-            {c.outgrew.items.map((it) => {
+            {c.outgrew.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
                 <div
@@ -1356,6 +1351,26 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               );
             })}
           </div>
+          {c.outgrew.items.length > 3 ? (
+            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+              {c.outgrew.items.slice(3).map((it) => {
+                const Icon = it.icon;
+                return (
+                  <div
+                    key={it.num}
+                    className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
+                  >
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)]">
+                      <Icon size={16} strokeWidth={1.6} />
+                    </span>
+                    <div className="min-w-0 flex-1 font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight">
+                      {it.title}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
           <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[60ch] mx-auto">
             {c.outgrew.foot}
           </p>

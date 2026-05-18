@@ -60,7 +60,14 @@ function pickRichText(
   en: RichTextSimple | undefined,
   locale: Locale,
 ): RichTextSimple | undefined {
-  if (locale === "en" && en && en.length) return en;
+  if (locale === "en") {
+    if (en && en.length) return en;
+    if (process.env.NODE_ENV !== "production") {
+      // eslint-disable-next-line no-console
+      console.warn("[pickRichText] missing EN translation; returning undefined");
+    }
+    return undefined;
+  }
   return uk;
 }
 
@@ -194,14 +201,24 @@ function MetaStrip({
   doc: CaseStudyDoc;
   locale: Locale;
 }) {
-  const labels = {
-    industry: "Industry",
-    region: "Region",
-    year: "Year",
-    stack: "Stack",
-    duration: "Duration",
-    budget: "Budget",
-  };
+  const labels =
+    locale === "en"
+      ? {
+          industry: "Industry",
+          region: "Region",
+          year: "Year",
+          stack: "Stack",
+          duration: "Duration",
+          budget: "Budget",
+        }
+      : {
+          industry: "Галузь",
+          region: "Регіон",
+          year: "Рік",
+          stack: "Стек",
+          duration: "Тривалість",
+          budget: "Бюджет",
+        };
 
   const industry = doc.industry?.title
     ? loc(doc.industry.title, locale)
@@ -618,7 +635,7 @@ export async function CasePageView({
           { label: portfolioLabel, href: "/portfolio" },
           { label: title },
         ]}
-        eyebrow={eyebrow || "/ CASE STUDY"}
+        eyebrow={eyebrow || (locale === "en" ? "CASE STUDY" : "КЕЙС")}
         headline={heading ?? title}
         sub={sub}
       />
@@ -634,7 +651,7 @@ export async function CasePageView({
             <div className="hp-section-head">
               <div className="hp-eyebrow">
                 <span className="hp-eyebrow-dot" />
-                <span>/ 06 RELATED</span>
+                <span>{locale === "en" ? "RELATED" : "СУМІЖНІ КЕЙСИ"}</span>
               </div>
               <h2 className="hp-h2">{relatedHeading}</h2>
             </div>
@@ -652,7 +669,7 @@ export async function CasePageView({
       ) : null}
 
       <FinalCta3
-        eyebrow="/ GET IN TOUCH"
+        eyebrow={locale === "en" ? "GET IN TOUCH" : "ЗВ'ЯЗОК"}
         heading={finalHeading}
         sub={finalSub}
       />

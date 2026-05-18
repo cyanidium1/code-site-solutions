@@ -19,6 +19,7 @@ import { HeroEditorial } from "@/components/blocks/hero";
 import { Tier, type TierProps } from "@/components/blocks/comparison";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ, type FAQItem } from "@/components/blocks/final";
+import { formatPrice } from "@/lib/formatters/price";
 
 export type VsLocale = "uk" | "en";
 
@@ -170,7 +171,7 @@ const UK: Content = {
   metaTitle:
     "Перейти з WordPress на custom code за 4 тижні · 0 SEO-падінь | Code-Site.Art",
   metaDescription:
-    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 47 міграцій — 0 SEO-падінь. Від $1 000 за лендінг. Гарантія 1 рік + неустойка 30%.",
+    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $1 000 за лендінг. Гарантія 1 рік + неустойка 30%.",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · WORDPRESS",
     h1Lines: [
@@ -179,13 +180,13 @@ const UK: Content = {
     ],
     lede: (
       <>
-        Мігруємо ваш сайт з WordPress на custom code за <em>4 тижні</em>.
-        Зберігаємо кожну позицію в Google. <em>47 міграцій</em> — 0 SEO-падінь.
+        Мігруємо ваш сайт з WordPress на custom code за 4 тижні.
+        Зберігаємо кожну позицію в Google. 47 проєктів — 0 SEO-падінь.
         Без втрати контенту, коментарів і медіа.
       </>
     ),
     badges: [
-      { label: "0 SEO-падінь", sub: "на 47 міграціях" },
+      { label: "0 SEO-падінь", sub: "на 47 проєктах" },
       { label: "4 тижні", sub: "від брифу до перенесення" },
       { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
       { label: "Від $1 000", sub: "за міграцію лендінга" },
@@ -247,7 +248,7 @@ const UK: Content = {
     ],
     foot: (
       <>
-        Сума на 36 місяців володіння — від <em>$5 000</em> до <em>$20 000</em>{" "}
+        Сума на 36 місяців володіння — від $5 000 до $20 000{" "}
         <strong>на додачу</strong> до вартості розробки. У нас один платіж і
         нуль підписок.
       </>
@@ -260,7 +261,7 @@ const UK: Content = {
         WordPress vs Code-Site. <em>Чесно.</em>
       </>
     ),
-    sub: "Без перекручувань. Те, що зустрічаємо щодня на 47 міграціях.",
+    sub: "Без перекручувань. Те, що зустрічаємо щодня на 47 проєктах.",
     headers: { criterion: "Критерій", wp: "WordPress", us: "Code-Site" },
     rows: [
       {
@@ -343,8 +344,7 @@ const UK: Content = {
       <>
         Будівництво на Борнгольмі — щільна ніша. Боялись втратити навіть ту
         мізерну видачу, що мали. Через 30 днів після переходу трафік не впав,
-        через 60 — стали <em>№1</em>. З 3 заявок на місяць вийшли на{" "}
-        <em>24</em> в перший же місяць. Команда написала контент, провела QA,
+        через 60 — стали №1. З 3 заявок на місяць вийшли на 24 в перший же місяць. Команда написала контент, провела QA,
         запустила. Ми просто отримали ключі.
       </>
     ),
@@ -362,7 +362,7 @@ const UK: Content = {
     sub: "Це питання №1, яке нам ставлять. Ось чесна відповідь:",
     cards: [
       {
-        title: "47 міграцій · 0 падінь",
+        title: "47 проєктів · 0 падінь",
         body: (
           <>
             Ми мігрували 47 сайтів з WordPress (та інших платформ). Жоден не
@@ -583,7 +583,7 @@ const UK: Content = {
     tiers: [
       {
         name: "Лендінг-міграція",
-        price: "$1 000",
+        price: formatPrice(1000, { locale: "uk" }),
         weeks: "1–2 тижні",
         includes: {
           heading: "Для кого",
@@ -599,17 +599,15 @@ const UK: Content = {
       },
       {
         popular: true,
-        popularLabel: "★ MOST POPULAR",
+        popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
         name: "Сайт-міграція",
-        price: "$3 500",
+        price: formatPrice(3500, { locale: "uk" }),
         weeks: "4–8 тижнів",
         includes: {
           heading: "Все з лендінгу +",
           items: [
             "До 30 сторінок",
-            <>
-              <em>CMS</em>, блог, інтеграції форм
-            </>,
+            "CMS, блог, інтеграції форм",
             "Перенесення коментарів і медіа-бібліотеки",
             "Schema.org + Open Graph апгрейд",
             "Більшість клієнтів сюди",
@@ -619,7 +617,7 @@ const UK: Content = {
       },
       {
         name: "Складна міграція",
-        price: "$5 000",
+        price: formatPrice(5000, { locale: "uk" }),
         weeks: "6–10 тижнів",
         includes: {
           heading: "Все з сайту +",
@@ -628,9 +626,7 @@ const UK: Content = {
             "Мульти-мовність",
             "Custom API",
             "Складна SEO-структура",
-            <>
-              <em>Dedicated team</em>
-            </>,
+            "Dedicated team",
           ],
         },
         ctaLabel: "Обговорити складну",
@@ -651,7 +647,7 @@ const UK: Content = {
     items: [
       {
         q: "Чи я втрачу позиції в Google після міграції?",
-        a: "Ні. 47 міграцій — 0 падінь більше ніж на тиждень. Робимо повну мапу 301-редіректів і моніторимо Search Console щодня перші 30 днів.",
+        a: "Ні. 47 проєктів — 0 падінь більше ніж на тиждень. Робимо повну мапу 301-редіректів і моніторимо Search Console щодня перші 30 днів.",
       },
       {
         q: "Що буде з моїм блогом і коментарями?",
@@ -724,7 +720,7 @@ const EN: Content = {
   metaTitle:
     "Migrate off WordPress in 4 weeks · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 migrations — zero SEO drops. From $1,000 for a landing. 1-year warranty + 30% rebate.",
+    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From $1,000 for a landing. 1-year warranty + 30% rebate.",
   hero: {
     eyebrowLabel: "/ COMPARE · WORDPRESS",
     h1Lines: [
@@ -733,13 +729,13 @@ const EN: Content = {
     ],
     lede: (
       <>
-        We migrate your site off WordPress in <em>4 weeks</em>. Every Google
-        ranking stays put. <em>47 migrations</em> — zero SEO drops. Your
+        We migrate your site off WordPress in 4 weeks. Every Google
+        ranking stays put. 47 projects — zero SEO drops. Your
         content, comments, and media come with you.
       </>
     ),
     badges: [
-      { label: "0 SEO drops", sub: "across 47 migrations" },
+      { label: "0 SEO drops", sub: "across 47 projects" },
       { label: "4 weeks", sub: "brief to live" },
       { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
       { label: "From $1,000", sub: "for a landing migration" },
@@ -801,7 +797,7 @@ const EN: Content = {
     ],
     foot: (
       <>
-        Total cost over 36 months: <em>$5,000</em> to <em>$20,000</em>{" "}
+        Total cost over 36 months: $5,000 to $20,000{" "}
         <strong>on top of</strong> the original build. We charge once. Zero
         subscriptions.
       </>
@@ -814,7 +810,7 @@ const EN: Content = {
         WordPress vs Code-Site. <em>Honest.</em>
       </>
     ),
-    sub: "No spin. What we actually see across 47 migrations.",
+    sub: "No spin. What we actually see across 47 projects.",
     headers: { criterion: "Criterion", wp: "WordPress", us: "Code-Site" },
     rows: [
       {
@@ -893,8 +889,8 @@ const EN: Content = {
       <>
         Construction on Bornholm is a tight niche. We were nervous about
         losing even the small Google traction we had. Thirty days after the
-        move, traffic held. Sixty days in, we were <em>#1</em> locally.
-        Inquiries jumped from 3 a month to <em>24</em> in our first month
+        move, traffic held. Sixty days in, we were #1 locally.
+        Inquiries jumped from 3 a month to 24 in our first month
         live. The team wrote the content, ran the QA, and shipped. We just
         got the keys.
       </>
@@ -913,7 +909,7 @@ const EN: Content = {
     sub: "This is the #1 question we get. Here's the straight answer:",
     cards: [
       {
-        title: "47 migrations · 0 drops",
+        title: "47 projects · 0 drops",
         body: (
           <>
             We&apos;ve migrated 47 sites off WordPress (and other platforms). Not
@@ -1134,7 +1130,7 @@ const EN: Content = {
     tiers: [
       {
         name: "Landing migration",
-        price: "$1,000",
+        price: formatPrice(1000, { locale: "en" }),
         priceLabel: "from",
         weeks: "1–2 weeks",
         includes: {
@@ -1153,16 +1149,14 @@ const EN: Content = {
         popular: true,
         popularLabel: "★ MOST POPULAR",
         name: "Site migration",
-        price: "$3,500",
+        price: formatPrice(3500, { locale: "en" }),
         priceLabel: "from",
         weeks: "4–8 weeks",
         includes: {
           heading: "Everything in landing, plus",
           items: [
             "Up to 30 pages",
-            <>
-              <em>CMS</em>, blog, form integrations
-            </>,
+            "CMS, blog, form integrations",
             "Comments + media library carried over",
             "Schema.org + Open Graph upgrade",
             "Where most clients land",
@@ -1172,7 +1166,7 @@ const EN: Content = {
       },
       {
         name: "Complex migration",
-        price: "$5,000",
+        price: formatPrice(5000, { locale: "en" }),
         priceLabel: "from",
         weeks: "6–10 weeks",
         includes: {
@@ -1182,9 +1176,7 @@ const EN: Content = {
             "Multi-language",
             "Custom API",
             "Complex SEO structure",
-            <>
-              <em>Dedicated team</em>
-            </>,
+            "Dedicated team",
           ],
         },
         ctaLabel: "Talk through complex",
@@ -1205,7 +1197,7 @@ const EN: Content = {
     items: [
       {
         q: "Will I lose Google rankings after migration?",
-        a: "No. 47 migrations, zero drops longer than a week. We build a complete 301 redirect map and monitor Search Console daily for the first 30 days.",
+        a: "No. 47 projects, zero drops longer than a week. We build a complete 301 redirect map and monitor Search Console daily for the first 30 days.",
       },
       {
         q: "What about my blog and comments?",
@@ -1301,6 +1293,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           { kind: "good", primary: "Next.js", mini: "LCP 0.8s" },
           { kind: "good", primary: "0 SEO drops" },
         ]}
+        variant="compare"
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
       />
 
@@ -1312,8 +1305,10 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             heading={c.costs.heading}
             sub={c.costs.sub}
           />
+          {/* Top 3 hidden-costs as full cards, remaining as a compact
+              secondary row so 6 uniform cards don't read as template. */}
           <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
-            {c.costs.items.map((it) => {
+            {c.costs.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
                 <div
@@ -1341,6 +1336,31 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               );
             })}
           </div>
+          {c.costs.items.length > 3 ? (
+            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+              {c.costs.items.slice(3).map((it) => {
+                const Icon = it.icon;
+                return (
+                  <div
+                    key={it.num}
+                    className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
+                  >
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)]">
+                      <Icon size={16} strokeWidth={1.6} />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight mb-1">
+                        {it.title}
+                      </div>
+                      <div className="text-[12px] font-mono tracking-[0.04em] text-accent-soft">
+                        {it.metric}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
           <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[58ch] mx-auto [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.costs.foot}
           </p>

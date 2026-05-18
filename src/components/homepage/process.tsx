@@ -12,15 +12,15 @@ type ProcessStep = {
 };
 
 const DEFAULT_PROCESS: ProcessStep[] = [
-  { n: "01", name: "Brief", duration: "1 day · free", body: "Цілі, аудиторія, scope" },
-  { n: "02", name: "Design", duration: "1-2 weeks", body: "Wireframes → hi-fi" },
-  { n: "03", name: "Development", duration: "2-6 weeks", body: "Custom code, weekly demos" },
-  { n: "04", name: "Testing", duration: "1 week", body: "60-point QA checklist" },
-  { n: "05", name: "Launch + Support", duration: "+ 1 year", body: "Підтримка включена" },
+  { n: "01", name: "Бриф", duration: "1 день · безкоштовно", body: "Цілі, аудиторія, scope" },
+  { n: "02", name: "Дизайн", duration: "1-2 тижні", body: "Wireframes → hi-fi" },
+  { n: "03", name: "Розробка", duration: "2-6 тижнів", body: "Custom code, weekly demos" },
+  { n: "04", name: "Тестування", duration: "1 тиждень", body: "60-point QA checklist" },
+  { n: "05", name: "Запуск + підтримка", duration: "+ 1 рік", body: "Підтримка включена" },
 ];
 
 export function Process({
-  eyebrow = "/ 05 PROCESS · 4-10 WEEKS END-TO-END",
+  eyebrow = "ПРОЦЕС · 4-10 ТИЖНІВ",
   heading = (
     <>
       Запуск за 5 кроків. <em>Без сюрпризів.</em>
@@ -56,7 +56,9 @@ export function Process({
           }
         }
       },
-      { threshold: 0.35, rootMargin: "0px 0px -10% 0px" },
+      // threshold 0.15 (was 0.35) — trigger sooner so steps reveal as
+      // the section enters the viewport, not when it's nearly centered.
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

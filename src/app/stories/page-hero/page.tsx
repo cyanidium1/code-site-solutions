@@ -10,7 +10,7 @@ export default function PageHeroStory() {
           { label: "Головна", href: "/" },
           { label: "Про нас" },
         ]}
-        eyebrow="/ ABOUT"
+        eyebrow="ПРО НАС"
         headline={
           <>
             Невелика команда сильних сеньйорів. Без <em>корпоративної</em> шкарлупи.
@@ -26,7 +26,7 @@ export default function PageHeroStory() {
           { label: "Головна", href: "/" },
           { label: "Прайс" },
         ]}
-        eyebrow="/ PRICING"
+        eyebrow="ЦІНИ"
         headline={
           <>
             Прозорий прайс — від <em>$1 000</em> до <em>$14 000+</em>
@@ -42,7 +42,7 @@ export default function PageHeroStory() {
           { label: "Головна", href: "/" },
           { label: "Портфоліо" },
         ]}
-        eyebrow="/ PORTFOLIO"
+        eyebrow="ПОРТФОЛІО"
         headline={
           <>
             30+ проєктів. <em>Реальні</em> метрики, реальні клієнти.
@@ -58,7 +58,7 @@ export default function PageHeroStory() {
           { label: "Головна", href: "/" },
           { label: "Контакти" },
         ]}
-        eyebrow="/ CONTACTS"
+        eyebrow="КОНТАКТИ"
         headline={<>Як <em>зв&#39;язатися</em> з нами</>}
         sub="Telegram — найшвидший канал, відповідь за 30 хв. Email і дзвінок — 2-4 робочі години. Особиста зустріч — Київ, або Zoom-консультація з будь-якої точки."
       />

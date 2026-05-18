@@ -70,12 +70,71 @@ export const MEDICINE_FEATURE_ICONS: React.ReactNode[] = [
   <IcPin key="pin" />,
 ];
 
+/**
+ * Per-industry feature-icon sets. The 6 SVG primitives in this file are
+ * intentionally generic (calendar, people, price-card, services-grid,
+ * shield, pin) — they read as the right metaphor for medicine/renovation/
+ * legal/etc. without being literal. Where a domain needs a *different*
+ * 6-tuple we override below; otherwise it falls back to medicine.
+ *
+ * Slugs match the SERVICE_NAV_LINKS keys in `header-services.ts` and the
+ * Sanity industry-page slug field. Add more rows as new industries ship.
+ */
+const INDUSTRY_FEATURE_ICONS: Record<string, React.ReactNode[]> = {
+  medicine: MEDICINE_FEATURE_ICONS,
+  // Renovation/Construction: visit booking, team, transparent estimate,
+  // services catalog, warranty, location.  Reuses the same primitives —
+  // they're already domain-neutral. Substitute domain-specific icons here
+  // when commission-shooting them.
+  renovation: MEDICINE_FEATURE_ICONS,
+  legal: MEDICINE_FEATURE_ICONS,
+  accounting: MEDICINE_FEATURE_ICONS,
+  ecommerce: MEDICINE_FEATURE_ICONS,
+  saas: MEDICINE_FEATURE_ICONS,
+  cosmetology: MEDICINE_FEATURE_ICONS,
+  education: MEDICINE_FEATURE_ICONS,
+};
+
+/** Returns the icon set for a given industry slug, with medicine fallback. */
+export function featureIconsForIndustry(slug?: string): React.ReactNode[] {
+  if (slug && INDUSTRY_FEATURE_ICONS[slug]) return INDUSTRY_FEATURE_ICONS[slug];
+  return MEDICINE_FEATURE_ICONS;
+}
+
 export type Feature = {
   icon: React.ReactNode;
   bg: string;
   title: string;
   items: React.ReactNode[];
 };
+
+/**
+ * Compact secondary feature — icon + title + first bullet only.
+ * Used for "secondary" services (the last 3 of 6) so the grid isn't
+ * 6 uniform cards (the AI-smell pattern). Visually reads as an
+ * addendum: smaller padding, no bg image, single-line summary.
+ */
+export function SecondaryFeatureCard({ icon, title, items }: Feature) {
+  // Use the first bullet as a one-line description if available.
+  const blurb = items.length > 0 ? items[0] : null;
+  return (
+    <div className="secondary-feature relative px-5 py-4 border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] transition-[border-color,background] duration-[200ms] flex items-center gap-4 hover:border-[var(--line-2)] hover:bg-[oklch(0.18_0.005_300)] max-[700px]:px-4 max-[700px]:py-3.5 max-[700px]:gap-3">
+      <div className="w-9 h-9 shrink-0 rounded-lg bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)] flex items-center justify-center max-[700px]:w-8 max-[700px]:h-8 [&>svg]:w-[18px] [&>svg]:h-[18px]">
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="font-display font-bold text-[13px] tracking-[0.04em] uppercase leading-tight text-ink mb-1 max-[700px]:text-[12px]">
+          {title}
+        </div>
+        {blurb ? (
+          <div className="text-[12.5px] leading-[1.45] text-[var(--ink-2)] line-clamp-1 [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium max-[700px]:text-[11.5px]">
+            {blurb}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
 
 export function FeatureCard({ icon, title, items, bg }: Feature) {
   return (
@@ -110,8 +169,8 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&q=80",
     title: "Онлайн-запис 24/7",
     items: [
-      <>Запис у <em>2 кліки</em>. SMS-підтвердження пацієнту, Telegram-сповіщення лікарю</>,
-      <>Інтеграція з <em>Dental4Windows</em>, Medesk, MedAI, Helsi, KeyCRM</>,
+      "Запис у 2 кліки. SMS-підтвердження пацієнту, Telegram-сповіщення лікарю",
+      "Інтеграція з Dental4Windows, Medesk, MedAI, Helsi, KeyCRM",
       "Автоматичні нагадування за день до прийому",
     ],
   },
@@ -130,7 +189,7 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
     title: "Прозорий прайс",
     items: [
-      <>Структурований прайс-лист, маркетолог оновлює ціни <em>за 2 хвилини</em></>,
+      "Структурований прайс-лист, маркетолог оновлює ціни за 2 хвилини",
       "Юридично коректне оформлення (стоп-таблиця для пацієнтів)",
       "Можливість приховати окремі позиції від індексації",
     ],
@@ -140,7 +199,7 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80",
     title: "Каталог послуг",
     items: [
-      <>Детальний опис процедур з фото <em>«до/після»</em> (з дозволу пацієнтів)</>,
+      "Детальний опис процедур з фото «до/після» (з дозволу пацієнтів)",
       "Повʼязані послуги і пакетні пропозиції",
       "Відеоматеріали від лікарів",
     ],
@@ -150,8 +209,8 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
     title: "Інтеграція зі страховими",
     items: [
-      <>Список <em>ДМС-програм</em> з онлайн-розрахунком покриття</>,
-      <>Інтеграція з <em>Helsi</em> для держстраховок (НСЗУ)</>,
+      "Список ДМС-програм з онлайн-розрахунком покриття",
+      "Інтеграція з Helsi для держстраховок (НСЗУ)",
       "Запис із зазначенням страховки",
     ],
   },
@@ -160,7 +219,7 @@ const DEFAULT_FEATURES: Feature[] = [
     bg: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     title: "Локальне SEO та аналітика",
     items: [
-      <><em>Schema.org</em> розмітка MedicalOrganization, оптимізація під «стоматолог + район»</>,
+      "Schema.org розмітка MedicalOrganization, оптимізація під «стоматолог + район»",
       "Налаштування Google Business Profile, карта проїзду з парковкою",
       "Аналітика трафіку і воронки від перегляду до запису",
     ],
@@ -185,9 +244,9 @@ export function Services({
   testimonialEyebrow = "ВІДГУК КЛІЄНТА",
   testimonialQuote = (
     <>
-      Після запуску сайту ми почали отримувати в <em>3–4 рази</em> більше
+      Після запуску сайту ми почали отримувати в 3–4 рази більше
       заявок. Особливо виріс потік з Google. І найголовніше — ми тепер
-      <em> самі</em> можемо змінювати все на сайті без розробників.
+      самі можемо змінювати все на сайті без розробників.
     </>
   ),
   testimonialAuthorInitials = "АП",
@@ -202,7 +261,7 @@ export function Services({
   ),
   servicesSub = (
     <>
-      Не «<em>ще один шаблонний медичний сайт</em>». Кожен проєкт — під
+      Не «ще один шаблонний медичний сайт». Кожен проєкт — під
       конкретну клініку, її спеціалізацію і регуляторні вимоги.
     </>
   ),
@@ -216,7 +275,7 @@ export function Services({
   ),
   integrationsSub = (
     <>
-      Заявка з сайту потрапляє одразу у вашу <em>CRM</em>. Адміністратор бачить
+      Заявка з сайту потрапляє одразу у вашу CRM. Адміністратор бачить
       запис у момент кліку. Лікар отримує сповіщення в Telegram. Пацієнт —
       SMS-підтвердження. Жодних втрачених лідів через листи у спамі або
       дзвінки в неробочий час.
@@ -274,11 +333,21 @@ export function Services({
           <p className={`pb-2 ${SVC_SUB_BASE}`}>{servicesSub}</p>
         </header>
 
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5 mb-[120px] max-[1100px]:gap-4 max-[1100px]:mb-20 max-[700px]:gap-3 max-[700px]:mb-14">
-          {features.map((f, i) => (
-            <FeatureCard key={i} {...f} />
+        {/* Primary services — top 3 as full cards. Secondary — the
+            rest as compact rows. Splits the otherwise-uniform 6-card
+            grid that read as AI-template rhythm. */}
+        <div className="grid grid-cols-3 gap-5 mb-9 max-[1100px]:grid-cols-2 max-[1100px]:gap-4 max-[700px]:grid-cols-1 max-[700px]:gap-3 max-[700px]:mb-7">
+          {features.slice(0, 3).map((f, i) => (
+            <FeatureCard key={`primary-${i}`} {...f} />
           ))}
         </div>
+        {features.length > 3 ? (
+          <div className="grid grid-cols-3 gap-3 mb-[120px] max-[1100px]:grid-cols-2 max-[1100px]:gap-2.5 max-[1100px]:mb-20 max-[700px]:grid-cols-1 max-[700px]:gap-2 max-[700px]:mb-14">
+            {features.slice(3).map((f, i) => (
+              <SecondaryFeatureCard key={`secondary-${i}`} {...f} />
+            ))}
+          </div>
+        ) : null}
 
         <header className={`mb-12 ${SVC_HEADER_CLASSES}`}>
           <h2 className={SVC_H2_CLASSES}>{integrationsHeading}</h2>

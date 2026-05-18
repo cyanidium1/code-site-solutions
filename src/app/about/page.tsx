@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
 import {
-  Linkedin,
-  Send,
-  Github,
-  Music2,
-  Instagram,
   Eye,
   Zap,
   Github as GithubLogo,
@@ -104,122 +99,6 @@ function GradPlaceholder({
         </span>
       ) : null}
     </div>
-  );
-}
-
-function FounderAvatar() {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background:
-          "radial-gradient(ellipse at 30% 30%, oklch(0.55 0.18 295) 0%, oklch(0.20 0.08 280) 70%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          width: 200,
-          height: 200,
-          borderRadius: "50%",
-          background:
-            "linear-gradient(180deg, oklch(0.7 0.14 295), oklch(0.55 0.18 295))",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Manrope, sans-serif",
-          fontWeight: 700,
-          fontSize: 64,
-          color: "var(--bg)",
-          letterSpacing: "-0.02em",
-          boxShadow: "0 0 80px oklch(0.55 0.18 295 / 0.45)",
-        }}
-      >
-        FA
-      </div>
-    </div>
-  );
-}
-
-/* ─── Founder socials row (під картку засновника) ────────────────────────── */
-
-const FOUNDER_SOCIALS = [
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/fediralpatov/", label: "LinkedIn" },
-  { Icon: Github, href: "https://github.com/fedirdev", label: "GitHub" },
-  { Icon: Send, href: "https://t.me/fedirdev", label: "Telegram" },
-  { Icon: Music2, href: "https://www.tiktok.com/@cyanidium.dev", label: "TikTok" },
-  { Icon: Instagram, href: "https://www.instagram.com/cyanidium/", label: "Instagram" },
-];
-
-function FounderSocials() {
-  return (
-    <section
-      style={{
-        padding: "0 24px 64px",
-        background: "var(--bg)",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 14,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 11,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "var(--ink-3)",
-          }}
-        >
-          / find Fedir online
-        </span>
-        <div
-          style={{
-            display: "inline-flex",
-            gap: 8,
-            padding: "10px 14px",
-            border: "1px solid var(--line)",
-            borderRadius: 999,
-            background: "oklch(1 0 0 / 0.03)",
-          }}
-        >
-          {FOUNDER_SOCIALS.map((s) => {
-            const Icon = s.Icon;
-            return (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={s.label}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 36,
-                  height: 36,
-                  borderRadius: 999,
-                  color: "var(--ink-2)",
-                  transition: "color 0.2s, background 0.2s",
-                }}
-              >
-                <Icon size={16} strokeWidth={1.6} />
-              </a>
-            );
-          })}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -473,7 +352,7 @@ export default function AboutPage() {
           { label: "Головна", href: "/" },
           { label: "Про нас" },
         ]}
-        eyebrow="/ ABOUT"
+        eyebrow="ПРО НАС"
         headline={
           <>
             12 людей, які роблять сайти, що{" "}
@@ -503,7 +382,7 @@ export default function AboutPage() {
       <ImageText
         variant="side"
         imageVariant="imageRight"
-        eyebrow="/ 02 ABOUT"
+        eyebrow="ПРО НАС"
         heading={
           <>
             Не агенція. <em>Не фрилансер.</em>
@@ -522,42 +401,9 @@ export default function AboutPage() {
         }
       />
 
-      {/* Section 4: Founder — тимчасово приховано до готовності контенту */}
-      {false && (
-        <>
-          <ImageText
-            variant="side-with-list"
-            imageVariant="imageLeft"
-            eyebrow="/ 03 FOUNDER"
-            heading={
-              <>
-                Fedir <em>Alpatov</em>
-              </>
-            }
-            body={[
-              "Засновник Code-Site.Art. До студії — 8+ років у розробці на різних позиціях: фріланс, продуктові команди, агенції.",
-              "Code-Site.Art відкрив у 2023 коли побачив, скільки часу і грошей клієнти зливають у WordPress, плагіни, фрилансерів-одинаків. Зробив студію, яка робить навпаки: custom-код, прозорий прайс, фіксовані терміни.",
-            ]}
-            bulletList={[
-              "8+ років у веб-розробці",
-              "47 проєктів за 3 роки як founder",
-              "Спеціалізація: Next.js, Astro, headless CMS",
-              "Спікер на українських dev-конференціях",
-              "Open-source contributor",
-            ]}
-            cta={{
-              label: "Написати в Telegram",
-              href: "https://t.me/fedirdev",
-            }}
-            image={<FounderAvatar />}
-          />
-          <FounderSocials />
-        </>
-      )}
-
       {/* Section 5: Team */}
       <TeamSection
-        eyebrow="/ 04 TEAM"
+        eyebrow="КОМАНДА"
         heading={
           <>
             12 людей. Чотирьох ви будете чути <em>щодня</em>.
@@ -566,20 +412,104 @@ export default function AboutPage() {
         sub="Це ключове ядро — з ким ви будете спілкуватися безпосередньо: тех-лід, дизайнер, фронтенд, маркетинг. За ними ще 8 людей у фоновій роботі: 4 розробники, 2 дизайнери, 2 QA-інженери. Ви бачите результат — не процес."
       />
 
-      {/* Section 6: Values */}
+      {/* Section 6: Values — top 3 as full Bento cells, bottom 3 as
+          a compact secondary row so the section isn't 6 uniform cards. */}
       <Bento
-        eyebrow="/ 05 VALUES"
+        eyebrow="ЦІННОСТІ"
         heading={
           <>
             На чому ми <em>не економимо</em>
           </>
         }
-        cells={VALUES_CELLS}
+        cells={VALUES_CELLS.slice(0, 3)}
       />
+      <section
+        style={{
+          background: "var(--bg)",
+          padding: "0 48px 64px",
+        }}
+        aria-label="Додаткові цінності"
+      >
+        <div
+          style={{
+            maxWidth: "var(--container-max)",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: 12,
+          }}
+          className="about-values-secondary"
+        >
+          {VALUES_CELLS.slice(3).map((c) => {
+            const Icon = c.icon;
+            return (
+              <div
+                key={c.title}
+                className="about-values-secondary-card"
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 14,
+                  padding: "16px 18px",
+                  border: "1px solid var(--line)",
+                  borderRadius: 14,
+                  background: "oklch(0.16 0.005 300)",
+                }}
+              >
+                <div
+                  style={{
+                    width: 36,
+                    height: 36,
+                    flexShrink: 0,
+                    borderRadius: 10,
+                    background: "oklch(from var(--accent) l c h / 0.12)",
+                    border: "1px solid oklch(from var(--accent) l c h / 0.22)",
+                    color: "var(--accent-soft)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Icon size={18} strokeWidth={1.6} />
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <div
+                    style={{
+                      fontFamily: "Manrope, sans-serif",
+                      fontWeight: 700,
+                      fontSize: 13,
+                      letterSpacing: "0.04em",
+                      textTransform: "uppercase",
+                      color: "var(--ink)",
+                      lineHeight: 1.2,
+                      marginBottom: 4,
+                    }}
+                  >
+                    {c.title}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 12.5,
+                      lineHeight: 1.45,
+                      color: "var(--ink-2)",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical" as const,
+                      overflow: "hidden",
+                    }}
+                  >
+                    {c.body}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
       {/* Section 7: Stack */}
       <Stack
-        eyebrow="/ 06 STACK"
+        eyebrow="СТЕК"
         heading={
           <>
             Технології, у яких ми <em>ходимо в глибину</em>
@@ -590,7 +520,7 @@ export default function AboutPage() {
 
       {/* Section 8: vs */}
       <Bento
-        eyebrow="/ 07 DIFFERENCE"
+        eyebrow="ВІДМІННОСТІ"
         heading={
           <>
             Чим ми <em>відрізняємося</em> від інших
@@ -601,7 +531,7 @@ export default function AboutPage() {
 
       {/* Section 9: Process */}
       <Process
-        eyebrow="/ 08 PROCESS"
+        eyebrow="ПРОЦЕС"
         heading={
           <>
             Як ми <em>працюємо</em>
@@ -613,7 +543,7 @@ export default function AboutPage() {
 
       {/* Section 10: Cases */}
       <Cases
-        eyebrow="/ 09 CASES"
+        eyebrow="КЕЙСИ"
         heading={
           <>
             Реальні кейси з <em>реальними</em> метриками
@@ -628,7 +558,7 @@ export default function AboutPage() {
 
       {/* Section 12: Final CTA */}
       <FinalCta3
-        eyebrow="/ 10 GET IN TOUCH"
+        eyebrow="ЗВ'ЯЗОК"
         heading={
           <>
             <em>30 хвилин</em> — і ви знатимете, чи підходимо одне одному

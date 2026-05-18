@@ -17,11 +17,12 @@ import {
 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
+import { formatPrice } from "@/lib/formatters/price";
 
 const HOMEPAGE_TIERS: TierProps[] = [
   {
     name: "Landing",
-    price: "$1 000",
+    price: formatPrice(1000, { locale: "uk" }),
     weeks: "1-2 тижні",
     bestFor:
       "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
@@ -38,9 +39,9 @@ const HOMEPAGE_TIERS: TierProps[] = [
   },
   {
     popular: true,
-    popularLabel: "★ MOST POPULAR",
+    popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
     name: "Industry Pro",
-    price: "$3 500",
+    price: formatPrice(3500, { locale: "uk" }),
     weeks: "4-8 тижнів",
     bestFor:
       "Бізнесу з compliance вимогами (медицина, право, бухгалтерія), що потребує галузевих інтеграцій.",
@@ -50,7 +51,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
         "CMS, блог",
         "5+ інтеграцій",
         "Локальне SEO",
-        <>Compliance: <em>МОЗ / RODO / HIPAA-aware</em></>,
+        "Compliance: МОЗ / RODO / HIPAA-aware",
         "UA + RU",
       ],
     },
@@ -58,7 +59,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
   },
   {
     name: "Custom",
-    price: "$14 000",
+    price: formatPrice(14000, { locale: "uk" }),
     weeks: "8-16 тижнів",
     bestFor:
       "Складним продуктам із власною логікою — SaaS, маркетплейс, B2B-портал.",
@@ -67,7 +68,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
       items: [
         "Архітектурна сесія",
         "Dedicated team",
-        <><em>SLA</em> + 24/7 support</>,
+        "SLA + 24/7 support",
         "Custom integrations",
       ],
     },
@@ -81,11 +82,11 @@ const HOMEPAGE_FAQ: FAQItem[] = [
     q: "Скільки коштує мій сайт?",
     a: [
       "Залежить від типу. Лендінг — від ",
-      { em: "$1 000" },
+      { em: formatPrice(1000, { locale: "uk" }) },
       ". Сайт під індустрію (медицина, юристи, бухгалтерія, нерухомість і т.д.) — від ",
-      { em: "$3 500" },
+      { em: formatPrice(3500, { locale: "uk" }) },
       ". Custom-проєкти з нестандартною архітектурою — від ",
-      { em: "$14 000" },
+      { em: formatPrice(14000, { locale: "uk" }) },
       ". Точна цифра — у ",
       { link: { href: "/calculator", text: "калькуляторі" } },
       " або після 30-хв розмови.",
@@ -196,7 +197,7 @@ export default function HomePage() {
       <HpHeader />
 
       <HeroEditorial
-        eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
+        eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДІЯ" }}
         h1Lines={[
           <>
             Сайт <em>приймає заявки</em>,
@@ -205,8 +206,7 @@ export default function HomePage() {
         ]}
         lede={
           <>
-            Готовий сайт за <em>4-10 тижнів</em>. Ваша участь —{" "}
-            <em>5 годин</em>, далі сайт працює сам: пише заявки, веде клієнтів
+            Готовий сайт за 4-10 тижнів. Ваша участь — 5 годин, далі сайт працює сам: пише заявки, веде клієнтів
             і ранжується в Google.
           </>
         }
@@ -227,7 +227,7 @@ export default function HomePage() {
           { num: "47", lbl: <>проєктів<br/>за 3 роки</> },
           { num: "4", lbl: <>країни<br/>UA · EU · US · DK</> },
           { num: "×3.2", lbl: <>заявок<br/>у середньому</> },
-          { num: "0.6s", lbl: <>LCP<br/>швидкість</> },
+          { num: "4.9/5", lbl: <>оцінка<br/>клієнтів</> },
         ]}
         showTicker={false}
         deviceTags={[
@@ -250,7 +250,7 @@ export default function HomePage() {
           <div className="hp-section-head">
             <div className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 07 PRICING</span>
+              <span>ЦІНИ</span>
             </div>
             <h2 className="hp-h2">
               Прозорий прайс — від <em>$1 000</em> до <em>$14 000+</em>
@@ -269,7 +269,7 @@ export default function HomePage() {
         quote={
           <>
             Перед запуском нового сайту у нас було 3 заявки на місяць. Після
-            запуску — <em>24</em> у перший місяць. Команда написала контент,
+            запуску — 24 у перший місяць. Команда написала контент,
             провела QA, запустила. Нам залишилось лише отримати ключі.
           </>
         }

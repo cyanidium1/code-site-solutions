@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Accordion, AccordionItem } from "@heroui/react";
 import { Plus } from "lucide-react";
@@ -7,6 +8,8 @@ import { Plus } from "lucide-react";
 import { SITE_CONTACT } from "@/lib/site";
 import { renderRich, type RichText } from "@/lib/rich-text";
 import "./final.css";
+
+const FAQ_INITIAL_VISIBLE = 5;
 
 function CheckIcon() {
   return (
@@ -187,7 +190,25 @@ const FAQ_MOTION_PROPS = {
 export function FAQ({
   heading = "Часті питання",
   items = DEFAULT_FAQ,
-}: { heading?: string; items?: FAQItem[] } = {}) {
+  showAllLabel = "Показати ще",
+  locale = "uk",
+}: {
+  heading?: string;
+  items?: FAQItem[];
+  showAllLabel?: string;
+  locale?: "uk" | "en";
+} = {}) {
+  const [expanded, setExpanded] = useState(false);
+  const hasOverflow = items.length > FAQ_INITIAL_VISIBLE;
+  const visible = expanded ? items : items.slice(0, FAQ_INITIAL_VISIBLE);
+  const toggleLabel = expanded
+    ? locale === "en"
+      ? "Show fewer"
+      : "Згорнути"
+    : showAllLabel === "Показати ще" && locale === "en"
+      ? `Show all ${items.length} questions`
+      : showAllLabel;
+
   return (
     <section className="relative py-[var(--section-y)] px-12 bg-bg max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className="faq-bg absolute inset-0 z-0 pointer-events-none" />
@@ -208,7 +229,7 @@ export function FAQ({
             indicator: "faq-item-indicator",
           }}
         >
-          {items.map((it, i) => (
+          {visible.map((it, i) => (
             <AccordionItem
               key={i}
               aria-label={it.q}
@@ -227,29 +248,37 @@ export function FAQ({
             </AccordionItem>
           ))}
         </Accordion>
+        {hasOverflow ? (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="inline-flex items-center gap-2.5 px-6 py-3 border border-[var(--line-2)] rounded-full bg-[oklch(1_0_0_/_0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-2)] hover:border-accent-soft hover:text-ink transition-colors duration-200"
+              aria-expanded={expanded}
+            >
+              {toggleLabel}
+              <span aria-hidden="true">{expanded ? "↑" : "↓"}</span>
+            </button>
+          </div>
+        ) : null}
       </div>
     </section>
   );
 }
 
 const DEFAULT_AUDIT_LIST: React.ReactNode[] = [
-  <>
-    Список з <em>7–12 помилок</em>, через які клініка втрачає пацієнтів
-  </>,
-  <>
-    Технічний звіт зі швидкості та <em>SEO</em> (PageSpeed + Schema)
-  </>,
-  <>План покращень з пріоритетами</>,
-  <>Орієнтовну вартість переробки або нового сайту</>,
-  <>2–3 кейси клінік з нашого портфоліо</>,
+  "Список з 7–12 помилок, через які клініка втрачає пацієнтів",
+  "Технічний звіт зі швидкості та SEO (PageSpeed + Schema)",
+  "План покращень з пріоритетами",
+  "Орієнтовну вартість переробки або нового сайту",
+  "2–3 кейси клінік з нашого портфоліо",
 ];
 
 export function Audit({
   heading = "Отримайте безкоштовний розбір сайту вашої клініки",
   sub = (
     <>
-      Залиште посилання на ваш поточний сайт. Протягом <em>24 годин</em>{" "}
-      надішлемо розбір.
+      Залиште посилання на ваш поточний сайт. Протягом 24 годин надішлемо розбір.
     </>
   ),
   list = DEFAULT_AUDIT_LIST,

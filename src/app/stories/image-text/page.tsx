@@ -107,7 +107,7 @@ export default function ImageTextStory() {
       <ImageText
         variant="side"
         imageVariant="imageLeft"
-        eyebrow="/ 02 ABOUT"
+        eyebrow="ПРО НАС"
         heading={<>Хто ми <em>насправді</em></>}
         body={[
           "Ми — невелика студія, не корпорація. Між вами і людьми, які пишуть код, немає аккаунт-менеджерів і прошарків. Ви розмовляєте напряму з тими, хто буде робити ваш проект.",
@@ -121,7 +121,7 @@ export default function ImageTextStory() {
       <ImageText
         variant="side"
         imageVariant="imageRight"
-        eyebrow="/ 04 TEAM"
+        eyebrow="КОМАНДА"
         heading={<>Маленька команда. <em>Велика</em> мережа.</>}
         body="Постійне ядро — Fedir плюс 2 контрактори: senior-дизайнер і backend-розробник. Підключаємо їх під проект. Для проектів від $10 000+ розширюємо команду до 5-7 людей з перевіреної мережі."
         image={<GradPlaceholder label="мережа" from="oklch(0.50 0.18 200)" to="oklch(0.45 0.20 295)" />}
@@ -132,7 +132,7 @@ export default function ImageTextStory() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageLeft"
-        eyebrow="/ 03 FOUNDER"
+        eyebrow="ЗАСНОВНИК"
         heading={<>Fedir <em>Alpatov</em></>}
         body={[
           "Засновник Code-Site.Art. До студії — 8+ років у розробці на різних позиціях: фріланс, продуктові команди, агенції.",
@@ -154,7 +154,7 @@ export default function ImageTextStory() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
-        eyebrow="/ 06 PROCESS"
+        eyebrow="ПРОЦЕС"
         heading={<>Як ми <em>працюємо</em></>}
         body="Кожен проект проходить ті самі 5 кроків. Терміни і скоупи фіксуємо в договорі. Прогрес показуємо щотижня."
         bulletList={[
@@ -171,7 +171,7 @@ export default function ImageTextStory() {
       {/* 5. centered */}
       <ImageText
         variant="centered"
-        eyebrow="/ 09 STUDIO"
+        eyebrow="СТУДІЯ"
         heading={<>Київ. <em>Без офісу-вітрини.</em></>}
         body="Робимо проекти, не корпоративний ритуал. Команда збирається у проектний ритм, без щоденних зайвих стендапів і open-space-відволікання. Зустрічі — за реальною необхідністю, через Zoom або в кав'ярні."
         image={<GradPlaceholder label="kyiv · 2023" from="oklch(0.55 0.18 295)" to="oklch(0.30 0.10 270)" />}

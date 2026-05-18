@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { formatPrice } from "@/lib/formatters/price";
 import "./comparison.css";
 
 function TierCheck() {
@@ -225,7 +226,7 @@ const DEFAULT_ROWS: TableRowData[] = [
 const DEFAULT_TIERS: TierProps[] = [
   {
     name: <>Базовий сайт<br />клініки</>,
-    price: "$3 500",
+    price: formatPrice(3500, { locale: "uk" }),
     weeks: "4 тижні",
     includes: {
       heading: "Що входить",
@@ -235,7 +236,7 @@ const DEFAULT_TIERS: TierProps[] = [
         "Каталог лікарів і послуг",
         "Прозорий прайс",
         "Відгуки пацієнтів",
-        <>Базове <em>SEO</em></>,
+        "Базове SEO",
         "Мобільна адаптація",
       ],
     },
@@ -252,17 +253,17 @@ const DEFAULT_TIERS: TierProps[] = [
   {
     popular: true,
     name: "Розширений",
-    price: "$6 500",
+    price: formatPrice(6500, { locale: "uk" }),
     weeks: "6 тижнів",
     includes: {
       heading: "Все з базового +",
       items: [
         "Блог і SEO-сторінки",
-        <><em>ДМС-інтеграція</em></>,
+        "ДМС-інтеграція",
         "Фото-кейси до/після",
         "Історія відвідувань і нагадування",
         "Онлайн-консультація",
-        <>Інтеграція з медичною <em>CRM</em></>,
+        "Інтеграція з медичною CRM",
       ],
     },
     excludes: {
@@ -276,16 +277,16 @@ const DEFAULT_TIERS: TierProps[] = [
   },
   {
     name: <>Преміум / мережа<br />клінік</>,
-    price: "$12 000",
+    price: formatPrice(12000, { locale: "uk" }),
     weeks: "8–10 тижнів",
     includes: {
       heading: "Все з розширеного +",
       items: [
         "Багатофіліальна структура",
-        <>Повна <em>CRM</em>-інтеграція</>,
+        "Повна CRM-інтеграція",
         "Багатомовність",
         "Кастомні модулі під вашу спеціалізацію",
-        <>Підтримка по <em>SLA</em></>,
+        "Підтримка по SLA",
       ],
     },
     excludes: {

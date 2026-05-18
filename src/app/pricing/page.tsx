@@ -25,6 +25,7 @@ import {
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
 import { plainRich, type RichText } from "@/lib/rich-text";
+import { formatPrice } from "@/lib/formatters/price";
 
 export const metadata: Metadata = {
   title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
@@ -98,7 +99,7 @@ function GradPlaceholder({
 const TIERS: TierProps[] = [
   {
     name: "Landing",
-    price: "$1 000",
+    price: formatPrice(1000, { locale: "uk" }),
     weeks: "1-2 тижні",
     bestFor:
       "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
@@ -128,24 +129,24 @@ const TIERS: TierProps[] = [
   },
   {
     popular: true,
-    popularLabel: "★ MOST POPULAR",
+    popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
     name: "Industry Pro",
-    price: "$3 500",
+    price: formatPrice(3500, { locale: "uk" }),
     weeks: "4-8 тижнів",
     bestFor:
       "Бізнесу з compliance вимогами (медицина, право, бухгалтерія), що потребує галузевих інтеграцій.",
     includes: {
       heading: "Що входить",
       items: [
-        <><em>Compliance</em> під галузь (МОЗ / RODO / HIPAA-aware)</>,
+        "Compliance під галузь (МОЗ / RODO / HIPAA-aware)",
         "5+ профільних інтеграцій (Helsi/Clio/MEDoc та ін.)",
         "Локальне SEO під район",
         "Особистий кабінет клієнта",
-        <>E-sign (<em>Diia.Sign</em> / DocuSign)</>,
+        "E-sign (Diia.Sign / DocuSign)",
         "UA + RU багатомовність",
         "Калькулятори вартості (1-3 шт)",
         "До 30 сторінок",
-        <>Гарантія 1 рік + неустойка <em>30%</em> за зрив</>,
+        "Гарантія 1 рік + неустойка 30% за зрив",
       ],
     },
     excludes: {
@@ -160,19 +161,19 @@ const TIERS: TierProps[] = [
   },
   {
     name: "Pro Plus",
-    price: "$7 500",
+    price: formatPrice(7500, { locale: "uk" }),
     weeks: "6-10 тижнів",
     bestFor:
       "Бізнесу, який росте в кількох країнах і потребує EN-локаль, 30+ сторінок і одну глибоку інтеграцію (CRM / ERP / платіжна система).",
     includes: {
       heading: "Все з Industry Pro +",
       items: [
-        <><em>EN-локаль</em></>,
+        "EN-локаль",
         "30+ сторінок",
         "1 кастомна інтеграція",
         "Виділений PM з щотижневими статусами",
         "Розширене SEO (програмні landing-pages)",
-        <>Гарантія 1 рік + неустойка <em>30%</em> за зрив</>,
+        "Гарантія 1 рік + неустойка 30% за зрив",
       ],
     },
     excludes: {
@@ -187,7 +188,7 @@ const TIERS: TierProps[] = [
   },
   {
     name: "Custom",
-    price: "$14 000",
+    price: formatPrice(14000, { locale: "uk" }),
     weeks: "8-16 тижнів",
     bestFor:
       "Складним продуктам із власною логікою — SaaS, маркетплейс, B2B-портал.",
@@ -196,10 +197,10 @@ const TIERS: TierProps[] = [
       items: [
         "Архітектурна сесія перед стартом",
         "Dedicated team (5-7 людей під проект)",
-        <>UA + RU + <em>EN</em> + інші мови за запитом</>,
+        "UA + RU + EN + інші мови за запитом",
         "Складні платіжні воронки",
         "API для зовнішніх інтеграцій",
-        <><em>SLA 24/7</em> з 4-годинним response time</>,
+        "SLA 24/7 з 4-годинним response time",
         "SOC 2-ready architecture (для B2B-SaaS)",
         "Custom модулі під специфіку",
         "Підтримка за SLA після року",
@@ -246,14 +247,14 @@ const ADDONS_CELLS: BentoCell[] = [
     icon: Zap,
     title: "Швидкий лендинг",
     body: "Спрощений лендинг для термінової кампанії. 7-14 днів від брифу до запуску.",
-    stat: "$1 500",
+    stat: formatPrice(1500, { locale: "uk" }),
     span: "1x1",
   },
   {
     icon: Palette,
     title: "Брендинг (через партнерів)",
     body: "Логотип, фірмовий стиль, brand book. Робимо з нашими перевіреними партнерами.",
-    stat: "від $1 500",
+    stat: formatPrice(1500, { locale: "uk", withPrefix: true }),
     span: "1x1",
   },
   {
@@ -442,7 +443,7 @@ export default function PricingPage() {
           { label: "Головна", href: "/" },
           { label: "Ціни" },
         ]}
-        eyebrow="/ PRICING"
+        eyebrow="ЦІНИ"
         headline={
           <>
             Ціна — це <em>те, що ви отримаєте</em>. Не «під запит».
@@ -475,7 +476,7 @@ export default function PricingPage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
-        eyebrow="/ 02 INCLUDED"
+        eyebrow="ВХОДИТЬ"
         heading={
           <>
             Що входить у <em>всі пакети</em> — без винятків
@@ -507,7 +508,7 @@ export default function PricingPage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
-        eyebrow="/ 03 NOT INCLUDED"
+        eyebrow="НЕ ВХОДИТЬ"
         heading={
           <>
             Що <em>НЕ</em> входить — чесно
@@ -535,7 +536,7 @@ export default function PricingPage() {
 
       {/* Section 5: Add-ons (Bento × 6) */}
       <Bento
-        eyebrow="/ 04 ADD-ONS"
+        eyebrow="ДОДАТКОВО"
         heading={
           <>
             Додаткові послуги <em>поза пакетами</em>
@@ -548,7 +549,7 @@ export default function PricingPage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageLeft"
-        eyebrow="/ 05 PAYMENT"
+        eyebrow="ОПЛАТА"
         heading={
           <>
             Як <em>влаштована</em> оплата
@@ -599,7 +600,7 @@ export default function PricingPage() {
 
       {/* Section 9: Final CTA 3 options */}
       <FinalCta3
-        eyebrow="/ GET IN TOUCH"
+        eyebrow="ЗВ'ЯЗОК"
         heading={
           <>
             Готові <em>обговорити</em> проєкт?

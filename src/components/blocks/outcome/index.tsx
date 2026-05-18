@@ -63,7 +63,32 @@ export function MockPages({
   );
 }
 
-export function MockBookingForm({ url }: { url: string }) {
+const MOCK_FORM_STRINGS = {
+  uk: {
+    heading: "Запис на консультацію",
+    name: "Олена Петрова",
+    phone: "+380 ··",
+    service: "Стоматологія / гігієна",
+    cta: "Записатися",
+  },
+  en: {
+    heading: "Book a consultation",
+    name: "Emma Petersen",
+    phone: "+44 ··",
+    service: "Dental hygiene",
+    cta: "Book →",
+  },
+} as const;
+
+export function MockBookingForm({
+  url,
+  locale = "uk",
+}: {
+  url: string;
+  locale?: string;
+}) {
+  const s =
+    locale === "en" ? MOCK_FORM_STRINGS.en : MOCK_FORM_STRINGS.uk;
   return (
     <div className={VISUAL_SHELL}>
       <div className={VISUAL_BAR}>
@@ -73,24 +98,24 @@ export function MockBookingForm({ url }: { url: string }) {
       <div className={VISUAL_CONTENT}>
         <div className="bg-[oklch(0.16_0.005_300)] border border-[oklch(1_0_0_/_0.08)] rounded-[10px] p-[18px] m-auto w-[70%] flex flex-col gap-2.5 shadow-[0_20px_40px_oklch(0_0_0_/_0.4)] max-[700px]:w-[86%] max-[700px]:p-3.5">
           <div className="font-display text-[11px] font-semibold text-ink mb-1 tracking-[-0.01em]">
-            Запис на консультацію
+            {s.heading}
           </div>
           <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--ink-3)]">
-            Олена Петрова
+            {s.name}
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--ink-3)]">
-              +380 ··
+              {s.phone}
             </div>
             <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--ink-3)]">
               17:30
             </div>
           </div>
           <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--ink-3)]">
-            Стоматологія / гігієна
+            {s.service}
           </div>
           <div className="h-[30px] mt-1 bg-[linear-gradient(180deg,var(--accent-soft),var(--accent))] rounded-md flex items-center justify-center font-display text-[10px] font-semibold text-[oklch(1_0_0_/_0.95)] tracking-[0.02em]">
-            Записатися
+            {s.cta}
           </div>
         </div>
       </div>
