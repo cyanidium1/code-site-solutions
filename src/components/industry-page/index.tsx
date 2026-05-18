@@ -156,7 +156,7 @@ function buildOutcomeMock(
   locale: Locale,
 ) {
   const url = row.mockUrl ?? "";
-  if (row.mockType === "booking") return <MockBookingForm url={url} />;
+  if (row.mockType === "booking") return <MockBookingForm url={url} locale={locale} />;
   if (row.mockType === "admin") return <MockAdmin url={url} />;
   // Default to "pages"
   const tags = row.mockTags?.map((t) => loc(t, locale)) ?? [];

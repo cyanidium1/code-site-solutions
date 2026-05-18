@@ -348,7 +348,7 @@ export default function NbygKobenhavnCasePage() {
           { label: "Портфоліо", href: "/portfolio" },
           { label: "NBYG København" },
         ]}
-        eyebrow="/ CASE STUDY"
+        eyebrow="КЕЙС"
         headline={
           <>
             NBYG København — будівнича компанія в{" "}
@@ -374,7 +374,7 @@ export default function NbygKobenhavnCasePage() {
         variant="side-with-list"
         imageVariant="imageRight"
         bulletIcon="cross"
-        eyebrow="/ 02 PROBLEM"
+        eyebrow="ЗАДАЧА"
         heading={
           <>
             Що <em>було</em>
@@ -398,7 +398,7 @@ export default function NbygKobenhavnCasePage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageLeft"
-        eyebrow="/ 03 SOLUTION"
+        eyebrow="РІШЕННЯ"
         heading={
           <>
             Що ми <em>зробили</em>
@@ -427,7 +427,7 @@ export default function NbygKobenhavnCasePage() {
       <ImageText
         variant="centered"
         sectionClassName="pt-5 max-[800px]:pt-5"
-        eyebrow="/ 04 OUTCOME"
+        eyebrow="РЕЗУЛЬТАТ"
         heading={
           <>
             Результат через <em>60 днів після запуску</em>
@@ -462,7 +462,7 @@ export default function NbygKobenhavnCasePage() {
           <div className="hp-section-head">
             <div className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 06 RELATED</span>
+              <span>СУМІЖНІ КЕЙСИ</span>
             </div>
             <h2 className="hp-h2">
               Інші <em>кейси</em>
@@ -482,7 +482,7 @@ export default function NbygKobenhavnCasePage() {
 
       {/* Section 8: Final CTA */}
       <FinalCta3
-        eyebrow="/ GET IN TOUCH"
+        eyebrow="ЗВ'ЯЗОК"
         heading={
           <>
             Готові <em>обговорити</em> проєкт?

@@ -128,7 +128,7 @@ const TIERS: TierProps[] = [
   },
   {
     popular: true,
-    popularLabel: "★ MOST POPULAR",
+    popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
     name: "Industry Pro",
     price: "$3 500",
     weeks: "4-8 тижнів",
@@ -137,15 +137,15 @@ const TIERS: TierProps[] = [
     includes: {
       heading: "Що входить",
       items: [
-        <><em>Compliance</em> під галузь (МОЗ / RODO / HIPAA-aware)</>,
+        "Compliance під галузь (МОЗ / RODO / HIPAA-aware)",
         "5+ профільних інтеграцій (Helsi/Clio/MEDoc та ін.)",
         "Локальне SEO під район",
         "Особистий кабінет клієнта",
-        <>E-sign (<em>Diia.Sign</em> / DocuSign)</>,
+        "E-sign (Diia.Sign / DocuSign)",
         "UA + RU багатомовність",
         "Калькулятори вартості (1-3 шт)",
         "До 30 сторінок",
-        <>Гарантія 1 рік + неустойка <em>30%</em> за зрив</>,
+        "Гарантія 1 рік + неустойка 30% за зрив",
       ],
     },
     excludes: {
@@ -167,12 +167,12 @@ const TIERS: TierProps[] = [
     includes: {
       heading: "Все з Industry Pro +",
       items: [
-        <><em>EN-локаль</em></>,
+        "EN-локаль",
         "30+ сторінок",
         "1 кастомна інтеграція",
         "Виділений PM з щотижневими статусами",
         "Розширене SEO (програмні landing-pages)",
-        <>Гарантія 1 рік + неустойка <em>30%</em> за зрив</>,
+        "Гарантія 1 рік + неустойка 30% за зрив",
       ],
     },
     excludes: {
@@ -196,10 +196,10 @@ const TIERS: TierProps[] = [
       items: [
         "Архітектурна сесія перед стартом",
         "Dedicated team (5-7 людей під проект)",
-        <>UA + RU + <em>EN</em> + інші мови за запитом</>,
+        "UA + RU + EN + інші мови за запитом",
         "Складні платіжні воронки",
         "API для зовнішніх інтеграцій",
-        <><em>SLA 24/7</em> з 4-годинним response time</>,
+        "SLA 24/7 з 4-годинним response time",
         "SOC 2-ready architecture (для B2B-SaaS)",
         "Custom модулі під специфіку",
         "Підтримка за SLA після року",
@@ -442,7 +442,7 @@ export default function PricingPage() {
           { label: "Головна", href: "/" },
           { label: "Ціни" },
         ]}
-        eyebrow="/ PRICING"
+        eyebrow="ЦІНИ"
         headline={
           <>
             Ціна — це <em>те, що ви отримаєте</em>. Не «під запит».
@@ -475,7 +475,7 @@ export default function PricingPage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
-        eyebrow="/ 02 INCLUDED"
+        eyebrow="ВХОДИТЬ"
         heading={
           <>
             Що входить у <em>всі пакети</em> — без винятків
@@ -507,7 +507,7 @@ export default function PricingPage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
-        eyebrow="/ 03 NOT INCLUDED"
+        eyebrow="НЕ ВХОДИТЬ"
         heading={
           <>
             Що <em>НЕ</em> входить — чесно
@@ -535,7 +535,7 @@ export default function PricingPage() {
 
       {/* Section 5: Add-ons (Bento × 6) */}
       <Bento
-        eyebrow="/ 04 ADD-ONS"
+        eyebrow="ДОДАТКОВО"
         heading={
           <>
             Додаткові послуги <em>поза пакетами</em>
@@ -548,7 +548,7 @@ export default function PricingPage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageLeft"
-        eyebrow="/ 05 PAYMENT"
+        eyebrow="ОПЛАТА"
         heading={
           <>
             Як <em>влаштована</em> оплата
@@ -599,7 +599,7 @@ export default function PricingPage() {
 
       {/* Section 9: Final CTA 3 options */}
       <FinalCta3
-        eyebrow="/ GET IN TOUCH"
+        eyebrow="ЗВ'ЯЗОК"
         heading={
           <>
             Готові <em>обговорити</em> проєкт?

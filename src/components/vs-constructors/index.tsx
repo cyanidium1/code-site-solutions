@@ -203,7 +203,7 @@ const UK: Content = {
         Tilda, Webflow, Wix, Squarespace, Weblium — кожен мав сенс на старті.
         Коли потік клієнтів виріс, конструктор починає заважати: повільне
         завантаження, лок-ін на платформі, місячна підписка, потолок
-        інтеграцій. Мігруємо на custom code за <em>4 тижні</em>. Зберігаємо
+        інтеграцій. Мігруємо на custom code за 4 тижні. Зберігаємо
         все: SEO, контент, домен, аналітику.
       </>
     ),
@@ -314,7 +314,7 @@ const UK: Content = {
       <>
         За 3 роки на конструкторі ви платите{" "}
         <strong>від $1 800 до $4 500</strong> у підписках. У нас один платіж —
-        від <em>$1 000</em>. Через рік ви вже в плюсі.
+        від $1 000. Через рік ви вже в плюсі.
       </>
     ),
   },
@@ -504,8 +504,8 @@ const UK: Content = {
     ],
     foot: (
       <>
-        Ви платили <em>$25–80/міс</em> за платформу + плагіни. Тепер платите{" "}
-        <em>$0/міс</em> за адмінку. Лише хостинг — $0–20 на Vercel/Cloudflare.
+        Ви платили $25–80/міс за платформу + плагіни. Тепер платите{" "}
+        $0/міс за адмінку. Лише хостинг — $0–20 на Vercel/Cloudflare.
         За рік — економія <strong>$300–960</strong>.
       </>
     ),
@@ -608,7 +608,7 @@ const UK: Content = {
       },
       {
         popular: true,
-        popularLabel: "★ MOST POPULAR",
+        popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
         name: "Сайт-міграція",
         price: "$3 000",
         weeks: "3–6 тижнів",
@@ -616,9 +616,7 @@ const UK: Content = {
           heading: "Все з лендінгу +",
           items: [
             "До 30 сторінок",
-            <>
-              <em>CMS</em>, блог, форми
-            </>,
+            "CMS, блог, форми",
             "Перенесення інтеграцій (Mailchimp / Stripe / LiqPay)",
             "Schema.org + Open Graph апгрейд",
             "Більшість клієнтів сюди",
@@ -637,9 +635,7 @@ const UK: Content = {
             "Squarespace store до 200 SKU",
             "Мультимовність",
             "Custom API",
-            <>
-              <em>Dedicated team</em>
-            </>,
+            "Dedicated team",
           ],
         },
         ctaLabel: "Обговорити складну",
@@ -751,7 +747,7 @@ const EN: Content = {
         Tilda, Webflow, Wix, Squarespace, Weblium — each made sense at the
         start. As your traffic grows, the builder starts pushing back: slow
         loads, vendor lock-in, monthly subscriptions, integration ceiling. We
-        migrate you to custom code in <em>4 weeks</em>. Everything carries
+        migrate you to custom code in 4 weeks. Everything carries
         over — SEO, content, domain, analytics.
       </>
     ),
@@ -861,7 +857,7 @@ const EN: Content = {
     foot: (
       <>
         Over 3 years on a builder, you pay <strong>$1,800 to $4,500</strong>{" "}
-        in subscriptions. We charge once — from <em>$1,000</em>. You break
+        in subscriptions. We charge once — from $1,000. You break
         even in year one.
       </>
     ),
@@ -1058,8 +1054,8 @@ const EN: Content = {
     ],
     foot: (
       <>
-        You were paying <em>$25–80/mo</em> for the platform + plugins. Now you
-        pay <em>$0/mo</em> for the admin. Only hosting — $0–20 on
+        You were paying $25–80/mo for the platform + plugins. Now you
+        pay $0/mo for the admin. Only hosting — $0–20 on
         Vercel/Cloudflare. Annual savings: <strong>$300–960</strong>.
       </>
     ),
@@ -1172,9 +1168,7 @@ const EN: Content = {
           heading: "Everything in landing, plus",
           items: [
             "Up to 30 pages",
-            <>
-              <em>CMS</em>, blog, forms
-            </>,
+            "CMS, blog, forms",
             "Integrations (Mailchimp / Stripe / LiqPay) reconnected",
             "Schema.org + Open Graph upgrade",
             "Where most clients land",
@@ -1194,9 +1188,7 @@ const EN: Content = {
             "Squarespace store up to 200 SKUs",
             "Multi-language",
             "Custom API",
-            <>
-              <em>Dedicated team</em>
-            </>,
+            "Dedicated team",
           ],
         },
         ctaLabel: "Talk through complex",

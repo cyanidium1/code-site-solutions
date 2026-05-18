@@ -235,7 +235,7 @@ const EN_TIERS: TierProps[] = [
         "CMS, blog",
         "5+ integrations",
         "Local SEO",
-        <>Compliance: <em>GDPR / HIPAA-ready</em></>,
+        "Compliance: GDPR / HIPAA-ready",
         "EN + 1 extra language",
       ],
     },
@@ -254,7 +254,7 @@ const EN_TIERS: TierProps[] = [
       items: [
         "Architectural session",
         "Dedicated team",
-        <><em>SLA</em> + 24/7 support</>,
+        "SLA + 24/7 support",
         "Custom integrations",
       ],
     },
@@ -341,8 +341,8 @@ export default function HomePageEn() {
         lede={
           <>
             A custom-coded website with copy, design, and integrations —
-            shipped in <em>4–10 weeks</em>. We write the content, wire up the
-            forms, and set up local SEO. You spend <em>5 hours</em>, total.
+            shipped in 4–10 weeks. We write the content, wire up the
+            forms, and set up local SEO. You spend 5 hours, total.
             Within a month, leads start coming in on autopilot.
           </>
         }
@@ -377,7 +377,7 @@ export default function HomePageEn() {
       <Marquee label="TRUSTED BY 47+ BUSINESSES ACROSS THE US, EU, AND DK" />
 
       <TurnkeyList
-        eyebrow="/ 02 SCOPE"
+        eyebrow="SCOPE"
         heading={
           <>
             9 things <em>we do for you.</em>
@@ -406,8 +406,7 @@ export default function HomePageEn() {
               color: "var(--ink-3)",
             }}
           >
-            Not included — <em>product photography</em> and{" "}
-            <em>full logo branding</em>. If you need them, we&apos;ll connect
+            Not included — product photography and full logo branding. If you need them, we&apos;ll connect
             you with vetted partners.
           </p>
         }
@@ -425,7 +424,7 @@ export default function HomePageEn() {
       />
 
       <Bento
-        eyebrow="/ 03 WHY US"
+        eyebrow="WHY US"
         heading={
           <>
             Built to convert, <em>not just to look pretty.</em>
@@ -435,7 +434,7 @@ export default function HomePageEn() {
       />
 
       <Process
-        eyebrow="/ 04 PROCESS · 4-10 WEEKS END-TO-END"
+        eyebrow="PROCESS · 4-10 WEEKS"
         heading={
           <>
             Launch in 5 steps. <em>No surprises.</em>
@@ -453,7 +452,7 @@ export default function HomePageEn() {
       />
 
       <Cases
-        eyebrow="/ 05 CASES"
+        eyebrow="CASES"
         heading={
           <>
             Real projects with <em>real metrics.</em>
@@ -468,7 +467,7 @@ export default function HomePageEn() {
         quote={
           <>
             Before launching the new site we had 3 inquiries a month. After
-            launch — <em>24</em>, in our first month live. The team writes
+            launch — 24, in our first month live. The team writes
             content, runs the QA, and ships. We just got the keys.
           </>
         }
@@ -484,7 +483,7 @@ export default function HomePageEn() {
           <div className="hp-section-head">
             <div className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 06 PRICING</span>
+              <span>PRICING</span>
             </div>
             <h2 className="hp-h2">
               Transparent pricing — from <em>$1,000</em> to <em>$14,000+</em>
@@ -502,7 +501,7 @@ export default function HomePageEn() {
       </section>
 
       <Stack
-        eyebrow="/ 07 STACK"
+        eyebrow="STACK"
         heading={
           <>
             Tools <em>we use.</em>
@@ -524,7 +523,7 @@ export default function HomePageEn() {
       />
 
       <FinalCta3
-        eyebrow="/ 11 GET IN TOUCH"
+        eyebrow="GET IN TOUCH"
         heading={
           <>
             Ready to <em>discuss your project?</em>

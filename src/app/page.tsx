@@ -38,7 +38,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
   },
   {
     popular: true,
-    popularLabel: "★ MOST POPULAR",
+    popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
     name: "Industry Pro",
     price: "$3 500",
     weeks: "4-8 тижнів",
@@ -50,7 +50,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
         "CMS, блог",
         "5+ інтеграцій",
         "Локальне SEO",
-        <>Compliance: <em>МОЗ / RODO / HIPAA-aware</em></>,
+        "Compliance: МОЗ / RODO / HIPAA-aware",
         "UA + RU",
       ],
     },
@@ -67,7 +67,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
       items: [
         "Архітектурна сесія",
         "Dedicated team",
-        <><em>SLA</em> + 24/7 support</>,
+        "SLA + 24/7 support",
         "Custom integrations",
       ],
     },
@@ -196,7 +196,7 @@ export default function HomePage() {
       <HpHeader />
 
       <HeroEditorial
-        eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
+        eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДІЯ" }}
         h1Lines={[
           <>
             Сайт <em>приймає заявки</em>,
@@ -205,8 +205,7 @@ export default function HomePage() {
         ]}
         lede={
           <>
-            Готовий сайт за <em>4-10 тижнів</em>. Ваша участь —{" "}
-            <em>5 годин</em>, далі сайт працює сам: пише заявки, веде клієнтів
+            Готовий сайт за 4-10 тижнів. Ваша участь — 5 годин, далі сайт працює сам: пише заявки, веде клієнтів
             і ранжується в Google.
           </>
         }
@@ -250,7 +249,7 @@ export default function HomePage() {
           <div className="hp-section-head">
             <div className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 07 PRICING</span>
+              <span>ЦІНИ</span>
             </div>
             <h2 className="hp-h2">
               Прозорий прайс — від <em>$1 000</em> до <em>$14 000+</em>
@@ -269,7 +268,7 @@ export default function HomePage() {
         quote={
           <>
             Перед запуском нового сайту у нас було 3 заявки на місяць. Після
-            запуску — <em>24</em> у перший місяць. Команда написала контент,
+            запуску — 24 у перший місяць. Команда написала контент,
             провела QA, запустила. Нам залишилось лише отримати ключі.
           </>
         }

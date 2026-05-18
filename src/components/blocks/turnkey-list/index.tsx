@@ -89,7 +89,7 @@ const DEFAULT_FOOTER = (
 );
 
 export function TurnkeyList({
-  eyebrow = "/ 02 TURNKEY",
+  eyebrow = "ПІД КЛЮЧ",
   heading = (
     <>
       Все, <em>що ми робимо за вас</em>

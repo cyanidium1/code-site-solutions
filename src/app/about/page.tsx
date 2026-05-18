@@ -473,7 +473,7 @@ export default function AboutPage() {
           { label: "Головна", href: "/" },
           { label: "Про нас" },
         ]}
-        eyebrow="/ ABOUT"
+        eyebrow="ПРО НАС"
         headline={
           <>
             12 людей, які роблять сайти, що{" "}
@@ -503,7 +503,7 @@ export default function AboutPage() {
       <ImageText
         variant="side"
         imageVariant="imageRight"
-        eyebrow="/ 02 ABOUT"
+        eyebrow="ПРО НАС"
         heading={
           <>
             Не агенція. <em>Не фрилансер.</em>
@@ -528,7 +528,7 @@ export default function AboutPage() {
           <ImageText
             variant="side-with-list"
             imageVariant="imageLeft"
-            eyebrow="/ 03 FOUNDER"
+            eyebrow="ЗАСНОВНИК"
             heading={
               <>
                 Fedir <em>Alpatov</em>
@@ -557,7 +557,7 @@ export default function AboutPage() {
 
       {/* Section 5: Team */}
       <TeamSection
-        eyebrow="/ 04 TEAM"
+        eyebrow="КОМАНДА"
         heading={
           <>
             12 людей. Чотирьох ви будете чути <em>щодня</em>.
@@ -568,7 +568,7 @@ export default function AboutPage() {
 
       {/* Section 6: Values */}
       <Bento
-        eyebrow="/ 05 VALUES"
+        eyebrow="ЦІННОСТІ"
         heading={
           <>
             На чому ми <em>не економимо</em>
@@ -579,7 +579,7 @@ export default function AboutPage() {
 
       {/* Section 7: Stack */}
       <Stack
-        eyebrow="/ 06 STACK"
+        eyebrow="СТЕК"
         heading={
           <>
             Технології, у яких ми <em>ходимо в глибину</em>
@@ -590,7 +590,7 @@ export default function AboutPage() {
 
       {/* Section 8: vs */}
       <Bento
-        eyebrow="/ 07 DIFFERENCE"
+        eyebrow="ВІДМІННОСТІ"
         heading={
           <>
             Чим ми <em>відрізняємося</em> від інших
@@ -601,7 +601,7 @@ export default function AboutPage() {
 
       {/* Section 9: Process */}
       <Process
-        eyebrow="/ 08 PROCESS"
+        eyebrow="ПРОЦЕС"
         heading={
           <>
             Як ми <em>працюємо</em>
@@ -613,7 +613,7 @@ export default function AboutPage() {
 
       {/* Section 10: Cases */}
       <Cases
-        eyebrow="/ 09 CASES"
+        eyebrow="КЕЙСИ"
         heading={
           <>
             Реальні кейси з <em>реальними</em> метриками
@@ -628,7 +628,7 @@ export default function AboutPage() {
 
       {/* Section 12: Final CTA */}
       <FinalCta3
-        eyebrow="/ 10 GET IN TOUCH"
+        eyebrow="ЗВ'ЯЗОК"
         heading={
           <>
             <em>30 хвилин</em> — і ви знатимете, чи підходимо одне одному

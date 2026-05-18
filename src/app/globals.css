@@ -76,13 +76,17 @@ body {
 
 /* italic glyphs slant past the inline-box edge — додаємо padding,
    щоб background-clip:text gradient не різав хвостик курсиву.
-   0.08em не вистачало для Manrope serif italic (хвіст «.», «х», «ї»
-   обрізало в заголовках на vs-* сторінках, особливо коли em стоїть
-   останнім у рядку та H2 стискається до contents у align-items:flex-start
-   контейнері). 0.16em покриває і Manrope sans, і Manrope serif italic.
+   0.16em покриває і Manrope sans, і Manrope serif italic.
    box-decoration-break: clone — щоб padding застосовувався до кожного
-   фрагмента, якщо italic переноситься на кілька рядків. */
-em {
+   фрагмента, якщо italic переноситься на кілька рядків.
+   Scope: лише heading-em контексти, де italic-gradient ще використовується
+   (H1/H2 у героях, hp-h2, case-h2). У body em прибрано, тож глобальне
+   правило більше не потрібне. */
+.h1 em,
+.hp-h2 em,
+.case-h2 em,
+.page-hero h1 em,
+.hero-grid h1 em {
   padding-inline-end: 0.16em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;

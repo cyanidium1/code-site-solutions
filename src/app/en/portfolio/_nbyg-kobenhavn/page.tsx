@@ -348,7 +348,7 @@ export default function NbygKobenhavnEnCasePage() {
           { label: "Portfolio", href: "/portfolio" },
           { label: "NBYG København" },
         ]}
-        eyebrow="/ CASE STUDY"
+        eyebrow="CASE STUDY"
         headline={
           <>
             NBYG København — construction company in{" "}
@@ -374,7 +374,7 @@ export default function NbygKobenhavnEnCasePage() {
         variant="side-with-list"
         imageVariant="imageRight"
         bulletIcon="cross"
-        eyebrow="/ 02 PROBLEM"
+        eyebrow="PROBLEM"
         heading={
           <>
             What was <em>wrong</em>
@@ -398,7 +398,7 @@ export default function NbygKobenhavnEnCasePage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageLeft"
-        eyebrow="/ 03 SOLUTION"
+        eyebrow="SOLUTION"
         heading={
           <>
             What we <em>did</em>
@@ -427,7 +427,7 @@ export default function NbygKobenhavnEnCasePage() {
       <ImageText
         variant="centered"
         sectionClassName="pt-5 max-[800px]:pt-5"
-        eyebrow="/ 04 OUTCOME"
+        eyebrow="OUTCOME"
         heading={
           <>
             Results after <em>60 days post-launch</em>
@@ -462,7 +462,7 @@ export default function NbygKobenhavnEnCasePage() {
           <div className="hp-section-head">
             <div className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 06 RELATED</span>
+              <span>RELATED</span>
             </div>
             <h2 className="hp-h2">
               Other <em>case studies</em>
@@ -482,7 +482,7 @@ export default function NbygKobenhavnEnCasePage() {
 
       {/* Section 8: Final CTA */}
       <FinalCta3
-        eyebrow="/ GET IN TOUCH"
+        eyebrow="GET IN TOUCH"
         heading={
           <>
             Ready to <em>discuss</em> a project?

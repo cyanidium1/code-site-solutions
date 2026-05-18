@@ -179,8 +179,8 @@ const UK: Content = {
     ],
     lede: (
       <>
-        Мігруємо ваш сайт з WordPress на custom code за <em>4 тижні</em>.
-        Зберігаємо кожну позицію в Google. <em>47 міграцій</em> — 0 SEO-падінь.
+        Мігруємо ваш сайт з WordPress на custom code за 4 тижні.
+        Зберігаємо кожну позицію в Google. 47 міграцій — 0 SEO-падінь.
         Без втрати контенту, коментарів і медіа.
       </>
     ),
@@ -247,7 +247,7 @@ const UK: Content = {
     ],
     foot: (
       <>
-        Сума на 36 місяців володіння — від <em>$5 000</em> до <em>$20 000</em>{" "}
+        Сума на 36 місяців володіння — від $5 000 до $20 000{" "}
         <strong>на додачу</strong> до вартості розробки. У нас один платіж і
         нуль підписок.
       </>
@@ -343,8 +343,7 @@ const UK: Content = {
       <>
         Будівництво на Борнгольмі — щільна ніша. Боялись втратити навіть ту
         мізерну видачу, що мали. Через 30 днів після переходу трафік не впав,
-        через 60 — стали <em>№1</em>. З 3 заявок на місяць вийшли на{" "}
-        <em>24</em> в перший же місяць. Команда написала контент, провела QA,
+        через 60 — стали №1. З 3 заявок на місяць вийшли на 24 в перший же місяць. Команда написала контент, провела QA,
         запустила. Ми просто отримали ключі.
       </>
     ),
@@ -599,7 +598,7 @@ const UK: Content = {
       },
       {
         popular: true,
-        popularLabel: "★ MOST POPULAR",
+        popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
         name: "Сайт-міграція",
         price: "$3 500",
         weeks: "4–8 тижнів",
@@ -607,9 +606,7 @@ const UK: Content = {
           heading: "Все з лендінгу +",
           items: [
             "До 30 сторінок",
-            <>
-              <em>CMS</em>, блог, інтеграції форм
-            </>,
+            "CMS, блог, інтеграції форм",
             "Перенесення коментарів і медіа-бібліотеки",
             "Schema.org + Open Graph апгрейд",
             "Більшість клієнтів сюди",
@@ -628,9 +625,7 @@ const UK: Content = {
             "Мульти-мовність",
             "Custom API",
             "Складна SEO-структура",
-            <>
-              <em>Dedicated team</em>
-            </>,
+            "Dedicated team",
           ],
         },
         ctaLabel: "Обговорити складну",
@@ -733,8 +728,8 @@ const EN: Content = {
     ],
     lede: (
       <>
-        We migrate your site off WordPress in <em>4 weeks</em>. Every Google
-        ranking stays put. <em>47 migrations</em> — zero SEO drops. Your
+        We migrate your site off WordPress in 4 weeks. Every Google
+        ranking stays put. 47 migrations — zero SEO drops. Your
         content, comments, and media come with you.
       </>
     ),
@@ -801,7 +796,7 @@ const EN: Content = {
     ],
     foot: (
       <>
-        Total cost over 36 months: <em>$5,000</em> to <em>$20,000</em>{" "}
+        Total cost over 36 months: $5,000 to $20,000{" "}
         <strong>on top of</strong> the original build. We charge once. Zero
         subscriptions.
       </>
@@ -893,8 +888,8 @@ const EN: Content = {
       <>
         Construction on Bornholm is a tight niche. We were nervous about
         losing even the small Google traction we had. Thirty days after the
-        move, traffic held. Sixty days in, we were <em>#1</em> locally.
-        Inquiries jumped from 3 a month to <em>24</em> in our first month
+        move, traffic held. Sixty days in, we were #1 locally.
+        Inquiries jumped from 3 a month to 24 in our first month
         live. The team wrote the content, ran the QA, and shipped. We just
         got the keys.
       </>
@@ -1160,9 +1155,7 @@ const EN: Content = {
           heading: "Everything in landing, plus",
           items: [
             "Up to 30 pages",
-            <>
-              <em>CMS</em>, blog, form integrations
-            </>,
+            "CMS, blog, form integrations",
             "Comments + media library carried over",
             "Schema.org + Open Graph upgrade",
             "Where most clients land",
@@ -1182,9 +1175,7 @@ const EN: Content = {
             "Multi-language",
             "Custom API",
             "Complex SEO structure",
-            <>
-              <em>Dedicated team</em>
-            </>,
+            "Dedicated team",
           ],
         },
         ctaLabel: "Talk through complex",

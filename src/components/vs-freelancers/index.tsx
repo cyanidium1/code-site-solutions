@@ -221,7 +221,7 @@ const UK: Content = {
         Фрілансери чудові — для лендінгу на вечір. Коли йдеться про сайт, від
         якого залежить виручка, потрібна команда: дизайнер, фронтендер, бекенд,
         копірайтер, SEO, QA, PM. Контракт із юридичною особою. Гарантія в
-        письмовому вигляді. Код у вашому <em>GitHub</em> з першого дня.
+        письмовому вигляді. Код у вашому GitHub з першого дня.
       </>
     ),
     badges: [
@@ -813,7 +813,7 @@ const EN: Content = {
         Freelancers are great — for a landing page over a weekend. When it&apos;s
         a site your revenue depends on, you need a team: designer, frontend,
         backend, copywriter, SEO, QA, PM. A contract with a legal entity. A
-        warranty in writing. Code in your <em>GitHub</em> from day one.
+        warranty in writing. Code in your GitHub from day one.
       </>
     ),
     badges: [

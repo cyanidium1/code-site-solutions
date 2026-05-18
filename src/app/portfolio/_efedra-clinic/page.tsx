@@ -365,7 +365,7 @@ export default function EfedraCasePage() {
           { label: "Портфоліо", href: "/portfolio" },
           { label: "Efedra Clinic" },
         ]}
-        eyebrow="/ CASE STUDY"
+        eyebrow="КЕЙС"
         headline={
           <>
             Efedra Clinic — стоматологія і <em>студія краси</em> в Одесі
@@ -390,7 +390,7 @@ export default function EfedraCasePage() {
         variant="side-with-list"
         imageVariant="imageRight"
         bulletIcon="cross"
-        eyebrow="/ 02 CHALLENGE"
+        eyebrow="ЗАДАЧА"
         heading={
           <>
             З чим <em>прийшов клієнт</em>
@@ -421,7 +421,7 @@ export default function EfedraCasePage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageLeft"
-        eyebrow="/ 03 SOLUTION"
+        eyebrow="РІШЕННЯ"
         heading={
           <>
             Що ми <em>зробили</em>
@@ -455,7 +455,7 @@ export default function EfedraCasePage() {
       <ImageText
         variant="centered"
         sectionClassName="pt-5 max-[800px]:pt-5"
-        eyebrow="/ 04 OUTCOME"
+        eyebrow="РЕЗУЛЬТАТ"
         heading={
           <>
             Результат через 3 місяці після <em>запуску</em>
@@ -499,7 +499,7 @@ export default function EfedraCasePage() {
           <div className="hp-section-head">
             <div className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
-              <span>/ 06 RELATED</span>
+              <span>СУМІЖНІ КЕЙСИ</span>
             </div>
             <h2 className="hp-h2">
               Інші <em>кейси</em>
@@ -519,7 +519,7 @@ export default function EfedraCasePage() {
 
       {/* Section 9: Final CTA */}
       <FinalCta3
-        eyebrow="/ GET IN TOUCH"
+        eyebrow="ЗВ'ЯЗОК"
         heading={
           <>
             Готові <em>обговорити</em> проєкт?
