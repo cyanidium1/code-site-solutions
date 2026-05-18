@@ -55,14 +55,15 @@ export function MobileMenu() {
   const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
 
   // Top-level routes — same set as desktop hp-header, kept in lockstep.
+  const prefix = isEn ? "/en" : "";
   const navLinks = [
-    { href: "/about", label: t("about") },
-    { href: "/blog", label: t("blog") },
-    { href: "/calculator", label: t("calculator") },
-    { href: "/portfolio", label: t("work") },
-    { href: "/pricing", label: t("pricing") },
-    { href: "/process", label: t("process") },
-    { href: isEn ? "/en#contact" : "/contacts", label: t("contact") },
+    { href: `${prefix}/about`, label: t("about") },
+    { href: `${prefix}/blog`, label: t("blog") },
+    { href: `${prefix}/calculator`, label: t("calculator") },
+    { href: `${prefix}/portfolio`, label: t("work") },
+    { href: `${prefix}/pricing`, label: t("pricing") },
+    { href: `${prefix}/process`, label: t("process") },
+    { href: `${prefix}/contacts`, label: t("contact") },
   ];
 
   const switchLocale = (key: "uk" | "en") => {

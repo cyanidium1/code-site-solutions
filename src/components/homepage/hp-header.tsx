@@ -30,23 +30,15 @@ export function HpHeader() {
 
   const closeDd = () => ddRef.current?.removeAttribute("open");
 
-  // Top-level routes: UA pages until separate EN tickets ship. The Calculator
-  // is already English-language so it works for both. Pricing/Process/About
-  // etc. land on UA pages — the locale switcher in the header is the escape.
+  const prefix = isEn ? "/en" : "";
   const navLinks = [
-    { href: "/about", label: t("about") },
-    { href: "/blog", label: t("blog") },
-    { href: "/calculator", label: t("calculator") },
-    {
-      href: isEn ? "/portfolio" : "/portfolio",
-      label: t("work"),
-    },
-    { href: "/pricing", label: t("pricing") },
-    { href: "/process", label: t("process") },
-    {
-      href: isEn ? "/en#contact" : "/contacts",
-      label: t("contact"),
-    },
+    { href: `${prefix}/about`, label: t("about") },
+    { href: `${prefix}/blog`, label: t("blog") },
+    { href: `${prefix}/calculator`, label: t("calculator") },
+    { href: `${prefix}/portfolio`, label: t("work") },
+    { href: `${prefix}/pricing`, label: t("pricing") },
+    { href: `${prefix}/process`, label: t("process") },
+    { href: `${prefix}/contacts`, label: t("contact") },
   ];
 
   const homeHref = isEn ? "/en" : "/";

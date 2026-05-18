@@ -106,7 +106,9 @@
       "Bash(grep -oP '.{120}[Cc]oming.{0,40}[sS]oon.{120}')",
       "Bash(grep -oE '.{100}[Cc]oming.{0,40}[Ss]oon.{100}')",
       "Bash(python -c \"import sys, json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('ServiceNav', 'MISSING'\\), ensure_ascii=False, indent=2\\)\\); print\\('---'\\); print\\(json.dumps\\(d.get\\('Footer',{}\\).get\\('solutions','MISSING'\\), ensure_ascii=False, indent=2\\)\\)\")",
-      "Bash(python -c \"import sys, json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('ServiceNav', 'MISSING'\\), indent=2\\)\\); print\\('---'\\); print\\(json.dumps\\(d.get\\('Footer',{}\\).get\\('solutions','MISSING'\\), indent=2\\)\\)\")"
+      "Bash(python -c \"import sys, json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('ServiceNav', 'MISSING'\\), indent=2\\)\\); print\\('---'\\); print\\(json.dumps\\(d.get\\('Footer',{}\\).get\\('solutions','MISSING'\\), indent=2\\)\\)\")",
+      "Bash(git fetch *)",
+      "Bash(git check-ignore *)"
     ]
   }
 }
