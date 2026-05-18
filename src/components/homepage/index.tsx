@@ -506,7 +506,7 @@ export type BentoCell = {
   icon: LucideIcon;
   stat?: string;
   body: React.ReactNode;
-  span: "1x1" | "2x2" | "3x1";
+  span: "1x1" | "2x1" | "2x2" | "3x1";
   visual?: BentoVisualKind;
 };
 
@@ -516,7 +516,7 @@ const DEFAULT_BENTO: BentoCell[] = [
     icon: Gauge,
     stat: "98 LH",
     body: "Custom code, нуль плагінів. Перевірено на 3G/4G в Україні.",
-    span: "1x1",
+    span: "2x1",
     visual: "lh",
   },
   {
@@ -572,7 +572,7 @@ const DEFAULT_BENTO: BentoCell[] = [
     icon: Layers,
     stat: "100%",
     body: "Тексти + дизайн + код + інтеграції. Без 5 підрядників.",
-    span: "1x1",
+    span: "2x1",
     visual: "stack",
   },
 ];

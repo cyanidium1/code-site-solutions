@@ -377,6 +377,9 @@
   grid-column: span 2;
   grid-row: span 2;
 }
+.hp-bento-cell--2x1 {
+  grid-column: span 2;
+}
 .hp-bento-cell--3x1 {
   grid-column: span 3;
 }
@@ -2055,6 +2058,7 @@
   .hp-h2 { font-size: clamp(28px, 7vw, 40px); }
   .hp-industries-grid { grid-template-columns: 1fr; }
   .hp-bento-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .hp-bento-cell--2x1,
   .hp-bento-cell--2x2,
   .hp-bento-cell--3x1 { grid-column: span 1; grid-row: span 1; }
 
