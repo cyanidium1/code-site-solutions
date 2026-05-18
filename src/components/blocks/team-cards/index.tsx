@@ -199,7 +199,7 @@ export function TeamCards({
   const groupList: TeamGroup[] = groups ?? (members ? [{ members }] : []);
 
   return (
-    <section className="relative py-[100px] px-12 bg-bg max-[800px]:py-[60px] max-[800px]:px-0">
+    <section className="relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-0">
       <div className="max-w-container mx-auto max-[800px]:px-6">
         {(eyebrow || heading || sub) && (
           <header className="flex flex-col mb-16">

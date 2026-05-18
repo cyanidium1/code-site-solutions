@@ -29,6 +29,35 @@
   --container-narrow: 880px;
   --container-prose: 760px;
   --container-form: 720px;
+
+  /* Section vertical rhythm — media-query-aware via overrides below.
+     Dominant rhythm is --section-y (100/56). Newer blocks already use
+     this; .hp-section was migrated UP from 56→100 to match. */
+  --section-y: 100px;
+  --section-y-md: 80px;
+  --section-y-tight: 56px;
+  --section-y-lg: 120px;
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --section-y: 80px;
+    --section-y-lg: 100px;
+  }
+}
+
+@media (max-width: 800px) {
+  :root {
+    --section-y-md: 56px;
+    --section-y-tight: 36px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --section-y: 56px;
+    --section-y-lg: 72px;
+  }
 }
 
 html {

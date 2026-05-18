@@ -237,7 +237,7 @@ export function Services({
   integrations: string[];
 }> = {}) {
   return (
-    <section className="relative py-[100px] px-12 bg-bg overflow-hidden max-[1100px]:py-20 max-[1100px]:px-8 max-[700px]:py-14 max-[700px]:px-[18px]">
+    <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className="services-bg absolute inset-0 z-0 pointer-events-none" />
       <div className="relative z-[2] max-w-container mx-auto">
         <div className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-[72px] items-center pb-[100px] mb-[100px] border-b border-line max-[1100px]:grid-cols-1 max-[1100px]:gap-9 max-[1100px]:pb-[72px] max-[1100px]:mb-[72px] max-[700px]:pb-12 max-[700px]:mb-12 max-[700px]:gap-[26px]">

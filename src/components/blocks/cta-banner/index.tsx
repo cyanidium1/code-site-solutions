@@ -31,7 +31,7 @@ export function CtaBanner({
   ctaSecondary?: CtaBannerAction;
 }) {
   return (
-    <section className="relative py-[100px] px-12 bg-bg max-[800px]:py-[60px] max-[800px]:px-6">
+    <section className="relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-6">
       <div className="max-w-container mx-auto">
         <div className="cta-banner-card relative px-12 py-16 border border-line rounded-[28px] overflow-hidden text-center flex flex-col items-center max-[800px]:px-6 max-[800px]:py-11 max-[800px]:rounded-[22px]">
           {eyebrow ? (

@@ -79,7 +79,7 @@ export function VerticalTimeline({
   steps: TimelineStep[];
 }) {
   return (
-    <section className="relative py-[100px] px-12 bg-bg max-[800px]:py-[60px] max-[800px]:px-6">
+    <section className="relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-6">
       <div className="max-w-container mx-auto">
         {(eyebrow || heading || sub) && (
           <div className="mb-14 max-w-[820px] max-[800px]:mb-9">

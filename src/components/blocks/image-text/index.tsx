@@ -142,7 +142,7 @@ export function ImageText({
   );
 
   const sectionClass = cn(
-    "relative py-[100px] px-12 bg-bg max-[800px]:py-[60px] max-[800px]:px-6",
+    "relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-6",
     sectionClassName,
   );
 

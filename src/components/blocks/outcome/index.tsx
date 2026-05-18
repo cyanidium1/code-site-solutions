@@ -186,7 +186,7 @@ export function Outcome({
   benefitRows,
 }: OutcomeProps) {
   return (
-    <section className="relative pt-[100px] px-12 pb-[100px] bg-bg overflow-hidden max-[1100px]:py-20 max-[1100px]:px-8 max-[700px]:py-14 max-[700px]:px-[18px]">
+    <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className="outcome-bg absolute inset-0 z-0 pointer-events-none" />
       <div className="relative z-[2] max-w-container mx-auto">
         {/* Recap pull-quote */}

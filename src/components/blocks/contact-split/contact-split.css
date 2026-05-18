@@ -1,6 +1,6 @@
 .contact-split {
   position: relative;
-  padding: 80px 48px;
+  padding: var(--section-y-md) 48px;
   background: linear-gradient(
     180deg,
     var(--bg) 0%,
@@ -61,13 +61,13 @@
 
 @media (max-width: 1100px) {
   .contact-split {
-    padding: 64px 32px;
+    padding: var(--section-y-md) 32px;
   }
 }
 
 @media (max-width: 700px) {
   .contact-split {
-    padding: 48px 18px;
+    padding: var(--section-y-md) 18px;
   }
 }
 
