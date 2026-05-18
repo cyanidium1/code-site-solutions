@@ -128,7 +128,7 @@ export function Reasons({
                 {eyebrowNum}
               </span>
             </div>
-            <h2 className="font-display font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] text-ink max-w-[16ch] text-balance max-[1100px]:text-[clamp(30px,4.2vw,44px)] max-[640px]:text-[clamp(28px,9vw,38px)] max-[640px]:max-w-full [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+            <h2 className="font-display font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] text-ink max-w-[24ch] text-balance max-[1100px]:text-[clamp(30px,4.2vw,44px)] max-[640px]:text-[clamp(28px,9vw,38px)] max-[640px]:max-w-full [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
               {heading}
             </h2>
           </div>
