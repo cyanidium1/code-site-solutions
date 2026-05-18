@@ -46,6 +46,7 @@ import {
 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
+import { formatPrice } from "@/lib/formatters/price";
 
 export const metadata: Metadata = {
   title:
@@ -203,7 +204,7 @@ const EN_BENTO: BentoCell[] = [
 const EN_TIERS: TierProps[] = [
   {
     name: "Landing",
-    price: "$1,000",
+    price: formatPrice(1000, { locale: "en" }),
     priceLabel: "from",
     weeks: "1–2 weeks",
     bestFor: "Fast launch of one offer, MVP, hypothesis testing.",
@@ -223,7 +224,7 @@ const EN_TIERS: TierProps[] = [
     popular: true,
     popularLabel: "★ MOST POPULAR",
     name: "Industry Pro",
-    price: "$3,500",
+    price: formatPrice(3500, { locale: "en" }),
     priceLabel: "from",
     weeks: "4–8 weeks",
     bestFor:
@@ -243,7 +244,7 @@ const EN_TIERS: TierProps[] = [
   },
   {
     name: "Custom",
-    price: "$14,000",
+    price: formatPrice(14000, { locale: "en" }),
     priceLabel: "from",
     weeks: "8–16 weeks",
     bestFor:

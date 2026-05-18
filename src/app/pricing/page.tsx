@@ -25,6 +25,7 @@ import {
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
 import { plainRich, type RichText } from "@/lib/rich-text";
+import { formatPrice } from "@/lib/formatters/price";
 
 export const metadata: Metadata = {
   title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
@@ -98,7 +99,7 @@ function GradPlaceholder({
 const TIERS: TierProps[] = [
   {
     name: "Landing",
-    price: "$1 000",
+    price: formatPrice(1000, { locale: "uk" }),
     weeks: "1-2 тижні",
     bestFor:
       "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
@@ -130,7 +131,7 @@ const TIERS: TierProps[] = [
     popular: true,
     popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
     name: "Industry Pro",
-    price: "$3 500",
+    price: formatPrice(3500, { locale: "uk" }),
     weeks: "4-8 тижнів",
     bestFor:
       "Бізнесу з compliance вимогами (медицина, право, бухгалтерія), що потребує галузевих інтеграцій.",
@@ -160,7 +161,7 @@ const TIERS: TierProps[] = [
   },
   {
     name: "Pro Plus",
-    price: "$7 500",
+    price: formatPrice(7500, { locale: "uk" }),
     weeks: "6-10 тижнів",
     bestFor:
       "Бізнесу, який росте в кількох країнах і потребує EN-локаль, 30+ сторінок і одну глибоку інтеграцію (CRM / ERP / платіжна система).",
@@ -187,7 +188,7 @@ const TIERS: TierProps[] = [
   },
   {
     name: "Custom",
-    price: "$14 000",
+    price: formatPrice(14000, { locale: "uk" }),
     weeks: "8-16 тижнів",
     bestFor:
       "Складним продуктам із власною логікою — SaaS, маркетплейс, B2B-портал.",

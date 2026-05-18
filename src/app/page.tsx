@@ -17,11 +17,12 @@ import {
 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
+import { formatPrice } from "@/lib/formatters/price";
 
 const HOMEPAGE_TIERS: TierProps[] = [
   {
     name: "Landing",
-    price: "$1 000",
+    price: formatPrice(1000, { locale: "uk" }),
     weeks: "1-2 тижні",
     bestFor:
       "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
@@ -40,7 +41,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
     popular: true,
     popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
     name: "Industry Pro",
-    price: "$3 500",
+    price: formatPrice(3500, { locale: "uk" }),
     weeks: "4-8 тижнів",
     bestFor:
       "Бізнесу з compliance вимогами (медицина, право, бухгалтерія), що потребує галузевих інтеграцій.",
@@ -58,7 +59,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
   },
   {
     name: "Custom",
-    price: "$14 000",
+    price: formatPrice(14000, { locale: "uk" }),
     weeks: "8-16 тижнів",
     bestFor:
       "Складним продуктам із власною логікою — SaaS, маркетплейс, B2B-портал.",
