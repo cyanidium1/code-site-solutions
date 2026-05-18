@@ -1424,6 +1424,13 @@
 }
 .hp-news-input::placeholder { color: var(--ink-3); }
 .hp-news-input:focus { border-color: var(--accent); }
+.hp-news-input[aria-invalid="true"] { border-color: oklch(0.65 0.18 25); }
+.hp-news-error {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: oklch(0.78 0.16 25);
+  font-family: 'Manrope', sans-serif;
+}
 .hp-news-btn {
   padding: 12px 24px;
   border: none;

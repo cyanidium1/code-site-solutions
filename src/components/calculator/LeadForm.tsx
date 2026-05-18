@@ -28,42 +28,82 @@ const INITIAL_FORM: FormState = {
   preferredMethod: "email",
 };
 
+type SubmitStatus = "idle" | "submitting" | "success" | "error";
+
 export function LeadForm({ input, estimate }: LeadFormProps) {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [status, setStatus] = useState<SubmitStatus>("idle");
   const t = useTranslations("Calculator.leadForm");
+
+  const summary = useMemo(
+    () => ({
+      range: `${formatEur(estimate.lowEstimate)} - ${formatEur(estimate.highEstimate)}`,
+      maintenanceMonthly: formatEur(estimate.monthlyMaintenance),
+    }),
+    [estimate],
+  );
 
   const payload = useMemo(
     () =>
       JSON.stringify(
-        {
-          form,
-          calculator: {
-            input,
-            estimate,
-            summary: {
-              range: `${formatEur(estimate.lowEstimate)} - ${formatEur(estimate.highEstimate)}`,
-              maintenanceMonthly: formatEur(estimate.monthlyMaintenance),
-            },
-          },
-        },
+        { form, calculator: { input, estimate, summary } },
         null,
         2,
       ),
-    [estimate, form, input],
+    [estimate, form, input, summary],
   );
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  /**
+   * Flattens the calculator's nested form+calculator payload to the flat
+   * shape `/api/lead` accepts (name/contact/business/description/source).
+   * Estimate summary + breakdown are serialised into description so the
+   * Telegram message keeps the full quote context.
+   */
+  const buildLeadBody = () => {
+    const briefLine = form.projectBrief.trim()
+      ? `Brief: ${form.projectBrief.trim()}`
+      : "";
+    const reachOut = `Preferred contact: ${form.preferredMethod}`;
+    const estimateLine = `Estimate: ${summary.range}`;
+    const maintenanceLine = `Maintenance: ${summary.maintenanceMonthly} / mo`;
+    const inputSnapshot = `Calculator input: ${JSON.stringify(input)}`;
+    const description = [
+      briefLine,
+      reachOut,
+      estimateLine,
+      maintenanceLine,
+      inputSnapshot,
+    ]
+      .filter(Boolean)
+      .join("\n");
 
-    // TODO: connect this payload to existing API/contact endpoint when backend is ready.
-    console.info("Website calculator lead payload", {
-      form,
-      input,
-      estimate,
-    });
-    setStatus("success");
+    return {
+      name: form.name,
+      contact: form.contact,
+      business: form.company || undefined,
+      description,
+      source: "calculator",
+    };
   };
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("submitting");
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildLeadBody()),
+      });
+      if (!res.ok) throw new Error("Lead endpoint returned non-OK");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const fieldRequired = (val: string) =>
+    status !== "idle" && status !== "submitting" && !val.trim();
 
   const afterSubmitSteps = [
     {
@@ -99,6 +139,7 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           value={form.name}
           onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
           required
+          isInvalid={fieldRequired(form.name)}
           classNames={{
             inputWrapper: "calc-ui-input-wrapper",
             input: "calc-ui-input",
@@ -116,6 +157,7 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           value={form.contact}
           onChange={(e) => setForm((prev) => ({ ...prev, contact: e.target.value }))}
           required
+          isInvalid={fieldRequired(form.contact)}
           classNames={{
             inputWrapper: "calc-ui-input-wrapper",
             input: "calc-ui-input",
@@ -186,11 +228,22 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
 
         <input type="hidden" name="calculatorPayload" value={payload} />
 
-        <button type="submit" className="calc-btn-primary calc-lead-submit">
-          {t("submit")}
+        <button
+          type="submit"
+          className="calc-btn-primary calc-lead-submit"
+          disabled={status === "submitting" || status === "success"}
+        >
+          {status === "submitting" ? "…" : t("submit")}
         </button>
         <small className="calc-lead-trust-line">{t("trustLine")}</small>
-        {status === "success" ? <div className="calc-success">{t("success")}</div> : null}
+        {status === "success" ? (
+          <div className="calc-success" role="status">{t("success")}</div>
+        ) : null}
+        {status === "error" ? (
+          <div className="calc-error" role="alert">
+            Не вдалося надіслати. Спробуйте ще раз або напишіть напряму.
+          </div>
+        ) : null}
       </form>
 
       <aside className="calc-side-column">
