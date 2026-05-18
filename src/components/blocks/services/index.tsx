@@ -274,7 +274,7 @@ export function Services({
           <p className={`pb-2 ${SVC_SUB_BASE}`}>{servicesSub}</p>
         </header>
 
-        <div className="grid grid-cols-3 gap-5 mb-[120px] max-[1100px]:grid-cols-2 max-[1100px]:gap-4 max-[1100px]:mb-20 max-[700px]:grid-cols-1 max-[700px]:gap-3 max-[700px]:mb-14">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5 mb-[120px] max-[1100px]:gap-4 max-[1100px]:mb-20 max-[700px]:gap-3 max-[700px]:mb-14">
           {features.map((f, i) => (
             <FeatureCard key={i} {...f} />
           ))}

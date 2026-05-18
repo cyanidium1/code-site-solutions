@@ -137,7 +137,7 @@ export function VerticalTimeline({
                     {s.body}
                   </p>
 
-                  <div className="grid grid-cols-3 gap-7 px-6 py-7 border border-line rounded-[18px] bg-[oklch(1_0_0_/_0.02)] max-[900px]:grid-cols-1 max-[900px]:gap-6 max-[800px]:px-5 max-[800px]:py-6 max-[800px]:rounded-2xl">
+                  <div className="grid grid-cols-3 gap-7 px-6 py-7 border border-line rounded-[18px] bg-[oklch(1_0_0_/_0.02)] max-[1080px]:grid-cols-2 max-[1080px]:gap-6 max-[700px]:grid-cols-1 max-[700px]:gap-5 max-[800px]:px-5 max-[800px]:py-6 max-[800px]:rounded-2xl">
                     <ColumnList col={s.weDo} />
                     <ColumnList col={s.youDo} />
                     <ColumnList col={s.deliverable} />

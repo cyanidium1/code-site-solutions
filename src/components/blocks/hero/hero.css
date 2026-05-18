@@ -595,7 +595,7 @@ a.btn-ghost {
 @keyframes ticker { to { transform: translateX(-50%); } }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   RESPONSIVE — Tablet (≤1100) → Mobile (≤640) → Small mobile (≤380)
+   RESPONSIVE — Wide (≤1440) → Mid-tablet (≤1080) → Mobile (≤640) → Small (≤380)
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 1440px) {
   .hero { padding: 32px 32px 56px; }
@@ -637,6 +637,26 @@ a.btn-ghost {
   .device-tag-1 { top: 6%; left: -6%; }
   .device-tag-2 { display: none; }
   .device-tag-3 { bottom: 10%; right: -6%; }
+}
+
+/* ─── Intermediate (≤1080) — closes the 900-1100 gap.
+   At this size, the 1:1 grid is still 2-col but content squeezes; we
+   relax min-heights and shrink the H1 a notch so features + stats
+   don't crash into the device tags. */
+@media (max-width: 1080px) {
+  .hero-grid {
+    gap: 22px;
+    min-height: 540px;
+  }
+  .hero-right { height: 480px; }
+  .device-stage { min-height: 480px; }
+  .h1 { font-size: clamp(36px, 5vw, 48px); }
+  .lede { max-width: 100%; font-size: 14.5px; }
+  .features { max-width: 100%; gap: 8px 14px; }
+  .stats { gap: 14px; padding: 14px 16px; }
+  .stat-num { font-size: 22px; }
+  .device-tag-1 { left: -4%; }
+  .device-tag-3 { right: -4%; }
 }
 
 @media (max-width: 640px) {
