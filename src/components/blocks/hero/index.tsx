@@ -82,6 +82,12 @@ export type HeroEditorialProps = {
   tickerItems?: string[];
   deviceTags?: { kind: "default" | "good"; primary: string; mini?: string }[];
   deviceMockupSrc?: string;
+  /**
+   * "compare" constrains the H1/lede column to ≤50% on lg+ so the
+   * empty right column (no mockup on vs-* pages) doesn't let the
+   * text drift wide and visually unbalance the layout.
+   */
+  variant?: "default" | "compare";
 };
 
 export function HeroEditorial({
@@ -133,6 +139,7 @@ export function HeroEditorial({
     { kind: "good", primary: "Lighthouse", mini: "98" },
   ],
   deviceMockupSrc,
+  variant = "default",
 }: HeroEditorialProps) {
   return (
     <>
@@ -140,7 +147,7 @@ export function HeroEditorial({
       <div className="hero-grain" />
 
       <main className="hero">
-        <div className="hero-grid">
+        <div className="hero-grid" data-variant={variant}>
           <div className="hero-left">
             <div className="eyebrow">
               <span className="eyebrow-dot" />

@@ -8,7 +8,7 @@ import { ImageText } from "@/components/blocks/image-text";
 import { Reasons } from "@/components/blocks/reasons";
 import {
   Services,
-  MEDICINE_FEATURE_ICONS,
+  featureIconsForIndustry,
 } from "@/components/blocks/services";
 import { Comparison } from "@/components/blocks/comparison";
 import { StatsBar } from "@/components/blocks/stats-bar";
@@ -49,12 +49,27 @@ function findSection<T extends IndustrySection>(
   return sections?.find((s): s is T => s._type === type);
 }
 
+/**
+ * Returns the rich-text body for the requested locale, or undefined if
+ * that locale's content is missing. Was previously a UA-fallback (EN
+ * → UA when missing) which silently leaked Ukrainian into EN pages.
+ * In dev mode we console.warn so missing translations surface during
+ * build/QA; in prod the caller renders nothing rather than the wrong
+ * language.
+ */
 function pickRichText(
   uk: RichTextSimple | undefined,
   en: RichTextSimple | undefined,
   locale: Locale,
 ): RichTextSimple | undefined {
-  if (locale === "en" && en && en.length) return en;
+  if (locale === "en") {
+    if (en && en.length) return en;
+    if (process.env.NODE_ENV !== "production") {
+      // eslint-disable-next-line no-console
+      console.warn("[pickRichText] missing EN translation; returning undefined");
+    }
+    return undefined;
+  }
   return uk;
 }
 
@@ -227,9 +242,12 @@ export async function buildIndustryMetadata(
 function SectionBlock({
   section,
   locale,
+  slug,
 }: {
   section: IndustrySection;
   locale: Locale;
+  /** Industry slug used to pick the right feature-icon set. */
+  slug: string;
 }) {
   switch (section._type) {
     case "imageTextBlock":
@@ -413,13 +431,16 @@ function SectionBlock({
             formatLine(loc(section.heading, locale)) || undefined
           }
           servicesSub={formatLine(loc(section.sub, locale)) || undefined}
-          features={section.features?.map((f, i) => ({
-            // Schema has no icon field; reuse the medicine defaults by index.
-            icon: MEDICINE_FEATURE_ICONS[i] ?? null,
-            bg: f.image?.asset?.url ?? "",
-            title: loc(f.title, locale),
-            items: f.items?.map((it) => formatLine(loc(it, locale))) ?? [],
-          }))}
+          features={section.features?.map((f, i) => {
+            // Schema has no icon field; pick from per-industry set by index.
+            const icons = featureIconsForIndustry(slug);
+            return {
+              icon: icons[i] ?? null,
+              bg: f.image?.asset?.url ?? "",
+              title: loc(f.title, locale),
+              items: f.items?.map((it) => formatLine(loc(it, locale))) ?? [],
+            };
+          })}
           integrationsHeading={
             formatLine(loc(section.integrationsHeading, locale)) || undefined
           }
@@ -644,7 +665,12 @@ export async function IndustryPageView({
       />
 
       {page.sections?.map((section) => (
-        <SectionBlock key={section._key} section={section} locale={locale} />
+        <SectionBlock
+          key={section._key}
+          section={section}
+          locale={locale}
+          slug={page.slug}
+        />
       ))}
 
       <ClinicFooter locale={locale === "en" ? "en" : "uk"} />

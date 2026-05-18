@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
 import {
-  Linkedin,
-  Send,
-  Github,
-  Music2,
-  Instagram,
   Eye,
   Zap,
   Github as GithubLogo,
@@ -104,122 +99,6 @@ function GradPlaceholder({
         </span>
       ) : null}
     </div>
-  );
-}
-
-function FounderAvatar() {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background:
-          "radial-gradient(ellipse at 30% 30%, oklch(0.55 0.18 295) 0%, oklch(0.20 0.08 280) 70%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          width: 200,
-          height: 200,
-          borderRadius: "50%",
-          background:
-            "linear-gradient(180deg, oklch(0.7 0.14 295), oklch(0.55 0.18 295))",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Manrope, sans-serif",
-          fontWeight: 700,
-          fontSize: 64,
-          color: "var(--bg)",
-          letterSpacing: "-0.02em",
-          boxShadow: "0 0 80px oklch(0.55 0.18 295 / 0.45)",
-        }}
-      >
-        FA
-      </div>
-    </div>
-  );
-}
-
-/* ─── Founder socials row (під картку засновника) ────────────────────────── */
-
-const FOUNDER_SOCIALS = [
-  { Icon: Linkedin, href: "https://www.linkedin.com/in/fediralpatov/", label: "LinkedIn" },
-  { Icon: Github, href: "https://github.com/fedirdev", label: "GitHub" },
-  { Icon: Send, href: "https://t.me/fedirdev", label: "Telegram" },
-  { Icon: Music2, href: "https://www.tiktok.com/@cyanidium.dev", label: "TikTok" },
-  { Icon: Instagram, href: "https://www.instagram.com/cyanidium/", label: "Instagram" },
-];
-
-function FounderSocials() {
-  return (
-    <section
-      style={{
-        padding: "0 24px 64px",
-        background: "var(--bg)",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 14,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 11,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "var(--ink-3)",
-          }}
-        >
-          / find Fedir online
-        </span>
-        <div
-          style={{
-            display: "inline-flex",
-            gap: 8,
-            padding: "10px 14px",
-            border: "1px solid var(--line)",
-            borderRadius: 999,
-            background: "oklch(1 0 0 / 0.03)",
-          }}
-        >
-          {FOUNDER_SOCIALS.map((s) => {
-            const Icon = s.Icon;
-            return (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={s.label}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 36,
-                  height: 36,
-                  borderRadius: 999,
-                  color: "var(--ink-2)",
-                  transition: "color 0.2s, background 0.2s",
-                }}
-              >
-                <Icon size={16} strokeWidth={1.6} />
-              </a>
-            );
-          })}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -521,39 +400,6 @@ export default function AboutPage() {
           />
         }
       />
-
-      {/* Section 4: Founder — тимчасово приховано до готовності контенту */}
-      {false && (
-        <>
-          <ImageText
-            variant="side-with-list"
-            imageVariant="imageLeft"
-            eyebrow="ЗАСНОВНИК"
-            heading={
-              <>
-                Fedir <em>Alpatov</em>
-              </>
-            }
-            body={[
-              "Засновник Code-Site.Art. До студії — 8+ років у розробці на різних позиціях: фріланс, продуктові команди, агенції.",
-              "Code-Site.Art відкрив у 2023 коли побачив, скільки часу і грошей клієнти зливають у WordPress, плагіни, фрилансерів-одинаків. Зробив студію, яка робить навпаки: custom-код, прозорий прайс, фіксовані терміни.",
-            ]}
-            bulletList={[
-              "8+ років у веб-розробці",
-              "47 проєктів за 3 роки як founder",
-              "Спеціалізація: Next.js, Astro, headless CMS",
-              "Спікер на українських dev-конференціях",
-              "Open-source contributor",
-            ]}
-            cta={{
-              label: "Написати в Telegram",
-              href: "https://t.me/fedirdev",
-            }}
-            image={<FounderAvatar />}
-          />
-          <FounderSocials />
-        </>
-      )}
 
       {/* Section 5: Team */}
       <TeamSection

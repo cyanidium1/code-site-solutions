@@ -56,7 +56,9 @@ export function Process({
           }
         }
       },
-      { threshold: 0.35, rootMargin: "0px 0px -10% 0px" },
+      // threshold 0.15 (was 0.35) — trigger sooner so steps reveal as
+      // the section enters the viewport, not when it's nearly centered.
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

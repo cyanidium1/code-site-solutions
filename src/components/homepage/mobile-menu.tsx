@@ -55,7 +55,7 @@ export function MobileMenu() {
   // Top-level routes — same set as desktop hp-header, kept in lockstep.
   const navLinks = [
     { href: "/about", label: t("about") },
-    { href: "/blog", label: t("blog") },
+    // /blog hidden until Sprint 2BC merges real content.
     { href: "/calculator", label: t("calculator") },
     { href: "/portfolio", label: t("work") },
     { href: "/pricing", label: t("pricing") },

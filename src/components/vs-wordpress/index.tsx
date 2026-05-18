@@ -1292,6 +1292,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           { kind: "good", primary: "Next.js", mini: "LCP 0.8s" },
           { kind: "good", primary: "0 SEO drops" },
         ]}
+        variant="compare"
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
       />
 

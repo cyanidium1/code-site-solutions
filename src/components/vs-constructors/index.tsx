@@ -1311,6 +1311,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           { kind: "default", primary: "→" },
           { kind: "good", primary: "Next.js", mini: "LCP 0.8s" },
         ]}
+        variant="compare"
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
       />
 

@@ -175,6 +175,13 @@
      would have consumed the whole viewport. Caps at 720 on big screens. */
   min-height: clamp(560px, 80vh, 720px);
 }
+/* "compare" variant — vs-* pages: no device mockup, so cap the text
+   column at 50% to prevent visual drift across the wide hero shell. */
+@media (min-width: 1024px) {
+  .hero-grid[data-variant="compare"] {
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+  }
+}
 .hero-left {
   position: relative;
   z-index: 4;

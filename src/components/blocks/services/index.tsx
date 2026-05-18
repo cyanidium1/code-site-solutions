@@ -70,6 +70,37 @@ export const MEDICINE_FEATURE_ICONS: React.ReactNode[] = [
   <IcPin key="pin" />,
 ];
 
+/**
+ * Per-industry feature-icon sets. The 6 SVG primitives in this file are
+ * intentionally generic (calendar, people, price-card, services-grid,
+ * shield, pin) — they read as the right metaphor for medicine/renovation/
+ * legal/etc. without being literal. Where a domain needs a *different*
+ * 6-tuple we override below; otherwise it falls back to medicine.
+ *
+ * Slugs match the SERVICE_NAV_LINKS keys in `header-services.ts` and the
+ * Sanity industry-page slug field. Add more rows as new industries ship.
+ */
+const INDUSTRY_FEATURE_ICONS: Record<string, React.ReactNode[]> = {
+  medicine: MEDICINE_FEATURE_ICONS,
+  // Renovation/Construction: visit booking, team, transparent estimate,
+  // services catalog, warranty, location.  Reuses the same primitives —
+  // they're already domain-neutral. Substitute domain-specific icons here
+  // when commission-shooting them.
+  renovation: MEDICINE_FEATURE_ICONS,
+  legal: MEDICINE_FEATURE_ICONS,
+  accounting: MEDICINE_FEATURE_ICONS,
+  ecommerce: MEDICINE_FEATURE_ICONS,
+  saas: MEDICINE_FEATURE_ICONS,
+  cosmetology: MEDICINE_FEATURE_ICONS,
+  education: MEDICINE_FEATURE_ICONS,
+};
+
+/** Returns the icon set for a given industry slug, with medicine fallback. */
+export function featureIconsForIndustry(slug?: string): React.ReactNode[] {
+  if (slug && INDUSTRY_FEATURE_ICONS[slug]) return INDUSTRY_FEATURE_ICONS[slug];
+  return MEDICINE_FEATURE_ICONS;
+}
+
 export type Feature = {
   icon: React.ReactNode;
   bg: string;

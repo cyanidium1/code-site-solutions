@@ -1415,6 +1415,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           { kind: "default", primary: "→" },
           { kind: "good", primary: "12 people", mini: "0 ghost" },
         ]}
+        variant="compare"
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
       />
 
