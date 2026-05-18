@@ -191,7 +191,7 @@ const UK: Content = {
   metaTitle:
     "Перейти з Tilda, Webflow, Wix на custom code · 0 SEO-падінь | Code-Site.Art",
   metaDescription:
-    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 47 міграцій — 0 SEO-падінь. Від $1 000. Без підписок після запуску.",
+    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $1 000. Без підписок після запуску.",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · КОНСТРУКТОРИ",
     h1Lines: [
@@ -208,7 +208,7 @@ const UK: Content = {
       </>
     ),
     badges: [
-      { label: "47 міграцій", sub: "0 SEO-падінь" },
+      { label: "47 проєктів", sub: "0 SEO-падінь" },
       { label: "4 тижні", sub: "від брифу до запуску" },
       { label: "0 підписок", sub: "платите один раз" },
       { label: "Від $1 000", sub: "за міграцію лендінга" },
@@ -325,7 +325,7 @@ const UK: Content = {
         Code-Site vs усі <em>топові конструктори.</em>
       </>
     ),
-    sub: "Чесно по фактах. Без перекручувань. На основі 47 міграцій і 3 років роботи з кожним з них.",
+    sub: "Чесно по фактах. Без перекручувань. На основі 47 проєктів і 3 років роботи з кожним з них.",
     criterionHeader: "Критерій",
     builderHeaders: ["Tilda", "Webflow", "Wix", "Squarespace", "Weblium"],
     usHeader: "Code-Site",
@@ -662,7 +662,7 @@ const UK: Content = {
     items: [
       {
         q: "Чи я втрачу позиції в Google після міграції?",
-        a: "Ні. На 47 міграціях — 0 падінь більше ніж на тиждень. Будуємо повну мапу 301-редіректів зі старих URL на нові. Перші 30 днів моніторимо Search Console щодня.",
+        a: "Ні. На 47 проєктах — 0 падінь більше ніж на тиждень. Будуємо повну мапу 301-редіректів зі старих URL на нові. Перші 30 днів моніторимо Search Console щодня.",
       },
       {
         q: "Що з моїм доменом?",
@@ -735,7 +735,7 @@ const EN: Content = {
   metaTitle:
     "Migrate from Tilda, Webflow, Wix to custom code · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate sites from Tilda, Webflow, Wix, Squarespace, Weblium to Next.js in 4–10 weeks. 47 migrations — zero SEO drops. From $1,000. No subscriptions after launch.",
+    "We migrate sites from Tilda, Webflow, Wix, Squarespace, Weblium to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From $1,000. No subscriptions after launch.",
   hero: {
     eyebrowLabel: "/ COMPARE · SITE BUILDERS",
     h1Lines: [
@@ -752,7 +752,7 @@ const EN: Content = {
       </>
     ),
     badges: [
-      { label: "47 migrations", sub: "0 SEO drops" },
+      { label: "47 projects", sub: "0 SEO drops" },
       { label: "4 weeks", sub: "brief to launch" },
       { label: "0 subscriptions", sub: "pay once, own it" },
       { label: "From $1,000", sub: "for a landing migration" },
@@ -869,7 +869,7 @@ const EN: Content = {
         Code-Site vs every <em>major builder.</em>
       </>
     ),
-    sub: "Honest, fact-based. Pulled from 47 migrations and 3 years working with each of these.",
+    sub: "Honest, fact-based. Pulled from 47 projects and 3 years working with each of these.",
     criterionHeader: "Criterion",
     builderHeaders: ["Tilda", "Webflow", "Wix", "Squarespace", "Weblium"],
     usHeader: "Code-Site",
@@ -1067,7 +1067,7 @@ const EN: Content = {
         What we see <em>on a typical builder migration.</em>
       </>
     ),
-    sub: "12 of our 47 migrations were from Tilda, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
+    sub: "12 of our 47 projects were from Tilda, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
     headers: {
       metric: "Metric",
       before: "Before (on builder)",
@@ -1215,7 +1215,7 @@ const EN: Content = {
     items: [
       {
         q: "Will I lose Google rankings after migration?",
-        a: "No. Across 47 migrations — zero drops longer than a week. We build a complete 301 redirect map from every old URL to the new one. We watch Search Console daily for the first 30 days.",
+        a: "No. Across 47 projects — zero drops longer than a week. We build a complete 301 redirect map from every old URL to the new one. We watch Search Console daily for the first 30 days.",
       },
       {
         q: "What happens to my domain?",

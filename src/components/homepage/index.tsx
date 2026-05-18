@@ -562,8 +562,8 @@ const DEFAULT_BENTO: BentoCell[] = [
   {
     title: "Перенесення без SEO-втрат",
     icon: ArrowRightLeft,
-    stat: "0 DROPS",
-    body: "301-redirects, контент, schema.org. 2 тижні без падіння.",
+    stat: "0 падінь",
+    body: "301-redirects, контент, schema.org. 2 тижні без падіння в Google.",
     span: "1x1",
     visual: "mig",
   },

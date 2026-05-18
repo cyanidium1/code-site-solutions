@@ -360,7 +360,7 @@ export default function HomePageEn() {
         ctaFootnote="No sales call. No email list. Just an audit."
         showStats
         stats={[
-          { num: "47", lbl: <>builds<br />in 3 years</> },
+          { num: "47", lbl: <>projects<br />across 3 years</> },
           { num: "4", lbl: <>regions<br />UA · EU · US · DK</> },
           { num: "×3.2", lbl: <>avg.<br />lead lift</> },
           { num: "4.9/5", lbl: <>client<br />rating</> },
@@ -374,7 +374,7 @@ export default function HomePageEn() {
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
       />
 
-      <Marquee label="TRUSTED BY 47+ BUSINESSES ACROSS THE US, EU, AND DK" />
+      <Marquee label="47+ BUSINESSES TRUSTED · UA · EU · US · DK" />
 
       <TurnkeyList
         eyebrow="SCOPE"

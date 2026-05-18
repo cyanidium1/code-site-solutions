@@ -226,7 +226,7 @@ export default function HomePage() {
           { num: "47", lbl: <>проєктів<br/>за 3 роки</> },
           { num: "4", lbl: <>країни<br/>UA · EU · US · DK</> },
           { num: "×3.2", lbl: <>заявок<br/>у середньому</> },
-          { num: "0.6s", lbl: <>LCP<br/>швидкість</> },
+          { num: "4.9/5", lbl: <>оцінка<br/>клієнтів</> },
         ]}
         showTicker={false}
         deviceTags={[

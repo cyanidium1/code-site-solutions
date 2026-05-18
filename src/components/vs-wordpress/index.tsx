@@ -170,7 +170,7 @@ const UK: Content = {
   metaTitle:
     "Перейти з WordPress на custom code за 4 тижні · 0 SEO-падінь | Code-Site.Art",
   metaDescription:
-    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 47 міграцій — 0 SEO-падінь. Від $1 000 за лендінг. Гарантія 1 рік + неустойка 30%.",
+    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $1 000 за лендінг. Гарантія 1 рік + неустойка 30%.",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · WORDPRESS",
     h1Lines: [
@@ -180,12 +180,12 @@ const UK: Content = {
     lede: (
       <>
         Мігруємо ваш сайт з WordPress на custom code за 4 тижні.
-        Зберігаємо кожну позицію в Google. 47 міграцій — 0 SEO-падінь.
+        Зберігаємо кожну позицію в Google. 47 проєктів — 0 SEO-падінь.
         Без втрати контенту, коментарів і медіа.
       </>
     ),
     badges: [
-      { label: "0 SEO-падінь", sub: "на 47 міграціях" },
+      { label: "0 SEO-падінь", sub: "на 47 проєктах" },
       { label: "4 тижні", sub: "від брифу до перенесення" },
       { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
       { label: "Від $1 000", sub: "за міграцію лендінга" },
@@ -260,7 +260,7 @@ const UK: Content = {
         WordPress vs Code-Site. <em>Чесно.</em>
       </>
     ),
-    sub: "Без перекручувань. Те, що зустрічаємо щодня на 47 міграціях.",
+    sub: "Без перекручувань. Те, що зустрічаємо щодня на 47 проєктах.",
     headers: { criterion: "Критерій", wp: "WordPress", us: "Code-Site" },
     rows: [
       {
@@ -361,7 +361,7 @@ const UK: Content = {
     sub: "Це питання №1, яке нам ставлять. Ось чесна відповідь:",
     cards: [
       {
-        title: "47 міграцій · 0 падінь",
+        title: "47 проєктів · 0 падінь",
         body: (
           <>
             Ми мігрували 47 сайтів з WordPress (та інших платформ). Жоден не
@@ -646,7 +646,7 @@ const UK: Content = {
     items: [
       {
         q: "Чи я втрачу позиції в Google після міграції?",
-        a: "Ні. 47 міграцій — 0 падінь більше ніж на тиждень. Робимо повну мапу 301-редіректів і моніторимо Search Console щодня перші 30 днів.",
+        a: "Ні. 47 проєктів — 0 падінь більше ніж на тиждень. Робимо повну мапу 301-редіректів і моніторимо Search Console щодня перші 30 днів.",
       },
       {
         q: "Що буде з моїм блогом і коментарями?",
@@ -719,7 +719,7 @@ const EN: Content = {
   metaTitle:
     "Migrate off WordPress in 4 weeks · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 migrations — zero SEO drops. From $1,000 for a landing. 1-year warranty + 30% rebate.",
+    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From $1,000 for a landing. 1-year warranty + 30% rebate.",
   hero: {
     eyebrowLabel: "/ COMPARE · WORDPRESS",
     h1Lines: [
@@ -729,12 +729,12 @@ const EN: Content = {
     lede: (
       <>
         We migrate your site off WordPress in 4 weeks. Every Google
-        ranking stays put. 47 migrations — zero SEO drops. Your
+        ranking stays put. 47 projects — zero SEO drops. Your
         content, comments, and media come with you.
       </>
     ),
     badges: [
-      { label: "0 SEO drops", sub: "across 47 migrations" },
+      { label: "0 SEO drops", sub: "across 47 projects" },
       { label: "4 weeks", sub: "brief to live" },
       { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
       { label: "From $1,000", sub: "for a landing migration" },
@@ -809,7 +809,7 @@ const EN: Content = {
         WordPress vs Code-Site. <em>Honest.</em>
       </>
     ),
-    sub: "No spin. What we actually see across 47 migrations.",
+    sub: "No spin. What we actually see across 47 projects.",
     headers: { criterion: "Criterion", wp: "WordPress", us: "Code-Site" },
     rows: [
       {
@@ -908,7 +908,7 @@ const EN: Content = {
     sub: "This is the #1 question we get. Here's the straight answer:",
     cards: [
       {
-        title: "47 migrations · 0 drops",
+        title: "47 projects · 0 drops",
         body: (
           <>
             We&apos;ve migrated 47 sites off WordPress (and other platforms). Not
@@ -1196,7 +1196,7 @@ const EN: Content = {
     items: [
       {
         q: "Will I lose Google rankings after migration?",
-        a: "No. 47 migrations, zero drops longer than a week. We build a complete 301 redirect map and monitor Search Console daily for the first 30 days.",
+        a: "No. 47 projects, zero drops longer than a week. We build a complete 301 redirect map and monitor Search Console daily for the first 30 days.",
       },
       {
         q: "What about my blog and comments?",

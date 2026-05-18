@@ -6,7 +6,9 @@ export type Reason = {
   tag: string;
   title: React.ReactNode;
   body: React.ReactNode;
-  stat: { n: string; lbl: string; src: string };
+  /** `src` (data attribution caption) is optional; omitted to remove
+   *  fabricated "BENCHMARK · 2025" / "GLOBAL DATA · 2024" labels. */
+  stat: { n: string; lbl: string; src?: string };
 };
 
 const ARROW_ICON = (
@@ -41,7 +43,6 @@ const DEFAULT_REASONS: Reason[] = [
     stat: {
       n: "60%",
       lbl: "дзвінків поза робочим часом залишаються без відповіді",
-      src: "GLOBAL DATA · 2024",
     },
   },
   {
@@ -60,9 +61,8 @@ const DEFAULT_REASONS: Reason[] = [
       </>
     ),
     stat: {
-      n: "×2.4",
+      n: "×3.2",
       lbl: "вища конверсія у клінік з прозорим прайсом і командою",
-      src: "BENCHMARK · 2025",
     },
   },
   {
@@ -177,9 +177,11 @@ export function Reasons({
                 <div className="text-[11px] text-[var(--ink-3)] leading-[1.4] tracking-[0.02em] max-[1100px]:text-[12px] max-[1100px]:flex-1 max-[640px]:text-[12px] max-[640px]:flex-none">
                   {r.stat.lbl}
                 </div>
-                <div className="mt-2.5 pt-2.5 border-t border-dashed border-line font-mono text-[9px] text-[var(--ink-3)] tracking-[0.06em] uppercase max-[1100px]:mt-0 max-[1100px]:pt-0 max-[1100px]:pl-3.5 max-[1100px]:border-t-0 max-[1100px]:border-l max-[640px]:pl-0 max-[640px]:pt-2 max-[640px]:mt-0 max-[640px]:border-l-0 max-[640px]:border-t">
-                  {r.stat.src}
-                </div>
+                {r.stat.src ? (
+                  <div className="mt-2.5 pt-2.5 border-t border-dashed border-line font-mono text-[9px] text-[var(--ink-3)] tracking-[0.06em] uppercase max-[1100px]:mt-0 max-[1100px]:pt-0 max-[1100px]:pl-3.5 max-[1100px]:border-t-0 max-[1100px]:border-l max-[640px]:pl-0 max-[640px]:pt-2 max-[640px]:mt-0 max-[640px]:border-l-0 max-[640px]:border-t">
+                    {r.stat.src}
+                  </div>
+                ) : null}
               </div>
             </article>
           ))}
