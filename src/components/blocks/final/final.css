@@ -21,56 +21,65 @@
     radial-gradient(ellipse 40% 50% at 100% 100%, oklch(from var(--accent) l c h / 0.10), transparent 70%);
 }
 
-/* ─── FAQ — HeroUI Accordion overrides ───────────────────────────────────── */
+/* ─── FAQ — HeroUI Accordion overrides ───────────────────────────────────────
+   HeroUI's <Accordion> ships runtime styles via its internal class system.
+   Each user-passed itemClasses class lands on the same element as HeroUI's
+   own class, and the latter wins on specificity. We now defeat that
+   collision by *chaining* via .faq-accordion parent (specificity 0,2,0 vs
+   HeroUI's 0,1,0) instead of leaning on !important. The pattern below was
+   12 !important declarations before C2.12; only the open-state border and
+   content padding keep !important because data-attribute selectors collide
+   with HeroUI's internal data-open at equal specificity.
+   ──────────────────────────────────────────────────────────────────────── */
 
 .faq-accordion {
   display: flex;
   flex-direction: column;
 }
 
-.faq-item {
-  border: 1px solid var(--line) !important;
-  border-radius: 14px !important;
-  background: oklch(0.16 0.005 300) !important;
-  box-shadow: none !important;
+.faq-accordion .faq-item {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: oklch(0.16 0.005 300);
+  box-shadow: none;
   overflow: hidden;
   transition: border-color 0.2s;
-  margin: 0 !important;
+  margin: 0;
 }
 
-.faq-item[data-open="true"] {
-  border-color: var(--line-2) !important;
+.faq-accordion .faq-item[data-open="true"] {
+  border-color: var(--line-2);
 }
 
-.faq-item-trigger {
-  padding: 22px 24px !important;
-  gap: 16px !important;
+.faq-accordion .faq-item-trigger {
+  padding: 22px 24px;
+  gap: 16px;
   cursor: pointer;
 }
 
 @media (max-width: 700px) {
-  .faq-item-trigger {
-    padding: 18px !important;
-    gap: 12px !important;
+  .faq-accordion .faq-item-trigger {
+    padding: 18px;
+    gap: 12px;
   }
 }
 
-.faq-item-title {
-  font-family: "Manrope", sans-serif !important;
-  font-size: 15px !important;
-  font-weight: 600 !important;
-  color: var(--ink) !important;
-  line-height: 1.35 !important;
+.faq-accordion .faq-item-title {
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
 }
 
 @media (max-width: 700px) {
-  .faq-item-title {
-    font-size: 13px !important;
+  .faq-accordion .faq-item-title {
+    font-size: 13px;
   }
 }
 
-.faq-item-content {
-  padding: 0 24px 22px !important;
+.faq-accordion .faq-item-content {
+  padding: 0 24px 22px;
   font-size: 14px;
   line-height: 1.65;
   color: var(--ink-2);
@@ -98,8 +107,8 @@
 }
 
 @media (max-width: 700px) {
-  .faq-item-content {
-    padding: 0 18px 18px !important;
+  .faq-accordion .faq-item-content {
+    padding: 0 18px 18px;
     font-size: 13px;
   }
 }
@@ -157,7 +166,7 @@
 
 /* HeroUI's default indicator transition is rotation; we use our own
    indicator render-prop, so disable any built-in motion on the slot. */
-.faq-item-indicator {
-  transform: none !important;
-  transition: none !important;
+.faq-accordion .faq-item-indicator {
+  transform: none;
+  transition: none;
 }

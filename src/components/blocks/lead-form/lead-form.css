@@ -26,7 +26,7 @@
 
 .lead-form [data-slot="input-wrapper"],
 .lead-form [data-slot="trigger"] {
-  border: 1px solid var(--line-strong) !important;
+  border: 1px solid var(--line-2) !important;
   background: oklch(0.16 0.005 300 / 0.7);
   box-shadow: none !important;
   transition:

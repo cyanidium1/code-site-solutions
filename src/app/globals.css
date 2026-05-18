@@ -9,13 +9,11 @@
   --bg-raised: #1f1a26;
 
   --ink: oklch(0.97 0.005 300);
-  --ink-dim: oklch(0.78 0.012 300);
-  --ink-muted: oklch(0.55 0.01 70);
   --ink-2: oklch(0.78 0.012 300);
   --ink-3: oklch(0.55 0.01 300);
+  --ink-muted: oklch(0.55 0.01 70);
 
   --line: oklch(1 0 0 / 0.08);
-  --line-strong: oklch(1 0 0 / 0.14);
   --line-2: oklch(1 0 0 / 0.14);
 
   --accent: oklch(0.55 0.18 295);

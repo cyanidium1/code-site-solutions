@@ -22,11 +22,11 @@ const config: Config = {
         },
         line: {
           DEFAULT: "var(--line)",
-          strong: "var(--line-strong)",
+          strong: "var(--line-2)",
         },
         ink: {
           DEFAULT: "var(--ink)",
-          dim: "var(--ink-dim)",
+          dim: "var(--ink-2)",
           muted: "var(--ink-muted)",
         },
         accent: {
