@@ -401,9 +401,11 @@ export type CaseStudyRef = {
 export type BlogPostRef = {
   _id: string;
   slug: string;
-  title?: LocalizedString;
+  /** EN-locale slug, present only when the post has an EN translation. */
+  slugEn?: string;
+  title?: string;
   publishedAt?: string;
-  excerpt?: LocalizedText;
+  excerpt?: string;
   coverImage?: SanityImage | null;
   status?: "draft" | "published";
 };
@@ -479,9 +481,17 @@ export type BlogCover = {
 export type BlogPostListItem = {
   _id: string;
   slug: string;
+  /** EN-locale slug, present only when the post has an EN translation. */
+  slugEn?: string;
   title?: string;
+  /** EN translation of `title`. Absent when no EN translation exists. */
+  titleEn?: string;
   eyebrow?: string;
+  /** EN translation of `eyebrow`. */
+  eyebrowEn?: string;
   lede?: string;
+  /** EN translation of `lede`. */
+  ledeEn?: string;
   category?: string;
   publishedAt?: string;
   readingTimeMinutes?: number;
@@ -493,11 +503,23 @@ export type BlogPostListItem = {
 export type BlogPostDoc = {
   _id: string;
   slug: string;
+  /** EN-locale slug. Different from `slug` so EN posts can have natural
+   *  English URLs (e.g. `website-cost-2026-breakdown` vs the UA original
+   *  `skilky-koshtuye-sayt-2026`). */
+  slugEn?: string;
   title?: string;
+  /** EN shadow fields — Sprint 2BC. Optional: if absent on the doc,
+   *  /en/blog/<slug> returns 404 (no UA fallback — that would defeat
+   *  the locale). */
+  titleEn?: string;
   metaTitle?: string;
+  metaTitleEn?: string;
   metaDescription?: string;
+  metaDescriptionEn?: string;
   eyebrow?: string;
+  eyebrowEn?: string;
   lede?: string;
+  ledeEn?: string;
   category?: string;
   tags?: string[];
   publishedAt?: string;
@@ -507,7 +529,11 @@ export type BlogPostDoc = {
   ogImage?: SanityAsset | null;
   author?: BlogAuthor;
   body?: BlogBody;
+  /** EN portable-text body. Same custom blocks as `body` (tldrBox,
+   *  ctaCallout, blogTable, blogImage). */
+  bodyEn?: BlogBody;
   faq?: BlogFaqItem[];
+  faqEn?: BlogFaqItem[];
   relatedPostSlugs?: string[];
 };
 

@@ -38,7 +38,43 @@ export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = new Set([
   "/vs-constructors",
   "/vs-freelancers",
   "/calculator",
+  "/pricing",
+  "/about",
+  "/process",
+  "/contacts",
+  "/portfolio",
+  "/blog",
 ]);
+
+/**
+ * UA blog slug → EN blog slug mapping. Sprint 2BC ships EN translations
+ * of these 3 articles. Each EN post lives at a natural English URL,
+ * not a transliteration of the UA original. The map is small and
+ * static — when a new article ships in EN, add its row here.
+ *
+ * Sanity also stores `slugEn` per blogPost doc, but routing the
+ * locale switcher between /blog/<ua-slug> ↔ /en/blog/<en-slug>
+ * doesn't have access to the Sanity doc — this hardcoded map keeps
+ * the switcher O(1) and serverless.
+ */
+export const EN_BLOG_SLUG_MAP: Record<string, string> = {
+  "skilky-koshtuye-sayt-2026": "website-cost-2026-breakdown",
+  "tilda-7200-za-3-roky": "tilda-7200-over-3-years",
+  "dohovir-z-veb-studieyu-7-punktiv": "web-studio-contract-7-items",
+};
+
+/** Inverse of EN_BLOG_SLUG_MAP — EN slug → UA slug. */
+export const UA_BLOG_SLUG_MAP: Record<string, string> = Object.fromEntries(
+  Object.entries(EN_BLOG_SLUG_MAP).map(([uk, en]) => [en, uk]),
+);
+
+export function uaBlogToEnSlug(uaSlug: string): string | undefined {
+  return EN_BLOG_SLUG_MAP[uaSlug];
+}
+
+export function enBlogToUaSlug(enSlug: string): string | undefined {
+  return UA_BLOG_SLUG_MAP[enSlug];
+}
 
 /**
  * Map current pathname to its UA / EN counterpart so the locale switcher
@@ -62,7 +98,26 @@ export function resolveLocaleAlternate(
   // matching UA route — but if a future /en-only path appears, the
   // caller can null-check.
   if (pathname.startsWith("/en/")) {
+    // EN blog post → look up UA slug from the inverse map.
+    const enBlogMatch = pathname.match(/^\/en\/blog\/([^/]+)\/?$/);
+    if (enBlogMatch) {
+      const uaSlug = enBlogToUaSlug(enBlogMatch[1]);
+      return {
+        uk: uaSlug ? `/blog/${uaSlug}` : null,
+        en: pathname,
+      };
+    }
     return { uk: pathname.slice(3), en: pathname };
+  }
+
+  // UA → EN: blog post pages (only when an EN translation exists).
+  const blogMatch = pathname.match(/^\/blog\/([^/]+)\/?$/);
+  if (blogMatch) {
+    const enSlug = uaBlogToEnSlug(blogMatch[1]);
+    return {
+      uk: `/blog/${blogMatch[1]}`,
+      en: enSlug ? `/en/blog/${enSlug}` : null,
+    };
   }
 
   // UA → EN: industry pages (only when an EN translation exists).

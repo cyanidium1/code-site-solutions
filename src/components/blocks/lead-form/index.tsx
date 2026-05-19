@@ -36,49 +36,155 @@ const INITIAL: LeadValues = {
   timeline: "",
 };
 
-const validationSchema = Yup.object({
-  name: Yup.string(),
-  contact: Yup.string()
-    .min(5, "Вкажіть телефон, Telegram або email")
-    .required("Вкажіть телефон, Telegram або email"),
-  business: Yup.string(),
-  tier: Yup.string(),
-  description: Yup.string(),
-  budget: Yup.string(),
-  timeline: Yup.string(),
-});
+function buildValidationSchema(contactErr: string) {
+  return Yup.object({
+    name: Yup.string(),
+    contact: Yup.string().min(5, contactErr).required(contactErr),
+    business: Yup.string(),
+    tier: Yup.string(),
+    description: Yup.string(),
+    budget: Yup.string(),
+    timeline: Yup.string(),
+  });
+}
 
-const BUSINESS_OPTS = [
-  { key: "healthcare", label: "Healthcare / клініки і стоматології" },
-  { key: "legal", label: "Legal / юридична фірма" },
-  { key: "accounting", label: "Accounting / бухгалтерія" },
-  { key: "ecommerce", label: "E-commerce / інтернет-магазин" },
-  { key: "saas", label: "SaaS / стартап" },
-  { key: "construction", label: "Construction / Renovation" },
-  { key: "other", label: "Other (вкажіть в описі)" },
-];
+export type LeadFormLocale = "uk" | "en";
 
-const TIER_OPTS = [
-  { key: "starter", label: "Starter — від $1 000" },
-  { key: "industry", label: "Industry Pro — від $3 500" },
-  { key: "proplus", label: "Pro Plus — від $7 500" },
-  { key: "enterprise", label: "Enterprise — від $14 000" },
-  { key: "undecided", label: "Не визначився" },
-];
+const BUSINESS_OPTS_BY_LOCALE: Record<LeadFormLocale, { key: string; label: string }[]> = {
+  uk: [
+    { key: "healthcare", label: "Healthcare / клініки і стоматології" },
+    { key: "legal", label: "Legal / юридична фірма" },
+    { key: "accounting", label: "Accounting / бухгалтерія" },
+    { key: "ecommerce", label: "E-commerce / інтернет-магазин" },
+    { key: "saas", label: "SaaS / стартап" },
+    { key: "construction", label: "Construction / Renovation" },
+    { key: "other", label: "Other (вкажіть в описі)" },
+  ],
+  en: [
+    { key: "healthcare", label: "Healthcare / clinics and dental" },
+    { key: "legal", label: "Legal / law firm" },
+    { key: "accounting", label: "Accounting / bookkeeping" },
+    { key: "ecommerce", label: "E-commerce / online store" },
+    { key: "saas", label: "SaaS / startup" },
+    { key: "construction", label: "Construction / Renovation" },
+    { key: "other", label: "Other (describe in the brief)" },
+  ],
+};
 
-const BUDGET_OPTS = [
-  { key: "lt3k", label: "До $3k" },
-  { key: "3-7k", label: "$3-7k" },
-  { key: "7-15k", label: "$7-15k" },
-  { key: "gt15k", label: "$15k+" },
-  { key: "unknown", label: "Поки не знаю" },
-];
+const TIER_OPTS_BY_LOCALE: Record<LeadFormLocale, { key: string; label: string }[]> = {
+  uk: [
+    { key: "starter", label: "Starter — від $1 000" },
+    { key: "industry", label: "Industry Pro — від $3 500" },
+    { key: "proplus", label: "Pro Plus — від $7 500" },
+    { key: "enterprise", label: "Enterprise — від $14 000" },
+    { key: "undecided", label: "Не визначився" },
+  ],
+  en: [
+    { key: "starter", label: "Starter — from $1,000" },
+    { key: "industry", label: "Industry Pro — from $3,500" },
+    { key: "proplus", label: "Pro Plus — from $7,500" },
+    { key: "enterprise", label: "Enterprise — from $14,000" },
+    { key: "undecided", label: "I don't know yet" },
+  ],
+};
 
-const TIMELINE_OPTS = [
-  { key: "urgent", label: "Терміново (1-2 тижні)" },
-  { key: "normal", label: "Звичайно (4-8 тижнів)" },
-  { key: "relaxed", label: "Не критично" },
-];
+const BUDGET_OPTS_BY_LOCALE: Record<LeadFormLocale, { key: string; label: string }[]> = {
+  uk: [
+    { key: "lt3k", label: "До $3k" },
+    { key: "3-7k", label: "$3-7k" },
+    { key: "7-15k", label: "$7-15k" },
+    { key: "gt15k", label: "$15k+" },
+    { key: "unknown", label: "Поки не знаю" },
+  ],
+  en: [
+    { key: "lt3k", label: "Under $3k" },
+    { key: "3-7k", label: "$3-7k" },
+    { key: "7-15k", label: "$7-15k" },
+    { key: "gt15k", label: "$15k+" },
+    { key: "unknown", label: "I don't know yet" },
+  ],
+};
+
+const TIMELINE_OPTS_BY_LOCALE: Record<LeadFormLocale, { key: string; label: string }[]> = {
+  uk: [
+    { key: "urgent", label: "Терміново (1-2 тижні)" },
+    { key: "normal", label: "Звичайно (4-8 тижнів)" },
+    { key: "relaxed", label: "Не критично" },
+  ],
+  en: [
+    { key: "urgent", label: "Urgent (1-2 weeks)" },
+    { key: "normal", label: "Normal (4-8 weeks)" },
+    { key: "relaxed", label: "Not critical" },
+  ],
+};
+
+const STRINGS_BY_LOCALE = {
+  uk: {
+    nameLabel: "Як до вас звертатися",
+    namePlaceholder: "Ваше імʼя (необовʼязково)",
+    namePlaceholderShort: "Ваше імʼя (необовʼязково)",
+    contactLabel: "Телефон, Telegram або email",
+    contactPlaceholder: "+380..., @username або hello@example.com",
+    contactPlaceholderShort: "+380..., @username або hello@…",
+    contactDescription: "Як з вами зручніше зв'язатися",
+    contactValidation: "Вкажіть телефон, Telegram або email",
+    businessLabel: "Тип бізнесу",
+    businessPlaceholder: "Оберіть галузь (необовʼязково)",
+    descriptionLabel: "Опис задачі",
+    descriptionPlaceholder:
+      "Розкажіть коротко: який сайт потрібен, що зараз не працює, дедлайн (необовʼязково)",
+    tierLabel: "Орієнтовний тир",
+    tierPlaceholder: "Оберіть тир",
+    budgetLabel: "Бюджет",
+    budgetPlaceholder: "Не обовʼязково",
+    timelineLabel: "Коли треба запустити",
+    timelinePlaceholder: "Не обовʼязково",
+    showDetails: "Додати деталі",
+    hideDetails: "Приховати деталі",
+    detailsMeta: "тир, бюджет, термін",
+    submit: "Надіслати — відповімо за 1-2 години",
+    successTitle: "Дякуємо! Заявка отримана.",
+    successBody:
+      "Зв'яжемось з вами протягом 1-2 робочих годин через Telegram або email який ви залишили.",
+    successOrTg: "Або одразу пишіть в Telegram →",
+    errorBody: "Щось пішло не так. Спробуйте ще раз або пишіть в Telegram",
+    privacy:
+      "Не передаємо ваші дані третім особам. Зберігаємо тільки для відповіді на вашу заявку.",
+  },
+  en: {
+    nameLabel: "How should we address you?",
+    namePlaceholder: "Your name (optional)",
+    namePlaceholderShort: "Your name (optional)",
+    contactLabel: "Phone, Telegram, or email",
+    contactPlaceholder: "+44..., @username, or hello@example.com",
+    contactPlaceholderShort: "+44..., @username, or hello@…",
+    contactDescription: "How's it easiest to reach you",
+    contactValidation: "Please enter a phone, Telegram, or email",
+    businessLabel: "Business type",
+    businessPlaceholder: "Pick an industry (optional)",
+    descriptionLabel: "Project description",
+    descriptionPlaceholder:
+      "A short summary: what site you need, what's not working now, deadline (optional)",
+    tierLabel: "Approximate tier",
+    tierPlaceholder: "Pick a tier",
+    budgetLabel: "Budget",
+    budgetPlaceholder: "Optional",
+    timelineLabel: "Launch timeline",
+    timelinePlaceholder: "Optional",
+    showDetails: "Add details",
+    hideDetails: "Hide details",
+    detailsMeta: "tier, budget, timeline",
+    submit: "Send — we reply within 1-2 hours",
+    successTitle: "Thanks! Your message was received.",
+    successBody:
+      "We'll get back within 1-2 business hours via the Telegram or email you provided.",
+    successOrTg: "Or message Telegram directly →",
+    errorBody:
+      "Something went wrong. Try again or message Telegram",
+    privacy:
+      "We don't share your data with third parties. We only store it to reply to your inquiry.",
+  },
+} as const;
 
 const SELECT_CLASSNAMES = {
   popoverContent: "lead-form-popover",
@@ -119,11 +225,23 @@ export type LeadFormVariant = "compact" | "full";
 type LeadFormProps = {
   source?: string;
   variant?: LeadFormVariant;
+  locale?: LeadFormLocale;
 };
 
-function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps) {
+function LeadFormInner({
+  source = "contacts",
+  variant = "full",
+  locale = "uk",
+}: LeadFormProps) {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<Status>("idle");
+
+  const strings = STRINGS_BY_LOCALE[locale];
+  const BUSINESS_OPTS = BUSINESS_OPTS_BY_LOCALE[locale];
+  const TIER_OPTS = TIER_OPTS_BY_LOCALE[locale];
+  const BUDGET_OPTS = BUDGET_OPTS_BY_LOCALE[locale];
+  const TIMELINE_OPTS = TIMELINE_OPTS_BY_LOCALE[locale];
+  const validationSchema = buildValidationSchema(strings.contactValidation);
 
   const initialValues = useMemo<LeadValues>(() => {
     const tier = normalizeTier(searchParams?.get("tier") ?? null);
@@ -155,13 +273,10 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
             />
           </svg>
         </div>
-        <h3 className="lead-form-success-title">Дякуємо! Заявка отримана.</h3>
+        <h3 className="lead-form-success-title">{strings.successTitle}</h3>
+        <p className="lead-form-success-body">{strings.successBody}</p>
         <p className="lead-form-success-body">
-          Зв&apos;яжемось з вами протягом 1-2 робочих годин через Telegram або email
-          який ви залишили.
-        </p>
-        <p className="lead-form-success-body">
-          Або одразу пишіть в Telegram →{" "}
+          {strings.successOrTg}{" "}
           <a
             href={SITE_CONTACT.telegram}
             target="_blank"
@@ -214,9 +329,9 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
                 {({ field }: FieldProps) => (
                   <Input
                     {...field}
-                    label="Як до вас звертатися"
+                    label={strings.nameLabel}
                     labelPlacement="outside"
-                    placeholder="Ваше імʼя (необовʼязково)"
+                    placeholder={strings.namePlaceholderShort}
                     variant="bordered"
                     radius="lg"
                   />
@@ -226,9 +341,9 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
                 {({ field }: FieldProps) => (
                   <Input
                     {...field}
-                    label="Телефон, Telegram або email"
+                    label={strings.contactLabel}
                     labelPlacement="outside"
-                    placeholder="+380..., @username або hello@…"
+                    placeholder={strings.contactPlaceholderShort}
                     isRequired
                     isInvalid={Boolean(touched.contact && errors.contact)}
                     errorMessage={touched.contact ? errors.contact : undefined}
@@ -244,9 +359,9 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
                 {({ field }: FieldProps) => (
                   <Input
                     {...field}
-                    label="Як до вас звертатися"
+                    label={strings.nameLabel}
                     labelPlacement="outside"
-                    placeholder="Ваше імʼя (необовʼязково)"
+                    placeholder={strings.namePlaceholder}
                     variant="bordered"
                     radius="lg"
                   />
@@ -256,11 +371,11 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
                 {({ field }: FieldProps) => (
                   <Input
                     {...field}
-                    label="Телефон, Telegram або email"
+                    label={strings.contactLabel}
                     labelPlacement="outside"
-                    placeholder="+380..., @username або hello@example.com"
+                    placeholder={strings.contactPlaceholder}
                     isRequired
-                    description="Як з вами зручніше зв'язатися"
+                    description={strings.contactDescription}
                     isInvalid={Boolean(touched.contact && errors.contact)}
                     errorMessage={touched.contact ? errors.contact : undefined}
                     variant="bordered"
@@ -272,9 +387,9 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
           )}
 
           <Select
-            label="Тип бізнесу"
+            label={strings.businessLabel}
             labelPlacement="outside"
-            placeholder="Оберіть галузь (необовʼязково)"
+            placeholder={strings.businessPlaceholder}
             selectedKeys={values.business ? [values.business] : []}
             onSelectionChange={(keys) => {
               const k = Array.from(keys)[0];
@@ -293,9 +408,9 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
             {({ field }: FieldProps) => (
               <Textarea
                 {...field}
-                label="Опис задачі"
+                label={strings.descriptionLabel}
                 labelPlacement="outside"
-                placeholder="Розкажіть коротко: який сайт потрібен, що зараз не працює, дедлайн (необовʼязково)"
+                placeholder={strings.descriptionPlaceholder}
                 minRows={isCompact ? 3 : 5}
                 variant="bordered"
                 radius="lg"
@@ -317,10 +432,10 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
                 className={`lead-form-toggle-chev${showDetails ? " open" : ""}`}
               />
               <span>
-                {showDetails ? "Приховати деталі" : "Додати деталі"}
+                {showDetails ? strings.hideDetails : strings.showDetails}
                 <span className="lead-form-toggle-meta">
                   {" "}
-                  · тир, бюджет, термін
+                  · {strings.detailsMeta}
                 </span>
               </span>
             </button>
@@ -329,9 +444,9 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
           {showDetails && (
             <div className="lead-form-details" id="lead-form-details">
               <Select
-                label="Орієнтовний тир"
+                label={strings.tierLabel}
                 labelPlacement="outside"
-                placeholder="Оберіть тир"
+                placeholder={strings.tierPlaceholder}
                 selectedKeys={values.tier ? [values.tier] : []}
                 onSelectionChange={(keys) => {
                   const k = Array.from(keys)[0];
@@ -349,9 +464,9 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
 
               <div className="lead-form-row-2">
                 <Select
-                  label="Бюджет"
+                  label={strings.budgetLabel}
                   labelPlacement="outside"
-                  placeholder="Не обовʼязково"
+                  placeholder={strings.budgetPlaceholder}
                   selectedKeys={values.budget ? [values.budget] : []}
                   onSelectionChange={(keys) => {
                     const k = Array.from(keys)[0];
@@ -360,7 +475,7 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
                   variant="bordered"
                   radius="lg"
                   classNames={SELECT_CLASSNAMES}
-                  
+
                 >
                   {BUDGET_OPTS.map((o) => (
                     <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>{o.label}</SelectItem>
@@ -368,9 +483,9 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
                 </Select>
 
                 <Select
-                  label="Коли треба запустити"
+                  label={strings.timelineLabel}
                   labelPlacement="outside"
-                  placeholder="Не обовʼязково"
+                  placeholder={strings.timelinePlaceholder}
                   selectedKeys={values.timeline ? [values.timeline] : []}
                   onSelectionChange={(keys) => {
                     const k = Array.from(keys)[0];
@@ -399,12 +514,12 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
             size="lg"
             className="lead-form-submit"
           >
-            Надіслати — відповімо за 1-2 години
+            {strings.submit}
           </Button>
 
           {status === "error" && (
             <div className="lead-form-error" role="alert">
-              Щось пішло не так. Спробуйте ще раз або пишіть в Telegram{" "}
+              {strings.errorBody}{" "}
               <a
                 href={SITE_CONTACT.telegram}
                 target="_blank"
@@ -416,10 +531,7 @@ function LeadFormInner({ source = "contacts", variant = "full" }: LeadFormProps)
             </div>
           )}
 
-          <p className="lead-form-privacy">
-            Не передаємо ваші дані третім особам. Зберігаємо тільки для
-            відповіді на вашу заявку.
-          </p>
+          <p className="lead-form-privacy">{strings.privacy}</p>
         </Form>
       )}
     </Formik>
