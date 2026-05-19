@@ -1567,6 +1567,7 @@
   border-bottom: 1px solid var(--line);
   background: oklch(from var(--bg) l c h / 0.7);
   backdrop-filter: blur(14px);
+  padding: 0 48px;
 }
 .hp-header-inner {
   max-width: var(--container-max);
@@ -1574,7 +1575,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 48px;
+  padding: 18px 0;
 }
 .hp-header-brand {
   font-family: 'Manrope', sans-serif;
@@ -2239,5 +2240,6 @@
   .hp-footer { padding: var(--section-y-md) 24px 32px; }
   .hp-footer-inner { grid-template-columns: 1fr 1fr; }
   .hp-footer-inner > :first-child { grid-column: span 2; }
-  .hp-header-inner { padding: 14px 24px; }
+  .hp-header { padding: 0 24px; }
+  .hp-header-inner { padding: 14px 0; }
 }
