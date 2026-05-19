@@ -166,15 +166,21 @@ export const INDUSTRY_PAGES_QUERY = /* groq */ `
 
 /**
  * Lightweight listing projection for /blog and related-articles cards.
- * Returns simple (non-localized) strings — blog posts are UA-only for Sprint 2A.
- * EN translations land in Sprint 5.
+ * Sprint 2BC: EN shadow fields (titleEn / eyebrowEn / ledeEn / slugEn)
+ * are projected alongside the UA originals. The caller (listing or
+ * related-card renderer) picks the right field by locale; if the EN
+ * field is missing the post is omitted from the EN listing entirely.
  */
 const BLOG_POST_LIST_ITEM = /* groq */ `{
   _id,
   "slug": slug.current,
+  "slugEn": slugEn.current,
   title,
+  titleEn,
   eyebrow,
+  eyebrowEn,
   lede,
+  ledeEn,
   category,
   publishedAt,
   readingTimeMinutes,
@@ -206,11 +212,17 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
 *[_type == "blogPost" && status == "published" && slug.current == $slug][0]{
   _id,
   "slug": slug.current,
+  "slugEn": slugEn.current,
   title,
+  titleEn,
   metaTitle,
+  metaTitleEn,
   metaDescription,
+  metaDescriptionEn,
   eyebrow,
+  eyebrowEn,
   lede,
+  ledeEn,
   category,
   tags,
   publishedAt,
@@ -236,7 +248,92 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
       caption
     }
   },
+  bodyEn[]{
+    ...,
+    _type == "blogImage" => {
+      _type,
+      _key,
+      "asset": asset->{
+        _id,
+        url,
+        metadata { lqip, dimensions }
+      },
+      hotspot,
+      crop,
+      alt,
+      caption
+    }
+  },
   faq[]{ _key, question, answer },
+  faqEn[]{ _key, question, answer },
+  relatedPostSlugs
+}
+`;
+
+/**
+ * Sprint 2BC EN-locale lookup. Matches on `slugEn.current` (the
+ * EN-only slug field). Returns the same shape as the UA query so
+ * the post renderer can render either locale uniformly. If the doc
+ * has no EN content at all, the field-level guards in the post page
+ * trigger a 404.
+ */
+export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
+*[_type == "blogPost" && status == "published" && slugEn.current == $slug][0]{
+  _id,
+  "slug": slug.current,
+  "slugEn": slugEn.current,
+  title,
+  titleEn,
+  metaTitle,
+  metaTitleEn,
+  metaDescription,
+  metaDescriptionEn,
+  eyebrow,
+  eyebrowEn,
+  lede,
+  ledeEn,
+  category,
+  tags,
+  publishedAt,
+  updatedAt,
+  readingTimeMinutes,
+  coverImage{ src, alt },
+  "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
+  author{ name, role, photoUrl, bio },
+  body[]{
+    ...,
+    _type == "blogImage" => {
+      _type,
+      _key,
+      "asset": asset->{
+        _id,
+        url,
+        metadata { lqip, dimensions }
+      },
+      hotspot,
+      crop,
+      alt,
+      caption
+    }
+  },
+  bodyEn[]{
+    ...,
+    _type == "blogImage" => {
+      _type,
+      _key,
+      "asset": asset->{
+        _id,
+        url,
+        metadata { lqip, dimensions }
+      },
+      hotspot,
+      crop,
+      alt,
+      caption
+    }
+  },
+  faq[]{ _key, question, answer },
+  faqEn[]{ _key, question, answer },
   relatedPostSlugs
 }
 `;
