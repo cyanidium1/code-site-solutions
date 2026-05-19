@@ -11,19 +11,15 @@
     radial-gradient(ellipse 40% 50% at 5% 80%, oklch(from var(--accent-2) l c h / 0.04), transparent 70%);
 }
 
-/* ─── Magazine layout ─────────────────────────────────────────────────────
-   Outer .blog-prose article sits at the site standard width (1240px) so
-   custom blocks (tldrBox, ctaCallout, blogTable, blogImage) span full
-   width. Prose elements (paragraphs, headings, lists, blockquotes) cap
-   themselves to ~720px reading measure via the rules below.
+/* ─── Single-column layout ────────────────────────────────────────────────
+   Outer .blog-prose article still sits at the site standard width
+   (1240px) so the article column lines up with section headers and
+   related-card rows, but EVERY child — prose elements AND custom blocks
+   (tldrBox, ctaCallout, blogTable, blogImage) — caps to the same 720px
+   reading measure so widths don't alternate between narrow text and
+   wide callouts.
    ─────────────────────────────────────────────────────────────────────── */
-.blog-prose .blog-p,
-.blog-prose .blog-h2,
-.blog-prose .blog-h3,
-.blog-prose .blog-h4,
-.blog-prose .blog-blockquote,
-.blog-prose .blog-ul,
-.blog-prose .blog-ol {
+.blog-prose > * {
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
@@ -138,28 +134,14 @@
   border-radius: 4px;
 }
 
-/* Custom blocks span full container width (no max-width cap). The width
-   they get is whatever the outer .blog-prose article width is. */
-.blog-prose .blog-tldr,
-.blog-prose .blog-cta,
-.blog-prose .blog-image {
-  /* Optional: cap the breakout slightly to feel comfortable inside the
-     1240px outer container without going all the way edge-to-edge. */
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.blog-prose .blog-table {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
+/* Custom blocks inherit the 720px cap from .blog-prose > *. No further
+   overrides — width parity with prose is the whole point of the layout. */
 
 /* ─── Reused table styles — same skeleton as cmp-table ──────────────────── */
 .blog-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 28px 0;
+  margin: 28px auto;
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
@@ -205,7 +187,7 @@
 
 /* ─── TL;DR box — light accent-bordered callout ─────────────────────────── */
 .blog-tldr {
-  margin: 32px 0;
+  margin: 32px auto;
   padding: 22px 26px;
   border-left: 3px solid var(--accent);
   background: oklch(from var(--accent) l c h / 0.06);
@@ -248,7 +230,7 @@
 /* ─── In-article CTA callout (visual style of CtaBanner, condensed) ─────── */
 .blog-cta {
   position: relative;
-  margin: 40px 0;
+  margin: 40px auto;
   padding: 32px 36px;
   border: 1px solid var(--line);
   border-radius: 22px;
