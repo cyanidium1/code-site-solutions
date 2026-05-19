@@ -20,8 +20,10 @@ const STATIC_ROUTES: {
 }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1.0 },
   { path: "/about", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/process", changeFrequency: "monthly", priority: 0.7 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
   { path: "/portfolio", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/contacts", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
   { path: "/calculator", changeFrequency: "monthly", priority: 0.7 },
   { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
@@ -48,13 +50,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   // Routes that are also published under /en. Used to attach hreflang
-  // alternates and emit the EN counterpart in the sitemap.
+  // alternates and emit the EN counterpart in the sitemap. Mirrors
+  // EN_LOCALIZED_ROOTS in i18n-routes.ts plus "/" (root has no entry
+  // there because it's handled separately by the locale switcher).
   const EN_LOCALIZED_PATHS = new Set<string>([
     "/",
     "/vs-wordpress",
     "/vs-constructors",
     "/vs-freelancers",
     "/calculator",
+    "/pricing",
+    "/about",
+    "/process",
+    "/contacts",
+    "/portfolio",
+    "/blog",
   ]);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.flatMap(
@@ -149,13 +159,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [ukEntry];
   });
 
-  // Blog posts — UA only for Sprint 2A. EN counterparts land in Sprint 5.
-  const blogEntries: MetadataRoute.Sitemap = blogPosts.map((p) => ({
-    url: `${SITE_ORIGIN}/blog/${p.slug}`,
-    lastModified: p.publishedAt ? new Date(p.publishedAt) : lastModified,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  // Blog posts — emit UA always; emit EN when the post has slugEn + titleEn
+  // (mirrors the EN listing/post-render guards).
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.flatMap((p) => {
+    const ukUrl = `${SITE_ORIGIN}/blog/${p.slug}`;
+    const modified = p.publishedAt ? new Date(p.publishedAt) : lastModified;
+    const ukEntry: MetadataRoute.Sitemap[number] = {
+      url: ukUrl,
+      lastModified: modified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    };
+    const hasEn = Boolean(p.slugEn && p.titleEn);
+    if (hasEn) {
+      const enUrl = `${SITE_ORIGIN}/en/blog/${p.slugEn}`;
+      const languages = {
+        uk: ukUrl,
+        en: enUrl,
+        "x-default": ukUrl,
+      };
+      ukEntry.alternates = { languages };
+      const enEntry: MetadataRoute.Sitemap[number] = {
+        url: enUrl,
+        lastModified: modified,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: { languages },
+      };
+      return [ukEntry, enEntry];
+    }
+    return [ukEntry];
+  });
 
   return [...staticEntries, ...industryEntries, ...caseEntries, ...blogEntries];
 }
