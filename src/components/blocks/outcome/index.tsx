@@ -280,28 +280,32 @@ export function Outcome({
           </p>
         </header>
 
-        {/* Benefit hero */}
-        <div className="benefit-hero grid grid-cols-2 gap-12 items-center py-11 px-12 mb-8 border border-[oklch(from_var(--accent)_l_c_h_/_0.35)] rounded-3xl bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.10),oklch(from_var(--accent-2)_l_c_h_/_0.06)_60%,transparent)] relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] max-[1100px]:grid-cols-1 max-[1100px]:gap-7 max-[1100px]:p-8 max-[700px]:px-[22px] max-[700px]:py-6 max-[700px]:gap-[22px] max-[700px]:rounded-[18px]">
-          <div className="relative z-[2]">
-            <div className="font-display font-bold text-[clamp(56px,8vw,96px)] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 max-[1080px]:text-[clamp(52px,7vw,80px)] max-[700px]:text-[64px]">
-              {benefitHeroValue}
+        {/* Benefit hero — hidden when no content. Skipping the box avoids
+            rendering an empty gradient frame for industries that don't ship
+            a hero metric. */}
+        {(benefitHeroValue || benefitHeroLede || benefitHeroBullets.length > 0) ? (
+          <div className="benefit-hero grid grid-cols-2 gap-12 items-center py-11 px-12 mb-8 border border-[oklch(from_var(--accent)_l_c_h_/_0.35)] rounded-3xl bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.10),oklch(from_var(--accent-2)_l_c_h_/_0.06)_60%,transparent)] relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] max-[1100px]:grid-cols-1 max-[1100px]:gap-7 max-[1100px]:p-8 max-[700px]:px-[22px] max-[700px]:py-6 max-[700px]:gap-[22px] max-[700px]:rounded-[18px]">
+            <div className="relative z-[2]">
+              <div className="font-display font-bold text-[clamp(56px,8vw,96px)] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 max-[1080px]:text-[clamp(52px,7vw,80px)] max-[700px]:text-[64px]">
+                {benefitHeroValue}
+              </div>
+              <div className="text-[15px] leading-[1.5] text-ink font-medium mb-2 max-[700px]:text-[14px]">
+                {benefitHeroLede}
+              </div>
+              <div className="font-mono text-[11px] text-[var(--ink-3)] tracking-[0.04em]">
+                {benefitHeroSource}
+              </div>
             </div>
-            <div className="text-[15px] leading-[1.5] text-ink font-medium mb-2 max-[700px]:text-[14px]">
-              {benefitHeroLede}
-            </div>
-            <div className="font-mono text-[11px] text-[var(--ink-3)] tracking-[0.04em]">
-              {benefitHeroSource}
-            </div>
+            <ul className="list-none flex flex-col gap-3.5 relative z-[2] [&>li]:flex [&>li]:items-center [&>li]:gap-3 [&>li]:text-[15px] [&>li]:text-ink [&>li]:font-medium max-[700px]:[&>li]:text-[14px]">
+              {benefitHeroBullets.map((b, i) => (
+                <li key={i}>
+                  <span className={CHECK_PILL}><CheckIcon /></span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="list-none flex flex-col gap-3.5 relative z-[2] [&>li]:flex [&>li]:items-center [&>li]:gap-3 [&>li]:text-[15px] [&>li]:text-ink [&>li]:font-medium max-[700px]:[&>li]:text-[14px]">
-            {benefitHeroBullets.map((b, i) => (
-              <li key={i}>
-                <span className={CHECK_PILL}><CheckIcon /></span>
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        ) : null}
 
         {/* Benefit rows */}
         {benefitRows.map((row, idx) => {
