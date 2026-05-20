@@ -138,7 +138,7 @@ export function SecondaryFeatureCard({ icon, title, items }: Feature) {
 
 export function FeatureCard({ icon, title, items, bg }: Feature) {
   return (
-    <div className="feature-card relative pt-7 px-[26px] pb-[30px] border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] transition-[border-color,transform] duration-[250ms] flex flex-col gap-[18px] overflow-hidden isolate hover:border-[var(--line-2)] hover:-translate-y-0.5 max-[700px]:pt-[22px] max-[700px]:px-5 max-[700px]:pb-6 max-[700px]:gap-3.5">
+    <div className="feature-card relative pt-7 px-[26px] pb-[30px] border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] flex flex-col gap-[18px] overflow-hidden isolate max-[700px]:pt-[22px] max-[700px]:px-5 max-[700px]:pb-6 max-[700px]:gap-3.5">
       <div
         className="absolute inset-0 -z-[2] bg-cover bg-center [filter:saturate(0.7)]"
         style={{ backgroundImage: `url(${bg})` }}
@@ -358,7 +358,7 @@ export function Services({
           {integrations.map((name, i) => (
             <div
               key={i}
-              className="integration relative h-[52px] border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[11px] tracking-[0.1em] uppercase text-[var(--ink-2)] transition-all duration-[250ms] overflow-hidden hover:border-[oklch(from_var(--accent)_l_c_h_/_0.4)] hover:text-accent-soft hover:-translate-y-px max-[700px]:h-11 max-[700px]:text-[10px] max-[700px]:tracking-[0.06em] [&>span]:relative [&>span]:z-[2]"
+              className="integration relative h-[52px] border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[11px] tracking-[0.1em] uppercase text-[var(--ink-2)] overflow-hidden max-[700px]:h-11 max-[700px]:text-[10px] max-[700px]:tracking-[0.06em] [&>span]:relative [&>span]:z-[2]"
             >
               <span>{name}</span>
             </div>

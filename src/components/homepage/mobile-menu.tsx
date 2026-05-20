@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { Drawer, DrawerContent, DrawerBody } from "@heroui/react";
 import { useDisclosure } from "@heroui/use-disclosure";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronDown, ChevronRight, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { resolveLocaleAlternate } from "@/lib/i18n-routes";
@@ -57,9 +57,9 @@ export function MobileMenu() {
   // Top-level routes — same set as desktop hp-header, kept in lockstep.
   const navLinks = [
     { href: "/about", label: t("about") },
-    // /blog hidden until Sprint 2BC merges real content.
     { href: "/calculator", label: t("calculator") },
     { href: "/portfolio", label: t("work") },
+    { href: "/blog", label: t("blog") },
     { href: "/pricing", label: t("pricing") },
     { href: "/process", label: t("process") },
     { href: isEn ? "/en#contact" : "/contacts", label: t("contact") },
@@ -202,33 +202,46 @@ export function MobileMenu() {
 
                 <div className="hp-drawer-divider" />
 
-                <div
-                  className="hp-drawer-locale hp-drawer-stagger"
+                <details
+                  className="hp-drawer-locale-dd hp-drawer-stagger"
                   style={{ ["--i" as string]: LOCALE_I }}
-                  role="group"
-                  aria-label={tLocale("ariaLabel")}
                 >
-                  <button
-                    type="button"
-                    className={`hp-drawer-locale-btn${ukDisabled ? " is-disabled" : ""}`}
-                    aria-pressed={!isEn}
-                    aria-disabled={ukDisabled || undefined}
-                    disabled={ukDisabled}
-                    onClick={() => switchLocale("uk")}
+                  <summary
+                    className="hp-drawer-locale-trigger"
+                    aria-label={tLocale("ariaLabel")}
                   >
-                    {tLocale("uk")}
-                  </button>
-                  <button
-                    type="button"
-                    className={`hp-drawer-locale-btn${enDisabled ? " is-disabled" : ""}`}
-                    aria-pressed={isEn}
-                    aria-disabled={enDisabled || undefined}
-                    disabled={enDisabled}
-                    onClick={() => switchLocale("en")}
+                    <span>{isEn ? tLocale("en") : tLocale("uk")}</span>
+                    <ChevronDown size={14} strokeWidth={2} aria-hidden />
+                  </summary>
+                  <div
+                    className="hp-drawer-locale-panel"
+                    role="menu"
+                    aria-label={tLocale("ariaLabel")}
                   >
-                    {tLocale("en")}
-                  </button>
-                </div>
+                    <button
+                      type="button"
+                      role="menuitemradio"
+                      aria-checked={!isEn}
+                      aria-disabled={ukDisabled || undefined}
+                      disabled={ukDisabled}
+                      className={`hp-drawer-locale-item${!isEn ? " is-active" : ""}${ukDisabled ? " is-disabled" : ""}`}
+                      onClick={() => switchLocale("uk")}
+                    >
+                      {tLocale("uk")}
+                    </button>
+                    <button
+                      type="button"
+                      role="menuitemradio"
+                      aria-checked={isEn}
+                      aria-disabled={enDisabled || undefined}
+                      disabled={enDisabled}
+                      className={`hp-drawer-locale-item${isEn ? " is-active" : ""}${enDisabled ? " is-disabled" : ""}`}
+                      onClick={() => switchLocale("en")}
+                    >
+                      {tLocale("en")}
+                    </button>
+                  </div>
+                </details>
               </DrawerBody>
 
               <div className="hp-drawer-foot">

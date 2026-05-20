@@ -8,7 +8,7 @@
     "about": "About",
     "blog": "Blog",
     "calculator": "Calculator",
-    "work": "Work",
+    "work": "Cases",
     "pricing": "Pricing",
     "process": "Process",
     "contact": "Contact",
@@ -47,7 +47,7 @@
       "process": "Process",
       "pricing": "Pricing",
       "calculator": "Calculator",
-      "portfolio": "Work",
+      "portfolio": "Cases",
       "blog": "Blog",
       "contacts": "Contact"
     },

@@ -24,21 +24,3 @@
   -webkit-mask: radial-gradient(ellipse 70% 80% at 50% 50%, black, transparent);
 }
 
-.reason::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent), transparent);
-  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.reason:hover::before {
-  width: 100%;
-}
-
-.reason:hover {
-  background: linear-gradient(90deg, oklch(from var(--accent) l c h / 0.04), transparent 60%);
-}

@@ -50,10 +50,6 @@
   gap: 12px;
   transition: border-color 0.2s, transform 0.2s;
 }
-.calc-info-card:hover {
-  border-color: var(--line-2);
-  transform: translateY(-1px);
-}
 .calc-info-icon {
   display: inline-flex;
   align-items: center;

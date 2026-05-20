@@ -139,13 +139,6 @@
     box-shadow 0.2s;
 }
 
-.turnkey-list-cell:hover {
-  transform: translateY(-2px);
-  border-color: oklch(from var(--accent) l c h / 0.45);
-  background: oklch(from var(--accent) l c h / 0.04);
-  box-shadow: 0 6px 22px oklch(from var(--accent) l c h / 0.12);
-}
-
 .turnkey-list-num {
   position: absolute;
   top: 14px;
@@ -167,12 +160,6 @@
   border-radius: 12px;
   background: oklch(from var(--accent) l c h / 0.08);
   color: var(--accent);
-}
-
-.turnkey-list-cell:hover .turnkey-list-icon {
-  background: linear-gradient(135deg, var(--accent-soft), var(--accent));
-  color: oklch(1 0 0 / 0.98);
-  border-color: transparent;
 }
 
 .turnkey-list-text {

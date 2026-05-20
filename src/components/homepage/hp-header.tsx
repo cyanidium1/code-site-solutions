@@ -35,14 +35,12 @@ export function HpHeader() {
   // etc. land on UA pages — the locale switcher in the header is the escape.
   const navLinks = [
     { href: "/about", label: t("about") },
-    // /blog hidden until Sprint 2BC merges real listing + posts. Page
-    // itself still resolves (returns "Скоро" stub) so any external link
-    // doesn't 404.
     { href: "/calculator", label: t("calculator") },
     {
       href: isEn ? "/portfolio" : "/portfolio",
       label: t("work"),
     },
+    { href: "/blog", label: t("blog") },
     { href: "/pricing", label: t("pricing") },
     { href: "/process", label: t("process") },
     {

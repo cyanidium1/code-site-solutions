@@ -163,7 +163,7 @@ export function Reasons({
                   isPrimary
                     ? "row-span-2 p-9 max-[1100px]:row-span-1 max-[1100px]:p-7 max-[640px]:p-5"
                     : "p-7 max-[1100px]:p-6 max-[640px]:p-5"
-                } border border-line rounded-[20px] bg-[oklch(1_0_0_/_0.02)] flex flex-col gap-5 transition-[background,border-color] duration-[400ms] ease-out hover:border-[var(--line-2)] hover:bg-[oklch(1_0_0_/_0.035)]`}
+                } border border-line rounded-[20px] bg-[oklch(1_0_0_/_0.02)] flex flex-col gap-5`}
               >
                 <header className="flex items-start justify-between gap-4">
                   <div

@@ -530,13 +530,13 @@ a.btn-ghost {
   overflow: visible;
 }
 .mockup img {
-  /* Was 230% locked + translateX(-22%) which overflowed past column on
-     ≥1440px viewports. Clamp keeps it 110-160% of the column, no
-     translate — composition stays balanced across all viewports. */
-  width: clamp(110%, 130%, 160%);
-  max-width: 160%;
+  /* >1440 viewport: right column is the narrow 1fr (~190px) after a
+     1000px left column, so percentages must run much higher than the
+     ≤1440 layout below where columns are 1:1 (~606px each). */
+  width: clamp(560%, 660%, 780%);
+  max-width: 780%;
   height: auto;
-  max-height: 160%;
+  max-height: none;
   object-fit: contain;
   object-position: center;
   filter: drop-shadow(0 50px 60px oklch(0 0 0 / 0.55)) drop-shadow(0 20px 30px oklch(0 0 0 / 0.35));
@@ -618,6 +618,12 @@ a.btn-ghost {
   }
   /* .hero-right uses aspect-ratio: 16/10 globally; no fixed-height
      override here either. .mockup img clamp handles width. */
+  .mockup img {
+    /* ≤1440: equal 1:1 columns ≈606px, so the same image needs much
+       lower percentages than the >1440 default (narrow 1fr column). */
+    width: clamp(115%, 135%, 160%);
+    max-width: 160%;
+  }
 
   .h1 { font-size: clamp(40px, 5.6vw, 56px); }
   .h1-accent { gap: 12px; }

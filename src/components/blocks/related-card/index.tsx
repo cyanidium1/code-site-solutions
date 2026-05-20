@@ -34,49 +34,33 @@ export function RelatedCard({
 
   const cover = (
     <div className="hp-case-cover">
-      <div
-        className="hp-case-cover-bg"
-        style={{ background: gradient ?? DEFAULT_GRADIENT }}
-      />
-      <div className="hp-case-cover-dots" />
-      <div
-        className="hp-case-shot"
-        style={
-          coverImage
-            ? { display: "flex", flexDirection: "column" }
-            : undefined
-        }
-      >
-        <div className="hp-case-shot-bar">
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
-        </div>
-        {coverImage ? (
+      {coverImage ? (
+        <img
+          src={coverImage.src}
+          alt={coverImage.alt}
+          className="absolute inset-0 block h-full w-full object-cover object-top"
+        />
+      ) : (
+        <>
           <div
-            className="hp-case-shot-body"
-            style={{
-              flex: 1,
-              minHeight: 0,
-              padding: 0,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <img
-              src={coverImage.src}
-              alt={coverImage.alt}
-              className="absolute inset-0 block h-full w-full object-cover object-top"
-            />
+            className="hp-case-cover-bg"
+            style={{ background: gradient ?? DEFAULT_GRADIENT }}
+          />
+          <div className="hp-case-cover-dots" />
+          <div className="hp-case-shot">
+            <div className="hp-case-shot-bar">
+              <span className="hp-case-shot-dot" />
+              <span className="hp-case-shot-dot" />
+              <span className="hp-case-shot-dot" />
+            </div>
+            <div className="hp-case-shot-body">
+              <div className="hp-case-shot-line s1" />
+              <div className="hp-case-shot-line s2" />
+              <div className="hp-case-shot-line s3" />
+            </div>
           </div>
-        ) : (
-          <div className="hp-case-shot-body">
-            <div className="hp-case-shot-line s1" />
-            <div className="hp-case-shot-line s2" />
-            <div className="hp-case-shot-line s3" />
-          </div>
-        )}
-      </div>
+        </>
+      )}
       {disabled ? (
         <span
           style={{

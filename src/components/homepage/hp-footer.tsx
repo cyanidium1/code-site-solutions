@@ -92,7 +92,7 @@ export function HpFooter({
     { key: "pricing", href: "/pricing" },
     { key: "calculator", href: "/calculator" },
     { key: "portfolio", href: "/portfolio" },
-    // /blog hidden until Sprint 2BC merges real content.
+    { key: "blog", href: "/blog" },
     { key: "contacts", href: isEn ? "/en#contact" : "/#contact" },
   ];
 

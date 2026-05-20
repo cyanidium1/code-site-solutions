@@ -46,19 +46,3 @@
   transition: opacity 0.3s;
 }
 
-.feature-card:hover::after {
-  opacity: 0.85;
-}
-
-.integration::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, oklch(from var(--accent) l c h / 0.0), oklch(from var(--accent) l c h / 0.08));
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-
-.integration:hover::before {
-  opacity: 1;
-}
