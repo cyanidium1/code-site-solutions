@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Manrope, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
@@ -19,6 +20,16 @@ const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
   display: "swap",
   weight: ["400", "500"],
+});
+
+const actay = localFont({
+  src: [
+    { path: "../../public/fonts/ActayWide-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../../public/fonts/ActayWide-BoldItalic.woff2", weight: "700", style: "italic" },
+  ],
+  variable: "--font-actay",
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -56,7 +67,7 @@ export default async function RootLayout({
     <html
       lang={lang}
       suppressHydrationWarning
-      className={`${manrope.variable} ${jetbrains.variable}`}
+      className={`${manrope.variable} ${jetbrains.variable} ${actay.variable}`}
     >
       <body className="font-sans bg-bg text-ink antialiased">
         <NextIntlClientProvider messages={messages}>
