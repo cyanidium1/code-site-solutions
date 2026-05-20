@@ -22,20 +22,19 @@ const DEFAULT_SOCIALS: SocialDef[] = [
   { icon: Github, href: "https://github.com/fedirdev", label: "GitHub" },
 ];
 
-// All 8 industries render in the footer column for visual completeness.
-// Entries with a published Sanity page get a live link; unpublished ones
-// render as disabled labels via `renderSolutionItem` below. Translation
-// keys (`key`) live in `messages/{uk,en}.json` → `Footer.solutions`.
-// When a new industry ships a page, flip its `published` flag.
+// All 8 industries have published Sanity pages and live UA links.
+// EN availability is gated by `EN_INDUSTRY_SLUGS` in `lib/i18n-routes.ts`
+// — industries not yet translated render as disabled on EN.
+// Translation keys (`key`) live in `messages/{uk,en}.json` → `Footer.solutions`.
 const SOLUTIONS_HREFS: Array<{ key: string; href: string; published: boolean }> = [
   { key: "healthcare", href: "/sites-for/medicine", published: true },
   { key: "renovation", href: "/sites-for/renovation", published: true },
-  { key: "legal", href: "/sites-for/legal", published: false },
-  { key: "accounting", href: "/sites-for/accounting", published: false },
-  { key: "ecommerce", href: "/sites-for/ecommerce", published: false },
-  { key: "saas", href: "/sites-for/saas", published: false },
-  { key: "cosmetology", href: "/sites-for/cosmetology", published: false },
-  { key: "education", href: "/sites-for/education", published: false },
+  { key: "legal", href: "/sites-for/legal", published: true },
+  { key: "finance", href: "/sites-for/finance", published: true },
+  { key: "ecommerce", href: "/sites-for/ecommerce", published: true },
+  { key: "auto", href: "/sites-for/auto", published: true },
+  { key: "realEstate", href: "/sites-for/real-estate", published: true },
+  { key: "courses", href: "/sites-for/courses", published: true },
 ];
 
 // Only entries with a shipped page get rendered. Others would 404.

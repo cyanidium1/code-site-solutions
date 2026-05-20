@@ -20,11 +20,11 @@
     "medicine": "Healthcare",
     "renovation": "Construction / Renovation",
     "legal": "Legal & Attorneys",
-    "accounting": "Accounting & Bookkeeping",
+    "finance": "Finance & Accounting",
     "ecommerce": "E-commerce",
-    "saas": "SaaS & Startups",
-    "cosmetology": "Cosmetology",
-    "education": "Education & Courses"
+    "auto": "Auto industry",
+    "realEstate": "Real Estate",
+    "courses": "Courses & Landings"
   },
   "Footer": {
     "brandDesc": "Boutique studio out of Kyiv. Custom-coded websites for businesses — 47 builds across 4 regions: UA · EU · US · DK.",
@@ -36,11 +36,11 @@
       "healthcare": "Healthcare",
       "renovation": "Construction / Renovation",
       "legal": "Legal & Attorneys",
-      "accounting": "Accounting & Bookkeeping",
+      "finance": "Finance & Accounting",
       "ecommerce": "E-commerce",
-      "saas": "SaaS & Startups",
-      "cosmetology": "Cosmetology",
-      "education": "Education & Courses"
+      "auto": "Auto industry",
+      "realEstate": "Real Estate",
+      "courses": "Courses & Landings"
     },
     "company": {
       "about": "About",

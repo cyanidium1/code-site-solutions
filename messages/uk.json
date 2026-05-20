@@ -20,11 +20,11 @@
     "medicine": "Медицина",
     "renovation": "Будівництво / ремонт",
     "legal": "Юристи і адвокати",
-    "accounting": "Бухгалтерія",
+    "finance": "Фінанси і бухгалтерія",
     "ecommerce": "Інтернет-магазини",
-    "saas": "SaaS і стартапи",
-    "cosmetology": "Косметологія",
-    "education": "Освіта і курси"
+    "auto": "Авто-індустрія",
+    "realEstate": "Нерухомість",
+    "courses": "Курси і лендинги"
   },
   "Footer": {
     "brandDesc": "European boutique studio з Києва. Custom-coded сайти для бізнесу — 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.",
@@ -33,14 +33,14 @@
     "compareHeading": "/ COMPARE",
     "legalHeading": "/ LEGAL",
     "solutions": {
-      "healthcare": "Healthcare",
-      "renovation": "Construction / Renovation",
-      "legal": "Legal & Attorneys",
-      "accounting": "Accounting & Bookkeeping",
-      "ecommerce": "E-commerce",
-      "saas": "SaaS & Startups",
-      "cosmetology": "Cosmetology",
-      "education": "Education & Courses"
+      "healthcare": "Медицина",
+      "renovation": "Будівництво / ремонт",
+      "legal": "Юристи і адвокати",
+      "finance": "Фінанси і бухгалтерія",
+      "ecommerce": "Інтернет-магазини",
+      "auto": "Авто-індустрія",
+      "realEstate": "Нерухомість",
+      "courses": "Курси і лендинги"
     },
     "company": {
       "about": "About",
