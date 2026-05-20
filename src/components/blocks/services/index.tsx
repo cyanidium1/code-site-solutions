@@ -282,6 +282,7 @@ export function Services({
     </>
   ),
   integrations = DEFAULT_INTEGRATIONS,
+  testimonialVisualSrc,
 }: Partial<{
   testimonialEyebrow: string;
   testimonialQuote: React.ReactNode;
@@ -294,15 +295,32 @@ export function Services({
   integrationsHeading: React.ReactNode;
   integrationsSub: React.ReactNode;
   integrations: string[];
+  testimonialVisualSrc: string;
 }> = {}) {
+  const hasVisual = Boolean(testimonialVisualSrc);
   return (
     <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className="services-bg absolute inset-0 z-0 pointer-events-none" />
       <div className="relative z-[2] max-w-container mx-auto">
-        <div className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-[72px] items-center pb-[100px] mb-[100px] border-b border-line max-[1100px]:grid-cols-1 max-[1100px]:gap-9 max-[1100px]:pb-[72px] max-[1100px]:mb-[72px] max-[700px]:pb-12 max-[700px]:mb-12 max-[700px]:gap-[26px]">
-          <div className="testimonial-visual relative aspect-[5/4] rounded-[22px] border border-[var(--line-2)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] max-[1100px]:aspect-[16/10] max-[1100px]:max-w-[600px] max-[700px]:rounded-[14px]" />
-          <div className="flex flex-col">
-            <div className="inline-flex self-start items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-[var(--line-2)] rounded-full text-[11px] font-medium tracking-[0.12em] text-[var(--ink-2)] bg-[oklch(1_0_0_/_0.025)] mb-7 max-[700px]:text-[9px] max-[700px]:pl-2.5 max-[700px]:pr-[11px] max-[700px]:py-1.5 max-[700px]:mb-[22px]">
+        <div
+          className={
+            hasVisual
+              ? "grid grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-[72px] items-center pb-[100px] mb-[100px] border-b border-line max-[1100px]:grid-cols-1 max-[1100px]:gap-9 max-[1100px]:pb-[72px] max-[1100px]:mb-[72px] max-[700px]:pb-12 max-[700px]:mb-12 max-[700px]:gap-[26px]"
+              : "max-w-[820px] mx-auto text-center pb-[100px] mb-[100px] border-b border-line max-[1100px]:pb-[72px] max-[1100px]:mb-[72px] max-[700px]:pb-12 max-[700px]:mb-12"
+          }
+        >
+          {hasVisual ? (
+            <div className="testimonial-visual relative aspect-[5/4] rounded-[22px] border border-[var(--line-2)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] max-[1100px]:aspect-[16/10] max-[1100px]:max-w-[600px] max-[700px]:rounded-[14px]">
+              <img
+                src={testimonialVisualSrc}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          ) : null}
+          <div className={hasVisual ? "flex flex-col" : "flex flex-col items-center"}>
+            <div className={`inline-flex ${hasVisual ? "self-start" : ""} items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-[var(--line-2)] rounded-full text-[11px] font-medium tracking-[0.12em] text-[var(--ink-2)] bg-[oklch(1_0_0_/_0.025)] mb-7 max-[700px]:text-[9px] max-[700px]:pl-2.5 max-[700px]:pr-[11px] max-[700px]:py-1.5 max-[700px]:mb-[22px]`}>
               <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]" />
               <span>{testimonialEyebrow}</span>
             </div>
@@ -316,7 +334,7 @@ export function Services({
               <div className="w-11 h-11 rounded-full bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.95)] font-display text-[14px] font-bold tracking-[0.02em] flex items-center justify-center shadow-[0_6px_18px_oklch(from_var(--accent)_l_c_h_/_0.4)] max-[700px]:w-[38px] max-[700px]:h-[38px] max-[700px]:text-[12px]">
                 {testimonialAuthorInitials}
               </div>
-              <div>
+              <div className={hasVisual ? "" : "text-left"}>
                 <div className="font-display font-bold text-[12px] tracking-[0.12em] uppercase text-ink max-[700px]:text-[11px]">
                   {testimonialAuthorName}
                 </div>
