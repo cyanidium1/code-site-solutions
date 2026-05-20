@@ -189,7 +189,7 @@
   background: oklch(0.18 0.005 300);
   border: 1px solid var(--line-2);
   margin-bottom: 24px;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 3 / 2;
 }
 .case-shot-bar {
   position: absolute; top: 0; left: 0; right: 0;
@@ -412,7 +412,7 @@
   .case-h2 { font-size: clamp(30px, 5vw, 44px); }
   .case-lede { font-size: 14px; }
   .case-card { padding: 22px; }
-  .case-shot { aspect-ratio: 16 / 10; }
+  .case-shot { aspect-ratio: 3 / 2; }
   .case-grid::before {
     font-size: 14px; padding: 10px 12px;
   }
@@ -444,7 +444,7 @@
     top: 50%;
   }
   .case-card { padding: 18px; }
-  .case-shot { aspect-ratio: 16 / 10; margin-bottom: 18px; }
+  .case-shot { aspect-ratio: 3 / 2; margin-bottom: 18px; }
   .case-list li { font-size: 13px; }
   .case-list-icn { width: 20px; height: 20px; }
 
