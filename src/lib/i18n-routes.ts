@@ -9,10 +9,18 @@
  *     on EN with valid `/en/sites-for/<slug>` links for translated
  *     industries)
  *
- * When a new industry ships in EN: add its slug here, run the
- * translate script, deploy.
+ * Sprint 3 ships all 8 industries fully bilingual.
  */
-export const EN_INDUSTRY_SLUGS: ReadonlySet<string> = new Set(["medicine"]);
+export const EN_INDUSTRY_SLUGS: ReadonlySet<string> = new Set([
+  "medicine",
+  "renovation",
+  "legal",
+  "finance",
+  "ecommerce",
+  "auto",
+  "real-estate",
+  "courses",
+]);
 
 export function hasEnIndustry(slug: string): boolean {
   return EN_INDUSTRY_SLUGS.has(slug);
