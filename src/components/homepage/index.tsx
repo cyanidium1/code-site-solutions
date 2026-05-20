@@ -6,7 +6,8 @@ import {
   ShoppingCart,
   Rocket,
   Building,
-  Sparkles,
+  Car,
+  Home,
   GraduationCap,
   Gauge,
   Github,
@@ -127,9 +128,7 @@ export type Industry = {
   href: string | null;
 };
 
-// Cards stay in the grid for visual completeness; only those with a
-// published industryPage in Sanity (medicine, renovation) get a live href.
-// The rest render non-clickable until those landing pages ship.
+// All 8 industries have published Sanity pages and live hrefs.
 const DEFAULT_INDUSTRIES: Industry[] = [
   {
     icon: Stethoscope,
@@ -146,7 +145,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Construction / Renovation",
     description: "Сайти для будівельних і ремонтних компаній",
     tags: ["CRM", "Calculator", "Local SEO"],
-    price: "Від $3 000 · 4-8 тижнів",
+    price: "Від $3 500 · 4-8 тижнів",
     href: "/sites-for/renovation",
   },
   {
@@ -155,17 +154,17 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Legal & Attorneys",
     description: "Сайти для юр. фірм, адвокатських бюро, приватних юристів",
     tags: ["Clio", "Diia.Sign", "Online consult"],
-    price: "Від $3 500 · 4-10 тижнів",
-    href: null,
+    price: "Від $3 500 · 4-8 тижнів",
+    href: "/sites-for/legal",
   },
   {
     icon: Calculator,
     color: "#10B981",
-    title: "Accounting & Bookkeeping",
-    description: "Сайти для бух-аутсорсингу, аудиторів, податкових консультантів",
-    tags: ["MEDoc", "iFin", "1С/BAS"],
-    price: "Від $3 500 · 4-10 тижнів",
-    href: null,
+    title: "Фінанси і бухгалтерія",
+    description: "Сайти для бух-фірм, фінансових радників, трейдинг-сервісів",
+    tags: ["MEDoc", "Stripe", "1С/BAS"],
+    price: "Від $3 500 · 4-8 тижнів",
+    href: "/sites-for/finance",
   },
   {
     icon: ShoppingCart,
@@ -174,34 +173,34 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     description: "Інтернет-магазини, маркетплейси, B2B-каталоги",
     tags: ["Stripe", "LiqPay", "Нова Пошта"],
     price: "Від $5 000 · 6-10 тижнів",
-    href: null,
+    href: "/sites-for/ecommerce",
   },
   {
-    icon: Rocket,
+    icon: Car,
     color: "#0070F3",
-    title: "SaaS & Startups",
-    description: "Лендінги для SaaS-продуктів і стартапів",
-    tags: ["Stripe", "Posthog", "HubSpot"],
-    price: "Від $4 000 · 3-6 тижнів",
-    href: null,
+    title: "Авто-індустрія",
+    description: "Сайти для імпорту авто, автодилерів, СТО і сервісних послуг",
+    tags: ["Copart", "PDF-invoice", "Multi-lang"],
+    price: "Від $5 000 · 6-10 тижнів",
+    href: "/sites-for/auto",
   },
   {
-    icon: Sparkles,
+    icon: Home,
     color: "#EC4899",
-    title: "Cosmetology",
-    description: "Сайти для beauty-студій і клінік естетичної медицини",
-    tags: ["YClients", "Booksy", "Booking"],
-    price: "Від $3 000 · 4-8 тижнів",
-    href: null,
+    title: "Нерухомість",
+    description: "Сайти для агенцій нерухомості, забудовників, private listings",
+    tags: ["Multi-lang", "Multi-currency", "Mortgage"],
+    price: "Від $5 000 · 6-10 тижнів",
+    href: "/sites-for/real-estate",
   },
   {
     icon: GraduationCap,
     color: "#14B8A6",
-    title: "Education / Online courses",
-    description: "Сайти для онлайн-курсів, шкіл, репетиторів",
-    tags: ["Stripe", "Teachable", "Zoom"],
-    price: "Від $3 000 · 3-6 тижнів",
-    href: null,
+    title: "Курси і лендинги",
+    description: "Сайти для онлайн-курсів, інфо-продуктів, блогерських воронок",
+    tags: ["Stripe", "Teachable", "A/B"],
+    price: "Від $3 500 · 4-8 тижнів",
+    href: "/sites-for/courses",
   },
 ];
 
