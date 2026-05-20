@@ -1401,6 +1401,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
     <>
       <HpHeader />
 
+      <main>
       <HeroEditorial
         eyebrow={{ label: c.hero.eyebrowLabel }}
         h1Lines={c.hero.h1Lines}
@@ -1916,6 +1917,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       />
 
       <Newsletter />
+      </main>
       <HpFooter />
     </>
   );

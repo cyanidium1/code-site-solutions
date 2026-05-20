@@ -210,7 +210,7 @@ export function FAQ({
       : showAllLabel;
 
   return (
-    <section className="relative py-[var(--section-y)] px-12 bg-bg max-[1100px]:px-8 max-[700px]:px-[18px]">
+    <section className="relative py-[var(--section-y)] px-[var(--gutter-x)] bg-bg">
       <div className="faq-bg absolute inset-0 z-0 pointer-events-none" />
       <div className="relative z-[2] max-w-container mx-auto">
         <h2 className="font-display font-bold text-[clamp(34px,4.4vw,56px)] leading-none tracking-[-0.035em] mb-12 text-ink uppercase max-[700px]:text-[clamp(24px,8vw,34px)] max-[700px]:mb-7">
@@ -302,7 +302,7 @@ export function Audit({
   disclaim: string;
 }> = {}) {
   return (
-    <section className="relative py-[var(--section-y)] px-12 bg-[linear-gradient(180deg,var(--bg)_0%,oklch(0.13_0.02_300)_100%)] overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
+    <section className="relative py-[var(--section-y)] px-[var(--gutter-x)] bg-[linear-gradient(180deg,var(--bg)_0%,oklch(0.13_0.02_300)_100%)] overflow-hidden">
       <div className="audit-bg absolute inset-0 z-0 pointer-events-none" />
       <div className="relative z-[2] max-w-container mx-auto grid grid-cols-[minmax(0,1fr)_minmax(0,460px)] gap-[72px] items-center max-[1100px]:grid-cols-1 max-[1100px]:gap-9">
         <div>

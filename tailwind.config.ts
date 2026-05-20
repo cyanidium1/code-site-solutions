@@ -51,7 +51,6 @@ const config: Config = {
       },
       maxWidth: {
         container: "var(--container-max)",
-        "container-wide": "var(--container-max-wide)",
         "container-h1": "var(--container-h1)",
         "container-narrow": "var(--container-narrow)",
         "container-prose": "var(--container-prose)",

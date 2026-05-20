@@ -21,12 +21,16 @@
   --accent-deep: oklch(0.45 0.2 285);
   --accent-2: oklch(0.45 0.20 285);
 
-  --container-max: 1240px;
-  --container-max-wide: 1440px;
+  --container-max: 1440px;
   --container-h1: 920px;
   --container-narrow: 880px;
   --container-prose: 760px;
   --container-form: 720px;
+
+  /* Horizontal gutter ladder — shared by hero, header, sections, footer.
+     Overrides at each breakpoint below keep all outer wrappers in lockstep
+     so header/hero/section content columns align on every viewport. */
+  --gutter-x: 48px;
 
   /* Section vertical rhythm — media-query-aware via overrides below.
      Dominant rhythm is --section-y (100/56). Newer blocks already use
@@ -41,6 +45,7 @@
   :root {
     --section-y: 80px;
     --section-y-lg: 100px;
+    --gutter-x: 32px;
   }
 }
 
@@ -55,6 +60,13 @@
   :root {
     --section-y: 56px;
     --section-y-lg: 72px;
+    --gutter-x: 24px;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --gutter-x: 18px;
   }
 }
 

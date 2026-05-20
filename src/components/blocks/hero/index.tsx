@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { formatPrice } from "@/lib/formatters/price";
+import "@/components/blocks/buttons/buttons.css";
 import "./hero.css";
 
 export type Feature = { label: string; sub: string };
@@ -14,7 +16,16 @@ export function DeviceMockup({
   return (
     <div className="mockup">
       {src ? (
-        <img src={src} alt={alt} />
+        <Image
+          src={src}
+          alt={alt}
+          width={2000}
+          height={1000}
+          priority
+          fetchPriority="high"
+          sizes="(max-width: 640px) 100vw, (max-width: 1440px) 60vw, 1000px"
+          className="mockup-img"
+        />
       ) : (
         <div className="mockup-placeholder" aria-hidden="true">
           <div className="mockup-placeholder-bar">
@@ -147,7 +158,7 @@ export function HeroEditorial({
       <div className="hero-bg" />
       <div className="hero-grain" />
 
-      <main className="hero">
+      <div className="hero">
         <div className="hero-grid" data-variant={variant}>
           <div className="hero-left">
             <div className="eyebrow">
@@ -290,7 +301,7 @@ export function HeroEditorial({
             </div>
           </div>
         )}
-      </main>
+      </div>
     </>
   );
 }

@@ -196,6 +196,7 @@ export default function HomePage() {
       />
       <HpHeader />
 
+      <main>
       <HeroEditorial
         eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДІЯ" }}
         h1Lines={[
@@ -218,7 +219,7 @@ export default function HomePage() {
         ]}
         ctaPrimaryLabel="Розрахувати вартість"
         ctaPrimaryHref="/calculator"
-        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 год →"
+        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 год"
         ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
         ctaFootnote="Без розмови з sales. Без email-розсилки. Просто аудит."
@@ -287,6 +288,7 @@ export default function HomePage() {
         }
       />
       <Newsletter />
+      </main>
       <HpFooter />
     </>
   );
