@@ -43,10 +43,10 @@ export function PageHero({
         <span className="page-hero-eyebrow inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-[var(--ink-3)] uppercase">
           {eyebrow}
         </span>
-        <h1 className="mt-6 font-display font-bold text-[clamp(36px,4.6vw,60px)] leading-[1.05] tracking-[-0.02em] text-ink max-w-[920px] [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+        <h1 className="mt-6 font-display font-bold text-[clamp(36px,4.6vw,60px)] leading-[1.05] tracking-[-0.02em] text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
           {headline}
         </h1>
-        <p className="mt-6 font-sans text-[17px] leading-[1.55] text-[var(--ink-2)] max-w-[720px] max-[800px]:text-[15px]">
+        <p className="mt-6 font-sans text-[17px] leading-[1.55] text-[var(--ink-2)] max-[800px]:text-[15px]">
           {sub}
         </p>
       </div>

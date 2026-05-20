@@ -212,7 +212,7 @@ export function FAQ({
   return (
     <section className="relative py-[var(--section-y)] px-12 bg-bg max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className="faq-bg absolute inset-0 z-0 pointer-events-none" />
-      <div className="relative z-[2] max-w-container-narrow mx-auto">
+      <div className="relative z-[2] max-w-container mx-auto">
         <h2 className="font-display font-bold text-[clamp(34px,4.4vw,56px)] leading-none tracking-[-0.035em] mb-12 text-ink uppercase max-[700px]:text-[clamp(24px,8vw,34px)] max-[700px]:mb-7">
           {heading}
         </h2>
