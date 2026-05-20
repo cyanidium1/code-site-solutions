@@ -12,15 +12,13 @@
 }
 
 /* ─── Single-column layout ────────────────────────────────────────────────
-   Outer .blog-prose article still sits at the site standard width
-   (1240px) so the article column lines up with section headers and
-   related-card rows, but EVERY child — prose elements AND custom blocks
-   (tldrBox, ctaCallout, blogTable, blogImage) — caps to the same 720px
-   reading measure so widths don't alternate between narrow text and
-   wide callouts.
+   Every direct child of .blog-prose — prose elements AND custom blocks
+   (tldrBox, ctaCallout, blogTable, blogImage) — spans the full article
+   width (1240px / --container-max) so widths don't alternate. No
+   per-element max-width caps.
    ─────────────────────────────────────────────────────────────────────── */
 .blog-prose > * {
-  max-width: 720px;
+  max-width: none;
   margin-left: auto;
   margin-right: auto;
 }
