@@ -72,6 +72,12 @@
     "success": "Done ✓",
     "error": "Couldn't send. Please try again."
   },
+  "LaunchCta": {
+    "heading": "Let's launch a website that works for your business",
+    "sub": "Book a consultation and we'll go through your project: structure, functionality, timeline, and budget. We'll explain what you actually need — and where it's not worth spending money.",
+    "button": "Get in touch",
+    "imageAlt": "Website mockup on a laptop and smartphone"
+  },
   "LocaleSwitcher": {
     "ariaLabel": "Site language",
     "uk": "UK",

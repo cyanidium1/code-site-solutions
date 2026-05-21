@@ -1,0 +1,165 @@
+/* Launch-CTA block — bottom-of-page consultation CTA with overflowing device image.
+   Design source: 1920px wide. Image left edge sits at calc(50% - 40px) of the
+   inner container; section uses overflow: hidden so the image flows off the
+   right edge into the gutter. */
+
+.lcta-section {
+  position: relative;
+  padding: var(--section-y) var(--gutter-x);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.lcta-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  position: relative;
+  min-height: 480px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+.lcta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 570px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.lcta-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.lcta-dots {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.lcta-dot {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: #7c54cd;
+  box-shadow: 0 0 8px rgba(124, 84, 205, 0.6);
+}
+
+.lcta-heading {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.lcta-sub {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 50ch;
+}
+
+.lcta-button {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent-soft) 0%, var(--accent) 100%);
+  color: #fff;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 12px 30px oklch(from var(--accent) l c h / 0.25);
+}
+.lcta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px oklch(from var(--accent) l c h / 0.35);
+}
+.lcta-button:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 3px;
+}
+
+/* Image: positioned absolutely so it can overflow the inner container.
+   Left edge at 50% - 40px of inner container, width grows until it hits the
+   right viewport edge; we cap it with a max-width so it never gets absurd. */
+.lcta-image-wrap {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 40px);
+  transform: translateY(-50%);
+  width: calc(50% + 220px + var(--gutter-x));
+  max-width: 1120px;
+  pointer-events: none;
+}
+.lcta-image-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 1280px) {
+  .lcta-inner {
+    min-height: 420px;
+  }
+  .lcta-image-wrap {
+    left: calc(50% - 24px);
+    width: calc(50% + 24px + var(--gutter-x));
+  }
+}
+
+@media (max-width: 1024px) {
+  .lcta-inner {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: 40px;
+  }
+  .lcta-content {
+    max-width: none;
+  }
+  .lcta-image-wrap {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .lcta-content {
+    gap: 18px;
+  }
+  .lcta-heading {
+    font-size: clamp(26px, 7vw, 36px);
+  }
+  .lcta-sub {
+    font-size: 13.5px;
+  }
+  .lcta-button {
+    padding: 12px 22px;
+    font-size: 13px;
+  }
+}

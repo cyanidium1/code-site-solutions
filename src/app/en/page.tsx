@@ -14,9 +14,6 @@ import {
   DollarSign,
   Shield,
   ArrowRightLeft,
-  Calendar,
-  MessageCircle,
-  Mail,
   FileText,
   Palette,
   Smartphone,
@@ -39,12 +36,11 @@ import {
   Cases,
   Stack,
   PullQuoteSwiper,
-  FinalCta3,
-  Newsletter,
   HpFooter,
   type Industry,
   type BentoCell,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
 import { formatPrice } from "@/lib/formatters/price";
@@ -263,31 +259,6 @@ const EN_TIERS: TierProps[] = [
     },
     ctaLabel: "Talk to us",
     ctaGhost: true,
-  },
-];
-
-const EN_FINAL_CTA = [
-  {
-    icon: Calendar,
-    title: "Book a call",
-    body: "30-min Zoom. We'll show real cases and talk through your project.",
-    cta: "Open Calendly →",
-    href: "https://calendly.com/fedirdev",
-    featured: true,
-  },
-  {
-    icon: Mail,
-    title: "Send a brief",
-    body: "Detailed form. Describe the project — we'll come back within 4 business hours.",
-    cta: "Open form →",
-    href: "/contacts",
-  },
-  {
-    icon: MessageCircle,
-    title: "Telegram",
-    body: "Fast async channel. We usually reply within 30 minutes.",
-    cta: "Write @fedirdev →",
-    href: "https://t.me/fedirdev?text=Hi%2C+I%27d+like+to+discuss+a+project",
   },
 ];
 
@@ -515,17 +486,7 @@ export default function HomePageEn() {
         ]}
       />
 
-      <FinalCta3
-        eyebrow="GET IN TOUCH"
-        heading={
-          <>
-            Ready to <em>discuss your project?</em>
-          </>
-        }
-        sub="Free 30-minute consult. No commitment. We'll know in 15 minutes if we're a fit."
-        cards={EN_FINAL_CTA}
-      />
-      <Newsletter />
+      <LaunchCta locale="en" />
       </main>
       <HpFooter />
     </>

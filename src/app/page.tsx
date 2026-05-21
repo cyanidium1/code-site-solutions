@@ -11,10 +11,9 @@ import {
   Process,
   Cases,
   PullQuoteSwiper,
-  FinalCta3,
-  Newsletter,
   HpFooter,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
 import { formatPrice } from "@/lib/formatters/price";
@@ -280,16 +279,7 @@ export default function HomePage() {
 
       <PullQuoteSwiper locale="uk" />
       <FAQ heading="Найчастіші питання перед стартом" items={HOMEPAGE_FAQ} />
-      <FinalCta3
-        urgency={
-          <>
-            Найближчий старт — <strong>через 2 тижні</strong>. На цей квартал
-            лишилося <strong>2 з 4 слотів</strong>. Відповідаємо на заявку за
-            4 робочі години.
-          </>
-        }
-      />
-      <Newsletter />
+      <LaunchCta locale="uk" />
       </main>
       <HpFooter />
     </>

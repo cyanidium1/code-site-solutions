@@ -18,7 +18,8 @@ import {
   Target,
   type LucideIcon,
 } from "lucide-react";
-import { HpHeader, Newsletter, HpFooter, FinalCta3 } from "@/components/homepage";
+import { HpHeader, HpFooter } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { Tier, type TierProps } from "@/components/blocks/comparison";
@@ -1734,14 +1735,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       />
 
       {/* 11 — Final CTA */}
-      <FinalCta3
-        eyebrow={c.cta.eyebrow}
-        heading={c.cta.heading}
-        sub={c.cta.sub}
-        cards={c.cta.cards}
-      />
-
-      <Newsletter />
+      <LaunchCta locale={locale} />
       </main>
       <HpFooter />
     </>
