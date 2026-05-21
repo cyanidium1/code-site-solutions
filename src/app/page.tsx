@@ -10,7 +10,7 @@ import {
   Bento,
   Process,
   Cases,
-  PullQuote,
+  PullQuoteSwiper,
   FinalCta3,
   Newsletter,
   HpFooter,
@@ -266,17 +266,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <PullQuote
-        quote={
-          <>
-            Перед запуском нового сайту у нас було 3 заявки на місяць. Після
-            запуску — 24 у перший місяць. Команда написала контент,
-            провела QA, запустила. Нам залишилось лише отримати ключі.
-          </>
-        }
-        caseHref="/portfolio/nbyg-kobenhavn"
-        caseLabel="Подивитись повний кейс"
-      />
+      <PullQuoteSwiper locale="uk" />
       <FAQ heading="Найчастіші питання перед стартом" items={HOMEPAGE_FAQ} />
       <FinalCta3
         urgency={

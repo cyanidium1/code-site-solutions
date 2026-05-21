@@ -38,7 +38,7 @@ import {
   Process,
   Cases,
   Stack,
-  PullQuote,
+  PullQuoteSwiper,
   FinalCta3,
   Newsletter,
   HpFooter,
@@ -466,20 +466,7 @@ export default function HomePageEn() {
         ctaHref="/portfolio"
       />
 
-      <PullQuote
-        quote={
-          <>
-            Before launching the new site we had 3 inquiries a month. After
-            launch — 24, in our first month live. The team writes
-            content, runs the QA, and ships. We just got the keys.
-          </>
-        }
-        initials="SH"
-        name="Søren Hansen"
-        role="Owner, NBYG København Aps"
-        caseHref="/en/portfolio/nbyg-kobenhavn"
-        caseLabel="See the full case study"
-      />
+      <PullQuoteSwiper locale="en" />
 
       <section className="hp-section" id="pricing">
         <div className="hp-inner">

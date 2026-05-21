@@ -1,0 +1,40 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SWIPER WRAPPER — shared nav-button styles.
+
+   Themed for the dark/purple palette. The wrapper itself is layout-agnostic;
+   any consumer block (PullQuoteSwiper, future Cases carousel, etc.) can
+   re-position .swiper-nav-row via its own scoped CSS.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.swiper-nav-btn {
+  position: relative;
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: oklch(1 0 0 / 0.04);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.2s, border-color 0.2s, opacity 0.2s, transform 0.2s;
+}
+
+.swiper-nav-btn:hover:not(:disabled) {
+  background: oklch(from var(--accent) l c h / 0.12);
+  border-color: oklch(from var(--accent) l c h / 0.5);
+  transform: translateY(-1px);
+}
+
+.swiper-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.swiper-nav-btn:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
+}
