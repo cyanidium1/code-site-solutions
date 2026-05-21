@@ -8,7 +8,12 @@ import { useDisclosure } from "@heroui/use-disclosure";
 import { ChevronDown, ChevronRight, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { resolveLocaleAlternate } from "@/lib/i18n-routes";
+import {
+  localizePath,
+  resolveLocaleAlternate,
+  resolveServiceHref,
+} from "@/lib/i18n-routes";
+import { HEADER_NAV_LINKS } from "./header-nav";
 import { SERVICE_NAV_LINKS } from "./header-services";
 
 /** Animated 3-line → X morph. Pure CSS via data-open. */
@@ -51,19 +56,17 @@ export function MobileMenu() {
   const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname);
   const ukDisabled = ukHref === null;
   const enDisabled = enHref === null;
-  const ctaHref = isEn ? "/en#contact" : "/contacts";
+  const ctaHref = localizePath("/contacts", isEn);
+  // Intentional discrepancy: "All industries" is an anchor that scrolls to
+  // the Industries grid on the homepage, not a dedicated route. There is no
+  // standalone /services page, so we keep it as a hash. From any non-home
+  // page this triggers a full navigation to home + scroll.
   const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
 
-  // Top-level routes — same set as desktop hp-header, kept in lockstep.
-  const navLinks = [
-    { href: "/about", label: t("about") },
-    { href: "/calculator", label: t("calculator") },
-    { href: "/portfolio", label: t("work") },
-    { href: "/blog", label: t("blog") },
-    { href: "/pricing", label: t("pricing") },
-    { href: "/process", label: t("process") },
-    { href: isEn ? "/en#contact" : "/contacts", label: t("contact") },
-  ];
+  const navLinks = HEADER_NAV_LINKS.map((link) => ({
+    href: localizePath(link.uaHref, isEn),
+    label: t(link.key),
+  }));
 
   const switchLocale = (key: "uk" | "en") => {
     const target = key === "en" ? enHref : ukHref;
@@ -147,7 +150,7 @@ export function MobileMenu() {
                       >
                         {s.published ? (
                           <Link
-                            href={s.href}
+                            href={resolveServiceHref(s.href, isEn)}
                             className="hp-drawer-link"
                             onClick={close}
                           >

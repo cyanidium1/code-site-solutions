@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { hasEnIndustry } from "@/lib/i18n-routes";
+import { localizePath, resolveServiceHref } from "@/lib/i18n-routes";
+import { HEADER_NAV_LINKS } from "./header-nav";
 import { SERVICE_NAV_LINKS } from "./header-services";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
@@ -30,37 +31,18 @@ export function HpHeader() {
 
   const closeDd = () => ddRef.current?.removeAttribute("open");
 
-  // Top-level routes: UA pages until separate EN tickets ship. The Calculator
-  // is already English-language so it works for both. Pricing/Process/About
-  // etc. land on UA pages — the locale switcher in the header is the escape.
-  const navLinks = [
-    { href: "/about", label: t("about") },
-    { href: "/calculator", label: t("calculator") },
-    {
-      href: isEn ? "/portfolio" : "/portfolio",
-      label: t("work"),
-    },
-    { href: "/blog", label: t("blog") },
-    { href: "/pricing", label: t("pricing") },
-    { href: "/process", label: t("process") },
-    {
-      href: isEn ? "/en#contact" : "/contacts",
-      label: t("contact"),
-    },
-  ];
+  const navLinks = HEADER_NAV_LINKS.map((link) => ({
+    href: localizePath(link.uaHref, isEn),
+    label: t(link.key),
+  }));
 
-  const homeHref = isEn ? "/en" : "/";
-  const ctaHref = isEn ? "/en#contact" : "/contacts";
+  const homeHref = localizePath("/", isEn);
+  const ctaHref = localizePath("/contacts", isEn);
+  // Intentional discrepancy: "All industries" is an anchor that scrolls to
+  // the Industries grid on the homepage, not a dedicated route. There is no
+  // standalone /services page, so we keep it as a hash. From any non-home
+  // page this triggers a full navigation to home + scroll.
   const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
-
-  // EN dropdown items resolve to /en/sites-for/<slug> when an EN translation
-  // exists, otherwise to the EN homepage's Solutions anchor. UA always links
-  // to its own /sites-for/<slug>.
-  const resolveServiceHref = (uaHref: string): string => {
-    if (!isEn) return uaHref;
-    const slug = uaHref.replace(/^\/sites-for\//, "");
-    return hasEnIndustry(slug) ? `/en/sites-for/${slug}` : "/en#solutions";
-  };
 
   const servicesActive = SERVICE_NAV_LINKS.filter((s) => s.published).some((s) =>
     isActive(pathname, isEn ? `/en${s.href}` : s.href),
@@ -98,7 +80,7 @@ export function HpHeader() {
                     </span>
                   );
                 }
-                const target = resolveServiceHref(item.href);
+                const target = resolveServiceHref(item.href, isEn);
                 const active = isActive(pathname, target);
                 return (
                   <Link

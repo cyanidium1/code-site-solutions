@@ -55,6 +55,37 @@ export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = new Set([
 ]);
 
 /**
+ * Prefix a UA path with `/en` when the user is on the EN locale.
+ *
+ * Used by the header / mobile drawer to keep all top-level nav links on
+ * the active locale. Pass the bare UA path (e.g. `/about`) and the
+ * caller's `isEn` flag; you get `/en/about` on EN, `/about` on UA.
+ *
+ * `/` → `/en` (the EN homepage lives at `/en`, not `/en/`).
+ */
+export function localizePath(uaPath: string, isEn: boolean): string {
+  if (!isEn) return uaPath;
+  if (uaPath === "/") return "/en";
+  return `/en${uaPath}`;
+}
+
+/**
+ * Resolve a UA service-link href (`/sites-for/<slug>`) to its locale-
+ * appropriate target. On UA we return the path as-is. On EN we return
+ * `/en/sites-for/<slug>` only when an EN industry page exists for the
+ * slug; otherwise we fall back to the EN homepage's Solutions anchor
+ * so the user lands somewhere meaningful instead of a 404.
+ *
+ * Shared by the desktop header dropdown and the mobile drawer so both
+ * apply the same fallback rule.
+ */
+export function resolveServiceHref(uaHref: string, isEn: boolean): string {
+  if (!isEn) return uaHref;
+  const slug = uaHref.replace(/^\/sites-for\//, "");
+  return hasEnIndustry(slug) ? `/en/sites-for/${slug}` : "/en#solutions";
+}
+
+/**
  * UA blog slug → EN blog slug mapping. Sprint 2BC ships EN translations
  * of these 3 articles. Each EN post lives at a natural English URL,
  * not a transliteration of the UA original. The map is small and
