@@ -25,6 +25,7 @@ import {
   Check,
   type LucideIcon,
 } from "lucide-react";
+import "@/components/blocks/buttons/buttons.css";
 import "./homepage.css";
 import { ScrollReveal } from "./scroll-reveal";
 import { fetchCaseStudies } from "@/components/case-page";
@@ -723,9 +724,9 @@ export async function Cases({
             );
           })}
         </div>
-        <Link href={ctaHref} className="hp-link">
-          {ctaLabel}
-          <ArrowRight size={14} strokeWidth={1.8} />
+        <Link href={ctaHref} className="btn-primary hp-section-cta">
+          <span>{ctaLabel}</span>
+          <ArrowRight size={18} strokeWidth={1.8} />
         </Link>
       </div>
     </section>
@@ -837,10 +838,10 @@ export function PullQuote({
             ) : null}
           </div>
           {caseHref ? (
-            <div style={{ marginTop: 24, textAlign: "center" }}>
-              <Link href={caseHref} className="hp-link">
-                {caseLabel ?? "Подивитись повний кейс"}
-                <ArrowUpRight size={14} strokeWidth={1.8} />
+            <div className="hp-pull-cta">
+              <Link href={caseHref} className="btn-primary">
+                <span>{caseLabel ?? "Подивитись повний кейс"}</span>
+                <ArrowUpRight size={18} strokeWidth={1.8} />
               </Link>
             </div>
           ) : null}

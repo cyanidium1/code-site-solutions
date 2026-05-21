@@ -607,6 +607,7 @@ export async function IndustryPageView({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <HpHeader />
+      <main>
       <HeroEditorial
         eyebrow={eyebrowProp}
         h1Lines={
@@ -672,6 +673,7 @@ export async function IndustryPageView({
           slug={page.slug}
         />
       ))}
+      </main>
 
       <ClinicFooter locale={locale === "en" ? "en" : "uk"} />
     </>

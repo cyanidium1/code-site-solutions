@@ -334,6 +334,7 @@ export default function HomePageEn() {
       />
       <HpHeader />
 
+      <main>
       <HeroEditorial
         eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
         h1Lines={[
@@ -356,7 +357,7 @@ export default function HomePageEn() {
         ]}
         ctaPrimaryLabel="Get an estimate"
         ctaPrimaryHref="/en/calculator"
-        ctaSecondaryLabel="Free site audit within 24 hours →"
+        ctaSecondaryLabel="Free site audit within 24 hours"
         ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
         ctaFootnote="No sales call. No email list. Just an audit."
@@ -449,7 +450,7 @@ export default function HomePageEn() {
           { n: "04", name: "Testing", duration: "1 week", body: "60-point QA checklist" },
           { n: "05", name: "Launch + Support", duration: "+ 1 year", body: "Support included" },
         ]}
-        ctaLabel="See the full process →"
+        ctaLabel="See the full process"
         ctaHref="/process"
       />
 
@@ -461,7 +462,7 @@ export default function HomePageEn() {
           </>
         }
         locale="en"
-        ctaLabel="See all work →"
+        ctaLabel="See all work"
         ctaHref="/portfolio"
       />
 
@@ -535,6 +536,7 @@ export default function HomePageEn() {
         cards={EN_FINAL_CTA}
       />
       <Newsletter />
+      </main>
       <HpFooter />
     </>
   );

@@ -1297,6 +1297,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
     <>
       <HpHeader />
 
+      <main>
       <HeroEditorial
         eyebrow={{ label: c.hero.eyebrowLabel }}
         h1Lines={c.hero.h1Lines}
@@ -1741,6 +1742,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       />
 
       <Newsletter />
+      </main>
       <HpFooter />
     </>
   );

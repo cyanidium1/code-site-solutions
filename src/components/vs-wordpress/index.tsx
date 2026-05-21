@@ -1278,6 +1278,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
     <>
       <HpHeader />
 
+      <main>
       <HeroEditorial
         eyebrow={{ label: c.hero.eyebrowLabel }}
         h1Lines={c.hero.h1Lines}
@@ -1698,6 +1699,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       />
 
       <Newsletter />
+      </main>
       <HpFooter />
     </>
   );

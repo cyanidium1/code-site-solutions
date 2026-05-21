@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Rocket } from "lucide-react";
+import "@/components/blocks/buttons/buttons.css";
 
 type ProcessStep = {
   n: string;
@@ -99,9 +100,9 @@ export function Process({
             ))}
           </ol>
         </div>
-        <Link href={ctaHref} className="hp-link">
-          {ctaLabel}
-          <ArrowRight size={14} strokeWidth={1.8} />
+        <Link href={ctaHref} className="btn-primary hp-section-cta">
+          <span>{ctaLabel}</span>
+          <ArrowRight size={18} strokeWidth={1.8} />
         </Link>
       </div>
     </section>

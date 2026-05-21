@@ -1,20 +1,8 @@
 .turnkey-list {
   position: relative;
-  padding: var(--section-y-tight) 48px;
+  padding: var(--section-y-tight) var(--gutter-x);
   background: var(--bg);
   overflow: hidden;
-}
-
-@media (max-width: 1100px) {
-  .turnkey-list {
-    padding: var(--section-y-tight) 32px;
-  }
-}
-
-@media (max-width: 700px) {
-  .turnkey-list {
-    padding: var(--section-y-tight) 18px;
-  }
 }
 
 .turnkey-list-bg {

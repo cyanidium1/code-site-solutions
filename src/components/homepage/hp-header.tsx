@@ -72,6 +72,7 @@ export function HpHeader() {
         <Link href={homeHref} className="hp-header-brand" onClick={closeDd}>
           <em>Code-Site</em>.art
         </Link>
+        <div className="hp-header-end">
         <nav className="hp-header-nav" aria-label={t("menuLabel")}>
           <details ref={ddRef} className="hp-nav-dd">
             <summary
@@ -135,6 +136,7 @@ export function HpHeader() {
         <Link href={ctaHref} className="hp-header-cta" onClick={closeDd}>
           {t("cta")}
         </Link>
+        </div>
         <MobileMenu />
       </div>
     </header>
