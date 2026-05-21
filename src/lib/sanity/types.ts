@@ -328,6 +328,26 @@ export type TestimonialSection = BlockBase<"testimonialBlock"> & {
   authorAvatar?: SanityImage | null;
 };
 
+/**
+ * Standalone testimonial document — used by the homepage PullQuoteSwiper.
+ * Filtered to `featured == true` for the homepage; the wider collection
+ * can be reused by other pages later.
+ */
+export type Testimonial = {
+  _id: string;
+  authorName?: string;
+  authorRole?: LocalizedString;
+  authorInitials?: string;
+  linkedinUrl?: string;
+  quote?: LocalizedText;
+  mockupLeft?: SanityImage | null;
+  mockupRight?: SanityImage | null;
+  caseRef?: { slug?: string } | null;
+  caseLabel?: LocalizedString;
+  featured?: boolean;
+  order?: number;
+};
+
 export type IndustrySection =
   | ImageTextSection
   | StatsSection

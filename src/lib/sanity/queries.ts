@@ -417,3 +417,28 @@ export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
   "relatedPosts": relatedPosts[]->${BLOG_POST_REF}
 }
 `;
+
+/* ─── Testimonials ───────────────────────────────────────────────────────── */
+
+/**
+ * Homepage testimonial slider feed. Filters to `featured == true` so the
+ * studio can park draft / non-public testimonials in the same collection
+ * without exposing them on the homepage. Sort: explicit `order` then
+ * most-recent first.
+ */
+export const HOMEPAGE_TESTIMONIALS_QUERY = /* groq */ `
+*[_type == "testimonial" && featured == true]{
+  _id,
+  authorName,
+  authorRole ${LOCALIZED_STRING},
+  authorInitials,
+  linkedinUrl,
+  quote ${LOCALIZED_TEXT},
+  "mockupLeft": mockupLeft ${IMAGE_WITH_ALT},
+  "mockupRight": mockupRight ${IMAGE_WITH_ALT},
+  "caseRef": caseRef->{ "slug": slug.current },
+  caseLabel ${LOCALIZED_STRING},
+  featured,
+  order
+} | order(order asc, _createdAt desc)
+`;
