@@ -34,7 +34,8 @@ import { loc } from "@/lib/sanity/locale";
 import { presentationForCase } from "@/lib/case-presentation";
 import { hasEnCase } from "@/lib/i18n-routes";
 import type { CaseStudyRef, Locale } from "@/lib/sanity/types";
-import { formatPrice } from "@/lib/formatters/price";
+import { formatPrice, type PriceLocale } from "@/lib/formatters/price";
+import { TIER_AMOUNTS, TIER_NAMES, TIER_ORDER } from "@/lib/pricing/tiers";
 
 export { HpHeader } from "./hp-header";
 
@@ -173,7 +174,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "E-commerce",
     description: "Інтернет-магазини, маркетплейси, B2B-каталоги",
     tags: ["Stripe", "LiqPay", "Нова Пошта"],
-    price: "Від $5 000 · 6-10 тижнів",
+    price: "Від $3 000 · 6-10 тижнів",
     href: "/sites-for/ecommerce",
   },
   {
@@ -182,7 +183,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Авто-індустрія",
     description: "Сайти для імпорту авто, автодилерів, СТО і сервісних послуг",
     tags: ["Copart", "PDF-invoice", "Multi-lang"],
-    price: "Від $5 000 · 6-10 тижнів",
+    price: "Від $3 000 · 6-10 тижнів",
     href: "/sites-for/auto",
   },
   {
@@ -191,7 +192,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Нерухомість",
     description: "Сайти для агенцій нерухомості, забудовників, private listings",
     tags: ["Multi-lang", "Multi-currency", "Mortgage"],
-    price: "Від $5 000 · 6-10 тижнів",
+    price: "Від $4 000 · 6-10 тижнів",
     href: "/sites-for/real-estate",
   },
   {
@@ -200,7 +201,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Курси і лендинги",
     description: "Сайти для онлайн-курсів, інфо-продуктів, блогерських воронок",
     tags: ["Stripe", "Teachable", "A/B"],
-    price: "Від $3 500 · 4-8 тижнів",
+    price: "Від $800 · 4-8 тижнів",
     href: "/sites-for/courses",
   },
 ];
@@ -337,8 +338,10 @@ function MigrationVisual() {
   );
 }
 
-function StackVisual() {
-  const layers = ["Тексти", "Дизайн", "Код", "SEO + хостинг"];
+function StackVisual({ locale }: { locale: PriceLocale }) {
+  const layers = locale === "en"
+    ? ["Copy", "Design", "Code", "SEO + hosting"]
+    : ["Тексти", "Дизайн", "Код", "SEO + хостинг"];
   return (
     <div className="hp-bento-vis hp-bento-stack" aria-hidden="true">
       {layers.map((l) => (
@@ -376,13 +379,20 @@ function CommitLogVisual() {
   );
 }
 
-function WeeksProgressVisual() {
-  const steps = [
-    { name: "Бриф", wk: "тижд. 1" },
-    { name: "Дизайн", wk: "тижд. 2" },
-    { name: "Розробка", wk: "тижд. 3" },
-    { name: "Запуск", wk: "тижд. 4", target: true },
-  ];
+function WeeksProgressVisual({ locale }: { locale: PriceLocale }) {
+  const steps = locale === "en"
+    ? [
+        { name: "Brief", wk: "wk 1" },
+        { name: "Design", wk: "wk 2" },
+        { name: "Build", wk: "wk 3" },
+        { name: "Launch", wk: "wk 4", target: true },
+      ]
+    : [
+        { name: "Бриф", wk: "тижд. 1" },
+        { name: "Дизайн", wk: "тижд. 2" },
+        { name: "Розробка", wk: "тижд. 3" },
+        { name: "Запуск", wk: "тижд. 4", target: true },
+      ];
   return (
     <div className="hp-bento-vis hp-bento-weeks" aria-hidden="true">
       {steps.map((s) => (
@@ -402,14 +412,14 @@ function WeeksProgressVisual() {
   );
 }
 
-function PriceTableVisual() {
+function PriceTableVisual({ locale }: { locale: PriceLocale }) {
   // Trailing "+" is a "starting from" shorthand in this Bento visual.
   // formatPrice handles the locale-aware number; we append the suffix.
-  const rows = [
-    { name: "Landing", price: `${formatPrice(1000, { locale: "en" })}+` },
-    { name: "Industry", price: `${formatPrice(3500, { locale: "en" })}+`, accent: true },
-    { name: "Custom", price: `${formatPrice(14000, { locale: "en" })}+` },
-  ];
+  const rows = TIER_ORDER.map((key) => ({
+    name: TIER_NAMES[key][locale],
+    price: `${formatPrice(TIER_AMOUNTS[key], { locale })}+`,
+    accent: key === "corporate",
+  }));
   return (
     <div className="hp-bento-vis hp-bento-price" aria-hidden="true">
       {rows.map((r) => (
@@ -427,12 +437,19 @@ function PriceTableVisual() {
   );
 }
 
-function WarrantyTimelineVisual() {
-  const points = [
-    { label: "Старт" },
-    { label: "Запуск", mid: true },
-    { label: "+1 рік", end: true },
-  ];
+function WarrantyTimelineVisual({ locale }: { locale: PriceLocale }) {
+  const points = locale === "en"
+    ? [
+        { label: "Start" },
+        { label: "Launch", mid: true },
+        { label: "+1 year", end: true },
+      ]
+    : [
+        { label: "Старт" },
+        { label: "Запуск", mid: true },
+        { label: "+1 рік", end: true },
+      ];
+  const footL = locale === "en" ? "Missed deadline" : "Зрив дедлайну";
   return (
     <div className="hp-bento-vis hp-bento-tl" aria-hidden="true">
       <div className="hp-bento-tl-track">
@@ -449,7 +466,7 @@ function WarrantyTimelineVisual() {
         </div>
       </div>
       <div className="hp-bento-tl-foot">
-        <span className="hp-bento-tl-foot-l">Зрив дедлайну</span>
+        <span className="hp-bento-tl-foot-l">{footL}</span>
         <span className="hp-bento-tl-foot-arrow">→</span>
         <span className="hp-bento-tl-foot-r">−30%</span>
       </div>
@@ -457,7 +474,8 @@ function WarrantyTimelineVisual() {
   );
 }
 
-function SupportTimerVisual() {
+function SupportTimerVisual({ locale }: { locale: PriceLocale }) {
+  const sub = locale === "en" ? "business-hour SLA" : "робочих годин SLA";
   return (
     <div className="hp-bento-vis hp-bento-timer" aria-hidden="true">
       <div className="hp-bento-timer-row">
@@ -467,7 +485,7 @@ function SupportTimerVisual() {
         <span className="hp-bento-timer-sep">:</span>
         <span className="hp-bento-timer-seg">00</span>
       </div>
-      <div className="hp-bento-timer-sub">робочих годин SLA</div>
+      <div className="hp-bento-timer-sub">{sub}</div>
     </div>
   );
 }
@@ -482,7 +500,13 @@ type BentoVisualKind =
   | "support"
   | "stack";
 
-function BentoVisual({ kind }: { kind: BentoVisualKind }) {
+function BentoVisual({
+  kind,
+  locale,
+}: {
+  kind: BentoVisualKind;
+  locale: PriceLocale;
+}) {
   switch (kind) {
     case "lh":
       return <LighthouseVisual />;
@@ -491,15 +515,15 @@ function BentoVisual({ kind }: { kind: BentoVisualKind }) {
     case "commits":
       return <CommitLogVisual />;
     case "weeks":
-      return <WeeksProgressVisual />;
+      return <WeeksProgressVisual locale={locale} />;
     case "price":
-      return <PriceTableVisual />;
+      return <PriceTableVisual locale={locale} />;
     case "warranty":
-      return <WarrantyTimelineVisual />;
+      return <WarrantyTimelineVisual locale={locale} />;
     case "support":
-      return <SupportTimerVisual />;
+      return <SupportTimerVisual locale={locale} />;
     case "stack":
-      return <StackVisual />;
+      return <StackVisual locale={locale} />;
     default:
       return null;
   }
@@ -589,10 +613,12 @@ export function Bento({
     </>
   ),
   cells = DEFAULT_BENTO,
+  locale = "uk",
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
   cells?: BentoCell[];
+  locale?: PriceLocale;
 } = {}) {
   return (
     <section className="hp-section" id="why-us">
@@ -615,7 +641,7 @@ export function Bento({
                 </div>
                 <h3 className="hp-bento-title">{c.title}</h3>
                 <div className="hp-bento-body">{typeof c.body === "string" ? <p>{c.body}</p> : c.body}</div>
-                {c.visual ? <BentoVisual kind={c.visual} /> : null}
+                {c.visual ? <BentoVisual kind={c.visual} locale={locale} /> : null}
               </div>
             );
           })}

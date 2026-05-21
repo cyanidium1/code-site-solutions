@@ -18,12 +18,13 @@ import {
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
 import { formatPrice } from "@/lib/formatters/price";
+import { TIER_AMOUNTS, TIER_NAMES, TIER_WEEKS } from "@/lib/pricing/tiers";
 
 const HOMEPAGE_TIERS: TierProps[] = [
   {
-    name: "Landing",
-    price: formatPrice(1000, { locale: "uk" }),
-    weeks: "1-2 тижні",
+    name: TIER_NAMES.landing.uk,
+    price: formatPrice(TIER_AMOUNTS.landing, { locale: "uk" }),
+    weeks: TIER_WEEKS.landing.uk,
     bestFor:
       "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
     includes: {
@@ -35,18 +36,18 @@ const HOMEPAGE_TIERS: TierProps[] = [
         "Гарантія 1 рік",
       ],
     },
-    ctaLabel: "Choose Starter",
+    ctaLabel: "Обрати Лендінг",
   },
   {
     popular: true,
     popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
-    name: "Industry Pro",
-    price: formatPrice(3500, { locale: "uk" }),
-    weeks: "4-8 тижнів",
+    name: TIER_NAMES.corporate.uk,
+    price: formatPrice(TIER_AMOUNTS.corporate, { locale: "uk" }),
+    weeks: TIER_WEEKS.corporate.uk,
     bestFor:
       "Бізнесу з compliance вимогами (медицина, право, бухгалтерія), що потребує галузевих інтеграцій.",
     includes: {
-      heading: "Все з Landing +",
+      heading: "Все з Лендінгу +",
       items: [
         "CMS, блог",
         "5+ інтеграцій",
@@ -55,16 +56,16 @@ const HOMEPAGE_TIERS: TierProps[] = [
         "UA + RU",
       ],
     },
-    ctaLabel: "Choose Industry Pro",
+    ctaLabel: "Обрати Корпоративний",
   },
   {
-    name: "Custom",
-    price: formatPrice(14000, { locale: "uk" }),
-    weeks: "8-16 тижнів",
+    name: TIER_NAMES.custom.uk,
+    price: formatPrice(TIER_AMOUNTS.custom, { locale: "uk" }),
+    weeks: TIER_WEEKS.custom.uk,
     bestFor:
       "Складним продуктам із власною логікою — SaaS, маркетплейс, B2B-портал.",
     includes: {
-      heading: "Все з Industry Pro +",
+      heading: "Все з Корпоративного +",
       items: [
         "Архітектурна сесія",
         "Dedicated team",
@@ -72,7 +73,7 @@ const HOMEPAGE_TIERS: TierProps[] = [
         "Custom integrations",
       ],
     },
-    ctaLabel: "Talk to us",
+    ctaLabel: "Зв'язатися",
     ctaGhost: true,
   },
 ];
@@ -81,12 +82,18 @@ const HOMEPAGE_FAQ: FAQItem[] = [
   {
     q: "Скільки коштує мій сайт?",
     a: [
-      "Залежить від типу. Лендінг — від ",
-      { em: formatPrice(1000, { locale: "uk" }) },
-      ". Сайт під індустрію (медицина, юристи, бухгалтерія, нерухомість і т.д.) — від ",
-      { em: formatPrice(3500, { locale: "uk" }) },
-      ". Custom-проєкти з нестандартною архітектурою — від ",
-      { em: formatPrice(14000, { locale: "uk" }) },
+      "Залежить від типу. ",
+      { em: TIER_NAMES.landing.uk },
+      " — від ",
+      { em: formatPrice(TIER_AMOUNTS.landing, { locale: "uk" }) },
+      ". ",
+      { em: TIER_NAMES.corporate.uk },
+      " (медицина, юристи, бухгалтерія, нерухомість і т.д.) — від ",
+      { em: formatPrice(TIER_AMOUNTS.corporate, { locale: "uk" }) },
+      ". ",
+      { em: TIER_NAMES.custom.uk },
+      " з нестандартною архітектурою — від ",
+      { em: formatPrice(TIER_AMOUNTS.custom, { locale: "uk" }) },
       ". Точна цифра — у ",
       { link: { href: "/calculator", text: "калькуляторі" } },
       " або після 30-хв розмови.",
@@ -95,12 +102,17 @@ const HOMEPAGE_FAQ: FAQItem[] = [
   {
     q: "Скільки часу від брифу до запуску?",
     a: [
-      "Лендінг — ",
-      { em: "1-2 тижні" },
-      ". Industry-сайт — ",
-      { em: "4-8 тижнів" },
-      ". Custom — ",
-      { em: "8-16 тижнів" },
+      { em: TIER_NAMES.landing.uk },
+      " — ",
+      { em: TIER_WEEKS.landing.uk },
+      ". ",
+      { em: TIER_NAMES.corporate.uk },
+      " — ",
+      { em: TIER_WEEKS.corporate.uk },
+      ". ",
+      { em: TIER_NAMES.custom.uk },
+      " — ",
+      { em: TIER_WEEKS.custom.uk },
       ". Це з усіма правками, контентом і SEO. Без сюрпризів — фіксована дата в договорі.",
     ],
   },
@@ -139,7 +151,7 @@ const HOMEPAGE_FAQ: FAQItem[] = [
     a: [
       "Так. Архітектура, яку ми пишемо, ",
       { em: "масштабується" },
-      ". Стартуєте з Landing — через рік додаємо CMS, блог, додаткові індустрії — без переписування з нуля.",
+      ". Стартуєте з Лендінгу — через рік додаємо CMS, блог, додаткові індустрії — без переписування з нуля.",
     ],
   },
   {
@@ -236,7 +248,7 @@ export default function HomePage() {
           { kind: "default", primary: "TypeScript", mini: "5.7" },
           { kind: "good", primary: "Lighthouse", mini: "98" },
         ]}
-        deviceMockupSrc="/raw-design/assets/hero-devices.webp"
+        deviceMockupSrc="/hero/hero-mockup.webp"
       />
 
       <TurnkeyList />
@@ -254,7 +266,7 @@ export default function HomePage() {
               <span>ЦІНИ</span>
             </div>
             <h2 className="hp-h2">
-              Прозорий прайс — від <em>$1 000</em> до <em>$14 000+</em>
+              Прозорий прайс — від <em>$800</em> до <em>$6 000+</em>
             </h2>
             <p className="hp-sub">Без «під запит». Без прихованих платежів.</p>
           </div>

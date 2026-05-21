@@ -48,6 +48,7 @@ import {
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
 import { formatPrice } from "@/lib/formatters/price";
+import { TIER_AMOUNTS, TIER_NAMES, TIER_WEEKS } from "@/lib/pricing/tiers";
 
 export const metadata: Metadata = {
   title:
@@ -117,7 +118,7 @@ const EN_INDUSTRIES: Industry[] = [
     title: "E-commerce",
     description: "Online stores, marketplaces, B2B catalogs",
     tags: ["Stripe", "LiqPay", "Nova Poshta"],
-    price: "From $5,000 · 6–10 weeks",
+    price: "From $3,000 · 6–10 weeks",
     href: "/en/sites-for/ecommerce",
   },
   {
@@ -127,7 +128,7 @@ const EN_INDUSTRIES: Industry[] = [
     description:
       "Sites for car importers, auto dealers, repair shops, auto services",
     tags: ["Copart", "PDF-invoice", "Multi-lang"],
-    price: "From $5,000 · 6–10 weeks",
+    price: "From $3,000 · 6–10 weeks",
     href: "/en/sites-for/auto",
   },
   {
@@ -137,7 +138,7 @@ const EN_INDUSTRIES: Industry[] = [
     description:
       "Sites for real estate agencies, developers, private listings",
     tags: ["Multi-lang", "Multi-currency", "Mortgage"],
-    price: "From $5,000 · 6–10 weeks",
+    price: "From $4,000 · 6–10 weeks",
     href: "/en/sites-for/real-estate",
   },
   {
@@ -146,7 +147,7 @@ const EN_INDUSTRIES: Industry[] = [
     title: "Courses & Landings",
     description: "Sites for online courses, info-products, creator funnels",
     tags: ["Stripe", "Teachable", "A/B"],
-    price: "From $3,500 · 4–8 weeks",
+    price: "From $800 · 4–8 weeks",
     href: "/en/sites-for/courses",
   },
 ];
@@ -204,10 +205,10 @@ const EN_BENTO: BentoCell[] = [
 
 const EN_TIERS: TierProps[] = [
   {
-    name: "Landing",
-    price: formatPrice(1000, { locale: "en" }),
+    name: TIER_NAMES.landing.en,
+    price: formatPrice(TIER_AMOUNTS.landing, { locale: "en" }),
     priceLabel: "from",
-    weeks: "1–2 weeks",
+    weeks: TIER_WEEKS.landing.en,
     bestFor: "Fast launch of one offer, MVP, hypothesis testing.",
     bestForLabel: "Best for:",
     includes: {
@@ -219,15 +220,15 @@ const EN_TIERS: TierProps[] = [
         "1-year warranty",
       ],
     },
-    ctaLabel: "Choose Starter",
+    ctaLabel: "Choose Landing",
   },
   {
     popular: true,
     popularLabel: "★ MOST POPULAR",
-    name: "Industry Pro",
-    price: formatPrice(3500, { locale: "en" }),
+    name: TIER_NAMES.corporate.en,
+    price: formatPrice(TIER_AMOUNTS.corporate, { locale: "en" }),
     priceLabel: "from",
-    weeks: "4–8 weeks",
+    weeks: TIER_WEEKS.corporate.en,
     bestFor:
       "Businesses with compliance needs (healthcare, legal, accounting) that need industry-specific integrations.",
     bestForLabel: "Best for:",
@@ -241,18 +242,18 @@ const EN_TIERS: TierProps[] = [
         "EN + 1 extra language",
       ],
     },
-    ctaLabel: "Choose Industry Pro",
+    ctaLabel: "Choose Corporate",
   },
   {
-    name: "Custom",
-    price: formatPrice(14000, { locale: "en" }),
+    name: TIER_NAMES.custom.en,
+    price: formatPrice(TIER_AMOUNTS.custom, { locale: "en" }),
     priceLabel: "from",
-    weeks: "8–16 weeks",
+    weeks: TIER_WEEKS.custom.en,
     bestFor:
       "Complex products with bespoke logic — SaaS, marketplace, B2B portal.",
     bestForLabel: "Best for:",
     includes: {
-      heading: "Everything in Industry Pro, plus",
+      heading: "Everything in Corporate, plus",
       items: [
         "Architectural session",
         "Dedicated team",
@@ -374,7 +375,7 @@ export default function HomePageEn() {
           { kind: "default", primary: "TypeScript", mini: "5.7" },
           { kind: "good", primary: "Lighthouse", mini: "98" },
         ]}
-        deviceMockupSrc="/raw-design/assets/hero-devices.webp"
+        deviceMockupSrc="/hero/hero-mockup.webp"
       />
 
       <Marquee label="47+ BUSINESSES TRUSTED · UA · EU · US · DK" />
@@ -434,6 +435,7 @@ export default function HomePageEn() {
           </>
         }
         cells={EN_BENTO}
+        locale="en"
       />
 
       <Process
@@ -476,7 +478,7 @@ export default function HomePageEn() {
               <span>PRICING</span>
             </div>
             <h2 className="hp-h2">
-              Transparent pricing — from <em>$1,000</em> to <em>$14,000+</em>
+              Transparent pricing — from <em>$800</em> to <em>$6,000+</em>
             </h2>
             <p className="hp-sub">
               No &ldquo;request a quote.&rdquo; No hidden fees.
