@@ -339,7 +339,8 @@ export default function HomePageEn() {
       <HeroEditorial
         eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
         h1Lines={[
-          <>Your site books meetings</>,
+          <>Your site books</>,
+          <>meetings</>,
           <em key="hero-em">while you sleep.</em>,
         ]}
         lede={
