@@ -26,5 +26,5 @@
     "**/*.d.ts",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "raw_design", "_legacy"]
+  "exclude": ["node_modules", "raw_design", "_legacy", "docs", "example"]
 }
