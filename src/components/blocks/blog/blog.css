@@ -32,7 +32,6 @@
   margin-bottom: 20px;
 }
 .blog-prose .blog-h2 {
-  font-family: 'Manrope', sans-serif;
   font-weight: 700;
   color: var(--ink);
   font-size: clamp(26px, 3vw, 34px);
@@ -42,7 +41,6 @@
   margin-bottom: 16px;
 }
 .blog-prose .blog-h3 {
-  font-family: 'Manrope', sans-serif;
   font-weight: 600;
   color: var(--ink);
   font-size: clamp(20px, 2.2vw, 24px);

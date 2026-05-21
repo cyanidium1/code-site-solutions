@@ -80,6 +80,42 @@ body {
   color: var(--ink);
 }
 
+/* h1–h3 and shared heading classes — Actay Wide (--font-actay in layout.tsx) */
+h1,
+h2,
+h3,
+.h1,
+.hp-h2,
+.case-h2,
+.turnkey-list-h2,
+.turnkey-list-title,
+.contact-split-heading,
+.hp-case-name,
+.blog-prose .blog-h2,
+.blog-prose .blog-h3,
+.calc-info-card h3,
+.calc-manual-intro h3,
+.calc-summary-h3,
+.calc-after-title,
+.calc-lead h3,
+.calc-group > h3,
+h1.font-display,
+h2.font-display,
+h3.font-display {
+  font-family: var(--font-actay), system-ui, sans-serif;
+}
+
+h1 em,
+h2 em,
+h3 em,
+.h1 em,
+.hp-h2 em,
+.case-h2 em,
+.turnkey-list-h2 em,
+.contact-split-heading em {
+  font-family: inherit;
+}
+
 body {
   font-feature-settings: "ss01", "cv01", "cv11";
   -webkit-font-smoothing: antialiased;

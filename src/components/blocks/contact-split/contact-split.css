@@ -100,7 +100,6 @@
 }
 
 .contact-split-heading {
-  font-family: "Manrope", sans-serif;
   font-weight: 700;
   font-size: clamp(28px, 3.2vw, 36px);
   line-height: 1.05;

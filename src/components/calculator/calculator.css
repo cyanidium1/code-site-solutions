@@ -62,7 +62,6 @@
 }
 .calc-info-card h3 {
   margin: 0;
-  font-family: 'Manrope', sans-serif;
   font-size: 17px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -118,7 +117,6 @@
 }
 .calc-manual-intro h3 {
   margin: 0;
-  font-family: 'Manrope', sans-serif;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -143,7 +141,6 @@
   list-style: none;
   margin: 0;
   padding: 16px 20px;
-  font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -506,7 +503,6 @@
 }
 .calc-summary-h3 {
   margin: 0 0 12px;
-  font-family: 'Manrope', sans-serif;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -1006,7 +1002,6 @@
 }
 .calc-after-title {
   margin: 0;
-  font-family: 'Manrope', sans-serif;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -1459,7 +1454,6 @@
 }
 .calc-lead h3 {
   margin: 0;
-  font-family: 'Manrope', sans-serif;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.01em;
