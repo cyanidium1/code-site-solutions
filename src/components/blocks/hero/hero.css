@@ -441,13 +441,14 @@
   box-shadow: 0 4px 16px oklch(0 0 0 / 0.4);
   animation: float 6s ease-in-out infinite;
 }
-/* Pills annotate the laptop in the new hero mockup. The image now
-   bleeds right (130% width + translateX 8%), so the laptop's centre
-   lands roughly 55-65% across the column. Pill 1 sits above the
-   laptop's top edge; pill 2 floats to its right; pill 3 drops below. */
-.device-tag-1 { top: 14%; left: 32%;  animation-delay: 0s; }
-.device-tag-2 { top: 22%; right: 4%;  animation-delay: -2s; }
-.device-tag-3 { bottom: 22%; right: 10%; animation-delay: -4s; }
+/* Pills annotate the laptop in the new hero mockup. The image is now
+   sized at clamp(420px, 50vw, 1000px) and shifted -10% — so at 1920w
+   it spans roughly [-380, +580] relative to the right column's left
+   edge (column is ~392px wide). The laptop sits in the back-centre of
+   the cluster, landing visually around the column's left half. */
+.device-tag-1 { top: 12%;  left: 2%;   animation-delay: 0s; }
+.device-tag-2 { top: 22%;  left: 60%;  animation-delay: -2s; }
+.device-tag-3 { bottom: 28%; left: 40%; animation-delay: -4s; }
 .dt-dot {
   width: 6px;
   height: 6px;
@@ -475,16 +476,22 @@
   overflow: visible;
 }
 .mockup img {
-  /* Deterministic bleed: fixed 130% width + translateX(8%) so the
-     square hero-mockup.webp (1700×1674) renders identically in Chrome
-     and Firefox. Most overflow goes off the right edge of the column,
-     a small amount off the left — matching the design's right-side
-     falloff. Vertical overflow lands in the image's transparent halo. */
-  width: 130%;
+  /* Viewport-relative sizing instead of column-relative — the previous
+     `width: 130%` resolved against the right column (~392px wide at
+     1920w viewport with --container-max:1440 and the 1000+1fr grid),
+     so the image rendered at ~510px instead of the design's 966.67px.
+     50vw matches the design at 1920w (50% of 1920 = 960 ≈ 966.67) and
+     scales linearly down to a 420px floor; capped at 1000px so the
+     image doesn't keep growing past the design's intent on 4K+ screens.
+     translateX(-10%) shifts the image left so it bleeds back into the
+     text column, matching the design's phone-overlapping-headline
+     composition. Vertical overflow lands in the image's transparent
+     blur halo. */
+  width: clamp(420px, 50vw, 1000px);
   height: auto;
   max-width: none;
   max-height: none;
-  transform: translateX(8%);
+  transform: translateX(-10%);
   filter: drop-shadow(0 50px 60px oklch(0 0 0 / 0.55)) drop-shadow(0 20px 30px oklch(0 0 0 / 0.35));
 }
 
@@ -585,9 +592,9 @@
   .ticker-row { font-size: 18px; gap: 24px; }
 
   .device-tag { font-size: 10px; padding: 6px 11px; }
-  .device-tag-1 { top: 10%; left: 28%; }
+  .device-tag-1 { top: 8%;  left: 4%; }
   .device-tag-2 { display: none; }
-  .device-tag-3 { bottom: 18%; right: 8%; }
+  .device-tag-3 { bottom: 22%; left: 38%; }
 }
 
 /* ─── Intermediate (≤1080) — closes the 900-1100 gap.
@@ -603,8 +610,8 @@
   .features { max-width: 100%; gap: 8px 14px; }
   .stats { gap: 14px; padding: 14px 16px; }
   .stat-num { font-size: 22px; }
-  .device-tag-1 { left: 26%; }
-  .device-tag-3 { right: 8%; }
+  .device-tag-1 { left: 2%; }
+  .device-tag-3 { left: 36%; }
 }
 
 @media (max-width: 640px) {

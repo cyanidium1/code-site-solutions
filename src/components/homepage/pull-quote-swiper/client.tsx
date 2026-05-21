@@ -24,8 +24,7 @@ export function PullQuoteSwiperClient({
       showNavigation={!single}
       buttonsPosition="center"
       buttonsClassName="hp-pqs-nav-row"
-      centeredSlides
-      additionalOptions={{ slidesPerView: 1 }}
+      additionalOptions={{ slidesPerView: 1, slidesPerGroup: 1 }}
     >
       {slides.map((slide) => (
         <SwiperSlide key={slide.key}>

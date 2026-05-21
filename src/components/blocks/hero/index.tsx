@@ -19,8 +19,8 @@ export function DeviceMockup({
         <Image
           src={src}
           alt={alt}
-          width={2000}
-          height={1000}
+          width={1700}
+          height={1674}
           priority
           fetchPriority="high"
           sizes="(max-width: 640px) 100vw, (max-width: 1440px) 60vw, 1000px"
