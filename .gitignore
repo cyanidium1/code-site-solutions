@@ -37,3 +37,5 @@ next-env.d.ts
 
 # Local-only reference code (Swiper wrapper template etc.)
 /example
+
+/.claude
