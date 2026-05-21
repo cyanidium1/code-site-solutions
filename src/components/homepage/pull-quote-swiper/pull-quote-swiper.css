@@ -1,0 +1,168 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PULL QUOTE SWIPER — homepage testimonials slider.
+
+   Desktop layout: phone mockup | quote/author/cta | laptop mockup (3-col grid).
+   Tablet (≤1100): same layout, smaller mockups.
+   Mobile (≤700): phone mockup stacks above the quote, laptop hidden.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hp-pqs {
+  position: relative;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.hp-pqs-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 800px 360px at 50% 50%,
+    oklch(from var(--accent) l c h / 0.10),
+    transparent 70%
+  );
+}
+
+.hp-pqs-swiper {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* ─── Slide grid ─────────────────────────────────────────────────────────── */
+
+.hp-pqs-slide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--container-prose)) minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+  padding: 24px;
+}
+
+.hp-pqs-mockup {
+  display: flex;
+  align-items: center;
+  filter: drop-shadow(0 30px 40px oklch(0 0 0 / 0.45));
+}
+.hp-pqs-mockup--left  { justify-content: flex-end; }
+.hp-pqs-mockup--right { justify-content: flex-start; }
+
+.hp-pqs-mockup img {
+  width: 100%;
+  height: auto;
+}
+.hp-pqs-mockup--left img  { max-width: 240px; }
+.hp-pqs-mockup--right img { max-width: 360px; }
+
+/* ─── Body (quote + author + CTA) ────────────────────────────────────────── */
+
+.hp-pqs-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hp-pqs-quote {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: clamp(22px, 2.5vw, 32px);
+  line-height: 1.4;
+  color: var(--ink);
+}
+.hp-pqs-quote em {
+  font-style: italic;
+  background: linear-gradient(180deg, var(--accent-soft) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.hp-pqs-author {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+.hp-pqs-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--accent-soft) 0%, var(--accent) 100%);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--bg);
+}
+.hp-pqs-name {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+}
+.hp-pqs-role {
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.hp-pqs-li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.hp-pqs-li:hover { color: var(--ink); }
+
+.hp-pqs-cta {
+  margin-top: 32px;
+  text-align: center;
+}
+
+/* ─── SwiperWrapper nav row — centered below the slide ───────────────────── */
+
+.hp-pqs-nav-row {
+  margin-top: 32px;
+  justify-content: center;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  .hp-pqs-slide {
+    grid-template-columns: minmax(0, 200px) minmax(0, 1fr) minmax(0, 200px);
+    gap: 20px;
+  }
+  .hp-pqs-mockup--left img  { max-width: 180px; }
+  .hp-pqs-mockup--right img { max-width: 220px; }
+}
+
+@media (max-width: 700px) {
+  .hp-pqs-slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 24px;
+    padding: 16px 0;
+  }
+  .hp-pqs-mockup--left {
+    justify-content: center;
+    grid-row: 1;
+  }
+  .hp-pqs-mockup--left img { max-width: 200px; }
+  .hp-pqs-body  { grid-row: 2; }
+  .hp-pqs-mockup--right { display: none; }
+  .hp-pqs-nav-row { margin-top: 24px; }
+}

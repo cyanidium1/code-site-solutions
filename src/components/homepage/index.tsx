@@ -941,6 +941,10 @@ export function FinalCta3({
   );
 }
 
+/* ═══ Pull-quote swiper (Sanity-driven testimonials) ═════════════════════ */
+
+export { PullQuoteSwiper } from "./pull-quote-swiper";
+
 /* ═══ Newsletter ═══════════════════════════════════════════════════════════ */
 
 export { Newsletter } from "./newsletter";
