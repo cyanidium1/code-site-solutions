@@ -106,9 +106,9 @@
 .lcta-image-wrap {
   position: absolute;
   top: 50%;
-  left: calc(50% - 40px);
+  left: calc(50% - 140px);
   transform: translateY(-50%);
-  width: calc(50% + 220px + var(--gutter-x));
+  width: calc(50% + 270px + var(--gutter-x));
   max-width: 1120px;
   pointer-events: none;
 }
