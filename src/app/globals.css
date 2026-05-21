@@ -84,6 +84,11 @@ body {
   font-feature-settings: "ss01", "cv01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Allow children (e.g. the PullQuoteSwiper) to break out to 100vw
+     without triggering page-level horizontal scroll. `clip` is preferred
+     over `hidden` — it doesn't establish a new scroll container, so
+     position:sticky on descendants keeps working. */
+  overflow-x: clip;
 }
 
 /* italic glyphs slant past the inline-box edge — додаємо padding,
