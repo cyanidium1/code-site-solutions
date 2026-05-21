@@ -72,7 +72,7 @@ export function Newsletter() {
               role="alert"
               className="hp-news-error"
             >
-              Не вдалося надіслати. Спробуйте ще раз.
+              {t("error")}
             </p>
           ) : null}
         </div>

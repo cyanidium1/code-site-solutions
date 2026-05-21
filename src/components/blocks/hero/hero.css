@@ -436,9 +436,12 @@
   box-shadow: 0 4px 16px oklch(0 0 0 / 0.4);
   animation: float 6s ease-in-out infinite;
 }
-.device-tag-1 { top: 8%; left: -2%; animation-delay: 0s; }
-.device-tag-2 { top: 4%; right: 8%; animation-delay: -2s; }
-.device-tag-3 { bottom: 18%; right: -2%; animation-delay: -4s; }
+/* Pills annotate the laptop in the new hero mockup. Pill 1 sits over
+   the laptop's top edge; pill 2 floats to its top-right corner; pill 3
+   drops below the laptop, clear of the foreground phone. */
+.device-tag-1 { top: 6%;  left: 26%;  animation-delay: 0s; }
+.device-tag-2 { top: 10%; right: -2%; animation-delay: -2s; }
+.device-tag-3 { bottom: 8%; right: 6%; animation-delay: -4s; }
 .dt-dot {
   width: 6px;
   height: 6px;
@@ -579,9 +582,9 @@
   .ticker-row { font-size: 18px; gap: 24px; }
 
   .device-tag { font-size: 10px; padding: 6px 11px; }
-  .device-tag-1 { top: 6%; left: -6%; }
+  .device-tag-1 { top: 4%;  left: 22%; }
   .device-tag-2 { display: none; }
-  .device-tag-3 { bottom: 10%; right: -6%; }
+  .device-tag-3 { bottom: 6%; right: 4%; }
 }
 
 /* ─── Intermediate (≤1080) — closes the 900-1100 gap.
@@ -597,8 +600,8 @@
   .features { max-width: 100%; gap: 8px 14px; }
   .stats { gap: 14px; padding: 14px 16px; }
   .stat-num { font-size: 22px; }
-  .device-tag-1 { left: -4%; }
-  .device-tag-3 { right: -4%; }
+  .device-tag-1 { left: 20%; }
+  .device-tag-3 { right: 4%; }
 }
 
 @media (max-width: 640px) {

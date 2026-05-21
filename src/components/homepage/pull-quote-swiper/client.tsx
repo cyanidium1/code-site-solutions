@@ -48,7 +48,7 @@ function Slide({ slide }: { slide: TestimonialSlide }) {
             height={slide.mockupLeft.height ?? 800}
             placeholder={slide.mockupLeft.lqip ? "blur" : undefined}
             blurDataURL={slide.mockupLeft.lqip}
-            sizes="(max-width: 700px) 200px, (max-width: 1100px) 220px, 280px"
+            sizes="(max-width: 900px) 0px, (max-width: 1100px) 220px, 280px"
           />
         </div>
       ) : null}
@@ -96,7 +96,7 @@ function Slide({ slide }: { slide: TestimonialSlide }) {
             height={slide.mockupRight.height ?? 500}
             placeholder={slide.mockupRight.lqip ? "blur" : undefined}
             blurDataURL={slide.mockupRight.lqip}
-            sizes="(max-width: 1100px) 0px, 360px"
+            sizes="(max-width: 900px) 0px, (max-width: 1100px) 300px, 380px"
           />
         </div>
       ) : null}

@@ -69,7 +69,8 @@
     "sub": "Once a month — one real-project breakdown with numbers: what worked, what didn't, what it cost. For business owners thinking about commissioning a site. No news, no fluff.",
     "placeholder": "email@example.com",
     "button": "Subscribe",
-    "success": "Done ✓"
+    "success": "Done ✓",
+    "error": "Couldn't send. Please try again."
   },
   "LocaleSwitcher": {
     "ariaLabel": "Site language",
