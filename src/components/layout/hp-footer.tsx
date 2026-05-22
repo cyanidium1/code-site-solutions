@@ -129,30 +129,63 @@ export function HpFooter({
             ))}
           </ul>
         </div>
-        <div>
-          <div className="hp-footer-col-section">
-            <div className="hp-footer-col-h">{t("compareHeading")}</div>
-            <ul className="hp-footer-col-list">
-              {COMPARE_HREFS.map(({ key, href }) => (
-                <li key={key}>
-                  <Link href={isEn ? `/en${href}` : href}>{tCmp(key)}</Link>
-                </li>
-              ))}
-          </ul>
+        {/*
+          Compare + Legal share the 4th grid cell on EN (4-col grid) and split
+          across two cells on UA (5-col grid). The `.hp-footer-col-section +
+          .hp-footer-col-section` CSS rule supplies the vertical margin when
+          they're stacked.
+        */}
+        {isEn ? (
+          <div>
+            <div className="hp-footer-col-section">
+              <div className="hp-footer-col-h">{t("compareHeading")}</div>
+              <ul className="hp-footer-col-list">
+                {COMPARE_HREFS.map(({ key, href }) => (
+                  <li key={key}>
+                    <Link href={`/en${href}`}>{tCmp(key)}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="hp-footer-col-section">
+              <div className="hp-footer-col-h">{t("legalHeading")}</div>
+              <ul className="hp-footer-col-list">
+                {LEGAL_HREFS.map(({ key, href }) => (
+                  <li key={key}>
+                    <Link href={href}>{tLeg(key)}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className="hp-footer-col-section">
-            <div className="hp-footer-col-h">{t("legalHeading")}</div>
-            <ul className="hp-footer-col-list">
-              {LEGAL_HREFS.map(({ key, href }) => (
-                <li key={key}>
-                  <Link href={href}>{tLeg(key)}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        ) : (
+          <>
+            <div>
+              <div className="hp-footer-col-section">
+                <div className="hp-footer-col-h">{t("compareHeading")}</div>
+                <ul className="hp-footer-col-list">
+                  {COMPARE_HREFS.map(({ key, href }) => (
+                    <li key={key}>
+                      <Link href={href}>{tCmp(key)}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div>
+              <div className="hp-footer-col-section">
+                <div className="hp-footer-col-h">{t("legalHeading")}</div>
+                <ul className="hp-footer-col-list">
+                  {LEGAL_HREFS.map(({ key, href }) => (
+                    <li key={key}>
+                      <Link href={href}>{tLeg(key)}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <div className="hp-footer-bottom">
         <span className="hp-footer-copy">{t("copy")}</span>
