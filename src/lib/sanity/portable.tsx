@@ -6,7 +6,7 @@ import type {
   PortableBlock,
   PortableSpan,
   PortableLinkAnnotation,
-} from "./types";
+} from "@/types/sanity";
 
 function renderSpan(
   span: PortableSpan,

@@ -31,7 +31,7 @@ import type {
   Locale,
   OutcomeSection,
   RichTextSimple,
-} from "@/lib/sanity/types";
+} from "@/types/sanity";
 import { loc } from "@/lib/sanity/locale";
 import {
   PortableText,

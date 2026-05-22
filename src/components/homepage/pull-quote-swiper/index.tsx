@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/sanity/types";
+import type { Locale } from "@/types/sanity";
 
 import { fetchTestimonialSlides } from "./fetch-testimonials";
 import { PullQuoteSwiperClient } from "./client";

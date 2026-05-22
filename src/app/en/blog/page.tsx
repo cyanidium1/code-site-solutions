@@ -6,7 +6,7 @@ import { RelatedCard } from "@/components/blocks/related-card";
 
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/sanity/queries";
-import type { BlogPostListItem } from "@/lib/sanity/types";
+import type { BlogPostListItem } from "@/types/sanity";
 
 export const metadata: Metadata = {
   title: "Blog — real project breakdowns with numbers | Code-Site.Art",

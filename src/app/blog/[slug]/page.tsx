@@ -17,7 +17,7 @@ import {
 import type {
   BlogPostDoc,
   BlogPostListItem,
-} from "@/lib/sanity/types";
+} from "@/types/sanity";
 import { BlogPortableText } from "@/lib/sanity/portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
 

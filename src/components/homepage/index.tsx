@@ -33,7 +33,7 @@ import { RelatedCard } from "@/components/blocks/related-card";
 import { loc } from "@/lib/sanity/locale";
 import { presentationForCase } from "@/lib/case-presentation";
 import { hasEnCase } from "@/lib/i18n-routes";
-import type { CaseStudyRef, Locale } from "@/lib/sanity/types";
+import type { CaseStudyRef, Locale } from "@/types/sanity";
 import { formatPrice, type PriceLocale } from "@/lib/formatters/price";
 import { TIER_AMOUNTS, TIER_NAMES, TIER_ORDER } from "@/lib/pricing/tiers";
 

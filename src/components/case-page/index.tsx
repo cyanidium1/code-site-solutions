@@ -36,7 +36,7 @@ import type {
   Locale,
   MediaGallerySection,
   RichTextSimple,
-} from "@/lib/sanity/types";
+} from "@/types/sanity";
 import { loc } from "@/lib/sanity/locale";
 import { SanityImg } from "@/lib/sanity/image";
 import {

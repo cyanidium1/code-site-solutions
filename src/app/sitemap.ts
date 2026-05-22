@@ -10,7 +10,7 @@ import type {
   BlogPostListItem,
   CaseStudyRef,
   IndustryPageRef,
-} from "@/lib/sanity/types";
+} from "@/types/sanity";
 import { EN_INDUSTRY_SLUGS } from "@/lib/i18n-routes";
 
 const STATIC_ROUTES: {

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { SanityImage as SanityImageType } from "./types";
+import type { SanityImage as SanityImageType } from "@/types/sanity";
 
 type SanityImgProps = {
   image: SanityImageType | null | undefined;

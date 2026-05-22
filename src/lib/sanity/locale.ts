@@ -1,4 +1,4 @@
-import type { LocalizedString, Locale } from "./types";
+import type { LocalizedString, Locale } from "@/types/sanity";
 
 export function loc(
   value: LocalizedString | undefined | null,
