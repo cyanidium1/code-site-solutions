@@ -17,6 +17,13 @@ import { SITE_CONTACT } from "@/lib/site";
 import "./lead-form.css";
 
 import type { LeadValues } from "@/types/lead";
+import {
+  BUDGET_OPTS_BY_LOCALE,
+  BUSINESS_OPTS_BY_LOCALE,
+  TIER_OPTS_BY_LOCALE,
+  TIMELINE_OPTS_BY_LOCALE,
+  type LeadFormLocale,
+} from "@/constants/form-options";
 
 const INITIAL: LeadValues = {
   name: "",
@@ -39,76 +46,6 @@ function buildValidationSchema(contactErr: string) {
     timeline: Yup.string(),
   });
 }
-
-export type LeadFormLocale = "uk" | "en";
-
-const BUSINESS_OPTS_BY_LOCALE: Record<LeadFormLocale, { key: string; label: string }[]> = {
-  uk: [
-    { key: "healthcare", label: "Healthcare / клініки і стоматології" },
-    { key: "legal", label: "Legal / юридична фірма" },
-    { key: "accounting", label: "Accounting / бухгалтерія" },
-    { key: "ecommerce", label: "E-commerce / інтернет-магазин" },
-    { key: "saas", label: "SaaS / стартап" },
-    { key: "construction", label: "Construction / Renovation" },
-    { key: "other", label: "Other (вкажіть в описі)" },
-  ],
-  en: [
-    { key: "healthcare", label: "Healthcare / clinics and dental" },
-    { key: "legal", label: "Legal / law firm" },
-    { key: "accounting", label: "Accounting / bookkeeping" },
-    { key: "ecommerce", label: "E-commerce / online store" },
-    { key: "saas", label: "SaaS / startup" },
-    { key: "construction", label: "Construction / Renovation" },
-    { key: "other", label: "Other (describe in the brief)" },
-  ],
-};
-
-const TIER_OPTS_BY_LOCALE: Record<LeadFormLocale, { key: string; label: string }[]> = {
-  uk: [
-    { key: "starter", label: "Starter — від $1 000" },
-    { key: "industry", label: "Industry Pro — від $3 500" },
-    { key: "proplus", label: "Pro Plus — від $7 500" },
-    { key: "enterprise", label: "Enterprise — від $14 000" },
-    { key: "undecided", label: "Не визначився" },
-  ],
-  en: [
-    { key: "starter", label: "Starter — from $1,000" },
-    { key: "industry", label: "Industry Pro — from $3,500" },
-    { key: "proplus", label: "Pro Plus — from $7,500" },
-    { key: "enterprise", label: "Enterprise — from $14,000" },
-    { key: "undecided", label: "I don't know yet" },
-  ],
-};
-
-const BUDGET_OPTS_BY_LOCALE: Record<LeadFormLocale, { key: string; label: string }[]> = {
-  uk: [
-    { key: "lt3k", label: "До $3k" },
-    { key: "3-7k", label: "$3-7k" },
-    { key: "7-15k", label: "$7-15k" },
-    { key: "gt15k", label: "$15k+" },
-    { key: "unknown", label: "Поки не знаю" },
-  ],
-  en: [
-    { key: "lt3k", label: "Under $3k" },
-    { key: "3-7k", label: "$3-7k" },
-    { key: "7-15k", label: "$7-15k" },
-    { key: "gt15k", label: "$15k+" },
-    { key: "unknown", label: "I don't know yet" },
-  ],
-};
-
-const TIMELINE_OPTS_BY_LOCALE: Record<LeadFormLocale, { key: string; label: string }[]> = {
-  uk: [
-    { key: "urgent", label: "Терміново (1-2 тижні)" },
-    { key: "normal", label: "Звичайно (4-8 тижнів)" },
-    { key: "relaxed", label: "Не критично" },
-  ],
-  en: [
-    { key: "urgent", label: "Urgent (1-2 weeks)" },
-    { key: "normal", label: "Normal (4-8 weeks)" },
-    { key: "relaxed", label: "Not critical" },
-  ],
-};
 
 const STRINGS_BY_LOCALE = {
   uk: {
