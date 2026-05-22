@@ -18,7 +18,6 @@ import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { plainRich } from "@/lib/shared/rich-text";
 import {
   ADDONS_CELLS,
-  NOT_DOING_EN,
   PRICING_FAQ,
   TIERS,
   TURNKEY_FOOTER_EN,

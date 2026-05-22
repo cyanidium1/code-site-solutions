@@ -5,7 +5,6 @@
 import type * as React from "react";
 import type { LucideIcon } from "lucide-react";
 import { Briefcase, Brush, Calendar, Code2, Cpu, Crown, Database, Edit3, FileSignature, FileText, FileX, Ghost, Hourglass, Infinity as InfinityIcon, ListChecks, Mail, MessageCircle, Palette, PenLine, Scale, Server, ShieldAlert, ShieldCheck, TrendingUp, Video, Wallet, Workflow } from "lucide-react";
-import type { TierProps } from "@/types/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */

@@ -1,35 +1,4 @@
-import {
-  Calendar,
-  Mail,
-  MessageCircle,
-  Ghost,
-  Hourglass,
-  Wallet,
-  ShieldAlert,
-  Server,
-  FileX,
-  Workflow,
-  ListChecks,
-  ShieldCheck,
-  Scale,
-  FileSignature,
-  FileText,
-  Edit3,
-  Infinity as InfinityIcon,
-  CheckCircle2,
-  XCircle,
-  Crown,
-  Palette,
-  Code2,
-  TrendingUp,
-  Database,
-  Cpu,
-  PenLine,
-  Briefcase,
-  Video,
-  Brush,
-  type LucideIcon,
-} from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
@@ -37,7 +6,6 @@ import { HeroEditorial } from "@/components/blocks/hero";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
-import { formatPrice } from "@/lib/shared/format-price";
 
 import { SectionHead } from "@/components/shared/section-head";
 import {

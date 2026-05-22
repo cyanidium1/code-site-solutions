@@ -1,32 +1,12 @@
-import {
-  Calendar,
-  Mail,
-  MessageCircle,
-  Gauge,
-  CreditCard,
-  Plug,
-  Search,
-  Lock,
-  Layers,
-  Plus,
-  PlusSquare,
-  ArrowUpRight,
-  Globe,
-  CheckCircle2,
-  XCircle,
-  AlertTriangle,
-  Target,
-  type LucideIcon,
-} from "lucide-react";
+import { AlertTriangle, CheckCircle2, Target, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
-import { Tier, type TierProps } from "@/components/blocks/comparison";
+import { Tier } from "@/components/blocks/comparison";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
-import { formatPrice } from "@/lib/shared/format-price";
 
 import { SectionHead } from "@/components/shared/section-head";
 import {
