@@ -37,7 +37,7 @@ import type { CaseStudyRef, Locale } from "@/types/sanity";
 import { formatPrice, type PriceLocale } from "@/lib/shared/format-price";
 import { TIER_AMOUNTS, TIER_NAMES, TIER_ORDER } from "@/constants/pricing-tiers";
 
-export { HpHeader } from "./hp-header";
+export { HpHeader } from "@/components/layout/hp-header";
 
 import { SectionHead } from "@/components/shared/section-head";
 
@@ -931,4 +931,4 @@ export { Newsletter } from "./newsletter";
 
 /* ═══ Homepage Footer ═════════════════════════════════════════════════════ */
 
-export { HpFooter } from "./hp-footer";
+export { HpFooter } from "@/components/layout/hp-footer";
