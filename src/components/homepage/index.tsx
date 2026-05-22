@@ -30,7 +30,7 @@ import "./homepage.css";
 import { ScrollReveal } from "./scroll-reveal";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard } from "@/components/blocks/related-card";
-import { loc } from "@/lib/sanity/locale";
+import { loc } from "@/lib/shared/sanity-locale";
 import { presentationForCase } from "@/lib/shared/case-presentation";
 import { hasEnCase } from "@/constants/i18n-routes";
 import type { CaseStudyRef, Locale } from "@/types/sanity";

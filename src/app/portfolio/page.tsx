@@ -7,7 +7,7 @@ import { CtaBanner } from "@/components/blocks/cta-banner";
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { fetchCaseStudies } from "@/components/case-page";
-import { loc } from "@/lib/sanity/locale";
+import { loc } from "@/lib/shared/sanity-locale";
 import type { CaseStudyRef } from "@/types/sanity";
 import { presentationForCase } from "@/lib/shared/case-presentation";
 import { SITE_ORIGIN, pageUrl } from "@/lib/site";

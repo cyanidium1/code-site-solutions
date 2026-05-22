@@ -24,11 +24,11 @@ import {
 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 
-import { sanityFetch } from "@/lib/sanity/fetch";
+import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
   CASE_STUDIES_QUERY,
   CASE_STUDY_BY_SLUG_QUERY,
-} from "@/lib/sanity/queries";
+} from "@/lib/server/sanity-queries";
 import type {
   CaseStudyDoc,
   CaseStudyRef,
@@ -37,13 +37,13 @@ import type {
   MediaGallerySection,
   RichTextSimple,
 } from "@/types/sanity";
-import { loc } from "@/lib/sanity/locale";
-import { SanityImg } from "@/lib/sanity/image";
+import { loc } from "@/lib/shared/sanity-locale";
+import { SanityImg } from "@/lib/shared/sanity-image";
 import {
   PortableInline,
   formatLine,
   plainPortable,
-} from "@/lib/sanity/portable";
+} from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
 import { presentationForCase } from "@/lib/shared/case-presentation";
 

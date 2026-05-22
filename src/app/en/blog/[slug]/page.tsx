@@ -8,17 +8,17 @@ import { RelatedCard } from "@/components/blocks/related-card";
 import { FAQ } from "@/components/blocks/final";
 import "@/components/blocks/blog/blog.css";
 
-import { sanityFetch } from "@/lib/sanity/fetch";
+import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
   BLOG_POSTS_LIST_QUERY,
   BLOG_POST_BY_EN_SLUG_QUERY,
   BLOG_POSTS_BY_SLUGS_QUERY,
-} from "@/lib/sanity/queries";
+} from "@/lib/server/sanity-queries";
 import type {
   BlogPostDoc,
   BlogPostListItem,
 } from "@/types/sanity";
-import { BlogPortableText } from "@/lib/sanity/portable";
+import { BlogPortableText } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
 
 /* ─── Static params + metadata ──────────────────────────────────────────── */

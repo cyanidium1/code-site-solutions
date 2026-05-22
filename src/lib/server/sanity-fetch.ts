@@ -1,4 +1,4 @@
-import { sanityClient } from "./client";
+import { sanityClient } from "@/lib/server/sanity-client";
 
 type SanityFetchOptions = {
   query: string;

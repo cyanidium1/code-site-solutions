@@ -1,6 +1,6 @@
-import { sanityFetch } from "@/lib/sanity/fetch";
-import { HOMEPAGE_TESTIMONIALS_QUERY } from "@/lib/sanity/queries";
-import { loc } from "@/lib/sanity/locale";
+import { sanityFetch } from "@/lib/server/sanity-fetch";
+import { HOMEPAGE_TESTIMONIALS_QUERY } from "@/lib/server/sanity-queries";
+import { loc } from "@/lib/shared/sanity-locale";
 import { hasEnCase } from "@/constants/i18n-routes";
 import type { Locale, Testimonial } from "@/types/sanity";
 

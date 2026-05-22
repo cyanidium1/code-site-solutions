@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SITE_ORIGIN } from "@/lib/site";
-import { sanityFetch } from "@/lib/sanity/fetch";
+import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
   BLOG_POSTS_LIST_QUERY,
   CASE_STUDIES_QUERY,
   INDUSTRY_PAGES_QUERY,
-} from "@/lib/sanity/queries";
+} from "@/lib/server/sanity-queries";
 import type {
   BlogPostListItem,
   CaseStudyRef,
