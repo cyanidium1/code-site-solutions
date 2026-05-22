@@ -45,7 +45,7 @@ import {
   plainPortable,
 } from "@/lib/sanity/portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
-import { presentationForCase } from "@/lib/case-presentation";
+import { presentationForCase } from "@/lib/shared/case-presentation";
 
 /* ─── locale / path helpers ───────────────────────────────────────────── */
 

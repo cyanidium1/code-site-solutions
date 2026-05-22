@@ -31,7 +31,7 @@ import { ScrollReveal } from "./scroll-reveal";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard } from "@/components/blocks/related-card";
 import { loc } from "@/lib/sanity/locale";
-import { presentationForCase } from "@/lib/case-presentation";
+import { presentationForCase } from "@/lib/shared/case-presentation";
 import { hasEnCase } from "@/constants/i18n-routes";
 import type { CaseStudyRef, Locale } from "@/types/sanity";
 import { formatPrice, type PriceLocale } from "@/lib/shared/format-price";
