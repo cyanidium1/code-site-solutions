@@ -14,7 +14,7 @@ import {
   CalendarCheck,
   Quote,
 } from "lucide-react";
-import { calculateWebsiteEstimate } from "@/lib/calculate-website-estimate";
+import { calculateWebsiteEstimate } from "@/lib/shared/calculate-website-estimate";
 import {
   DEFAULT_CALCULATOR_INPUT,
   MAINTENANCE_OPTIONS,
