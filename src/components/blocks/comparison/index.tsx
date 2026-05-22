@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { formatPrice } from "@/lib/formatters/price";
+import type { TableRowData, TierProps } from "@/types/pricing";
 import "./comparison.css";
+
+export type { TableRowData, TierProps } from "@/types/pricing";
 
 function TierCheck() {
   return (
@@ -38,13 +41,6 @@ function TierX() {
   );
 }
 
-export type TableRowData = {
-  param: string;
-  wp: string;
-  wix: string;
-  custom: string;
-};
-
 export function TableRow({
   param,
   wp,
@@ -69,25 +65,6 @@ export function TableRow({
     </tr>
   );
 }
-
-export type TierProps = {
-  name: React.ReactNode;
-  price: string;
-  /** Small label rendered before the price ("від" / "from"). Defaults to "від". */
-  priceLabel?: string;
-  weeks: string;
-  /** Optional one-liner shown between price/weeks and the includes list. */
-  bestFor?: React.ReactNode;
-  /** Localized label for the "best for" row. Defaults to "Кому підходить:". */
-  bestForLabel?: string;
-  popular?: boolean;
-  popularLabel?: string;
-  includes: { heading: string; items: React.ReactNode[] };
-  excludes?: { heading?: string; items: React.ReactNode[] };
-  ctaLabel: string;
-  ctaGhost?: boolean;
-  ctaHref?: string;
-};
 
 const TIER_BASE =
   "relative pt-8 px-7 pb-8 border rounded-[18px] flex flex-col gap-6 transition-[border-color,transform] duration-[250ms] max-[700px]:px-[22px] max-[700px]:py-[26px] max-[700px]:gap-5";

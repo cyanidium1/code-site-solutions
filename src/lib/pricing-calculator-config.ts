@@ -1,67 +1,33 @@
-export type ProjectType = "landing" | "multiPage" | "ecommerce";
-export type DesignComplexity = "simple" | "custom" | "advanced";
-export type LanguageOption = "one" | "two" | "three" | "fourPlus";
-export type TimelineOption = "standard" | "faster" | "urgent";
-export type ContentOption =
-  | "clientProvided"
-  | "lightPolishing"
-  | "fullCopywriting"
-  | "seoCopywriting";
-export type MaintenancePlan = "none" | "basic" | "growth" | "dedicated";
-export type SeoGrowthPlan = "none" | "basicSeo" | "growthSeo" | "contentEngine";
-export type ProductComplexity = "simple" | "medium" | "advanced";
-export type DesignPreviewItem = { src: string; caption: string };
+import type {
+  CalculatorEstimate,
+  CalculatorInput,
+  CheckboxOption,
+  ContentOption,
+  DesignComplexity,
+  DesignPreviewItem,
+  LanguageOption,
+  MaintenancePlan,
+  PackagePreset,
+  ProductComplexity,
+  ProjectType,
+  SeoGrowthPlan,
+  TimelineOption,
+} from "@/types/pricing";
 
-export type CheckboxOption = {
-  id: string;
-  label: string;
-  price: number;
-  hint?: string;
-  included?: boolean;
-};
-export type PackagePreset = {
-  id: "starterLanding" | "growthWebsite" | "ecommerceStarter";
-  title: string;
-  badge: string;
-  bestFor: string;
-  includes: string[];
-  estimatedRange: string;
-};
-
-export type CalculatorInput = {
-  projectType: ProjectType;
-  pages: number;
-  productComplexity: ProductComplexity;
-  designComplexity: DesignComplexity;
-  languages: LanguageOption;
-  cmsUpgradeIds: string[];
-  seoOptionIds: string[];
-  featureIds: string[];
-  contentOption: ContentOption;
-  timeline: TimelineOption;
-  maintenancePlan: MaintenancePlan;
-  seoGrowthPlan: SeoGrowthPlan;
-};
-
-export type CalculatorEstimate = {
-  breakdown: {
-    basePrice: number;
-    pageCost: number;
-    productComplexityCost: number;
-    cmsCost: number;
-    seoCost: number;
-    featureCost: number;
-    contentCost: number;
-    subtotal: number;
-    multiplier: number;
-    designPercent: number;
-    languagePercent: number;
-    timelinePercent: number;
-  };
-  oneTimeEstimate: number;
-  lowEstimate: number;
-  highEstimate: number;
-  monthlyMaintenance: number;
+export type {
+  CalculatorEstimate,
+  CalculatorInput,
+  CheckboxOption,
+  ContentOption,
+  DesignComplexity,
+  DesignPreviewItem,
+  LanguageOption,
+  MaintenancePlan,
+  PackagePreset,
+  ProductComplexity,
+  ProjectType,
+  SeoGrowthPlan,
+  TimelineOption,
 };
 
 export const PROJECT_TYPE_CONFIG: Record<
