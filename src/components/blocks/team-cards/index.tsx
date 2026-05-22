@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/shared/cn";
 import "./team-cards.css";
 
 export type TeamSocialKind = "li" | "tg" | "gh" | "ig" | "tt" | "x";
