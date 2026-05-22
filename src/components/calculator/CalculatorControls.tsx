@@ -15,14 +15,16 @@ import {
   PROJECT_TYPE_CONFIG,
   SEO_OPTIONS,
   TIMELINE_OPTIONS,
-  type CalculatorInput,
-  type ContentOption,
-  type DesignComplexity,
-  type LanguageOption,
-  type ProductComplexity,
-  type ProjectType,
-  type TimelineOption,
 } from "@/constants/calculator-config";
+import type {
+  CalculatorInput,
+  ContentOption,
+  DesignComplexity,
+  LanguageOption,
+  ProductComplexity,
+  ProjectType,
+  TimelineOption,
+} from "@/types/pricing";
 import { formatEur, formatPercent } from "@/lib/shared/format-eur";
 import { OptionCard } from "./OptionCard";
 import { basicSetupInput, inputForPreset } from "./presets";

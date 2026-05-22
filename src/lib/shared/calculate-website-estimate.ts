@@ -8,9 +8,8 @@ import {
   PROJECT_TYPE_CONFIG,
   SEO_OPTIONS,
   TIMELINE_OPTIONS,
-  type CalculatorEstimate,
-  type CalculatorInput,
 } from "@/constants/calculator-config";
+import type { CalculatorEstimate, CalculatorInput } from "@/types/pricing";
 
 const roundToNearest50 = (value: number) => Math.round(value / 50) * 50;
 

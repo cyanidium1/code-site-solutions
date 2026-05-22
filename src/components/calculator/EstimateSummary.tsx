@@ -12,11 +12,13 @@ import {
   PRODUCT_COMPLEXITY_OPTIONS,
   PROJECT_TYPE_CONFIG,
   SEO_OPTIONS,
-  type CalculatorEstimate,
-  type CalculatorInput,
-  type MaintenancePlan,
-  type ProductComplexity,
 } from "@/constants/calculator-config";
+import type {
+  CalculatorEstimate,
+  CalculatorInput,
+  MaintenancePlan,
+  ProductComplexity,
+} from "@/types/pricing";
 import { formatEur } from "@/lib/shared/format-eur";
 import { PriceBreakdown } from "./PriceBreakdown";
 

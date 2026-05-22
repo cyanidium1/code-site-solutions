@@ -19,9 +19,8 @@ import {
   DEFAULT_CALCULATOR_INPUT,
   MAINTENANCE_OPTIONS,
   SEO_GROWTH_OPTIONS,
-  type MaintenancePlan,
-  type SeoGrowthPlan,
 } from "@/constants/calculator-config";
+import type { MaintenancePlan, SeoGrowthPlan } from "@/types/pricing";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 import { CalculatorControls } from "./CalculatorControls";

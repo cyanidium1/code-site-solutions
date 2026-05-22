@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { Quote, Clock, Phone, FileCheck2 } from "lucide-react";
-import type { CalculatorEstimate, CalculatorInput } from "@/constants/calculator-config";
+import type { CalculatorEstimate, CalculatorInput } from "@/types/pricing";
 import { formatEur } from "@/lib/shared/format-eur";
 
 type LeadFormProps = {
