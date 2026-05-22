@@ -239,7 +239,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.h1-line { display: block; }
+.h1-line { display: block; max-width: 50vw;}
 .h1-accent {
   display: flex;
   align-items: flex-end;
@@ -396,7 +396,28 @@
   min-height: 420px;
   overflow: visible;
   contain: layout;
+  z-index: 10;
 }
+
+.mockup .mockup-img-homepage {
+  width: clamp(420px, 100vw, 1200px);
+  position: absolute;
+  top: -136px;
+  left: -272px;
+}
+
+@media (max-width: 640px) {
+  .mockup .mockup-img-homepage {
+    width: 100%;
+    position: relative;
+    top: unset;
+    left: unset;
+    max-width: none;
+    max-height: none;
+    transform: translateX(10%);
+  }
+}
+
 .device-stage {
   position: relative;
   width: 100%;
@@ -565,7 +586,7 @@
 @media (max-width: 1440px) {
   .hero { padding-top: 32px; padding-bottom: 56px; }
   .hero-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1000px) minmax(0, 1fr);
     gap: 28px;
     /* min-height now inherits from clamp() — no override needed. */
   }
@@ -627,6 +648,8 @@
     order: -1;
     /* Override the global aspect-ratio so mobile hero stays compact. */
     aspect-ratio: auto;
+    position: relative;
+    z-index: -1;
     height: 320px;
     margin: 0 calc(var(--gutter-x) * -1) -40px;
     width: calc(100% + (var(--gutter-x) * 2));

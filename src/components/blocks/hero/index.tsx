@@ -23,8 +23,8 @@ export function DeviceMockup({
           height={1674}
           priority
           fetchPriority="high"
-          sizes="(max-width: 640px) 100vw, (max-width: 1440px) 60vw, 1000px"
-          className="mockup-img"
+          sizes="(max-width: 640px) 100vw"
+          className="mockup-img mockup-img-homepage"
         />
       ) : (
         <div className="mockup-placeholder" aria-hidden="true">
