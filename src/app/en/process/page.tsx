@@ -9,7 +9,7 @@ import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { SITE_ORIGIN, pageUrl } from "@/lib/site";
-import { plainRich } from "@/lib/rich-text";
+import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/en/process";
 
 export const metadata: Metadata = {

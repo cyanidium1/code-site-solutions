@@ -15,7 +15,7 @@ import {
 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
-import { plainRich } from "@/lib/rich-text";
+import { plainRich } from "@/lib/shared/rich-text";
 import {
   ADDONS_CELLS,
   NOT_DOING_EN,

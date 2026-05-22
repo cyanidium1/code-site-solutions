@@ -6,7 +6,7 @@ import { Accordion, AccordionItem } from "@heroui/react";
 import { Plus } from "lucide-react";
 
 import { SITE_CONTACT } from "@/lib/site";
-import { renderRich } from "@/lib/rich-text";
+import { renderRich } from "@/lib/shared/rich-text";
 import "./final.css";
 
 const FAQ_INITIAL_VISIBLE = 5;

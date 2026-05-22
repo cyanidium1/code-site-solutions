@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 
 import type { BentoCell } from "@/types/homepage";
-import type { RichText } from "@/lib/rich-text";
+import type { RichText } from "@/lib/shared/rich-text";
 
 /* ─── Values (Bento, 6 cells — EN) ───────────────────────────────────────── */
 

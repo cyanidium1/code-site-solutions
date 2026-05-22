@@ -1,5 +1,5 @@
 import type { TimelineStep } from "@/components/blocks/vertical-timeline";
-import type { RichText } from "@/lib/rich-text";
+import type { RichText } from "@/lib/shared/rich-text";
 
 /* ─── 7 timeline steps (EN) ───────────────────────────────────────────────── */
 
