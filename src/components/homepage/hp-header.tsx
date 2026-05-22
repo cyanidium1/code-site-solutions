@@ -6,8 +6,7 @@ import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
-import { HEADER_NAV_LINKS } from "./header-nav";
-import { SERVICE_NAV_LINKS } from "./header-services";
+import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
 

@@ -13,8 +13,7 @@ import {
   resolveLocaleAlternate,
   resolveServiceHref,
 } from "@/constants/i18n-routes";
-import { HEADER_NAV_LINKS } from "./header-nav";
-import { SERVICE_NAV_LINKS } from "./header-services";
+import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 
 /** Animated 3-line → X morph. Pure CSS via data-open. */
 function BurgerIcon({ open }: { open: boolean }) {
