@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 
-import { resolveLocaleAlternate } from "@/lib/i18n-routes";
+import { resolveLocaleAlternate } from "@/constants/i18n-routes";
 
 /**
  * Native `<details>` dropdown. We swapped off HeroUI's Dropdown after a

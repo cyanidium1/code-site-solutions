@@ -12,7 +12,7 @@ import {
   localizePath,
   resolveLocaleAlternate,
   resolveServiceHref,
-} from "@/lib/i18n-routes";
+} from "@/constants/i18n-routes";
 import { HEADER_NAV_LINKS } from "./header-nav";
 import { SERVICE_NAV_LINKS } from "./header-services";
 

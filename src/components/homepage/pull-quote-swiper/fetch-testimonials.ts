@@ -1,7 +1,7 @@
 import { sanityFetch } from "@/lib/sanity/fetch";
 import { HOMEPAGE_TESTIMONIALS_QUERY } from "@/lib/sanity/queries";
 import { loc } from "@/lib/sanity/locale";
-import { hasEnCase } from "@/lib/i18n-routes";
+import { hasEnCase } from "@/constants/i18n-routes";
 import type { Locale, Testimonial } from "@/types/sanity";
 
 export type TestimonialAsset = {

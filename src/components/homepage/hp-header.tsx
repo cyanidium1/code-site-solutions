@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { localizePath, resolveServiceHref } from "@/lib/i18n-routes";
+import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
 import { HEADER_NAV_LINKS } from "./header-nav";
 import { SERVICE_NAV_LINKS } from "./header-services";
 import { LocaleSwitcher } from "./locale-switcher";

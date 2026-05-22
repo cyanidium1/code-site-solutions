@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { hasEnIndustry } from "@/lib/i18n-routes";
+import { hasEnIndustry } from "@/constants/i18n-routes";
 
 type SocialDef = { icon: LucideIcon; href: string; label: string };
 const DEFAULT_SOCIALS: SocialDef[] = [

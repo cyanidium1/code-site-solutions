@@ -7,7 +7,7 @@
  *
  * Each entry stores:
  *   - `uaHref`: the bare UA path. Run through `localizePath` from
- *     `@/lib/i18n-routes` to get the locale-aware href.
+ *     `@/constants/i18n-routes` to get the locale-aware href.
  *   - `key`:    the translation key under `messages/{uk,en}.json` →
  *     `Nav` that holds the visible label.
  *
