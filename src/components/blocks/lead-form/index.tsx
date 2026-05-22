@@ -16,15 +16,7 @@ import { ChevronDown } from "lucide-react";
 import { SITE_CONTACT } from "@/lib/site";
 import "./lead-form.css";
 
-type LeadValues = {
-  name: string;
-  contact: string;
-  business: string;
-  tier: string;
-  description: string;
-  budget: string;
-  timeline: string;
-};
+import type { LeadValues } from "@/types/lead";
 
 const INITIAL: LeadValues = {
   name: "",
