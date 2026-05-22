@@ -66,7 +66,14 @@ function SectionHead({
 
 /* ═══ Marquee ══════════════════════════════════════════════════════════════ */
 
-type MarqueeLogo = { src: string; alt: string };
+import type {
+  BentoCell,
+  BentoVisualKind,
+  Industry,
+  MarqueeLogo,
+} from "@/types/homepage";
+
+export type { BentoCell, Industry, MarqueeLogo } from "@/types/homepage";
 
 const DEFAULT_MARQUEE: MarqueeLogo[] = [
   { src: "/partners/efedra.webp", alt: "Efedra Clinic" },
@@ -118,17 +125,6 @@ export function Marquee({
 }
 
 /* ═══ Industries (8 cards) ════════════════════════════════════════════════ */
-
-export type Industry = {
-  icon: LucideIcon;
-  color: string;
-  title: string;
-  description: string;
-  tags: string[];
-  price: string;
-  /** `null` rendert die Karte als nicht-klickbar (для EN-локалі, поки не вийшли галузеві лендинги). */
-  href: string | null;
-};
 
 // All 8 industries have published Sanity pages and live hrefs.
 const DEFAULT_INDUSTRIES: Industry[] = [
@@ -490,16 +486,6 @@ function SupportTimerVisual({ locale }: { locale: PriceLocale }) {
   );
 }
 
-type BentoVisualKind =
-  | "lh"
-  | "mig"
-  | "commits"
-  | "weeks"
-  | "price"
-  | "warranty"
-  | "support"
-  | "stack";
-
 function BentoVisual({
   kind,
   locale,
@@ -528,15 +514,6 @@ function BentoVisual({
       return null;
   }
 }
-
-export type BentoCell = {
-  title: string;
-  icon: LucideIcon;
-  stat?: string;
-  body: React.ReactNode;
-  span: "1x1" | "2x1" | "2x2" | "3x1";
-  visual?: BentoVisualKind;
-};
 
 const DEFAULT_BENTO: BentoCell[] = [
   {
