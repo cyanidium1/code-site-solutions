@@ -22,7 +22,8 @@ import {
   type MaintenancePlan,
   type SeoGrowthPlan,
 } from "@/lib/pricing-calculator-config";
-import { FAQ, type FAQItem } from "@/components/blocks/final";
+import { FAQ } from "@/components/blocks/final";
+import type { FAQItem } from "@/types/faq";
 import { CalculatorControls } from "./CalculatorControls";
 import { EstimateSummary } from "./EstimateSummary";
 import { LeadForm } from "./LeadForm";

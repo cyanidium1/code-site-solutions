@@ -2,7 +2,8 @@ import { HeroEditorial } from "@/components/blocks/hero";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, type TierProps } from "@/components/blocks/comparison";
 import "@/components/blocks/comparison/comparison.css";
-import { FAQ, type FAQItem } from "@/components/blocks/final";
+import { FAQ } from "@/components/blocks/final";
+import type { FAQItem } from "@/types/faq";
 import {
   HpHeader,
   Marquee,

@@ -35,7 +35,8 @@ import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import "@/components/blocks/comparison/comparison.css";
-import { FAQ, type FAQItem } from "@/components/blocks/final";
+import { FAQ } from "@/components/blocks/final";
+import type { FAQItem } from "@/types/faq";
 import { formatPrice } from "@/lib/formatters/price";
 
 export type VfLocale = "uk" | "en";

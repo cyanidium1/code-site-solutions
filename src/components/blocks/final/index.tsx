@@ -6,7 +6,7 @@ import { Accordion, AccordionItem } from "@heroui/react";
 import { Plus } from "lucide-react";
 
 import { SITE_CONTACT } from "@/lib/site";
-import { renderRich, type RichText } from "@/lib/rich-text";
+import { renderRich } from "@/lib/rich-text";
 import "./final.css";
 
 const FAQ_INITIAL_VISIBLE = 5;
@@ -95,7 +95,7 @@ export function SocialIcon({ kind }: { kind: SocialKind }) {
   );
 }
 
-export type FAQItem = { q: string; a: RichText };
+import type { FAQItem } from "@/types/faq";
 
 const DEFAULT_FAQ: FAQItem[] = [
   {
