@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { formatPrice } from "@/lib/formatters/price";
+import { formatPrice } from "@/lib/shared/format-price";
 import "@/components/blocks/buttons/buttons.css";
 import "./hero.css";
 

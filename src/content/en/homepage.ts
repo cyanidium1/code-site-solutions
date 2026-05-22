@@ -17,7 +17,7 @@ import {
 
 import type { BentoCell, Industry } from "@/types/homepage";
 import type { TierProps } from "@/types/pricing";
-import { formatPrice } from "@/lib/formatters/price";
+import { formatPrice } from "@/lib/shared/format-price";
 import { TIER_AMOUNTS, TIER_NAMES, TIER_WEEKS } from "@/constants/pricing-tiers";
 
 export const EN_INDUSTRIES: Industry[] = [

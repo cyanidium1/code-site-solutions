@@ -10,7 +10,7 @@ import {
 import type { TierProps } from "@/types/pricing";
 import type { BentoCell } from "@/types/homepage";
 import type { RichText } from "@/lib/rich-text";
-import { formatPrice } from "@/lib/formatters/price";
+import { formatPrice } from "@/lib/shared/format-price";
 
 /* ─── Pricing tiers (4 шт) ───────────────────────────────────────────────── */
 

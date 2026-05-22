@@ -1,4 +1,4 @@
-import { formatPrice, type PriceLocale } from "@/lib/formatters/price";
+import { formatPrice, type PriceLocale } from "@/lib/shared/format-price";
 
 /**
  * @deprecated misnamed legacy export — formatPrice is the canonical

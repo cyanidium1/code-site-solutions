@@ -26,7 +26,7 @@ import { Tier, type TierProps } from "@/components/blocks/comparison";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
-import { formatPrice } from "@/lib/formatters/price";
+import { formatPrice } from "@/lib/shared/format-price";
 
 export type VcLocale = "uk" | "en";
 

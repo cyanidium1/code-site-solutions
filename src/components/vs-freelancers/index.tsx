@@ -37,7 +37,7 @@ import { HeroEditorial } from "@/components/blocks/hero";
 import "@/components/blocks/comparison/comparison.css";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
-import { formatPrice } from "@/lib/formatters/price";
+import { formatPrice } from "@/lib/shared/format-price";
 
 export type VfLocale = "uk" | "en";
 

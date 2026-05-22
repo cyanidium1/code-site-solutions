@@ -1,6 +1,6 @@
 import type { TierProps } from "@/types/pricing";
 import type { FAQItem } from "@/types/faq";
-import { formatPrice } from "@/lib/formatters/price";
+import { formatPrice } from "@/lib/shared/format-price";
 import { TIER_AMOUNTS, TIER_NAMES, TIER_WEEKS } from "@/constants/pricing-tiers";
 
 export const HOMEPAGE_TIERS: TierProps[] = [

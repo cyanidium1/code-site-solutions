@@ -4,7 +4,7 @@
  * and they propagate everywhere automatically.
  */
 
-import type { PriceLocale } from "@/lib/formatters/price";
+import type { PriceLocale } from "@/lib/shared/format-price";
 
 export type TierKey = "landing" | "corporate" | "custom";
 

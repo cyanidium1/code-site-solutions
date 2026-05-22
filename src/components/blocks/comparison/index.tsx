@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { formatPrice } from "@/lib/formatters/price";
+import { formatPrice } from "@/lib/shared/format-price";
 import type { TableRowData, TierProps } from "@/types/pricing";
 import "./comparison.css";
 
