@@ -35,7 +35,7 @@ import { presentationForCase } from "@/lib/case-presentation";
 import { hasEnCase } from "@/lib/i18n-routes";
 import type { CaseStudyRef, Locale } from "@/types/sanity";
 import { formatPrice, type PriceLocale } from "@/lib/formatters/price";
-import { TIER_AMOUNTS, TIER_NAMES, TIER_ORDER } from "@/lib/pricing/tiers";
+import { TIER_AMOUNTS, TIER_NAMES, TIER_ORDER } from "@/constants/pricing-tiers";
 
 export { HpHeader } from "./hp-header";
 
