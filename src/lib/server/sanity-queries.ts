@@ -1,3 +1,5 @@
+import "server-only";
+
 /**
  * GROQ queries — mirror of the queries authored in the admin repo
  * (`code-site-solutions-admin/queries/*`).

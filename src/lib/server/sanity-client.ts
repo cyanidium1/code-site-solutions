@@ -1,3 +1,5 @@
+import "server-only";
+
 import { createClient, type SanityClient } from "@sanity/client";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;

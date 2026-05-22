@@ -1,3 +1,5 @@
+import "server-only";
+
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { HOMEPAGE_TESTIMONIALS_QUERY } from "@/lib/server/sanity-queries";
 import { loc } from "@/lib/shared/sanity-locale";
