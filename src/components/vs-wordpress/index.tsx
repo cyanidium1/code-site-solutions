@@ -25,28 +25,7 @@ import { formatPrice } from "@/lib/shared/format-price";
 
 export type VsLocale = "uk" | "en";
 
-/* ─── Section wrappers (use existing homepage classes) ─────────────────── */
-
-function SectionHead({
-  eyebrow,
-  heading,
-  sub,
-}: {
-  eyebrow: string;
-  heading: React.ReactNode;
-  sub?: React.ReactNode;
-}) {
-  return (
-    <div className="hp-section-head">
-      <div className="hp-eyebrow">
-        <span className="hp-eyebrow-dot" />
-        <span>{eyebrow}</span>
-      </div>
-      <h2 className="hp-h2">{heading}</h2>
-      {sub ? <p className="hp-sub">{sub}</p> : null}
-    </div>
-  );
-}
+import { SectionHead } from "@/components/shared/section-head";
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
 

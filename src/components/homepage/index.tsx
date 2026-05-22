@@ -39,30 +39,7 @@ import { TIER_AMOUNTS, TIER_NAMES, TIER_ORDER } from "@/constants/pricing-tiers"
 
 export { HpHeader } from "./hp-header";
 
-/* ═══ Section header (eyebrow + h2 + sub) ═════════════════════════════════ */
-
-function SectionHead({
-  eyebrow,
-  heading,
-  sub,
-}: {
-  eyebrow?: string;
-  heading: React.ReactNode;
-  sub?: React.ReactNode;
-}) {
-  return (
-    <div className="hp-section-head">
-      {eyebrow ? (
-        <div className="hp-eyebrow">
-          <span className="hp-eyebrow-dot" />
-          <span>{eyebrow}</span>
-        </div>
-      ) : null}
-      <h2 className="hp-h2">{heading}</h2>
-      {sub ? <p className="hp-sub">{sub}</p> : null}
-    </div>
-  );
-}
+import { SectionHead } from "@/components/shared/section-head";
 
 /* ═══ Marquee ══════════════════════════════════════════════════════════════ */
 
