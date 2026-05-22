@@ -10,7 +10,7 @@ import {
   TIMELINE_OPTIONS,
   type CalculatorEstimate,
   type CalculatorInput,
-} from "./pricing-calculator-config";
+} from "@/constants/calculator-config";
 
 const roundToNearest50 = (value: number) => Math.round(value / 50) * 50;
 

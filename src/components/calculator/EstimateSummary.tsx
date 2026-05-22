@@ -16,7 +16,7 @@ import {
   type CalculatorInput,
   type MaintenancePlan,
   type ProductComplexity,
-} from "@/lib/pricing-calculator-config";
+} from "@/constants/calculator-config";
 import { formatEur } from "./formatters";
 import { PriceBreakdown } from "./PriceBreakdown";
 

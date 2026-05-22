@@ -21,7 +21,7 @@ import {
   SEO_GROWTH_OPTIONS,
   type MaintenancePlan,
   type SeoGrowthPlan,
-} from "@/lib/pricing-calculator-config";
+} from "@/constants/calculator-config";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 import { CalculatorControls } from "./CalculatorControls";

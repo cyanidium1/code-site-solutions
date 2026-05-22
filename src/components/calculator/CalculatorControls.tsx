@@ -22,7 +22,7 @@ import {
   type ProductComplexity,
   type ProjectType,
   type TimelineOption,
-} from "@/lib/pricing-calculator-config";
+} from "@/constants/calculator-config";
 import { formatEur, formatPercent } from "./formatters";
 import { OptionCard } from "./OptionCard";
 
