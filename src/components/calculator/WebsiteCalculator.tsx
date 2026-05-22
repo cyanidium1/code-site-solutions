@@ -27,7 +27,7 @@ import type { FAQItem } from "@/types/faq";
 import { CalculatorControls } from "./CalculatorControls";
 import { EstimateSummary } from "./EstimateSummary";
 import { LeadForm } from "./LeadForm";
-import { formatEur } from "./formatters";
+import { formatEur } from "@/lib/shared/format-eur";
 import "./calculator.css";
 
 // Renders <em>…</em> chunks inside next-intl rich messages. Reused for every

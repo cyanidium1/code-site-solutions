@@ -17,7 +17,7 @@ import {
   type MaintenancePlan,
   type ProductComplexity,
 } from "@/constants/calculator-config";
-import { formatEur } from "./formatters";
+import { formatEur } from "@/lib/shared/format-eur";
 import { PriceBreakdown } from "./PriceBreakdown";
 
 type EstimateSummaryProps = {

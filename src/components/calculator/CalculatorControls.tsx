@@ -23,7 +23,7 @@ import {
   type ProjectType,
   type TimelineOption,
 } from "@/constants/calculator-config";
-import { formatEur, formatPercent } from "./formatters";
+import { formatEur, formatPercent } from "@/lib/shared/format-eur";
 import { OptionCard } from "./OptionCard";
 
 type CalculatorControlsProps = {
