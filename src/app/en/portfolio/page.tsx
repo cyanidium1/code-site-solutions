@@ -11,7 +11,7 @@ import { loc } from "@/lib/shared/sanity-locale";
 import type { CaseStudyRef } from "@/types/sanity";
 import { presentationForCase } from "@/lib/shared/case-presentation";
 import { hasEnCase } from "@/constants/i18n-routes";
-import { SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: "Portfolio — 8 public cases, more under NDA | Code-Site.Art",

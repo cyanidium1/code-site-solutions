@@ -4,7 +4,7 @@ import {
   VsFreelancersView,
   getVsFreelancersContent,
 } from "@/components/vs-freelancers";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 const PATH = "/en/vs-freelancers";
 const UK_PATH = "/vs-freelancers";

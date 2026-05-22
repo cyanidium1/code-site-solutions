@@ -14,3 +14,13 @@ export const SITE_CONTACT = {
   tiktok: "https://tiktok.com/@fedirdev",
   calendly: "https://calendly.com/fedirdev",
 } as const;
+
+/**
+ * Build an absolute URL from a site-relative path.
+ * Co-located with `SITE_ORIGIN` because the two always change together
+ * (cf. `localizePath` co-located with route tables in i18n-routes.ts).
+ */
+export function pageUrl(path: string): string {
+  if (!path.startsWith("/")) path = `/${path}`;
+  return `${SITE_ORIGIN}${path}`;
+}

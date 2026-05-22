@@ -3,7 +3,7 @@
 import type * as React from "react";
 import Link from "next/link";
 
-import { SITE_CONTACT } from "@/lib/site";
+import { SITE_CONTACT } from "@/constants/site";
 import { FOOTER_SOCIAL_HREFS, SocialIcon, type SocialKind } from "./social-icon";
 
 export type FootColumn = {

@@ -10,7 +10,7 @@ import { fetchCaseStudies } from "@/components/case-page";
 import { loc } from "@/lib/shared/sanity-locale";
 import type { CaseStudyRef } from "@/types/sanity";
 import { presentationForCase } from "@/lib/shared/case-presentation";
-import { SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: "Портфоліо — кейси від Code-Site.Art",

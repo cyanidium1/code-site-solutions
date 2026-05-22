@@ -27,7 +27,7 @@ import {
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
-import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/lib/site";
+import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
 import { EN_INDUSTRIES, EN_BENTO, EN_TIERS } from "@/content/en/homepage";
 
 export const metadata: Metadata = {

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_ORIGIN } from "@/lib/site";
+import { SITE_ORIGIN } from "@/constants/site";
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
   BLOG_POSTS_LIST_QUERY,

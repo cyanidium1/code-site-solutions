@@ -19,7 +19,7 @@ import type {
   BlogPostListItem,
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/sanity-portable";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 /* ─── Static params + metadata ──────────────────────────────────────────── */
 

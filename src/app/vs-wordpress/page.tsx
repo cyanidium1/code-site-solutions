@@ -4,7 +4,7 @@ import {
   VsWordpressView,
   getVsWordpressContent,
 } from "@/components/vs-wordpress";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 const PATH = "/vs-wordpress";
 const URL = pageUrl(PATH);

@@ -20,7 +20,7 @@ import {
   SITE_ORIGIN,
   WEBSITE_ID,
   pageUrl,
-} from "@/lib/site";
+} from "@/constants/site";
 import { ABOUT_FAQ, VALUES_CELLS, VS_CELLS } from "@/content/uk/about";
 
 export const metadata: Metadata = {

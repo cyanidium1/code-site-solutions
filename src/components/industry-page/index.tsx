@@ -40,7 +40,7 @@ import {
   formatLine,
 } from "@/lib/shared/sanity-portable";
 import { SanityImg } from "@/lib/shared/sanity-image";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 function findSection<T extends IndustrySection>(
   sections: IndustrySection[] | undefined,

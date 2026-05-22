@@ -12,7 +12,7 @@ import {
 } from "@heroui/react";
 import { ChevronDown } from "lucide-react";
 
-import { SITE_CONTACT } from "@/lib/site";
+import { SITE_CONTACT } from "@/constants/site";
 import "./lead-form.css";
 
 import type { LeadValues } from "@/types/lead";
