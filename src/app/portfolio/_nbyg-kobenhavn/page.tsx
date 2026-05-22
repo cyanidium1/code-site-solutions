@@ -12,7 +12,7 @@ import {
   FinalCta3,
 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 export const metadata: Metadata = {
   title:

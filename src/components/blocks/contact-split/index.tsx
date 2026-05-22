@@ -3,7 +3,7 @@ import {
   CHANNELS_BY_LOCALE,
   CONTACT_META_BY_LOCALE,
   type ContactsLocale,
-} from "@/lib/contacts";
+} from "@/content/contacts";
 import { HeroAuditBanner } from "./HeroAuditBanner";
 import "./contact-split.css";
 

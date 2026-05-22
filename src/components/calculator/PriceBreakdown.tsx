@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { formatEur, formatPercent } from "./formatters";
+import { formatEur, formatPercent } from "@/lib/shared/format-eur";
 
 type PriceBreakdownProps = {
   basePrice: number;

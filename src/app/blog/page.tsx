@@ -4,9 +4,9 @@ import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
 import { RelatedCard } from "@/components/blocks/related-card";
 
-import { sanityFetch } from "@/lib/sanity/fetch";
-import { BLOG_POSTS_LIST_QUERY } from "@/lib/sanity/queries";
-import type { BlogPostListItem } from "@/lib/sanity/types";
+import { sanityFetch } from "@/lib/server/sanity-fetch";
+import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
+import type { BlogPostListItem } from "@/types/sanity";
 export const metadata: Metadata = {
   title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
   description:

@@ -4,7 +4,7 @@ import {
   VsConstructorsView,
   getVsConstructorsContent,
 } from "@/components/vs-constructors";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 const PATH = "/en/vs-constructors";
 const UK_PATH = "/vs-constructors";

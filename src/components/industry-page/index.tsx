@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { HpHeader } from "@/components/homepage/hp-header";
+import { HpHeader } from "@/components/layout/hp-header";
 import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { ImageText } from "@/components/blocks/image-text";
@@ -21,8 +21,8 @@ import {
 } from "@/components/blocks/outcome";
 import { FAQ, Audit, ClinicFooter } from "@/components/blocks/final";
 
-import { sanityFetch } from "@/lib/sanity/fetch";
-import { INDUSTRY_PAGE_BY_SLUG_QUERY } from "@/lib/sanity/queries";
+import { sanityFetch } from "@/lib/server/sanity-fetch";
+import { INDUSTRY_PAGE_BY_SLUG_QUERY } from "@/lib/server/sanity-queries";
 import type {
   ComparisonSection,
   FaqSection,
@@ -31,16 +31,16 @@ import type {
   Locale,
   OutcomeSection,
   RichTextSimple,
-} from "@/lib/sanity/types";
-import { loc } from "@/lib/sanity/locale";
+} from "@/types/sanity";
+import { loc } from "@/lib/shared/sanity-locale";
 import {
   PortableText,
   PortableInline,
   plainPortable,
   formatLine,
-} from "@/lib/sanity/portable";
-import { SanityImg } from "@/lib/sanity/image";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/lib/site";
+} from "@/lib/shared/sanity-portable";
+import { SanityImg } from "@/lib/shared/sanity-image";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 function findSection<T extends IndustrySection>(
   sections: IndustrySection[] | undefined,

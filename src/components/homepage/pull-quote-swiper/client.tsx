@@ -8,7 +8,7 @@ import { Linkedin, ArrowUpRight } from "lucide-react";
 import SwiperWrapper from "@/components/shared/swiper/SwiperWrapper";
 import "@/components/blocks/buttons/buttons.css";
 
-import type { TestimonialSlide } from "./fetch-testimonials";
+import type { TestimonialSlide } from "@/lib/server/fetch-testimonials";
 
 export function PullQuoteSwiperClient({
   slides,

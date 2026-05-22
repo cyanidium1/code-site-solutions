@@ -5,7 +5,7 @@ import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
-import { SITE_ORIGIN } from "@/lib/site";
+import { SITE_ORIGIN } from "@/constants/site";
 import "./globals.css";
 
 const manrope = Manrope({

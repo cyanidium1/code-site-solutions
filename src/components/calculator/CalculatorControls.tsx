@@ -15,16 +15,19 @@ import {
   PROJECT_TYPE_CONFIG,
   SEO_OPTIONS,
   TIMELINE_OPTIONS,
-  type CalculatorInput,
-  type ContentOption,
-  type DesignComplexity,
-  type LanguageOption,
-  type ProductComplexity,
-  type ProjectType,
-  type TimelineOption,
-} from "@/lib/pricing-calculator-config";
-import { formatEur, formatPercent } from "./formatters";
+} from "@/constants/calculator-config";
+import type {
+  CalculatorInput,
+  ContentOption,
+  DesignComplexity,
+  LanguageOption,
+  ProductComplexity,
+  ProjectType,
+  TimelineOption,
+} from "@/types/pricing";
+import { formatEur, formatPercent } from "@/lib/shared/format-eur";
 import { OptionCard } from "./OptionCard";
+import { basicSetupInput, inputForPreset } from "./presets";
 
 type CalculatorControlsProps = {
   value: CalculatorInput;
@@ -63,74 +66,11 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       ),
     [],
   );
-  const resetToBasicSetup = () =>
-    onChange({
-      ...value,
-      pages: projectConfig.pages.min,
-      designComplexity: "simple",
-      languages: "one",
-      cmsUpgradeIds: [],
-      seoOptionIds: [],
-      featureIds: [],
-      contentOption: "clientProvided",
-      timeline: "standard",
-      maintenancePlan: "none",
-      seoGrowthPlan: "none",
-      productComplexity: "simple",
-    });
+  const resetToBasicSetup = () => onChange(basicSetupInput(value));
   const applyPreset = (presetId: string) => {
     setSelectedPreset(presetId);
-    if (presetId === "starterLanding") {
-      onChange({
-        ...value,
-        projectType: "landing",
-        pages: 7,
-        designComplexity: "simple",
-        languages: "one",
-        cmsUpgradeIds: [],
-        seoOptionIds: [],
-        featureIds: [],
-        contentOption: "clientProvided",
-        timeline: "standard",
-        maintenancePlan: "none",
-        seoGrowthPlan: "none",
-        productComplexity: "simple",
-      });
-      return;
-    }
-    if (presetId === "growthWebsite") {
-      onChange({
-        ...value,
-        projectType: "multiPage",
-        pages: 6,
-        designComplexity: "custom",
-        languages: "two",
-        cmsUpgradeIds: [],
-        seoOptionIds: [],
-        featureIds: ["leadForm", "analytics"],
-        contentOption: "clientProvided",
-        timeline: "standard",
-        maintenancePlan: "none",
-        seoGrowthPlan: "none",
-        productComplexity: "simple",
-      });
-      return;
-    }
-    onChange({
-      ...value,
-      projectType: "ecommerce",
-      pages: 5,
-      productComplexity: "medium",
-      designComplexity: "custom",
-      languages: "one",
-      cmsUpgradeIds: [],
-      seoOptionIds: [],
-      featureIds: ["search", "payments", "analytics"],
-      contentOption: "clientProvided",
-      timeline: "standard",
-      maintenancePlan: "none",
-      seoGrowthPlan: "none",
-    });
+    const next = inputForPreset(value, presetId);
+    if (next) onChange(next);
   };
 
   const cmsLabel = (id: string) => t(`options.cms.${id}.label` as never);

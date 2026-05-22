@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-import { localizePath } from "@/lib/i18n-routes";
+import { localizePath } from "@/constants/i18n-routes";
 import "./launch-cta.css";
 
 export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {

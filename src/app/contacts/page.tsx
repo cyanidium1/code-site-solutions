@@ -5,8 +5,8 @@ import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
-import { SITE_ORIGIN, ORG_ID, pageUrl } from "@/lib/site";
-import { plainRich, type RichText } from "@/lib/rich-text";
+import { SITE_ORIGIN, ORG_ID, pageUrl } from "@/constants/site";
+import { plainRich, type RichText } from "@/lib/shared/rich-text";
 
 export const metadata: Metadata = {
   title: "Контакти — обговоримо ваш проєкт | Code-Site.Art",

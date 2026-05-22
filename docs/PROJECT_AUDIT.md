@@ -1,5 +1,12 @@
 # Code-Site.Solutions — Project Audit
 
+> **Status (2026-05-22):** structural reorganization acted on.
+> See `docs/superpowers/plans/2026-05-22-frontend-reorganization.md` for
+> the executed plan and the per-folder READMEs under `src/` for the
+> resulting conventions. Pages dropped from 4 269 to 2 412 lines (-44%);
+> three vs-* monoliths (5 343 lines combined) shrank to 1 551 lines
+> with content extracted to `src/content/comparisons/`.
+
 **Project:** code-site-solutions (Code-Site.Art marketing site)  
 **Audit date:** 2026-05-20  
 **Scope:** Full read-only review of repository structure, stack, integrations, risks, and third-party tooling  

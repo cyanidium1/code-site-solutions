@@ -14,19 +14,19 @@ import {
   CalendarCheck,
   Quote,
 } from "lucide-react";
-import { calculateWebsiteEstimate } from "@/lib/calculate-website-estimate";
+import { calculateWebsiteEstimate } from "@/lib/shared/calculate-website-estimate";
 import {
   DEFAULT_CALCULATOR_INPUT,
   MAINTENANCE_OPTIONS,
   SEO_GROWTH_OPTIONS,
-  type MaintenancePlan,
-  type SeoGrowthPlan,
-} from "@/lib/pricing-calculator-config";
-import { FAQ, type FAQItem } from "@/components/blocks/final";
+} from "@/constants/calculator-config";
+import type { MaintenancePlan, SeoGrowthPlan } from "@/types/pricing";
+import { FAQ } from "@/components/blocks/final";
+import type { FAQItem } from "@/types/faq";
 import { CalculatorControls } from "./CalculatorControls";
 import { EstimateSummary } from "./EstimateSummary";
 import { LeadForm } from "./LeadForm";
-import { formatEur } from "./formatters";
+import { formatEur } from "@/lib/shared/format-eur";
 import "./calculator.css";
 
 // Renders <em>…</em> chunks inside next-intl rich messages. Reused for every

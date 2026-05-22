@@ -7,11 +7,11 @@ import { CtaBanner } from "@/components/blocks/cta-banner";
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { fetchCaseStudies } from "@/components/case-page";
-import { loc } from "@/lib/sanity/locale";
-import type { CaseStudyRef } from "@/lib/sanity/types";
-import { presentationForCase } from "@/lib/case-presentation";
-import { hasEnCase } from "@/lib/i18n-routes";
-import { SITE_ORIGIN, pageUrl } from "@/lib/site";
+import { loc } from "@/lib/shared/sanity-locale";
+import type { CaseStudyRef } from "@/types/sanity";
+import { presentationForCase } from "@/lib/shared/case-presentation";
+import { hasEnCase } from "@/constants/i18n-routes";
+import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: "Portfolio — 8 public cases, more under NDA | Code-Site.Art",

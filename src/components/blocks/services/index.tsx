@@ -163,73 +163,6 @@ export function FeatureCard({ icon, title, items, bg }: Feature) {
   );
 }
 
-const DEFAULT_FEATURES: Feature[] = [
-  {
-    icon: <IcCalendar />,
-    bg: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&q=80",
-    title: "Онлайн-запис 24/7",
-    items: [
-      "Запис у 2 кліки. SMS-підтвердження пацієнту, Telegram-сповіщення лікарю",
-      "Інтеграція з Dental4Windows, Medesk, MedAI, Helsi, KeyCRM",
-      "Автоматичні нагадування за день до прийому",
-    ],
-  },
-  {
-    icon: <IcDoctors />,
-    bg: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80",
-    title: "Каталог лікарів",
-    items: [
-      "Фото, регалії, освіта, спеціалізація, реальні відгуки пацієнтів",
-      "Розклад кожного лікаря в реальному часі",
-      "Запис безпосередньо до обраного спеціаліста",
-    ],
-  },
-  {
-    icon: <IcPrice />,
-    bg: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
-    title: "Прозорий прайс",
-    items: [
-      "Структурований прайс-лист, маркетолог оновлює ціни за 2 хвилини",
-      "Юридично коректне оформлення (стоп-таблиця для пацієнтів)",
-      "Можливість приховати окремі позиції від індексації",
-    ],
-  },
-  {
-    icon: <IcServices />,
-    bg: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80",
-    title: "Каталог послуг",
-    items: [
-      "Детальний опис процедур з фото «до/після» (з дозволу пацієнтів)",
-      "Повʼязані послуги і пакетні пропозиції",
-      "Відеоматеріали від лікарів",
-    ],
-  },
-  {
-    icon: <IcShield />,
-    bg: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
-    title: "Інтеграція зі страховими",
-    items: [
-      "Список ДМС-програм з онлайн-розрахунком покриття",
-      "Інтеграція з Helsi для держстраховок (НСЗУ)",
-      "Запис із зазначенням страховки",
-    ],
-  },
-  {
-    icon: <IcPin />,
-    bg: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-    title: "Локальне SEO та аналітика",
-    items: [
-      "Schema.org розмітка MedicalOrganization, оптимізація під «стоматолог + район»",
-      "Налаштування Google Business Profile, карта проїзду з парковкою",
-      "Аналітика трафіку і воронки від перегляду до запису",
-    ],
-  },
-];
-
-const DEFAULT_INTEGRATIONS = [
-  "Dental4Windows", "Medesk", "MedAI", "Helsi",
-  "KeyCRM", "AmoCRM", "Bitrix24", "Telegram",
-];
 
 const SVC_H2_CLASSES =
   "font-display font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] text-ink text-balance max-w-[16ch] uppercase max-[1100px]:max-w-full max-[700px]:text-[clamp(26px,9vw,38px)] [&_em]:italic [&_em]:font-light [&_em]:normal-case [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:inline-block [&_em]:pr-[0.12em] [&_em]:[margin-right:-0.04em]";
@@ -265,7 +198,7 @@ export function Services({
       конкретну клініку, її спеціалізацію і регуляторні вимоги.
     </>
   ),
-  features = DEFAULT_FEATURES,
+  features = [],
   integrationsHeading = (
     <>
       Підключаємо всі
@@ -281,7 +214,7 @@ export function Services({
       дзвінки в неробочий час.
     </>
   ),
-  integrations = DEFAULT_INTEGRATIONS,
+  integrations = [],
   testimonialVisualSrc,
 }: Partial<{
   testimonialEyebrow: string;

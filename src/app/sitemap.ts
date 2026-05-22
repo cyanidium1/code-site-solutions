@@ -1,17 +1,17 @@
 import type { MetadataRoute } from "next";
-import { SITE_ORIGIN } from "@/lib/site";
-import { sanityFetch } from "@/lib/sanity/fetch";
+import { SITE_ORIGIN } from "@/constants/site";
+import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
   BLOG_POSTS_LIST_QUERY,
   CASE_STUDIES_QUERY,
   INDUSTRY_PAGES_QUERY,
-} from "@/lib/sanity/queries";
+} from "@/lib/server/sanity-queries";
 import type {
   BlogPostListItem,
   CaseStudyRef,
   IndustryPageRef,
-} from "@/lib/sanity/types";
-import { EN_INDUSTRY_SLUGS } from "@/lib/i18n-routes";
+} from "@/types/sanity";
+import { EN_INDUSTRY_SLUGS } from "@/constants/i18n-routes";
 
 const STATIC_ROUTES: {
   path: string;
@@ -98,7 +98,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   );
 
-  // EN_INDUSTRY_SLUGS is imported from @/lib/i18n-routes — single source of
+  // EN_INDUSTRY_SLUGS is imported from @/constants/i18n-routes — single source of
   // truth shared with the locale switcher + header dropdown.
   const industryEntries: MetadataRoute.Sitemap = industryPages.flatMap((p) => {
     const ukUrl = `${SITE_ORIGIN}/sites-for/${p.slug}`;
