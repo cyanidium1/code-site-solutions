@@ -95,27 +95,29 @@
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+  object-position: top;
 }
 /* Mockups now position relative to the full-width section (`.ithc-inner`
    no longer has position:relative), so on wide viewports they break out
    past the 1440px content container and sit near the viewport edges. */
-.ithc-mockup--left  { bottom: 50%;  left: -10%;  width: 560px; transform: translateY(50%); }
-.ithc-mockup--right { bottom: 50%; right: -10%; width: 560px; transform: translateY(50%); }
+.ithc-mockup--left  { bottom: 50%;  left: -10%;  height: 100%; width: auto; max-width: 580px; transform: translateY(50%); }
+.ithc-mockup--right { bottom: 50%; right: -10%; height: 100%; width: auto; max-width: 580px; transform: translateY(50%); }
 
 @media (max-width: 1440px) {
-  .ithc-mockup--left  { width: 480px; left: 0; }
-  .ithc-mockup--right { width: 480px; right: 0; }
+  .ithc-mockup--left  { height: 400px; left: -5%; max-width: 480px;  }
+  .ithc-mockup--right { height: 400px; right: -5%; max-width: 480px; }
   .ithc-body { max-width: 560px; }
 }
 @media (max-width: 1200px) {
-  .ithc-mockup--left  { width: 300px; }
-  .ithc-mockup--right { width: 300px; }
+  .ithc-mockup--left  { height: 300px; max-width: 380px; }
+  .ithc-mockup--right { height: 300px; max-width: 380px; }
   .ithc-inner { min-height: 480px; }
   .ithc-body   { max-width: 400px; }
 }
 @media (max-width: 1024px) {
-  .ithc-mockup--left  { width: 320px; }
-  .ithc-mockup--right { width: 320px; }
+  .ithc-mockup--left  { height: 320px; max-width: 380px; }
+  .ithc-mockup--right { height: 320px; max-width: 380px; }
   .ithc-inner { min-height: 440px; }  
 }
 @media (max-width: 900px) {

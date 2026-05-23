@@ -85,9 +85,12 @@ export function ImageText({
     ? "max-w-container mx-auto grid grid-cols-1 gap-12 text-center"
     : "max-w-container mx-auto grid grid-cols-2 gap-16 items-center max-[1080px]:gap-10 max-[960px]:grid-cols-1 max-[960px]:gap-8";
 
+  const imageImgClass =
+    "[&_img]:block [&_img]:h-full [&_img]:w-full [&_img]:object-cover [&_img]:object-top";
+
   const imageClass = isCentered
-    ? "rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[16/9] [&>:is(img,svg)]:w-full [&>:is(img,svg)]:h-full [&>:is(img,svg)]:object-cover [&>:is(img,svg)]:block max-[800px]:aspect-[4/3]"
-    : "rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] [&>:is(img,svg)]:w-full [&>:is(img,svg)]:h-full [&>:is(img,svg)]:object-cover [&>:is(img,svg)]:block max-[960px]:-order-1";
+    ? `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[16/9] max-[800px]:aspect-[4/3] ${imageImgClass}`
+    : `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] max-[960px]:-order-1 ${imageImgClass}`;
 
   const contentClass = isCentered
     ? "flex flex-col max-w-[720px] mx-auto items-center"
