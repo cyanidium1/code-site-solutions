@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { fetchCaseStudies } from "@/components/case-page";
+import { RelatedCard } from "@/components/blocks/related-card";
+import {
+  caseRefToCardItem,
+  ukRealCasesPhrase,
+} from "@/lib/shared/case-card-item";
 import { loc } from "@/lib/shared/sanity-locale";
-import type { CaseStudyRef } from "@/types/sanity";
-import { presentationForCase } from "@/lib/shared/case-presentation";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 export const metadata: Metadata = {
@@ -28,91 +29,6 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 3600;
-
-/* ─── card ────────────────────────────────────────────────────────────── */
-
-function PortfolioCard({ c }: { c: CaseStudyRef }) {
-  const pres = presentationForCase(c.slug, c.industrySlug);
-  const name = loc(c.title, "uk") || c.client || c.slug;
-  const meta = [pres.label, loc(c.region, "uk"), c.year ? String(c.year) : null]
-    .filter(Boolean)
-    .join(" · ");
-  const metrics = loc(c.metricsLine, "uk");
-
-  return (
-    <Link href={`/portfolio/${c.slug}`} className="hp-case-link">
-      <div className="hp-case-cover">
-        <div
-          className="hp-case-cover-bg"
-          style={{ background: pres.gradient }}
-        />
-        <div className="hp-case-cover-dots" />
-        <div
-          className="hp-case-shot"
-          style={
-            c.coverImage?.asset?.url
-              ? { display: "flex", flexDirection: "column" }
-              : undefined
-          }
-        >
-          <div className="hp-case-shot-bar">
-            <span className="hp-case-shot-dot" />
-            <span className="hp-case-shot-dot" />
-            <span className="hp-case-shot-dot" />
-          </div>
-          {c.coverImage?.asset?.url ? (
-            <div
-              className="hp-case-shot-body"
-              style={{
-                flex: 1,
-                minHeight: 0,
-                padding: 0,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={c.coverImage.asset.url}
-                alt={loc(c.coverImage.alt, "uk") || name}
-                className="absolute inset-0 block h-full w-full object-cover object-top"
-              />
-            </div>
-          ) : (
-            <div className="hp-case-shot-body">
-              <div className="hp-case-shot-line s1" />
-              <div className="hp-case-shot-line s2" />
-              <div className="hp-case-shot-line s3" />
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="hp-case-body">
-        <div className="hp-case-chips">
-          <span
-            className="hp-case-chip"
-            style={{ color: pres.color, borderColor: `${pres.color}55` }}
-          >
-            {pres.label}
-          </span>
-          <span className="hp-case-chip">{pres.tech}</span>
-        </div>
-        <div className="hp-case-name-row">
-          <h3 className="hp-case-name">{name}</h3>
-          <ArrowUpRight
-            size={20}
-            strokeWidth={1.6}
-            className="hp-case-arrow"
-          />
-        </div>
-        <div className="hp-case-meta">{meta}</div>
-        {metrics ? <div className="hp-case-metrics">{metrics}</div> : null}
-      </div>
-    </Link>
-  );
-}
-
-/* ─── page ────────────────────────────────────────────────────────────── */
 
 export default async function PortfolioPage() {
   const cases = await fetchCaseStudies();
@@ -171,7 +87,8 @@ export default async function PortfolioPage() {
         eyebrow="/ PORTFOLIO"
         headline={
           <>
-            Кейси: реальні проєкти з <em>реальними метриками</em>
+            {cases.length} {ukRealCasesPhrase(cases.length)} з{" "}
+            <em>реальними метриками</em>
           </>
         }
         sub="Кожен кейс — повний розбір з «до/після», цифрами і скриншотами."
@@ -181,9 +98,31 @@ export default async function PortfolioPage() {
         <div className="hp-inner">
           {cases.length > 0 ? (
             <div className="hp-cases-grid">
-              {cases.map((c) => (
-                <PortfolioCard key={c._id} c={c} />
-              ))}
+              {cases.map((c) => {
+                const item = caseRefToCardItem(c, "uk");
+                const metaLine = [item.industry, item.region, item.year]
+                  .filter(Boolean)
+                  .join(" · ");
+                return (
+                  <RelatedCard
+                    key={c._id}
+                    metrics={item.chips}
+                    title={item.name}
+                    eyebrow={metaLine || undefined}
+                    sub={item.metrics || undefined}
+                    coverImage={
+                      item.coverImage
+                        ? {
+                            src: item.coverImage,
+                            alt: item.coverImageAlt ?? item.name,
+                          }
+                        : undefined
+                    }
+                    gradient={item.gradient}
+                    href={item.href}
+                  />
+                );
+              })}
             </div>
           ) : (
             <p
