@@ -163,11 +163,11 @@ export function ImageText({
         <section
           className={cn("image-text-centered-horizontal", sectionClassName)}
         >
-          <div className="ithc-inner">
-            <div className="ithc-mockup ithc-mockup--left" aria-hidden="true">
-              {image}
-            </div>
+          <div className="ithc-mockup ithc-mockup--left" aria-hidden="true">
+            {image}
+          </div>
 
+          <div className="ithc-inner">
             <div className="ithc-body">
               {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
               <h2 className="ithc-h2">{heading}</h2>
@@ -192,9 +192,9 @@ export function ImageText({
                 </ul>
               ) : null}
             </div>
-
-            <div className="ithc-mockup ithc-mockup--right">{secondImage}</div>
           </div>
+
+          <div className="ithc-mockup ithc-mockup--right">{secondImage}</div>
         </section>
       );
     }

@@ -28,7 +28,6 @@
   overflow: hidden;
 }
 .ithc-inner {
-  position: relative;
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
@@ -36,7 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 480px;
+  min-height: 560px;
 }
 .ithc-body {
   position: relative;
@@ -45,7 +44,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: var(--container-prose);
+  max-width: 560px;
   text-align: center;
   padding: 32px 16px;
   background: radial-gradient(
@@ -97,17 +96,30 @@
   height: auto;
   display: block;
 }
-.ithc-mockup--left  { bottom: 6%;  left: 0;  max-width: 280px; }
-.ithc-mockup--right { bottom: 10%; right: 0; max-width: 380px; }
+/* Mockups now position relative to the full-width section (`.ithc-inner`
+   no longer has position:relative), so on wide viewports they break out
+   past the 1440px content container and sit near the viewport edges. */
+.ithc-mockup--left  { bottom: 8%;  left: 0;  width: 360px; }
+.ithc-mockup--right { bottom: 12%; right: 0; width: 560px; }
 
-@media (max-width: 1100px) {
-  .ithc-mockup--left  { max-width: 220px; }
-  .ithc-mockup--right { max-width: 300px; }
+@media (max-width: 1440px) {
+  .ithc-mockup--left  { width: 320px; }
+  .ithc-mockup--right { width: 480px; }
+}
+@media (max-width: 1200px) {
+  .ithc-mockup--left  { width: 260px; }
+  .ithc-mockup--right { width: 400px; }
+  .ithc-inner { min-height: 480px; }
+}
+@media (max-width: 1024px) {
+  .ithc-mockup--left  { width: 200px; }
+  .ithc-mockup--right { width: 320px; }
   .ithc-inner { min-height: 440px; }
 }
 @media (max-width: 900px) {
   .ithc-mockup { display: none; }
   .ithc-inner  { min-height: 320px; padding: 32px 16px; }
+  .ithc-body   { max-width: var(--container-prose); }
 }
 @media (max-width: 640px) {
   .ithc-inner { min-height: 280px; padding: 24px 12px; }

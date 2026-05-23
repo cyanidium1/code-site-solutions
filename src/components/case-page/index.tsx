@@ -193,83 +193,6 @@ function buildJsonLd(
   };
 }
 
-/* ─── meta-strip ─────────────────────────────────────────────────────── */
-
-function MetaStrip({
-  doc,
-  locale,
-}: {
-  doc: CaseStudyDoc;
-  locale: Locale;
-}) {
-  const labels =
-    locale === "en"
-      ? {
-          industry: "Industry",
-          region: "Region",
-          year: "Year",
-          stack: "Stack",
-          duration: "Duration",
-          budget: "Budget",
-        }
-      : {
-          industry: "Галузь",
-          region: "Регіон",
-          year: "Рік",
-          stack: "Стек",
-          duration: "Тривалість",
-          budget: "Бюджет",
-        };
-
-  const industry = doc.industry?.title
-    ? loc(doc.industry.title, locale)
-    : presentationForCase(doc.slug).label !== "Other"
-      ? presentationForCase(doc.slug).label
-      : null;
-  const region = loc(doc.region, locale);
-  const year = doc.year ? String(doc.year) : null;
-  const stack = doc.stack?.length ? doc.stack.join(", ") : null;
-  const duration = loc(doc.duration, locale);
-  const budget = doc.budget;
-
-  const parts: Array<{ label: string; value: string }> = [];
-  if (industry) parts.push({ label: labels.industry, value: industry });
-  if (region) parts.push({ label: labels.region, value: region });
-  if (year) parts.push({ label: labels.year, value: year });
-  if (stack) parts.push({ label: labels.stack, value: stack });
-  if (duration) parts.push({ label: labels.duration, value: duration });
-  if (budget) parts.push({ label: labels.budget, value: budget });
-
-  if (!parts.length) return null;
-
-  return (
-    <section
-      style={{
-        background: "var(--bg)",
-        padding: "0 48px 24px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px 24px",
-          fontFamily: "JetBrains Mono, monospace",
-          fontSize: 12,
-          color: "var(--ink-3)",
-          letterSpacing: "0.04em",
-        }}
-      >
-        {parts.map((p) => (
-          <span key={p.label}>· {p.label}: {p.value}</span>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* ─── asset placeholder for inline screenshots that haven't been
    uploaded yet (e.g. NBYG inline images, until founder supplies them). */
 
@@ -625,8 +548,8 @@ export async function CasePageView({
     <SanityImg
       image={doc.hero.heroImage}
       alt={loc(doc.hero.heroImage.alt, locale) || title}
-      fill
-      className="object-cover object-top"
+      sizes="(max-width: 960px) 90vw, 40vw"
+      priority
     />
   ) : null;
 
@@ -651,7 +574,6 @@ export async function CasePageView({
         sub={sub}
         image={heroImageNode}
       />
-      <MetaStrip doc={doc} locale={locale} />
 
       {doc.sections?.map((s) => (
         <SectionBlock key={s._key} section={s} locale={locale} doc={doc} />
