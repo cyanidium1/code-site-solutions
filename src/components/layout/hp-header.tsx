@@ -9,6 +9,7 @@ import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
+import Logo from "./logo/logo";
 
 function isActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
@@ -50,9 +51,7 @@ export function HpHeader() {
   return (
     <header className="hp-header">
       <div className="hp-header-inner">
-        <Link href={homeHref} className="hp-header-brand" onClick={closeDd}>
-          <em>Code-Site</em>.art
-        </Link>
+        <Logo href={homeHref} className="hp-header-brand" onClick={closeDd} />
         <div className="hp-header-end">
         <nav className="hp-header-nav" aria-label={t("menuLabel")}>
           <details ref={ddRef} className="hp-nav-dd">
