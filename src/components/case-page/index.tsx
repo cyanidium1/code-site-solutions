@@ -208,7 +208,7 @@ function YouTubeSection({
     <section
       style={{
         background: "var(--bg)",
-        padding: "var(--section-y-tight) var(--gutter-x)",
+        padding: "var(--section-y-tight) var(--gutter-x) 0",
       }}
     >
       <div

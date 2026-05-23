@@ -24,7 +24,7 @@
 .image-text-centered-horizontal {
   position: relative;
   background: var(--bg);
-  padding: var(--section-y) 0;
+  padding: 0 0 var(--section-y);
   overflow: hidden;
 }
 .ithc-inner {
@@ -32,7 +32,6 @@
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 48px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
