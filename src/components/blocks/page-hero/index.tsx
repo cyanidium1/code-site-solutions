@@ -54,7 +54,7 @@ export function PageHero({
   );
 
   return (
-    <section className="page-hero relative overflow-hidden bg-bg pt-[var(--section-y-lg)] px-12 pb-[var(--section-y)] max-[800px]:px-6">
+    <section className="page-hero relative overflow-hidden bg-bg pt-[var(--section-y-lg)] px-12 max-[800px]:px-6">
       <div className="page-hero-bg absolute inset-0 z-0 pointer-events-none" />
       <div className="relative z-[1] max-w-container mx-auto">
         {image ? (
