@@ -13,3 +13,103 @@
   background: var(--accent);
   box-shadow: 0 0 8px oklch(from var(--accent) l c h / 0.6);
 }
+
+/* ────────────────────────────────────────────────────────────────────────
+   IMAGE-TEXT — CENTERED · HORIZONTAL
+   Adapted from .hp-pqs-slide in pull-quote-swiper.css. Text centred in
+   the middle, two real screenshots floating absolutely on the sides.
+   Side mockups hide ≤900px; copy gets the full width on tablet/mobile.
+   ──────────────────────────────────────────────────────────────────── */
+
+.image-text-centered-horizontal {
+  position: relative;
+  background: var(--bg);
+  padding: var(--section-y) 0;
+  overflow: hidden;
+}
+.ithc-inner {
+  position: relative;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+}
+.ithc-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--container-prose);
+  text-align: center;
+  padding: 32px 16px;
+  background: radial-gradient(
+    ellipse at center,
+    oklch(0.18 0.008 60 / 0.7) 0%,
+    oklch(0.18 0.008 60 / 0) 70%
+  );
+}
+.ithc-h2 {
+  margin: 16px 0 0;
+  font-weight: 700;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.ithc-h2 em {
+  font-style: italic;
+  background: linear-gradient(180deg, var(--accent-soft) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.ithc-text {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ithc-text p {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.ithc-mockup {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  pointer-events: none;
+  filter: drop-shadow(0 30px 40px oklch(0 0 0 / 0.45));
+}
+.ithc-mockup img,
+.ithc-mockup > :is(span, div) img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.ithc-mockup--left  { bottom: 6%;  left: 0;  max-width: 280px; }
+.ithc-mockup--right { bottom: 10%; right: 0; max-width: 380px; }
+
+@media (max-width: 1100px) {
+  .ithc-mockup--left  { max-width: 220px; }
+  .ithc-mockup--right { max-width: 300px; }
+  .ithc-inner { min-height: 440px; }
+}
+@media (max-width: 900px) {
+  .ithc-mockup { display: none; }
+  .ithc-inner  { min-height: 320px; padding: 32px 16px; }
+}
+@media (max-width: 640px) {
+  .ithc-inner { min-height: 280px; padding: 24px 12px; }
+  .ithc-body  { padding: 16px 8px; }
+}

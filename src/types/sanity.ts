@@ -91,10 +91,12 @@ type BlockBase<T extends string> = {
 export type ImageTextSection = BlockBase<"imageTextBlock"> & {
   variant?: "side" | "side-with-list" | "centered";
   imageVariant?: "imageLeft" | "imageRight";
+  centeredLayout?: "vertical" | "horizontal";
   body?: RichTextSimple;
   bodyEn?: RichTextSimple;
   bulletList?: LocalizedString[];
   image?: SanityImage | null;
+  image2?: SanityImage | null;
   cta?: CtaAction | null;
 };
 
@@ -589,6 +591,7 @@ export type CaseStudyDoc = {
     eyebrow?: LocalizedString;
     heading?: LocalizedText;
     subheading?: LocalizedText;
+    heroImage?: SanityImage | null;
     metrics?: Metric[];
   };
   sections?: CaseStudySection[];
