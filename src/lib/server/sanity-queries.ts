@@ -133,6 +133,7 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
     eyebrow ${LOCALIZED_STRING},
     heading ${LOCALIZED_TEXT},
     subheading ${LOCALIZED_TEXT},
+    "heroImage": heroImage ${IMAGE_WITH_ALT},
     metrics[] ${METRIC}
   },
   sections[]{
@@ -140,6 +141,7 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
     _key,
     ...,
     image ${IMAGE_WITH_ALT},
+    "image2": image2 ${IMAGE_WITH_ALT},
     images[]{
       ...,
       "asset": image.asset->{ _id, url, metadata { lqip, dimensions } },

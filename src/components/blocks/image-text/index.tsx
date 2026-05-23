@@ -9,6 +9,9 @@ export type ImageTextVariant = "side" | "side-with-list" | "centered";
 export type ImageTextProps = {
   variant: ImageTextVariant;
   imageVariant?: "imageLeft" | "imageRight";
+  /** Only consumed when variant="centered". "horizontal" + both images
+      renders text-in-middle with two absolute side mockups (OUTCOME style). */
+  centeredLayout?: "vertical" | "horizontal";
   eyebrow?: string;
   heading: React.ReactNode;
   body: React.ReactNode | React.ReactNode[];
@@ -16,6 +19,9 @@ export type ImageTextProps = {
   bulletIcon?: "check" | "cross";
   cta?: ImageTextCta;
   image: React.ReactNode;
+  /** Second image — only rendered when variant="centered" and
+      centeredLayout="horizontal". Goes on the right; `image` goes on the left. */
+  secondImage?: React.ReactNode;
   /** Додаткові класи для `<section>` (наприклад, зменшений верхній відступ після галереї). */
   sectionClassName?: string;
 };
@@ -58,6 +64,7 @@ const CROSS = (
 export function ImageText({
   variant,
   imageVariant = "imageRight",
+  centeredLayout = "vertical",
   eyebrow,
   heading,
   body,
@@ -65,6 +72,7 @@ export function ImageText({
   bulletIcon = "check",
   cta,
   image,
+  secondImage,
   sectionClassName,
 }: ImageTextProps) {
   const bodyArr = Array.isArray(body) ? body : [body];
@@ -147,6 +155,49 @@ export function ImageText({
   );
 
   if (isCentered) {
+    const isHorizontal =
+      centeredLayout === "horizontal" && Boolean(image) && Boolean(secondImage);
+
+    if (isHorizontal) {
+      return (
+        <section
+          className={cn("image-text-centered-horizontal", sectionClassName)}
+        >
+          <div className="ithc-inner">
+            <div className="ithc-mockup ithc-mockup--left" aria-hidden="true">
+            {image}
+          </div>
+            <div className="ithc-body">
+              {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
+              <h2 className="ithc-h2">{heading}</h2>
+              <div className="ithc-text">
+                {bodyArr.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              {showList ? (
+                <ul className={listClass}>
+                  {bulletList!.map((it, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-3 items-start font-sans text-[15px] text-[var(--ink-2)] leading-[1.5]"
+                    >
+                      <span className={`${checkBaseClass} ${checkColorClass}`}>
+                        {bulletIcon === "cross" ? CROSS : CHECK}
+                      </span>
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+             <div className="ithc-mockup ithc-mockup--right">{secondImage}</div>
+          </div>
+
+        </section>
+      );
+    }
+
     return (
       <section className={sectionClass}>
         <div className={containerClass}>

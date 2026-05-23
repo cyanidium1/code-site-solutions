@@ -20,9 +20,10 @@ import {
   HpHeader,
   HpFooter,
   PullQuote,
-  FinalCta3,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
+import "@/components/blocks/buttons/buttons.css";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
@@ -192,78 +193,51 @@ function buildJsonLd(
   };
 }
 
-/* ─── meta-strip ─────────────────────────────────────────────────────── */
+/* ─── YouTube walkthrough section ──────────────────────────────────────
+   Rendered ABOVE the centered+horizontal OUTCOME block when `doc.youtubeId`
+   is set. Standalone embed, NOT one of the OUTCOME side mockups. */
 
-function MetaStrip({
-  doc,
-  locale,
+function YouTubeSection({
+  videoId,
+  title,
 }: {
-  doc: CaseStudyDoc;
-  locale: Locale;
+  videoId: string;
+  title: string;
 }) {
-  const labels =
-    locale === "en"
-      ? {
-          industry: "Industry",
-          region: "Region",
-          year: "Year",
-          stack: "Stack",
-          duration: "Duration",
-          budget: "Budget",
-        }
-      : {
-          industry: "Галузь",
-          region: "Регіон",
-          year: "Рік",
-          stack: "Стек",
-          duration: "Тривалість",
-          budget: "Бюджет",
-        };
-
-  const industry = doc.industry?.title
-    ? loc(doc.industry.title, locale)
-    : presentationForCase(doc.slug).label !== "Other"
-      ? presentationForCase(doc.slug).label
-      : null;
-  const region = loc(doc.region, locale);
-  const year = doc.year ? String(doc.year) : null;
-  const stack = doc.stack?.length ? doc.stack.join(", ") : null;
-  const duration = loc(doc.duration, locale);
-  const budget = doc.budget;
-
-  const parts: Array<{ label: string; value: string }> = [];
-  if (industry) parts.push({ label: labels.industry, value: industry });
-  if (region) parts.push({ label: labels.region, value: region });
-  if (year) parts.push({ label: labels.year, value: year });
-  if (stack) parts.push({ label: labels.stack, value: stack });
-  if (duration) parts.push({ label: labels.duration, value: duration });
-  if (budget) parts.push({ label: labels.budget, value: budget });
-
-  if (!parts.length) return null;
-
   return (
     <section
       style={{
         background: "var(--bg)",
-        padding: "0 48px 24px",
+        padding: "var(--section-y-tight) var(--gutter-x) 0",
       }}
     >
       <div
         style={{
-          maxWidth: "var(--container-max)",
+          maxWidth: "var(--container-narrow)",
           margin: "0 auto",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px 24px",
-          fontFamily: "JetBrains Mono, monospace",
-          fontSize: 12,
-          color: "var(--ink-3)",
-          letterSpacing: "0.04em",
+          position: "relative",
+          aspectRatio: "16 / 9",
+          borderRadius: 18,
+          overflow: "hidden",
+          border: "1px solid var(--line)",
+          background: "oklch(0 0 0 / 0.6)",
         }}
       >
-        {parts.map((p) => (
-          <span key={p.label}>· {p.label}: {p.value}</span>
-        ))}
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          loading="lazy"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            border: 0,
+          }}
+        />
       </div>
     </section>
   );
@@ -293,24 +267,6 @@ function ScreenshotPending({ label }: { label: string }) {
       }}
     >
       {label}
-    </div>
-  );
-}
-
-/* ─── YouTube embed (used inside OUTCOME imageTextBlock) ──────────────── */
-
-function YouTubeEmbed({ videoId, title }: { videoId: string; title: string }) {
-  return (
-    <div className="relative block h-full min-h-[200px] w-full overflow-hidden rounded-[inherit]">
-      <iframe
-        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-        title={title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-        loading="lazy"
-        className="absolute inset-0 z-0 h-full w-full border-0"
-      />
     </div>
   );
 }
@@ -357,12 +313,14 @@ function SectionBlock({
     case "imageTextBlock": {
       const isCentered = section.variant === "centered";
       const hasImage = Boolean(section.image?.asset?.url);
+      const hasImage2 = Boolean(section.image2?.asset?.url);
 
-      // Centered OUTCOME-style block: render YouTube if doc.youtubeId is set
-      // and no image is uploaded; otherwise fall back to image or placeholder.
-      let imageNode: React.ReactNode;
-      if (hasImage) {
-        imageNode = (
+      if (isCentered) {
+        // Centered OUTCOME: text in the middle with two real screenshots
+        // floating on the sides. No YT embed / "Screenshot pending" fallback —
+        // both images come from CMS. Falls back to vertical stack if either
+        // image is missing or layout is "vertical".
+        const img1 = hasImage ? (
           <SanityImg
             image={section.image}
             alt={
@@ -370,28 +328,70 @@ function SectionBlock({
               loc(section.heading, locale) ||
               loc(doc.title, locale)
             }
-            fill
-            className="object-cover"
           />
-        );
-      } else if (isCentered && doc.youtubeId) {
-        imageNode = (
-          <YouTubeEmbed
-            videoId={doc.youtubeId}
-            title={`${loc(doc.title, locale)} — video walkthrough`}
-          />
-        );
-      } else {
-        imageNode = (
-          <ScreenshotPending
-            label={
-              locale === "en"
-                ? "Screenshot — coming soon"
-                : "Скріншот — незабаром"
+        ) : null;
+        const img2 = hasImage2 ? (
+          <SanityImg
+            image={section.image2}
+            alt={
+              loc(section.image2?.alt, locale) ||
+              loc(section.heading, locale) ||
+              loc(doc.title, locale)
             }
           />
+        ) : null;
+
+        return (
+          <>
+            {doc.youtubeId ? (
+              <YouTubeSection
+                videoId={doc.youtubeId}
+                title={`${loc(doc.title, locale)} — video walkthrough`}
+              />
+            ) : null}
+            <ImageText
+              variant="centered"
+              centeredLayout={section.centeredLayout ?? "vertical"}
+              bulletIcon={
+                (section as { bulletIcon?: "check" | "cross" }).bulletIcon ??
+                "check"
+              }
+              eyebrow={loc(section.eyebrow, locale) || undefined}
+              heading={formatLine(loc(section.heading, locale)) ?? ""}
+              body={
+                <PortableInline
+                  value={pickRichText(section.body, section.bodyEn, locale)}
+                />
+              }
+              bulletList={section.bulletList?.map((b) => loc(b, locale))}
+              image={img1}
+              secondImage={img2}
+            />
+          </>
         );
       }
+
+      // Side / side-with-list variants — keep ScreenshotPending fallback here only.
+      const imageNode: React.ReactNode = hasImage ? (
+        <SanityImg
+          image={section.image}
+          alt={
+            loc(section.image?.alt, locale) ||
+            loc(section.heading, locale) ||
+            loc(doc.title, locale)
+          }
+          fill
+          className="object-cover"
+        />
+      ) : (
+        <ScreenshotPending
+          label={
+            locale === "en"
+              ? "Screenshot — coming soon"
+              : "Скріншот — незабаром"
+          }
+        />
+      );
 
       return (
         <ImageText
@@ -417,9 +417,6 @@ function SectionBlock({
                   href: section.cta.href ?? "#",
                 }
               : undefined
-          }
-          sectionClassName={
-            isCentered ? "pt-5 max-[800px]:pt-5" : undefined
           }
         />
       );
@@ -604,20 +601,15 @@ export async function CasePageView({
       </>
     );
   const relatedLink = locale === "en" ? "All cases" : "Всі кейси";
-  const finalHeading =
-    locale === "en" ? (
-      <>
-        Ready to <em>discuss</em> a project?
-      </>
-    ) : (
-      <>
-        Готові <em>обговорити</em> проєкт?
-      </>
-    );
-  const finalSub =
-    locale === "en"
-      ? "Free 30-min consultation. No commitment."
-      : "Безкоштовна 30-хв консультація. Без зобов'язань.";
+
+  const heroImageNode = doc.hero?.heroImage?.asset?.url ? (
+    <SanityImg
+      image={doc.hero.heroImage}
+      alt={loc(doc.hero.heroImage.alt, locale) || title}
+      sizes="(max-width: 960px) 90vw, 40vw"
+      priority
+    />
+  ) : null;
 
   return (
     <>
@@ -638,8 +630,8 @@ export async function CasePageView({
         eyebrow={eyebrow || (locale === "en" ? "CASE STUDY" : "КЕЙС")}
         headline={heading ?? title}
         sub={sub}
+        image={heroImageNode}
       />
-      <MetaStrip doc={doc} locale={locale} />
 
       {doc.sections?.map((s) => (
         <SectionBlock key={s._key} section={s} locale={locale} doc={doc} />
@@ -660,19 +652,18 @@ export async function CasePageView({
                 <RelatedCard key={r._id} c={r} locale={locale} />
               ))}
             </div>
-            <Link href="/portfolio" className="hp-link">
-              {relatedLink}
-              <ArrowUpRight size={14} strokeWidth={1.8} />
+            <Link
+              href={locale === "en" ? "/en/portfolio" : "/portfolio"}
+              className="btn-primary hp-section-cta"
+            >
+              <span>{relatedLink}</span>
+              <ArrowUpRight size={18} strokeWidth={1.8} />
             </Link>
           </div>
         </section>
       ) : null}
 
-      <FinalCta3
-        eyebrow={locale === "en" ? "GET IN TOUCH" : "ЗВ'ЯЗОК"}
-        heading={finalHeading}
-        sub={finalSub}
-      />
+      <LaunchCta locale={locale === "en" ? "en" : "uk"} />
 
       <HpFooter />
     </>
