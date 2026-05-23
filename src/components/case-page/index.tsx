@@ -193,6 +193,56 @@ function buildJsonLd(
   };
 }
 
+/* ─── YouTube walkthrough section ──────────────────────────────────────
+   Rendered ABOVE the centered+horizontal OUTCOME block when `doc.youtubeId`
+   is set. Standalone embed, NOT one of the OUTCOME side mockups. */
+
+function YouTubeSection({
+  videoId,
+  title,
+}: {
+  videoId: string;
+  title: string;
+}) {
+  return (
+    <section
+      style={{
+        background: "var(--bg)",
+        padding: "var(--section-y-tight) var(--gutter-x)",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "var(--container-narrow)",
+          margin: "0 auto",
+          position: "relative",
+          aspectRatio: "16 / 9",
+          borderRadius: 18,
+          overflow: "hidden",
+          border: "1px solid var(--line)",
+          background: "oklch(0 0 0 / 0.6)",
+        }}
+      >
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          loading="lazy"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            border: 0,
+          }}
+        />
+      </div>
+    </section>
+  );
+}
+
 /* ─── asset placeholder for inline screenshots that haven't been
    uploaded yet (e.g. NBYG inline images, until founder supplies them). */
 
@@ -292,24 +342,32 @@ function SectionBlock({
         ) : null;
 
         return (
-          <ImageText
-            variant="centered"
-            centeredLayout={section.centeredLayout ?? "vertical"}
-            bulletIcon={
-              (section as { bulletIcon?: "check" | "cross" }).bulletIcon ??
-              "check"
-            }
-            eyebrow={loc(section.eyebrow, locale) || undefined}
-            heading={formatLine(loc(section.heading, locale)) ?? ""}
-            body={
-              <PortableInline
-                value={pickRichText(section.body, section.bodyEn, locale)}
+          <>
+            {doc.youtubeId ? (
+              <YouTubeSection
+                videoId={doc.youtubeId}
+                title={`${loc(doc.title, locale)} — video walkthrough`}
               />
-            }
-            bulletList={section.bulletList?.map((b) => loc(b, locale))}
-            image={img1}
-            secondImage={img2}
-          />
+            ) : null}
+            <ImageText
+              variant="centered"
+              centeredLayout={section.centeredLayout ?? "vertical"}
+              bulletIcon={
+                (section as { bulletIcon?: "check" | "cross" }).bulletIcon ??
+                "check"
+              }
+              eyebrow={loc(section.eyebrow, locale) || undefined}
+              heading={formatLine(loc(section.heading, locale)) ?? ""}
+              body={
+                <PortableInline
+                  value={pickRichText(section.body, section.bodyEn, locale)}
+                />
+              }
+              bulletList={section.bulletList?.map((b) => loc(b, locale))}
+              image={img1}
+              secondImage={img2}
+            />
+          </>
         );
       }
 
