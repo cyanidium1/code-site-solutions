@@ -2,6 +2,21 @@
 @config "../../tailwind.config.ts";
 
 @theme {
+  /* ─────────────────────────────────────────────────────────────────────
+     CUSTOM BREAKPOINT SCALE — does NOT match Tailwind defaults.
+     These values preserve the Phase 1 visual design exactly. Generates
+     Tailwind 4 utilities `xs:`, `sm:`, `md:`, `lg:`, `xl:` (mobile-first
+     min-width) and `max-xs:`/`max-sm:`/etc. (max-width, kept for outliers).
+     NOTE for new developers: `md:` is 700px here, NOT Tailwind's default
+     768px. `lg:` is 800px, NOT 1024px. See docs/superpowers/specs/2026-
+     05-25-phase-2-mobile-first-design.md for rationale.
+     ───────────────────────────────────────────────────────────────────── */
+  --breakpoint-xs: 380px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 700px;
+  --breakpoint-lg: 800px;
+  --breakpoint-xl: 1100px;
+
   /* Colors — mirror legacy :root values below; legacy :root retained during Phase 1 for back-compat. */
   --color-bg: #121212;
   --color-bg-subtle: #1a1620;
