@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { Manrope, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
@@ -60,6 +60,12 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     alternateLocale: ["en_US"],
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default async function RootLayout({
