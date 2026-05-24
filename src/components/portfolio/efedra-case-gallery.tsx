@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, KeyboardEvent } from "react";
+import type { KeyboardEvent } from "react";
 import { useCallback, useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -11,30 +11,12 @@ export type EfedraGalleryTile = {
   alt: string;
 };
 
-const captionStyles: CSSProperties = {
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  right: 0,
-  padding: "10px 14px",
-  background: "linear-gradient(transparent, oklch(0 0 0 / 0.65))",
-  fontFamily: "JetBrains Mono, monospace",
-  fontSize: 11,
-  letterSpacing: "0.06em",
-  color: "oklch(1 0 0 / 0.92)",
-  zIndex: 2,
-  pointerEvents: "none",
-};
+// Tailwind utility strings extracted to constants to keep the JSX readable.
+const FIGURE_CLASS =
+  "relative m-0 aspect-[16/10] overflow-hidden rounded-[22px] border border-line bg-[oklch(0.08_0.02_280)] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2";
 
-const figureStyles: CSSProperties = {
-  margin: 0,
-  aspectRatio: "16/10",
-  borderRadius: 22,
-  overflow: "hidden",
-  border: "1px solid var(--line)",
-  position: "relative",
-  background: "oklch(0.08 0.02 280)",
-};
+const CAPTION_CLASS =
+  "pointer-events-none absolute inset-x-0 bottom-0 z-[2] bg-[linear-gradient(transparent,oklch(0_0_0/0.65))] px-3.5 py-2.5 font-mono text-[11px] tracking-[0.06em] text-[oklch(1_0_0/0.92)]";
 
 export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
@@ -63,11 +45,10 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
             {tiles.map((t, i) => (
               <figure
                 key={`${t.src}-${i}`}
-                style={figureStyles}
                 role="button"
                 tabIndex={0}
                 aria-label={`Відкрити на весь екран: ${t.label}`}
-                className="cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2"
+                className={FIGURE_CLASS}
                 onClick={() => openAt(i)}
                 onKeyDown={(e) => onCardKeyDown(e, i)}
               >
@@ -78,7 +59,7 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
                   loading="lazy"
                   className="pointer-events-none absolute inset-0 block h-full w-full object-cover object-top"
                 />
-                <figcaption style={captionStyles}>{t.label}</figcaption>
+                <figcaption className={CAPTION_CLASS}>{t.label}</figcaption>
               </figure>
             ))}
           </div>

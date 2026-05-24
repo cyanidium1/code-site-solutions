@@ -15,8 +15,8 @@ interface GradPlaceholderProps {
  */
 export function GradPlaceholder({ from, to, label, className }: GradPlaceholderProps) {
   return (
-    // eslint-disable-next-line react/forbid-dom-props -- dynamic CSS custom properties
     <div
+      // eslint-disable-next-line react/forbid-dom-props -- dynamic CSS custom properties
       style={{ "--gp-from": from, "--gp-to": to } as CSSProperties}
       className={cn(
         "relative aspect-[16/9] w-full overflow-hidden rounded-2xl",

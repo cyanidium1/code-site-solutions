@@ -139,12 +139,13 @@ export function Industries({
                 </div>
               </>
             );
-            const cardStyle = { ["--accent-color" as string]: ind.color };
+            const cardStyle = { "--accent-color": ind.color } as React.CSSProperties;
             if (!ind.href) {
               return (
                 <div
                   key={ind.title + i}
                   className="hp-industry-card is-disabled"
+                  // eslint-disable-next-line react/forbid-dom-props -- dynamic per-industry accent color
                   style={cardStyle}
                 >
                   {inner}

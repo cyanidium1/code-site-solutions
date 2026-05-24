@@ -12,8 +12,8 @@ interface DotGridProps {
  */
 export function DotGrid({ className, size = "24px" }: DotGridProps) {
   return (
-    // eslint-disable-next-line react/forbid-dom-props -- dynamic CSS custom property
     <div
+      // eslint-disable-next-line react/forbid-dom-props -- dynamic CSS custom property
       style={{ "--dg-size": size } as CSSProperties}
       className={cn(
         "pointer-events-none absolute inset-0",
