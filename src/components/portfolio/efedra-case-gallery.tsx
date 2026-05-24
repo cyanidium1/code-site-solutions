@@ -4,6 +4,7 @@ import type { KeyboardEvent } from "react";
 import { useCallback, useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export type EfedraGalleryTile = {
   label: string;
@@ -39,8 +40,8 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
 
   return (
     <>
-      <section className="hp-section pb-5">
-        <div className="hp-inner">
+      <section className={`${hpSectionClass} pb-5`}>
+        <div className={hpInnerClass}>
           <div className="grid grid-cols-2 gap-5">
             {tiles.map((t, i) => (
               <figure

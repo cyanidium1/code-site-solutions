@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { hpInnerClass, hpSectionTightClass } from "@/components/homepage/shared";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -39,8 +40,8 @@ export function Newsletter() {
         : t("button");
 
   return (
-    <section className="hp-section tight">
-      <div className="hp-inner">
+    <section className={hpSectionTightClass}>
+      <div className={hpInnerClass}>
         <div className="flex flex-col gap-6 rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] px-9 py-8 min-[800px]:flex-row min-[800px]:items-center min-[800px]:justify-between">
           <div>
             <div className="font-sans text-[22px] font-semibold text-ink">{t("heading")}</div>

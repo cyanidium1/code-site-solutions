@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { HpHeader } from "@/components/layout/hp-header";
-import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { Reasons } from "@/components/blocks/reasons";

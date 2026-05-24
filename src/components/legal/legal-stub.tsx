@@ -5,7 +5,6 @@
  */
 
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import { PageHero } from "@/components/blocks/page-hero";
 
 export function LegalStub({

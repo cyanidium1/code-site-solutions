@@ -17,6 +17,7 @@ import { TIER_AMOUNTS, TIER_NAMES, TIER_ORDER } from "@/constants/pricing-tiers"
 import { SectionHead } from "@/components/shared/section-head";
 import { cn } from "@/components/ui";
 import { ScrollReveal } from "./scroll-reveal";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 // Shared sub-visual wrapper class — every visual sits below its cell's
 // title/body and gets the same top margin.
@@ -447,8 +448,8 @@ export function Bento({
   locale?: PriceLocale;
 } = {}) {
   return (
-    <section className="hp-section" id="why-us">
-      <div className="hp-inner">
+    <section className={hpSectionClass} id="why-us">
+      <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} />
         <ScrollReveal className="group/bento-reveal grid grid-cols-4 gap-4 [grid-auto-rows:minmax(280px,auto)] max-[1100px]:grid-cols-2 max-[800px]:grid-cols-1 max-[800px]:[grid-auto-rows:auto]">
           {cells.map((c, i) => {

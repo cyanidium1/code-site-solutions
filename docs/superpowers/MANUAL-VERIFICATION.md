@@ -309,3 +309,14 @@ Affected pages: `/stories/image-text` (story page exercises side / side-with-lis
 3. Single follow-up session: turnkey-list, contact-split, lead-form (~half-day)
 4. **One session per heavy file:** case, hero, calculator, homepage
 5. Final session: blog.css trim, then Phase D (globals cleanup + ESLint flip-to-error)
+
+### Session 7 — `homepage.css` (2321 lines) → utilities + shared primitives
+Affected pages: every homepage-component consumer (homepage, all marketing pages, calculator, blog, pricing, etc.). Spot-check:
+- [ ] Homepage `/` and `/en` — full visual sweep
+- [ ] Header + nav dropdowns hover + open state
+- [ ] Locale switcher open/close + active state
+- [ ] Mobile burger → X morph (≤700px viewport)
+- [ ] Mobile drawer slide-in + stagger animations on items
+- [ ] Footer columns + social icons
+- [ ] Shared `.hp-section` rhythm preserved across every page using a homepage component
+- [ ] Shared `.hp-eyebrow` pill renders identically wherever it appears

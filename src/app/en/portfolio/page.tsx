@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/blocks/page-hero";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import {
@@ -13,6 +12,7 @@ import {
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasEnCase } from "@/constants/i18n-routes";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title: "Portfolio — real projects with real metrics | Code-Site.Art",
@@ -112,8 +112,8 @@ export default async function EnPortfolioPage() {
         sub='Every case is a full breakdown with "before / after" and metrics. ×3.2 inquiries, $4M raised, 24 leads/mo.'
       />
 
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           {cases.length > 0 ? (
             <div className={casesGridClass}>
               {cases.map((c) => {

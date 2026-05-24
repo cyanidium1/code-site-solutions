@@ -1,7 +1,6 @@
 import { AlertTriangle, CheckCircle2, Target, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { Tier, CmpTable, CmpThead, CmpTh, CmpTd, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
@@ -13,6 +12,7 @@ import {
   VS_CONSTRUCTORS_UK,
   VS_CONSTRUCTORS_EN,
 } from "@/content/comparisons/vs-constructors";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export type VcLocale = "uk" | "en";
 
@@ -54,8 +54,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       />
 
       {/* 02 — 5 outgrew signs */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.outgrew.eyebrow}
             heading={c.outgrew.heading}
@@ -115,8 +115,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 03 — Hidden costs */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.costs.eyebrow}
             heading={c.costs.heading}
@@ -158,8 +158,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 04 — Wide side-by-side comparison (7 cols, horizontal scroll on mobile) */}
-      <section className="hp-section" id="compare-table">
-        <div className="hp-inner">
+      <section className={hpSectionClass} id="compare-table">
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.compare.eyebrow}
             heading={c.compare.heading}
@@ -218,8 +218,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 05 — Each builder honest */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.builders.eyebrow}
             heading={c.builders.heading}
@@ -289,8 +289,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 06 — Admin after migration (Sanity Studio reassurance) */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.admin.eyebrow}
             heading={c.admin.heading}
@@ -357,8 +357,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 07 — Migration patterns */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.patterns.eyebrow}
             heading={c.patterns.heading}
@@ -397,8 +397,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 08 — What we don't do */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.filter.eyebrow}
             heading={c.filter.heading}
@@ -431,8 +431,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 09 — Pricing */}
-      <section className="hp-section" id="pricing">
-        <div className="hp-inner">
+      <section className={hpSectionClass} id="pricing">
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.pricing.eyebrow}
             heading={c.pricing.heading}

@@ -20,6 +20,7 @@ import type {
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── Static params + metadata ──────────────────────────────────────────── */
 
@@ -294,14 +295,14 @@ export default async function BlogPostPage({
 
         {/* Related articles */}
         {related.length > 0 ? (
-          <section className="hp-section">
-            <div className="hp-inner">
-              <div className="hp-section-head">
-                <div className="hp-eyebrow">
-                  <span className="hp-eyebrow-dot" />
+          <section className={hpSectionClass}>
+            <div className={hpInnerClass}>
+              <div className={hpSectionHeadClass}>
+                <div className={hpEyebrowClass}>
+                  <span className={hpEyebrowDotClass} />
                   <span>/ ЩЕ ПОЧИТАТИ</span>
                 </div>
-                <h2 className="hp-h2">
+                <h2 className={hpH2Class}>
                   Схожі <em>статті</em>
                 </h2>
               </div>
@@ -334,7 +335,7 @@ export default async function BlogPostPage({
                   );
                 })}
               </div>
-              <Link href="/blog" className="hp-link">
+              <Link href="/blog" className={hpLinkClass}>
                 Усі статті →
               </Link>
             </div>

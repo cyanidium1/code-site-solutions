@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/blocks/page-hero";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import {
@@ -12,6 +11,7 @@ import {
 } from "@/lib/shared/case-card-item";
 import { loc } from "@/lib/shared/sanity-locale";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title: "Портфоліо — кейси від Code-Site.Art",
@@ -94,8 +94,8 @@ export default async function PortfolioPage() {
         sub="Кожен кейс — повний розбір з «до/після», цифрами і скриншотами."
       />
 
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           {cases.length > 0 ? (
             <div className={casesGridClass}>
               {cases.map((c) => {

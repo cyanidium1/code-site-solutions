@@ -12,7 +12,6 @@ import {
   Bento,
   FinalCta3,
 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { plainRich } from "@/lib/shared/rich-text";
 import {
@@ -22,6 +21,7 @@ import {
   TURNKEY_FOOTER_EN,
   TURNKEY_ITEMS_EN,
 } from "@/content/en/pricing";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title: "Pricing — $1,000 to $14,000+ fixed in contract | Code-Site.Art",
@@ -203,8 +203,8 @@ export default function EnPricingPage() {
       />
 
       {/* Section 2: 4 tiers */}
-      <section className="hp-section" id="tiers">
-        <div className="hp-inner">
+      <section className={hpSectionClass} id="tiers">
+        <div className={hpInnerClass}>
           <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[1100px]:gap-3.5 max-[700px]:grid-cols-1">
             {TIERS.map((t, i) => (
               <Tier key={i} {...t} />

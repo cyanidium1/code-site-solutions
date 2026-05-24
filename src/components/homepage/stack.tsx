@@ -1,6 +1,7 @@
 import type * as React from "react";
 
 import { SectionHead } from "@/components/shared/section-head";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 type StackItem = { name: string; cat: string };
 
@@ -33,8 +34,8 @@ export function Stack({
   items?: StackItem[];
 } = {}) {
   return (
-    <section className="hp-section" id="stack">
-      <div className="hp-inner">
+    <section className={hpSectionClass} id="stack">
+      <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
         <div className="relative overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] [background-image:radial-gradient(circle,oklch(1_0_0_/_0.03)_1px,transparent_1px)] [background-size:24px_24px]">
           <div className="grid grid-cols-5 max-[1100px]:grid-cols-3 max-[800px]:grid-cols-2">

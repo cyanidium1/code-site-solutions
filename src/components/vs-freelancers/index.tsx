@@ -1,7 +1,6 @@
 import { CheckCircle2, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { CmpTable, CmpThead, CmpTh, CmpTd } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
@@ -13,6 +12,7 @@ import {
   VS_FREELANCERS_UK,
   VS_FREELANCERS_EN,
 } from "@/content/comparisons/vs-freelancers";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export type VfLocale = "uk" | "en";
 
@@ -55,8 +55,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       />
 
       {/* 02 — 6 freelancer horror stories */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.horrorStories.eyebrow}
             heading={c.horrorStories.heading}
@@ -116,8 +116,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       </section>
 
       {/* 03 — When a freelancer is the right choice */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.rightChoice.eyebrow}
             heading={c.rightChoice.heading}
@@ -150,8 +150,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       </section>
 
       {/* 04 — Side-by-side comparison table */}
-      <section className="hp-section" id="compare-table">
-        <div className="hp-inner">
+      <section className={hpSectionClass} id="compare-table">
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.compare.eyebrow}
             heading={c.compare.heading}
@@ -187,8 +187,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       </section>
 
       {/* 05 — 12 people on your project */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.team.eyebrow}
             heading={c.team.heading}
@@ -254,8 +254,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       </section>
 
       {/* 06 — What you actually pay for */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.payFor.eyebrow}
             heading={c.payFor.heading}
@@ -291,8 +291,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       </section>
 
       {/* 07 — After launch (Sanity Studio) */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.admin.eyebrow}
             heading={c.admin.heading}
@@ -359,8 +359,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       </section>
 
       {/* 08 — Real case (rescue pattern) */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.caseStudy.eyebrow}
             heading={c.caseStudy.heading}
@@ -413,8 +413,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       </section>
 
       {/* 09 — What we don't do */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.filter.eyebrow}
             heading={c.filter.heading}
@@ -447,8 +447,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       </section>
 
       {/* 10 — TCO comparison (two scenarios) */}
-      <section className="hp-section" id="pricing">
-        <div className="hp-inner">
+      <section className={hpSectionClass} id="pricing">
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.pricing.eyebrow}
             heading={c.pricing.heading}

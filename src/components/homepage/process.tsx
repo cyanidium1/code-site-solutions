@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowRight, Rocket } from "lucide-react";
 import { btnClass } from "@/components/ui";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 type ProcessStep = {
   n: string;
@@ -66,14 +67,14 @@ export function Process({
   }, []);
 
   return (
-    <section className="hp-section" id="process">
-      <div className="hp-inner">
-        <div className="hp-section-head">
-          <div className="hp-eyebrow">
-            <span className="hp-eyebrow-dot" />
+    <section className={hpSectionClass} id="process">
+      <div className={hpInnerClass}>
+        <div className={hpSectionHeadClass}>
+          <div className={hpEyebrowClass}>
+            <span className={hpEyebrowDotClass} />
             <span>{eyebrow}</span>
           </div>
-          <h2 className="hp-h2">{heading}</h2>
+          <h2 className={hpH2Class}>{heading}</h2>
         </div>
         <div
           ref={wrapRef}

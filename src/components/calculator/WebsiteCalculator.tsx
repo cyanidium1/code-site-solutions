@@ -28,6 +28,7 @@ import { EstimateSummary } from "./EstimateSummary";
 import { LeadForm } from "./LeadForm";
 import { formatEur } from "@/lib/shared/format-eur";
 import { H3 } from "@/components/ui";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
 
 // Reused segment button (same pattern as CalculatorControls.tsx). Kept
 // local here so this file does not couple to a sibling component file.
@@ -148,45 +149,45 @@ export function WebsiteCalculator() {
   return (
     <>
       {/* Section: How this estimate works */}
-      <section className="hp-section py-24 max-[760px]:py-16">
-        <div className="hp-inner">
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
-            <span className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={`${hpSectionClass} py-24 max-[760px]:py-16`}>
+        <div className={hpInnerClass}>
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+            <span className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>{t("howItWorks.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{t.rich("howItWorks.title", { em: emChunk })}</h2>
-            <p className="hp-sub">{t("howItWorks.sub")}</p>
+            <h2 className={hpH2Class}>{t.rich("howItWorks.title", { em: emChunk })}</h2>
+            <p className={hpSubClass}>{t("howItWorks.sub")}</p>
           </div>
           <InfoCardGrid cards={howItWorks} />
         </div>
       </section>
 
       {/* Section: Why these packages */}
-      <section className="hp-section py-24 max-[760px]:py-16">
-        <div className="hp-inner">
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
-            <span className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={`${hpSectionClass} py-24 max-[760px]:py-16`}>
+        <div className={hpInnerClass}>
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+            <span className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>{t("whyPackages.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{t.rich("whyPackages.title", { em: emChunk })}</h2>
-            <p className="hp-sub">{t("whyPackages.sub")}</p>
+            <h2 className={hpH2Class}>{t.rich("whyPackages.title", { em: emChunk })}</h2>
+            <p className={hpSubClass}>{t("whyPackages.sub")}</p>
           </div>
           <InfoCardGrid cards={whyPackages} />
         </div>
       </section>
 
       {/* Section: Calculator (controls + sticky summary) */}
-      <section className="hp-section pt-20 pb-24 max-[760px]:pt-16 max-[760px]:pb-20">
-        <div className="hp-inner">
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
-            <span className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={`${hpSectionClass} pt-20 pb-24 max-[760px]:pt-16 max-[760px]:pb-20`}>
+        <div className={hpInnerClass}>
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+            <span className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>{t("customizer.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{t.rich("customizer.title", { em: emChunk })}</h2>
-            <p className="hp-sub">{t("customizer.sub")}</p>
+            <h2 className={hpH2Class}>{t.rich("customizer.title", { em: emChunk })}</h2>
+            <p className={hpSubClass}>{t("customizer.sub")}</p>
           </div>
 
           <div className="grid grid-cols-[minmax(0,1fr)_360px] gap-6 items-start max-[1100px]:grid-cols-[1fr]">
@@ -201,15 +202,15 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: After-launch (Maintenance + SEO/Growth) */}
-      <section className="hp-section py-24 max-[760px]:py-16">
-        <div className="hp-inner">
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
-            <span className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={`${hpSectionClass} py-24 max-[760px]:py-16`}>
+        <div className={hpInnerClass}>
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+            <span className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>{t("afterLaunch.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{t.rich("afterLaunch.title", { em: emChunk })}</h2>
-            <p className="hp-sub">{t("afterLaunch.sub")}</p>
+            <h2 className={hpH2Class}>{t.rich("afterLaunch.title", { em: emChunk })}</h2>
+            <p className={hpSubClass}>{t("afterLaunch.sub")}</p>
           </div>
 
           <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-[18px] max-[1100px]:grid-cols-1">
@@ -318,23 +319,23 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Why we estimate this way */}
-      <section className="hp-section py-24 max-[760px]:py-16">
-        <div className="hp-inner">
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
-            <span className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={`${hpSectionClass} py-24 max-[760px]:py-16`}>
+        <div className={hpInnerClass}>
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+            <span className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>{t("underHood.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{t.rich("underHood.title", { em: emChunk })}</h2>
-            <p className="hp-sub">{t("underHood.sub")}</p>
+            <h2 className={hpH2Class}>{t.rich("underHood.title", { em: emChunk })}</h2>
+            <p className={hpSubClass}>{t("underHood.sub")}</p>
           </div>
           <InfoCardGrid cards={whyEstimate} />
         </div>
       </section>
 
       {/* Section: Social proof */}
-      <section className="hp-section py-10">
-        <div className="hp-inner">
+      <section className={`${hpSectionClass} py-10`}>
+        <div className={hpInnerClass}>
           <div
             className={
               "border border-line rounded-[22px] " +
@@ -379,15 +380,15 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Lead form + after-submit + alt CTA */}
-      <section className="hp-section pt-20 pb-30 max-[760px]:pt-16 max-[760px]:pb-20" id="calc-lead-form">
-        <div className="hp-inner">
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
-            <span className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={`${hpSectionClass} pt-20 pb-30 max-[760px]:pt-16 max-[760px]:pb-20`} id="calc-lead-form">
+        <div className={hpInnerClass}>
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+            <span className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>{t("getFinal.eyebrow")}</span>
             </span>
-            <h2 className="hp-h2">{t.rich("getFinal.title", { em: emChunk })}</h2>
-            <p className="hp-sub">{t("getFinal.sub")}</p>
+            <h2 className={hpH2Class}>{t.rich("getFinal.title", { em: emChunk })}</h2>
+            <p className={hpSubClass}>{t("getFinal.sub")}</p>
           </div>
           <LeadForm input={input} estimate={estimate} />
 

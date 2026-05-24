@@ -3,6 +3,7 @@ import { Calendar, MessageCircle, Mail, type LucideIcon } from "lucide-react";
 
 import { SectionHead } from "@/components/shared/section-head";
 import { cn } from "@/components/ui";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 type CtaCard = {
   icon: LucideIcon;
@@ -56,8 +57,8 @@ export function FinalCta3({
   urgency?: React.ReactNode;
 } = {}) {
   return (
-    <section className="hp-section" id="contact">
-      <div className="hp-inner">
+    <section className={hpSectionClass} id="contact">
+      <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
         {urgency ? (
           <div className="-mt-4 mb-8 inline-flex max-w-full items-center gap-3 rounded-full border border-[oklch(0.55_0.18_295_/_0.35)] bg-[oklch(0.55_0.18_295_/_0.08)] px-[18px] py-3 font-mono text-[12px] tracking-[0.02em] text-ink max-[700px]:flex max-[700px]:w-full max-[700px]:rounded-[14px] max-[700px]:px-[14px] max-[700px]:py-3 max-[700px]:text-[11.5px] max-[700px]:leading-[1.45]">

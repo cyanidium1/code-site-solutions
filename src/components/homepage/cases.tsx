@@ -11,6 +11,7 @@ import {
 } from "@/lib/shared/case-card-item";
 import type { Locale } from "@/types/sanity";
 import { SectionHead } from "@/components/shared/section-head";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export async function Cases({
   eyebrow = "КЕЙСИ",
@@ -39,8 +40,8 @@ export async function Cases({
       .slice(0, 3)
       .map((c) => caseRefToCardItem(c, locale));
   return (
-    <section className="hp-section" id="cases">
-      <div className="hp-inner">
+    <section className={hpSectionClass} id="cases">
+      <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} />
         <div className={casesGridClass}>
           {finalItems.map((c) => {

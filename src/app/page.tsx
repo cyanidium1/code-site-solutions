@@ -13,9 +13,9 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
 import { HOMEPAGE_FAQ, HOMEPAGE_TIERS } from "@/content/uk/homepage";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -111,17 +111,17 @@ export default function HomePage() {
       <Process />
       <Cases />
 
-      <section className="hp-section" id="pricing">
-        <div className="hp-inner">
-          <div className="hp-section-head">
-            <div className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={hpSectionClass} id="pricing">
+        <div className={hpInnerClass}>
+          <div className={hpSectionHeadClass}>
+            <div className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>ЦІНИ</span>
             </div>
-            <h2 className="hp-h2">
+            <h2 className={hpH2Class}>
               Прозорий прайс — від <em>$800</em> до <em>$6 000+</em>
             </h2>
-            <p className="hp-sub">Без «під запит». Без прихованих платежів.</p>
+            <p className={hpSubClass}>Без «під запит». Без прихованих платежів.</p>
           </div>
           <CmpPricingGrid>
             {HOMEPAGE_TIERS.map((t, i) => (

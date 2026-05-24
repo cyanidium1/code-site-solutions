@@ -15,6 +15,7 @@ import {
 import type { Industry } from "@/types/homepage";
 import { SectionHead } from "@/components/shared/section-head";
 import { cn } from "@/components/ui";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 // All 8 industries have published Sanity pages and live hrefs.
 const DEFAULT_INDUSTRIES: Industry[] = [
@@ -124,8 +125,8 @@ export function Industries({
   items?: Industry[];
 } = {}) {
   return (
-    <section className="hp-section" id="solutions">
-      <div className="hp-inner">
+    <section className={hpSectionClass} id="solutions">
+      <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
         <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[800px]:grid-cols-1">
           {items.map((ind, i) => {

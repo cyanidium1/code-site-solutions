@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Linkedin, ArrowUpRight } from "lucide-react";
 
 import { btnClass } from "@/components/ui";
+import { hpSectionClass } from "@/components/homepage/shared";
 
 export function PullQuote({
   quote = (
@@ -31,7 +32,7 @@ export function PullQuote({
   caseLabel?: string;
 }> = {}) {
   return (
-    <section className="hp-section">
+    <section className={hpSectionClass}>
       <div className="relative py-6 text-center">
         <div
           aria-hidden="true"

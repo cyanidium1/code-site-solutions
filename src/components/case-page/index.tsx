@@ -22,7 +22,6 @@ import {
   PullQuote,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import "@/components/homepage/homepage.css";
 import { btnClass, cn } from "@/components/ui";
 import {
   caseLinkClass,
@@ -69,6 +68,7 @@ import {
 } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { presentationForCase } from "@/lib/shared/case-presentation";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── locale / path helpers ───────────────────────────────────────────── */
 
@@ -603,14 +603,14 @@ export async function CasePageView({
       ))}
 
       {related.length > 0 ? (
-        <section className="hp-section">
-          <div className="hp-inner">
-            <div className="hp-section-head">
-              <div className="hp-eyebrow">
-                <span className="hp-eyebrow-dot" />
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <div className={hpSectionHeadClass}>
+              <div className={hpEyebrowClass}>
+                <span className={hpEyebrowDotClass} />
                 <span>{locale === "en" ? "RELATED" : "СУМІЖНІ КЕЙСИ"}</span>
               </div>
-              <h2 className="hp-h2">{relatedHeading}</h2>
+              <h2 className={hpH2Class}>{relatedHeading}</h2>
             </div>
             <div className={casesGridClass}>
               {related.map((r) => (

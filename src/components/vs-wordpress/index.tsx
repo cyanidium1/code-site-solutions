@@ -1,7 +1,6 @@
 import { ArrowRight, CheckCircle2, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { Tier, CmpTable, CmpThead, CmpTh, CmpTd, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
@@ -13,6 +12,7 @@ import {
   VS_WORDPRESS_UK,
   VS_WORDPRESS_EN,
 } from "@/content/comparisons/vs-wordpress";
+import { hpInnerClass, hpLinkClass, hpSectionClass } from "@/components/homepage/shared";
 
 export type VsLocale = "uk" | "en";
 
@@ -54,8 +54,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       />
 
       {/* 02 — Hidden costs */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.costs.eyebrow}
             heading={c.costs.heading}
@@ -124,8 +124,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       </section>
 
       {/* 03 — Side-by-side */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.compare.eyebrow}
             heading={c.compare.heading}
@@ -161,8 +161,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       </section>
 
       {/* 04 — Real migration case */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.caseStudy.eyebrow}
             heading={c.caseStudy.heading}
@@ -224,7 +224,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             </footer>
           </blockquote>
           <div className="mt-8 text-center">
-            <a href={c.caseStudy.ctaHref} className="hp-link">
+            <a href={c.caseStudy.ctaHref} className={hpLinkClass}>
               {c.caseStudy.cta}
               <ArrowRight size={14} strokeWidth={1.8} />
             </a>
@@ -233,8 +233,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       </section>
 
       {/* 05 — SEO myth-buster */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.seo.eyebrow}
             heading={c.seo.heading}
@@ -267,8 +267,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       </section>
 
       {/* 06 — Sanity vs WordPress admin */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.admin.eyebrow}
             heading={c.admin.heading}
@@ -331,8 +331,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       </section>
 
       {/* 07 — Process */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.process.eyebrow}
             heading={c.process.heading}
@@ -362,8 +362,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       </section>
 
       {/* 07 — What we don't do */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.filter.eyebrow}
             heading={c.filter.heading}
@@ -396,8 +396,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       </section>
 
       {/* 08 — Pricing */}
-      <section className="hp-section" id="pricing">
-        <div className="hp-inner">
+      <section className={hpSectionClass} id="pricing">
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.pricing.eyebrow}
             heading={c.pricing.heading}

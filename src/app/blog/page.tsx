@@ -7,6 +7,7 @@ import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
 import type { BlogPostListItem } from "@/types/sanity";
+import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
 export const metadata: Metadata = {
   title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
   description:
@@ -59,8 +60,8 @@ export default async function BlogPage() {
           sub="Раз на місяць — одна стаття про реальний проєкт: бюджет, помилки, що б зробили інакше. Без води і без новин."
         />
 
-        <section className="hp-section">
-          <div className="hp-inner">
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
             {posts.length > 0 ? (
               <div className={casesGridClass}>
                 {posts.map((p) => {
@@ -93,7 +94,7 @@ export default async function BlogPage() {
                 })}
               </div>
             ) : (
-              <p className="hp-sub py-[60px] text-center">
+              <p className={`${hpSubClass} py-[60px] text-center`}>
                 Поки що порожньо. Перший допис уже готується.
               </p>
             )}

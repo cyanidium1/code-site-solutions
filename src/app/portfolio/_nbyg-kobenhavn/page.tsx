@@ -11,7 +11,6 @@ import {
   PullQuote,
   FinalCta3,
 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import {
   NbygScreenshotPending as ScreenshotPending,
   NbygMetaStrip,
@@ -20,6 +19,7 @@ import {
 } from "@/components/portfolio/nbyg-shared";
 import { casesGridClass } from "@/components/blocks/related-card";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title:
@@ -276,14 +276,14 @@ export default function NbygKobenhavnCasePage() {
       />
 
       {/* Section 7: Related cases */}
-      <section className="hp-section">
-        <div className="hp-inner">
-          <div className="hp-section-head">
-            <div className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
+          <div className={hpSectionHeadClass}>
+            <div className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>СУМІЖНІ КЕЙСИ</span>
             </div>
-            <h2 className="hp-h2">
+            <h2 className={hpH2Class}>
               Інші <em>кейси</em>
             </h2>
           </div>
@@ -292,7 +292,7 @@ export default function NbygKobenhavnCasePage() {
               <RelatedCard key={r.name} row={r} />
             ))}
           </div>
-          <Link href="/portfolio" className="hp-link">
+          <Link href="/portfolio" className={hpLinkClass}>
             Всі кейси
             <ArrowUpRight size={14} strokeWidth={1.8} />
           </Link>
