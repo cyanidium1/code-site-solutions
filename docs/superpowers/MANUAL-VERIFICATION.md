@@ -112,6 +112,14 @@ Affected pages: `/stories/team-cards` (story page); any industry/about page usin
 - [ ] Group label row (when multiple groups) shows the inline horizontal hairline filling space to the right of the label
 - [ ] Photo "tag" pill in the bottom-left of a team-member photo shows a small 5px green dot with glow
 
+### Task S1.2 — `services.css` deleted
+Affected pages: industry pages that render `<Services>` (medicine/renovation/legal/etc. via industry-page) and any direct consumer.
+- [ ] `services-bg` layered radial accent + accent-2 gradients visible behind the testimonial + features sections
+- [ ] Testimonial visual (when `testimonialVisualSrc` provided) renders the cover image cleanly; the dot-grid pseudo and IMAGE_PLACEHOLDER fallback text are hidden under the image when it loads
+- [ ] Feature cards (top 3) have the dark gradient + accent-radial glow backdrop layered under the bg image (via `after:` pseudo)
+- [ ] Secondary feature cards still hover (border-color + bg shift)
+- [ ] Integrations grid still renders without visible regression (the `.integration` class had no own rules)
+
 **Stopped before:** the following CSS files remain undeleted and are scheduled for follow-up specs/sessions. They are too large to convert reliably in one session:
 
 | File | Lines | Notes |

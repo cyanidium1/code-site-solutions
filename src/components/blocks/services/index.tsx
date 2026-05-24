@@ -1,5 +1,3 @@
-import "./services.css";
-
 function IcCalendar() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -118,7 +116,7 @@ export function SecondaryFeatureCard({ icon, title, items }: Feature) {
   // Use the first bullet as a one-line description if available.
   const blurb = items.length > 0 ? items[0] : null;
   return (
-    <div className="secondary-feature relative px-5 py-4 border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] transition-[border-color,background] duration-[200ms] flex items-center gap-4 hover:border-[var(--line-2)] hover:bg-[oklch(0.18_0.005_300)] max-[700px]:px-4 max-[700px]:py-3.5 max-[700px]:gap-3">
+    <div className="relative px-5 py-4 border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] transition-[border-color,background] duration-[200ms] flex items-center gap-4 hover:border-[var(--line-2)] hover:bg-[oklch(0.18_0.005_300)] max-[700px]:px-4 max-[700px]:py-3.5 max-[700px]:gap-3">
       <div className="w-9 h-9 shrink-0 rounded-lg bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)] flex items-center justify-center max-[700px]:w-8 max-[700px]:h-8 [&>svg]:w-[18px] [&>svg]:h-[18px]">
         {icon}
       </div>
@@ -138,7 +136,7 @@ export function SecondaryFeatureCard({ icon, title, items }: Feature) {
 
 export function FeatureCard({ icon, title, items, bg }: Feature) {
   return (
-    <div className="feature-card relative pt-7 px-[26px] pb-[30px] border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] flex flex-col gap-[18px] overflow-hidden isolate max-[700px]:pt-[22px] max-[700px]:px-5 max-[700px]:pb-6 max-[700px]:gap-3.5">
+    <div className="relative pt-7 px-[26px] pb-[30px] border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] flex flex-col gap-[18px] overflow-hidden isolate max-[700px]:pt-[22px] max-[700px]:px-5 max-[700px]:pb-6 max-[700px]:gap-3.5 after:content-[''] after:absolute after:inset-0 after:-z-[1] after:pointer-events-none after:transition-opacity after:duration-300 after:bg-[linear-gradient(180deg,oklch(0.12_0.005_300_/_0.78)_0%,oklch(0.12_0.005_300_/_0.92)_60%,oklch(0.12_0.005_300_/_0.96)_100%),radial-gradient(ellipse_80%_60%_at_70%_30%,oklch(from_var(--accent)_l_c_h_/_0.18),transparent_70%)]">
       <div
         className="absolute inset-0 -z-[2] bg-cover bg-center [filter:saturate(0.7)]"
         // eslint-disable-next-line react/forbid-dom-props -- dynamic background-image URL
@@ -234,7 +232,7 @@ export function Services({
   const hasVisual = Boolean(testimonialVisualSrc);
   return (
     <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
-      <div className="services-bg absolute inset-0 z-0 pointer-events-none" />
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_40%_at_10%_20%,oklch(from_var(--accent)_l_c_h_/_0.08),transparent_70%),radial-gradient(ellipse_40%_50%_at_95%_70%,oklch(from_var(--accent-2)_l_c_h_/_0.07),transparent_70%)]" />
       <div className="relative z-[2] max-w-container mx-auto">
         <div
           className={
@@ -244,7 +242,7 @@ export function Services({
           }
         >
           {hasVisual ? (
-            <div className="testimonial-visual relative aspect-[5/4] rounded-[22px] border border-[var(--line-2)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] max-[1100px]:aspect-[16/10] max-[1100px]:max-w-[600px] max-[700px]:rounded-[14px]">
+            <div className="relative aspect-[5/4] rounded-[22px] border border-[var(--line-2)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] max-[1100px]:aspect-[16/10] max-[1100px]:max-w-[600px] max-[700px]:rounded-[14px] before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:24px_24px] after:content-['IMAGE_PLACEHOLDER'] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:font-mono after:text-[11px] after:tracking-[0.15em] after:text-[oklch(1_0_0_/_0.18)]">
               <img
                 src={testimonialVisualSrc}
                 alt=""
@@ -310,7 +308,7 @@ export function Services({
           {integrations.map((name, i) => (
             <div
               key={i}
-              className="integration relative h-[52px] border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[11px] tracking-[0.1em] uppercase text-[var(--ink-2)] overflow-hidden max-[700px]:h-11 max-[700px]:text-[10px] max-[700px]:tracking-[0.06em] [&>span]:relative [&>span]:z-[2]"
+              className="relative h-[52px] border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[11px] tracking-[0.1em] uppercase text-[var(--ink-2)] overflow-hidden max-[700px]:h-11 max-[700px]:text-[10px] max-[700px]:tracking-[0.06em] [&>span]:relative [&>span]:z-[2]"
             >
               <span>{name}</span>
             </div>
