@@ -55,3 +55,13 @@ Swiper styles moved from per-component CSS into `src/app/vendor.css`. Imports ad
 - [ ] Homepage pull-quote swiper renders correctly on `/` (carousel layout, mockups visible at desktop)
 - [ ] Nav arrows on the carousel work (hover state, focus outline)
 - [ ] Below 900px the side mockups disappear
+
+### Tasks 6–13 — Primitives library (`src/components/ui/`)
+
+Created 9 primitives + `cn` helper: Container, Section, H1/H2/H3, Btn, MetaStrip, GradPlaceholder, ScreenshotPending, DotGrid, TextGradient.
+
+**Heading sizes are illustrative defaults** — they were not measured against the legacy `.h1` / `.hp-h2` / `.case-h2` / `.page-hero-h1` CSS (those sizes live inside individual block CSS files like `hero.css`, not `globals.css`). When each block migration runs in Phase C, compare the converted heading rendering to the baseline screenshot and adjust the `sizes` table in `src/components/ui/Heading.tsx` to match.
+
+**Container & Section** consume `--gutter-x` and `--section-y` tokens via Tailwind 4 arbitrary-property syntax (`px-(--gutter-x)` / `py-(--section-y)`). If Tailwind 4.2 does not recognize this syntax, fall back to `[padding-inline:var(--gutter-x)]` arbitrary-value syntax.
+
+**Btn primary** wraps children in `<span class="relative z-10">` automatically — callers do not need the manual `<span>` wrapper the legacy `.btn-primary` required.
