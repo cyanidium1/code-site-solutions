@@ -1070,48 +1070,6 @@
   }
 }
 
-/* ─── Tech stack ─────────────────────────────────────────────────────────── */
-
-.hp-stack {
-  position: relative;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: oklch(1 0 0 / 0.02);
-  overflow: hidden;
-  background-image: radial-gradient(circle, oklch(1 0 0 / 0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-.hp-stack-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-}
-.hp-stack-tile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 16px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: oklch(0 0 0 / 0.20);
-}
-.hp-stack-tile:nth-child(5n) { border-right: none; }
-.hp-stack-tile:nth-last-child(-n+5) { border-bottom: none; }
-.hp-stack-name {
-  font-family: 'Manrope', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.hp-stack-cat {
-  margin-top: 4px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--ink-3);
-}
-
 /* ─── Pull-quote testimonial ─────────────────────────────────────────────── */
 
 .hp-pull {
@@ -2086,11 +2044,6 @@
 @media (max-width: 1100px) {
   .hp-industries-grid { grid-template-columns: repeat(2, 1fr); }
   .hp-bento-grid { grid-template-columns: repeat(2, 1fr); }
-  .hp-stack-grid { grid-template-columns: repeat(3, 1fr); }
-  .hp-stack-tile { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .hp-stack-tile:nth-child(5n) { border-right: 1px solid var(--line); }
-  .hp-stack-tile:nth-last-child(-n+5) { border-bottom: 1px solid var(--line); }
-  .hp-stack-tile:nth-child(3n) { border-right: none; }
 }
 @media (max-width: 800px) {
   .hp-h2 { font-size: clamp(28px, 7vw, 40px); }
@@ -2242,8 +2195,6 @@
     line-height: 1.5;
   }
   .hp-cases-grid { grid-template-columns: 1fr; }
-  .hp-stack-grid { grid-template-columns: repeat(2, 1fr); }
-  .hp-stack-tile:nth-child(2n) { border-right: none; }
   .hp-finalcta-grid { grid-template-columns: 1fr; }
   .hp-footer-inner { grid-template-columns: 1fr 1fr; }
   .hp-footer-inner > :first-child { grid-column: span 2; }

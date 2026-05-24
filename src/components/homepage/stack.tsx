@@ -36,12 +36,17 @@ export function Stack({
     <section className="hp-section" id="stack">
       <div className="hp-inner">
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
-        <div className="hp-stack">
-          <div className="hp-stack-grid">
+        <div className="relative overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] [background-image:radial-gradient(circle,oklch(1_0_0_/_0.03)_1px,transparent_1px)] [background-size:24px_24px]">
+          <div className="grid grid-cols-5 max-[1100px]:grid-cols-3 max-[800px]:grid-cols-2">
             {items.map((it) => (
-              <div className="hp-stack-tile" key={it.name}>
-                <div className="hp-stack-name">{it.name}</div>
-                <div className="hp-stack-cat">{it.cat}</div>
+              <div
+                className="flex flex-col items-center justify-center border-r border-b border-line bg-[oklch(0_0_0_/_0.20)] px-4 py-10 [&:nth-child(5n)]:border-r-0 max-[1100px]:[&:nth-child(5n)]:border-r max-[800px]:[&:nth-child(5n)]:border-r [&:nth-last-child(-n+5)]:border-b-0 max-[1100px]:[&:nth-last-child(-n+5)]:border-b max-[800px]:[&:nth-last-child(-n+5)]:border-b max-[1100px]:[&:nth-child(3n)]:border-r-0 max-[800px]:[&:nth-child(3n)]:border-r max-[800px]:[&:nth-child(2n)]:border-r-0"
+                key={it.name}
+              >
+                <div className="font-sans text-lg font-semibold text-ink">{it.name}</div>
+                <div className="mt-1 font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3">
+                  {it.cat}
+                </div>
               </div>
             ))}
           </div>
