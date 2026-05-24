@@ -43,6 +43,84 @@ const META_ITEM_CLASS =
   "font-mono text-[11px] tracking-[0.04em] text-ink-3 " +
   "[&>strong]:block [&>strong]:font-display [&>strong]:font-semibold [&>strong]:text-[14px] [&>strong]:text-ink [&>strong]:tracking-[-0.01em] [&>strong]:mb-1 [&>strong]:normal-case";
 
+// Compare grid + VS pill ::before. ::before becomes a real centred chip with
+// before:content-['VS'] etc; hidden on <=700px (legacy hid it because the
+// stacked-card position was confusing).
+const GRID_CLASS =
+  "grid grid-cols-2 gap-7 relative " +
+  "before:content-['VS'] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:z-[5] " +
+  "before:font-display before:font-bold before:text-[18px] before:tracking-[0.1em] before:text-ink-3 before:bg-[var(--bg)] " +
+  "before:px-3.5 before:py-3 before:border before:border-line-strong before:rounded-full before:pointer-events-none " +
+  "max-[1100px]:before:text-[14px] max-[1100px]:before:px-3 max-[1100px]:before:py-2.5 " +
+  "max-[700px]:grid-cols-1 max-[700px]:gap-[18px] max-[700px]:before:hidden";
+
+const CARD_BASE_CLASS =
+  "relative border border-line rounded-[24px] bg-[oklch(1_0_0_/_0.015)] p-7 flex flex-col overflow-hidden " +
+  "max-[1100px]:p-[22px] max-[700px]:p-[18px]";
+
+// "After" card variant. Accent-tinted border, soft gradient bg + outer glow,
+// plus a ::before that paints a gradient border via mask-composite (preserved
+// verbatim — Tailwind has no utility for this masked border trick).
+const CARD_AFTER_CLASS =
+  "!border-[oklch(from_var(--accent)_l_c_h_/_0.35)] " +
+  "bg-[linear-gradient(180deg,oklch(from_var(--accent)_l_c_h_/_0.06),oklch(from_var(--accent)_l_c_h_/_0.02))] " +
+  "shadow-[0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.15),0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] " +
+  "before:content-[''] before:absolute before:inset-[-1px] before:rounded-[inherit] " +
+  "before:bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.4),transparent_50%)] " +
+  "before:[-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] " +
+  "before:[-webkit-mask-composite:xor] before:[mask-composite:exclude] before:p-px before:pointer-events-none";
+
+const CARD_HEAD_CLASS = "flex items-center justify-between mb-5 gap-3";
+
+const BADGE_BASE_CLASS =
+  "inline-flex items-center gap-2 px-3.5 py-[7px] rounded-full font-display text-[11px] font-bold tracking-[0.12em] uppercase";
+
+const BADGE_BEFORE_CLASS =
+  "bg-[oklch(1_0_0_/_0.06)] text-ink-dim border border-line-strong";
+
+const BADGE_AFTER_CLASS =
+  "bg-brand-gradient text-[oklch(1_0_0_/_0.98)] border border-[oklch(from_var(--accent)_l_c_h_/_0.5)] shadow-[0_4px_14px_oklch(from_var(--accent)_l_c_h_/_0.4)]";
+
+const BADGE_DOT_CLASS =
+  "w-1.5 h-1.5 rounded-full bg-current opacity-85";
+
+const CARD_NUM_CLASS =
+  "font-mono text-[10px] text-ink-3 tracking-[0.08em]";
+
+// Screenshot frame (browser chrome + image / placeholder). aspect-ratio
+// preserved at 3/2 across breakpoints (legacy media queries repeated the same
+// value, so single utility suffices).
+const SHOT_CLASS =
+  "relative rounded-[14px] overflow-hidden bg-[oklch(0.18_0.005_300)] border border-line-strong mb-6 aspect-[3/2] " +
+  "max-[700px]:mb-[18px]";
+
+const SHOT_BAR_CLASS =
+  "absolute top-0 left-0 right-0 h-7 flex items-center gap-1.5 px-3 bg-[oklch(0.16_0.004_300)] border-b border-[oklch(1_0_0_/_0.06)] z-[2]";
+
+const SHOT_DOT_CLASS =
+  "w-2.5 h-2.5 rounded-full bg-[oklch(0.3_0.005_60)]";
+
+const SHOT_URL_CLASS =
+  "flex-1 ml-2 h-[18px] bg-[oklch(0.22_0.005_300)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-ink-3 tracking-[0.04em] max-w-[240px]";
+
+const SHOT_IMG_WRAP_CLASS =
+  "absolute inset-x-0 bottom-0 top-7 w-full h-[calc(100%-28px)] overflow-hidden [&>img]:w-full [&>img]:h-auto [&>img]:block [&>img]:object-cover [&>img]:object-top";
+
+// Placeholder shown when no screenshot is uploaded — mimics a page layout with
+// the same accent-tinted radial gradient palette used by other placeholders.
+const SHOT_PLACEHOLDER_CLASS =
+  "absolute inset-0 px-[22px] py-7 flex flex-col gap-3.5 " +
+  "bg-[radial-gradient(ellipse_at_30%_20%,oklch(from_var(--accent)_l_c_h_/_0.18)_0%,transparent_55%),radial-gradient(ellipse_at_78%_80%,oklch(0.5_0.18_280_/_0.16)_0%,transparent_55%),linear-gradient(160deg,oklch(0.16_0.012_240)_0%,oklch(0.11_0.006_250)_100%)]";
+
+const SHOT_PLACEHOLDER_LINE_CLASS =
+  "h-3.5 w-[70%] rounded bg-[oklch(1_0_0_/_0.10)]";
+
+const SHOT_PLACEHOLDER_LINE_SHORT_CLASS =
+  "!w-[45%] !bg-[oklch(1_0_0_/_0.06)]";
+
+const SHOT_PLACEHOLDER_GRID_CLASS =
+  "flex-1 grid grid-cols-2 gap-2.5 mt-1 [&>span]:rounded-md [&>span]:bg-[oklch(1_0_0_/_0.04)] [&>span]:border [&>span]:border-[oklch(1_0_0_/_0.05)]";
+
 const ARROW_ICON = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
     <path
@@ -92,21 +170,23 @@ export function CaseShot({
   alt: string;
 }) {
   return (
-    <div className="case-shot">
-      <div className="case-shot-bar">
-        <span className="case-shot-dot" />
-        <span className="case-shot-dot" />
-        <span className="case-shot-dot" />
-        <span className="case-shot-url">{url}</span>
+    <div className={SHOT_CLASS}>
+      <div className={SHOT_BAR_CLASS}>
+        <span className={SHOT_DOT_CLASS} />
+        <span className={SHOT_DOT_CLASS} />
+        <span className={SHOT_DOT_CLASS} />
+        <span className={SHOT_URL_CLASS}>{url}</span>
       </div>
-      <div className="case-shot-img">
+      <div className={SHOT_IMG_WRAP_CLASS}>
         {src ? (
           <img src={src} alt={alt} />
         ) : (
-          <div className="case-shot-placeholder" aria-hidden="true">
-            <div className="case-shot-placeholder-line" />
-            <div className="case-shot-placeholder-line case-shot-placeholder-line-short" />
-            <div className="case-shot-placeholder-grid">
+          <div className={SHOT_PLACEHOLDER_CLASS} aria-hidden="true">
+            <div className={SHOT_PLACEHOLDER_LINE_CLASS} />
+            <div
+              className={`${SHOT_PLACEHOLDER_LINE_CLASS} ${SHOT_PLACEHOLDER_LINE_SHORT_CLASS}`}
+            />
+            <div className={SHOT_PLACEHOLDER_GRID_CLASS}>
               <span />
               <span />
               <span />
@@ -261,14 +341,14 @@ export function Case({
           </div>
         </header>
 
-        <div className="case-grid">
-          <article className="case-card case-card-before">
-            <div className="case-card-head">
-              <span className="case-badge case-badge-before">
-                <span className="case-badge-dot" />
+        <div className={GRID_CLASS}>
+          <article className={CARD_BASE_CLASS}>
+            <div className={CARD_HEAD_CLASS}>
+              <span className={`${BADGE_BASE_CLASS} ${BADGE_BEFORE_CLASS}`}>
+                <span className={BADGE_DOT_CLASS} />
                 <span>{beforeLabel}</span>
               </span>
-              <span className="case-card-num">{beforeNum}</span>
+              <span className={CARD_NUM_CLASS}>{beforeNum}</span>
             </div>
             <CaseShot src={beforeShotSrc} url={beforeShotUrl} alt={beforeShotAlt} />
             <h3 className="case-tagline">
@@ -288,13 +368,13 @@ export function Case({
             <p className="case-card-foot">{beforeFoot}</p>
           </article>
 
-          <article className="case-card case-card-after">
-            <div className="case-card-head">
-              <span className="case-badge case-badge-after">
-                <span className="case-badge-dot" />
+          <article className={`${CARD_BASE_CLASS} ${CARD_AFTER_CLASS}`}>
+            <div className={CARD_HEAD_CLASS}>
+              <span className={`${BADGE_BASE_CLASS} ${BADGE_AFTER_CLASS}`}>
+                <span className={BADGE_DOT_CLASS} />
                 <span>{afterLabel}</span>
               </span>
-              <span className="case-card-num">{afterNum}</span>
+              <span className={CARD_NUM_CLASS}>{afterNum}</span>
             </div>
             <CaseShot src={afterShotSrc} url={afterShotUrl} alt={afterShotAlt} />
             <h3 className="case-tagline">
