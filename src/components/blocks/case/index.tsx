@@ -1,4 +1,47 @@
+import { H2 } from "@/components/ui";
 import "./case.css";
+
+// Italic <em> inside the heading uses the brand vertical accent gradient
+// (accent-soft → accent), text-clipped. Same effect as the legacy `.case-h2 em`
+// rule. Tailwind cannot express this via a token because the gradient is
+// applied to text via -webkit-text-fill-color: transparent — preserved as
+// arbitrary-value utilities scoped by the [&_em] descendant selector.
+const HEADING_EM_CLASS =
+  "[&_em]:not-italic [&_em]:font-light [&_em]:bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
+
+const SECTION_CLASS =
+  "relative overflow-hidden bg-[var(--bg)] py-(--section-y-lg) px-12 max-[1100px]:px-8 max-[700px]:px-[18px]";
+
+// Two stacked radial gradients — accent (top-right) + accent-2 (bottom-left).
+// Preserved as raw OKLCH because no @theme token captures this dual-gradient
+// pattern; identical to legacy `.case-bg`.
+const SECTION_BG_CLASS =
+  "absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_40%_50%_at_90%_30%,oklch(from_var(--accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_35%_40%_at_5%_70%,oklch(from_var(--accent-2)_l_c_h_/_0.08),transparent_70%)]";
+
+const INNER_CLASS = "relative z-[2] max-w-container mx-auto";
+
+const HEADER_CLASS =
+  "grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-[60px] items-end mb-16 pb-8 border-b border-line " +
+  "max-[1100px]:grid-cols-1 max-[1100px]:gap-6 max-[1100px]:items-start max-[1100px]:mb-12 " +
+  "max-[700px]:mb-8 max-[700px]:pb-[22px]";
+
+const EYEBROW_CLASS =
+  "inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-line-strong rounded-full text-[11px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-[22px]";
+
+const EYEBROW_DOT_CLASS =
+  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]";
+
+const LEDE_CLASS =
+  "text-[15px] leading-[1.7] text-ink-dim m-0 max-w-[56ch] pb-1.5 text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
+  "max-[1100px]:text-[14px]";
+
+const META_CLASS =
+  "flex flex-wrap gap-x-9 gap-y-6 mt-6 pt-[18px] border-t border-dashed border-line " +
+  "max-[700px]:gap-x-6 max-[700px]:gap-y-[18px]";
+
+const META_ITEM_CLASS =
+  "font-mono text-[11px] tracking-[0.04em] text-ink-3 " +
+  "[&>strong]:block [&>strong]:font-display [&>strong]:font-semibold [&>strong]:text-[14px] [&>strong]:text-ink [&>strong]:tracking-[-0.01em] [&>strong]:mb-1 [&>strong]:normal-case";
 
 const ARROW_ICON = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -189,25 +232,27 @@ export function Case({
   const beforeLabel = locale === "en" ? "BEFORE" : "БУЛО";
   const afterLabel = locale === "en" ? "AFTER" : "СТАЛО";
   return (
-    <section className="case">
-      <div className="case-bg" />
+    <section className={SECTION_CLASS}>
+      <div className={SECTION_BG_CLASS} />
 
-      <div className="case-inner">
-        <header className="case-header">
+      <div className={INNER_CLASS}>
+        <header className={HEADER_CLASS}>
           <div>
-            <div className="case-eyebrow">
-              <span className="case-eyebrow-dot" />
+            <div className={EYEBROW_CLASS}>
+              <span className={EYEBROW_DOT_CLASS} />
               <span>{eyebrow}</span>
-              <span className="case-eyebrow-sep">·</span>
-              <span className="case-eyebrow-em">{eyebrowEm}</span>
+              <span className="text-ink-3">·</span>
+              <span className="text-accent-soft font-semibold">{eyebrowEm}</span>
             </div>
-            <h2 className="case-h2">{heading}</h2>
+            <H2 variant="case" className={HEADING_EM_CLASS}>
+              {heading}
+            </H2>
           </div>
           <div>
-            <p className="case-lede">{lede}</p>
-            <div className="case-meta">
+            <p className={LEDE_CLASS}>{lede}</p>
+            <div className={META_CLASS}>
               {meta.map((m, i) => (
-                <div className="case-meta-item" key={i}>
+                <div className={META_ITEM_CLASS} key={i}>
                   <strong>{m.strong}</strong>
                   {m.text}
                 </div>

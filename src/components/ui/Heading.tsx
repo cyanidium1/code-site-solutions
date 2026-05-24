@@ -21,7 +21,11 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 
 /**
  * Utility strings reproduce legacy .h1 / .hp-h1 / .hp-h2 / .case-h2 /
- * .page-hero-h1 sizes from globals.css as of 2026-05-24. Headings inherit
+ * .page-hero-h1 sizes from globals.css as of 2026-05-24. The H2 `case`
+ * variant was reconciled to the legacy `.case-h2` values from case.css
+ * (clamp(34px,4.6vw,60px), leading-none, tracking -0.035em, max-w 14ch,
+ * text-balance, with responsive 1100px and 700px overrides) on case.css
+ * deletion (Session 4). Headings inherit
  * the Actay Wide font via the global `h1,h2,h3` selector during Phase 1;
  * once that selector is removed in Task 43, the font-actay class below
  * applies it explicitly.
@@ -60,7 +64,7 @@ const sizes: Record<Level, Record<Variant, string>> = {
   2: {
     default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
     hp: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
-    case: "font-actay text-[40px] leading-[1.1] tracking-[-0.01em] font-bold",
+    case: "font-actay font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] max-w-[14ch] text-balance max-[1100px]:text-[clamp(30px,5vw,44px)] max-[700px]:text-[clamp(28px,8vw,36px)] max-[700px]:max-w-full",
     "page-hero": "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
     "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] font-bold max-[800px]:text-[clamp(24px,6vw,36px)]",
     comparison:
