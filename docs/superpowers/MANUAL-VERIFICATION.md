@@ -137,6 +137,30 @@ Affected pages: every page using `<PageHero>` — `/stories/page-hero`, `/about`
 - [ ] H1 size matches legacy `clamp(36px, 4.6vw, 60px)` / `line-height 1.05` / `tracking -0.02em` — Heading primitive `sizes[1]["page-hero"]` updated from the placeholder `72px / 1.02` to match; consumer JSX now uses `<H1 variant="page-hero">`
 - [ ] Italic `<em>` inside the H1 still renders with the brand gradient and `padding-inline-end + box-decoration-break: clone` (preserved because the `.page-hero h1 em` rule in globals.css still applies — the `page-hero` class is retained on the `<section>`)
 
+### Task S3.3 — `lead-form.css` deleted; HeroUI inputs via classNames API
+Affected pages: `/contacts`, `/en/contacts` (both render `<LeadForm>` inside `<ContactSplit>`); plus any other page that mounts `<LeadForm>` directly.
+- [ ] Form labels render in ink-2 at 13px / weight 500 (NOT HeroUI's default dim `foreground-500`)
+- [ ] Required field asterisk (`label::after`) renders in accent-soft
+- [ ] Input/Textarea/Select wrappers (collapsed): line-strong border, dark `oklch(0.16 0.005 300 / 0.7)` bg, no shadow
+- [ ] Hover state: border bumps to `var(--ink-3)`, bg deepens to `oklch(0.16 0.005 300 / 0.9)`
+- [ ] Focus state (and Select while open): border becomes accent-soft, bg `oklch(0.18 0.01 300 / 0.95)`
+- [ ] Invalid state: border becomes red (`oklch(0.65 0.18 25)`); error message in `oklch(0.78 0.14 25)`
+- [ ] Input text in ink, Manrope (font-sans), 14px; placeholder in ink-3
+- [ ] Textarea has line-height 1.5
+- [ ] Description text (under contact field, full variant) in ink-3
+- [ ] Select dropdown (portaled to body): dark `oklch(0.13 0.005 300 / 0.98)` bg, line-strong border, deep shadow with inset highlight, 16px backdrop-blur — reached via `classNames.popoverContent`
+- [ ] SelectItem rest state: ink-2 text, 8px radius
+- [ ] SelectItem hover/focus: translucent white bg `rgba(255,255,255,0.06)`, ink text — reached via Tailwind `data-[hover=true]:` / `data-[focus=true]:` variants on the item itself
+- [ ] SelectItem selected: accent-tinted bg `oklch(from var(--color-accent) l c h / 0.2)`, ink text
+- [ ] SelectItem selected + hover: deeper accent tint `… / 0.28`
+- [ ] Compact-form "show details" toggle: dashed border pill, mono text; hover → accent-soft color + accent-tinted border/bg; chevron rotates 180° when expanded
+- [ ] Expanded details container: solid border card with subtle white-translucent bg, 16px gap, 18px padding
+- [ ] Submit button: pill, 3-stop horizontal brand gradient (`oklch(0.55 0.18 250)` → 295 → `oklch(0.45 0.2 320)`), Manrope semibold 13px uppercase tracking, brand-glow shadow; hover lifts 1px + deepens shadow
+- [ ] Error banner: dark-red tinted card with body text in light red
+- [ ] Privacy footer: mono 11px ink-3 text
+- [ ] Success state: accent-bordered card with brand-gradient icon tile, 22px Manrope-bold title, accent-soft Telegram link
+- [ ] All HeroUI overrides use `classNames` slots (label, inputWrapper, input, description, errorMessage, trigger, value, popoverContent) with `!important` utilities where HeroUI's internal class collides — same pattern as Session 2 FAQ accordion
+
 ### Task S3.2 — `contact-split.css` deleted
 Affected pages: `/contacts`, `/en/contacts` (the only consumers of `<ContactSplit>`).
 - [ ] Section background: vertical gradient from `var(--bg)` to `oklch(0.13 0.02 300)` (slight purple tint at bottom)

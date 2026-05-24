@@ -13,7 +13,6 @@ import {
 import { ChevronDown } from "lucide-react";
 
 import { SITE_CONTACT } from "@/constants/site";
-import "./lead-form.css";
 
 import type { LeadValues } from "@/types/lead";
 import {
@@ -27,12 +26,110 @@ import { LEAD_FORM_STRINGS_BY_LOCALE as STRINGS_BY_LOCALE } from "@/content/lead
 import { INITIAL_LEAD_VALUES as INITIAL, buildValidationSchema } from "./validation";
 import { submitLead } from "./submit";
 
-const SELECT_CLASSNAMES = {
-  popoverContent: "lead-form-popover",
-  listbox: "lead-form-popover-listbox",
+// ─── HeroUI classNames (replaces lead-form.css scoped overrides) ───────────
+//
+// HeroUI's data-slot architecture is reached two ways:
+//   1. The `classNames` prop merges utility strings into the per-slot class.
+//   2. The element exposes data-* attributes (`data-focus`, `data-hover`,
+//      `data-invalid`, `data-open`) that Tailwind reaches via the
+//      `data-[focus=true]:` variant — applied on the SAME slot.
+// We use `!important` utilities where HeroUI's internal class collides at
+// equal specificity (label color, input text color/font, placeholder).
+// Same pattern Session 2 used for the FAQ accordion slots.
+
+const LABEL_CLASS =
+  "!text-[var(--ink-2)] font-medium !text-[13px] tracking-[0.005em] " +
+  "after:!text-accent-soft";
+
+const WRAPPER_CLASS =
+  "border border-line-strong bg-[oklch(0.16_0.005_300_/_0.7)] shadow-none transition-[border-color,background-color] duration-200 " +
+  "hover:!border-[var(--ink-3)] hover:!bg-[oklch(0.16_0.005_300_/_0.9)] " +
+  "data-[focus=true]:!border-accent-soft data-[focus=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
+  "data-[focus-visible=true]:!border-accent-soft data-[focus-visible=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
+  "group-data-[invalid=true]:!border-[oklch(0.65_0.18_25)]";
+
+const INPUT_CLASS =
+  "!text-ink !font-sans !text-[14px] tracking-[0.005em] " +
+  "placeholder:!text-[var(--ink-3)] placeholder:!font-sans";
+
+const TEXTAREA_INPUT_CLASS = `${INPUT_CLASS} leading-[1.5]`;
+
+const DESCRIPTION_CLASS = "!text-[var(--ink-3)]";
+
+const ERROR_MESSAGE_CLASS = "!text-[oklch(0.78_0.14_25)]";
+
+const INPUT_CLASSNAMES = {
+  label: LABEL_CLASS,
+  inputWrapper: WRAPPER_CLASS,
+  input: INPUT_CLASS,
+  description: DESCRIPTION_CLASS,
+  errorMessage: ERROR_MESSAGE_CLASS,
 } as const;
 
-const SELECT_ITEM_CLASS = "lead-form-popover-item";
+const TEXTAREA_CLASSNAMES = {
+  label: LABEL_CLASS,
+  inputWrapper: WRAPPER_CLASS,
+  input: TEXTAREA_INPUT_CLASS,
+  description: DESCRIPTION_CLASS,
+  errorMessage: ERROR_MESSAGE_CLASS,
+} as const;
+
+// Select trigger element parallels Input's inputWrapper. The trigger gets the
+// same border/bg treatment; additionally `data-[open=true]` (popover open)
+// reuses the focus styling so the trigger reads as active while the menu is
+// shown. `value` is the visible text inside the trigger.
+const SELECT_TRIGGER_CLASS =
+  "border border-line-strong !bg-[oklch(0.16_0.005_300_/_0.7)] !shadow-none transition-[border-color,background-color] duration-200 " +
+  "hover:!border-[var(--ink-3)] hover:!bg-[oklch(0.16_0.005_300_/_0.9)] " +
+  "data-[focus=true]:!border-accent-soft data-[focus=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
+  "data-[focus-visible=true]:!border-accent-soft data-[focus-visible=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
+  "data-[open=true]:!border-accent-soft data-[open=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
+  "data-[invalid=true]:!border-[oklch(0.65_0.18_25)]";
+
+const SELECT_VALUE_CLASS =
+  "!text-ink !font-sans !text-[14px] tracking-[0.005em]";
+
+// Select popover is portaled into <body>; styling reaches it via the
+// `popoverContent` slot. Background, border, deep shadow + backdrop-blur.
+const SELECT_POPOVER_CLASS =
+  "!bg-[oklch(0.13_0.005_300_/_0.98)] border border-line-strong " +
+  "!shadow-[0_18px_48px_oklch(0_0_0_/_0.5),0_0_0_1px_oklch(1_0_0_/_0.04)_inset] " +
+  "backdrop-blur-[16px]";
+
+// SelectItem className per option. Default ink-2 text; hover/focus → ink with
+// translucent white bg; selected → accent-tinted bg + ink text; selected+hover
+// deepens accent. Same effects the legacy `.lead-form-popover-item[…]` rules
+// produced, reached via data-* variants on the item itself.
+const SELECT_ITEM_CLASS =
+  "!text-[var(--ink-2)] rounded-lg transition-[background-color,color] duration-150 " +
+  "data-[hover=true]:!bg-[rgba(255,255,255,0.06)] data-[hover=true]:!text-ink " +
+  "data-[focus=true]:!bg-[rgba(255,255,255,0.06)] data-[focus=true]:!text-ink " +
+  "data-[focus-visible=true]:!bg-[rgba(255,255,255,0.06)] data-[focus-visible=true]:!text-ink " +
+  "data-[selected=true]:!bg-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] data-[selected=true]:!text-ink " +
+  "data-[selected=true]:data-[hover=true]:!bg-[oklch(from_var(--color-accent)_l_c_h_/_0.28)]";
+
+const SELECT_CLASSNAMES = {
+  label: LABEL_CLASS,
+  trigger: SELECT_TRIGGER_CLASS,
+  value: SELECT_VALUE_CLASS,
+  popoverContent: SELECT_POPOVER_CLASS,
+  description: DESCRIPTION_CLASS,
+  errorMessage: ERROR_MESSAGE_CLASS,
+} as const;
+
+// Submit button — pill with brand-gradient bg, glow shadow, lift on hover.
+const SUBMIT_BUTTON_CLASS =
+  "mt-1.5 !bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.2_320))] " +
+  "!text-[oklch(1_0_0_/_0.95)] font-sans font-semibold !text-[13px] tracking-[0.04em] " +
+  "shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.32)] " +
+  "transition-[transform,box-shadow] duration-[250ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
+  "hover:-translate-y-px hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h_/_0.4)]";
+
+// Compact-form "more details" toggle pill.
+const TOGGLE_CLASS =
+  "inline-flex items-center gap-2 self-start py-2.5 px-[14px] border border-dashed border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] text-[var(--ink-2)] font-mono text-[12px] tracking-[0.04em] cursor-pointer " +
+  "transition-[color,border-color,background-color] duration-200 " +
+  "hover:text-accent-soft hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] hover:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.05)]";
 
 // `business` is the deprecated Multi-page tier (dropped Sprint 1). The alias
 // stays so old emails/sitemap URLs with ?tier=business still resolve to a
@@ -102,8 +199,14 @@ function LeadFormInner({
 
   if (status === "success") {
     return (
-      <div className="lead-form-success" role="status">
-        <div className="lead-form-success-icon" aria-hidden="true">
+      <div
+        className="flex flex-col gap-3 p-8 border border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] rounded-[18px] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)]"
+        role="status"
+      >
+        <div
+          className="w-11 h-11 rounded-[14px] inline-flex items-center justify-center bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] mb-1"
+          aria-hidden="true"
+        >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             <path
               d="M4 12l5 5L20 6"
@@ -114,15 +217,19 @@ function LeadFormInner({
             />
           </svg>
         </div>
-        <h3 className="lead-form-success-title">{strings.successTitle}</h3>
-        <p className="lead-form-success-body">{strings.successBody}</p>
-        <p className="lead-form-success-body">
+        <h3 className="font-sans text-[22px] font-bold text-ink m-0 tracking-[-0.01em]">
+          {strings.successTitle}
+        </h3>
+        <p className="text-[14px] leading-[1.6] text-[var(--ink-2)] m-0">
+          {strings.successBody}
+        </p>
+        <p className="text-[14px] leading-[1.6] text-[var(--ink-2)] m-0">
           {strings.successOrTg}{" "}
           <a
             href={SITE_CONTACT.telegram}
             target="_blank"
             rel="noreferrer"
-            className="lead-form-link"
+            className="text-accent-soft no-underline font-semibold hover:underline"
           >
             {SITE_CONTACT.telegramHandle}
           </a>
@@ -156,11 +263,9 @@ function LeadFormInner({
         isSubmitting,
         submitForm,
       }) => (
-        <Form
-          className={`lead-form${isCompact ? " lead-form-compact" : ""}`}
-        >
+        <Form className={`flex flex-col ${isCompact ? "gap-[18px]" : "gap-[22px]"}`}>
           {isCompact ? (
-            <div className="lead-form-row-2">
+            <div className="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1">
               <Field name="name">
                 {({ field }: FieldProps) => (
                   <Input
@@ -170,6 +275,7 @@ function LeadFormInner({
                     placeholder={strings.namePlaceholderShort}
                     variant="bordered"
                     radius="lg"
+                    classNames={INPUT_CLASSNAMES}
                   />
                 )}
               </Field>
@@ -185,6 +291,7 @@ function LeadFormInner({
                     errorMessage={touched.contact ? errors.contact : undefined}
                     variant="bordered"
                     radius="lg"
+                    classNames={INPUT_CLASSNAMES}
                   />
                 )}
               </Field>
@@ -200,6 +307,7 @@ function LeadFormInner({
                     placeholder={strings.namePlaceholder}
                     variant="bordered"
                     radius="lg"
+                    classNames={INPUT_CLASSNAMES}
                   />
                 )}
               </Field>
@@ -216,6 +324,7 @@ function LeadFormInner({
                     errorMessage={touched.contact ? errors.contact : undefined}
                     variant="bordered"
                     radius="lg"
+                    classNames={INPUT_CLASSNAMES}
                   />
                 )}
               </Field>
@@ -236,7 +345,9 @@ function LeadFormInner({
             classNames={SELECT_CLASSNAMES}
           >
             {BUSINESS_OPTS.map((o) => (
-              <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>{o.label}</SelectItem>
+              <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
+                {o.label}
+              </SelectItem>
             ))}
           </Select>
 
@@ -250,6 +361,7 @@ function LeadFormInner({
                 minRows={isCompact ? 3 : 5}
                 variant="bordered"
                 radius="lg"
+                classNames={TEXTAREA_CLASSNAMES}
               />
             )}
           </Field>
@@ -257,7 +369,7 @@ function LeadFormInner({
           {isCompact && (
             <button
               type="button"
-              className="lead-form-toggle"
+              className={TOGGLE_CLASS}
               onClick={() => setShowDetails((v) => !v)}
               aria-expanded={showDetails}
               aria-controls="lead-form-details"
@@ -265,11 +377,11 @@ function LeadFormInner({
               <ChevronDown
                 size={14}
                 strokeWidth={2}
-                className={`lead-form-toggle-chev${showDetails ? " open" : ""}`}
+                className={`transition-transform duration-200${showDetails ? " rotate-180" : ""}`}
               />
               <span>
                 {showDetails ? strings.hideDetails : strings.showDetails}
-                <span className="lead-form-toggle-meta">
+                <span className="text-[var(--ink-3)] lowercase">
                   {" "}
                   · {strings.detailsMeta}
                 </span>
@@ -278,7 +390,10 @@ function LeadFormInner({
           )}
 
           {showDetails && (
-            <div className="lead-form-details" id="lead-form-details">
+            <div
+              className="flex flex-col gap-[18px] p-[18px] border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)]"
+              id="lead-form-details"
+            >
               <Select
                 label={strings.tierLabel}
                 labelPlacement="outside"
@@ -291,14 +406,15 @@ function LeadFormInner({
                 variant="bordered"
                 radius="lg"
                 classNames={SELECT_CLASSNAMES}
-                
               >
                 {TIER_OPTS.map((o) => (
-                  <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>{o.label}</SelectItem>
+                  <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
+                    {o.label}
+                  </SelectItem>
                 ))}
               </Select>
 
-              <div className="lead-form-row-2">
+              <div className="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1">
                 <Select
                   label={strings.budgetLabel}
                   labelPlacement="outside"
@@ -311,10 +427,11 @@ function LeadFormInner({
                   variant="bordered"
                   radius="lg"
                   classNames={SELECT_CLASSNAMES}
-
                 >
                   {BUDGET_OPTS.map((o) => (
-                    <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>{o.label}</SelectItem>
+                    <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
+                      {o.label}
+                    </SelectItem>
                   ))}
                 </Select>
 
@@ -330,10 +447,11 @@ function LeadFormInner({
                   variant="bordered"
                   radius="lg"
                   classNames={SELECT_CLASSNAMES}
-                  
                 >
                   {TIMELINE_OPTS.map((o) => (
-                    <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>{o.label}</SelectItem>
+                    <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
+                      {o.label}
+                    </SelectItem>
                   ))}
                 </Select>
               </div>
@@ -348,26 +466,31 @@ function LeadFormInner({
             isLoading={isSubmitting || status === "submitting"}
             radius="full"
             size="lg"
-            className="lead-form-submit"
+            className={SUBMIT_BUTTON_CLASS}
           >
             {strings.submit}
           </Button>
 
           {status === "error" && (
-            <div className="lead-form-error" role="alert">
+            <div
+              className="py-3 px-4 rounded-xl bg-[oklch(0.30_0.12_25_/_0.18)] border border-[oklch(0.55_0.18_25_/_0.4)] text-[oklch(0.85_0.08_25)] text-[13px] leading-[1.5]"
+              role="alert"
+            >
               {strings.errorBody}{" "}
               <a
                 href={SITE_CONTACT.telegram}
                 target="_blank"
                 rel="noreferrer"
-                className="lead-form-link"
+                className="text-accent-soft no-underline font-semibold hover:underline"
               >
                 {SITE_CONTACT.telegramHandle}
               </a>
             </div>
           )}
 
-          <p className="lead-form-privacy">{strings.privacy}</p>
+          <p className="font-mono text-[11px] leading-[1.55] tracking-[0.02em] text-[var(--ink-3)] mt-1 mb-0">
+            {strings.privacy}
+          </p>
         </Form>
       )}
     </Formik>
