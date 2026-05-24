@@ -1,5 +1,4 @@
 import { cn } from "@/lib/shared/cn";
-import "./team-cards.css";
 
 export type TeamSocialKind = "li" | "tg" | "gh" | "ig" | "tt" | "x";
 export type TeamSocial = { kind: TeamSocialKind; href: string };
@@ -128,7 +127,7 @@ function TeamCard({ m }: { m: TeamMember }) {
           </span>
         )}
         {m.tag ? (
-          <span className="team-card-photo-tag absolute bottom-3.5 left-3.5 inline-flex items-center gap-1.5 px-2.5 py-[5px] rounded-full border border-[oklch(1_0_0_/_0.14)] bg-[oklch(0_0_0_/_0.4)] backdrop-blur-[8px] font-mono text-[10px] tracking-[0.12em] uppercase text-ink">
+          <span className="absolute bottom-3.5 left-3.5 inline-flex items-center gap-1.5 px-2.5 py-[5px] rounded-full border border-[oklch(1_0_0_/_0.14)] bg-[oklch(0_0_0_/_0.4)] backdrop-blur-[8px] font-mono text-[10px] tracking-[0.12em] uppercase text-ink before:content-[''] before:w-[5px] before:h-[5px] before:rounded-full before:bg-[oklch(0.7_0.16_145)] before:shadow-[0_0_6px_oklch(0.7_0.16_145_/_0.6)]">
             {m.tag}
           </span>
         ) : null}
@@ -204,7 +203,7 @@ export function TeamCards({
         {(eyebrow || heading || sub) && (
           <header className="flex flex-col mb-16">
             {eyebrow ? (
-              <span className="team-cards-eyebrow inline-flex items-center self-start gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)]">
+              <span className="inline-flex items-center self-start gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)] before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--accent)_l_c_h_/_0.6)]">
                 {eyebrow}
               </span>
             ) : null}
@@ -224,7 +223,7 @@ export function TeamCards({
         {groupList.map((g, gi) => (
           <div className={cn(gi > 0 && "mt-14")} key={gi}>
             {g.label ? (
-              <div className="team-cards-group-h mb-6 font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)] flex items-center gap-3">
+              <div className="mb-6 font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)] flex items-center gap-3 after:content-[''] after:flex-1 after:h-px after:bg-line">
                 <span>{g.label}</span>
               </div>
             ) : null}

@@ -106,6 +106,12 @@ This keeps designer-facing variants in one file and prevents heading-size drift 
 - [ ] `<CtaBanner>` usage anywhere — top accent line, grid overlay, eyebrow dot indicator still render
 - [ ] `<Reasons>` block — background gradient + vertical-line grid still visible
 
+### Task S1.1 — `team-cards.css` deleted
+Affected pages: `/stories/team-cards` (story page); any industry/about page using `<TeamCards>` block.
+- [ ] Eyebrow pill has the small 6px accent dot (`::before`) with subtle glow
+- [ ] Group label row (when multiple groups) shows the inline horizontal hairline filling space to the right of the label
+- [ ] Photo "tag" pill in the bottom-left of a team-member photo shows a small 5px green dot with glow
+
 **Stopped before:** the following CSS files remain undeleted and are scheduled for follow-up specs/sessions. They are too large to convert reliably in one session:
 
 | File | Lines | Notes |
