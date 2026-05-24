@@ -41,7 +41,7 @@
   margin-bottom: 20px;
 }
 .blog-prose .blog-h2 {
-  @apply text-ink font-bold;
+  @apply font-actay text-ink font-bold;
   font-size: clamp(26px, 3vw, 34px);
   line-height: 1.2;
   letter-spacing: -0.015em;
@@ -49,7 +49,7 @@
   margin-bottom: 16px;
 }
 .blog-prose .blog-h3 {
-  @apply text-ink font-semibold;
+  @apply font-actay text-ink font-semibold;
   font-size: clamp(20px, 2.2vw, 24px);
   line-height: 1.25;
   margin-top: 40px;

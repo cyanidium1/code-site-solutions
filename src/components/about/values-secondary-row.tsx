@@ -1,8 +1,7 @@
 /**
  * About-page secondary values row. Shown beneath the primary Bento of
- * top-3 values; collapses 3-col → 2-col → 1-col via the
- * `.about-values-secondary` rule in globals.css (Phase 1 keeps that legacy
- * className; Phase 2 will replace it with mobile-first Tailwind utilities).
+ * top-3 values; collapses 3-col → 2-col → 1-col via mobile-first
+ * Tailwind utilities (grid-cols-1 → 600px:grid-cols-2 → 900px:grid-cols-3).
  *
  * Used by both src/app/about/page.tsx (UK) and src/app/en/about/page.tsx (EN).
  */
@@ -16,7 +15,7 @@ interface ValuesSecondaryRowProps {
 export function ValuesSecondaryRow({ cells, ariaLabel }: ValuesSecondaryRowProps) {
   return (
     <section className="bg-bg px-12 pb-16" aria-label={ariaLabel}>
-      <div className="about-values-secondary mx-auto grid max-w-container grid-cols-3 gap-3">
+      <div className="mx-auto grid max-w-container grid-cols-1 gap-3 min-[600px]:grid-cols-2 min-[900px]:grid-cols-3">
         {cells.map((c) => {
           const Icon = c.icon;
           return (

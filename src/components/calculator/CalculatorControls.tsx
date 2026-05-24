@@ -210,7 +210,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
   return (
     <div className="flex flex-col gap-[14px]">
       <section className={`${GROUP_CLASS} overflow-hidden`}>
-        <h3>{t("controls.presetTitle")}</h3>
+        <h3 className="font-display">{t("controls.presetTitle")}</h3>
         <div className={GROUP_CONTENT_CLASS}>
           <p className={NOTE_CLASS}>{t("controls.presetNote")}</p>
           <div className="grid grid-cols-3 gap-[14px] max-[1100px]:grid-cols-1">

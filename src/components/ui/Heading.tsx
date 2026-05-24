@@ -115,6 +115,17 @@ const sizes: Record<Level, Record<Variant, string>> = {
   },
 };
 
+/**
+ * Italic-em padding fix: brand-gradient italic <em> glyphs slant past the
+ * inline-box edge; without this padding, background-clip:text clips the
+ * descender/tail. box-decoration-clone makes the padding apply per fragment
+ * when the em wraps to multiple lines. Applies to every Heading regardless
+ * of whether the em uses a gradient (cost is 2.5px of trailing space which
+ * is invisible without the gradient). Mirrors the legacy .h1/.hp-h2/.case-h2
+ * em rule from globals.css (removed in Phase D).
+ */
+const EM_GRADIENT_FIX = "[&_em]:pe-[0.16em] [&_em]:box-decoration-clone";
+
 export function Heading({
   level,
   variant = "default",
@@ -124,7 +135,7 @@ export function Heading({
 }: HeadingProps) {
   const Tag = `h${level}` as "h1" | "h2" | "h3";
   return (
-    <Tag className={cn(sizes[level][variant], className)} {...rest}>
+    <Tag className={cn(sizes[level][variant], EM_GRADIENT_FIX, className)} {...rest}>
       {children}
     </Tag>
   );

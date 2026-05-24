@@ -37,8 +37,9 @@
   --container-form: 720px;
 
   /* Section vertical rhythm + horizontal gutter.
-     Phase 1: values are fixed; legacy :root media-query overrides still apply.
-     Phase 2: overrides removed, primitives gain mobile-first responsive utilities. */
+     Phase 1 endpoint: values are fixed across all viewports (responsive
+     overrides removed). Phase 2 will reintroduce responsive scaling as
+     mobile-first utilities in primitives. */
   --spacing-section-y: 100px;
   --spacing-section-y-md: 80px;
   --spacing-section-y-tight: 56px;
@@ -81,6 +82,14 @@
   --animate-hp-drawer-in: hp-drawer-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
+/* ─── Phase 1 compatibility shim ──────────────────────────────────────────
+   Re-exposes the @theme tokens under their pre-refactor names
+   (--bg, --ink, --accent, --line, --gutter-x, --section-y, --container-*).
+   Many consumers across src/ still reference these short names directly
+   (e.g. bg-[oklch(from_var(--accent)_...)], style={{ "--section-y": ... }}).
+   Phase 2 will migrate consumers to the @theme-derived --color-* / --spacing-*
+   names then delete this block.
+   ─────────────────────────────────────────────────────────────────────── */
 :root {
   color-scheme: dark;
 
@@ -107,47 +116,12 @@
   --container-prose: 760px;
   --container-form: 720px;
 
-  /* Horizontal gutter ladder — shared by hero, header, sections, footer.
-     Overrides at each breakpoint below keep all outer wrappers in lockstep
-     so header/hero/section content columns align on every viewport. */
+  /* Fixed (no responsive overrides) — Phase 1 endpoint behavior. */
   --gutter-x: 48px;
-
-  /* Section vertical rhythm — media-query-aware via overrides below.
-     Dominant rhythm is --section-y (100/56). Newer blocks already use
-     this; .hp-section was migrated UP from 56→100 to match. */
   --section-y: 100px;
   --section-y-md: 80px;
   --section-y-tight: 56px;
   --section-y-lg: 120px;
-}
-
-@media (max-width: 1100px) {
-  :root {
-    --section-y: 80px;
-    --section-y-lg: 100px;
-    --gutter-x: 32px;
-  }
-}
-
-@media (max-width: 800px) {
-  :root {
-    --section-y-md: 56px;
-    --section-y-tight: 36px;
-  }
-}
-
-@media (max-width: 700px) {
-  :root {
-    --section-y: 56px;
-    --section-y-lg: 72px;
-    --gutter-x: 24px;
-  }
-}
-
-@media (max-width: 380px) {
-  :root {
-    --gutter-x: 18px;
-  }
 }
 
 html {
@@ -158,35 +132,6 @@ html,
 body {
   background: var(--bg);
   color: var(--ink);
-}
-
-/* h1–h3 and shared heading classes — Actay Wide (--font-actay in layout.tsx) */
-h1,
-h2,
-h3,
-.h1,
-.hp-h2,
-.case-h2,
-.turnkey-list-h2,
-.turnkey-list-title,
-.contact-split-heading,
-.blog-prose .blog-h2,
-.blog-prose .blog-h3,
-h1.font-display,
-h2.font-display,
-h3.font-display {
-  font-family: var(--font-actay), system-ui, sans-serif;
-}
-
-h1 em,
-h2 em,
-h3 em,
-.h1 em,
-.hp-h2 em,
-.case-h2 em,
-.turnkey-list-h2 em,
-.contact-split-heading em {
-  font-family: inherit;
 }
 
 body {
@@ -200,35 +145,21 @@ body {
   overflow-x: clip;
 }
 
-/* italic glyphs slant past the inline-box edge — додаємо padding,
-   щоб background-clip:text gradient не різав хвостик курсиву.
-   0.16em покриває і Manrope sans, і Manrope serif italic.
-   box-decoration-break: clone — щоб padding застосовувався до кожного
-   фрагмента, якщо italic переноситься на кілька рядків.
-   Scope: лише heading-em контексти, де italic-gradient ще використовується
-   (H1/H2 у героях, hp-h2, case-h2). У body em прибрано, тож глобальне
-   правило більше не потрібне. */
-.h1 em,
-.hp-h2 em,
-.case-h2 em,
-.page-hero h1 em,
-.hero-grid h1 em {
+/* ─── Italic-em padding fix for heading gradients ─────────────────────────
+   Brand-gradient italic <em> glyphs slant past the inline-box edge; without
+   trailing padding, background-clip:text clips the descender/tail.
+   box-decoration-clone makes the padding apply per fragment when the em
+   wraps to multiple lines. Covers any raw <h1>/<h2>/<h3> with [&_em]:bg-clip-text
+   utilities that don't go through the Heading primitive (which applies its
+   own EM_GRADIENT_FIX). Cost is 0.16em of trailing space — invisible when
+   the em isn't gradient-clipped.
+   ─────────────────────────────────────────────────────────────────────── */
+h1 em,
+h2 em,
+h3 em {
   padding-inline-end: 0.16em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-}
-
-/* About page values-secondary row: collapses to 1-col on mobile, 2-col
-   on tablets. Inline-styled grid in about/page.tsx uses 3-col by default. */
-@media (max-width: 900px) {
-  .about-values-secondary {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-@media (max-width: 600px) {
-  .about-values-secondary {
-    grid-template-columns: 1fr !important;
-  }
 }
 
 @layer utilities {
@@ -284,22 +215,7 @@ body {
     background-size: 24px 24px;
   }
 
-  .container-page {
-    max-width: var(--container-max);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
   .ease-soft {
     transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-}
-
-@media (min-width: 768px) {
-  .container-page {
-    padding-left: 3rem;
-    padding-right: 3rem;
   }
 }
