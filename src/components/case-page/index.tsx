@@ -205,24 +205,8 @@ function YouTubeSection({
   title: string;
 }) {
   return (
-    <section
-      style={{
-        background: "var(--bg)",
-        padding: "var(--section-y-tight) var(--gutter-x) 0",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "var(--container-narrow)",
-          margin: "0 auto",
-          position: "relative",
-          aspectRatio: "16 / 9",
-          borderRadius: 18,
-          overflow: "hidden",
-          border: "1px solid var(--line)",
-          background: "oklch(0 0 0 / 0.6)",
-        }}
-      >
+    <section className="bg-bg px-(--gutter-x) pt-(--section-y-tight)">
+      <div className="relative mx-auto aspect-[16/9] max-w-container-narrow overflow-hidden rounded-[18px] border border-line bg-[oklch(0_0_0/0.6)]">
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${videoId}`}
           title={title}
@@ -230,13 +214,7 @@ function YouTubeSection({
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
           loading="lazy"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            border: 0,
-          }}
+          className="absolute inset-0 h-full w-full border-0"
         />
       </div>
     </section>
@@ -248,24 +226,7 @@ function YouTubeSection({
 
 function ScreenshotPending({ label }: { label: string }) {
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background:
-          "linear-gradient(135deg, oklch(0.55 0.20 25 / 0.18) 0%, oklch(0.62 0.18 60 / 0.18) 100%)",
-        color: "var(--ink-3)",
-        fontFamily: "JetBrains Mono, monospace",
-        fontSize: 12,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase",
-        textAlign: "center",
-        padding: 24,
-      }}
-    >
+    <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,oklch(0.55_0.20_25_/_0.18)_0%,oklch(0.62_0.18_60_/_0.18)_100%)] p-6 text-center font-mono text-xs uppercase tracking-[0.08em] text-ink-3">
       {label}
     </div>
   );
@@ -492,33 +453,18 @@ function RelatedCard({
       <div className="hp-case-cover">
         <div
           className="hp-case-cover-bg"
+          // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient string per case
           style={{ background: pres.gradient }}
         />
         <div className="hp-case-cover-dots" />
-        <div
-          className="hp-case-shot"
-          style={
-            c.coverImage?.asset?.url
-              ? { display: "flex", flexDirection: "column" }
-              : undefined
-          }
-        >
+        <div className={`hp-case-shot${c.coverImage?.asset?.url ? " flex flex-col" : ""}`}>
           <div className="hp-case-shot-bar">
             <span className="hp-case-shot-dot" />
             <span className="hp-case-shot-dot" />
             <span className="hp-case-shot-dot" />
           </div>
           {c.coverImage?.asset?.url ? (
-            <div
-              className="hp-case-shot-body"
-              style={{
-                flex: 1,
-                minHeight: 0,
-                padding: 0,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
+            <div className="hp-case-shot-body relative min-h-0 flex-1 overflow-hidden p-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={c.coverImage.asset.url}
@@ -539,6 +485,7 @@ function RelatedCard({
         <div className="hp-case-chips">
           <span
             className="hp-case-chip"
+            // eslint-disable-next-line react/forbid-dom-props -- per-case industry color
             style={{
               color: pres.color,
               borderColor: `${pres.color}55`,
