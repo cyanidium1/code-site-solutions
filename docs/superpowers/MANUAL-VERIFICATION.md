@@ -137,6 +137,20 @@ Affected pages: every page using `<PageHero>` — `/stories/page-hero`, `/about`
 - [ ] H1 size matches legacy `clamp(36px, 4.6vw, 60px)` / `line-height 1.05` / `tracking -0.02em` — Heading primitive `sizes[1]["page-hero"]` updated from the placeholder `72px / 1.02` to match; consumer JSX now uses `<H1 variant="page-hero">`
 - [ ] Italic `<em>` inside the H1 still renders with the brand gradient and `padding-inline-end + box-decoration-break: clone` (preserved because the `.page-hero h1 em` rule in globals.css still applies — the `page-hero` class is retained on the `<section>`)
 
+### Task S3.2 — `contact-split.css` deleted
+Affected pages: `/contacts`, `/en/contacts` (the only consumers of `<ContactSplit>`).
+- [ ] Section background: vertical gradient from `var(--bg)` to `oklch(0.13 0.02 300)` (slight purple tint at bottom)
+- [ ] Section horizontal padding: 48px desktop, 32px ≤1100px, 18px ≤700px
+- [ ] HeroAuditBanner (renders only with `?source=hero-audit` query): accent-tinted card with 8px accent-soft dot + 4px outer glow; bottom-margin 32px desktop, 22px ≤700px
+- [ ] Two-column grid: 4fr (channels) / 6fr (form) at ≥900px; collapses to single column with 36px gap ≤900px
+- [ ] Two H2s use new `H2 variant="contact-split"` (clamp 28-36px / line-height 1.05 / tracking -0.02em)
+- [ ] Italic `<em>` in both H2s uses horizontal 3-stop OKLCH gradient (blue→purple→magenta) — NOT the vertical accent gradient used elsewhere
+- [ ] Channel rows: grid `36px | 1fr | auto`, hover bumps border to `line-strong` + bg lift + 2px translateX
+- [ ] Featured row (Telegram): accent-tinted border + bg, icon swapped to brand gradient + white, time text in accent-soft
+- [ ] On ≤500px: channel row reflows to 2-row grid (icon + main first, time below in column 2 left-aligned)
+- [ ] Form card backdrop: `oklch(0.13 0.005 300 / 0.7)` with `backdrop-blur-[8px]`, line-strong border, 22px radius (16px ≤700px)
+- [ ] Meta line (📍/🕒/🌐) renders inline mono text with subtle separators
+
 ### Task S3.1 — `turnkey-list.css` deleted
 Affected pages: `/` and `/en` (homepage `<TurnkeyList>`), `/pricing` and `/en/pricing` (pricing page consumers).
 - [ ] Section backdrop: layered radial accent (top-right at 80%/10%) + accent-2 (bottom-left at 10%/90%) gradients still visible
