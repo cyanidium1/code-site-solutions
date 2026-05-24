@@ -92,3 +92,44 @@ Several blocks use heading sizes that don't fit the four canonical variants (`de
 3. **`className` escape hatch only for truly one-off headings** (animated counter, per-character marquee text) — add a comment explaining why a new variant wasn't justified.
 
 This keeps designer-facing variants in one file and prevents heading-size drift across blocks.
+
+### Phase C — partial completion (Tasks 24, 25, 28 done)
+
+**CSS files deleted this branch:**
+- `buttons.css` (Task 24) — replaced by `btnClass()` helper + `<Btn>` primitive; consumers updated in hero, case-page, homepage/process, homepage/cases, pull-quote-swiper, pull-quote
+- `cta-banner.css` (Task 25) — pseudo-elements (`::before` accent line, `::after` grid overlay) moved to Tailwind `before:`/`after:` arbitrary-value utilities
+- `reasons.css` (Task 28) — background gradient + masked-grid overlay moved to arbitrary-value utilities
+
+**Verify visually before merge:**
+- [ ] Hero CTAs at `/` and `/en` — primary button shimmer on hover, ghost button border on hover, "play" icon span inside ghost variant
+- [ ] Process / Cases / PullQuote CTAs (homepage) — primary button rendering preserved (`hp-section-cta` modifier still applied via cn merge)
+- [ ] `<CtaBanner>` usage anywhere — top accent line, grid overlay, eyebrow dot indicator still render
+- [ ] `<Reasons>` block — background gradient + vertical-line grid still visible
+
+**Stopped before:** the following CSS files remain undeleted and are scheduled for follow-up specs/sessions. They are too large to convert reliably in one session:
+
+| File | Lines | Notes |
+|---|---|---|
+| `team-cards.css` | 31 | Small — quick session |
+| `services.css` | 48 | Small |
+| `outcome.css` | 57 | Small |
+| `page-hero.css` | 66 | Small; uses `<H1 variant="page-hero">` primitive |
+| `image-text.css` | 130 | Medium |
+| `comparison.css` | 161 | Medium; relative-color OKLCH gradients |
+| `launch-cta.css` | 165 | Medium |
+| `final.css` | 172 | Medium; FAQ + socials |
+| `turnkey-list.css` | 236 | Heavy |
+| `contact-split.css` | 278 | Heavy |
+| `lead-form.css` | 281 | Heavy; HeroUI input theming |
+| `case.css` | 470 | **Each needs own session/spec** |
+| `hero.css` | 736 | **Each needs own session/spec** — keeps `hero-effects.css` for grain/ticker |
+| `calculator.css` | 1570 | **Each needs own session/spec** |
+| `homepage.css` | 2321 | **Each needs own session/spec** — covers ~10 components |
+| `blog.css` | 334 | Trim only (kept for `.prose-*` markdown) |
+
+**Recommended follow-up order** (per original plan, easiest→hardest):
+1. Single follow-up session: team-cards, services, outcome, page-hero (~4 hours)
+2. Single follow-up session: image-text, comparison, launch-cta, final (~half-day)
+3. Single follow-up session: turnkey-list, contact-split, lead-form (~half-day)
+4. **One session per heavy file:** case, hero, calculator, homepage
+5. Final session: blog.css trim, then Phase D (globals cleanup + ESLint flip-to-error)
