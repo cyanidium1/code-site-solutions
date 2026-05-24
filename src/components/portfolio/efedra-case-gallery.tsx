@@ -57,15 +57,9 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
 
   return (
     <>
-      <section className="hp-section" style={{ paddingBottom: 20 }}>
+      <section className="hp-section pb-5">
         <div className="hp-inner">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: 20,
-            }}
-          >
+          <div className="grid grid-cols-2 gap-5">
             {tiles.map((t, i) => (
               <figure
                 key={`${t.src}-${i}`}

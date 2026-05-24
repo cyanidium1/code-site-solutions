@@ -27,7 +27,7 @@ export function PageHero({
           {breadcrumbs.map((c, i) => {
             const isLast = i === breadcrumbs.length - 1;
             return (
-              <span key={i} style={{ display: "contents" }}>
+              <span key={i} className="contents">
                 {i > 0 && (
                   <span className="text-[var(--ink-3)] opacity-60">/</span>
                 )}

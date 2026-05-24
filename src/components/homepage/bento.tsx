@@ -344,7 +344,8 @@ export function Bento({
               <div
                 key={i}
                 className={`hp-bento-cell hp-bento-cell--${c.span}`}
-                style={{ ["--i" as string]: i }}
+                // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                style={{ "--i": i } as React.CSSProperties}
               >
                 <div className="hp-bento-head">
                   <div className="hp-bento-icon">

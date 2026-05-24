@@ -91,7 +91,8 @@ export function Process({
               <li
                 className="hp-process-step"
                 key={s.n}
-                style={{ ["--i" as string]: i }}
+                // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                style={{ "--i": i } as React.CSSProperties}
               >
                 <div className="hp-process-num">{s.n}</div>
                 <div className="hp-process-name">{s.name}</div>

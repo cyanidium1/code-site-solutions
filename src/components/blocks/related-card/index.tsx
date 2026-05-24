@@ -44,6 +44,7 @@ export function RelatedCard({
         <>
           <div
             className="hp-case-cover-bg"
+            // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient string per card
             style={{ background: gradient ?? DEFAULT_GRADIENT }}
           />
           <div className="hp-case-cover-dots" />
@@ -62,23 +63,7 @@ export function RelatedCard({
         </>
       )}
       {disabled ? (
-        <span
-          style={{
-            position: "absolute",
-            top: 14,
-            right: 14,
-            padding: "4px 10px",
-            border: "1px solid oklch(1 0 0 / 0.18)",
-            borderRadius: 999,
-            background: "oklch(0 0 0 / 0.40)",
-            backdropFilter: "blur(6px)",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 10,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: "oklch(1 0 0 / 0.85)",
-          }}
-        >
+        <span className="absolute right-3.5 top-3.5 rounded-full border border-[oklch(1_0_0/0.18)] bg-[oklch(0_0_0/0.4)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[oklch(1_0_0/0.85)] backdrop-blur-md">
           Coming soon
         </span>
       ) : null}
@@ -113,14 +98,7 @@ export function RelatedCard({
 
   if (disabled) {
     return (
-      <div
-        className="hp-case-link"
-        style={{
-          cursor: "default",
-          pointerEvents: "none",
-          opacity: 0.78,
-        }}
-      >
+      <div className="hp-case-link pointer-events-none cursor-default opacity-[0.78]">
         {cover}
         {body}
       </div>

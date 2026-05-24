@@ -251,7 +251,7 @@ export function HeroEditorial({
             {showStats && (
               <div className="stats">
                 {stats.map((s, i) => (
-                  <span key={i} style={{ display: "contents" }}>
+                  <span key={i} className="contents">
                     {i > 0 && <div className="stat-div" />}
                     <div className="stat">
                       <div className="stat-num">{s.num}</div>
@@ -291,7 +291,7 @@ export function HeroEditorial({
               {[...Array(2)].map((_, i) => (
                 <div className="ticker-row" key={i}>
                   {tickerItems.map((it, j) => (
-                    <span key={j} style={{ display: "contents" }}>
+                    <span key={j} className="contents">
                       <span>{it}</span>
                       <span>•</span>
                     </span>

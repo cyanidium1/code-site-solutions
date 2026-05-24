@@ -141,6 +141,7 @@ export function FeatureCard({ icon, title, items, bg }: Feature) {
     <div className="feature-card relative pt-7 px-[26px] pb-[30px] border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] flex flex-col gap-[18px] overflow-hidden isolate max-[700px]:pt-[22px] max-[700px]:px-5 max-[700px]:pb-6 max-[700px]:gap-3.5">
       <div
         className="absolute inset-0 -z-[2] bg-cover bg-center [filter:saturate(0.7)]"
+        // eslint-disable-next-line react/forbid-dom-props -- dynamic background-image URL
         style={{ backgroundImage: `url(${bg})` }}
       />
       <div className="w-11 h-11 rounded-xl bg-brand-gradient flex items-center justify-center text-[oklch(1_0_0_/_0.95)] shadow-[0_8px_20px_oklch(from_var(--accent)_l_c_h_/_0.3)] max-[700px]:w-[38px] max-[700px]:h-[38px] max-[700px]:rounded-[10px]">

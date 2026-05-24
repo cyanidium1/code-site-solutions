@@ -329,7 +329,7 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: FAQ — HeroUI accordion via shared component */}
-      <section style={{ background: "var(--bg)" }}>
+      <section className="bg-bg">
         <FAQ heading={t("faq.heading")} items={faqItems} />
       </section>
 
