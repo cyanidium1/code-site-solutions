@@ -51,8 +51,12 @@ If anything stopped animating, the Tailwind 4 `--animate-*` token convention may
 
 Swiper styles moved from per-component CSS into `src/app/vendor.css`. Imports added to `layout.tsx`; per-component imports removed.
 
+**REGRESSION DISCOVERED + FIXED:** moving `.hp-pqs-swiper` rules from a component-imported CSS file into `vendor.css` (loaded from layout) shifted the cascade so that `swiper/css` (still imported from SwiperWrapper) ended up AFTER our overrides and clobbered the `width: 100vw` breakout — the pull-quote section rendered offset to the right. Fix: hoisted `swiper/css`, `swiper/css/navigation`, `swiper/css/effect-coverflow` imports to `layout.tsx` so library CSS loads first and vendor.css overrides win. **Recheck `/` and `/en` — testimonial section should now be centered with the device mockups positioned beside the quote.**
+
+**Lesson for Phase C:** any block CSS that overrides a third-party library style (Swiper, HeroUI, lightbox) must be loaded AFTER the third-party CSS. Default for Phase C: hoist third-party CSS imports to `layout.tsx` if they appear in a `.tsx` file alongside CSS we're migrating into `vendor.css`.
+
 **Visually verify:**
-- [ ] Homepage pull-quote swiper renders correctly on `/` (carousel layout, mockups visible at desktop)
+- [ ] Homepage pull-quote swiper renders correctly on `/` and `/en` (carousel centered, mockups visible at desktop, no horizontal page scroll)
 - [ ] Nav arrows on the carousel work (hover state, focus outline)
 - [ ] Below 900px the side mockups disappear
 

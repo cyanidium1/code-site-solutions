@@ -11,9 +11,8 @@
  * Reusable by any future slider (Cases carousel, Process slider, etc.).
  */
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/effect-coverflow";
+// swiper/css imports were hoisted to app/layout.tsx so vendor.css overrides
+// (like .hp-pqs-swiper breakout) load after the library defaults.
 
 import {
   type ReactNode,

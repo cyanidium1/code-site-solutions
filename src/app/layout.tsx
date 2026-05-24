@@ -6,6 +6,11 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
 import { SITE_ORIGIN } from "@/constants/site";
+// Third-party CSS first so vendor.css and component styles can override.
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-coverflow";
+
 import "./globals.css";
 import "./keyframes.css";
 import "./vendor.css";
