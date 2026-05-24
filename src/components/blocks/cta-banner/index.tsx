@@ -1,5 +1,3 @@
-import "./cta-banner.css";
-
 export type CtaBannerAction = { label: string; href: string };
 
 const ARROW = (
@@ -17,6 +15,23 @@ const ARROW = (
 const BTN_BASE =
   "inline-flex items-center gap-2.5 px-[26px] py-[13px] rounded-full font-sans font-semibold text-[13.5px] tracking-[0.04em] no-underline cursor-pointer transition-[transform,box-shadow,background,color,border-color] duration-200 max-[800px]:justify-center max-[800px]:px-[22px] max-[800px]:py-[14px]";
 
+// Card background: 3-layer radial gradient. Inline as arbitrary value so
+// no semantic class is needed; the long string is contained to this constant.
+const CARD_BG =
+  "bg-[radial-gradient(ellipse_70%_80%_at_50%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_60%_at_100%_100%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),oklch(1_0_0_/_0.02)]";
+
+// Top accent line pseudo-element (legacy .cta-banner-card::before).
+const TOP_ACCENT =
+  "before:content-[''] before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.5),transparent)] before:pointer-events-none max-[800px]:before:inset-x-4";
+
+// Subtle grid background overlay (legacy .cta-banner-card::after).
+const GRID_OVERLAY =
+  "after:content-[''] after:absolute after:inset-0 after:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.022)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.022)_1px,transparent_1px)] after:[background-size:48px_48px] after:[mask:radial-gradient(ellipse_70%_70%_at_50%_50%,black,transparent_80%)] after:pointer-events-none";
+
+// Eyebrow dot pseudo-element (legacy .cta-banner-eyebrow::before).
+const EYEBROW_DOT =
+  "before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]";
+
 export function CtaBanner({
   eyebrow,
   heading,
@@ -31,23 +46,27 @@ export function CtaBanner({
   ctaSecondary?: CtaBannerAction;
 }) {
   return (
-    <section className="relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-6">
-      <div className="max-w-container mx-auto">
-        <div className="cta-banner-card relative px-12 py-16 border border-line rounded-[28px] overflow-hidden text-center flex flex-col items-center max-[800px]:px-6 max-[800px]:py-11 max-[800px]:rounded-[22px]">
+    <section className="relative bg-bg px-12 py-[var(--section-y)] max-[800px]:px-6">
+      <div className="mx-auto max-w-container">
+        <div
+          className={`relative flex flex-col items-center overflow-hidden rounded-[28px] border border-line px-12 py-16 text-center max-[800px]:rounded-[22px] max-[800px]:px-6 max-[800px]:py-11 ${CARD_BG} ${TOP_ACCENT} ${GRID_OVERLAY}`}
+        >
           {eyebrow ? (
-            <span className="cta-banner-eyebrow relative inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-[var(--ink-3)] uppercase mb-6">
+            <span
+              className={`relative mb-6 inline-flex items-center gap-2.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--ink-3)] ${EYEBROW_DOT}`}
+            >
               {eyebrow}
             </span>
           ) : null}
-          <h2 className="relative font-display font-bold text-[clamp(28px,3.6vw,48px)] leading-[1.1] tracking-[-0.02em] text-ink max-w-[780px] [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent max-[800px]:text-[clamp(24px,6.5vw,34px)]">
+          <h2 className="relative max-w-[780px] font-display text-[clamp(28px,3.6vw,48px)] font-bold leading-[1.1] tracking-[-0.02em] text-ink max-[800px]:text-[clamp(24px,6.5vw,34px)] [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:italic [&_em]:text-transparent">
             {heading}
           </h2>
           {sub ? (
-            <p className="relative mt-4.5 font-sans text-[16px] leading-[1.55] text-[var(--ink-2)] max-w-[620px] max-[800px]:text-[14.5px]">
+            <p className="relative mt-4.5 max-w-[620px] font-sans text-[16px] leading-[1.55] text-[var(--ink-2)] max-[800px]:text-[14.5px]">
               {sub}
             </p>
           ) : null}
-          <div className="relative mt-9 flex gap-3 flex-wrap justify-center max-[800px]:mt-7 max-[800px]:flex-col max-[800px]:w-full max-[800px]:items-stretch">
+          <div className="relative mt-9 flex flex-wrap justify-center gap-3 max-[800px]:mt-7 max-[800px]:w-full max-[800px]:flex-col max-[800px]:items-stretch">
             <a
               href={ctaPrimary.href}
               className={`${BTN_BASE} bg-brand-gradient text-white shadow-[0_4px_24px_oklch(0.55_0.18_295/_0.35)] hover:-translate-y-px hover:shadow-[0_6px_32px_oklch(0.55_0.18_295/_0.45)]`}
@@ -58,7 +77,7 @@ export function CtaBanner({
             {ctaSecondary ? (
               <a
                 href={ctaSecondary.href}
-                className={`${BTN_BASE} bg-transparent text-ink border border-[var(--line-2)] hover:border-[oklch(from_var(--accent)_l_c_h_/_0.5)] hover:bg-[oklch(1_0_0_/_0.04)]`}
+                className={`${BTN_BASE} border border-[var(--line-2)] bg-transparent text-ink hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] hover:bg-[oklch(1_0_0_/_0.04)]`}
               >
                 {ctaSecondary.label}
               </a>
