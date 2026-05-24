@@ -12,7 +12,12 @@ type Variant =
   | "comparison-contact"
   | "launch-cta"
   | "turnkey"
-  | "contact-split";
+  | "contact-split"
+  | "calc-card"
+  | "calc-intro"
+  | "calc-summary"
+  | "calc-after"
+  | "calc-lead";
 
 interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   level: Level;
@@ -65,6 +70,11 @@ const sizes: Record<Level, Record<Variant, string>> = {
     "launch-cta": "font-actay text-[clamp(32px,3.4vw,48px)] leading-[1.2] tracking-[-0.025em] font-bold",
     turnkey: "font-actay text-[clamp(34px,4vw,52px)] leading-[1.05] tracking-[-0.02em] font-bold",
     "contact-split": "font-actay text-[clamp(28px,3.2vw,36px)] leading-[1.05] tracking-[-0.02em] font-bold",
+    "calc-card": "font-actay text-[17px] font-bold tracking-[-0.01em] text-ink",
+    "calc-intro": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink",
+    "calc-summary": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink",
+    "calc-after": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink",
+    "calc-lead": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink",
   },
   2: {
     default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
@@ -80,6 +90,11 @@ const sizes: Record<Level, Record<Variant, string>> = {
       "font-actay font-bold text-[clamp(32px,3.4vw,48px)] leading-[1.2] tracking-[-0.025em] uppercase text-balance max-[700px]:text-[clamp(26px,7vw,36px)]",
     turnkey: "font-actay font-bold text-[clamp(34px,4vw,52px)] leading-[1.05] tracking-[-0.02em]",
     "contact-split": "font-actay font-bold text-[clamp(28px,3.2vw,36px)] leading-[1.05] tracking-[-0.02em]",
+    "calc-card": "font-actay text-[17px] font-bold tracking-[-0.01em] text-ink",
+    "calc-intro": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink",
+    "calc-summary": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink",
+    "calc-after": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink",
+    "calc-lead": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink",
   },
   3: {
     default: "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
@@ -92,6 +107,11 @@ const sizes: Record<Level, Record<Variant, string>> = {
     "launch-cta": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     turnkey: "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     "contact-split": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
+    "calc-card": "font-actay text-[17px] font-bold tracking-[-0.01em] text-ink m-0",
+    "calc-intro": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink m-0",
+    "calc-summary": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink m-0",
+    "calc-after": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink m-0",
+    "calc-lead": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink m-0",
   },
 };
 

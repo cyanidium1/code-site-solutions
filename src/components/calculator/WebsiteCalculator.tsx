@@ -27,6 +27,7 @@ import { CalculatorControls } from "./CalculatorControls";
 import { EstimateSummary } from "./EstimateSummary";
 import { LeadForm } from "./LeadForm";
 import { formatEur } from "@/lib/shared/format-eur";
+import { H3 } from "@/components/ui";
 import "./calculator.css";
 
 // Renders <em>…</em> chunks inside next-intl rich messages. Reused for every
@@ -43,16 +44,19 @@ type InfoCard = {
 
 function InfoCardGrid({ cards }: { cards: InfoCard[] }) {
   return (
-    <div className="calc-info-grid">
+    <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[760px]:grid-cols-1">
       {cards.map((c) => {
         const Icon = c.icon;
         return (
-          <article key={c.title} className="calc-info-card">
-            <span className="calc-info-icon">
+          <article
+            key={c.title}
+            className="border border-line rounded-[22px] bg-[radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--accent)_l_c_h_/_0.06),transparent_70%),oklch(0.16_0.005_300)] px-[22px] py-6 flex flex-col gap-3 transition-[border-color,transform] duration-200"
+          >
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded-[12px] bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft">
               <Icon size={18} strokeWidth={1.6} />
             </span>
-            <h3>{c.title}</h3>
-            <p>{c.body}</p>
+            <H3 variant="calc-card">{c.title}</H3>
+            <p className="m-0 text-ink-dim text-[14px] leading-[1.55]">{c.body}</p>
           </article>
         );
       })}
