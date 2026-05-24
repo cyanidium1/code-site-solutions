@@ -25,3 +25,8 @@
   0%, 100% { filter: drop-shadow(0 0 0 oklch(0 0 0 / 0)); }
   50%      { filter: drop-shadow(0 0 6px oklch(0.55 0.18 295 / 0.35)); }
 }
+
+/* Homepage urgency-line pulse halo. Used by FinalCta3 urgency badge. */
+@keyframes hp-urgency-pulse {
+  50% { box-shadow: 0 0 0 8px oklch(from var(--accent) l c h / 0); }
+}
