@@ -80,3 +80,15 @@ Known gaps to compare:
 - [ ] Ghost button border on hover
 - [ ] GradPlaceholder dot-grid overlay visibility
 - [ ] TextGradient color stops match legacy `.text-gradient` exactly
+
+### Heading primitive — non-standard sizes policy
+
+Several blocks use heading sizes that don't fit the four canonical variants (`default`, `hp`, `case`, `page-hero`). Examples spotted in audit: calculator info-card h3, blog markdown headings, hero stat numbers, turnkey-list titles, comparison plan headers.
+
+**When migrating a block in Phase C and the heading doesn't match an existing variant:**
+
+1. **Add a new variant** to `src/components/ui/Heading.tsx` `sizes` table (e.g. `variant="calc-card"`). Give it a descriptive name that documents intent.
+2. **Do NOT use `className="text-[Npx]"` overrides** as the default solution — that re-creates the inline-styles problem.
+3. **`className` escape hatch only for truly one-off headings** (animated counter, per-character marquee text) — add a comment explaining why a new variant wasn't justified.
+
+This keeps designer-facing variants in one file and prevents heading-size drift across blocks.

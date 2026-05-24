@@ -15,6 +15,24 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
  * the Actay Wide font via the global `h1,h2,h3` selector during Phase 1;
  * once that selector is removed in Task 43, the font-actay class below
  * applies it explicitly.
+ *
+ * NON-STANDARD SIZES — IMPORTANT for Phase C block migrations:
+ * Several blocks in the codebase use heading sizes that are NOT just
+ * "section h2" or "page hero h1". Examples include calculator info-card
+ * h3, blog markdown headings, hero stat numbers, turnkey-list titles, and
+ * comparison plan headers. When migrating a block whose heading does not
+ * match an existing variant in this table:
+ *
+ *   1. Prefer adding a NEW variant (e.g. `variant="calc-card"`) to this
+ *      file and giving it its own size row. Variants document intent and
+ *      let designers find sizes in one place.
+ *   2. Do NOT pass arbitrary `text-[Npx]` overrides via `className` as the
+ *      default solution — that re-creates the "inline styles everywhere"
+ *      problem this refactor is trying to kill.
+ *   3. The `className` escape hatch exists for one-off, genuinely unique
+ *      headings (a hero numeric counter that is not text, a marquee title
+ *      that animates per-character). Use sparingly and add a comment
+ *      explaining why a new variant was not warranted.
  */
 const sizes: Record<Level, Record<Variant, string>> = {
   1: {
