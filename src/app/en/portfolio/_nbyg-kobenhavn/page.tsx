@@ -12,6 +12,12 @@ import {
   FinalCta3,
 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
+import {
+  NbygScreenshotPending as ScreenshotPending,
+  NbygMetaStrip,
+  NbygRelatedCard as RelatedCard,
+  type NbygRelatedRow,
+} from "@/components/portfolio/nbyg-shared";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 export const metadata: Metadata = {
@@ -37,83 +43,17 @@ export const metadata: Metadata = {
   },
 };
 
-/* ─── Asset placeholders ────────────────────────────────────────────────── */
-/* TODO: replace with real screenshots from founder. Same layout as Efedra. */
+/* ─── Page-local data ───────────────────────────────────────────────────── */
 
-function ScreenshotPending({ label }: { label: string }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background:
-          "linear-gradient(135deg, oklch(0.55 0.20 25 / 0.18) 0%, oklch(0.62 0.18 60 / 0.18) 100%)",
-        color: "var(--ink-3)",
-        fontFamily: "JetBrains Mono, monospace",
-        fontSize: 12,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase",
-        textAlign: "center",
-        padding: 24,
-      }}
-    >
-      {label}
-    </div>
-  );
-}
+const META_ITEMS = [
+  "· Industry: Construction",
+  "· Region: Copenhagen + Bornholm, Denmark",
+  "· Year: 2024",
+  "· Stack: Next.js, Sanity, Vercel",
+  "· Duration: 6 weeks",
+];
 
-/* ─── Meta strip ────────────────────────────────────────────────────────── */
-
-function MetaStrip() {
-  return (
-    <section
-      style={{
-        background: "var(--bg)",
-        padding: "0 48px 24px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px 24px",
-          fontFamily: "JetBrains Mono, monospace",
-          fontSize: 12,
-          color: "var(--ink-3)",
-          letterSpacing: "0.04em",
-        }}
-      >
-        <span>· Industry: Construction</span>
-        <span>· Region: Copenhagen + Bornholm, Denmark</span>
-        <span>· Year: 2024</span>
-        <span>· Stack: Next.js, Sanity, Vercel</span>
-        <span>· Duration: 6 weeks</span>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Related cases ─────────────────────────────────────────────────────── */
-
-type Related = {
-  name: string;
-  meta: string;
-  metrics: string;
-  industry: string;
-  industryColor: string;
-  tech: string;
-  gradient: string;
-  href?: string;
-  coverImage?: string;
-  coverImageAlt?: string;
-};
-
-const RELATED: Related[] = [
+const RELATED: NbygRelatedRow[] = [
   {
     name: "Efedra Clinic",
     meta: "Healthcare · Odesa · 2024",
@@ -148,128 +88,6 @@ const RELATED: Related[] = [
       "linear-gradient(135deg, oklch(0.50 0.20 295) 0%, oklch(0.40 0.18 280) 100%)",
   },
 ];
-
-function RelatedCard({ row }: { row: Related }) {
-  const disabled = !row.href;
-
-  const cover = (
-    <div className="hp-case-cover">
-      <div className="hp-case-cover-bg" style={{ background: row.gradient }} />
-      <div className="hp-case-cover-dots" />
-      <div
-        className="hp-case-shot"
-        style={
-          row.coverImage
-            ? { display: "flex", flexDirection: "column" }
-            : undefined
-        }
-      >
-        <div className="hp-case-shot-bar">
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
-        </div>
-        {row.coverImage ? (
-          <div
-            className="hp-case-shot-body"
-            style={{
-              flex: 1,
-              minHeight: 0,
-              padding: 0,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <img
-              src={row.coverImage}
-              alt={row.coverImageAlt ?? row.name}
-              className="absolute inset-0 block h-full w-full object-cover object-top"
-            />
-          </div>
-        ) : (
-          <div className="hp-case-shot-body">
-            <div className="hp-case-shot-line s1" />
-            <div className="hp-case-shot-line s2" />
-            <div className="hp-case-shot-line s3" />
-          </div>
-        )}
-      </div>
-      {disabled ? (
-        <span
-          style={{
-            position: "absolute",
-            top: 14,
-            right: 14,
-            padding: "4px 10px",
-            border: "1px solid oklch(1 0 0 / 0.18)",
-            borderRadius: 999,
-            background: "oklch(0 0 0 / 0.40)",
-            backdropFilter: "blur(6px)",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 10,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: "oklch(1 0 0 / 0.85)",
-          }}
-        >
-          Coming soon
-        </span>
-      ) : null}
-    </div>
-  );
-
-  const body = (
-    <div className="hp-case-body">
-      <div className="hp-case-chips">
-        <span
-          className="hp-case-chip"
-          style={{
-            color: row.industryColor,
-            borderColor: `${row.industryColor}55`,
-          }}
-        >
-          {row.industry}
-        </span>
-        <span className="hp-case-chip">{row.tech}</span>
-      </div>
-      <div className="hp-case-name-row">
-        <h3 className="hp-case-name">{row.name}</h3>
-        {!disabled ? (
-          <ArrowUpRight
-            size={20}
-            strokeWidth={1.6}
-            className="hp-case-arrow"
-          />
-        ) : null}
-      </div>
-      <div className="hp-case-meta">{row.meta}</div>
-      <div className="hp-case-metrics">{row.metrics}</div>
-    </div>
-  );
-
-  if (disabled) {
-    return (
-      <div
-        className="hp-case-link"
-        style={{
-          cursor: "default",
-          pointerEvents: "none",
-          opacity: 0.78,
-        }}
-      >
-        {cover}
-        {body}
-      </div>
-    );
-  }
-
-  return (
-    <Link href={row.href!} className="hp-case-link">
-      {cover}
-      {body}
-    </Link>
-  );
-}
 
 /* ─── JSON-LD ───────────────────────────────────────────────────────────── */
 
@@ -357,7 +175,7 @@ export default function NbygKobenhavnEnCasePage() {
         }
         sub="Construction company with two locations in Denmark. Migrated from a legacy WordPress site to Next.js + Sanity with mobile editing, local SEO for two cities, and a custom admin where the owner creates new service pages himself."
       />
-      <MetaStrip />
+      <NbygMetaStrip items={META_ITEMS} />
 
       {/* Section 2: Stats bar */}
       <StatsBar
