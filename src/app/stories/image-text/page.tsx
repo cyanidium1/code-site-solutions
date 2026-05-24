@@ -1,18 +1,13 @@
+import { type CSSProperties } from "react";
 import { ImageText } from "@/components/blocks/image-text";
 
 export const metadata = { title: "Story · image-text" };
 
-const dashed = (
-  <hr
-    style={{
-      border: "none",
-      borderTop: "1px dashed var(--line)",
-      margin: 0,
-    }}
-  />
-);
+const dashed = <hr className="m-0 border-0 border-t border-dashed border-line" />;
 
-// abstract gradient placeholder for image slot
+// Local "fill parent" gradient placeholder for image-text image slots.
+// (The shared `GradPlaceholder` primitive uses a fixed 16:9 aspect ratio,
+// which doesn't fit here — the parent already sizes the slot.)
 function GradPlaceholder({
   from = "oklch(0.55 0.18 295)",
   to = "oklch(0.45 0.20 230)",
@@ -24,38 +19,16 @@ function GradPlaceholder({
 }) {
   return (
     <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)`,
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      // eslint-disable-next-line react/forbid-dom-props -- dynamic CSS custom properties
+      style={{ "--gp-from": from, "--gp-to": to } as CSSProperties}
+      className="relative flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--gp-from)_0%,var(--gp-to)_100%)]"
     >
       <div
         aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-          opacity: 0.6,
-        }}
+        className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-60"
       />
       {label ? (
-        <span
-          style={{
-            position: "relative",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 11,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.85)",
-          }}
-        >
+        <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-white/85">
           {label}
         </span>
       ) : null}
@@ -63,37 +36,11 @@ function GradPlaceholder({
   );
 }
 
-// avatar placeholder for founder card
+// Avatar placeholder for founder card (used in side-with-list variant).
 function AvatarPlaceholder({ initials = "FA" }: { initials?: string }) {
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background:
-          "radial-gradient(ellipse at 30% 30%, oklch(0.55 0.18 295) 0%, oklch(0.25 0.10 290) 70%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div
-        style={{
-          width: 200,
-          height: 200,
-          borderRadius: "50%",
-          background:
-            "linear-gradient(180deg, oklch(0.7 0.14 295), oklch(0.55 0.18 295))",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Manrope, sans-serif",
-          fontWeight: 700,
-          fontSize: 64,
-          color: "var(--bg)",
-          letterSpacing: "-0.02em",
-        }}
-      >
+    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_30%_30%,oklch(0.55_0.18_295)_0%,oklch(0.25_0.10_290)_70%)]">
+      <div className="flex h-[200px] w-[200px] items-center justify-center rounded-full bg-[linear-gradient(180deg,oklch(0.7_0.14_295),oklch(0.55_0.18_295))] font-sans text-[64px] font-bold tracking-[-0.02em] text-bg">
         {initials}
       </div>
     </div>
