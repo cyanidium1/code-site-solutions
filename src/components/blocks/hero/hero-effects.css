@@ -1,0 +1,30 @@
+/* hero-effects.css — sidecar for hero rules that genuinely cannot
+   be expressed as Tailwind utilities. Every other rule from the
+   legacy hero.css was converted to utilities in src/components/
+   blocks/hero/index.tsx as part of refactor Session 5. */
+
+/* SVG noise data-URI + mix-blend-mode overlay. The embedded SVG URL
+   is unreadable as an arbitrary value (`bg-[url("data:image/svg...")]`)
+   and the noise overlay is the only mix-blend-mode:overlay use in the
+   hero — keeping the class avoids polluting the markup. */
+.hero-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* Keyframes — Tailwind 4 @theme can register --animate-* tokens that
+   reference keyframes, but the keyframe @rules themselves must live in
+   real CSS. `hero-pulse` is renamed to avoid clashing with Tailwind's
+   built-in `animate-pulse` utility, and `float` is unique to the
+   device-tag floating decoration. */
+@keyframes hero-pulse {
+  50% { box-shadow: 0 0 0 6px oklch(from var(--accent) l c h / 0); }
+}
+@keyframes float {
+  50% { transform: translateY(-8px); }
+}

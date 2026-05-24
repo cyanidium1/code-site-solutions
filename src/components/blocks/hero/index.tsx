@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { formatPrice } from "@/lib/shared/format-price";
 import { btnClass, PLAY_ICON_CLASS } from "@/components/ui";
-import "./hero.css";
+import "./hero-effects.css";
 
 export type Feature = { label: string; sub: string };
 

@@ -25,7 +25,12 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
  * variant was reconciled to the legacy `.case-h2` values from case.css
  * (clamp(34px,4.6vw,60px), leading-none, tracking -0.035em, max-w 14ch,
  * text-balance, with responsive 1100px and 700px overrides) on case.css
- * deletion (Session 4). Headings inherit
+ * deletion (Session 4). The `hp` variants were reconciled on hero.css
+ * deletion (Session 5): H1 `hp` matches legacy `.h1` from hero.css
+ * (clamp(36px,5vw,64px), leading 0.96, tracking -0.035em, uppercase,
+ * @640 leading 0.98); H2 `hp` matches legacy `.hp-h2` from homepage.css
+ * (clamp(34px,4vw,56px), leading 1.05, tracking -0.02em, @700 clamp
+ * 28-40px). Headings inherit
  * the Actay Wide font via the global `h1,h2,h3` selector during Phase 1;
  * once that selector is removed in Task 43, the font-actay class below
  * applies it explicitly.
@@ -51,7 +56,7 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 const sizes: Record<Level, Record<Variant, string>> = {
   1: {
     default: "font-actay text-[64px] leading-[1.05] tracking-[-0.02em] font-bold",
-    hp: "font-actay text-[64px] leading-[1.05] tracking-[-0.02em] font-bold",
+    hp: "font-actay font-bold text-[clamp(36px,5vw,64px)] leading-[0.96] tracking-[-0.035em] uppercase max-[640px]:leading-[0.98]",
     case: "font-actay text-[56px] leading-[1.05] tracking-[-0.02em] font-bold",
     "page-hero": "font-actay text-[clamp(36px,4.6vw,60px)] leading-[1.05] tracking-[-0.02em] font-bold",
     "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.05] tracking-[-0.02em] font-bold",
@@ -63,7 +68,7 @@ const sizes: Record<Level, Record<Variant, string>> = {
   },
   2: {
     default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
-    hp: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
+    hp: "font-actay font-bold text-[clamp(34px,4vw,56px)] leading-[1.05] tracking-[-0.02em] max-[700px]:text-[clamp(28px,7vw,40px)]",
     case: "font-actay font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] max-w-[14ch] text-balance max-[1100px]:text-[clamp(30px,5vw,44px)] max-[700px]:text-[clamp(28px,8vw,36px)] max-[700px]:max-w-full",
     "page-hero": "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
     "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] font-bold max-[800px]:text-[clamp(24px,6vw,36px)]",
