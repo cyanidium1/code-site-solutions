@@ -286,7 +286,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           />
           {/* Mobile-safe table — horizontal scroll wrapper for narrow viewports */}
           <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)] mb-12 max-[700px]:overflow-x-auto">
-            <table className="cmp-table" style={{ minWidth: 600 }}>
+            <table className="cmp-table min-w-[600px]">
               <thead>
                 <tr>
                   <th>{c.admin.compareHeaders.activity}</th>

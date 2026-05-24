@@ -171,7 +171,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             role="region"
             aria-label={c.compare.criterionHeader}
           >
-            <table className="w-full text-left border-collapse" style={{ minWidth: 720 }}>
+            <table className="w-full min-w-[720px] text-left border-collapse">
               <thead>
                 <tr className="border-b border-line">
                   <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--ink-3)] px-4 py-4 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">

@@ -142,7 +142,7 @@ export default function EnContactsPage() {
 
       <ContactSplit source="contacts" variant="compact" locale="en" />
 
-      <section style={{ background: "var(--bg)" }}>
+      <section className="bg-bg">
         <FAQ
           heading="Common questions before inquiring"
           items={CONTACTS_FAQ}

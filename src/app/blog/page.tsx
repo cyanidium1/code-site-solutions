@@ -93,7 +93,7 @@ export default async function BlogPage() {
                 })}
               </div>
             ) : (
-              <p className="hp-sub" style={{ textAlign: "center", padding: "60px 0" }}>
+              <p className="hp-sub py-[60px] text-center">
                 Поки що порожньо. Перший допис уже готується.
               </p>
             )}

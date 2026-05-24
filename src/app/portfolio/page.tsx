@@ -125,14 +125,7 @@ export default async function PortfolioPage() {
               })}
             </div>
           ) : (
-            <p
-              style={{
-                textAlign: "center",
-                fontFamily: "JetBrains Mono, monospace",
-                color: "var(--ink-3)",
-                padding: "60px 0",
-              }}
-            >
+            <p className="py-[60px] text-center font-mono text-[var(--ink-3)]">
               Кейси завантажуються…
             </p>
           )}
