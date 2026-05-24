@@ -120,6 +120,14 @@ Affected pages: industry pages that render `<Services>` (medicine/renovation/leg
 - [ ] Secondary feature cards still hover (border-color + bg shift)
 - [ ] Integrations grid still renders without visible regression (the `.integration` class had no own rules)
 
+### Task S1.3 — `outcome.css` deleted
+Affected pages: industry-page consumers that render `<Outcome>` (e.g. medicine, renovation, legal industries via `industry-page`).
+- [ ] `outcome-bg` layered radial backdrop (top-right accent + bottom-left accent-2) visible behind the section
+- [ ] "Directions" card top-right shows a 200x200 radial accent glow (`::before` pseudo)
+- [ ] "Directions" eyebrow + each benefit-row number now show the 22px hairline before the label
+- [ ] Benefit-hero card (when rendered) shows the large off-screen radial glow emerging from the right edge
+- [ ] Each mock visual (`MockPages`, `MockBookingForm`, `MockAdmin`) shows the subtle 20px dot-grid overlay
+
 **Stopped before:** the following CSS files remain undeleted and are scheduled for follow-up specs/sessions. They are too large to convert reliably in one session:
 
 | File | Lines | Notes |

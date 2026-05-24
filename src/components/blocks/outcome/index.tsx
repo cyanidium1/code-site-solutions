@@ -1,5 +1,3 @@
-import "./outcome.css";
-
 function CheckIcon() {
   return (
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
@@ -15,7 +13,7 @@ function CheckIcon() {
 }
 
 const VISUAL_SHELL =
-  "benefit-visual relative rounded-[18px] border border-[var(--line-2)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.14_0.006_300))] aspect-[4/3] overflow-hidden flex items-center justify-center shadow-[0_30px_60px_oklch(0_0_0_/_0.4)] max-[700px]:aspect-[16/11] max-[700px]:rounded-[14px]";
+  "relative rounded-[18px] border border-[var(--line-2)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.14_0.006_300))] aspect-[4/3] overflow-hidden flex items-center justify-center shadow-[0_30px_60px_oklch(0_0_0_/_0.4)] max-[700px]:aspect-[16/11] max-[700px]:rounded-[14px] before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:20px_20px]";
 
 const VISUAL_BAR =
   "absolute top-0 left-0 right-0 h-[30px] flex items-center gap-1.5 px-3.5 bg-[oklch(0.16_0.004_300)] border-b border-[oklch(1_0_0_/_0.06)] [&>span:not(.url)]:w-[9px] [&>span:not(.url)]:h-[9px] [&>span:not(.url)]:rounded-full [&>span:not(.url)]:bg-[oklch(0.3_0.005_60)]";
@@ -161,7 +159,7 @@ const BENEFIT_ROW_REVERSE_ORDER =
 const BENEFIT_TEXT = "px-2 max-[1100px]:px-0";
 
 const BENEFIT_ROW_NUM =
-  "benefit-row-num font-mono text-[11px] text-[var(--ink-3)] tracking-[0.08em] mb-3.5 inline-flex items-center gap-2.5";
+  "font-mono text-[11px] text-[var(--ink-3)] tracking-[0.08em] mb-3.5 inline-flex items-center gap-2.5 before:content-[''] before:w-[22px] before:h-px before:bg-[var(--accent-soft)]";
 
 const BENEFIT_H3 =
   "font-display font-bold text-[clamp(24px,2.6vw,32px)] leading-[1.1] tracking-[-0.025em] mb-6 text-ink text-balance max-w-[18ch] max-[1100px]:max-w-full max-[700px]:text-[22px] [&_em]:italic [&_em]:font-light [&_em]:text-accent-soft";
@@ -212,7 +210,7 @@ export function Outcome({
 }: OutcomeProps) {
   return (
     <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
-      <div className="outcome-bg absolute inset-0 z-0 pointer-events-none" />
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_40%_at_90%_10%,oklch(from_var(--accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_40%_50%_at_5%_80%,oklch(from_var(--accent-2)_l_c_h_/_0.08),transparent_70%)]" />
       <div className="relative z-[2] max-w-container mx-auto">
         {/* Recap pull-quote */}
         <div className="max-w-[760px] mx-auto mb-20 text-center relative max-[1100px]:mb-14">
@@ -226,8 +224,8 @@ export function Outcome({
         </div>
 
         {/* Directions card */}
-        <article className="directions relative border border-[var(--line-2)] rounded-3xl bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] pt-11 px-12 pb-11 mb-[120px] overflow-hidden max-[1100px]:p-8 max-[1100px]:mb-20 max-[700px]:px-5 max-[700px]:py-6 max-[700px]:mb-14 max-[700px]:rounded-[18px]">
-          <div className="directions-eyebrow inline-flex items-center gap-2.5 font-mono text-[10px] tracking-[0.12em] text-accent-soft uppercase mb-3.5">
+        <article className="relative border border-[var(--line-2)] rounded-3xl bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] pt-11 px-12 pb-11 mb-[120px] overflow-hidden max-[1100px]:p-8 max-[1100px]:mb-20 max-[700px]:px-5 max-[700px]:py-6 max-[700px]:mb-14 max-[700px]:rounded-[18px] before:content-[''] before:absolute before:top-0 before:right-0 before:w-[200px] before:h-[200px] before:pointer-events-none before:bg-[radial-gradient(circle_at_top_right,oklch(from_var(--accent)_l_c_h_/_0.12),transparent_70%)]">
+          <div className="inline-flex items-center gap-2.5 font-mono text-[10px] tracking-[0.12em] text-accent-soft uppercase mb-3.5 before:content-[''] before:w-[22px] before:h-px before:bg-[var(--accent-soft)]">
             {directionsEyebrow}
           </div>
           <h3 className="font-display font-bold text-[clamp(26px,3.2vw,38px)] leading-[1.05] tracking-[-0.025em] mb-[18px] text-ink text-balance max-w-[24ch] max-[700px]:text-[22px] [&_em]:italic [&_em]:font-light [&_em]:text-accent-soft">
@@ -284,7 +282,7 @@ export function Outcome({
             rendering an empty gradient frame for industries that don't ship
             a hero metric. */}
         {(benefitHeroValue || benefitHeroLede || benefitHeroBullets.length > 0) ? (
-          <div className="benefit-hero grid grid-cols-2 gap-12 items-center py-11 px-12 mb-8 border border-[oklch(from_var(--accent)_l_c_h_/_0.35)] rounded-3xl bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.10),oklch(from_var(--accent-2)_l_c_h_/_0.06)_60%,transparent)] relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] max-[1100px]:grid-cols-1 max-[1100px]:gap-7 max-[1100px]:p-8 max-[700px]:px-[22px] max-[700px]:py-6 max-[700px]:gap-[22px] max-[700px]:rounded-[18px]">
+          <div className="grid grid-cols-2 gap-12 items-center py-11 px-12 mb-8 border border-[oklch(from_var(--accent)_l_c_h_/_0.35)] rounded-3xl bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.10),oklch(from_var(--accent-2)_l_c_h_/_0.06)_60%,transparent)] relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] max-[1100px]:grid-cols-1 max-[1100px]:gap-7 max-[1100px]:p-8 max-[700px]:px-[22px] max-[700px]:py-6 max-[700px]:gap-[22px] max-[700px]:rounded-[18px] before:content-[''] before:absolute before:top-[-40%] before:right-[-20%] before:w-[60%] before:h-[180%] before:pointer-events-none before:bg-[radial-gradient(ellipse_at_center,oklch(from_var(--accent)_l_c_h_/_0.18),transparent_70%)]">
             <div className="relative z-[2]">
               <div className="font-display font-bold text-[clamp(56px,8vw,96px)] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 max-[1080px]:text-[clamp(52px,7vw,80px)] max-[700px]:text-[64px]">
                 {benefitHeroValue}
