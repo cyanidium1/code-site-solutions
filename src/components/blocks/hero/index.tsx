@@ -4,6 +4,61 @@ import { formatPrice } from "@/lib/shared/format-price";
 import { btnClass, PLAY_ICON_CLASS } from "@/components/ui";
 import "./hero-effects.css";
 
+/* ───────────────────────────────────────────────────────────────────────
+   HERO — utility classes per former hero.css block.
+   Categorization key from S5.1 audit (refactor Session 5):
+     U = expressed inline as Tailwind utility/arbitrary-value
+     T = handled by the <H1 variant="hp"> primitive (Heading.tsx)
+     E = lives in ./hero-effects.css (data-URI noise + 2 @keyframes)
+   ─────────────────────────────────────────────────────────────────── */
+
+// U — fixed background with dual accent radials + linear base; ::before
+// paints an 80px grid clipped by a radial mask. Both gradient layers and
+// the mask use raw OKLCH because they are oklch(from var(--accent) ...)
+// relative-color functions that no @theme token captures.
+const HERO_BG_CLASS =
+  "fixed inset-0 z-0 pointer-events-none " +
+  "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--bg)_0%,var(--bg-2)_100%)] " +
+  "before:content-[''] before:absolute before:inset-0 " +
+  "before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.025)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.025)_1px,transparent_1px)] " +
+  "before:bg-[size:80px_80px] " +
+  "before:[mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)] " +
+  "before:[-webkit-mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]";
+
+// U — hero shell: top padding shrinks at ≤1440 and zeroes at ≤640;
+// bottom padding shrinks at both breakpoints. Horizontal padding is the
+// shared --gutter-x token from globals.css.
+const HERO_SHELL_CLASS =
+  "relative z-[5] pt-6 px-(--gutter-x) pb-[60px] " +
+  "max-[1440px]:pt-8 max-[1440px]:pb-14 " +
+  "max-[640px]:pt-0 max-[640px]:pb-9";
+
+// U — two-column grid: 1000px text col + 1fr device col, 48px gap,
+// center-aligned, capped at --container-max. min-height is a clamp
+// (intrinsic on 13" laptops, capped at 720px on big screens) so the
+// hero stays balanced without overflowing short viewports. Compare
+// variant (vs-* pages, no mockup) collapses to 50/50 at ≥1024. Gap
+// shrinks at ≤1440 / ≤1080; collapses to single column at ≤640.
+const HERO_GRID_CLASS =
+  "grid grid-cols-[minmax(0,1000px)_minmax(0,1fr)] gap-12 items-center max-w-container mx-auto min-h-[clamp(560px,80vh,720px)] " +
+  "data-[variant=compare]:lg:grid-cols-[minmax(0,50%)_minmax(0,50%)] " +
+  "max-[1440px]:gap-7 " +
+  "max-[1080px]:gap-[22px] " +
+  "max-[640px]:grid-cols-[minmax(0,1fr)] max-[640px]:grid-rows-[auto_auto] max-[640px]:gap-0 max-[640px]:min-h-0";
+
+// U — text column wrapper.
+const HERO_LEFT_CLASS = "relative z-[4]";
+
+// U — device-stage wrapper. Stretches to fill the grid row min-height
+// (height:100% beats the prior aspect-ratio which Firefox respected
+// but Chrome stretched, causing cross-browser image-size mismatch).
+// On mobile: order before text, fixed 320px height, bleeds full width
+// past the gutter via negative margin trick.
+const HERO_RIGHT_CLASS =
+  "relative min-w-0 w-full h-full min-h-[420px] overflow-visible [contain:layout] z-10 " +
+  "max-[640px]:-order-1 max-[640px]:[aspect-ratio:auto] max-[640px]:z-[-1] max-[640px]:h-[320px] " +
+  "max-[640px]:mx-[calc(var(--gutter-x)*-1)] max-[640px]:-mb-10 max-[640px]:w-[calc(100%+(var(--gutter-x)*2))]";
+
 export type Feature = { label: string; sub: string };
 
 export function DeviceMockup({
@@ -155,12 +210,12 @@ export function HeroEditorial({
 }: HeroEditorialProps) {
   return (
     <>
-      <div className="hero-bg" />
+      <div className={HERO_BG_CLASS} />
       <div className="hero-grain" />
 
-      <div className="hero">
-        <div className="hero-grid" data-variant={variant}>
-          <div className="hero-left">
+      <div className={HERO_SHELL_CLASS}>
+        <div className={HERO_GRID_CLASS} data-variant={variant}>
+          <div className={HERO_LEFT_CLASS}>
             <div className="eyebrow">
               <span className="eyebrow-dot" />
               <span>{eyebrow.label}</span>
@@ -263,7 +318,7 @@ export function HeroEditorial({
             )}
           </div>
 
-          <div className="hero-right">
+          <div className={HERO_RIGHT_CLASS}>
             <div className="device-stage">
               <div className="device-glow" />
               <div className="device-grid" />
