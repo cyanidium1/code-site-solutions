@@ -17,16 +17,120 @@ import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 
+// Burger button — only visible below 800px (the @800 media query was
+// the legacy `.hp-burger-btn { display: none }` default + an inverse
+// `inline-flex` in the @800 block). Replaced here with `hidden` default
+// + `max-[800px]:inline-flex`.
+const burgerBtnClass =
+  "hidden items-center justify-center w-11 h-11 -mr-2.5 p-0 border-0 bg-transparent text-ink cursor-pointer rounded-xl transition-colors duration-150 hover:bg-[oklch(1_0_0/0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2 max-[800px]:inline-flex";
+const burgerIconClass = "relative w-[22px] h-[14px] inline-block";
+// Burger 3-line ↔ X morph. The data-open attribute lives on the parent
+// .burgerIcon and the children read it via the `group-data-[open=true]`
+// modifier. The transitions are intentionally different per state so the
+// closed→open animation feels distinct from open→closed.
+const burgerLineBaseClass =
+  "absolute left-0 right-0 h-[1.5px] bg-current rounded-[1px] " +
+  "transition-[transform,top,opacity] duration-[280ms,280ms,180ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
+  "motion-reduce:transition-none";
+// Each line has its own resting top + open transform.
+const burgerLine1Class = `${burgerLineBaseClass} top-0 group-data-[open=true]/burger:top-[6px] group-data-[open=true]/burger:rotate-45`;
+const burgerLine2Class = `${burgerLineBaseClass} top-[6px] group-data-[open=true]/burger:opacity-0`;
+const burgerLine3Class = `${burgerLineBaseClass} top-[12px] group-data-[open=true]/burger:top-[6px] group-data-[open=true]/burger:-rotate-45`;
+
 /** Animated 3-line → X morph. Pure CSS via data-open. */
 function BurgerIcon({ open }: { open: boolean }) {
   return (
-    <span className="hp-burger-icon" data-open={open ? "true" : "false"} aria-hidden="true">
-      <span className="hp-burger-line" />
-      <span className="hp-burger-line" />
-      <span className="hp-burger-line" />
+    <span
+      className={`group/burger ${burgerIconClass}`}
+      data-open={open ? "true" : "false"}
+      aria-hidden="true"
+    >
+      <span className={burgerLine1Class} />
+      <span className={burgerLine2Class} />
+      <span className={burgerLine3Class} />
     </span>
   );
 }
+
+// HeroUI Drawer slot classes. `!`-prefixed where they override HeroUI's
+// internal class precedence (background, max-width, border, z-index).
+// The wrapper z-index override is required because @heroui/drawer's own
+// z-50 class isn't picked up by our Tailwind content paths (only
+// @heroui/theme is scanned) — the wrapper would otherwise compute z:auto
+// and let z-indexed page content (.blog-prose at z:1) render on top.
+const drawerClassNames = {
+  base:
+    "!bg-bg !bg-[linear-gradient(180deg,oklch(0.10_0.005_300)_0%,oklch(0.08_0.01_295)_100%)] " +
+    "!border-l !border-line text-ink !max-w-[420px] !w-screen !rounded-none !m-0 !z-[61]",
+  backdrop: "!bg-[oklch(0.06_0.005_300/0.55)] !backdrop-blur-[8px] !z-[60]",
+  wrapper: "!z-[60]",
+};
+
+const drawerHeadClass =
+  "flex items-center justify-between px-[22px] py-[18px] border-b border-line shrink-0";
+const drawerCloseClass =
+  "w-11 h-11 -mr-2.5 border-0 rounded-xl bg-transparent text-ink-dim cursor-pointer inline-flex items-center justify-center transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
+const drawerBodyClass =
+  "!px-[22px] !pt-[22px] !pb-4 overflow-y-auto flex-1 flex flex-col gap-3.5";
+
+const drawerSectionClass = "flex flex-col gap-2";
+const drawerEyebrowClass =
+  "font-mono text-[10px] tracking-[0.18em] uppercase text-ink-3 px-1";
+const drawerListClass = "list-none m-0 p-0 flex flex-col gap-0.5";
+const drawerLinkBaseClass =
+  "flex items-center justify-between gap-3 min-h-11 px-3.5 py-3 rounded-xl " +
+  "font-sans text-[15px] font-medium text-ink no-underline " +
+  "transition-[background,color] duration-150 " +
+  "hover:bg-[oklch(1_0_0/0.05)] active:bg-[oklch(1_0_0/0.08)] " +
+  "[&_svg]:text-ink-3 [&_svg]:transition-[color,transform] [&_svg]:duration-150 " +
+  "hover:[&_svg]:text-accent-soft hover:[&_svg]:translate-x-0.5";
+const drawerLinkPrimaryClass =
+  "!font-mono !text-[12px] !tracking-[0.12em] !uppercase";
+const drawerLinkMutedClass =
+  "!font-mono !text-[10px] !tracking-[0.14em] !uppercase !text-accent-soft";
+const drawerLinkDisabledClass =
+  "!text-ink-3 cursor-default opacity-55 hover:!bg-transparent";
+
+const drawerDividerClass = "h-px bg-line my-1.5";
+
+// Drawer locale dropdown — collapsed `<details>`. `group/dlocale` lets the
+// chevron flip when [open] and the panel becomes visible.
+const drawerLocaleDdClass = "self-start relative group/dlocale";
+const drawerLocaleTriggerClass =
+  "list-none inline-flex items-center gap-2 px-3.5 py-2 border border-line rounded-full " +
+  "bg-[oklch(1_0_0/0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim " +
+  "cursor-pointer select-none min-h-9 [&::-webkit-details-marker]:hidden " +
+  "[&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 " +
+  "group-open/dlocale:[&_svg]:rotate-180";
+const drawerLocalePanelClass =
+  "hidden group-open/dlocale:flex absolute bottom-[calc(100%+8px)] left-0 min-w-[140px] " +
+  "p-1.5 border border-line rounded-[14px] bg-[oklch(from_var(--color-bg)_l_c_h/0.96)] " +
+  "backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] " +
+  "z-[60] flex-col gap-0.5";
+const drawerLocaleItemBaseClass =
+  "block w-full text-left px-3.5 py-2.5 border-0 rounded-[10px] bg-transparent " +
+  "font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim cursor-pointer " +
+  "transition-[background,color] duration-150";
+const drawerLocaleItemActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.14)] text-ink";
+const drawerLocaleItemDisabledClass =
+  "opacity-40 cursor-not-allowed pointer-events-none text-ink-3";
+
+const drawerFootClass =
+  "px-[22px] pt-4 pb-[calc(20px+env(safe-area-inset-bottom))] border-t border-line shrink-0";
+const drawerCtaClass =
+  "block text-center w-full px-[22px] py-4 rounded-full bg-brand-gradient text-[oklch(1_0_0/0.98)] " +
+  "font-sans font-semibold text-[13px] tracking-[0.06em] uppercase no-underline " +
+  "shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h/0.3)] " +
+  "transition-[transform,box-shadow] duration-[180ms] " +
+  "hover:-translate-y-px hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h/0.42)]";
+
+// Stagger entrance applied per item. `--i` is set inline (one CSS var per
+// element). Delay = i*55ms + 80ms. Animation token lives in @theme as
+// `--animate-hp-drawer-in` so we get the `animate-hp-drawer-in` utility
+// from Tailwind 4. `motion-reduce:` zeroes the animation for users with
+// reduced-motion preference.
+const drawerStaggerClass =
+  "animate-hp-drawer-in [animation-delay:calc(var(--i,0)*55ms+80ms)] motion-reduce:animate-none";
 
 export function MobileMenu() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -93,7 +197,7 @@ export function MobileMenu() {
     <>
       <button
         type="button"
-        className="hp-burger-btn"
+        className={burgerBtnClass}
         aria-label={t("menuLabel")}
         aria-expanded={isOpen}
         onClick={onOpen}
@@ -108,16 +212,12 @@ export function MobileMenu() {
         size="full"
         backdrop="blur"
         hideCloseButton
-        classNames={{
-          base: "hp-drawer-base",
-          backdrop: "hp-drawer-backdrop",
-          wrapper: "hp-drawer-wrapper",
-        }}
+        classNames={drawerClassNames}
       >
         <DrawerContent>
           {(close) => (
             <>
-              <div className="hp-drawer-head">
+              <div className={drawerHeadClass}>
                 <Logo
                   href={isEn ? "/en" : "/"}
                   className={headerBrandClass}
@@ -125,34 +225,34 @@ export function MobileMenu() {
                 />
                 <button
                   type="button"
-                  className="hp-drawer-close"
+                  className={drawerCloseClass}
                   aria-label="Close menu"
                   onClick={close}
                 >
                   <X size={20} strokeWidth={1.6} />
                 </button>
               </div>
-              <DrawerBody className="hp-drawer-body">
-                <div className="hp-drawer-section">
+              <DrawerBody className={drawerBodyClass}>
+                <div className={drawerSectionClass}>
                   <div
-                    className="hp-drawer-eyebrow hp-drawer-stagger"
+                    className={`${drawerEyebrowClass} ${drawerStaggerClass}`}
                     // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
                     style={{ "--i": SERVICES_EYEBROW_I } as CSSProperties}
                   >
                     {t("services")}
                   </div>
-                  <ul className="hp-drawer-list">
+                  <ul className={drawerListClass}>
                     {SERVICE_NAV_LINKS.map((s, idx) => (
                       <li
                         key={s.href}
-                        className="hp-drawer-stagger"
+                        className={drawerStaggerClass}
                         // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
                         style={{ "--i": SERVICES_BASE_I + idx } as CSSProperties}
                       >
                         {s.published ? (
                           <Link
                             href={resolveServiceHref(s.href, isEn)}
-                            className="hp-drawer-link"
+                            className={drawerLinkBaseClass}
                             onClick={close}
                           >
                             <span>{tServices(s.key)}</span>
@@ -160,7 +260,7 @@ export function MobileMenu() {
                           </Link>
                         ) : (
                           <span
-                            className="hp-drawer-link is-disabled"
+                            className={`${drawerLinkBaseClass} ${drawerLinkDisabledClass}`}
                             aria-disabled="true"
                           >
                             <span>{tServices(s.key)}</span>
@@ -169,13 +269,13 @@ export function MobileMenu() {
                       </li>
                     ))}
                     <li
-                      className="hp-drawer-stagger"
+                      className={drawerStaggerClass}
                       // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
                       style={{ "--i": ALL_SERVICES_I } as CSSProperties}
                     >
                       <Link
                         href={allServicesHref}
-                        className="hp-drawer-link is-muted"
+                        className={`${drawerLinkBaseClass} ${drawerLinkMutedClass}`}
                         onClick={close}
                       >
                         <span>{t("allServicesFooter")}</span>
@@ -184,19 +284,19 @@ export function MobileMenu() {
                   </ul>
                 </div>
 
-                <div className="hp-drawer-divider" />
+                <div className={drawerDividerClass} />
 
-                <ul className="hp-drawer-list">
+                <ul className={drawerListClass}>
                   {navLinks.map((l, idx) => (
                     <li
                       key={l.href}
-                      className="hp-drawer-stagger"
+                      className={drawerStaggerClass}
                       // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
                       style={{ "--i": NAV_BASE_I + idx } as CSSProperties}
                     >
                       <Link
                         href={l.href}
-                        className="hp-drawer-link is-primary"
+                        className={`${drawerLinkBaseClass} ${drawerLinkPrimaryClass}`}
                         onClick={close}
                       >
                         <span>{l.label}</span>
@@ -206,22 +306,22 @@ export function MobileMenu() {
                   ))}
                 </ul>
 
-                <div className="hp-drawer-divider" />
+                <div className={drawerDividerClass} />
 
                 <details
-                  className="hp-drawer-locale-dd hp-drawer-stagger"
+                  className={`${drawerLocaleDdClass} ${drawerStaggerClass}`}
                   // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
                   style={{ "--i": LOCALE_I } as CSSProperties}
                 >
                   <summary
-                    className="hp-drawer-locale-trigger"
+                    className={drawerLocaleTriggerClass}
                     aria-label={tLocale("ariaLabel")}
                   >
                     <span>{isEn ? tLocale("en") : tLocale("uk")}</span>
                     <ChevronDown size={14} strokeWidth={2} aria-hidden />
                   </summary>
                   <div
-                    className="hp-drawer-locale-panel"
+                    className={drawerLocalePanelClass}
                     role="menu"
                     aria-label={tLocale("ariaLabel")}
                   >
@@ -231,7 +331,7 @@ export function MobileMenu() {
                       aria-checked={!isEn}
                       aria-disabled={ukDisabled || undefined}
                       disabled={ukDisabled}
-                      className={`hp-drawer-locale-item${!isEn ? " is-active" : ""}${ukDisabled ? " is-disabled" : ""}`}
+                      className={`${drawerLocaleItemBaseClass}${!isEn ? ` ${drawerLocaleItemActiveClass}` : ""}${ukDisabled ? ` ${drawerLocaleItemDisabledClass}` : ""}`}
                       onClick={() => switchLocale("uk")}
                     >
                       {tLocale("uk")}
@@ -242,7 +342,7 @@ export function MobileMenu() {
                       aria-checked={isEn}
                       aria-disabled={enDisabled || undefined}
                       disabled={enDisabled}
-                      className={`hp-drawer-locale-item${isEn ? " is-active" : ""}${enDisabled ? " is-disabled" : ""}`}
+                      className={`${drawerLocaleItemBaseClass}${isEn ? ` ${drawerLocaleItemActiveClass}` : ""}${enDisabled ? ` ${drawerLocaleItemDisabledClass}` : ""}`}
                       onClick={() => switchLocale("en")}
                     >
                       {tLocale("en")}
@@ -251,10 +351,10 @@ export function MobileMenu() {
                 </details>
               </DrawerBody>
 
-              <div className="hp-drawer-foot">
+              <div className={drawerFootClass}>
                 <Link
                   href={ctaHref}
-                  className="hp-drawer-cta"
+                  className={drawerCtaClass}
                   onClick={close}
                 >
                   {t("cta")}
@@ -267,4 +367,3 @@ export function MobileMenu() {
     </>
   );
 }
-
