@@ -21,12 +21,24 @@ type PriceBreakdownProps = {
   highEstimate: number;
 };
 
+const BREAKDOWN_CLASS =
+  "border-t-0 pt-0 mt-0 " +
+  "[&>summary]:cursor-pointer [&>summary]:list-none [&>summary]:text-[13px] [&>summary]:text-ink " +
+  "[&>summary]:font-medium [&>summary]:flex [&>summary]:items-center [&>summary]:justify-between [&>summary]:select-none " +
+  "[&>summary::-webkit-details-marker]:hidden " +
+  "[&>summary]:after:content-['+'] [&>summary]:after:text-accent-soft [&>summary]:after:text-[13px] " +
+  "[&[open]>summary]:after:content-['−'] " +
+  "[&_ul]:list-none [&_ul]:m-0 [&_ul]:p-0 [&_ul]:grid [&_ul]:gap-[6px] " +
+  "[&_li]:flex [&_li]:justify-between [&_li]:gap-2 [&_li]:text-[12px] [&_li]:text-ink-dim " +
+  "[&_li>strong]:text-ink " +
+  "[&_li.total]:mt-[6px] [&_li.total]:pt-[6px] [&_li.total]:border-t [&_li.total]:border-dashed [&_li.total]:border-line";
+
 export function PriceBreakdown(props: PriceBreakdownProps) {
   const t = useTranslations("Calculator.breakdown");
   return (
-    <details className="calc-breakdown">
+    <details className={BREAKDOWN_CLASS}>
       <summary>{t("show")}</summary>
-      <div className="calc-breakdown-inner">
+      <div className="mt-[10px]">
         <ul>
           <li>
             <span>{t("baseProject")}</span>
