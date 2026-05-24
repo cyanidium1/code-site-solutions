@@ -1,6 +1,74 @@
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
 
+@theme {
+  /* Colors — mirror legacy :root values below; legacy :root retained during Phase 1 for back-compat. */
+  --color-bg: #121212;
+  --color-bg-subtle: #1a1620;
+  --color-bg-raised: #1f1a26;
+
+  --color-ink: oklch(0.97 0.005 300);
+  --color-ink-dim: oklch(0.78 0.012 300);
+  --color-ink-3: oklch(0.55 0.01 300);
+  --color-ink-muted: oklch(0.55 0.01 70);
+
+  --color-line: oklch(1 0 0 / 0.08);
+  --color-line-strong: oklch(1 0 0 / 0.14);
+
+  --color-accent: oklch(0.55 0.18 295);
+  --color-accent-soft: oklch(0.7 0.14 295);
+  --color-accent-deep: oklch(0.45 0.2 285);
+  --color-accent-2: oklch(0.45 0.20 285);
+
+  --color-industry-healthcare: #0EA5E9;
+  --color-industry-legal: #8B5CF6;
+  --color-industry-accounting: #10B981;
+  --color-industry-ecommerce: #F59E0B;
+  --color-industry-saas: #0070F3;
+  --color-industry-realestate: #EF4444;
+  --color-industry-cosmetology: #EC4899;
+  --color-industry-education: #14B8A6;
+
+  /* Container widths — generates max-w-container, max-w-container-h1, etc. */
+  --container-max: 1440px;
+  --container-h1: 920px;
+  --container-narrow: 880px;
+  --container-prose: 760px;
+  --container-form: 720px;
+
+  /* Section vertical rhythm + horizontal gutter.
+     Phase 1: values are fixed; legacy :root media-query overrides still apply.
+     Phase 2: overrides removed, primitives gain mobile-first responsive utilities. */
+  --spacing-section-y: 100px;
+  --spacing-section-y-md: 80px;
+  --spacing-section-y-tight: 56px;
+  --spacing-section-y-lg: 120px;
+  --spacing-gutter-x: 48px;
+
+  /* Shadows */
+  --shadow-accent-glow:
+    0 4px 20px oklch(0.55 0.18 295 / 0.35),
+    0 0 0 1px oklch(0.55 0.18 295 / 0.30);
+
+  /* Easing */
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Background images — generates bg-hero-glow, bg-brand-gradient, bg-text-gradient utilities. */
+  --background-image-hero-glow:
+    radial-gradient(ellipse 1400px 700px at 50% -150px, oklch(0.55 0.18 295 / 0.40) 0%, oklch(0.55 0.18 295 / 0.12) 35%, transparent 70%);
+  --background-image-brand-gradient:
+    linear-gradient(180deg, var(--color-accent-soft) 0%, var(--color-accent) 100%);
+  --background-image-text-gradient:
+    linear-gradient(180deg, var(--color-accent-soft) 0%, var(--color-accent) 100%);
+
+  /* Font families — Manrope for body/display; Actay for headings; JetBrains for mono.
+     Generates font-display, font-sans, font-actay, font-mono utilities. */
+  --font-display: var(--font-manrope), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-actay: var(--font-actay), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
 :root {
   color-scheme: dark;
 
