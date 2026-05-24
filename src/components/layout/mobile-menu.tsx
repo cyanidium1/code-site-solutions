@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { Drawer, DrawerContent, DrawerBody } from "@heroui/react";
 import { useDisclosure } from "@heroui/use-disclosure";
 import { ChevronDown, ChevronRight, X } from "lucide-react";
@@ -135,7 +135,8 @@ export function MobileMenu() {
                 <div className="hp-drawer-section">
                   <div
                     className="hp-drawer-eyebrow hp-drawer-stagger"
-                    style={{ ["--i" as string]: SERVICES_EYEBROW_I }}
+                    // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                    style={{ "--i": SERVICES_EYEBROW_I } as CSSProperties}
                   >
                     {t("services")}
                   </div>
@@ -144,7 +145,8 @@ export function MobileMenu() {
                       <li
                         key={s.href}
                         className="hp-drawer-stagger"
-                        style={{ ["--i" as string]: SERVICES_BASE_I + idx }}
+                        // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                        style={{ "--i": SERVICES_BASE_I + idx } as CSSProperties}
                       >
                         {s.published ? (
                           <Link
@@ -167,7 +169,8 @@ export function MobileMenu() {
                     ))}
                     <li
                       className="hp-drawer-stagger"
-                      style={{ ["--i" as string]: ALL_SERVICES_I }}
+                      // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                      style={{ "--i": ALL_SERVICES_I } as CSSProperties}
                     >
                       <Link
                         href={allServicesHref}
@@ -187,7 +190,8 @@ export function MobileMenu() {
                     <li
                       key={l.href}
                       className="hp-drawer-stagger"
-                      style={{ ["--i" as string]: NAV_BASE_I + idx }}
+                      // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                      style={{ "--i": NAV_BASE_I + idx } as CSSProperties}
                     >
                       <Link
                         href={l.href}
@@ -205,7 +209,8 @@ export function MobileMenu() {
 
                 <details
                   className="hp-drawer-locale-dd hp-drawer-stagger"
-                  style={{ ["--i" as string]: LOCALE_I }}
+                  // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                  style={{ "--i": LOCALE_I } as CSSProperties}
                 >
                   <summary
                     className="hp-drawer-locale-trigger"
