@@ -137,6 +137,25 @@ Affected pages: every page using `<PageHero>` — `/stories/page-hero`, `/about`
 - [ ] H1 size matches legacy `clamp(36px, 4.6vw, 60px)` / `line-height 1.05` / `tracking -0.02em` — Heading primitive `sizes[1]["page-hero"]` updated from the placeholder `72px / 1.02` to match; consumer JSX now uses `<H1 variant="page-hero">`
 - [ ] Italic `<em>` inside the H1 still renders with the brand gradient and `padding-inline-end + box-decoration-break: clone` (preserved because the `.page-hero h1 em` rule in globals.css still applies — the `page-hero` class is retained on the `<section>`)
 
+### Task S2.4 — `final.css` deleted + HeroUI classNames
+Affected pages: every consumer of `<FAQ>` and `<Audit>` — homepage `/` + `/en`, `/pricing`, `/en/pricing`, `/about`, `/process`, `/contacts`, `vs-constructors`, `vs-freelancers`, `vs-wordpress` (uk + en), sites-for/* industry pages, public-contract, and other pages mounting the FAQ block.
+- [ ] FAQ section backdrop (`.faq-bg` legacy) — top-left accent + bottom-right accent-2 radial gradients still visible
+- [ ] Audit section backdrop (`.audit-bg` legacy) — left-center accent-2 + bottom-right accent radial gradients still visible
+- [ ] FAQ accordion item collapsed: dark `oklch(0.16_0.005_300)` background, line border, 14px radius
+- [ ] FAQ accordion item OPEN (`data-[open=true]`): border bumps to `line-strong` (used Tailwind `data-[open=true]:border-line-strong` variant) — this replaces the legacy chained `.faq-accordion .faq-item[data-open="true"]` rule
+- [ ] FAQ trigger: 22px padding on desktop, 18px on ≤700px
+- [ ] FAQ title: 15px desktop / 13px ≤700px (uses `!text-[15px]` to override HeroUI's internal styles)
+- [ ] FAQ content: 24px horizontal padding, 22px bottom (uses `!px-6 !pb-[22px]` to override HeroUI — `!important` retained per the legacy CSS file comment because data-* slot specificity collides)
+- [ ] `<em>` inside content: not-italic, ink color, font-medium
+- [ ] `.rich-link` inside content: accent-soft color, underline with `oklch(0.7_0.14_295/0.4)` decoration, hover swap to ink color/decoration
+- [ ] +/× indicator pill (`faq-plus` legacy): 32px circle, line-strong border, transparent bg
+- [ ] +/× indicator HOVER (via `group/trigger` + `group-hover/trigger:`) — text/border swap to accent-soft / accent border
+- [ ] +/× indicator OPEN (`open` state): brand-gradient fill, white text, svg rotates 45° → ×
+- [ ] On ≤700px: indicator shrinks to 26px and svg to 11px
+- [ ] HeroUI's default rotate indicator-slot motion is disabled via `!rotate-0 !transition-none` on the indicator class
+- [ ] Audit form: dark backdrop card with backdrop-blur, single-column on ≤1100px; CTA button still has the 90deg multi-stop gradient with brand-glow shadow
+- [ ] FAQ heading uses `H2 variant="comparison"` (same clamp 34-56px size as comparison section heading)
+
 ### Task S2.3 — `launch-cta.css` deleted
 Affected pages: every consumer of `<LaunchCta>` — homepage `/` + `/en`, plus `vs-constructors`, `vs-freelancers`, `vs-wordpress` (uk + en) and any other page that mounts the bottom CTA strip.
 - [ ] At ≥1280px: device image positioned absolutely so it overflows the right edge of the inner container; left edge anchored at `calc(50% - 140px)`
