@@ -19,7 +19,7 @@ export default function PageHeroStory() {
         sub="Code-Site.Art — бутик-студія з Києва. Робимо custom-coded сайти для бізнесу з 2023 року. Команда в Україні, проєкти в Україні, ЄС, США, Данії."
       />
 
-      <hr style={{ border: "none", borderTop: "1px dashed var(--line)", margin: 0 }} />
+      <hr className="m-0 border-0 border-t border-dashed border-line" />
 
       <PageHero
         breadcrumbs={[
@@ -35,7 +35,7 @@ export default function PageHeroStory() {
         sub="Без «під запит». Без прихованих платежів. 3 пакети під різні потреби — від лендингу до enterprise-сайту."
       />
 
-      <hr style={{ border: "none", borderTop: "1px dashed var(--line)", margin: 0 }} />
+      <hr className="m-0 border-0 border-t border-dashed border-line" />
 
       <PageHero
         breadcrumbs={[
@@ -51,7 +51,7 @@ export default function PageHeroStory() {
         sub="Healthcare, Real Estate, SaaS, e-commerce. Кейси з Україні, ЄС, США, Данії — з конкретними цифрами зростання."
       />
 
-      <hr style={{ border: "none", borderTop: "1px dashed var(--line)", margin: 0 }} />
+      <hr className="m-0 border-0 border-t border-dashed border-line" />
 
       <PageHero
         breadcrumbs={[

@@ -46,38 +46,16 @@ function GradPlaceholder({
 }) {
   return (
     <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)`,
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient stops
+      style={{ "--gp-from": from, "--gp-to": to } as React.CSSProperties}
+      className="relative flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--gp-from)_0%,var(--gp-to)_100%)]"
     >
       <div
         aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-          opacity: 0.5,
-        }}
+        className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-50"
       />
       {label ? (
-        <span
-          style={{
-            position: "relative",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 11,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.85)",
-          }}
-        >
+        <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-white/85">
           {label}
         </span>
       ) : null}
@@ -342,7 +320,7 @@ export default function PricingPage() {
       />
 
       {/* Section 8: FAQ */}
-      <section style={{ background: "var(--bg)" }}>
+      <section className="bg-bg">
         <FAQ heading="Часті питання про ціни" items={PRICING_FAQ} />
       </section>
 

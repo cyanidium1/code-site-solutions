@@ -2,9 +2,7 @@ import { StatsBar } from "@/components/blocks/stats-bar";
 
 export const metadata = { title: "Story · stats-bar" };
 
-const dashed = (
-  <hr style={{ border: "none", borderTop: "1px dashed var(--line)", margin: 0 }} />
-);
+const dashed = <hr className="m-0 border-0 border-t border-dashed border-line" />;
 
 export default function StatsBarStory() {
   return (
