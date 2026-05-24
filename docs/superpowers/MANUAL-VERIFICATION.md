@@ -65,3 +65,14 @@ Created 9 primitives + `cn` helper: Container, Section, H1/H2/H3, Btn, MetaStrip
 **Container & Section** consume `--gutter-x` and `--section-y` tokens via Tailwind 4 arbitrary-property syntax (`px-(--gutter-x)` / `py-(--section-y)`). If Tailwind 4.2 does not recognize this syntax, fall back to `[padding-inline:var(--gutter-x)]` arbitrary-value syntax.
 
 **Btn primary** wraps children in `<span class="relative z-10">` automatically — callers do not need the manual `<span>` wrapper the legacy `.btn-primary` required.
+
+### Task 14 — `/dev/primitives` parity demo
+
+Visit `http://localhost:3000/dev/primitives` after `npm run dev`. Compare each row's left-side primitive against right-side legacy version. Note any mismatches in this file before continuing to Phase B.
+
+Known gaps to compare:
+- [ ] H1 / H2 sizes (primitive uses placeholder values; legacy `.h1` / `.case-h2` source lives in component CSS files — values will be reconciled per block in Phase C)
+- [ ] Primary button shimmer animation on hover
+- [ ] Ghost button border on hover
+- [ ] GradPlaceholder dot-grid overlay visibility
+- [ ] TextGradient color stops match legacy `.text-gradient` exactly
