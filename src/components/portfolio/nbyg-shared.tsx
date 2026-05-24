@@ -12,6 +12,29 @@ import { type CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { cn } from "@/components/ui";
+import {
+  caseLinkClass,
+  caseCoverClass,
+  caseCoverBgClass,
+  caseCoverDotsClass,
+  caseShotClass,
+  caseShotBarClass,
+  caseShotDotClass,
+  caseShotBodyClass,
+  caseShotLineS1,
+  caseShotLineS2,
+  caseShotLineS3,
+  caseBodyClass,
+  caseChipsClass,
+  caseChipClass,
+  caseNameRowClass,
+  caseNameClass,
+  caseArrowClass,
+  caseMetaClass,
+  caseMetricsClass,
+} from "@/components/blocks/related-card";
+
 export function NbygScreenshotPending({ label }: { label: string }) {
   return (
     <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,oklch(0.55_0.20_25_/_0.18)_0%,oklch(0.62_0.18_60_/_0.18)_100%)] p-6 text-center font-mono text-xs uppercase tracking-[0.08em] text-ink-3">
@@ -54,21 +77,21 @@ export function NbygRelatedCard({ row, comingSoonLabel = "Coming soon" }: Relate
   const disabled = !row.href;
 
   const cover = (
-    <div className="hp-case-cover">
+    <div className={caseCoverClass}>
       <div
-        className="hp-case-cover-bg"
+        className={caseCoverBgClass}
         // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient string per case
         style={{ background: row.gradient }}
       />
-      <div className="hp-case-cover-dots" />
-      <div className={`hp-case-shot${row.coverImage ? " flex flex-col" : ""}`}>
-        <div className="hp-case-shot-bar">
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
+      <div className={caseCoverDotsClass} />
+      <div className={cn(caseShotClass, row.coverImage && "flex flex-col")}>
+        <div className={caseShotBarClass}>
+          <span className={caseShotDotClass} />
+          <span className={caseShotDotClass} />
+          <span className={caseShotDotClass} />
         </div>
         {row.coverImage ? (
-          <div className="hp-case-shot-body relative min-h-0 flex-1 overflow-hidden p-0">
+          <div className={cn(caseShotBodyClass, "relative min-h-0 flex-1 overflow-hidden p-0")}>
             <img
               src={row.coverImage}
               alt={row.coverImageAlt ?? row.name}
@@ -76,10 +99,10 @@ export function NbygRelatedCard({ row, comingSoonLabel = "Coming soon" }: Relate
             />
           </div>
         ) : (
-          <div className="hp-case-shot-body">
-            <div className="hp-case-shot-line s1" />
-            <div className="hp-case-shot-line s2" />
-            <div className="hp-case-shot-line s3" />
+          <div className={caseShotBodyClass}>
+            <div className={caseShotLineS1} />
+            <div className={caseShotLineS2} />
+            <div className={caseShotLineS3} />
           </div>
         )}
       </div>
@@ -92,10 +115,10 @@ export function NbygRelatedCard({ row, comingSoonLabel = "Coming soon" }: Relate
   );
 
   const body = (
-    <div className="hp-case-body">
-      <div className="hp-case-chips">
+    <div className={caseBodyClass}>
+      <div className={caseChipsClass}>
         <span
-          className="hp-case-chip"
+          className={caseChipClass}
           // eslint-disable-next-line react/forbid-dom-props -- per-case industry color
           style={
             {
@@ -106,22 +129,22 @@ export function NbygRelatedCard({ row, comingSoonLabel = "Coming soon" }: Relate
         >
           {row.industry}
         </span>
-        <span className="hp-case-chip">{row.tech}</span>
+        <span className={caseChipClass}>{row.tech}</span>
       </div>
-      <div className="hp-case-name-row">
-        <h3 className="hp-case-name">{row.name}</h3>
+      <div className={caseNameRowClass}>
+        <h3 className={caseNameClass}>{row.name}</h3>
         {!disabled ? (
-          <ArrowUpRight size={20} strokeWidth={1.6} className="hp-case-arrow" />
+          <ArrowUpRight size={20} strokeWidth={1.6} className={caseArrowClass} />
         ) : null}
       </div>
-      <div className="hp-case-meta">{row.meta}</div>
-      <div className="hp-case-metrics">{row.metrics}</div>
+      <div className={caseMetaClass}>{row.meta}</div>
+      <div className={caseMetricsClass}>{row.metrics}</div>
     </div>
   );
 
   if (disabled) {
     return (
-      <div className="hp-case-link pointer-events-none cursor-default opacity-[0.78]">
+      <div className={cn(caseLinkClass, "pointer-events-none cursor-default opacity-[0.78]")}>
         {cover}
         {body}
       </div>
@@ -129,7 +152,7 @@ export function NbygRelatedCard({ row, comingSoonLabel = "Coming soon" }: Relate
   }
 
   return (
-    <Link href={row.href!} className="hp-case-link">
+    <Link href={row.href!} className={caseLinkClass}>
       {cover}
       {body}
     </Link>

@@ -5,7 +5,7 @@ import { CtaBanner } from "@/components/blocks/cta-banner";
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
 import "@/components/homepage/homepage.css";
 import { fetchCaseStudies } from "@/components/case-page";
-import { RelatedCard } from "@/components/blocks/related-card";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import {
   caseRefToCardItem,
   enCasesNoun,
@@ -115,7 +115,7 @@ export default async function EnPortfolioPage() {
       <section className="hp-section">
         <div className="hp-inner">
           {cases.length > 0 ? (
-            <div className="hp-cases-grid">
+            <div className={casesGridClass}>
               {cases.map((c) => {
                 const item = caseRefToCardItem(c, "en");
                 const metaLine = [item.industry, item.region, item.year]

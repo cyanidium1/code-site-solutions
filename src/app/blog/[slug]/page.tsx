@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
-import { RelatedCard } from "@/components/blocks/related-card";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { FAQ } from "@/components/blocks/final";
 import "@/components/blocks/blog/blog.css";
 
@@ -305,7 +305,7 @@ export default async function BlogPostPage({
                   Схожі <em>статті</em>
                 </h2>
               </div>
-              <div className="hp-cases-grid">
+              <div className={casesGridClass}>
                 {related.slice(0, 2).map((p) => {
                   const reading = p.readingTimeMinutes
                     ? `${p.readingTimeMinutes} хв читання`

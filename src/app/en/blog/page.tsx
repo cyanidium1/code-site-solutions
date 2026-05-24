@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
-import { RelatedCard } from "@/components/blocks/related-card";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
@@ -72,7 +72,7 @@ export default async function EnBlogPage() {
         <section className="hp-section">
           <div className="hp-inner">
             {enPosts.length > 0 ? (
-              <div className="hp-cases-grid">
+              <div className={casesGridClass}>
                 {enPosts.map((p) => {
                   const date = formatEnDate(p.publishedAt);
                   const reading = p.readingTimeMinutes

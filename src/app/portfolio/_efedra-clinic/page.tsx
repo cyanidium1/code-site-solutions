@@ -21,6 +21,7 @@ import {
   NbygRelatedCard as RelatedCard,
   type NbygRelatedRow,
 } from "@/components/portfolio/nbyg-shared";
+import { casesGridClass } from "@/components/blocks/related-card";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 export const metadata: Metadata = {
@@ -378,7 +379,7 @@ export default function EfedraCasePage() {
               Інші <em>кейси</em>
             </h2>
           </div>
-          <div className="hp-cases-grid">
+          <div className={casesGridClass}>
             {RELATED.map((r) => (
               <RelatedCard key={r.name} row={r} />
             ))}

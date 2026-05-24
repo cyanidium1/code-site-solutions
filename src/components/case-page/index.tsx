@@ -23,7 +23,29 @@ import {
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
-import { btnClass } from "@/components/ui";
+import { btnClass, cn } from "@/components/ui";
+import {
+  caseLinkClass,
+  caseCoverClass,
+  caseCoverBgClass,
+  caseCoverDotsClass,
+  caseShotClass,
+  caseShotBarClass,
+  caseShotDotClass,
+  caseShotBodyClass,
+  caseShotLineS1,
+  caseShotLineS2,
+  caseShotLineS3,
+  caseBodyClass,
+  caseChipsClass,
+  caseChipClass,
+  caseNameRowClass,
+  caseNameClass,
+  caseArrowClass,
+  caseMetaClass,
+  caseMetricsClass,
+  casesGridClass,
+} from "@/components/blocks/related-card";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
@@ -449,22 +471,22 @@ function RelatedCard({
   const industryLabel = pres.label;
 
   return (
-    <Link href={href} className="hp-case-link">
-      <div className="hp-case-cover">
+    <Link href={href} className={caseLinkClass}>
+      <div className={caseCoverClass}>
         <div
-          className="hp-case-cover-bg"
+          className={caseCoverBgClass}
           // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient string per case
           style={{ background: pres.gradient }}
         />
-        <div className="hp-case-cover-dots" />
-        <div className={`hp-case-shot${c.coverImage?.asset?.url ? " flex flex-col" : ""}`}>
-          <div className="hp-case-shot-bar">
-            <span className="hp-case-shot-dot" />
-            <span className="hp-case-shot-dot" />
-            <span className="hp-case-shot-dot" />
+        <div className={caseCoverDotsClass} />
+        <div className={cn(caseShotClass, c.coverImage?.asset?.url && "flex flex-col")}>
+          <div className={caseShotBarClass}>
+            <span className={caseShotDotClass} />
+            <span className={caseShotDotClass} />
+            <span className={caseShotDotClass} />
           </div>
           {c.coverImage?.asset?.url ? (
-            <div className="hp-case-shot-body relative min-h-0 flex-1 overflow-hidden p-0">
+            <div className={cn(caseShotBodyClass, "relative min-h-0 flex-1 overflow-hidden p-0")}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={c.coverImage.asset.url}
@@ -473,18 +495,18 @@ function RelatedCard({
               />
             </div>
           ) : (
-            <div className="hp-case-shot-body">
-              <div className="hp-case-shot-line s1" />
-              <div className="hp-case-shot-line s2" />
-              <div className="hp-case-shot-line s3" />
+            <div className={caseShotBodyClass}>
+              <div className={caseShotLineS1} />
+              <div className={caseShotLineS2} />
+              <div className={caseShotLineS3} />
             </div>
           )}
         </div>
       </div>
-      <div className="hp-case-body">
-        <div className="hp-case-chips">
+      <div className={caseBodyClass}>
+        <div className={caseChipsClass}>
           <span
-            className="hp-case-chip"
+            className={caseChipClass}
             // eslint-disable-next-line react/forbid-dom-props -- per-case industry color
             style={{
               color: pres.color,
@@ -493,18 +515,14 @@ function RelatedCard({
           >
             {industryLabel}
           </span>
-          <span className="hp-case-chip">{pres.tech}</span>
+          <span className={caseChipClass}>{pres.tech}</span>
         </div>
-        <div className="hp-case-name-row">
-          <h3 className="hp-case-name">{name}</h3>
-          <ArrowUpRight
-            size={20}
-            strokeWidth={1.6}
-            className="hp-case-arrow"
-          />
+        <div className={caseNameRowClass}>
+          <h3 className={caseNameClass}>{name}</h3>
+          <ArrowUpRight size={20} strokeWidth={1.6} className={caseArrowClass} />
         </div>
-        <div className="hp-case-meta">{meta}</div>
-        {metrics ? <div className="hp-case-metrics">{metrics}</div> : null}
+        <div className={caseMetaClass}>{meta}</div>
+        {metrics ? <div className={caseMetricsClass}>{metrics}</div> : null}
       </div>
     </Link>
   );
@@ -594,7 +612,7 @@ export async function CasePageView({
               </div>
               <h2 className="hp-h2">{relatedHeading}</h2>
             </div>
-            <div className="hp-cases-grid">
+            <div className={casesGridClass}>
               {related.map((r) => (
                 <RelatedCard key={r._id} c={r} locale={locale} />
               ))}

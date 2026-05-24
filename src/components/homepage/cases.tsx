@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { fetchCaseStudies } from "@/components/case-page";
-import { RelatedCard } from "@/components/blocks/related-card";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { btnClass } from "@/components/ui";
 import {
   caseRefToCardItem,
@@ -42,7 +42,7 @@ export async function Cases({
     <section className="hp-section" id="cases">
       <div className="hp-inner">
         <SectionHead eyebrow={eyebrow} heading={heading} />
-        <div className="hp-cases-grid">
+        <div className={casesGridClass}>
           {finalItems.map((c) => {
             const metaLine = [c.industry, c.region, c.year]
               .filter(Boolean)
