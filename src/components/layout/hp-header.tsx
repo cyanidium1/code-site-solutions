@@ -10,12 +10,50 @@ import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
 import Logo from "./logo/logo";
+import { headerBrandClass } from "./header-classes";
 
 function isActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
   if (href === "/" || href === "/en") return pathname === href;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
+
+// Header is sticky, backdrop-blurred. Responsive ladder shrinks the
+// nav gap, link font size, and CTA padding between 1440→800px to keep
+// the whole bar on one row without wrapping. Below 800px nav + CTA hide
+// and the burger appears.
+const headerClass =
+  "sticky top-0 z-50 border-b border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.7)] backdrop-blur-[14px] px-(--gutter-x)";
+const headerInnerClass =
+  "mx-auto max-w-container flex items-center justify-between py-[18px] max-[1100px]:py-[14px] max-[800px]:py-[14px]";
+const headerEndClass =
+  "flex items-center gap-[92px] min-w-0 max-[1440px]:gap-14 max-[1100px]:gap-8";
+const headerNavClass =
+  "flex gap-7 max-[1440px]:gap-[22px] max-[1100px]:gap-4 max-[800px]:hidden";
+// Trailing-colon variant builders for hover-active state on nav links.
+const navLinkBaseClass =
+  "font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim no-underline transition-colors duration-200 hover:text-ink max-[1440px]:text-[10.5px] max-[1100px]:text-[10px] max-[1100px]:tracking-[0.1em]";
+const navLinkActiveClass =
+  "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
+const headerCtaClass =
+  "px-[18px] py-2.5 rounded-full border-0 bg-ink text-bg font-sans font-semibold text-[12px] tracking-[0.04em] uppercase no-underline transition-transform duration-200 hover:-translate-y-px max-[1440px]:px-4 max-[1440px]:py-[9px] max-[1440px]:text-[11px] max-[1100px]:px-3.5 max-[1100px]:py-2 max-[1100px]:text-[10.5px] max-[800px]:hidden";
+
+// <details>-based hover/click dropdown. `cursor-pointer + select-none` on
+// summary + hiding the marker. Chevron rotates 180° when [open].
+const navDdClass = "relative self-stretch flex items-center";
+const navDdTriggerClass =
+  "list-none flex items-center gap-1.5 cursor-pointer font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink max-[1440px]:text-[10.5px] max-[1100px]:text-[10px] max-[1100px]:tracking-[0.1em]";
+const navDdChevronClass =
+  "shrink-0 opacity-75 transition-transform duration-200 group-open/dd:rotate-180";
+const navDdPanelClass =
+  "absolute top-[calc(100%+12px)] left-0 min-w-[232px] p-2 rounded-[14px] border border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60]";
+const navDdLinkBaseClass =
+  "block px-3 py-2.5 rounded-[10px] font-sans text-[13px] font-medium normal-case text-ink-dim no-underline transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
+const navDdLinkActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.1)] text-ink";
+const navDdLinkDisabledClass =
+  "text-ink-3 cursor-default opacity-55 hover:bg-transparent hover:text-ink-3";
+const navDdFooterClass =
+  "block mt-1 px-3 py-2.5 rounded-[10px] border-t border-line font-mono text-[10px] tracking-[0.1em] uppercase font-semibold text-accent-soft no-underline hover:bg-[oklch(from_var(--color-accent)_l_c_h/0.12)]";
 
 export function HpHeader() {
   const ddRef = useRef<HTMLDetailsElement>(null);
@@ -49,20 +87,20 @@ export function HpHeader() {
   );
 
   return (
-    <header className="hp-header">
-      <div className="hp-header-inner">
-        <Logo href={homeHref} className="hp-header-brand" onClick={closeDd} />
-        <div className="hp-header-end">
-        <nav className="hp-header-nav" aria-label={t("menuLabel")}>
-          <details ref={ddRef} className="hp-nav-dd">
+    <header className={headerClass}>
+      <div className={headerInnerClass}>
+        <Logo href={homeHref} className={headerBrandClass} onClick={closeDd} />
+        <div className={headerEndClass}>
+        <nav className={headerNavClass} aria-label={t("menuLabel")}>
+          <details ref={ddRef} className={`group/dd ${navDdClass}`}>
             <summary
-              className={`hp-nav-dd-trigger${servicesActive ? " active" : ""}`}
+              className={`${navDdTriggerClass}${servicesActive ? ` ${navLinkActiveClass}` : ""}`}
               aria-current={servicesActive ? "page" : undefined}
             >
               {t("services")}
-              <ChevronDown className="hp-nav-dd-chevron" size={14} strokeWidth={2} aria-hidden />
+              <ChevronDown className={navDdChevronClass} size={14} strokeWidth={2} aria-hidden />
             </summary>
-            <div className="hp-nav-dd-panel">
+            <div className={navDdPanelClass}>
               {SERVICE_NAV_LINKS.map((item) => {
                 if (!item.published) {
                   // No Sanity page yet — show the label but make it
@@ -71,7 +109,7 @@ export function HpHeader() {
                   return (
                     <span
                       key={item.href}
-                      className="hp-nav-dd-link is-disabled"
+                      className={`${navDdLinkBaseClass} ${navDdLinkDisabledClass}`}
                       aria-disabled="true"
                     >
                       {tServices(item.key)}
@@ -84,7 +122,7 @@ export function HpHeader() {
                   <Link
                     key={item.href}
                     href={target}
-                    className={`hp-nav-dd-link${active ? " active" : ""}`}
+                    className={`${navDdLinkBaseClass}${active ? ` ${navDdLinkActiveClass}` : ""}`}
                     aria-current={active ? "page" : undefined}
                     onClick={closeDd}
                   >
@@ -92,7 +130,7 @@ export function HpHeader() {
                   </Link>
                 );
               })}
-              <Link href={allServicesHref} className="hp-nav-dd-footer" onClick={closeDd}>
+              <Link href={allServicesHref} className={navDdFooterClass} onClick={closeDd}>
                 {t("allServicesFooter")}
               </Link>
             </div>
@@ -103,7 +141,7 @@ export function HpHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={active ? "active" : undefined}
+                className={`${navLinkBaseClass}${active ? ` ${navLinkActiveClass}` : ""}`}
                 aria-current={active ? "page" : undefined}
                 onClick={closeDd}
               >
@@ -113,7 +151,7 @@ export function HpHeader() {
           })}
           <LocaleSwitcher />
         </nav>
-        <Link href={ctaHref} className="hp-header-cta" onClick={closeDd}>
+        <Link href={ctaHref} className={headerCtaClass} onClick={closeDd}>
           {t("cta")}
         </Link>
         </div>

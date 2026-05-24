@@ -109,145 +109,9 @@
 }
 
 
-/* ─── Header (top of homepage) ───────────────────────────────────────────── */
-
-.hp-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  border-bottom: 1px solid var(--line);
-  background: oklch(from var(--bg) l c h / 0.7);
-  backdrop-filter: blur(14px);
-  padding: 0 var(--gutter-x);
-}
-.hp-header-inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 0;
-}
-.hp-header-brand {
-  text-decoration: none;
-  color: var(--ink);
-  white-space: nowrap;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-}
-.hp-header-end {
-  display: flex;
-  align-items: center;
-  gap: 92px;
-  min-width: 0;
-}
-.hp-header-nav {
-  display: flex;
-  gap: 28px;
-}
-.hp-header-nav a {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-2);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.hp-header-nav a:hover { color: var(--ink); }
-.hp-header-nav a.active,
-.hp-nav-dd > summary.hp-nav-dd-trigger.active {
-  color: var(--ink);
-  position: relative;
-}
-.hp-header-nav a.active::after,
-.hp-nav-dd > summary.hp-nav-dd-trigger.active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -8px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent-soft), var(--accent));
-}
-.hp-nav-dd-link.active {
-  background: oklch(from var(--accent) l c h / 0.1);
-  color: var(--ink);
-}
-
-.hp-nav-dd {
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-}
-.hp-nav-dd > summary.hp-nav-dd-trigger {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-2);
-  transition: color 0.2s;
-  user-select: none;
-}
-.hp-nav-dd > summary.hp-nav-dd-trigger::-webkit-details-marker {
-  display: none;
-}
-.hp-nav-dd > summary.hp-nav-dd-trigger:hover { color: var(--ink); }
-.hp-nav-dd[open] > summary.hp-nav-dd-trigger { color: var(--ink); }
-.hp-nav-dd[open] .hp-nav-dd-chevron { transform: rotate(180deg); }
-.hp-nav-dd-chevron {
-  flex-shrink: 0;
-  opacity: 0.75;
-  transition: transform 0.2s ease;
-}
-.hp-nav-dd-panel {
-  position: absolute;
-  top: calc(100% + 12px);
-  left: 0;
-  min-width: 232px;
-  padding: 8px;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: oklch(from var(--bg) l c h / 0.95);
-  backdrop-filter: blur(16px);
-  box-shadow:
-    0 18px 48px oklch(0 0 0 / 0.35),
-    0 0 0 1px oklch(1 0 0 / 0.04) inset;
-  z-index: 60;
-}
-.hp-nav-dd-link {
-  display: block;
-  padding: 10px 12px;
-  border-radius: 10px;
-  font-family: 'Manrope', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--ink-2);
-  text-decoration: none;
-  transition: background 0.15s, color 0.15s;
-}
-.hp-nav-dd-link:hover {
-  background: oklch(1 0 0 / 0.06);
-  color: var(--ink);
-}
-.hp-nav-dd-link.is-disabled {
-  color: var(--ink-3);
-  cursor: default;
-  opacity: 0.55;
-}
-.hp-nav-dd-link.is-disabled:hover {
-  background: transparent;
-  color: var(--ink-3);
-}
+/* Drawer-link disabled state kept here because it shares CSS-driven disabled
+   visuals with the now-deleted nav-dd-link.is-disabled. Will be migrated
+   alongside the rest of .hp-drawer-* in S7.11. */
 .hp-drawer-link.is-disabled {
   color: var(--ink-3);
   cursor: default;
@@ -255,125 +119,6 @@
 }
 .hp-drawer-link.is-disabled:hover {
   background: transparent;
-}
-.hp-nav-dd-footer {
-  display: block;
-  margin-top: 4px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border-top: 1px solid var(--line);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--accent-soft);
-  text-decoration: none;
-}
-.hp-nav-dd-footer:hover {
-  background: oklch(from var(--accent) l c h / 0.12);
-}
-
-.hp-header-cta {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 999px;
-  background: var(--ink);
-  color: var(--bg);
-  font-family: 'Manrope', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: transform 0.2s;
-}
-.hp-header-cta:hover { transform: translateY(-1px); }
-
-/* ─── Locale switcher (header) ──────────────────────────────────────────── */
-.hp-locale-dd {
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-}
-.hp-locale-trigger {
-  list-style: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-2);
-  cursor: pointer;
-  transition: color 0.2s;
-  user-select: none;
-}
-.hp-locale-trigger::-webkit-details-marker { display: none; }
-.hp-locale-trigger:hover { color: var(--ink); }
-.hp-locale-dd[open] > .hp-locale-trigger { color: var(--ink); }
-.hp-locale-trigger svg {
-  opacity: 0.7;
-  transition: transform 0.2s;
-  flex-shrink: 0;
-}
-.hp-locale-dd[open] .hp-locale-trigger svg {
-  transform: rotate(180deg);
-}
-.hp-locale-dd:not([open]) > .hp-locale-panel { display: none; }
-.hp-locale-panel {
-  position: absolute;
-  top: calc(100% + 12px);
-  right: 0;
-  min-width: 132px;
-  padding: 6px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: oklch(from var(--bg) l c h / 0.95);
-  backdrop-filter: blur(16px);
-  box-shadow:
-    0 18px 48px oklch(0 0 0 / 0.35),
-    0 0 0 1px oklch(1 0 0 / 0.04) inset;
-  z-index: 60;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.hp-locale-panel-item {
-  display: block;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-2);
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-.hp-locale-panel-item:hover {
-  background: oklch(1 0 0 / 0.06);
-  color: var(--ink);
-}
-.hp-locale-panel-item.is-active {
-  background: oklch(from var(--accent) l c h / 0.12);
-  color: var(--ink);
-}
-.hp-locale-panel-item.is-disabled {
-  color: var(--ink-3);
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-.hp-locale-panel-item.is-disabled:hover {
-  background: transparent;
-  color: var(--ink-3);
 }
 
 /* ─── Mobile burger trigger ──────────────────────────────────────────────── */
@@ -434,30 +179,9 @@
   transform: rotate(-45deg);
 }
 
-/* Header responsive ladder — shrink nav, brand, CTA so everything fits
-   between 800-1440 without wrapping the brand or overflowing the row. */
-@media (max-width: 1440px) {
-  .hp-header-end { gap: 56px; }
-  .hp-header-nav { gap: 22px; }
-  .hp-header-nav a,
-  .hp-nav-dd > summary.hp-nav-dd-trigger,
-  .hp-locale-trigger { font-size: 10.5px; }
-  .hp-header-cta { padding: 9px 16px; font-size: 11px; }
-}
-
-@media (max-width: 1100px) {
-  .hp-header-end { gap: 32px; }
-  .hp-header-nav { gap: 16px; }
-  .hp-header-nav a,
-  .hp-nav-dd > summary.hp-nav-dd-trigger,
-  .hp-locale-trigger { font-size: 10px; letter-spacing: 0.1em; }
-  .hp-header-cta { padding: 8px 14px; font-size: 10.5px; letter-spacing: 0.04em; }
-  .hp-header-inner { padding: 14px 0; }
-}
-
+/* Burger trigger visibility ladder. Will move into mobile-menu.tsx with the
+   rest of .hp-burger-* in S7.11. */
 @media (max-width: 800px) {
-  .hp-header-nav { display: none; }
-  .hp-header-cta { display: none; }
   .hp-burger-btn { display: inline-flex; }
 }
 
@@ -699,5 +423,4 @@
 
 @media (max-width: 800px) {
   .hp-h2 { font-size: clamp(28px, 7vw, 40px); }
-  .hp-header-inner { padding: 14px 0; }
 }

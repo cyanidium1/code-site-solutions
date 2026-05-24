@@ -15,6 +15,7 @@ import {
 } from "@/constants/i18n-routes";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
+import { headerBrandClass } from "./header-classes";
 
 /** Animated 3-line → X morph. Pure CSS via data-open. */
 function BurgerIcon({ open }: { open: boolean }) {
@@ -119,7 +120,7 @@ export function MobileMenu() {
               <div className="hp-drawer-head">
                 <Logo
                   href={isEn ? "/en" : "/"}
-                  className="hp-header-brand"
+                  className={headerBrandClass}
                   onClick={close}
                 />
                 <button
