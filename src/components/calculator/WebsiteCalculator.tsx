@@ -178,7 +178,7 @@ export function WebsiteCalculator() {
             <p className="hp-sub">{t("customizer.sub")}</p>
           </div>
 
-          <div className="calc-layout">
+          <div className="grid grid-cols-[minmax(0,1fr)_360px] gap-6 items-start max-[1100px]:grid-cols-[1fr]">
             <CalculatorControls value={input} onChange={setInput} />
             <EstimateSummary
               input={input}

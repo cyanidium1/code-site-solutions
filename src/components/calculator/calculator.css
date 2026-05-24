@@ -3,174 +3,6 @@
    .hp-eyebrow). Section wrappers + spacing come from .hp-section.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ─── Customizer (controls + sticky summary) ────────────────────────────── */
-.calc-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
-  gap: 24px;
-  align-items: start;
-}
-
-.calc-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.calc-reset-btn {
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--ink-2);
-  border-radius: 999px;
-  padding: 7px 12px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: 'JetBrains Mono', monospace;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-}
-.calc-reset-btn:hover {
-  border-color: var(--line-2);
-  color: var(--ink);
-}
-
-.calc-manual-intro {
-  margin: 8px 0 4px;
-}
-.calc-manual-intro-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.calc-manual-intro h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-.calc-manual-intro p {
-  margin: 6px 0 0;
-  color: var(--ink-3);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.calc-group {
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: oklch(0.16 0.005 300);
-  overflow: hidden;
-}
-
-.calc-group > summary,
-.calc-group > h3 {
-  list-style: none;
-  margin: 0;
-  padding: 16px 20px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--ink-3);
-  border-bottom: 1px solid var(--line);
-  cursor: pointer;
-  user-select: none;
-}
-.calc-group > summary::-webkit-details-marker {
-  display: none;
-}
-.calc-group > summary::after {
-  content: "+";
-  float: right;
-  color: var(--accent-soft);
-  font-size: 14px;
-  line-height: 1;
-}
-.calc-group[open] > summary::after {
-  content: "−";
-}
-
-.calc-group-content {
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.calc-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.calc-option-card {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: oklch(0.18 0.008 300);
-  padding: 14px;
-}
-.calc-option-button {
-  text-align: left;
-  color: var(--ink);
-  cursor: pointer;
-  transition: border-color 0.2s, transform 0.2s;
-}
-.calc-option-button:hover {
-  border-color: var(--line-2);
-  transform: translateY(-1px);
-}
-.calc-option-card.is-selected {
-  border-color: oklch(from var(--accent) l c h / 0.55);
-  box-shadow: 0 0 0 1px oklch(from var(--accent) l c h / 0.3) inset;
-}
-.calc-option-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-.calc-option-head h4 {
-  margin: 0;
-  font-size: 14px;
-}
-.calc-option-head span {
-  font-size: 12px;
-  color: var(--accent-soft);
-}
-.calc-option-card p {
-  margin: 8px 0 0;
-  color: var(--ink-2);
-  font-size: 13px;
-  line-height: 1.45;
-}
-.calc-project-icon {
-  display: inline-flex;
-  margin-top: 8px;
-  color: var(--accent-soft);
-}
-
-.calc-controls label {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--ink);
-}
-.calc-subgroup-title {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px !important;
-  color: var(--ink-2) !important;
-}
-.calc-help,
-.calc-note {
-  color: var(--ink-3);
-  font-size: 12px;
-  line-height: 1.5;
-}
 
 /* ─── Slider (gradient track + glowing thumb) ───────────────────────────── */
 .calc-range-row {
@@ -1405,9 +1237,6 @@
 
 /* ─── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
-  .calc-layout {
-    grid-template-columns: 1fr;
-  }
   .calc-summary {
     position: static;
     max-height: none;
@@ -1444,9 +1273,6 @@
 }
 
 @media (max-width: 760px) {
-  .calc-grid-3 {
-    grid-template-columns: 1fr;
-  }
   .calc-segment {
     grid-template-columns: 1fr;
   }
@@ -1466,10 +1292,6 @@
   }
   .calc-after-launch-grid {
     grid-template-columns: 1fr;
-  }
-  .calc-manual-intro-head {
-    flex-wrap: wrap;
-    gap: 8px;
   }
   .calc-alt-cta-row {
     border-radius: 18px;

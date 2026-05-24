@@ -28,6 +28,29 @@ import type {
 import { formatEur, formatPercent } from "@/lib/shared/format-eur";
 import { OptionCard } from "./OptionCard";
 import { basicSetupInput, inputForPreset } from "./presets";
+import { H3 } from "@/components/ui";
+
+// Shared class strings for the controls panel — extracted so each
+// <details className="calc-group"> and its summary read short. The
+// `+ / −` marker uses [&[open]>summary]:after:content because Tailwind
+// has no built-in details-marker handling.
+const GROUP_CLASS =
+  "border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] overflow-hidden " +
+  "[&>summary]:list-none [&>summary]:m-0 [&>summary]:px-5 [&>summary]:py-4 " +
+  "[&>summary]:text-[11px] [&>summary]:uppercase [&>summary]:tracking-[0.14em] " +
+  "[&>summary]:text-ink-3 [&>summary]:border-b [&>summary]:border-line " +
+  "[&>summary]:cursor-pointer [&>summary]:select-none " +
+  "[&>summary::-webkit-details-marker]:hidden " +
+  "[&>summary]:after:content-['+'] [&>summary]:after:float-right " +
+  "[&>summary]:after:text-accent-soft [&>summary]:after:text-sm [&>summary]:after:leading-none " +
+  "[&[open]>summary]:after:content-['−'] " +
+  "[&>h3]:list-none [&>h3]:m-0 [&>h3]:px-5 [&>h3]:py-4 " +
+  "[&>h3]:text-[11px] [&>h3]:uppercase [&>h3]:tracking-[0.14em] " +
+  "[&>h3]:text-ink-3 [&>h3]:border-b [&>h3]:border-line [&>h3]:font-normal";
+
+const GROUP_CONTENT_CLASS = "px-5 py-[18px] flex flex-col gap-[14px]";
+
+const NOTE_CLASS = "text-ink-3 text-[12px] leading-[1.5]";
 
 type CalculatorControlsProps = {
   value: CalculatorInput;
@@ -91,7 +114,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
 
   const renderFeatureGroup = (title: string, items: typeof FEATURE_OPTIONS) => (
     <>
-      <label>{title}</label>
+      <label className="flex flex-col gap-[6px] text-[13px] text-ink">{title}</label>
       <div className="calc-checkbox-grid calc-checkbox-grid-features">
         {items.map((option) => (
           <label key={option.id} className="calc-checkbox">
@@ -143,11 +166,11 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         });
 
   return (
-    <div className="calc-controls">
-      <section className="calc-group calc-preset-section">
+    <div className="flex flex-col gap-[14px]">
+      <section className={`${GROUP_CLASS} calc-preset-section overflow-hidden`}>
         <h3>{t("controls.presetTitle")}</h3>
-        <div className="calc-group-content">
-          <p className="calc-note">{t("controls.presetNote")}</p>
+        <div className={GROUP_CONTENT_CLASS}>
+          <p className={NOTE_CLASS}>{t("controls.presetNote")}</p>
           <div className="calc-preset-grid">
             {PACKAGE_PRESETS.map((preset) => {
               const includes = t.raw(`options.presets.${preset.id}.includes`) as string[];
@@ -185,20 +208,24 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         </div>
       </section>
 
-      <div className="calc-manual-intro">
-        <div className="calc-manual-intro-head">
-          <h3>{t("controls.customizeTitle")}</h3>
-          <button type="button" className="calc-reset-btn" onClick={resetToBasicSetup}>
+      <div className="mt-2 mb-1">
+        <div className="flex items-center justify-between gap-3 max-[760px]:flex-wrap max-[760px]:gap-2">
+          <H3 variant="calc-intro">{t("controls.customizeTitle")}</H3>
+          <button
+            type="button"
+            className="border border-line bg-transparent text-ink-dim rounded-full px-3 py-[7px] text-[11px] tracking-[0.08em] uppercase cursor-pointer font-mono transition-[border-color,color,background] duration-200 hover:border-line-strong hover:text-ink"
+            onClick={resetToBasicSetup}
+          >
             {t("controls.resetBtn")}
           </button>
         </div>
-        <p>{t("controls.customizeNote")}</p>
+        <p className="m-0 mt-[6px] text-ink-3 text-[13px] leading-[1.5]">{t("controls.customizeNote")}</p>
       </div>
 
-      <details open className="calc-group">
+      <details open className={GROUP_CLASS}>
         <summary>{t("controls.section01")}</summary>
-        <div className="calc-group-content">
-          <div className="calc-grid-3">
+        <div className={GROUP_CONTENT_CLASS}>
+          <div className="grid grid-cols-3 gap-[10px] max-[760px]:grid-cols-1">
             {Object.entries(PROJECT_TYPE_CONFIG).map(([id, item]) => (
               <OptionCard
                 key={id}
@@ -208,16 +235,16 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                 selected={value.projectType === id}
                 onClick={() => setProjectType(id as ProjectType)}
               >
-                <span className="calc-project-icon">
+                <span className="inline-flex mt-2 text-accent-soft">
                   {id === "landing" ? <LayoutTemplate size={14} /> : id === "multiPage" ? <Code2 size={14} /> : <ShoppingCart size={14} />}
                 </span>
               </OptionCard>
             ))}
           </div>
 
-          <label htmlFor="calc-pages">
+          <label htmlFor="calc-pages" className="flex flex-col gap-[6px] text-[13px] text-ink">
             {pageLabel}
-            <span className="calc-help">{pageHelp}</span>
+            <span className={NOTE_CLASS}>{pageHelp}</span>
           </label>
           <div className="calc-range-row">
             <input
@@ -235,11 +262,11 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
             <span>{projectConfig.pages.min}</span>
             <span>{projectConfig.pages.max}</span>
           </div>
-          <p className="calc-note">{includedTpl}</p>
+          <p className={NOTE_CLASS}>{includedTpl}</p>
 
           {value.projectType === "ecommerce" ? (
             <>
-              <label>{t("controls.productStructLabel")}</label>
+              <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.productStructLabel")}</label>
               <div className="calc-segment">
                 {Object.entries(PRODUCT_COMPLEXITY_OPTIONS).map(([id, option]) => (
                   <button
@@ -253,16 +280,16 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                   </button>
                 ))}
               </div>
-              <p className="calc-note">{t(`options.product.${value.productComplexity}.hint` as never)}</p>
+              <p className={NOTE_CLASS}>{t(`options.product.${value.productComplexity}.hint` as never)}</p>
             </>
           ) : null}
         </div>
       </details>
 
-      <details open className="calc-group">
+      <details open className={GROUP_CLASS}>
         <summary>{t("controls.section02")}</summary>
-        <div className="calc-group-content">
-          <label>{t("controls.designLabel")}</label>
+        <div className={GROUP_CONTENT_CLASS}>
+          <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.designLabel")}</label>
           <div className="calc-design-grid">
             {Object.entries(DESIGN_COMPLEXITY_OPTIONS).map(([id, option]) => (
               <div
@@ -301,9 +328,9 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
               </div>
             ))}
           </div>
-          <p className="calc-note">{t(`options.design.${value.designComplexity}.hint` as never)}</p>
+          <p className={NOTE_CLASS}>{t(`options.design.${value.designComplexity}.hint` as never)}</p>
 
-          <label>{t("controls.langLabel")}</label>
+          <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.langLabel")}</label>
           <div className="calc-segment">
             {Object.entries(LANGUAGE_OPTIONS).map(([id, option]) => (
               <button
@@ -317,15 +344,15 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
               </button>
             ))}
           </div>
-          <p className="calc-note">{t("controls.langNoteSeo")}</p>
-          <p className="calc-note">{t("controls.langNoteTranslations")}</p>
+          <p className={NOTE_CLASS}>{t("controls.langNoteSeo")}</p>
+          <p className={NOTE_CLASS}>{t("controls.langNoteTranslations")}</p>
         </div>
       </details>
 
-      <details className="calc-group">
+      <details className={GROUP_CLASS}>
         <summary>{t("controls.section03")}</summary>
-        <div className="calc-group-content">
-          <label className="calc-subgroup-title">
+        <div className={GROUP_CONTENT_CLASS}>
+          <label className="inline-flex items-center gap-[6px] text-[12px] text-ink-dim">
             <Database size={14} /> {t("controls.cmsSubgroup")}
           </label>
           <div className="calc-checkbox-grid calc-checkbox-grid-cms">
@@ -351,7 +378,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
             ))}
           </div>
 
-          <label className="calc-subgroup-title">
+          <label className="inline-flex items-center gap-[6px] text-[12px] text-ink-dim">
             <Search size={14} /> {t("controls.seoSubgroup")}
           </label>
           <div className="calc-checkbox-grid calc-checkbox-grid-seo">
@@ -379,19 +406,19 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         </div>
       </details>
 
-      <details className="calc-group">
+      <details className={GROUP_CLASS}>
         <summary>{t("controls.section04")}</summary>
-        <div className="calc-group-content">
+        <div className={GROUP_CONTENT_CLASS}>
           {renderFeatureGroup(t("controls.leadCaptureLabel"), leadCaptureFeatures)}
           {renderFeatureGroup(t("controls.conversionLabel"), conversionFeatures)}
           {renderFeatureGroup(t("controls.advancedUxLabel"), advancedUxFeatures)}
         </div>
       </details>
 
-      <details className="calc-group">
+      <details className={GROUP_CLASS}>
         <summary>{t("controls.section05")}</summary>
-        <div className="calc-group-content">
-          <label>{t("controls.contentLabel")}</label>
+        <div className={GROUP_CONTENT_CLASS}>
+          <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.contentLabel")}</label>
           <div className="calc-segment">
             {Object.entries(CONTENT_OPTIONS).map(([id, option]) => (
               <button
@@ -406,7 +433,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
             ))}
           </div>
 
-          <label>{t("controls.timelineLabel")}</label>
+          <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.timelineLabel")}</label>
           <div className="calc-segment">
             {Object.entries(TIMELINE_OPTIONS).map(([id, option]) => (
               <button
@@ -420,7 +447,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
               </button>
             ))}
           </div>
-          <p className="calc-note">{t("controls.timelineHint")}</p>
+          <p className={NOTE_CLASS}>{t("controls.timelineHint")}</p>
         </div>
       </details>
 
