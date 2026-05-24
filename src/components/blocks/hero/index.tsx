@@ -257,6 +257,34 @@ const MOCKUP_PLACEHOLDER_CLASS =
 const MOCKUP_PLACEHOLDER_BAR_CLASS =
   "absolute top-3.5 left-[18px] flex gap-1.5 [&_span]:w-[9px] [&_span]:h-[9px] [&_span]:rounded-full [&_span]:bg-[oklch(1_0_0_/_0.12)]";
 
+// ─── Ticker (marquee row below the hero) ──────────────────────────────
+
+// U — ticker container: relative, sits above the bg layers, hairline
+// border top/bottom, padded, masked at each edge so the marquee fades
+// in/out instead of cutting off hard. The mask uses a linear-gradient
+// — Tailwind cannot model the 8%/92% transparent stops with a token.
+const TICKER_CLASS =
+  "relative z-[5] mt-10 border-t border-b border-line py-5 overflow-hidden " +
+  "[mask:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)] " +
+  "[-webkit-mask:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)] " +
+  "max-[640px]:mt-6 max-[640px]:py-3";
+
+// U — animated track. Legacy ticker keyframe (translateX 0 → -50%) is
+// functionally identical to --animate-marquee, but legacy used a 40s
+// duration vs the 30s default. Use the arbitrary animate shorthand
+// to override only the duration while reusing the keyframe.
+const TICKER_TRACK_CLASS =
+  "flex gap-0 whitespace-nowrap animate-[marquee_40s_linear_infinite]";
+
+// U — each ticker row: large display text, every even child shows in
+// accent for the "•" separator color shift. The :nth-child(even)
+// rule maps cleanly to [&>span:nth-child(even)].
+const TICKER_ROW_CLASS =
+  "flex items-center gap-8 font-display font-semibold text-2xl tracking-[-0.02em] text-ink-dim pr-8 " +
+  "[&_span:nth-child(even)]:text-accent " +
+  "max-[1440px]:text-lg max-[1440px]:gap-6 " +
+  "max-[640px]:text-sm max-[640px]:gap-[18px] max-[640px]:pr-[18px]";
+
 // U — device-stage wrapper. Stretches to fill the grid row min-height
 // (height:100% beats the prior aspect-ratio which Firefox respected
 // but Chrome stretched, causing cross-browser image-size mismatch).
@@ -557,10 +585,10 @@ export function HeroEditorial({
         </div>
 
         {showTicker && (
-          <div className="ticker">
-            <div className="ticker-track">
+          <div className={TICKER_CLASS}>
+            <div className={TICKER_TRACK_CLASS}>
               {[...Array(2)].map((_, i) => (
-                <div className="ticker-row" key={i}>
+                <div className={TICKER_ROW_CLASS} key={i}>
                   {tickerItems.map((it, j) => (
                     <span key={j} className="contents">
                       <span>{it}</span>
