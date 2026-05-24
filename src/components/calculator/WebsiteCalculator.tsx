@@ -133,9 +133,9 @@ export function WebsiteCalculator() {
   return (
     <>
       {/* Section: How this estimate works */}
-      <section className="hp-section calc-block-section">
+      <section className="hp-section py-24 max-[760px]:py-16">
         <div className="hp-inner">
-          <div className="calc-section-head">
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
               <span>{t("howItWorks.eyebrow")}</span>
@@ -148,9 +148,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Why these packages */}
-      <section className="hp-section calc-block-section">
+      <section className="hp-section py-24 max-[760px]:py-16">
         <div className="hp-inner">
-          <div className="calc-section-head">
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
               <span>{t("whyPackages.eyebrow")}</span>
@@ -163,9 +163,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Calculator (controls + sticky summary) */}
-      <section className="hp-section calc-customizer-section">
+      <section className="hp-section pt-20 pb-24 max-[760px]:pt-16 max-[760px]:pb-20">
         <div className="hp-inner">
-          <div className="calc-section-head">
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
               <span>{t("customizer.eyebrow")}</span>
@@ -186,9 +186,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: After-launch (Maintenance + SEO/Growth) */}
-      <section className="hp-section calc-block-section">
+      <section className="hp-section py-24 max-[760px]:py-16">
         <div className="hp-inner">
-          <div className="calc-section-head">
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
               <span>{t("afterLaunch.eyebrow")}</span>
@@ -284,9 +284,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Why we estimate this way */}
-      <section className="hp-section calc-block-section">
+      <section className="hp-section py-24 max-[760px]:py-16">
         <div className="hp-inner">
-          <div className="calc-section-head">
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
               <span>{t("underHood.eyebrow")}</span>
@@ -299,7 +299,7 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Social proof */}
-      <section className="hp-section calc-social-section">
+      <section className="hp-section py-10">
         <div className="hp-inner">
           <div className="calc-social-card">
             <p className="calc-social-line">
@@ -334,9 +334,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Lead form + after-submit + alt CTA */}
-      <section className="hp-section calc-leadform-section" id="calc-lead-form">
+      <section className="hp-section pt-20 pb-30 max-[760px]:pt-16 max-[760px]:pb-20" id="calc-lead-form">
         <div className="hp-inner">
-          <div className="calc-section-head">
+          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8 [&>.hp-h2]:mt-6 [&>.hp-sub]:mt-[18px]">
             <span className="hp-eyebrow">
               <span className="hp-eyebrow-dot" />
               <span>{t("getFinal.eyebrow")}</span>
