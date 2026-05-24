@@ -183,6 +183,23 @@ Affected pages: every Sanity case-study URL (`/portfolio/[slug]` + `/en/portfoli
 - [ ] CTA strip: pill on desktop with arrow chevron (rotated borders) + ink-bg button with brand-glow shadow; lifts 2px + deepens shadow on hover; stacks to rounded-18px card on @700px
 - [ ] Hardcoded portfolio pages (`_nbyg-kobenhavn`, `_efedra-clinic`) — no `.case-*` (non-`hp-case-*`) class references remain (verified via grep)
 
+### Tasks S5.1–S5.3 — `hero.css` (736 lines) → utilities + `hero-effects.css` (30 lines)
+
+Hero is the most visible page. Eyeball every effect at 1440px on `/` and `/en`:
+- [ ] Background glow gradient (radial, behind hero content) present and positioned correctly
+- [ ] Grain overlay subtle texture (from hero-effects.css)
+- [ ] Device mockup proportions, position, glow halo
+- [ ] Primary CTA shimmer animation on hover (uses Btn primitive's `::before`)
+- [ ] Ghost CTA border on hover; play-icon span variant
+- [ ] Marquee ticker scrolls left at 40s/loop (uses shared `marquee` keyframe with duration override via `animate-[marquee_40s_linear_infinite]`)
+- [ ] Stats grid divider lines between stat cells
+- [ ] Feature chips render with correct icons
+- [ ] Nav layout: confirmed dead — the legacy `.nav` / `.brand` / `.lang` / `.nav-cta` rules in hero.css were never consumed by `HeroEditorial` JSX (page header lives in a separate component), so they were deleted with the file
+- [ ] Hero H1 + H2 sizes match legacy (`<H1 variant="hp">` reconciled to `clamp(36px,5vw,64px) / 0.96 / -0.035em / uppercase` with `@640 leading 0.98`; `<H2 variant="hp">` reconciled to `clamp(34px,4vw,56px) / 1.05 / -0.02em` with `@700 clamp 28-40px` to match `.hp-h2` from homepage.css)
+- [ ] At narrow viewport (1100px / 800px / 640px), responsive shrink behavior preserved
+- [ ] `hero-effects.css` line count is 30 (≤80 budget). Contents: `.hero-grain` SVG-noise + mix-blend-mode overlay, `@keyframes hero-pulse`, `@keyframes float`. Two new `--animate-*` tokens (`--animate-hero-pulse`, `--animate-float`) registered in `@theme`
+- [ ] 3 floating device-tag pills use dynamic inline `style={{ top, left, animationDelay }}` (per-pill offsets cannot be static utilities) — single targeted `react/forbid-dom-props` eslint-disable with reason; zero new warnings vs baseline
+
 ### Task S3.2 — `contact-split.css` deleted
 Affected pages: `/contacts`, `/en/contacts` (the only consumers of `<ContactSplit>`).
 - [ ] Section background: vertical gradient from `var(--bg)` to `oklch(0.13 0.02 300)` (slight purple tint at bottom)
