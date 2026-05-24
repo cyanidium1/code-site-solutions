@@ -28,7 +28,6 @@ import { EstimateSummary } from "./EstimateSummary";
 import { LeadForm } from "./LeadForm";
 import { formatEur } from "@/lib/shared/format-eur";
 import { H3 } from "@/components/ui";
-import "./calculator.css";
 
 // Reused segment button (same pattern as CalculatorControls.tsx). Kept
 // local here so this file does not couple to a sibling component file.

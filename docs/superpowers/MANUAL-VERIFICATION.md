@@ -200,6 +200,16 @@ Hero is the most visible page. Eyeball every effect at 1440px on `/` and `/en`:
 - [ ] `hero-effects.css` line count is 30 (≤80 budget). Contents: `.hero-grain` SVG-noise + mix-blend-mode overlay, `@keyframes hero-pulse`, `@keyframes float`. Two new `--animate-*` tokens (`--animate-hero-pulse`, `--animate-float`) registered in `@theme`
 - [ ] 3 floating device-tag pills use dynamic inline `style={{ top, left, animationDelay }}` (per-pill offsets cannot be static utilities) — single targeted `react/forbid-dom-props` eslint-disable with reason; zero new warnings vs baseline
 
+### Session 6 — `calculator.css` (1570 lines) → utilities + Heading variants
+Affected page: `/calculator`. Full click-through:
+- [ ] Each calculator step renders correctly
+- [ ] Info-card visualizations preserved
+- [ ] Summary panel layout + state transitions
+- [ ] After-submit confirmation states
+- [ ] Lead-form integration (uses HeroUI inputs — Session 3 patterns apply)
+- [ ] Calculator buttons (.calc-btn-primary, .calc-btn-ghost) visual parity vs legacy
+- [ ] Heading sizes match across all sub-components
+
 ### Task S3.2 — `contact-split.css` deleted
 Affected pages: `/contacts`, `/en/contacts` (the only consumers of `<ContactSplit>`).
 - [ ] Section background: vertical gradient from `var(--bg)` to `oklch(0.13 0.02 300)` (slight purple tint at bottom)
@@ -290,7 +300,6 @@ Affected pages: `/stories/image-text` (story page exercises side / side-with-lis
 | `lead-form.css` | 281 | Heavy; HeroUI input theming |
 | `case.css` | 470 | **Each needs own session/spec** |
 | `hero.css` | 736 | **Each needs own session/spec** — keeps `hero-effects.css` for grain/ticker |
-| `calculator.css` | 1570 | **Each needs own session/spec** |
 | `homepage.css` | 2321 | **Each needs own session/spec** — covers ~10 components |
 | `blog.css` | 334 | Trim only (kept for `.prose-*` markdown) |
 
