@@ -164,6 +164,99 @@ const STAT_LBL_CLASS =
 const STAT_DIV_CLASS =
   "w-px h-10 bg-line max-[640px]:h-[30px]";
 
+// ─── Device stage (hero right column) ─────────────────────────────────
+
+// U — perspective container holds the mockup, glow and grid overlay.
+// On mobile a faint fade-to-bg ::after blends the device image into the
+// background below the hero.
+const DEVICE_STAGE_CLASS =
+  "relative w-full h-full min-w-0 [perspective:2000px] overflow-visible " +
+  "max-[640px]:after:content-[''] max-[640px]:after:absolute max-[640px]:after:bottom-0 max-[640px]:after:left-0 max-[640px]:after:right-0 max-[640px]:after:h-[60px] max-[640px]:after:bg-[linear-gradient(180deg,transparent,var(--bg)_90%)] max-[640px]:after:z-[3] max-[640px]:after:pointer-events-none";
+
+// U — soft accent glow halo behind the device. Inset is negative so the
+// glow extends outside the column; blurred 40px.
+const DEVICE_GLOW_CLASS =
+  "absolute -inset-[10%] pointer-events-none blur-[40px] " +
+  "bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,oklch(from_var(--accent)_l_c_h_/_0.18),transparent_70%)]";
+
+// U — dotted-grid overlay behind the device, faded out toward edges by
+// an elliptical mask. Both background dot-pattern and mask must stay
+// raw because they use sub-pixel circle gradients + transparent stops
+// the Tailwind preset doesn't model.
+const DEVICE_GRID_CLASS =
+  "absolute inset-0 pointer-events-none " +
+  "bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.06)_1px,transparent_0)] " +
+  "bg-[size:24px_24px] " +
+  "[mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)] " +
+  "[-webkit-mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)]";
+
+// U — floating pill annotation on the device. Uses --animate-float
+// (keyframe in hero-effects.css). Per-pill positioning + animation
+// staggering applied via inline styles below since the offsets are
+// per-instance and not part of any shared utility.
+const DEVICE_TAG_CLASS =
+  "absolute z-[5] px-3.5 py-2 backdrop-blur-[12px] border border-line-strong rounded-full text-[11px] font-medium text-ink inline-flex items-center gap-2 tracking-[0.02em] " +
+  "bg-[oklch(0.22_0.008_60_/_0.85)] shadow-[0_4px_16px_oklch(0_0_0_/_0.4)] animate-float " +
+  "max-[1440px]:text-[10px] max-[1440px]:px-[11px] max-[1440px]:py-1.5 " +
+  "max-[640px]:hidden";
+
+// U — per-instance position + animation-delay for each of the 3 tags.
+// On ≤1440 tag 2 is hidden and the other two shift slightly inward.
+const DEVICE_TAG_POSITIONS: { style: React.CSSProperties; className: string }[] = [
+  {
+    style: { top: "12%", left: "2%", animationDelay: "0s" },
+    className: "max-[1440px]:!top-[8%] max-[1440px]:!left-[4%] max-[1080px]:!left-[2%]",
+  },
+  {
+    style: { top: "22%", left: "60%", animationDelay: "-2s" },
+    className: "max-[1440px]:hidden",
+  },
+  {
+    style: { bottom: "28%", left: "40%", animationDelay: "-4s" },
+    className: "max-[1440px]:!bottom-[22%] max-[1440px]:!left-[38%] max-[1080px]:!left-[36%]",
+  },
+];
+
+// U — 6px accent dot inside a device-tag.
+const DT_DOT_CLASS =
+  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_6px_var(--color-accent)]";
+
+// U — small mono text suffix inside a device-tag; .dt-good variant
+// tints the same span accent.
+const DT_MINI_CLASS = "font-mono text-[10px] text-[var(--ink-3)]";
+const DT_GOOD_CLASS = "text-accent";
+
+// U — mockup wrapper: absolute, centered, transparent overflow for
+// the glow halo, no pointer events so floating tags above stay clickable.
+const MOCKUP_CLASS =
+  "absolute inset-0 flex items-center justify-center z-[2] pointer-events-none overflow-visible";
+
+// U — mockup <img>: viewport-relative size clamp + translateX bleed so
+// the device overlaps the text column; drop-shadow stack mirrors the
+// design's 50px/20px shadows. Mobile becomes 100% width centered.
+const MOCKUP_IMG_CLASS =
+  "w-[clamp(420px,50vw,1000px)] h-auto max-w-none max-h-none -translate-x-[10%] " +
+  "[filter:drop-shadow(0_50px_60px_oklch(0_0_0_/_0.55))_drop-shadow(0_20px_30px_oklch(0_0_0_/_0.35))] " +
+  "max-[640px]:w-full max-[640px]:max-w-full max-[640px]:max-h-full";
+
+// U — homepage mockup variant: absolutely positioned + offset so the
+// laptop hero image lands in the back-centre of the cluster. Width
+// uses a larger clamp (this image is the full design composition).
+const MOCKUP_IMG_HOMEPAGE_CLASS =
+  "w-[clamp(420px,100vw,1200px)] absolute -top-[136px] -left-[272px] " +
+  "max-[640px]:w-full max-[640px]:relative max-[640px]:top-[unset] max-[640px]:left-[unset] max-[640px]:max-w-none max-[640px]:max-h-none max-[640px]:translate-x-[10%]";
+
+// U — placeholder used when no mockup src is provided. 3-layer radial
+// + linear-gradient background mimics a device screen; drop-shadow
+// matches the real .mockup img so layout stays balanced.
+const MOCKUP_PLACEHOLDER_CLASS =
+  "w-[110%] [aspect-ratio:16/10] translate-x-[2%] rounded-[14px] border border-[oklch(1_0_0_/_0.06)] relative overflow-hidden " +
+  "bg-[radial-gradient(ellipse_at_28%_24%,oklch(from_var(--accent)_l_c_h_/_0.22)_0%,transparent_55%),radial-gradient(ellipse_at_78%_78%,oklch(0.5_0.18_280_/_0.18)_0%,transparent_55%),linear-gradient(160deg,oklch(0.18_0.012_240)_0%,oklch(0.12_0.006_250)_100%)] " +
+  "[filter:drop-shadow(0_50px_60px_oklch(0_0_0_/_0.55))_drop-shadow(0_20px_30px_oklch(0_0_0_/_0.35))]";
+
+const MOCKUP_PLACEHOLDER_BAR_CLASS =
+  "absolute top-3.5 left-[18px] flex gap-1.5 [&_span]:w-[9px] [&_span]:h-[9px] [&_span]:rounded-full [&_span]:bg-[oklch(1_0_0_/_0.12)]";
+
 // U — device-stage wrapper. Stretches to fill the grid row min-height
 // (height:100% beats the prior aspect-ratio which Firefox respected
 // but Chrome stretched, causing cross-browser image-size mismatch).
@@ -184,7 +277,7 @@ export function DeviceMockup({
   alt?: string;
 }) {
   return (
-    <div className="mockup">
+    <div className={MOCKUP_CLASS}>
       {src ? (
         <Image
           src={src}
@@ -194,11 +287,11 @@ export function DeviceMockup({
           priority
           fetchPriority="high"
           sizes="(max-width: 640px) 100vw"
-          className="mockup-img mockup-img-homepage"
+          className={`${MOCKUP_IMG_CLASS} ${MOCKUP_IMG_HOMEPAGE_CLASS}`}
         />
       ) : (
-        <div className="mockup-placeholder" aria-hidden="true">
-          <div className="mockup-placeholder-bar">
+        <div className={MOCKUP_PLACEHOLDER_CLASS} aria-hidden="true">
+          <div className={MOCKUP_PLACEHOLDER_BAR_CLASS}>
             <span />
             <span />
             <span />
@@ -434,23 +527,31 @@ export function HeroEditorial({
           </div>
 
           <div className={HERO_RIGHT_CLASS}>
-            <div className="device-stage">
-              <div className="device-glow" />
-              <div className="device-grid" />
+            <div className={DEVICE_STAGE_CLASS}>
+              <div className={DEVICE_GLOW_CLASS} />
+              <div className={DEVICE_GRID_CLASS} />
               <DeviceMockup src={deviceMockupSrc} />
-              {deviceTags.map((t, i) => (
-                <div key={i} className={`device-tag device-tag-${i + 1}`}>
-                  {i === 0 && <span className="dt-dot" />}
-                  <span>{t.primary}</span>
-                  {t.mini && (
-                    <span
-                      className={`dt-mini${t.kind === "good" ? " dt-good" : ""}`}
-                    >
-                      {t.mini}
-                    </span>
-                  )}
-                </div>
-              ))}
+              {deviceTags.map((t, i) => {
+                const pos = DEVICE_TAG_POSITIONS[i] ?? DEVICE_TAG_POSITIONS[0];
+                return (
+                  <div
+                    key={i}
+                    className={`${DEVICE_TAG_CLASS} ${pos.className}`}
+                    // eslint-disable-next-line react/forbid-dom-props -- per-pill top/left/animation-delay are dynamic position offsets that cannot be expressed as static utilities
+                    style={pos.style}
+                  >
+                    {i === 0 && <span className={DT_DOT_CLASS} />}
+                    <span>{t.primary}</span>
+                    {t.mini && (
+                      <span
+                        className={`${DT_MINI_CLASS}${t.kind === "good" ? ` ${DT_GOOD_CLASS}` : ""}`}
+                      >
+                        {t.mini}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
