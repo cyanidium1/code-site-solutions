@@ -9,7 +9,8 @@ type Variant =
   | "page-hero"
   | "image-text"
   | "comparison"
-  | "comparison-contact";
+  | "comparison-contact"
+  | "launch-cta";
 
 interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   level: Level;
@@ -50,6 +51,7 @@ const sizes: Record<Level, Record<Variant, string>> = {
     "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.05] tracking-[-0.02em] font-bold",
     comparison: "font-actay text-[clamp(34px,4.4vw,56px)] leading-none tracking-[-0.035em] font-bold",
     "comparison-contact": "font-actay text-[clamp(28px,3.6vw,44px)] leading-none tracking-[-0.03em] font-bold",
+    "launch-cta": "font-actay text-[clamp(32px,3.4vw,48px)] leading-[1.2] tracking-[-0.025em] font-bold",
   },
   2: {
     default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
@@ -61,6 +63,8 @@ const sizes: Record<Level, Record<Variant, string>> = {
       "font-actay font-bold text-[clamp(34px,4.4vw,56px)] leading-none tracking-[-0.035em] max-[1100px]:text-[clamp(28px,5vw,44px)] max-[700px]:text-[clamp(24px,8vw,34px)]",
     "comparison-contact":
       "font-actay font-bold text-[clamp(28px,3.6vw,44px)] leading-none tracking-[-0.03em] max-[700px]:text-[26px]",
+    "launch-cta":
+      "font-actay font-bold text-[clamp(32px,3.4vw,48px)] leading-[1.2] tracking-[-0.025em] uppercase text-balance max-[700px]:text-[clamp(26px,7vw,36px)]",
   },
   3: {
     default: "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
@@ -70,6 +74,7 @@ const sizes: Record<Level, Record<Variant, string>> = {
     "image-text": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     comparison: "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     "comparison-contact": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
+    "launch-cta": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
   },
 };
 

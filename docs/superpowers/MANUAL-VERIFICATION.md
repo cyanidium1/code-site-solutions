@@ -137,6 +137,16 @@ Affected pages: every page using `<PageHero>` — `/stories/page-hero`, `/about`
 - [ ] H1 size matches legacy `clamp(36px, 4.6vw, 60px)` / `line-height 1.05` / `tracking -0.02em` — Heading primitive `sizes[1]["page-hero"]` updated from the placeholder `72px / 1.02` to match; consumer JSX now uses `<H1 variant="page-hero">`
 - [ ] Italic `<em>` inside the H1 still renders with the brand gradient and `padding-inline-end + box-decoration-break: clone` (preserved because the `.page-hero h1 em` rule in globals.css still applies — the `page-hero` class is retained on the `<section>`)
 
+### Task S2.3 — `launch-cta.css` deleted
+Affected pages: every consumer of `<LaunchCta>` — homepage `/` + `/en`, plus `vs-constructors`, `vs-freelancers`, `vs-wordpress` (uk + en) and any other page that mounts the bottom CTA strip.
+- [ ] At ≥1280px: device image positioned absolutely so it overflows the right edge of the inner container; left edge anchored at `calc(50% - 140px)`
+- [ ] At 1024–1280px: image left edge shifts to `calc(50% - 24px)` (tighter overlap) and section min-height drops to 420px
+- [ ] At ≤1024px: layout stacks single column, image becomes static and centers at max-w-720px
+- [ ] At ≤700px: heading drops to clamp(26-36px), button shrinks padding/font, sub text 13.5px
+- [ ] Three purple square dots (12px, 3px corner radius) above the heading with subtle 8px glow
+- [ ] Button: pill, brand gradient bg, drop shadow on hover (translateY -1px + bigger shadow); focus-visible outline accent-soft 2px offset 3px
+- [ ] Heading variant `launch-cta` added to Heading.tsx (clamp 32-48px uppercase with 700px breakpoint to clamp 26-36px)
+
 ### Task S2.2 — `comparison.css` deleted (relative-color OKLCH preserved)
 Affected pages: `/` and `/en` (homepage pricing tier grid), `/pricing` (uses `Tier` only, separate `pricing-tier-grid-4` grid), `/en/pricing`, `/vs-constructors`, `/en/vs-constructors`, `/vs-freelancers`, `/en/vs-freelancers`, `/vs-wordpress`, `/en/vs-wordpress`, and the medicine sites-for page that mounts `<Comparison>`.
 - [ ] Comparison block background gradients (`.cmp-bg` legacy) — top-right accent + bottom-left accent-2 radial visible
