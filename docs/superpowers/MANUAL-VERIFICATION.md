@@ -161,6 +161,28 @@ Affected pages: `/contacts`, `/en/contacts` (both render `<LeadForm>` inside `<C
 - [ ] Success state: accent-bordered card with brand-gradient icon tile, 22px Manrope-bold title, accent-soft Telegram link
 - [ ] All HeroUI overrides use `classNames` slots (label, inputWrapper, input, description, errorMessage, trigger, value, popoverContent) with `!important` utilities where HeroUI's internal class collides — same pattern as Session 2 FAQ accordion
 
+### Task S4.1 — `case.css` deleted (470 lines → utilities)
+Affected pages: every Sanity case-study URL (`/portfolio/[slug]` + `/en/portfolio/[slug]`) plus any other consumer of the `<Case>` block in `src/components/blocks/case/index.tsx`. Hardcoded portfolio pages (`_nbyg-kobenhavn`, `_efedra-clinic`) do NOT consume `<Case>` — they use the `hp-case-*` prefixed classes from `homepage.css` via `nbyg-shared.tsx`; verified no `.case-*` (non-hp) class references remain in those pages.
+- [ ] `/portfolio/[any-published-case-slug]` (UK + EN) renders identical to legacy
+- [ ] `<H2 variant="case">` size matches legacy `.case-h2` across all sections (desktop clamp(34px,4.6vw,60px) leading-none tracking -0.035em max-w 14ch text-balance; @1100px clamp(30px,5vw,44px); @700px clamp(28px,8vw,36px) max-w-full) — Heading primitive reconciled
+- [ ] Italic `<em>` inside the case heading still renders with the vertical accent-soft→accent brand gradient via `[&_em]:bg-clip-text [&_em]:text-transparent`
+- [ ] Case section backdrop: dual-radial gradient (accent top-right + accent-2 bottom-left) still visible
+- [ ] Header eyebrow pill: 6px accent dot with 8px glow, separator span in ink-3, em span in accent-soft
+- [ ] Header meta strip (3 items): mono 11px tracking 0.04em with strong child as `font-display` 14px / `text-ink` block — divided by dashed top border
+- [ ] Compare grid: 2-col with centered "VS" pill (`before:`) — pill 18px on desktop, 14px @1100px, hidden @700px (stacked layout)
+- [ ] Before card: line border, soft white-translucent bg; After card: accent-tinted border + gradient bg + outer glow + masked gradient-border `before:` pseudo (mask-composite preserved via arbitrary utilities)
+- [ ] Card head: before badge (line-strong outline pill) vs after badge (brand-gradient bg with white text and accent shadow); each with 6px dot
+- [ ] Card num: mono 10px tracking 0.08em in ink-3
+- [ ] Screenshot frame (`CaseShot`): 3/2 aspect, browser-chrome top bar with 3 dots + url pill, image (when src provided) covers below with object-top
+- [ ] Empty-state placeholder (no src): two text-bar lines + 2x2 grid mock with the same accent-tinted radial gradient palette as other placeholders
+- [ ] Tagline: font-display semibold 14px with 18px rounded icon (bad red-tint × or good accent-tint ✓)
+- [ ] Checklist <ul>: 12px-gap col, 14px body (13px @700px), 22px circle icons (20px @700px), `<em>` highlights in ink + font-medium
+- [ ] Card foot: dashed top border, italic 12px ink-3 text; `<strong>` children non-italic in ink-2
+- [ ] Results strip: 4-col on desktop, 2-col @1100px and @700px, 1px gap as border trick (`bg-line` shows through grid gaps), 18px rounded card with overflow-hidden
+- [ ] Each result: clamp(28px,3vw,44px) brand-gradient text-clipped number (28px @1100px, 24px @700px), 12px ink-2 label, mono 9px uppercase tag
+- [ ] CTA strip: pill on desktop with arrow chevron (rotated borders) + ink-bg button with brand-glow shadow; lifts 2px + deepens shadow on hover; stacks to rounded-18px card on @700px
+- [ ] Hardcoded portfolio pages (`_nbyg-kobenhavn`, `_efedra-clinic`) — no `.case-*` (non-`hp-case-*`) class references remain (verified via grep)
+
 ### Task S3.2 — `contact-split.css` deleted
 Affected pages: `/contacts`, `/en/contacts` (the only consumers of `<ContactSplit>`).
 - [ ] Section background: vertical gradient from `var(--bg)` to `oklch(0.13 0.02 300)` (slight purple tint at bottom)

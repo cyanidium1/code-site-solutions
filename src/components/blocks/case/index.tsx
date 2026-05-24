@@ -1,5 +1,4 @@
 import { H2 } from "@/components/ui";
-import "./case.css";
 
 // Italic <em> inside the heading uses the brand vertical accent gradient
 // (accent-soft → accent), text-clipped. Same effect as the legacy `.case-h2 em`
@@ -153,6 +152,47 @@ const LIST_ICN_GOOD_CLASS =
 
 const CARD_FOOT_CLASS =
   "mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";
+
+// Results strip: 4-col grid on desktop, 2-col @1100px and @700px, with the
+// 1px-gap-as-border trick (gap background colour shows through). Legacy used
+// repeat(4,1fr) → grid-cols-4; mobile reduces to 2 cols.
+const RESULTS_CLASS =
+  "grid grid-cols-4 gap-px mt-14 border border-line rounded-[18px] overflow-hidden bg-line " +
+  "max-[1100px]:grid-cols-2 max-[700px]:grid-cols-2 max-[700px]:mt-8";
+
+const RESULT_CLASS =
+  "bg-[var(--bg)] px-7 py-6 flex flex-col gap-1.5 relative " +
+  "max-[1100px]:py-[18px] max-[1100px]:px-5 " +
+  "max-[700px]:p-4";
+
+const RESULT_NUM_CLASS =
+  "font-display font-bold text-[clamp(28px,3vw,44px)] tracking-[-0.03em] leading-none bg-brand-gradient bg-clip-text text-transparent " +
+  "max-[1100px]:text-[28px] max-[700px]:text-[24px]";
+
+const RESULT_LBL_CLASS =
+  "text-[12px] text-ink-dim leading-[1.4] mt-1 max-[700px]:text-[11px]";
+
+const RESULT_TAG_CLASS =
+  "font-mono text-[9px] text-ink-3 tracking-[0.08em] uppercase";
+
+// CTA strip: pill on desktop, stacked rounded card on mobile.
+const CTA_CLASS =
+  "flex items-center justify-between gap-6 flex-wrap mt-8 px-7 py-[22px] border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] " +
+  "max-[700px]:flex-col max-[700px]:items-stretch max-[700px]:rounded-[18px] max-[700px]:p-[18px] max-[700px]:gap-4 max-[700px]:mt-6";
+
+const CTA_TEXT_CLASS =
+  "text-[14px] text-ink-dim flex items-center gap-3 [&>strong]:text-ink [&>strong]:font-semibold " +
+  "max-[700px]:text-[13px] max-[700px]:justify-center max-[700px]:text-center";
+
+// Diagonal arrow built from two borders rotated 45deg (legacy .case-cta-arrow).
+const CTA_ARROW_CLASS =
+  "w-2 h-2 border-r-[1.5px] border-b-[1.5px] border-accent-soft -rotate-45 inline-block";
+
+const CTA_BTN_CLASS =
+  "bg-ink text-bg border-0 px-[22px] py-3 rounded-full font-display text-[13px] font-semibold inline-flex items-center gap-2.5 cursor-pointer transition-[transform,box-shadow] duration-200 " +
+  "shadow-[0_4px_16px_oklch(from_var(--accent)_l_c_h_/_0.2),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
+  "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--accent)_l_c_h_/_0.3),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
+  "max-[700px]:justify-center max-[700px]:py-3.5 max-[700px]:px-[18px]";
 
 const ARROW_ICON = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -432,22 +472,22 @@ export function Case({
           </article>
         </div>
 
-        <div className="case-results">
+        <div className={RESULTS_CLASS}>
           {results.map((r) => (
-            <div className="case-result" key={r.lbl}>
-              <div className="case-result-tag">{r.tag}</div>
-              <div className="case-result-num">{r.n}</div>
-              <div className="case-result-lbl">{r.lbl}</div>
+            <div className={RESULT_CLASS} key={r.lbl}>
+              <div className={RESULT_TAG_CLASS}>{r.tag}</div>
+              <div className={RESULT_NUM_CLASS}>{r.n}</div>
+              <div className={RESULT_LBL_CLASS}>{r.lbl}</div>
             </div>
           ))}
         </div>
 
-        <div className="case-cta">
-          <div className="case-cta-text">
-            <span className="case-cta-arrow" />
+        <div className={CTA_CLASS}>
+          <div className={CTA_TEXT_CLASS}>
+            <span className={CTA_ARROW_CLASS} />
             <span>{ctaText}</span>
           </div>
-          <button type="button" className="case-cta-btn">
+          <button type="button" className={CTA_BTN_CLASS}>
             <span>{ctaLabel}</span>
             {ARROW_ICON}
           </button>
