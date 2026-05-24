@@ -28,18 +28,24 @@ export function Marquee({
 }) {
   const repeated = [...items, ...items];
   return (
-    <section className="hp-marquee">
-      <div className="hp-marquee-label">/ {label}</div>
-      <div className="hp-marquee-fade">
-        <div className="hp-marquee-track">
+    <section className="group/marquee relative z-[11] overflow-hidden border-y border-line bg-bg py-8">
+      <div className="mb-6 text-center px-(--gutter-x) font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
+        / {label}
+      </div>
+      <div className="relative [mask-image:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)]">
+        <div className="flex w-max items-center gap-16 px-8 [animation:marquee_40s_linear_infinite] group-hover/marquee:[animation-play-state:paused]">
           {repeated.map((it, i) => (
-            <span key={i} className="hp-marquee-item" title={it.alt}>
+            <span
+              key={i}
+              className="inline-flex h-11 shrink-0 items-center justify-center"
+              title={it.alt}
+            >
               <img
                 src={it.src}
                 alt={it.alt}
                 loading="lazy"
                 decoding="async"
-                className="hp-marquee-logo"
+                className="h-full w-auto max-w-[160px] object-contain opacity-55 [filter:brightness(0)_invert(1)] transition-opacity duration-300"
               />
             </span>
           ))}
