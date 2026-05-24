@@ -30,6 +30,18 @@ import { formatEur } from "@/lib/shared/format-eur";
 import { H3 } from "@/components/ui";
 import "./calculator.css";
 
+// Reused segment button (same pattern as CalculatorControls.tsx). Kept
+// local here so this file does not couple to a sibling component file.
+const SEG_BTN =
+  "border border-line rounded-[12px] bg-transparent text-ink-dim text-left " +
+  "px-[14px] py-[11px] text-[13px] cursor-pointer min-h-[50px] " +
+  "transition-[border-color,color,background] duration-200 " +
+  "hover:border-line-strong hover:text-ink " +
+  "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
+const SEG_BTN_ACTIVE =
+  "border-[oklch(from_var(--accent)_l_c_h_/_0.55)] bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] !text-ink";
+const NOTE = "text-ink-3 text-[12px] leading-[1.5]";
+
 // Renders <em>…</em> chunks inside next-intl rich messages. Reused for every
 // section heading on the calculator that uses italic emphasis on one phrase.
 const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
@@ -201,16 +213,16 @@ export function WebsiteCalculator() {
             <p className="hp-sub">{t("afterLaunch.sub")}</p>
           </div>
 
-          <div className="calc-after-launch-grid">
-            <div className="calc-after-block">
-              <h3 className="calc-after-title">{t("afterLaunch.maintenance.title")}</h3>
-              <p className="calc-note">{t("afterLaunch.maintenance.note")}</p>
-              <div className="calc-segment">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-[18px] max-[1100px]:grid-cols-1">
+            <div className="border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] px-5 pt-5 pb-[22px] flex flex-col gap-3">
+              <H3 variant="calc-after">{t("afterLaunch.maintenance.title")}</H3>
+              <p className={NOTE}>{t("afterLaunch.maintenance.note")}</p>
+              <div className="grid grid-cols-2 gap-2 max-[760px]:grid-cols-1">
                 {Object.entries(MAINTENANCE_OPTIONS).map(([id, option]) => (
                   <button
                     key={id}
                     type="button"
-                    className={input.maintenancePlan === id ? "active" : ""}
+                    className={`${SEG_BTN} ${input.maintenancePlan === id ? SEG_BTN_ACTIVE : ""}`}
                     onClick={() =>
                       setInput((prev) => ({
                         ...prev,
@@ -228,10 +240,10 @@ export function WebsiteCalculator() {
               </div>
             </div>
 
-            <div className="calc-after-block">
-              <h3 className="calc-after-title">{t("afterLaunch.growth.title")}</h3>
-              <p className="calc-note">{t("afterLaunch.growth.note")}</p>
-              <div className="calc-growth-grid">
+            <div className="border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] px-5 pt-5 pb-[22px] flex flex-col gap-3">
+              <H3 variant="calc-after">{t("afterLaunch.growth.title")}</H3>
+              <p className={NOTE}>{t("afterLaunch.growth.note")}</p>
+              <div className="grid grid-cols-2 gap-[10px] max-[760px]:grid-cols-1">
                 {Object.entries(SEO_GROWTH_OPTIONS).map(([id, plan]) => {
                   const includes = t.raw(
                     `options.seoGrowth.${id}.includes`,
@@ -240,13 +252,28 @@ export function WebsiteCalculator() {
                     id === "contentEngine"
                       ? t("options.seoGrowth.contentEngine.priceLabel")
                       : undefined;
+                  const isActive = input.seoGrowthPlan === id;
                   return (
                     <button
                       key={id}
                       type="button"
-                      className={`calc-growth-plan${
-                        input.seoGrowthPlan === id ? " active" : ""
-                      }${plan.badge ? " is-recommended" : ""}`}
+                      className={
+                        "border rounded-[14px] p-[14px] text-left text-ink-dim grid gap-2 cursor-pointer " +
+                        "transition-[border-color,transform] duration-200 hover:border-line-strong hover:-translate-y-[1px] " +
+                        "[&_h4]:m-0 [&_h4]:font-sans [&_h4]:text-[22px] [&_h4]:tracking-[-0.01em] [&_h4]:text-ink " +
+                        "[&_h4>small]:ml-1 [&_h4>small]:text-[12px] [&_h4>small]:text-ink-3 " +
+                        "[&>p]:m-0 [&>p]:text-[12px] [&>p]:text-ink-3 " +
+                        "[&>ul]:list-none [&>ul]:m-0 [&>ul]:p-0 [&>ul]:grid [&>ul]:gap-[6px] [&>ul]:text-[12.5px] " +
+                        "[&>ul>li]:relative [&>ul>li]:pl-[14px] [&>ul>li]:text-ink-dim " +
+                        "[&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[7px] " +
+                        "[&>ul>li]:before:w-[5px] [&>ul>li]:before:h-[5px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-accent-soft " +
+                        (plan.badge
+                          ? "bg-[linear-gradient(180deg,oklch(0.2_0.03_295),oklch(0.16_0.02_295))] "
+                          : "bg-[oklch(0.18_0.008_300)] ") +
+                        (isActive
+                          ? "border-[oklch(from_var(--accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.28)]"
+                          : "border-line")
+                      }
                       onClick={() =>
                         setInput((prev) => ({
                           ...prev,
@@ -254,11 +281,15 @@ export function WebsiteCalculator() {
                         }))
                       }
                     >
-                      <div className="calc-growth-plan-head">
+                      <div className="flex justify-between gap-2">
                         <strong>
                           {t(`options.seoGrowth.${id}.label` as `options.seoGrowth.${SeoGrowthPlan}.label`)}
                         </strong>
-                        {plan.badge ? <span>{t("options.seoGrowth.badgeRecommended")}</span> : null}
+                        {plan.badge ? (
+                          <span className="text-[10px] border border-[oklch(from_var(--accent)_l_c_h_/_0.35)] text-accent-soft rounded-full px-[7px] py-[3px] uppercase tracking-[0.1em]">
+                            {t("options.seoGrowth.badgeRecommended")}
+                          </span>
+                        ) : null}
                       </div>
                       <h4>
                         {priceLabel ? (
@@ -305,27 +336,38 @@ export function WebsiteCalculator() {
       {/* Section: Social proof */}
       <section className="hp-section py-10">
         <div className="hp-inner">
-          <div className="calc-social-card">
-            <p className="calc-social-line">
+          <div
+            className={
+              "border border-line rounded-[22px] " +
+              "bg-[radial-gradient(380px_220px_at_80%_20%,oklch(from_var(--accent)_l_c_h_/_0.07),transparent_70%),oklch(0.16_0.005_300)] " +
+              "px-7 py-8 flex flex-col gap-[18px] items-center text-center"
+            }
+          >
+            <p className="m-0 text-[14px] text-ink-dim [&>strong]:text-ink [&>strong]:font-bold">
               {t.rich("social.line", {
                 strong: (chunks) => <strong>{chunks}</strong>,
               })}
             </p>
-            <div className="calc-social-logos">
+            <div className="inline-flex flex-wrap justify-center gap-3">
               {socialLogos.map((logo) => (
-                <span key={logo}>{logo}</span>
+                <span
+                  key={logo}
+                  className="font-sans font-bold text-[13px] tracking-[0.04em] uppercase px-[14px] py-2 border border-line rounded-[10px] text-ink-dim bg-[oklch(1_0_0_/_0.02)]"
+                >
+                  {logo}
+                </span>
               ))}
             </div>
-            <figure className="calc-testimonial">
-              <Quote size={18} strokeWidth={1.6} className="calc-testimonial-icon" />
-              <blockquote>
+            <figure className="mt-[6px] max-w-[720px] flex flex-col items-center gap-[14px] px-[22px] pt-[18px] pb-[22px] border border-line rounded-2xl bg-[oklch(0.18_0.008_300)]">
+              <Quote size={18} strokeWidth={1.6} className="text-accent-soft" />
+              <blockquote className="m-0 font-sans text-[18px] leading-[1.5] text-ink font-medium italic [&>strong]:text-accent-soft [&>strong]:font-bold [&>strong]:not-italic">
                 {t.rich("social.testimonialQuote", {
                   strong: (chunks) => <strong>{chunks}</strong>,
                 })}
               </blockquote>
-              <figcaption>
-                <span className="calc-testimonial-name">{t("social.testimonialName")}</span>
-                <span className="calc-testimonial-role">{t("social.testimonialRole")}</span>
+              <figcaption className="flex flex-col gap-[2px]">
+                <span className="text-[13px] text-ink font-semibold">{t("social.testimonialName")}</span>
+                <span className="text-[11px] text-ink-3 tracking-[0.04em] uppercase">{t("social.testimonialRole")}</span>
               </figcaption>
             </figure>
           </div>
@@ -350,29 +392,38 @@ export function WebsiteCalculator() {
           </div>
           <LeadForm input={input} estimate={estimate} />
 
-          <div className="calc-alt-cta-row">
-            <span className="calc-alt-cta-text">{t("getFinal.altReady")}</span>
+          <div
+            className={
+              "mt-[22px] flex flex-wrap gap-y-[10px] gap-x-[14px] items-center justify-center " +
+              "px-[18px] py-[14px] border border-dashed border-line-strong rounded-full max-[760px]:rounded-[18px] " +
+              "text-[13px] text-ink-3"
+            }
+          >
+            <span className="font-medium text-ink-dim">{t("getFinal.altReady")}</span>
             <a
               href="https://calendly.com/fedirdev"
-              className="calc-alt-cta-link"
+              className="inline-flex items-center gap-[6px] text-ink no-underline font-medium border-b border-transparent transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-b-accent-soft [&_svg]:text-accent-soft"
               target="_blank"
               rel="noreferrer"
             >
               <CalendarCheck size={14} strokeWidth={1.7} />
               {t("getFinal.altCalendly")}
             </a>
-            <span className="calc-alt-cta-or">{t("getFinal.altOr")}</span>
+            <span className="text-ink-3 opacity-60">{t("getFinal.altOr")}</span>
             <a
               href="https://t.me/fedirdev"
-              className="calc-alt-cta-link"
+              className="inline-flex items-center gap-[6px] text-ink no-underline font-medium border-b border-transparent transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-b-accent-soft [&_svg]:text-accent-soft"
               target="_blank"
               rel="noreferrer"
             >
               <PhoneCall size={14} strokeWidth={1.7} />
               {t("getFinal.altTelegram")}
             </a>
-            <span className="calc-alt-cta-or">{t("getFinal.altOrSep")}</span>
-            <a href="mailto:hi@code-site.art" className="calc-alt-cta-link">
+            <span className="text-ink-3 opacity-60">{t("getFinal.altOrSep")}</span>
+            <a
+              href="mailto:hi@code-site.art"
+              className="inline-flex items-center gap-[6px] text-ink no-underline font-medium border-b border-transparent transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-b-accent-soft [&_svg]:text-accent-soft"
+            >
               <Mail size={14} strokeWidth={1.7} />
               {t("getFinal.altEmail")}
             </a>
