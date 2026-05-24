@@ -17,9 +17,12 @@ interface ContainerProps extends HTMLAttributes<HTMLElement> {
 }
 
 /**
- * Centered, max-width-capped wrapper with horizontal gutter that respects
- * the legacy --gutter-x token (responsive overrides in globals.css :root
- * stay in effect during Phase 1; Phase 2 inverts those to mobile-first).
+ * Centered, max-width-capped wrapper with horizontal gutter.
+ * Mobile-first utility stack: 24px base (≤640) → 32px at sm: (640+)
+ *  → 48px at lg: (800+). Matches the Phase 2 @theme --spacing-gutter-*
+ * token values; the utility stack is preferred over var() references
+ * because Tailwind's responsive prefixes give mobile-first scaling
+ * for free.
  */
 export function Container({
   variant = "default",
@@ -31,7 +34,7 @@ export function Container({
   return (
     <As
       className={cn(
-        "mx-auto w-full px-(--gutter-x)",
+        "mx-auto w-full px-6 sm:px-8 lg:px-12",
         widthClass[variant],
         className,
       )}
