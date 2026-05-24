@@ -2,7 +2,6 @@ import type { Locale } from "@/types/sanity";
 
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { PullQuoteSwiperClient } from "./client";
-import "./pull-quote-swiper.css";
 
 /**
  * Homepage testimonials slider. Fetches `featured` testimonial docs from

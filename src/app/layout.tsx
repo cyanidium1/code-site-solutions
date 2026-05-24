@@ -8,6 +8,7 @@ import { Providers } from "./providers";
 import { SITE_ORIGIN } from "@/constants/site";
 import "./globals.css";
 import "./keyframes.css";
+import "./vendor.css";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],

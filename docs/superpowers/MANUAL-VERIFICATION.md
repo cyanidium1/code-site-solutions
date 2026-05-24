@@ -46,3 +46,12 @@ Animations (`marquee`, `fade-up`, `svg-glow-blue/pink/dark`) are now defined in 
 - [ ] SVG glow effects still pulse on relevant icons
 
 If anything stopped animating, the Tailwind 4 `--animate-*` token convention may differ — fallback: re-add the `animation: { ... }` block in `tailwind.config.ts`.
+
+### Task 5 — vendor.css consolidation
+
+Swiper styles moved from per-component CSS into `src/app/vendor.css`. Imports added to `layout.tsx`; per-component imports removed.
+
+**Visually verify:**
+- [ ] Homepage pull-quote swiper renders correctly on `/` (carousel layout, mockups visible at desktop)
+- [ ] Nav arrows on the carousel work (hover state, focus outline)
+- [ ] Below 900px the side mockups disappear

@@ -29,8 +29,6 @@ import type { SwiperModule } from "swiper/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
-import "./swiper-wrapper.css";
-
 type ButtonPosition = "right" | "center" | "onSlides";
 
 interface SwiperWrapperProps {
