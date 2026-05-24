@@ -227,7 +227,7 @@ function YouTubeSection({
   title: string;
 }) {
   return (
-    <section className="bg-bg px-(--gutter-x) pt-(--section-y-tight)">
+    <section className="bg-bg px-6 sm:px-8 lg:px-12 pt-9 lg:pt-14">
       <div className="relative mx-auto aspect-[16/9] max-w-container-narrow overflow-hidden rounded-[18px] border border-line bg-[oklch(0_0_0/0.6)]">
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${videoId}`}

@@ -23,7 +23,7 @@ function isActive(pathname: string | null, href: string): boolean {
 // the whole bar on one row without wrapping. Below 800px nav + CTA hide
 // and the burger appears.
 const headerClass =
-  "sticky top-0 z-50 border-b border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.7)] backdrop-blur-[14px] px-(--gutter-x)";
+  "sticky top-0 z-50 border-b border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.7)] backdrop-blur-[14px] px-6 sm:px-8 lg:px-12";
 const headerInnerClass =
   "mx-auto max-w-container flex items-center justify-between py-[18px] max-[1100px]:py-[14px] max-[800px]:py-[14px]";
 const headerEndClass =

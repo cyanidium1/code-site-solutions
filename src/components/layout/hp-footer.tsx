@@ -53,7 +53,7 @@ const LEGAL_HREFS: Array<{ key: string; href: string }> = [
 
 // Reusable utility-class strings — keeps the JSX below readable.
 const footerClass =
-  "relative pt-(--section-y-md) px-(--gutter-x) pb-8 border-t border-line bg-[oklch(0_0_0_/_0.20)]";
+  "relative pt-14 lg:pt-20 px-6 sm:px-8 lg:px-12 pb-8 border-t border-line bg-[oklch(0_0_0_/_0.20)]";
 // 5-col grid on UA (with Compare + Legal split), collapses to 4 cols on EN.
 // data-locale="en" selector replaced by conditional class.
 const footerInnerUaClass =

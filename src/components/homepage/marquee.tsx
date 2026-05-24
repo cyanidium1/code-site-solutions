@@ -29,7 +29,7 @@ export function Marquee({
   const repeated = [...items, ...items];
   return (
     <section className="group/marquee relative z-[11] overflow-hidden border-y border-line bg-bg py-8">
-      <div className="mb-6 text-center px-(--gutter-x) font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
+      <div className="mb-6 text-center px-6 sm:px-8 lg:px-12 font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
         / {label}
       </div>
       <div className="relative [mask-image:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)]">

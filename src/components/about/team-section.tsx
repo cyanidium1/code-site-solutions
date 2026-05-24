@@ -358,7 +358,7 @@ export function TeamSection({
   };
 
   return (
-    <section className="relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-6">
+    <section className="relative py-14 lg:py-[100px] px-12 bg-bg max-[800px]:px-6">
       <div className="max-w-container mx-auto">
         {(eyebrow || heading || sub) && (
           <header className="flex flex-col mb-16 max-[800px]:mb-10">
