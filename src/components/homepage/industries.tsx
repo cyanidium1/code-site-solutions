@@ -14,6 +14,7 @@ import {
 
 import type { Industry } from "@/types/homepage";
 import { SectionHead } from "@/components/shared/section-head";
+import { cn } from "@/components/ui";
 
 // All 8 industries have published Sanity pages and live hrefs.
 const DEFAULT_INDUSTRIES: Industry[] = [
@@ -91,6 +92,22 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
 ];
 
+// Card visual classes shared by enabled (Link) + disabled (div) variants.
+// Uses the dynamic --accent-color CSS var (per-industry color) via arbitrary
+// oklch(from var(...) ...) for hover border + before/after pseudo-elements.
+const cardBase =
+  "group/ind relative flex flex-col overflow-hidden rounded-[18px] border border-line bg-[oklch(1_0_0_/_0.02)] p-6 text-inherit no-underline transition-[transform,border-color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
+  // ::before radial overlay (hover)
+  "before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(400px_200px_at_0%_0%,oklch(from_var(--accent-color,var(--accent))_l_c_h_/_0.10),transparent_70%)] before:opacity-0 before:transition-opacity before:duration-[0.25s] " +
+  // ::after gradient line on top edge (hover)
+  "after:absolute after:inset-x-0 after:top-0 after:h-px after:bg-[linear-gradient(90deg,transparent,var(--accent-color,var(--accent)),transparent)] after:opacity-0 after:transition-opacity after:duration-[0.25s]";
+
+const cardEnabledHover =
+  "hover:-translate-y-0.5 hover:border-[oklch(from_var(--accent-color,var(--accent))_l_c_h_/_0.5)] hover:before:opacity-100 hover:after:opacity-100";
+
+const cardDisabled =
+  "cursor-default opacity-[0.78] hover:transform-none hover:border-line hover:before:opacity-0 hover:after:opacity-0";
+
 export function Industries({
   eyebrow = "РІШЕННЯ",
   heading = (
@@ -110,30 +127,33 @@ export function Industries({
     <section className="hp-section" id="solutions">
       <div className="hp-inner">
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
-        <div className="hp-industries-grid">
+        <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[800px]:grid-cols-1">
           {items.map((ind, i) => {
             const Icon = ind.icon;
             const inner = (
               <>
-                <div className="hp-industry-icon">
+                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-[12px] border border-line bg-[oklch(from_var(--accent-color,var(--accent))_l_c_h_/_0.12)] text-[var(--accent-color,var(--accent))]">
                   <Icon size={20} strokeWidth={1.6} />
                 </div>
-                <h3 className="hp-industry-title">{ind.title}</h3>
-                <p className="hp-industry-desc">{ind.description}</p>
-                <div className="hp-industry-tags">
+                <h3 className="m-0 font-sans text-[17px] font-semibold text-ink">{ind.title}</h3>
+                <p className="mt-2 text-[13px] leading-[1.55] text-ink-dim">{ind.description}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
                   {ind.tags.map((t) => (
-                    <span key={t} className="hp-industry-tag">
+                    <span
+                      key={t}
+                      className="inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-2 py-[3px] font-mono text-[10.5px] text-ink-3"
+                    >
                       {t}
                     </span>
                   ))}
                 </div>
-                <div className="hp-industry-foot">
-                  <span className="hp-industry-price">{ind.price}</span>
+                <div className="mt-auto flex items-center justify-between border-t border-line pt-5">
+                  <span className="font-mono text-[11px] text-ink-3">{ind.price}</span>
                   {ind.href ? (
                     <ArrowUpRight
                       size={16}
                       strokeWidth={1.8}
-                      className="hp-industry-arrow"
+                      className="text-[var(--accent-color,var(--accent))] transition-transform duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/ind:translate-x-1 group-hover/ind:-translate-y-1"
                     />
                   ) : null}
                 </div>
@@ -144,7 +164,7 @@ export function Industries({
               return (
                 <div
                   key={ind.title + i}
-                  className="hp-industry-card is-disabled"
+                  className={cn(cardBase, cardDisabled)}
                   // eslint-disable-next-line react/forbid-dom-props -- dynamic per-industry accent color
                   style={cardStyle}
                 >
@@ -156,7 +176,7 @@ export function Industries({
               <Link
                 key={ind.href}
                 href={ind.href}
-                className="hp-industry-card"
+                className={cn(cardBase, cardEnabledHover)}
                 style={cardStyle}
               >
                 {inner}
