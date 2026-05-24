@@ -39,7 +39,7 @@ const sizes: Record<Level, Record<Variant, string>> = {
     default: "font-actay text-[64px] leading-[1.05] tracking-[-0.02em] font-bold",
     hp: "font-actay text-[64px] leading-[1.05] tracking-[-0.02em] font-bold",
     case: "font-actay text-[56px] leading-[1.05] tracking-[-0.02em] font-bold",
-    "page-hero": "font-actay text-[72px] leading-[1.02] tracking-[-0.02em] font-bold",
+    "page-hero": "font-actay text-[clamp(36px,4.6vw,60px)] leading-[1.05] tracking-[-0.02em] font-bold",
   },
   2: {
     default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",

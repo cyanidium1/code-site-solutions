@@ -128,6 +128,15 @@ Affected pages: industry-page consumers that render `<Outcome>` (e.g. medicine, 
 - [ ] Benefit-hero card (when rendered) shows the large off-screen radial glow emerging from the right edge
 - [ ] Each mock visual (`MockPages`, `MockBookingForm`, `MockAdmin`) shows the subtle 20px dot-grid overlay
 
+### Task S1.4 — `page-hero.css` deleted + Heading reconciliation
+Affected pages: every page using `<PageHero>` — `/stories/page-hero`, `/about` (uk + en), `/pricing`, `/process`, `/blog`, `/contacts`, `/vs-constructors`, `/vs-freelancers`, `/vs-wordpress`, sites-for/* and public-contract.
+- [ ] Page-hero section background still shows the layered radial accent + accent-2 gradients
+- [ ] Masked grid pattern (`::before` on the bg div) still visible behind the heading area, fading out toward edges
+- [ ] Eyebrow pill has the 6px accent dot with glow before the label
+- [ ] Two-column layout (text + image) collapses to single column ≤960px when `image` prop is supplied; image children (img/svg/video) still scale within the column
+- [ ] H1 size matches legacy `clamp(36px, 4.6vw, 60px)` / `line-height 1.05` / `tracking -0.02em` — Heading primitive `sizes[1]["page-hero"]` updated from the placeholder `72px / 1.02` to match; consumer JSX now uses `<H1 variant="page-hero">`
+- [ ] Italic `<em>` inside the H1 still renders with the brand gradient and `padding-inline-end + box-decoration-break: clone` (preserved because the `.page-hero h1 em` rule in globals.css still applies — the `page-hero` class is retained on the `<section>`)
+
 **Stopped before:** the following CSS files remain undeleted and are scheduled for follow-up specs/sessions. They are too large to convert reliably in one session:
 
 | File | Lines | Notes |
