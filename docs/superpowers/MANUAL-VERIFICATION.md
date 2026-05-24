@@ -137,6 +137,17 @@ Affected pages: every page using `<PageHero>` — `/stories/page-hero`, `/about`
 - [ ] H1 size matches legacy `clamp(36px, 4.6vw, 60px)` / `line-height 1.05` / `tracking -0.02em` — Heading primitive `sizes[1]["page-hero"]` updated from the placeholder `72px / 1.02` to match; consumer JSX now uses `<H1 variant="page-hero">`
 - [ ] Italic `<em>` inside the H1 still renders with the brand gradient and `padding-inline-end + box-decoration-break: clone` (preserved because the `.page-hero h1 em` rule in globals.css still applies — the `page-hero` class is retained on the `<section>`)
 
+### Task S3.1 — `turnkey-list.css` deleted
+Affected pages: `/` and `/en` (homepage `<TurnkeyList>`), `/pricing` and `/en/pricing` (pricing page consumers).
+- [ ] Section backdrop: layered radial accent (top-right at 80%/10%) + accent-2 (bottom-left at 10%/90%) gradients still visible
+- [ ] Eyebrow pill: 6px accent dot (`before:`) with 8px glow before the label, mono uppercase text
+- [ ] H2: clamp(34-52px) / line-height 1.05 / tracking -0.02em — uses new `H2 variant="turnkey"`; italic `<em>` still renders with vertical accent-soft→accent brand gradient text fill
+- [ ] Cards grid: 3 columns at ≥1000px, 2 columns at ≤1000px, single column at ≤560px
+- [ ] Each card: 40x40 accent-tinted icon box (border + bg use relative-color `oklch(from var(--color-accent) l c h / …)`), absolute mono number (e.g. `01`) in top-right
+- [ ] Card title: 15.5px font-actay semibold (small label, intentionally NOT a `<H3>` variant — comment in code explains)
+- [ ] Footer card (Чого ми не робимо / What we don't do): dashed border, 2-column item list with em-dash `::before` markers, italic footer line
+- [ ] On ≤700px: footer list collapses to single column
+
 ### Task S2.4 — `final.css` deleted + HeroUI classNames
 Affected pages: every consumer of `<FAQ>` and `<Audit>` — homepage `/` + `/en`, `/pricing`, `/en/pricing`, `/about`, `/process`, `/contacts`, `vs-constructors`, `vs-freelancers`, `vs-wordpress` (uk + en), sites-for/* industry pages, public-contract, and other pages mounting the FAQ block.
 - [ ] FAQ section backdrop (`.faq-bg` legacy) — top-left accent + bottom-right accent-2 radial gradients still visible
