@@ -51,6 +51,36 @@ const LEGAL_HREFS: Array<{ key: string; href: string }> = [
   { key: "legalData", href: "/legal" },
 ];
 
+// Reusable utility-class strings — keeps the JSX below readable.
+const footerClass =
+  "relative pt-(--section-y-md) px-(--gutter-x) pb-8 border-t border-line bg-[oklch(0_0_0_/_0.20)]";
+// 5-col grid on UA (with Compare + Legal split), collapses to 4 cols on EN.
+// data-locale="en" selector replaced by conditional class.
+const footerInnerUaClass =
+  "mx-auto max-w-container grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-8 max-[800px]:grid-cols-2 max-[800px]:[&>:first-child]:col-span-2";
+const footerInnerEnClass =
+  "mx-auto max-w-container grid grid-cols-[2fr_1fr_1fr_1fr] gap-8 max-[800px]:grid-cols-2 max-[800px]:[&>:first-child]:col-span-2";
+const footerBrandClass =
+  "font-sans text-[20px] font-bold tracking-[-0.01em] [&>em]:not-italic [&>em]:bg-brand-gradient [&>em]:bg-clip-text [&>em]:text-transparent";
+const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[320px]";
+const footerContactsClass =
+  "mt-5 font-mono text-[12px] flex flex-col gap-1.5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 hover:[&>a]:text-ink";
+const footerColHClass =
+  "font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3";
+const footerColListClass =
+  "list-none mt-4 p-0 flex flex-col gap-2.5 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 hover:[&_a]:text-ink";
+// Vertical gap between the Compare and Legal sub-columns when they're
+// stacked inside the same grid cell on EN. The legacy CSS used
+// `.hp-footer-col-section + .hp-footer-col-section { margin-top: 24px }`.
+// Applied directly to the second sibling instead of via arbitrary `&+&`.
+const footerColSectionGapClass = "mt-6";
+const footerDisabledClass = "font-sans text-[13px] text-ink-3 cursor-default";
+const footerBottomClass =
+  "mx-auto max-w-container-max mt-12 pt-6 border-t border-line flex justify-between items-center flex-wrap gap-4";
+const footerCopyClass = "font-mono text-[11px] text-ink-3";
+const footerSocialClass =
+  "flex gap-4 [&_a]:text-ink-3 [&_a]:transition-colors [&_a]:duration-200 hover:[&_a]:text-ink";
+
 export function HpFooter({
   socials = DEFAULT_SOCIALS,
 }: { socials?: SocialDef[] } = {}) {
@@ -74,13 +104,13 @@ export function HpFooter({
     href: string,
     published: boolean,
   ) => {
-    if (!published) return <span className="hp-footer-disabled">{tSol(key)}</span>;
+    if (!published) return <span className={footerDisabledClass}>{tSol(key)}</span>;
     if (!isEn) return <Link href={href}>{tSol(key)}</Link>;
     const slug = href.replace(/^\/sites-for\//, "");
     if (hasEnIndustry(slug)) {
       return <Link href={`/en/sites-for/${slug}`}>{tSol(key)}</Link>;
     }
-    return <span className="hp-footer-disabled">{tSol(key)}</span>;
+    return <span className={footerDisabledClass}>{tSol(key)}</span>;
   };
 
   // Company column: Process and Contact resolve to anchors on the EN
@@ -96,14 +126,14 @@ export function HpFooter({
   ];
 
   return (
-    <footer className="hp-footer" data-locale={locale}>
-      <div className="hp-footer-inner">
+    <footer className={footerClass}>
+      <div className={isEn ? footerInnerEnClass : footerInnerUaClass}>
         <div>
-          <div className="hp-footer-brand">
+          <div className={footerBrandClass}>
             <em>Code-Site</em>.art
           </div>
-          <p className="hp-footer-desc">{t("brandDesc")}</p>
-          <div className="hp-footer-contacts">
+          <p className={footerDescClass}>{t("brandDesc")}</p>
+          <div className={footerContactsClass}>
             <a href="tel:+380970068707">+380-97-006-87-07</a>
             <a href="mailto:hi@code-site.art">hi@code-site.art</a>
             <a href="https://t.me/fedirdev" target="_blank" rel="noreferrer">
@@ -112,16 +142,16 @@ export function HpFooter({
           </div>
         </div>
         <div>
-          <div className="hp-footer-col-h">{t("solutionsHeading")}</div>
-          <ul className="hp-footer-col-list">
+          <div className={footerColHClass}>{t("solutionsHeading")}</div>
+          <ul className={footerColListClass}>
             {SOLUTIONS_HREFS.map(({ key, href, published }) => (
               <li key={key}>{renderSolutionItem(key, href, published)}</li>
             ))}
           </ul>
         </div>
         <div>
-          <div className="hp-footer-col-h">{t("companyHeading")}</div>
-          <ul className="hp-footer-col-list">
+          <div className={footerColHClass}>{t("companyHeading")}</div>
+          <ul className={footerColListClass}>
             {companyLinks.map((l) => (
               <li key={l.key}>
                 <Link href={l.href}>{tCo(l.key)}</Link>
@@ -131,15 +161,14 @@ export function HpFooter({
         </div>
         {/*
           Compare + Legal share the 4th grid cell on EN (4-col grid) and split
-          across two cells on UA (5-col grid). The `.hp-footer-col-section +
-          .hp-footer-col-section` CSS rule supplies the vertical margin when
-          they're stacked.
+          across two cells on UA (5-col grid). The `[&+&]:mt-6` selector on the
+          col-section class supplies the vertical margin when they're stacked.
         */}
         {isEn ? (
           <div>
-            <div className="hp-footer-col-section">
-              <div className="hp-footer-col-h">{t("compareHeading")}</div>
-              <ul className="hp-footer-col-list">
+            <div>
+              <div className={footerColHClass}>{t("compareHeading")}</div>
+              <ul className={footerColListClass}>
                 {COMPARE_HREFS.map(({ key, href }) => (
                   <li key={key}>
                     <Link href={`/en${href}`}>{tCmp(key)}</Link>
@@ -147,9 +176,9 @@ export function HpFooter({
                 ))}
               </ul>
             </div>
-            <div className="hp-footer-col-section">
-              <div className="hp-footer-col-h">{t("legalHeading")}</div>
-              <ul className="hp-footer-col-list">
+            <div className={footerColSectionGapClass}>
+              <div className={footerColHClass}>{t("legalHeading")}</div>
+              <ul className={footerColListClass}>
                 {LEGAL_HREFS.map(({ key, href }) => (
                   <li key={key}>
                     <Link href={href}>{tLeg(key)}</Link>
@@ -161,9 +190,9 @@ export function HpFooter({
         ) : (
           <>
             <div>
-              <div className="hp-footer-col-section">
-                <div className="hp-footer-col-h">{t("compareHeading")}</div>
-                <ul className="hp-footer-col-list">
+              <div>
+                <div className={footerColHClass}>{t("compareHeading")}</div>
+                <ul className={footerColListClass}>
                   {COMPARE_HREFS.map(({ key, href }) => (
                     <li key={key}>
                       <Link href={href}>{tCmp(key)}</Link>
@@ -173,9 +202,9 @@ export function HpFooter({
               </div>
             </div>
             <div>
-              <div className="hp-footer-col-section">
-                <div className="hp-footer-col-h">{t("legalHeading")}</div>
-                <ul className="hp-footer-col-list">
+              <div>
+                <div className={footerColHClass}>{t("legalHeading")}</div>
+                <ul className={footerColListClass}>
                   {LEGAL_HREFS.map(({ key, href }) => (
                     <li key={key}>
                       <Link href={href}>{tLeg(key)}</Link>
@@ -187,9 +216,9 @@ export function HpFooter({
           </>
         )}
       </div>
-      <div className="hp-footer-bottom">
-        <span className="hp-footer-copy">{t("copy")}</span>
-        <div className="hp-footer-social">
+      <div className={footerBottomClass}>
+        <span className={footerCopyClass}>{t("copy")}</span>
+        <div className={footerSocialClass}>
           {socials.map((s) => {
             const Icon = s.icon;
             return (
