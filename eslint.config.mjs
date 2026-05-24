@@ -11,15 +11,15 @@ const config = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   { ignores: ["raw_design/**", ".next/**", "node_modules/**"] },
   {
-    // Phase 1 of style refactor: warn on inline `style={{}}` props.
+    // Phase 1 endpoint: error on inline `style={{}}` props.
     // Dynamic CSS custom properties (--foo) are allowed but the lint rule
     // cannot distinguish them from static styles — legitimate dynamic-var
     // usages have a per-line `// eslint-disable-next-line react/forbid-dom-props`
-    // comment explaining the dynamic value. Phase 1 keeps this as a warning;
-    // Phase D Task 45 promotes to error after the migration is complete.
+    // comment explaining the dynamic value. Promoted from warn to error in
+    // Session 8 (S8.4) after the migration is complete.
     rules: {
       "react/forbid-dom-props": [
-        "warn",
+        "error",
         {
           forbid: [
             {
