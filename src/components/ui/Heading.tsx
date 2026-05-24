@@ -2,7 +2,7 @@ import { type HTMLAttributes } from "react";
 import { cn } from "./cn";
 
 type Level = 1 | 2 | 3;
-type Variant = "default" | "hp" | "case" | "page-hero";
+type Variant = "default" | "hp" | "case" | "page-hero" | "image-text";
 
 interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   level: Level;
@@ -40,18 +40,21 @@ const sizes: Record<Level, Record<Variant, string>> = {
     hp: "font-actay text-[64px] leading-[1.05] tracking-[-0.02em] font-bold",
     case: "font-actay text-[56px] leading-[1.05] tracking-[-0.02em] font-bold",
     "page-hero": "font-actay text-[clamp(36px,4.6vw,60px)] leading-[1.05] tracking-[-0.02em] font-bold",
+    "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.05] tracking-[-0.02em] font-bold",
   },
   2: {
     default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
     hp: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
     case: "font-actay text-[40px] leading-[1.1] tracking-[-0.01em] font-bold",
     "page-hero": "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
+    "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] font-bold max-[800px]:text-[clamp(24px,6vw,36px)]",
   },
   3: {
     default: "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     hp: "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     case: "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     "page-hero": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
+    "image-text": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
   },
 };
 

@@ -137,6 +137,15 @@ Affected pages: every page using `<PageHero>` — `/stories/page-hero`, `/about`
 - [ ] H1 size matches legacy `clamp(36px, 4.6vw, 60px)` / `line-height 1.05` / `tracking -0.02em` — Heading primitive `sizes[1]["page-hero"]` updated from the placeholder `72px / 1.02` to match; consumer JSX now uses `<H1 variant="page-hero">`
 - [ ] Italic `<em>` inside the H1 still renders with the brand gradient and `padding-inline-end + box-decoration-break: clone` (preserved because the `.page-hero h1 em` rule in globals.css still applies — the `page-hero` class is retained on the `<section>`)
 
+### Task S2.1 — `image-text.css` deleted
+Affected pages: `/stories/image-text` (story page exercises side / side-with-list / centered variants); case-page consumers (rendered via `case-page/index.tsx`) — both `centered` vertical and the `centered-horizontal` two-mockup floating layout.
+- [ ] Eyebrow pill across all three variants still shows the 6px accent dot (`before:`) with subtle 8px glow
+- [ ] Side variant: 2-col grid at ≥960px (image+text), single column ≤960px with image first; H2 still renders at clamp(28-44px) with italic-em brand gradient
+- [ ] Centered (vertical) variant: max-w-[920px] image card, 16/9 aspect, body centered under
+- [ ] Centered-horizontal variant (case-page): two device mockups float at far left/right with drop-shadow; body card sits in center with radial gradient backdrop; mockups hide ≤900px and copy expands to container-prose
+- [ ] Bullet list (side-with-list): check/cross circle uses accent-soft / red-soft tint correctly
+- [ ] Heading variant `image-text` added to `src/components/ui/Heading.tsx` (clamp 28-44px H2 with 800px breakpoint to clamp 24-36px)
+
 **Stopped before:** the following CSS files remain undeleted and are scheduled for follow-up specs/sessions. They are too large to convert reliably in one session:
 
 | File | Lines | Notes |
