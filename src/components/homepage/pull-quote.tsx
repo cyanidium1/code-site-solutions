@@ -2,6 +2,8 @@ import type * as React from "react";
 import Link from "next/link";
 import { Linkedin, ArrowUpRight } from "lucide-react";
 
+import { btnClass } from "@/components/ui";
+
 export function PullQuote({
   quote = (
     <>
@@ -55,7 +57,7 @@ export function PullQuote({
           </div>
           {caseHref ? (
             <div className="hp-pull-cta">
-              <Link href={caseHref} className="btn-primary">
+              <Link href={caseHref} className={btnClass("primary")}>
                 <span>{caseLabel ?? "Подивитись повний кейс"}</span>
                 <ArrowUpRight size={18} strokeWidth={1.8} />
               </Link>

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard } from "@/components/blocks/related-card";
+import { btnClass } from "@/components/ui";
 import {
   caseRefToCardItem,
   type CaseCardItem,
@@ -64,7 +65,7 @@ export async function Cases({
             );
           })}
         </div>
-        <Link href={ctaHref} className="btn-primary hp-section-cta">
+        <Link href={ctaHref} className={btnClass("primary", "hp-section-cta")}>
           <span>{ctaLabel}</span>
           <ArrowRight size={18} strokeWidth={1.8} />
         </Link>

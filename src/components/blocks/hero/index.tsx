@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { formatPrice } from "@/lib/shared/format-price";
-import "@/components/blocks/buttons/buttons.css";
+import { btnClass, PLAY_ICON_CLASS } from "@/components/ui";
 import "./hero.css";
 
 export type Feature = { label: string; sub: string };
@@ -198,20 +198,20 @@ export function HeroEditorial({
 
             <div className="cta-row">
               {ctaPrimaryHref ? (
-                <Link href={ctaPrimaryHref} className="btn-primary">
+                <Link href={ctaPrimaryHref} className={btnClass("primary")}>
                   <span>{ctaPrimaryLabel}</span>
                   {ARROW_ICON}
                 </Link>
               ) : (
-                <button className="btn-primary">
+                <button className={btnClass("primary")}>
                   <span>{ctaPrimaryLabel}</span>
                   {ARROW_ICON}
                 </button>
               )}
               {ctaSecondaryHref ? (
-                <Link href={ctaSecondaryHref} className="btn-ghost">
+                <Link href={ctaSecondaryHref} className={btnClass("ghost")}>
                   {ctaSecondaryShowPlay ? (
-                    <span className="btn-play">▶</span>
+                    <span className={PLAY_ICON_CLASS}>▶</span>
                   ) : null}
                   <span>{ctaSecondaryLabel}</span>
                   {!ctaSecondaryShowPlay ? (
@@ -227,9 +227,9 @@ export function HeroEditorial({
                   ) : null}
                 </Link>
               ) : (
-                <button className="btn-ghost">
+                <button className={btnClass("ghost")}>
                   {ctaSecondaryShowPlay ? (
-                    <span className="btn-play">▶</span>
+                    <span className={PLAY_ICON_CLASS}>▶</span>
                   ) : null}
                   <span>{ctaSecondaryLabel}</span>
                   {!ctaSecondaryShowPlay ? (

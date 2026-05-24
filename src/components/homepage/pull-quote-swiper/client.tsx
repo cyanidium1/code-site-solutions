@@ -6,7 +6,7 @@ import { SwiperSlide } from "swiper/react";
 import { Linkedin, ArrowUpRight } from "lucide-react";
 
 import SwiperWrapper from "@/components/shared/swiper/SwiperWrapper";
-import "@/components/blocks/buttons/buttons.css";
+import { btnClass } from "@/components/ui";
 
 import type { TestimonialSlide } from "@/lib/server/fetch-testimonials";
 
@@ -79,7 +79,7 @@ function Slide({ slide }: { slide: TestimonialSlide }) {
 
           {slide.caseHref ? (
             <div className="hp-pqs-cta">
-              <Link href={slide.caseHref} className="btn-primary">
+              <Link href={slide.caseHref} className={btnClass("primary")}>
                 <span>{slide.caseLabel ?? "See the full case study"}</span>
                 <ArrowUpRight size={18} strokeWidth={1.8} />
               </Link>

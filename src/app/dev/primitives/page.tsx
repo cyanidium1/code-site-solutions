@@ -44,15 +44,13 @@ export default function PrimitivesDemo() {
       <Section variant="tight">
         <Container>
           <H2>Buttons</H2>
-          <div className="mt-6 grid grid-cols-2 gap-8">
-            <div className="flex gap-4">
-              <Btn variant="primary">Primary</Btn>
-              <Btn variant="ghost">Ghost</Btn>
-            </div>
-            <div className="flex gap-4">
-              <button className="btn-primary"><span>Legacy primary</span></button>
-              <button className="btn-ghost">Legacy ghost</button>
-            </div>
+          <p className="mt-2 text-sm text-ink-dim">
+            Legacy `.btn-primary` / `.btn-ghost` semantic classes were
+            deleted in Phase C Task 24. Only primitives now.
+          </p>
+          <div className="mt-6 flex gap-4">
+            <Btn variant="primary">Primary</Btn>
+            <Btn variant="ghost">Ghost</Btn>
           </div>
         </Container>
       </Section>

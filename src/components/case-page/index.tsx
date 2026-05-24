@@ -23,7 +23,7 @@ import {
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
-import "@/components/blocks/buttons/buttons.css";
+import { btnClass } from "@/components/ui";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
@@ -601,7 +601,7 @@ export async function CasePageView({
             </div>
             <Link
               href={locale === "en" ? "/en/portfolio" : "/portfolio"}
-              className="btn-primary hp-section-cta"
+              className={btnClass("primary", "hp-section-cta")}
             >
               <span>{relatedLink}</span>
               <ArrowUpRight size={18} strokeWidth={1.8} />
