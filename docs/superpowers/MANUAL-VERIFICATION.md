@@ -137,6 +137,16 @@ Affected pages: every page using `<PageHero>` — `/stories/page-hero`, `/about`
 - [ ] H1 size matches legacy `clamp(36px, 4.6vw, 60px)` / `line-height 1.05` / `tracking -0.02em` — Heading primitive `sizes[1]["page-hero"]` updated from the placeholder `72px / 1.02` to match; consumer JSX now uses `<H1 variant="page-hero">`
 - [ ] Italic `<em>` inside the H1 still renders with the brand gradient and `padding-inline-end + box-decoration-break: clone` (preserved because the `.page-hero h1 em` rule in globals.css still applies — the `page-hero` class is retained on the `<section>`)
 
+### Task S2.2 — `comparison.css` deleted (relative-color OKLCH preserved)
+Affected pages: `/` and `/en` (homepage pricing tier grid), `/pricing` (uses `Tier` only, separate `pricing-tier-grid-4` grid), `/en/pricing`, `/vs-constructors`, `/en/vs-constructors`, `/vs-freelancers`, `/en/vs-freelancers`, `/vs-wordpress`, `/en/vs-wordpress`, and the medicine sites-for page that mounts `<Comparison>`.
+- [ ] Comparison block background gradients (`.cmp-bg` legacy) — top-right accent + bottom-left accent-2 radial visible
+- [ ] Contact card backdrop (`.cmp-contact` legacy) — top accent radial + dark gradient base
+- [ ] Comparison table: highlighted "good" column shows the accent-tinted background fill, accent-tinted left+right borders, accent-soft text in the header
+- [ ] Comparison table on ≤700px reflows to stacked cards — param row becomes uppercase card title, each value row shows `data-label: ` pseudo before the value (except for the param row itself)
+- [ ] Pricing tier grid: 3 columns at ≥1100px, single column ≤1100px, 18px gap
+- [ ] vs-constructors / vs-freelancers / vs-wordpress: comparison tables and pricing grids render identically to legacy (per-row data-label reflow at ≤700px works on all three)
+- [ ] Two new H2 variants: `comparison` and `comparison-contact` (added to Heading.tsx sizes table)
+
 ### Task S2.1 — `image-text.css` deleted
 Affected pages: `/stories/image-text` (story page exercises side / side-with-list / centered variants); case-page consumers (rendered via `case-page/index.tsx`) — both `centered` vertical and the `centered-horizontal` two-mockup floating layout.
 - [ ] Eyebrow pill across all three variants still shows the 6px accent dot (`before:`) with subtle 8px glow

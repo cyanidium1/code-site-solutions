@@ -3,8 +3,7 @@ import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
-import { Tier } from "@/components/blocks/comparison";
-import "@/components/blocks/comparison/comparison.css";
+import { Tier, CmpTable, CmpThead, CmpTh, CmpTd, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
@@ -366,39 +365,30 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             sub={c.patterns.sub}
           />
           <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
-            <table className="cmp-table">
-              <thead>
+            <CmpTable>
+              <CmpThead>
                 <tr>
-                  <th>{c.patterns.headers.metric}</th>
-                  <th>{c.patterns.headers.before}</th>
-                  <th className="cmp-th-good">{c.patterns.headers.after}</th>
+                  <CmpTh>{c.patterns.headers.metric}</CmpTh>
+                  <CmpTh>{c.patterns.headers.before}</CmpTh>
+                  <CmpTh good>{c.patterns.headers.after}</CmpTh>
                 </tr>
-              </thead>
+              </CmpThead>
               <tbody>
                 {c.patterns.rows.map((row, i) => (
                   <tr key={i}>
-                    <td
-                      className="cmp-td-param"
-                      data-label={c.patterns.headers.metric}
-                    >
+                    <CmpTd kind="param" data-label={c.patterns.headers.metric}>
                       {row.metric}
-                    </td>
-                    <td
-                      className="cmp-td-bad"
-                      data-label={c.patterns.headers.before}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="bad" data-label={c.patterns.headers.before}>
                       {row.before}
-                    </td>
-                    <td
-                      className="cmp-td-good"
-                      data-label={c.patterns.headers.after}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="good" data-label={c.patterns.headers.after}>
                       {row.after}
-                    </td>
+                    </CmpTd>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </CmpTable>
           </div>
           <p className="mt-8 max-w-[60ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--ink-3)]">
             {c.patterns.foot}
@@ -448,11 +438,11 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             heading={c.pricing.heading}
             sub={c.pricing.sub}
           />
-          <div className="cmp-pricing-grid">
+          <CmpPricingGrid>
             {c.pricing.tiers.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
-          </div>
+          </CmpPricingGrid>
           <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--ink-2)] max-w-[68ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.pricing.foot}
           </p>

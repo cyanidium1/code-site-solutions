@@ -3,7 +3,7 @@ import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
-import "@/components/blocks/comparison/comparison.css";
+import { CmpTable, CmpThead, CmpTh, CmpTd } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
@@ -158,39 +158,30 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             sub={c.compare.sub}
           />
           <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
-            <table className="cmp-table">
-              <thead>
+            <CmpTable>
+              <CmpThead>
                 <tr>
-                  <th>{c.compare.headers.criterion}</th>
-                  <th>{c.compare.headers.freelancer}</th>
-                  <th className="cmp-th-good">{c.compare.headers.us}</th>
+                  <CmpTh>{c.compare.headers.criterion}</CmpTh>
+                  <CmpTh>{c.compare.headers.freelancer}</CmpTh>
+                  <CmpTh good>{c.compare.headers.us}</CmpTh>
                 </tr>
-              </thead>
+              </CmpThead>
               <tbody>
                 {c.compare.rows.map((row, i) => (
                   <tr key={i}>
-                    <td
-                      className="cmp-td-param"
-                      data-label={c.compare.headers.criterion}
-                    >
+                    <CmpTd kind="param" data-label={c.compare.headers.criterion}>
                       {row.criterion}
-                    </td>
-                    <td
-                      className="cmp-td-bad"
-                      data-label={c.compare.headers.freelancer}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="bad" data-label={c.compare.headers.freelancer}>
                       {row.freelancer}
-                    </td>
-                    <td
-                      className="cmp-td-good"
-                      data-label={c.compare.headers.us}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="good" data-label={c.compare.headers.us}>
                       {row.us}
-                    </td>
+                    </CmpTd>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </CmpTable>
           </div>
         </div>
       </section>
@@ -483,44 +474,45 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 {scenario.title}
               </h3>
               <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
-                <table className="cmp-table">
-                  <thead>
+                <CmpTable>
+                  <CmpThead>
                     <tr>
-                      <th>{c.pricing.headers.item}</th>
-                      <th>{c.pricing.headers.freelancer}</th>
-                      <th className="cmp-th-good">{c.pricing.headers.us}</th>
+                      <CmpTh>{c.pricing.headers.item}</CmpTh>
+                      <CmpTh>{c.pricing.headers.freelancer}</CmpTh>
+                      <CmpTh good>{c.pricing.headers.us}</CmpTh>
                     </tr>
-                  </thead>
+                  </CmpThead>
                   <tbody>
                     {scenario.rows.map((row, i) => (
                       <tr key={i}>
-                        <td className="cmp-td-param" data-label={c.pricing.headers.item}>
+                        <CmpTd kind="param" data-label={c.pricing.headers.item}>
                           {row.item}
-                        </td>
-                        <td className="cmp-td-bad" data-label={c.pricing.headers.freelancer}>
+                        </CmpTd>
+                        <CmpTd kind="bad" data-label={c.pricing.headers.freelancer}>
                           {row.freelancer}
-                        </td>
-                        <td className="cmp-td-good" data-label={c.pricing.headers.us}>
+                        </CmpTd>
+                        <CmpTd kind="good" data-label={c.pricing.headers.us}>
                           {row.us}
-                        </td>
+                        </CmpTd>
                       </tr>
                     ))}
                     <tr>
-                      <td
-                        className="cmp-td-param font-semibold text-ink"
+                      <CmpTd
+                        kind="param"
+                        className="font-semibold text-ink"
                         data-label={c.pricing.headers.item}
                       >
                         <strong>{c.pricing.totalLabel}</strong>
-                      </td>
-                      <td className="cmp-td-bad font-semibold" data-label={c.pricing.headers.freelancer}>
+                      </CmpTd>
+                      <CmpTd kind="bad" className="font-semibold" data-label={c.pricing.headers.freelancer}>
                         <strong>{scenario.total.freelancer}</strong>
-                      </td>
-                      <td className="cmp-td-good font-bold" data-label={c.pricing.headers.us}>
+                      </CmpTd>
+                      <CmpTd kind="good" className="font-bold" data-label={c.pricing.headers.us}>
                         <strong>{scenario.total.us}</strong>
-                      </td>
+                      </CmpTd>
                     </tr>
                   </tbody>
-                </table>
+                </CmpTable>
               </div>
               <p className="mt-4 text-[13px] leading-[1.65] text-[var(--ink-2)] max-w-[68ch] [&_strong]:text-accent-soft [&_strong]:font-semibold">
                 {scenario.verdict}

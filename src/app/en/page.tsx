@@ -12,8 +12,7 @@ import {
 } from "lucide-react";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
-import { Tier } from "@/components/blocks/comparison";
-import "@/components/blocks/comparison/comparison.css";
+import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import {
   HpHeader,
   Marquee,
@@ -239,11 +238,11 @@ export default function HomePageEn() {
               No &ldquo;request a quote.&rdquo; No hidden fees.
             </p>
           </div>
-          <div className="cmp-pricing-grid">
+          <CmpPricingGrid>
             {EN_TIERS.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
-          </div>
+          </CmpPricingGrid>
         </div>
       </section>
 

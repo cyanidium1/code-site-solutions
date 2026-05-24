@@ -4,7 +4,6 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier } from "@/components/blocks/comparison";
-import "@/components/blocks/comparison/comparison.css";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
 import {

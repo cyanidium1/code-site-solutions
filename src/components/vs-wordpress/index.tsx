@@ -3,8 +3,7 @@ import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
-import { Tier } from "@/components/blocks/comparison";
-import "@/components/blocks/comparison/comparison.css";
+import { Tier, CmpTable, CmpThead, CmpTh, CmpTd, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
@@ -133,39 +132,30 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             sub={c.compare.sub}
           />
           <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
-            <table className="cmp-table">
-              <thead>
+            <CmpTable>
+              <CmpThead>
                 <tr>
-                  <th>{c.compare.headers.criterion}</th>
-                  <th>{c.compare.headers.wp}</th>
-                  <th className="cmp-th-good">{c.compare.headers.us}</th>
+                  <CmpTh>{c.compare.headers.criterion}</CmpTh>
+                  <CmpTh>{c.compare.headers.wp}</CmpTh>
+                  <CmpTh good>{c.compare.headers.us}</CmpTh>
                 </tr>
-              </thead>
+              </CmpThead>
               <tbody>
                 {c.compare.rows.map((row, i) => (
                   <tr key={i}>
-                    <td
-                      className="cmp-td-param"
-                      data-label={c.compare.headers.criterion}
-                    >
+                    <CmpTd kind="param" data-label={c.compare.headers.criterion}>
                       {row.criterion}
-                    </td>
-                    <td
-                      className="cmp-td-bad"
-                      data-label={c.compare.headers.wp}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="bad" data-label={c.compare.headers.wp}>
                       {row.wp}
-                    </td>
-                    <td
-                      className="cmp-td-good"
-                      data-label={c.compare.headers.us}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="good" data-label={c.compare.headers.us}>
                       {row.us}
-                    </td>
+                    </CmpTd>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </CmpTable>
           </div>
         </div>
       </section>
@@ -286,39 +276,30 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           />
           {/* Mobile-safe table — horizontal scroll wrapper for narrow viewports */}
           <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)] mb-12 max-[700px]:overflow-x-auto">
-            <table className="cmp-table min-w-[600px]">
-              <thead>
+            <CmpTable className="min-w-[600px]">
+              <CmpThead>
                 <tr>
-                  <th>{c.admin.compareHeaders.activity}</th>
-                  <th>{c.admin.compareHeaders.wp}</th>
-                  <th className="cmp-th-good">{c.admin.compareHeaders.us}</th>
+                  <CmpTh>{c.admin.compareHeaders.activity}</CmpTh>
+                  <CmpTh>{c.admin.compareHeaders.wp}</CmpTh>
+                  <CmpTh good>{c.admin.compareHeaders.us}</CmpTh>
                 </tr>
-              </thead>
+              </CmpThead>
               <tbody>
                 {c.admin.compareRows.map((row, i) => (
                   <tr key={i}>
-                    <td
-                      className="cmp-td-param"
-                      data-label={c.admin.compareHeaders.activity}
-                    >
+                    <CmpTd kind="param" data-label={c.admin.compareHeaders.activity}>
                       {row.activity}
-                    </td>
-                    <td
-                      className="cmp-td-bad"
-                      data-label={c.admin.compareHeaders.wp}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="bad" data-label={c.admin.compareHeaders.wp}>
                       {row.wp}
-                    </td>
-                    <td
-                      className="cmp-td-good"
-                      data-label={c.admin.compareHeaders.us}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="good" data-label={c.admin.compareHeaders.us}>
                       {row.us}
-                    </td>
+                    </CmpTd>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </CmpTable>
           </div>
 
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
@@ -422,11 +403,11 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             heading={c.pricing.heading}
             sub={c.pricing.sub}
           />
-          <div className="cmp-pricing-grid">
+          <CmpPricingGrid>
             {c.pricing.tiers.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
-          </div>
+          </CmpPricingGrid>
           <p className="mt-7 text-center text-[13px] text-[var(--ink-3)] max-w-[64ch] mx-auto">
             {c.pricing.foot}
           </p>

@@ -1,7 +1,6 @@
 import { HeroEditorial } from "@/components/blocks/hero";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
-import { Tier } from "@/components/blocks/comparison";
-import "@/components/blocks/comparison/comparison.css";
+import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
   HpHeader,
@@ -124,11 +123,11 @@ export default function HomePage() {
             </h2>
             <p className="hp-sub">Без «під запит». Без прихованих платежів.</p>
           </div>
-          <div className="cmp-pricing-grid">
+          <CmpPricingGrid>
             {HOMEPAGE_TIERS.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
-          </div>
+          </CmpPricingGrid>
         </div>
       </section>
 
