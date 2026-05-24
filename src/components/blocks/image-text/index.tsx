@@ -155,7 +155,7 @@ export function ImageText({
   );
 
   const sectionClass = cn(
-    "relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-6",
+    "relative py-14 lg:py-[100px] px-12 bg-bg max-[800px]:px-6",
     sectionClassName,
   );
 
@@ -181,7 +181,7 @@ export function ImageText({
       return (
         <section
           className={cn(
-            "relative bg-bg pb-(--section-y) overflow-hidden",
+            "relative bg-bg pb-14 lg:pb-[100px] overflow-hidden",
             sectionClassName,
           )}
         >

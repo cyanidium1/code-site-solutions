@@ -163,7 +163,7 @@ export function Comparison({
   tiers: TierProps[];
 }> = {}) {
   return (
-    <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
+    <section className="relative py-14 lg:py-[100px] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className={`absolute inset-0 z-0 pointer-events-none ${CMP_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className={CMP_H2_EXTRA}>{tableHeading}</H2>

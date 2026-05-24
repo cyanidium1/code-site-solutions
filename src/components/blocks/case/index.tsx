@@ -9,7 +9,7 @@ const HEADING_EM_CLASS =
   "[&_em]:not-italic [&_em]:font-light [&_em]:bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const SECTION_CLASS =
-  "relative overflow-hidden bg-[var(--bg)] py-(--section-y-lg) px-12 max-[1100px]:px-8 max-[700px]:px-[18px]";
+  "relative overflow-hidden bg-[var(--bg)] py-[72px] lg:py-[120px] px-12 max-[1100px]:px-8 max-[700px]:px-[18px]";
 
 // Two stacked radial gradients — accent (top-right) + accent-2 (bottom-left).
 // Preserved as raw OKLCH because no @theme token captures this dual-gradient

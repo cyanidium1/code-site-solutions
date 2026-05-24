@@ -46,7 +46,7 @@ export function CtaBanner({
   ctaSecondary?: CtaBannerAction;
 }) {
   return (
-    <section className="relative bg-bg px-12 py-[var(--section-y)] max-[800px]:px-6">
+    <section className="relative bg-bg px-12 py-14 lg:py-[100px] max-[800px]:px-6">
       <div className="mx-auto max-w-container">
         <div
           className={`relative flex flex-col items-center overflow-hidden rounded-[28px] border border-line px-12 py-16 text-center max-[800px]:rounded-[22px] max-[800px]:px-6 max-[800px]:py-11 ${CARD_BG} ${TOP_ACCENT} ${GRID_OVERLAY}`}

@@ -209,7 +209,7 @@ export function Outcome({
   benefitRows,
 }: OutcomeProps) {
   return (
-    <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
+    <section className="relative py-14 lg:py-[100px] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_40%_at_90%_10%,oklch(from_var(--accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_40%_50%_at_5%_80%,oklch(from_var(--accent-2)_l_c_h_/_0.08),transparent_70%)]" />
       <div className="relative z-[2] max-w-container mx-auto">
         {/* Recap pull-quote */}

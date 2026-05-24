@@ -95,7 +95,7 @@ export function ContactSplit({
   const meta = CONTACT_META_BY_LOCALE[locale];
   const chrome = CHROME[locale];
   return (
-    <section className="relative py-(--section-y-md) px-12 bg-[linear-gradient(180deg,var(--bg)_0%,oklch(0.13_0.02_300)_100%)] max-[1100px]:px-8 max-[700px]:px-[18px]">
+    <section className="relative py-14 lg:py-20 px-12 bg-[linear-gradient(180deg,var(--bg)_0%,oklch(0.13_0.02_300)_100%)] max-[1100px]:px-8 max-[700px]:px-[18px]">
       {/* HeroAuditBanner is a client component that reads locale via
           next-intl useLocale — no need to thread the prop. */}
       <HeroAuditBanner />

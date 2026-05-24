@@ -174,7 +174,7 @@ export function FAQ({
       : showAllLabel;
 
   return (
-    <section className="relative py-[var(--section-y)] px-[var(--gutter-x)] bg-bg">
+    <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
       <div className={`absolute inset-0 z-0 pointer-events-none ${FAQ_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className="mb-12 text-ink uppercase max-[700px]:mb-7">

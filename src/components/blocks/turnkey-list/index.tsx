@@ -134,7 +134,7 @@ export function TurnkeyList({
 } = {}) {
   return (
     <section
-      className="relative py-(--section-y-tight) px-(--gutter-x) bg-bg overflow-hidden"
+      className="relative py-9 lg:py-14 px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden"
       id="turnkey"
     >
       <div

@@ -231,7 +231,7 @@ export function Services({
 }> = {}) {
   const hasVisual = Boolean(testimonialVisualSrc);
   return (
-    <section className="relative py-[var(--section-y)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
+    <section className="relative py-14 lg:py-[100px] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_40%_at_10%_20%,oklch(from_var(--accent)_l_c_h_/_0.08),transparent_70%),radial-gradient(ellipse_40%_50%_at_95%_70%,oklch(from_var(--accent-2)_l_c_h_/_0.07),transparent_70%)]" />
       <div className="relative z-[2] max-w-container mx-auto">
         <div
