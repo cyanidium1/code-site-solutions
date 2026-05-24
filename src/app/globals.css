@@ -52,14 +52,18 @@
   --container-form: 720px;
 
   /* Section vertical rhythm + horizontal gutter.
-     Phase 1 endpoint: values are fixed across all viewports (responsive
-     overrides removed). Phase 2 will reintroduce responsive scaling as
-     mobile-first utilities in primitives. */
-  --spacing-section-y: 100px;
-  --spacing-section-y-md: 80px;
-  --spacing-section-y-tight: 56px;
-  --spacing-section-y-lg: 120px;
-  --spacing-gutter-x: 48px;
+     Phase 2 endpoint: base values are MOBILE; primitives stack
+     responsive utilities (sm:/lg:/etc.) to reach desktop values.
+     Generates utilities: px-gutter-x, py-section-y, py-section-y-md,
+     py-section-y-lg, etc. Consumers should prefer the utility-stack
+     pattern on primitives rather than var() references. */
+  --spacing-gutter-x: 24px;          /* mobile baseline (≤640) */
+  --spacing-gutter-sm: 32px;         /* sm+ */
+  --spacing-gutter-md: 48px;         /* lg+ desktop gutter */
+
+  --spacing-section-y: 56px;         /* mobile baseline */
+  --spacing-section-y-md: 36px;      /* tight variant mobile */
+  --spacing-section-y-lg: 72px;      /* lg variant mobile */
 
   /* Shadows */
   --shadow-accent-glow:
