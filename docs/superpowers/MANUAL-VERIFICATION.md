@@ -35,3 +35,14 @@ Save PNGs to `docs/superpowers/baselines/2026-05-24-pre-refactor/`:
 Items appended as work progresses.
 
 <!-- APPEND-BELOW -->
+
+### Task 4 — keyframes extracted to keyframes.css
+
+Animations (`marquee`, `fade-up`, `svg-glow-blue/pink/dark`) are now defined in `keyframes.css` and registered via `@theme --animate-*` tokens. Tailwind 4 should auto-generate `animate-marquee`/`animate-fade-up`/etc. utilities from `--animate-*` tokens.
+
+**Visually verify:**
+- [ ] Hero ticker still scrolls smoothly on `/` and `/en`
+- [ ] Any element with `animate-fade-up` still fades in
+- [ ] SVG glow effects still pulse on relevant icons
+
+If anything stopped animating, the Tailwind 4 `--animate-*` token convention may differ — fallback: re-add the `animation: { ... }` block in `tailwind.config.ts`.

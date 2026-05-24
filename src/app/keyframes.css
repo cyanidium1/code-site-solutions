@@ -1,0 +1,27 @@
+/* Keyframe definitions extracted from tailwind.config.ts.
+   Animation utility tokens (--animate-*) live in @theme in globals.css. */
+
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fade-up {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes svg-glow-blue {
+  0%, 100% { filter: drop-shadow(0 0 0 oklch(0.55 0.18 295 / 0)); }
+  50%      { filter: drop-shadow(0 0 8px oklch(0.70 0.14 295 / 0.45)); }
+}
+
+@keyframes svg-glow-pink {
+  0%, 100% { filter: drop-shadow(0 0 0 oklch(0.70 0.18 350 / 0)); }
+  50%      { filter: drop-shadow(0 0 8px oklch(0.78 0.16 350 / 0.45)); }
+}
+
+@keyframes svg-glow-dark {
+  0%, 100% { filter: drop-shadow(0 0 0 oklch(0 0 0 / 0)); }
+  50%      { filter: drop-shadow(0 0 6px oklch(0.55 0.18 295 / 0.35)); }
+}

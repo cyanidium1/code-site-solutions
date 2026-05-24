@@ -68,35 +68,6 @@ const config: Config = {
         "accent-glow":
           "0 4px 20px oklch(0.55 0.18 295 / 0.35), 0 0 0 1px oklch(0.55 0.18 295 / 0.30)",
       },
-      keyframes: {
-        marquee: {
-          "0%": { transform: "translateX(0%)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(8px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        "svg-glow-blue": {
-          "0%, 100%": { filter: "drop-shadow(0 0 0 oklch(0.55 0.18 295 / 0))" },
-          "50%": { filter: "drop-shadow(0 0 8px oklch(0.70 0.14 295 / 0.45))" },
-        },
-        "svg-glow-pink": {
-          "0%, 100%": { filter: "drop-shadow(0 0 0 oklch(0.70 0.18 350 / 0))" },
-          "50%": { filter: "drop-shadow(0 0 8px oklch(0.78 0.16 350 / 0.45))" },
-        },
-        "svg-glow-dark": {
-          "0%, 100%": { filter: "drop-shadow(0 0 0 oklch(0 0 0 / 0))" },
-          "50%": { filter: "drop-shadow(0 0 6px oklch(0.55 0.18 295 / 0.35))" },
-        },
-      },
-      animation: {
-        marquee: "marquee 30s linear infinite",
-        "fade-up": "fade-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards",
-        "svg-glow-blue": "svg-glow-blue 4s ease-in-out infinite",
-        "svg-glow-pink": "svg-glow-pink 4s ease-in-out infinite",
-        "svg-glow-dark": "svg-glow-dark 4s ease-in-out infinite",
-      },
       transitionTimingFunction: {
         "out-soft": "cubic-bezier(0.2, 0.8, 0.2, 1)",
       },

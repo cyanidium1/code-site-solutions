@@ -7,6 +7,7 @@ import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
 import { SITE_ORIGIN } from "@/constants/site";
 import "./globals.css";
+import "./keyframes.css";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],

@@ -67,6 +67,13 @@
   --font-sans: var(--font-manrope), system-ui, sans-serif;
   --font-actay: var(--font-actay), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Animations — keyframes are defined in keyframes.css */
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  --animate-svg-glow-blue: svg-glow-blue 4s ease-in-out infinite;
+  --animate-svg-glow-pink: svg-glow-pink 4s ease-in-out infinite;
+  --animate-svg-glow-dark: svg-glow-dark 4s ease-in-out infinite;
 }
 
 :root {
