@@ -121,6 +121,39 @@ const SHOT_PLACEHOLDER_LINE_SHORT_CLASS =
 const SHOT_PLACEHOLDER_GRID_CLASS =
   "flex-1 grid grid-cols-2 gap-2.5 mt-1 [&>span]:rounded-md [&>span]:bg-[oklch(1_0_0_/_0.04)] [&>span]:border [&>span]:border-[oklch(1_0_0_/_0.05)]";
 
+const TAGLINE_CLASS =
+  "font-display font-semibold text-[14px] text-ink m-0 mb-4 tracking-[-0.01em] flex items-center gap-2.5";
+
+const TAGLINE_ICN_BASE_CLASS =
+  "w-[18px] h-[18px] rounded-[5px] inline-flex items-center justify-center shrink-0 text-[11px]";
+
+const TAGLINE_ICN_BAD_CLASS =
+  "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.75_0.16_25)]";
+
+const TAGLINE_ICN_GOOD_CLASS =
+  "bg-[oklch(from_var(--accent)_l_c_h_/_0.2)] text-accent-soft";
+
+// Checklist <ul>: 12px-gap column. <li> rows have 14px body / 13px @700px,
+// pretty-wrap, and emphasised <em> spans use ink + medium weight.
+const LIST_CLASS =
+  "flex flex-col gap-3 m-0 p-0 list-none " +
+  "[&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[14px] [&>li]:leading-[1.5] [&>li]:text-ink-dim [&>li]:text-pretty " +
+  "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
+  "max-[700px]:[&>li]:text-[13px]";
+
+const LIST_ICN_BASE_CLASS =
+  "w-[22px] h-[22px] rounded-full shrink-0 inline-flex items-center justify-center mt-px border " +
+  "max-[700px]:w-5 max-[700px]:h-5";
+
+const LIST_ICN_BAD_CLASS =
+  "bg-[oklch(0.65_0.18_25_/_0.12)] text-[oklch(0.78_0.16_25)] border-[oklch(0.65_0.18_25_/_0.25)]";
+
+const LIST_ICN_GOOD_CLASS =
+  "bg-[oklch(from_var(--accent)_l_c_h_/_0.15)] text-accent-soft border-[oklch(from_var(--accent)_l_c_h_/_0.3)]";
+
+const CARD_FOOT_CLASS =
+  "mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";
+
 const ARROW_ICON = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
     <path
@@ -351,21 +384,23 @@ export function Case({
               <span className={CARD_NUM_CLASS}>{beforeNum}</span>
             </div>
             <CaseShot src={beforeShotSrc} url={beforeShotUrl} alt={beforeShotAlt} />
-            <h3 className="case-tagline">
-              <span className="case-tagline-icn case-tagline-icn-bad">×</span>
+            <h3 className={TAGLINE_CLASS}>
+              <span className={`${TAGLINE_ICN_BASE_CLASS} ${TAGLINE_ICN_BAD_CLASS}`}>
+                ×
+              </span>
               {beforeTagline}
             </h3>
-            <ul className="case-list">
+            <ul className={LIST_CLASS}>
               {beforeList.map((item, i) => (
                 <li key={i}>
-                  <span className="case-list-icn case-list-icn-bad">
+                  <span className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_BAD_CLASS}`}>
                     <CrossIcon />
                   </span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="case-card-foot">{beforeFoot}</p>
+            <p className={CARD_FOOT_CLASS}>{beforeFoot}</p>
           </article>
 
           <article className={`${CARD_BASE_CLASS} ${CARD_AFTER_CLASS}`}>
@@ -377,21 +412,23 @@ export function Case({
               <span className={CARD_NUM_CLASS}>{afterNum}</span>
             </div>
             <CaseShot src={afterShotSrc} url={afterShotUrl} alt={afterShotAlt} />
-            <h3 className="case-tagline">
-              <span className="case-tagline-icn case-tagline-icn-good">✓</span>
+            <h3 className={TAGLINE_CLASS}>
+              <span className={`${TAGLINE_ICN_BASE_CLASS} ${TAGLINE_ICN_GOOD_CLASS}`}>
+                ✓
+              </span>
               {afterTagline}
             </h3>
-            <ul className="case-list">
+            <ul className={LIST_CLASS}>
               {afterList.map((item, i) => (
                 <li key={i}>
-                  <span className="case-list-icn case-list-icn-good">
+                  <span className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_GOOD_CLASS}`}>
                     <CheckIcon />
                   </span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="case-card-foot">{afterFoot}</p>
+            <p className={CARD_FOOT_CLASS}>{afterFoot}</p>
           </article>
         </div>
 
