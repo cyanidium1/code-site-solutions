@@ -18,7 +18,7 @@ export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
 
   return (
     <section
-      className="relative py-[var(--section-y)] px-[var(--gutter-x)] bg-bg overflow-hidden"
+      className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden"
       aria-labelledby="launch-cta-heading"
     >
       <div className="relative mx-auto max-w-container min-h-[480px] grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center max-[1280px]:min-h-[420px] max-[1024px]:grid-cols-[minmax(0,1fr)] max-[1024px]:min-h-0 max-[1024px]:gap-10">
@@ -44,7 +44,7 @@ export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
           </Link>
         </div>
         <div
-          className="absolute top-1/2 left-[calc(50%-140px)] -translate-y-1/2 w-[calc(50%+270px+var(--gutter-x))] max-w-[1120px] pointer-events-none max-[1280px]:left-[calc(50%-24px)] max-[1280px]:w-[calc(50%+24px+var(--gutter-x))] max-[1024px]:static max-[1024px]:translate-y-0 max-[1024px]:w-full max-[1024px]:max-w-[720px] max-[1024px]:mx-auto [&_img]:block [&_img]:w-full [&_img]:h-auto"
+          className="absolute top-1/2 left-[calc(50%-140px)] -translate-y-1/2 w-[calc(50%+270px+48px)] max-w-[1120px] pointer-events-none max-[1280px]:left-[calc(50%-24px)] max-[1280px]:w-[calc(50%+24px+48px)] max-[1024px]:static max-[1024px]:translate-y-0 max-[1024px]:w-full max-[1024px]:max-w-[720px] max-[1024px]:mx-auto [&_img]:block [&_img]:w-full [&_img]:h-auto"
           aria-hidden="false"
         >
           <Image

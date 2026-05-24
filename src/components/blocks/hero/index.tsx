@@ -27,9 +27,9 @@ const HERO_BG_CLASS =
 
 // U — hero shell: top padding shrinks at ≤1440 and zeroes at ≤640;
 // bottom padding shrinks at both breakpoints. Horizontal padding is the
-// shared --gutter-x token from globals.css.
+// canonical mobile-first gutter stack (24/32/48px at base/sm/lg).
 const HERO_SHELL_CLASS =
-  "relative z-[5] pt-6 px-(--gutter-x) pb-[60px] " +
+  "relative z-[5] pt-6 px-6 sm:px-8 lg:px-12 pb-[60px] " +
   "max-[1440px]:pt-8 max-[1440px]:pb-14 " +
   "max-[640px]:pt-0 max-[640px]:pb-9";
 
@@ -293,7 +293,7 @@ const TICKER_ROW_CLASS =
 const HERO_RIGHT_CLASS =
   "relative min-w-0 w-full h-full min-h-[420px] overflow-visible [contain:layout] z-10 " +
   "max-[640px]:-order-1 max-[640px]:[aspect-ratio:auto] max-[640px]:z-[-1] max-[640px]:h-[320px] " +
-  "max-[640px]:mx-[calc(var(--gutter-x)*-1)] max-[640px]:-mb-10 max-[640px]:w-[calc(100%+(var(--gutter-x)*2))]";
+  "max-[640px]:-mx-6 max-[640px]:-mb-10 max-[640px]:w-[calc(100%+48px)]";
 
 export type Feature = { label: string; sub: string };
 
