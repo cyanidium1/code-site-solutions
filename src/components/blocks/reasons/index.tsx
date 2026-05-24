@@ -1,5 +1,12 @@
 import { cn } from "@/lib/shared/cn";
-import "./reasons.css";
+
+// Background decoration: 2-layer radial gradient + masked vertical-line grid
+// overlay. Inlined as arbitrary values so no semantic .reasons-bg class needed.
+const REASONS_BG_CLASS = [
+  "absolute inset-0 z-0 pointer-events-none",
+  "bg-[radial-gradient(ellipse_50%_40%_at_90%_10%,oklch(from_var(--color-accent-2)_l_c_h_/_0.08),transparent_70%),radial-gradient(ellipse_40%_50%_at_5%_80%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%)]",
+  "before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.02)_1px,transparent_1px)] before:[background-size:80px_80px] before:[mask:radial-gradient(ellipse_70%_80%_at_50%_50%,black,transparent)] before:[-webkit-mask:radial-gradient(ellipse_70%_80%_at_50%_50%,black,transparent)]",
+].join(" ");
 
 export type Reason = {
   n: string;
@@ -116,7 +123,7 @@ export function Reasons({
 }) {
   return (
     <section className="relative py-[var(--section-y-lg)] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[640px]:px-[18px]">
-      <div className="reasons-bg absolute inset-0 z-0 pointer-events-none" />
+      <div className={REASONS_BG_CLASS} />
 
       <div className="relative z-[2] max-w-container mx-auto">
         <header className="grid grid-cols-[minmax(0,1fr)_auto] gap-10 items-end mb-[72px] pb-8 border-b border-line max-[1100px]:mb-14 max-[1100px]:pb-6 max-[1100px]:gap-8 max-[640px]:grid-cols-1 max-[640px]:items-start max-[640px]:gap-4 max-[640px]:mb-9 max-[640px]:pb-5">
