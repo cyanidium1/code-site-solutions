@@ -128,10 +128,10 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
   return (
     <aside
       className={
-        "sticky top-24 self-start border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] " +
-        "p-[22px] pb-6 max-h-[calc(100vh-112px)] overflow-y-auto [scrollbar-width:thin] " +
+        "static self-start border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] " +
+        "p-[22px] pb-6 max-h-none overflow-y-auto [scrollbar-width:thin] " +
         "[&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-thumb]:bg-line-strong [&::-webkit-scrollbar-thumb]:rounded-full " +
-        "max-[1100px]:static max-[1100px]:max-h-none max-[760px]:rounded-[18px] max-[760px]:p-[18px]"
+        "max-[760px]:rounded-[18px] max-[760px]:p-[18px] xl:sticky xl:top-24 xl:max-h-[calc(100vh-112px)]"
       }
     >
       <div className={SECTION}>

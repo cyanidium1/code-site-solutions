@@ -157,7 +157,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
   const renderFeatureGroup = (title: string, items: typeof FEATURE_OPTIONS) => (
     <>
       <label className="flex flex-col gap-[6px] text-[13px] text-ink">{title}</label>
-      <div className="grid gap-[10px] grid-cols-3 max-[1100px]:grid-cols-2 max-[760px]:grid-cols-1">
+      <div className="grid gap-[10px] grid-cols-2 max-[760px]:grid-cols-1 xl:grid-cols-3">
         {items.map((option) => (
           <label key={option.id} className={CHECKBOX_CLASS}>
             <input
@@ -213,7 +213,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         <h3 className="font-display">{t("controls.presetTitle")}</h3>
         <div className={GROUP_CONTENT_CLASS}>
           <p className={NOTE_CLASS}>{t("controls.presetNote")}</p>
-          <div className="grid grid-cols-3 gap-[14px] max-[1100px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-[14px] xl:grid-cols-3">
             {PACKAGE_PRESETS.map((preset) => {
               const includes = t.raw(`options.presets.${preset.id}.includes`) as string[];
               const isActive = selectedPreset === preset.id;
@@ -234,7 +234,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                     "[&>b]:mt-1 [&>b]:border [&>b]:border-line [&>b]:rounded-full [&>b]:px-3 [&>b]:py-2 [&>b]:w-fit " +
                     "[&>b]:text-[10px] [&>b]:tracking-[0.1em] [&>b]:uppercase [&>b]:text-ink [&>b]:font-semibold " +
                     (isRecommended
-                      ? "border-[oklch(from_var(--accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] -translate-y-[6px] hover:-translate-y-[8px] max-[1100px]:translate-y-0 max-[1100px]:hover:-translate-y-[2px] [&>b]:bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] [&>b]:border-transparent [&>b]:text-[oklch(1_0_0_/_0.98)] "
+                      ? "border-[oklch(from_var(--accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-[2px] xl:-translate-y-[6px] xl:hover:-translate-y-[8px] [&>b]:bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] [&>b]:border-transparent [&>b]:text-[oklch(1_0_0_/_0.98)] "
                       : "bg-[oklch(0.16_0.005_300)] ") +
                     (isActive
                       ? "border-[oklch(from_var(--accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.22)]"
@@ -357,7 +357,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         <summary>{t("controls.section02")}</summary>
         <div className={GROUP_CONTENT_CLASS}>
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.designLabel")}</label>
-          <div className="grid grid-cols-3 gap-2 max-[1100px]:grid-cols-2 max-[760px]:grid-cols-1">
+          <div className="grid grid-cols-2 gap-2 max-[760px]:grid-cols-1 xl:grid-cols-3">
             {Object.entries(DESIGN_COMPLEXITY_OPTIONS).map(([id, option]) => {
               const isActive = value.designComplexity === id;
               return (
@@ -435,7 +435,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           <label className="inline-flex items-center gap-[6px] text-[12px] text-ink-dim">
             <Database size={14} /> {t("controls.cmsSubgroup")}
           </label>
-          <div className="grid gap-[10px] grid-cols-3 max-[1100px]:grid-cols-2 max-[760px]:grid-cols-1">
+          <div className="grid gap-[10px] grid-cols-2 max-[760px]:grid-cols-1 xl:grid-cols-3">
             {CMS_UPGRADES.map((option) => (
               <label key={option.id} className={CHECKBOX_CLASS}>
                 <input
@@ -461,7 +461,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           <label className="inline-flex items-center gap-[6px] text-[12px] text-ink-dim">
             <Search size={14} /> {t("controls.seoSubgroup")}
           </label>
-          <div className="grid gap-[10px] grid-cols-3 max-[1100px]:grid-cols-2 max-[760px]:grid-cols-1">
+          <div className="grid gap-[10px] grid-cols-2 max-[760px]:grid-cols-1 xl:grid-cols-3">
             {SEO_OPTIONS.map((option) => (
               <label key={option.id} className={CHECKBOX_CLASS}>
                 <input

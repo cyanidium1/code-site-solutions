@@ -56,7 +56,7 @@ type InfoCard = {
 
 function InfoCardGrid({ cards }: { cards: InfoCard[] }) {
   return (
-    <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[760px]:grid-cols-1">
+    <div className="grid grid-cols-2 gap-4 max-[760px]:grid-cols-1 xl:grid-cols-3">
       {cards.map((c) => {
         const Icon = c.icon;
         return (
@@ -190,7 +190,7 @@ export function WebsiteCalculator() {
             <p className={hpSubClass}>{t("customizer.sub")}</p>
           </div>
 
-          <div className="grid grid-cols-[minmax(0,1fr)_360px] gap-6 items-start max-[1100px]:grid-cols-[1fr]">
+          <div className="grid grid-cols-[1fr] gap-6 items-start xl:grid-cols-[minmax(0,1fr)_360px]">
             <CalculatorControls value={input} onChange={setInput} />
             <EstimateSummary
               input={input}
@@ -213,7 +213,7 @@ export function WebsiteCalculator() {
             <p className={hpSubClass}>{t("afterLaunch.sub")}</p>
           </div>
 
-          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-[18px] max-[1100px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-[18px] xl:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
             <div className="border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] px-5 pt-5 pb-[22px] flex flex-col gap-3">
               <H3 variant="calc-after">{t("afterLaunch.maintenance.title")}</H3>
               <p className={NOTE}>{t("afterLaunch.maintenance.note")}</p>

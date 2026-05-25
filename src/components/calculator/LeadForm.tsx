@@ -156,7 +156,7 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
   ];
 
   return (
-    <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,380px)] gap-[18px] items-stretch max-[1100px]:grid-cols-1">
+    <div className="grid grid-cols-1 gap-[18px] items-stretch xl:grid-cols-[minmax(0,1.2fr)_minmax(0,380px)]">
       <form
         className="border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] p-6 grid gap-3 h-full [&_input:focus-visible]:outline-2 [&_input:focus-visible]:outline-accent-soft [&_input:focus-visible]:outline-offset-2 [&_textarea:focus-visible]:outline-2 [&_textarea:focus-visible]:outline-accent-soft [&_textarea:focus-visible]:outline-offset-2 [&_select:focus-visible]:outline-2 [&_select:focus-visible]:outline-accent-soft [&_select:focus-visible]:outline-offset-2"
         onSubmit={onSubmit}
@@ -289,7 +289,7 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
         ) : null}
       </form>
 
-      <aside className="flex flex-col gap-[14px] h-full max-[1100px]:h-auto">
+      <aside className="flex flex-col gap-[14px] h-auto xl:h-full">
         <div className="border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] px-[22px] pt-[22px] pb-5 flex-1 flex flex-col gap-[14px]">
           <h4 className="m-0 font-sans text-[15px] font-bold tracking-[-0.01em] text-ink">{t("afterSubmitTitle")}</h4>
           <ol className="list-none m-0 p-0 grid gap-[14px]">
