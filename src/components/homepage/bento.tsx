@@ -413,8 +413,8 @@ const cellBase =
   "opacity-0 translate-y-6 scale-[0.97] blur-[6px] " +
   "[transition:opacity_0.85s_cubic-bezier(0.2,0.8,0.2,1),transform_0.85s_cubic-bezier(0.2,0.8,0.2,1),filter_0.85s_cubic-bezier(0.2,0.8,0.2,1)] " +
   "[transition-delay:calc(var(--i,0)*0.09s)] " +
-  "group-data-[visible=true]/bento-reveal:opacity-100 group-data-[visible=true]/bento-reveal:translate-y-0 group-data-[visible=true]/bento-reveal:scale-100 group-data-[visible=true]/bento-reveal:blur-0 " +
-  "motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:blur-0 motion-reduce:transition-none " +
+  "group-data-[visible=true]/bento-reveal:opacity-100 group-data-[visible=true]/bento-reveal:translate-y-0 group-data-[visible=true]/bento-reveal:scale-100 group-data-[visible=true]/bento-reveal:blur-none " +
+  "motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:blur-none motion-reduce:transition-none " +
   // ::before top accent line that fades in after the entrance settles
   "before:pointer-events-none before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--accent)_l_c_h_/_0.45),transparent)] before:opacity-0 before:transition-opacity before:duration-[600ms] before:[transition-delay:calc(var(--i,0)*0.09s+0.4s)] " +
   "group-data-[visible=true]/bento-reveal:before:opacity-100 motion-reduce:before:opacity-100 motion-reduce:before:transition-none";
