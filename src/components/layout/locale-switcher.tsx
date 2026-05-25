@@ -12,11 +12,11 @@ import { resolveLocaleAlternate } from "@/constants/i18n-routes";
 // trigger color react to [open] via `group-open/locale:*` modifiers.
 const localeDdClass = "group/locale relative self-stretch flex items-center";
 const localeTriggerClass =
-  "list-none inline-flex items-center gap-[5px] p-0 border-0 bg-transparent font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim cursor-pointer transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/locale:text-ink max-[1440px]:text-[10.5px] max-xl:text-[10px] max-xl:tracking-[0.1em] [&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 group-open/locale:[&_svg]:rotate-180";
+  "list-none inline-flex items-center gap-[5px] min-h-11 px-1 py-0 border-0 bg-transparent font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim cursor-pointer transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/locale:text-ink max-[1440px]:text-[10.5px] max-xl:text-[10px] max-xl:tracking-[0.1em] [&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 group-open/locale:[&_svg]:rotate-180";
 const localePanelClass =
   "hidden group-open/locale:flex absolute top-[calc(100%+12px)] right-0 min-w-[132px] p-1.5 border border-line rounded-[14px] bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60] flex-col gap-0.5";
 const localePanelItemBaseClass =
-  "block px-3 py-2 rounded-[10px] font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim no-underline cursor-pointer transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
+  "inline-flex items-center w-full min-h-11 px-3 py-2 rounded-[10px] font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim no-underline cursor-pointer transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
 const localePanelItemActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.12)] text-ink";
 const localePanelItemDisabledClass =
   "text-ink-3 opacity-40 cursor-not-allowed pointer-events-none hover:bg-transparent hover:text-ink-3";
