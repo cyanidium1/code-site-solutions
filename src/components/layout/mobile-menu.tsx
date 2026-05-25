@@ -99,7 +99,7 @@ const drawerLocaleDdClass = "self-start relative group/dlocale";
 const drawerLocaleTriggerClass =
   "list-none inline-flex items-center gap-2 px-3.5 py-2 border border-line rounded-full " +
   "bg-[oklch(1_0_0/0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim " +
-  "cursor-pointer select-none min-h-9 [&::-webkit-details-marker]:hidden " +
+  "cursor-pointer select-none min-h-11 [&::-webkit-details-marker]:hidden " +
   "[&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 " +
   "group-open/dlocale:[&_svg]:rotate-180";
 const drawerLocalePanelClass =
@@ -108,7 +108,7 @@ const drawerLocalePanelClass =
   "backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] " +
   "z-[60] flex-col gap-0.5";
 const drawerLocaleItemBaseClass =
-  "block w-full text-left px-3.5 py-2.5 border-0 rounded-[10px] bg-transparent " +
+  "inline-flex items-center w-full text-left px-3.5 py-2.5 min-h-11 border-0 rounded-[10px] bg-transparent " +
   "font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim cursor-pointer " +
   "transition-[background,color] duration-150";
 const drawerLocaleItemActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.14)] text-ink";
