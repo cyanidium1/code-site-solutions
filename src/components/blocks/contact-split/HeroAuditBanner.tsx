@@ -32,7 +32,7 @@ function HeroAuditBannerInner() {
         <div className="font-sans font-bold text-[13px] tracking-[-0.005em] text-ink mb-1 md:text-[14px]">
           {heading}
         </div>
-        <p className="text-[12.5px] leading-[1.5] text-[var(--ink-2)] m-0 md:text-[13px]">
+        <p className="text-[12.5px] leading-[1.5] text-[var(--color-ink-dim)] m-0 md:text-[13px]">
           {body}
         </p>
       </div>

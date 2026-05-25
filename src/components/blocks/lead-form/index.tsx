@@ -38,23 +38,23 @@ import { submitLead } from "./submit";
 // Same pattern Session 2 used for the FAQ accordion slots.
 
 const LABEL_CLASS =
-  "!text-[var(--ink-2)] font-medium !text-[13px] tracking-[0.005em] " +
+  "!text-[var(--color-ink-dim)] font-medium !text-[13px] tracking-[0.005em] " +
   "after:!text-accent-soft";
 
 const WRAPPER_CLASS =
   "border border-line-strong bg-[oklch(0.16_0.005_300_/_0.7)] shadow-none transition-[border-color,background-color] duration-200 " +
-  "hover:!border-[var(--ink-3)] hover:!bg-[oklch(0.16_0.005_300_/_0.9)] " +
+  "hover:!border-[var(--color-ink-3)] hover:!bg-[oklch(0.16_0.005_300_/_0.9)] " +
   "data-[focus=true]:!border-accent-soft data-[focus=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
   "data-[focus-visible=true]:!border-accent-soft data-[focus-visible=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
   "group-data-[invalid=true]:!border-[oklch(0.65_0.18_25)]";
 
 const INPUT_CLASS =
   "!text-ink !font-sans !text-[14px] tracking-[0.005em] " +
-  "placeholder:!text-[var(--ink-3)] placeholder:!font-sans";
+  "placeholder:!text-[var(--color-ink-3)] placeholder:!font-sans";
 
 const TEXTAREA_INPUT_CLASS = `${INPUT_CLASS} leading-[1.5]`;
 
-const DESCRIPTION_CLASS = "!text-[var(--ink-3)]";
+const DESCRIPTION_CLASS = "!text-[var(--color-ink-3)]";
 
 const ERROR_MESSAGE_CLASS = "!text-[oklch(0.78_0.14_25)]";
 
@@ -80,7 +80,7 @@ const TEXTAREA_CLASSNAMES = {
 // shown. `value` is the visible text inside the trigger.
 const SELECT_TRIGGER_CLASS =
   "border border-line-strong !bg-[oklch(0.16_0.005_300_/_0.7)] !shadow-none transition-[border-color,background-color] duration-200 " +
-  "hover:!border-[var(--ink-3)] hover:!bg-[oklch(0.16_0.005_300_/_0.9)] " +
+  "hover:!border-[var(--color-ink-3)] hover:!bg-[oklch(0.16_0.005_300_/_0.9)] " +
   "data-[focus=true]:!border-accent-soft data-[focus=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
   "data-[focus-visible=true]:!border-accent-soft data-[focus-visible=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
   "data-[open=true]:!border-accent-soft data-[open=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
@@ -101,7 +101,7 @@ const SELECT_POPOVER_CLASS =
 // deepens accent. Same effects the legacy `.lead-form-popover-item[…]` rules
 // produced, reached via data-* variants on the item itself.
 const SELECT_ITEM_CLASS =
-  "!text-[var(--ink-2)] rounded-lg transition-[background-color,color] duration-150 " +
+  "!text-[var(--color-ink-dim)] rounded-lg transition-[background-color,color] duration-150 " +
   "data-[hover=true]:!bg-[rgba(255,255,255,0.06)] data-[hover=true]:!text-ink " +
   "data-[focus=true]:!bg-[rgba(255,255,255,0.06)] data-[focus=true]:!text-ink " +
   "data-[focus-visible=true]:!bg-[rgba(255,255,255,0.06)] data-[focus-visible=true]:!text-ink " +
@@ -127,7 +127,7 @@ const SUBMIT_BUTTON_CLASS =
 
 // Compact-form "more details" toggle pill.
 const TOGGLE_CLASS =
-  "inline-flex items-center gap-2 self-start py-2.5 px-[14px] border border-dashed border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] text-[var(--ink-2)] font-mono text-[12px] tracking-[0.04em] cursor-pointer " +
+  "inline-flex items-center gap-2 self-start py-2.5 px-[14px] border border-dashed border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] text-[var(--color-ink-dim)] font-mono text-[12px] tracking-[0.04em] cursor-pointer " +
   "transition-[color,border-color,background-color] duration-200 " +
   "hover:text-accent-soft hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] hover:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.05)]";
 
@@ -204,7 +204,7 @@ function LeadFormInner({
         role="status"
       >
         <div
-          className="w-11 h-11 rounded-[14px] inline-flex items-center justify-center bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] mb-1"
+          className="w-11 h-11 rounded-[14px] inline-flex items-center justify-center bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] mb-1"
           aria-hidden="true"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -220,10 +220,10 @@ function LeadFormInner({
         <h3 className="font-sans text-[22px] font-bold text-ink m-0 tracking-[-0.01em]">
           {strings.successTitle}
         </h3>
-        <p className="text-[14px] leading-[1.6] text-[var(--ink-2)] m-0">
+        <p className="text-[14px] leading-[1.6] text-[var(--color-ink-dim)] m-0">
           {strings.successBody}
         </p>
-        <p className="text-[14px] leading-[1.6] text-[var(--ink-2)] m-0">
+        <p className="text-[14px] leading-[1.6] text-[var(--color-ink-dim)] m-0">
           {strings.successOrTg}{" "}
           <a
             href={SITE_CONTACT.telegram}
@@ -381,7 +381,7 @@ function LeadFormInner({
               />
               <span>
                 {showDetails ? strings.hideDetails : strings.showDetails}
-                <span className="text-[var(--ink-3)] lowercase">
+                <span className="text-[var(--color-ink-3)] lowercase">
                   {" "}
                   · {strings.detailsMeta}
                 </span>
@@ -488,7 +488,7 @@ function LeadFormInner({
             </div>
           )}
 
-          <p className="font-mono text-[11px] leading-[1.55] tracking-[0.02em] text-[var(--ink-3)] mt-1 mb-0">
+          <p className="font-mono text-[11px] leading-[1.55] tracking-[0.02em] text-[var(--color-ink-3)] mt-1 mb-0">
             {strings.privacy}
           </p>
         </Form>

@@ -35,7 +35,7 @@ function MarkerCircle({ n, size = "lg" }: { n: string; size?: "lg" | "sm" }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center justify-center rounded-full border border-[oklch(from_var(--accent)_l_c_h_/_0.4)] bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft font-mono font-semibold tracking-[0.04em]",
+        "inline-flex items-center justify-center rounded-full border border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft font-mono font-semibold tracking-[0.04em]",
         sz,
       )}
     >
@@ -47,16 +47,16 @@ function MarkerCircle({ n, size = "lg" }: { n: string; size?: "lg" | "sm" }) {
 function ColumnList({ col }: { col: TimelineColumn }) {
   return (
     <div className="flex flex-col">
-      <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-[var(--ink-3)] mb-3.5">
+      <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-[var(--color-ink-3)] mb-3.5">
         {col.heading}
       </div>
       <ul className="flex flex-col gap-2.5">
         {col.items.map((it, i) => (
           <li
             key={i}
-            className="flex gap-2.5 items-start font-sans text-[13.5px] leading-[1.5] text-[var(--ink-2)]"
+            className="flex gap-2.5 items-start font-sans text-[13.5px] leading-[1.5] text-[var(--color-ink-dim)]"
           >
-            <span className="inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full mt-px bg-[oklch(from_var(--accent)_l_c_h_/_0.15)] text-accent-soft">
+            <span className="inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full mt-px bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft">
               {CHECK}
             </span>
             <span>{it}</span>
@@ -84,7 +84,7 @@ export function VerticalTimeline({
         {(eyebrow || heading || sub) && (
           <div className="mb-9 max-w-[820px] lg:mb-14">
             {eyebrow ? (
-              <span className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)] mb-6">
+              <span className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--color-ink-3)] mb-6">
                 {eyebrow}
               </span>
             ) : null}
@@ -94,7 +94,7 @@ export function VerticalTimeline({
               </h2>
             ) : null}
             {sub ? (
-              <p className="mt-5 font-sans text-[14.5px] leading-[1.6] text-[var(--ink-2)] max-w-[680px] lg:text-[16px]">
+              <p className="mt-5 font-sans text-[14.5px] leading-[1.6] text-[var(--color-ink-dim)] max-w-[680px] lg:text-[16px]">
                 {sub}
               </p>
             ) : null}
@@ -128,12 +128,12 @@ export function VerticalTimeline({
                     <h3 className="font-display font-bold text-[clamp(20px,2.2vw,26px)] leading-[1.2] tracking-[-0.01em] text-ink m-0 [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
                       {s.title}
                     </h3>
-                    <span className="inline-flex items-center px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[10.5px] tracking-[0.08em] uppercase text-[var(--ink-3)]">
+                    <span className="inline-flex items-center px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[10.5px] tracking-[0.08em] uppercase text-[var(--color-ink-3)]">
                       {s.duration}
                     </span>
                   </div>
 
-                  <p className="font-sans text-[14px] leading-[1.6] text-[var(--ink-2)] max-w-[760px] mb-7 lg:text-[15px] [&_em]:italic [&_em]:text-ink">
+                  <p className="font-sans text-[14px] leading-[1.6] text-[var(--color-ink-dim)] max-w-[760px] mb-7 lg:text-[15px] [&_em]:italic [&_em]:text-ink">
                     {s.body}
                   </p>
 

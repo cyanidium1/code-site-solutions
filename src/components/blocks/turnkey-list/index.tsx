@@ -79,12 +79,12 @@ const TURNKEY_BG =
   "bg-[radial-gradient(ellipse_50%_40%_at_80%_10%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_50%_50%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.04),transparent_70%)]";
 
 const EYEBROW_CLASS =
-  "inline-flex items-center gap-2.5 py-1.5 px-3 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-[var(--ink-3)] uppercase " +
+  "inline-flex items-center gap-2.5 py-1.5 px-3 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-[var(--color-ink-3)] uppercase " +
   "before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]";
 
 // Brand-gradient italic em inside the H2 (cool→warm vertical sweep with text clip).
 const HEADING_EM_CLASS =
-  "[&_em]:italic [&_em]:bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
+  "[&_em]:italic [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const CELL_CLASS =
   "relative flex items-start gap-4 pt-[22px] pr-[22px] pb-6 pl-[22px] border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
@@ -95,12 +95,12 @@ const ICON_BOX_CLASS =
 
 const NOT_LIST_CLASS =
   "list-none m-0 p-0 grid grid-cols-1 gap-y-2 gap-x-7 md:grid-cols-2 " +
-  "[&_li]:relative [&_li]:pl-[18px] [&_li]:text-[13.5px] [&_li]:leading-[1.5] [&_li]:text-[var(--ink-2)] " +
-  "[&_li]:before:content-['—'] [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-0 [&_li]:before:text-[var(--ink-3)]";
+  "[&_li]:relative [&_li]:pl-[18px] [&_li]:text-[13.5px] [&_li]:leading-[1.5] [&_li]:text-[var(--color-ink-dim)] " +
+  "[&_li]:before:content-['—'] [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-0 [&_li]:before:text-[var(--color-ink-3)]";
 
 const DEFAULT_FOOTER = (
   <div className="p-[22px_26px_24px] border border-dashed border-line-strong rounded-2xl bg-[oklch(1_0_0_/_0.02)]">
-    <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-2)] mb-[14px]">
+    <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--color-ink-dim)] mb-[14px]">
       Чого ми не робимо
     </div>
     <ul className={NOT_LIST_CLASS}>
@@ -108,7 +108,7 @@ const DEFAULT_FOOTER = (
         <li key={item}>{item}</li>
       ))}
     </ul>
-    <p className="mt-4 text-[12.5px] leading-[1.6] text-[var(--ink-3)] italic">
+    <p className="mt-4 text-[12.5px] leading-[1.6] text-[var(--color-ink-3)] italic">
       Якщо потрібне — порадимо перевірених партнерів. Не накручуємо ціну за
       чужу роботу.
     </p>
@@ -150,7 +150,7 @@ export function TurnkeyList({
             {heading}
           </H2>
           {sub ? (
-            <p className="mt-5 font-sans text-base leading-[1.6] text-[var(--ink-2)] max-w-[640px]">
+            <p className="mt-5 font-sans text-base leading-[1.6] text-[var(--color-ink-dim)] max-w-[640px]">
               {sub}
             </p>
           ) : null}
@@ -161,7 +161,7 @@ export function TurnkeyList({
             const num = String(i + 1).padStart(2, "0");
             return (
               <div className={CELL_CLASS} key={`${it.title}-${i}`}>
-                <span className="absolute top-[14px] right-4 font-mono text-[10px] tracking-[0.14em] text-[var(--ink-3)]">
+                <span className="absolute top-[14px] right-4 font-mono text-[10px] tracking-[0.14em] text-[var(--color-ink-3)]">
                   {num}
                 </span>
                 <div className={ICON_BOX_CLASS} aria-hidden="true">
@@ -175,7 +175,7 @@ export function TurnkeyList({
                   <h3 className="font-actay font-semibold text-[15.5px] tracking-[-0.01em] text-ink leading-[1.2] m-0">
                     {it.title}
                   </h3>
-                  <p className="text-[13.5px] leading-[1.5] text-[var(--ink-2)] m-0">
+                  <p className="text-[13.5px] leading-[1.5] text-[var(--color-ink-dim)] m-0">
                     {it.line}
                   </p>
                 </div>

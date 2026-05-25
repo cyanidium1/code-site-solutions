@@ -53,7 +53,7 @@ export function CtaBanner({
         >
           {eyebrow ? (
             <span
-              className={`relative mb-6 inline-flex items-center gap-2.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--ink-3)] ${EYEBROW_DOT}`}
+              className={`relative mb-6 inline-flex items-center gap-2.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-ink-3)] ${EYEBROW_DOT}`}
             >
               {eyebrow}
             </span>
@@ -62,7 +62,7 @@ export function CtaBanner({
             {heading}
           </h2>
           {sub ? (
-            <p className="relative mt-4.5 max-w-[620px] font-sans text-[14.5px] leading-[1.55] text-[var(--ink-2)] lg:text-[16px]">
+            <p className="relative mt-4.5 max-w-[620px] font-sans text-[14.5px] leading-[1.55] text-[var(--color-ink-dim)] lg:text-[16px]">
               {sub}
             </p>
           ) : null}
@@ -77,7 +77,7 @@ export function CtaBanner({
             {ctaSecondary ? (
               <a
                 href={ctaSecondary.href}
-                className={`${BTN_BASE} border border-[var(--line-2)] bg-transparent text-ink hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] hover:bg-[oklch(1_0_0_/_0.04)]`}
+                className={`${BTN_BASE} border border-[var(--color-line-strong)] bg-transparent text-ink hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] hover:bg-[oklch(1_0_0_/_0.04)]`}
               >
                 {ctaSecondary.label}
               </a>

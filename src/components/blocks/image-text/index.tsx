@@ -95,7 +95,7 @@ export function ImageText({
     ? "flex flex-col max-w-[720px] mx-auto items-center"
     : "flex flex-col";
 
-  const eyebrowClass = `inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)] before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)] ${
+  const eyebrowClass = `inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--color-ink-3)] before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)] ${
     isCentered ? "self-center" : "self-start"
   }`;
 
@@ -108,7 +108,7 @@ export function ImageText({
   const checkColorClass =
     bulletIcon === "cross"
       ? "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.78_0.16_25)]"
-      : "bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] text-accent-soft";
+      : "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft";
 
   const imageBlock = <div className={imageClass}>{image}</div>;
   const contentBlock = (
@@ -120,7 +120,7 @@ export function ImageText({
       >
         {heading}
       </H2>
-      <div className="mt-6 flex flex-col gap-4 [&_p]:text-[16px] [&_p]:leading-[1.6] [&_p]:text-[var(--ink-2)] [&_p_em]:italic [&_p_em]:text-ink">
+      <div className="mt-6 flex flex-col gap-4 [&_p]:text-[16px] [&_p]:leading-[1.6] [&_p]:text-[var(--color-ink-dim)] [&_p_em]:italic [&_p_em]:text-ink">
         {bodyArr.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
@@ -130,7 +130,7 @@ export function ImageText({
           {bulletList!.map((it, i) => (
             <li
               key={i}
-              className="flex gap-3 items-start font-sans text-[15px] text-[var(--ink-2)] leading-[1.5]"
+              className="flex gap-3 items-start font-sans text-[15px] text-[var(--color-ink-dim)] leading-[1.5]"
             >
               <span className={`${checkBaseClass} ${checkColorClass}`}>
                 {bulletIcon === "cross" ? CROSS : CHECK}
@@ -197,7 +197,7 @@ export function ImageText({
               >
                 {heading}
               </H2>
-              <div className="mt-[18px] flex flex-col gap-3 [&_p]:text-[16px] [&_p]:leading-[1.6] [&_p]:text-[var(--ink-2)]">
+              <div className="mt-[18px] flex flex-col gap-3 [&_p]:text-[16px] [&_p]:leading-[1.6] [&_p]:text-[var(--color-ink-dim)]">
                 {bodyArr.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -207,7 +207,7 @@ export function ImageText({
                   {bulletList!.map((it, i) => (
                     <li
                       key={i}
-                      className="flex gap-3 items-start font-sans text-[15px] text-[var(--ink-2)] leading-[1.5]"
+                      className="flex gap-3 items-start font-sans text-[15px] text-[var(--color-ink-dim)] leading-[1.5]"
                     >
                       <span className={`${checkBaseClass} ${checkColorClass}`}>
                         {bulletIcon === "cross" ? CROSS : CHECK}

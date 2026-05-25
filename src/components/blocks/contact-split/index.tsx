@@ -14,10 +14,10 @@ const HEADING_EM_CLASS =
   "[&_em]:italic [&_em]:bg-[linear-gradient(90deg,oklch(0.7_0.16_250),oklch(0.6_0.18_295),oklch(0.55_0.18_320))] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const EYEBROW_CLASS =
-  "inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)] mb-[14px]";
+  "inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--color-ink-3)] mb-[14px]";
 
 const SUB_CLASS =
-  "text-[14px] leading-[1.6] text-[var(--ink-2)] m-0 mb-7 max-w-[42ch]";
+  "text-[14px] leading-[1.6] text-[var(--color-ink-dim)] m-0 mb-7 max-w-[42ch]";
 
 // Channel row: grid with icon | main | time. Hover bumps border + bg + nudges
 // right. Featured variant uses accent-tinted border/bg and a gradient icon.
@@ -38,10 +38,10 @@ const ICON_BASE_CLASS =
   "w-9 h-9 inline-flex items-center justify-center border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.03)] text-ink";
 
 const ICON_FEATURED_CLASS =
-  "!bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] !text-[oklch(1_0_0_/_0.98)] !border-transparent";
+  "!bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] !text-[oklch(1_0_0_/_0.98)] !border-transparent";
 
 const TIME_BASE_CLASS =
-  "font-mono text-[11px] tracking-[0.02em] text-[var(--ink-3)] text-right whitespace-nowrap max-[500px]:col-start-2 max-[500px]:text-left";
+  "font-mono text-[11px] tracking-[0.02em] text-[var(--color-ink-3)] text-right whitespace-nowrap max-[500px]:col-start-2 max-[500px]:text-left";
 
 const TIME_FEATURED_CLASS = "!text-accent-soft";
 
@@ -95,7 +95,7 @@ export function ContactSplit({
   const meta = CONTACT_META_BY_LOCALE[locale];
   const chrome = CHROME[locale];
   return (
-    <section className="relative py-14 lg:py-20 px-[18px] md:px-8 xl:px-12 bg-[linear-gradient(180deg,var(--bg)_0%,oklch(0.13_0.02_300)_100%)]">
+    <section className="relative py-14 lg:py-20 px-[18px] md:px-8 xl:px-12 bg-[linear-gradient(180deg,var(--color-bg)_0%,oklch(0.13_0.02_300)_100%)]">
       {/* HeroAuditBanner is a client component that reads locale via
           next-intl useLocale — no need to thread the prop. */}
       <HeroAuditBanner />
@@ -135,7 +135,7 @@ export function ContactSplit({
                       <span className="font-sans text-[14px] font-semibold text-ink">
                         {c.label}
                       </span>
-                      <span className="font-mono text-[12px] text-[var(--ink-3)] tracking-[0.02em] overflow-hidden text-ellipsis whitespace-nowrap">
+                      <span className="font-mono text-[12px] text-[var(--color-ink-3)] tracking-[0.02em] overflow-hidden text-ellipsis whitespace-nowrap">
                         {c.handle}
                       </span>
                     </span>
@@ -151,7 +151,7 @@ export function ContactSplit({
               );
             })}
           </ul>
-          <div className="flex flex-wrap gap-2 font-mono text-[11.5px] tracking-[0.02em] text-[var(--ink-3)]">
+          <div className="flex flex-wrap gap-2 font-mono text-[11.5px] tracking-[0.02em] text-[var(--color-ink-3)]">
             <span>📍 {meta.city}</span>
             <span className="opacity-50">·</span>
             <span>🕒 {meta.hours}</span>

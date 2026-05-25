@@ -6,16 +6,16 @@ import { H2 } from "@/components/ui";
 // applied to text via -webkit-text-fill-color: transparent — preserved as
 // arbitrary-value utilities scoped by the [&_em] descendant selector.
 const HEADING_EM_CLASS =
-  "[&_em]:not-italic [&_em]:font-light [&_em]:bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
+  "[&_em]:not-italic [&_em]:font-light [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const SECTION_CLASS =
-  "relative overflow-hidden bg-[var(--bg)] py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
+  "relative overflow-hidden bg-[var(--color-bg)] py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
 
 // Two stacked radial gradients — accent (top-right) + accent-2 (bottom-left).
 // Preserved as raw OKLCH because no @theme token captures this dual-gradient
 // pattern; identical to legacy `.case-bg`.
 const SECTION_BG_CLASS =
-  "absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_40%_50%_at_90%_30%,oklch(from_var(--accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_35%_40%_at_5%_70%,oklch(from_var(--accent-2)_l_c_h_/_0.08),transparent_70%)]";
+  "absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_40%_50%_at_90%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_35%_40%_at_5%_70%,oklch(from_var(--color-accent-2)_l_c_h_/_0.08),transparent_70%)]";
 
 const INNER_CLASS = "relative z-[2] max-w-container mx-auto";
 
@@ -49,7 +49,7 @@ const GRID_CLASS =
   "grid grid-cols-1 gap-[18px] relative " +
   "md:grid-cols-2 md:gap-7 " +
   "md:before:content-['VS'] md:before:absolute md:before:top-1/2 md:before:left-1/2 md:before:-translate-x-1/2 md:before:-translate-y-1/2 md:before:z-[5] " +
-  "md:before:font-display md:before:font-bold md:before:tracking-[0.1em] md:before:text-ink-3 md:before:bg-[var(--bg)] " +
+  "md:before:font-display md:before:font-bold md:before:tracking-[0.1em] md:before:text-ink-3 md:before:bg-[var(--color-bg)] " +
   "md:before:border md:before:border-line-strong md:before:rounded-full md:before:pointer-events-none " +
   "md:before:text-[14px] md:before:px-3 md:before:py-2.5 " +
   "xl:before:text-[18px] xl:before:px-3.5 xl:before:py-3";
@@ -62,11 +62,11 @@ const CARD_BASE_CLASS =
 // plus a ::before that paints a gradient border via mask-composite (preserved
 // verbatim — Tailwind has no utility for this masked border trick).
 const CARD_AFTER_CLASS =
-  "!border-[oklch(from_var(--accent)_l_c_h_/_0.35)] " +
-  "bg-[linear-gradient(180deg,oklch(from_var(--accent)_l_c_h_/_0.06),oklch(from_var(--accent)_l_c_h_/_0.02))] " +
-  "shadow-[0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.15),0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] " +
+  "!border-[oklch(from_var(--color-accent)_l_c_h_/_0.35)] " +
+  "bg-[linear-gradient(180deg,oklch(from_var(--color-accent)_l_c_h_/_0.06),oklch(from_var(--color-accent)_l_c_h_/_0.02))] " +
+  "shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.15),0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] " +
   "before:content-[''] before:absolute before:inset-[-1px] before:rounded-[inherit] " +
-  "before:bg-[linear-gradient(135deg,oklch(from_var(--accent)_l_c_h_/_0.4),transparent_50%)] " +
+  "before:bg-[linear-gradient(135deg,oklch(from_var(--color-accent)_l_c_h_/_0.4),transparent_50%)] " +
   "before:[-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] " +
   "before:[-webkit-mask-composite:xor] before:[mask-composite:exclude] before:p-px before:pointer-events-none";
 
@@ -79,7 +79,7 @@ const BADGE_BEFORE_CLASS =
   "bg-[oklch(1_0_0_/_0.06)] text-ink-dim border border-line-strong";
 
 const BADGE_AFTER_CLASS =
-  "bg-brand-gradient text-[oklch(1_0_0_/_0.98)] border border-[oklch(from_var(--accent)_l_c_h_/_0.5)] shadow-[0_4px_14px_oklch(from_var(--accent)_l_c_h_/_0.4)]";
+  "bg-brand-gradient text-[oklch(1_0_0_/_0.98)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] shadow-[0_4px_14px_oklch(from_var(--color-accent)_l_c_h_/_0.4)]";
 
 const BADGE_DOT_CLASS =
   "w-1.5 h-1.5 rounded-full bg-current opacity-85";
@@ -110,7 +110,7 @@ const SHOT_IMG_WRAP_CLASS =
 // the same accent-tinted radial gradient palette used by other placeholders.
 const SHOT_PLACEHOLDER_CLASS =
   "absolute inset-0 px-[22px] py-7 flex flex-col gap-3.5 " +
-  "bg-[radial-gradient(ellipse_at_30%_20%,oklch(from_var(--accent)_l_c_h_/_0.18)_0%,transparent_55%),radial-gradient(ellipse_at_78%_80%,oklch(0.5_0.18_280_/_0.16)_0%,transparent_55%),linear-gradient(160deg,oklch(0.16_0.012_240)_0%,oklch(0.11_0.006_250)_100%)]";
+  "bg-[radial-gradient(ellipse_at_30%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.18)_0%,transparent_55%),radial-gradient(ellipse_at_78%_80%,oklch(0.5_0.18_280_/_0.16)_0%,transparent_55%),linear-gradient(160deg,oklch(0.16_0.012_240)_0%,oklch(0.11_0.006_250)_100%)]";
 
 const SHOT_PLACEHOLDER_LINE_CLASS =
   "h-3.5 w-[70%] rounded bg-[oklch(1_0_0_/_0.10)]";
@@ -131,7 +131,7 @@ const TAGLINE_ICN_BAD_CLASS =
   "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.75_0.16_25)]";
 
 const TAGLINE_ICN_GOOD_CLASS =
-  "bg-[oklch(from_var(--accent)_l_c_h_/_0.2)] text-accent-soft";
+  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] text-accent-soft";
 
 // Checklist <ul>: 12px-gap column. <li> rows have 14px body / 13px @700px,
 // pretty-wrap, and emphasised <em> spans use ink + medium weight.
@@ -149,7 +149,7 @@ const LIST_ICN_BAD_CLASS =
   "bg-[oklch(0.65_0.18_25_/_0.12)] text-[oklch(0.78_0.16_25)] border-[oklch(0.65_0.18_25_/_0.25)]";
 
 const LIST_ICN_GOOD_CLASS =
-  "bg-[oklch(from_var(--accent)_l_c_h_/_0.15)] text-accent-soft border-[oklch(from_var(--accent)_l_c_h_/_0.3)]";
+  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]";
 
 const CARD_FOOT_CLASS =
   "mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";
@@ -162,7 +162,7 @@ const RESULTS_CLASS =
   "md:mt-14 xl:grid-cols-4";
 
 const RESULT_CLASS =
-  "bg-[var(--bg)] p-4 flex flex-col gap-1.5 relative " +
+  "bg-[var(--color-bg)] p-4 flex flex-col gap-1.5 relative " +
   "md:px-5 md:py-[18px] " +
   "xl:px-7 xl:py-6";
 
@@ -191,8 +191,8 @@ const CTA_ARROW_CLASS =
 
 const CTA_BTN_CLASS =
   "bg-ink text-bg border-0 justify-center px-[18px] py-3.5 rounded-full font-display text-[13px] font-semibold inline-flex items-center gap-2.5 cursor-pointer transition-[transform,box-shadow] duration-200 " +
-  "shadow-[0_4px_16px_oklch(from_var(--accent)_l_c_h_/_0.2),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
-  "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--accent)_l_c_h_/_0.3),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
+  "shadow-[0_4px_16px_oklch(from_var(--color-accent)_l_c_h_/_0.2),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
+  "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.3),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
   "md:justify-normal md:px-[22px] md:py-3";
 
 const ARROW_ICON = (

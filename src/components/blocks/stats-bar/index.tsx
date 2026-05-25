@@ -19,7 +19,7 @@ export function StatsBar({ items }: { items: StatItem[] }) {
               <span className="font-display font-bold text-[22px] tracking-[-0.03em] leading-none text-ink lg:text-[28px] [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
                 {it.value}
               </span>
-              <span className="font-sans text-[9px] text-[var(--ink-3)] uppercase tracking-[0.08em] leading-[1.3] lg:text-[10px]">
+              <span className="font-sans text-[9px] text-[var(--color-ink-3)] uppercase tracking-[0.08em] leading-[1.3] lg:text-[10px]">
                 {it.label}
               </span>
             </div>

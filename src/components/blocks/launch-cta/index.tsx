@@ -33,12 +33,12 @@ export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
               {t("heading")}
             </H2>
           </div>
-          <p className="m-0 font-sans text-[13.5px] leading-[1.6] text-[var(--ink-2)] max-w-[50ch] md:text-[14px]">
+          <p className="m-0 font-sans text-[13.5px] leading-[1.6] text-[var(--color-ink-dim)] max-w-[50ch] md:text-[14px]">
             {t("sub")}
           </p>
           <Link
             href={href}
-            className="self-start inline-flex items-center gap-2.5 px-[22px] py-3 rounded-full bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] text-white font-sans font-semibold text-[13px] tracking-[0.01em] no-underline cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.25)] hover:-translate-y-px hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-[3px] md:px-7 md:py-3.5 md:text-[14px]"
+            className="self-start inline-flex items-center gap-2.5 px-[22px] py-3 rounded-full bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] text-white font-sans font-semibold text-[13px] tracking-[0.01em] no-underline cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.25)] hover:-translate-y-px hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-[3px] md:px-7 md:py-3.5 md:text-[14px]"
           >
             {t("button")}
           </Link>
