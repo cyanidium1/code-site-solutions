@@ -129,8 +129,8 @@ export function ClinicFooter({
     tt: "TikTok",
   };
   return (
-    <footer className="bg-[oklch(0.10_0.005_300)] pt-14 px-12 pb-8 border-t border-line relative max-[1100px]:px-8 max-[700px]:pt-10 max-[700px]:px-[18px] max-[700px]:pb-6">
-      <div className="max-w-container mx-auto grid grid-cols-[1.4fr_1fr_1fr_1fr] gap-12 mb-9 max-[1100px]:grid-cols-2 max-[1100px]:gap-8 max-[700px]:grid-cols-1 max-[700px]:gap-7 max-[700px]:mb-6">
+    <footer className="bg-[oklch(0.10_0.005_300)] pt-10 px-[18px] pb-6 border-t border-line relative md:pt-14 md:px-8 md:pb-8 xl:px-12">
+      <div className="max-w-container mx-auto grid grid-cols-1 gap-7 mb-6 md:grid-cols-2 md:gap-8 md:mb-9 xl:grid-cols-[1.4fr_1fr_1fr_1fr] xl:gap-12">
         <div>
           <div className="font-display font-bold text-[15px] tracking-[0.18em] uppercase text-ink mb-[18px] [&_em]:not-italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
             {brandName}

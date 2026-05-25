@@ -21,7 +21,7 @@ export function PageHero({
     <div>
       {breadcrumbs.length > 0 && (
         <nav
-          className="flex flex-wrap gap-2 items-center font-mono text-[11px] tracking-[0.1em] uppercase text-[var(--ink-3)] mb-9 max-[800px]:mb-6 [&_a]:text-[var(--ink-2)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink"
+          className="flex flex-wrap gap-2 items-center font-mono text-[11px] tracking-[0.1em] uppercase text-[var(--ink-3)] mb-6 lg:mb-9 [&_a]:text-[var(--ink-2)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink"
           aria-label="Breadcrumbs"
         >
           {breadcrumbs.map((c, i) => {
@@ -47,14 +47,14 @@ export function PageHero({
       <H1 variant="page-hero" className="mt-6 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
         {headline}
       </H1>
-      <p className="mt-6 font-sans text-[17px] leading-[1.55] text-[var(--ink-2)] max-[800px]:text-[15px]">
+      <p className="mt-6 font-sans text-[15px] leading-[1.55] text-[var(--ink-2)] lg:text-[17px]">
         {sub}
       </p>
     </div>
   );
 
   return (
-    <section className="page-hero relative overflow-hidden bg-bg pt-[72px] lg:pt-[120px] px-12 max-[800px]:px-6">
+    <section className="page-hero relative overflow-hidden bg-bg pt-[72px] lg:pt-[120px] px-6 lg:px-12">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_60%_60%_at_80%_20%,oklch(from_var(--accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_40%_50%_at_10%_100%,oklch(from_var(--accent-2)_l_c_h_/_0.04),transparent_70%)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.022)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.022)_1px,transparent_1px)] before:bg-[length:64px_64px] before:[mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]" />
       <div className="relative z-[1] max-w-container mx-auto">
         {image ? (

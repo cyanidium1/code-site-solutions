@@ -9,7 +9,7 @@ const HEADING_EM_CLASS =
   "[&_em]:not-italic [&_em]:font-light [&_em]:bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const SECTION_CLASS =
-  "relative overflow-hidden bg-[var(--bg)] py-[72px] lg:py-[120px] px-12 max-[1100px]:px-8 max-[700px]:px-[18px]";
+  "relative overflow-hidden bg-[var(--bg)] py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
 
 // Two stacked radial gradients — accent (top-right) + accent-2 (bottom-left).
 // Preserved as raw OKLCH because no @theme token captures this dual-gradient
@@ -20,9 +20,9 @@ const SECTION_BG_CLASS =
 const INNER_CLASS = "relative z-[2] max-w-container mx-auto";
 
 const HEADER_CLASS =
-  "grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-[60px] items-end mb-16 pb-8 border-b border-line " +
-  "max-[1100px]:grid-cols-1 max-[1100px]:gap-6 max-[1100px]:items-start max-[1100px]:mb-12 " +
-  "max-[700px]:mb-8 max-[700px]:pb-[22px]";
+  "grid grid-cols-1 gap-6 items-start mb-8 pb-[22px] border-b border-line " +
+  "md:mb-12 md:pb-8 " +
+  "xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-[60px] xl:items-end xl:mb-16";
 
 const EYEBROW_CLASS =
   "inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-line-strong rounded-full text-[11px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-[22px]";
@@ -31,12 +31,12 @@ const EYEBROW_DOT_CLASS =
   "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]";
 
 const LEDE_CLASS =
-  "text-[15px] leading-[1.7] text-ink-dim m-0 max-w-[56ch] pb-1.5 text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
-  "max-[1100px]:text-[14px]";
+  "text-[14px] leading-[1.7] text-ink-dim m-0 max-w-[56ch] pb-1.5 text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
+  "xl:text-[15px]";
 
 const META_CLASS =
-  "flex flex-wrap gap-x-9 gap-y-6 mt-6 pt-[18px] border-t border-dashed border-line " +
-  "max-[700px]:gap-x-6 max-[700px]:gap-y-[18px]";
+  "flex flex-wrap gap-x-6 gap-y-[18px] mt-6 pt-[18px] border-t border-dashed border-line " +
+  "md:gap-x-9 md:gap-y-6";
 
 const META_ITEM_CLASS =
   "font-mono text-[11px] tracking-[0.04em] text-ink-3 " +
@@ -46,16 +46,17 @@ const META_ITEM_CLASS =
 // before:content-['VS'] etc; hidden on <=700px (legacy hid it because the
 // stacked-card position was confusing).
 const GRID_CLASS =
-  "grid grid-cols-2 gap-7 relative " +
-  "before:content-['VS'] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:z-[5] " +
-  "before:font-display before:font-bold before:text-[18px] before:tracking-[0.1em] before:text-ink-3 before:bg-[var(--bg)] " +
-  "before:px-3.5 before:py-3 before:border before:border-line-strong before:rounded-full before:pointer-events-none " +
-  "max-[1100px]:before:text-[14px] max-[1100px]:before:px-3 max-[1100px]:before:py-2.5 " +
-  "max-[700px]:grid-cols-1 max-[700px]:gap-[18px] max-[700px]:before:hidden";
+  "grid grid-cols-1 gap-[18px] relative " +
+  "md:grid-cols-2 md:gap-7 " +
+  "md:before:content-['VS'] md:before:absolute md:before:top-1/2 md:before:left-1/2 md:before:-translate-x-1/2 md:before:-translate-y-1/2 md:before:z-[5] " +
+  "md:before:font-display md:before:font-bold md:before:tracking-[0.1em] md:before:text-ink-3 md:before:bg-[var(--bg)] " +
+  "md:before:border md:before:border-line-strong md:before:rounded-full md:before:pointer-events-none " +
+  "md:before:text-[14px] md:before:px-3 md:before:py-2.5 " +
+  "xl:before:text-[18px] xl:before:px-3.5 xl:before:py-3";
 
 const CARD_BASE_CLASS =
-  "relative border border-line rounded-[24px] bg-[oklch(1_0_0_/_0.015)] p-7 flex flex-col overflow-hidden " +
-  "max-[1100px]:p-[22px] max-[700px]:p-[18px]";
+  "relative border border-line rounded-[24px] bg-[oklch(1_0_0_/_0.015)] p-[18px] flex flex-col overflow-hidden " +
+  "md:p-[22px] xl:p-7";
 
 // "After" card variant. Accent-tinted border, soft gradient bg + outer glow,
 // plus a ::before that paints a gradient border via mask-composite (preserved
@@ -90,8 +91,8 @@ const CARD_NUM_CLASS =
 // preserved at 3/2 across breakpoints (legacy media queries repeated the same
 // value, so single utility suffices).
 const SHOT_CLASS =
-  "relative rounded-[14px] overflow-hidden bg-[oklch(0.18_0.005_300)] border border-line-strong mb-6 aspect-[3/2] " +
-  "max-[700px]:mb-[18px]";
+  "relative rounded-[14px] overflow-hidden bg-[oklch(0.18_0.005_300)] border border-line-strong mb-[18px] aspect-[3/2] " +
+  "md:mb-6";
 
 const SHOT_BAR_CLASS =
   "absolute top-0 left-0 right-0 h-7 flex items-center gap-1.5 px-3 bg-[oklch(0.16_0.004_300)] border-b border-[oklch(1_0_0_/_0.06)] z-[2]";
@@ -136,13 +137,13 @@ const TAGLINE_ICN_GOOD_CLASS =
 // pretty-wrap, and emphasised <em> spans use ink + medium weight.
 const LIST_CLASS =
   "flex flex-col gap-3 m-0 p-0 list-none " +
-  "[&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[14px] [&>li]:leading-[1.5] [&>li]:text-ink-dim [&>li]:text-pretty " +
+  "[&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.5] [&>li]:text-ink-dim [&>li]:text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
-  "max-[700px]:[&>li]:text-[13px]";
+  "md:[&>li]:text-[14px]";
 
 const LIST_ICN_BASE_CLASS =
-  "w-[22px] h-[22px] rounded-full shrink-0 inline-flex items-center justify-center mt-px border " +
-  "max-[700px]:w-5 max-[700px]:h-5";
+  "w-5 h-5 rounded-full shrink-0 inline-flex items-center justify-center mt-px border " +
+  "md:w-[22px] md:h-[22px]";
 
 const LIST_ICN_BAD_CLASS =
   "bg-[oklch(0.65_0.18_25_/_0.12)] text-[oklch(0.78_0.16_25)] border-[oklch(0.65_0.18_25_/_0.25)]";
@@ -157,42 +158,42 @@ const CARD_FOOT_CLASS =
 // 1px-gap-as-border trick (gap background colour shows through). Legacy used
 // repeat(4,1fr) → grid-cols-4; mobile reduces to 2 cols.
 const RESULTS_CLASS =
-  "grid grid-cols-4 gap-px mt-14 border border-line rounded-[18px] overflow-hidden bg-line " +
-  "max-[1100px]:grid-cols-2 max-[700px]:grid-cols-2 max-[700px]:mt-8";
+  "grid grid-cols-2 gap-px mt-8 border border-line rounded-[18px] overflow-hidden bg-line " +
+  "md:mt-14 xl:grid-cols-4";
 
 const RESULT_CLASS =
-  "bg-[var(--bg)] px-7 py-6 flex flex-col gap-1.5 relative " +
-  "max-[1100px]:py-[18px] max-[1100px]:px-5 " +
-  "max-[700px]:p-4";
+  "bg-[var(--bg)] p-4 flex flex-col gap-1.5 relative " +
+  "md:px-5 md:py-[18px] " +
+  "xl:px-7 xl:py-6";
 
 const RESULT_NUM_CLASS =
-  "font-display font-bold text-[clamp(28px,3vw,44px)] tracking-[-0.03em] leading-none bg-brand-gradient bg-clip-text text-transparent " +
-  "max-[1100px]:text-[28px] max-[700px]:text-[24px]";
+  "font-display font-bold text-[24px] tracking-[-0.03em] leading-none bg-brand-gradient bg-clip-text text-transparent " +
+  "md:text-[28px] xl:text-[clamp(28px,3vw,44px)]";
 
 const RESULT_LBL_CLASS =
-  "text-[12px] text-ink-dim leading-[1.4] mt-1 max-[700px]:text-[11px]";
+  "text-[11px] text-ink-dim leading-[1.4] mt-1 md:text-[12px]";
 
 const RESULT_TAG_CLASS =
   "font-mono text-[9px] text-ink-3 tracking-[0.08em] uppercase";
 
 // CTA strip: pill on desktop, stacked rounded card on mobile.
 const CTA_CLASS =
-  "flex items-center justify-between gap-6 flex-wrap mt-8 px-7 py-[22px] border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] " +
-  "max-[700px]:flex-col max-[700px]:items-stretch max-[700px]:rounded-[18px] max-[700px]:p-[18px] max-[700px]:gap-4 max-[700px]:mt-6";
+  "flex flex-col items-stretch gap-4 flex-wrap mt-6 p-[18px] border border-line rounded-[18px] bg-[oklch(1_0_0_/_0.02)] " +
+  "md:flex-row md:items-center md:justify-between md:gap-6 md:mt-8 md:px-7 md:py-[22px] md:rounded-full";
 
 const CTA_TEXT_CLASS =
-  "text-[14px] text-ink-dim flex items-center gap-3 [&>strong]:text-ink [&>strong]:font-semibold " +
-  "max-[700px]:text-[13px] max-[700px]:justify-center max-[700px]:text-center";
+  "text-[13px] text-ink-dim flex items-center justify-center text-center gap-3 [&>strong]:text-ink [&>strong]:font-semibold " +
+  "md:text-[14px] md:justify-normal md:text-start";
 
 // Diagonal arrow built from two borders rotated 45deg (legacy .case-cta-arrow).
 const CTA_ARROW_CLASS =
   "w-2 h-2 border-r-[1.5px] border-b-[1.5px] border-accent-soft -rotate-45 inline-block";
 
 const CTA_BTN_CLASS =
-  "bg-ink text-bg border-0 px-[22px] py-3 rounded-full font-display text-[13px] font-semibold inline-flex items-center gap-2.5 cursor-pointer transition-[transform,box-shadow] duration-200 " +
+  "bg-ink text-bg border-0 justify-center px-[18px] py-3.5 rounded-full font-display text-[13px] font-semibold inline-flex items-center gap-2.5 cursor-pointer transition-[transform,box-shadow] duration-200 " +
   "shadow-[0_4px_16px_oklch(from_var(--accent)_l_c_h_/_0.2),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
   "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--accent)_l_c_h_/_0.3),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
-  "max-[700px]:justify-center max-[700px]:py-3.5 max-[700px]:px-[18px]";
+  "md:justify-normal md:px-[22px] md:py-3";
 
 const ARROW_ICON = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">

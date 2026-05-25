@@ -265,7 +265,7 @@ function LeadFormInner({
       }) => (
         <Form className={`flex flex-col ${isCompact ? "gap-[18px]" : "gap-[22px]"}`}>
           {isCompact ? (
-            <div className="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Field name="name">
                 {({ field }: FieldProps) => (
                   <Input
@@ -414,7 +414,7 @@ function LeadFormInner({
                 ))}
               </Select>
 
-              <div className="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <Select
                   label={strings.budgetLabel}
                   labelPlacement="outside"

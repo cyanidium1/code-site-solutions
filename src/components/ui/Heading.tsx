@@ -61,7 +61,7 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 const sizes: Record<Level, Record<Variant, string>> = {
   1: {
     default: "font-actay text-[64px] leading-[1.05] tracking-[-0.02em] font-bold",
-    hp: "font-actay font-bold text-[clamp(36px,5vw,64px)] leading-[0.96] tracking-[-0.035em] uppercase max-[640px]:leading-[0.98]",
+    hp: "font-actay font-bold text-[clamp(36px,5vw,64px)] leading-[0.98] tracking-[-0.035em] uppercase sm:leading-[0.96]",
     case: "font-actay text-[56px] leading-[1.05] tracking-[-0.02em] font-bold",
     "page-hero": "font-actay text-[clamp(36px,4.6vw,60px)] leading-[1.05] tracking-[-0.02em] font-bold",
     "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.05] tracking-[-0.02em] font-bold",
@@ -78,16 +78,16 @@ const sizes: Record<Level, Record<Variant, string>> = {
   },
   2: {
     default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
-    hp: "font-actay font-bold text-[clamp(34px,4vw,56px)] leading-[1.05] tracking-[-0.02em] max-[700px]:text-[clamp(28px,7vw,40px)]",
-    case: "font-actay font-bold text-[clamp(34px,4.6vw,60px)] leading-none tracking-[-0.035em] max-w-[14ch] text-balance max-[1100px]:text-[clamp(30px,5vw,44px)] max-[700px]:text-[clamp(28px,8vw,36px)] max-[700px]:max-w-full",
+    hp: "font-actay font-bold text-[clamp(28px,7vw,40px)] leading-[1.05] tracking-[-0.02em] md:text-[clamp(34px,4vw,56px)]",
+    case: "font-actay font-bold text-[clamp(28px,8vw,36px)] leading-none tracking-[-0.035em] max-w-full text-balance md:text-[clamp(30px,5vw,44px)] md:max-w-[14ch] xl:text-[clamp(34px,4.6vw,60px)]",
     "page-hero": "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
-    "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] font-bold max-[800px]:text-[clamp(24px,6vw,36px)]",
+    "image-text": "font-actay text-[clamp(24px,6vw,36px)] leading-[1.1] tracking-[-0.02em] font-bold lg:text-[clamp(28px,3.4vw,44px)]",
     comparison:
-      "font-actay font-bold text-[clamp(34px,4.4vw,56px)] leading-none tracking-[-0.035em] max-[1100px]:text-[clamp(28px,5vw,44px)] max-[700px]:text-[clamp(24px,8vw,34px)]",
+      "font-actay font-bold text-[clamp(24px,8vw,34px)] leading-none tracking-[-0.035em] md:text-[clamp(28px,5vw,44px)] xl:text-[clamp(34px,4.4vw,56px)]",
     "comparison-contact":
-      "font-actay font-bold text-[clamp(28px,3.6vw,44px)] leading-none tracking-[-0.03em] max-[700px]:text-[26px]",
+      "font-actay font-bold text-[26px] leading-none tracking-[-0.03em] md:text-[clamp(28px,3.6vw,44px)]",
     "launch-cta":
-      "font-actay font-bold text-[clamp(32px,3.4vw,48px)] leading-[1.2] tracking-[-0.025em] uppercase text-balance max-[700px]:text-[clamp(26px,7vw,36px)]",
+      "font-actay font-bold text-[clamp(26px,7vw,36px)] leading-[1.2] tracking-[-0.025em] uppercase text-balance md:text-[clamp(32px,3.4vw,48px)]",
     turnkey: "font-actay font-bold text-[clamp(34px,4vw,52px)] leading-[1.05] tracking-[-0.02em]",
     "contact-split": "font-actay font-bold text-[clamp(28px,3.2vw,36px)] leading-[1.05] tracking-[-0.02em]",
     "calc-card": "font-actay text-[17px] font-bold tracking-[-0.01em] text-ink",

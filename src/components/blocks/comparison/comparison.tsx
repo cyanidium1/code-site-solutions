@@ -98,12 +98,12 @@ const DEFAULT_TIERS: TierProps[] = [
 ];
 
 const CMP_H2_EXTRA =
-  "mb-14 text-ink text-balance max-w-[22ch] uppercase max-[1100px]:mb-9 max-[700px]:mb-7 " +
+  "mb-7 text-ink text-balance max-w-[22ch] uppercase md:mb-9 xl:mb-14 " +
   "[&_em]:italic [&_em]:font-light [&_em]:normal-case [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:inline-block [&_em]:pr-[0.12em] [&_em]:[margin-right:-0.04em] " +
   "[&_.upper-em]:text-accent-soft [&_.upper-em]:uppercase [&_.upper-em]:not-italic [&_.upper-em]:font-bold";
 
 const CMP_INPUT_BASE =
-  "w-full px-5 py-3.5 bg-[oklch(0.13_0.005_300_/_0.7)] border border-line-strong text-ink text-[14px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.13_0.005_300_/_0.9)] max-[700px]:px-[18px] max-[700px]:py-[13px] max-[700px]:text-[13px]";
+  "w-full px-[18px] py-[13px] bg-[oklch(0.13_0.005_300_/_0.7)] border border-line-strong text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.13_0.005_300_/_0.9)] md:px-5 md:py-3.5 md:text-[14px]";
 
 // Section + contact-card relative-color OKLCH backdrops. Both were `.cmp-bg`
 // and `.cmp-contact` in the legacy CSS; reproduced here as arbitrary `bg-[...]`
@@ -163,12 +163,12 @@ export function Comparison({
   tiers: TierProps[];
 }> = {}) {
   return (
-    <section className="relative py-14 lg:py-[100px] px-12 bg-bg overflow-hidden max-[1100px]:px-8 max-[700px]:px-[18px]">
+    <section className="relative py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
       <div className={`absolute inset-0 z-0 pointer-events-none ${CMP_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className={CMP_H2_EXTRA}>{tableHeading}</H2>
 
-        <div className="border border-line rounded-[18px] overflow-hidden mb-8 bg-[oklch(0.155_0.005_300)] max-[700px]:rounded-[14px]">
+        <div className="border border-line rounded-[14px] overflow-hidden mb-8 bg-[oklch(0.155_0.005_300)] md:rounded-[18px]">
           <CmpTable>
             <CmpThead>
               <tr>
@@ -186,16 +186,16 @@ export function Comparison({
           </CmpTable>
         </div>
 
-        <div className="flex gap-3 flex-wrap mb-[120px] max-[1100px]:mb-20 max-[700px]:flex-col max-[700px]:gap-2.5 max-[700px]:mb-14">
-          <button className="bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] border-0 px-[22px] py-[13px] rounded-full font-sans text-[11px] font-bold tracking-[0.1em] uppercase cursor-pointer transition-all duration-[250ms] shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_oklch(from_var(--color-accent)_l_c_h_/_0.45)] max-[700px]:w-full max-[700px]:px-[18px] max-[700px]:py-[13px] max-[700px]:text-[10px]">
+        <div className="flex flex-col gap-2.5 flex-wrap mb-14 md:flex-row md:gap-3 md:mb-20 xl:mb-[120px]">
+          <button className="bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] border-0 w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-bold tracking-[0.1em] uppercase cursor-pointer transition-all duration-[250ms] shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_oklch(from_var(--color-accent)_l_c_h_/_0.45)] md:w-auto md:px-[22px] md:text-[11px]">
             {tableCtaPrimary}
           </button>
-          <button className="bg-transparent text-ink border border-line-strong px-5 py-3 rounded-full font-sans text-[11px] font-semibold tracking-[0.1em] uppercase cursor-pointer transition-all duration-200 hover:border-ink-dim hover:bg-[oklch(1_0_0_/_0.04)] max-[700px]:w-full max-[700px]:px-[18px] max-[700px]:py-[13px] max-[700px]:text-[10px]">
+          <button className="bg-transparent text-ink border border-line-strong w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-semibold tracking-[0.1em] uppercase cursor-pointer transition-all duration-200 hover:border-ink-dim hover:bg-[oklch(1_0_0_/_0.04)] md:w-auto md:px-5 md:py-3 md:text-[11px]">
             {tableCtaGhost}
           </button>
         </div>
 
-        <div className={`relative px-12 py-16 mb-[120px] border border-line-strong rounded-3xl overflow-hidden text-center max-[1100px]:px-8 max-[1100px]:py-12 max-[1100px]:mb-20 max-[700px]:px-[22px] max-[700px]:py-9 max-[700px]:mb-14 max-[700px]:rounded-[18px] ${CMP_CONTACT_BG}`}>
+        <div className={`relative px-[22px] py-9 mb-14 border border-line-strong rounded-[18px] overflow-hidden text-center md:px-8 md:py-12 md:mb-20 md:rounded-3xl xl:px-12 xl:py-16 xl:mb-[120px] ${CMP_CONTACT_BG}`}>
           <div className="max-w-[560px] mx-auto">
             <H2
               variant="comparison-contact"
@@ -203,7 +203,7 @@ export function Comparison({
             >
               {contactHeading}
             </H2>
-            <p className="text-[14px] leading-[1.6] text-ink-dim mb-8 text-pretty max-[700px]:text-[13px] max-[700px]:mb-[22px]">
+            <p className="text-[13px] leading-[1.6] text-ink-dim mb-[22px] text-pretty md:text-[14px] md:mb-8">
               {contactSub}
             </p>
             <form
@@ -221,11 +221,11 @@ export function Comparison({
                 placeholder={contactChannel}
               />
               <textarea
-                className={`${CMP_INPUT_BASE} rounded-[22px] resize-none min-h-[110px] px-5 py-4 max-[700px]:px-[18px] max-[700px]:py-[13px]`}
+                className={`${CMP_INPUT_BASE} rounded-[22px] resize-none min-h-[110px] md:py-4`}
                 placeholder={contactBrief}
               />
               <button
-                className="w-full px-[22px] py-4 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[12px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 hover:-translate-y-0.5 max-[700px]:px-[18px] max-[700px]:py-3.5 max-[700px]:text-[11px]"
+                className="w-full px-[18px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[11px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 hover:-translate-y-0.5 md:px-[22px] md:py-4 md:text-[12px]"
                 type="submit"
               >
                 {contactSubmit}

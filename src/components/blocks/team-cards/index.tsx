@@ -111,12 +111,12 @@ function SocialIcon({ kind }: { kind: TeamSocialKind }) {
 
 function TeamCard({ m }: { m: TeamMember }) {
   return (
-    <article className="relative flex flex-col border border-line rounded-[22px] bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-[var(--line-2)] hover:-translate-y-0.5 max-[800px]:basis-[65vw] max-[800px]:grow-0 max-[800px]:shrink-0 max-[800px]:max-w-[280px] max-[800px]:snap-start">
+    <article className="relative flex flex-col basis-[65vw] grow-0 shrink-0 max-w-[280px] snap-start border border-line rounded-[22px] bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-[var(--line-2)] hover:-translate-y-0.5 lg:basis-auto lg:grow lg:shrink lg:max-w-none lg:snap-none">
       <div className="aspect-square overflow-hidden relative bg-[linear-gradient(135deg,oklch(0.30_0.10_290)_0%,oklch(0.20_0.06_270)_100%)] flex items-center justify-center [&>img]:w-full [&>img]:h-full [&>img]:object-cover [&>img]:block">
         {m.photo ? (
           <img src={m.photo} alt={m.name} />
         ) : (
-          <span className="inline-flex items-center justify-center w-[110px] h-[110px] rounded-full bg-brand-gradient font-display font-bold text-[38px] text-bg tracking-[-0.02em] shadow-[0_0_60px_oklch(from_var(--accent)_l_c_h_/_0.35)] max-[800px]:w-[90px] max-[800px]:h-[90px] max-[800px]:text-[30px]">
+          <span className="inline-flex items-center justify-center w-[90px] h-[90px] rounded-full bg-brand-gradient font-display font-bold text-[30px] text-bg tracking-[-0.02em] shadow-[0_0_60px_oklch(from_var(--accent)_l_c_h_/_0.35)] lg:w-[110px] lg:h-[110px] lg:text-[38px]">
             {m.initials ??
               m.name
                 .split(" ")
@@ -132,8 +132,8 @@ function TeamCard({ m }: { m: TeamMember }) {
           </span>
         ) : null}
       </div>
-      <div className="pt-[22px] px-6 pb-6 flex flex-col flex-1 max-[800px]:pt-[18px] max-[800px]:px-[18px] max-[800px]:pb-5">
-        <h3 className="font-display font-semibold text-[19px] tracking-[-0.01em] text-ink max-[800px]:text-[17px]">
+      <div className="pt-[18px] px-[18px] pb-5 flex flex-col flex-1 lg:pt-[22px] lg:px-6 lg:pb-6">
+        <h3 className="font-display font-semibold text-[17px] tracking-[-0.01em] text-ink lg:text-[19px]">
           {m.name}
         </h3>
         <div className="mt-1 font-mono text-[10.5px] tracking-[0.12em] uppercase text-accent-soft">
@@ -149,7 +149,7 @@ function TeamCard({ m }: { m: TeamMember }) {
           </div>
         )}
         {m.spec ? (
-          <p className="mt-3.5 font-sans text-[13px] leading-[1.55] text-[var(--ink-2)] max-[800px]:text-[12.5px]">
+          <p className="mt-3.5 font-sans text-[12.5px] leading-[1.55] text-[var(--ink-2)] lg:text-[13px]">
             {m.spec}
           </p>
         ) : null}
@@ -158,7 +158,7 @@ function TeamCard({ m }: { m: TeamMember }) {
             <span className="font-display text-[36px] leading-[0.7] text-accent-soft mt-1 select-none">
               “
             </span>
-            <span className="font-sans italic text-[13.5px] leading-[1.55] text-[var(--ink-2)] max-[800px]:text-[12.5px]">
+            <span className="font-sans italic text-[12.5px] leading-[1.55] text-[var(--ink-2)] lg:text-[13.5px]">
               {m.quote}
             </span>
           </blockquote>
@@ -198,8 +198,8 @@ export function TeamCards({
   const groupList: TeamGroup[] = groups ?? (members ? [{ members }] : []);
 
   return (
-    <section className="relative py-14 lg:py-[100px] px-12 bg-bg max-[800px]:px-0">
-      <div className="max-w-container mx-auto max-[800px]:px-6">
+    <section className="relative py-14 lg:py-[100px] px-0 bg-bg lg:px-12">
+      <div className="max-w-container mx-auto px-6 lg:px-0">
         {(eyebrow || heading || sub) && (
           <header className="flex flex-col mb-16">
             {eyebrow ? (
@@ -227,7 +227,7 @@ export function TeamCards({
                 <span>{g.label}</span>
               </div>
             ) : null}
-            <div className="grid grid-cols-3 gap-5 max-[1100px]:grid-cols-2 max-[800px]:flex max-[800px]:overflow-x-auto max-[800px]:overflow-y-visible max-[800px]:snap-x max-[800px]:snap-mandatory max-[800px]:scroll-pl-6 max-[800px]:gap-3.5 max-[800px]:pt-1 max-[800px]:px-6 max-[800px]:pb-3 max-[800px]:-mx-6 max-[800px]:[scrollbar-width:none] max-[800px]:[&::-webkit-scrollbar]:hidden">
+            <div className="flex overflow-x-auto overflow-y-visible snap-x snap-mandatory scroll-pl-6 gap-3.5 pt-1 px-6 pb-3 -mx-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:grid lg:grid-cols-2 lg:gap-5 lg:overflow-visible lg:snap-none lg:scroll-pl-0 lg:pt-0 lg:px-0 lg:pb-0 lg:mx-0 xl:grid-cols-3">
               {g.members.map((m, i) => (
                 <TeamCard key={i} m={m} />
               ))}

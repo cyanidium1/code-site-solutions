@@ -95,7 +95,7 @@ export function ContactSplit({
   const meta = CONTACT_META_BY_LOCALE[locale];
   const chrome = CHROME[locale];
   return (
-    <section className="relative py-14 lg:py-20 px-12 bg-[linear-gradient(180deg,var(--bg)_0%,oklch(0.13_0.02_300)_100%)] max-[1100px]:px-8 max-[700px]:px-[18px]">
+    <section className="relative py-14 lg:py-20 px-[18px] md:px-8 xl:px-12 bg-[linear-gradient(180deg,var(--bg)_0%,oklch(0.13_0.02_300)_100%)]">
       {/* HeroAuditBanner is a client component that reads locale via
           next-intl useLocale — no need to thread the prop. */}
       <HeroAuditBanner />
@@ -171,7 +171,7 @@ export function ContactSplit({
             </H2>
             <p className={SUB_CLASS}>{chrome.briefSub}</p>
           </div>
-          <div className="p-7 border border-line-strong rounded-[22px] bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] max-[700px]:p-5 max-[700px]:rounded-2xl">
+          <div className="p-5 border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] md:p-7 md:rounded-[22px]">
             <LeadForm source={source} variant={variant} locale={locale} />
           </div>
         </div>

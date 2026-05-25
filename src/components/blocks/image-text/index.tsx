@@ -88,7 +88,7 @@ export function ImageText({
     "[&_img]:block [&_img]:h-full [&_img]:w-full [&_img]:object-cover [&_img]:object-top";
 
   const imageClass = isCentered
-    ? `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[16/9] max-[800px]:aspect-[4/3] ${imageImgClass}`
+    ? `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[4/3] lg:aspect-[16/9] ${imageImgClass}`
     : `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] max-[960px]:-order-1 ${imageImgClass}`;
 
   const contentClass = isCentered
@@ -155,7 +155,7 @@ export function ImageText({
   );
 
   const sectionClass = cn(
-    "relative py-14 lg:py-[100px] px-12 bg-bg max-[800px]:px-6",
+    "relative py-14 lg:py-[100px] px-6 lg:px-12 bg-bg",
     sectionClassName,
   );
 
@@ -185,11 +185,11 @@ export function ImageText({
             sectionClassName,
           )}
         >
-          <div className="relative w-full max-w-container mx-auto flex items-center justify-center min-h-[560px] max-[1200px]:min-h-[480px] max-[1024px]:min-h-[440px] max-[900px]:min-h-[320px] max-[900px]:px-4 max-[900px]:py-8 max-[640px]:min-h-[280px] max-[640px]:py-6 max-[640px]:px-3">
+          <div className="relative w-full max-w-container mx-auto flex items-center justify-center min-h-[560px] max-[1200px]:min-h-[480px] max-[1024px]:min-h-[440px] max-[900px]:min-h-[320px] max-[900px]:px-4 max-[900px]:py-8 max-sm:min-h-[280px] max-sm:py-6 max-sm:px-3">
             <div className={cn(mockupBase, "left-[-10%] max-[1440px]:left-[-5%]")} aria-hidden="true">
               {image}
             </div>
-            <div className="relative z-[2] flex flex-col items-center w-full max-w-[720px] text-center px-4 py-8 bg-[radial-gradient(ellipse_at_center,oklch(0.18_0.008_60_/_0.7)_0%,oklch(0.18_0.008_60_/_0)_70%)] max-[1440px]:max-w-[560px] max-[1200px]:max-w-[400px] max-[900px]:max-w-container-prose max-[640px]:px-2 max-[640px]:py-4">
+            <div className="relative z-[2] flex flex-col items-center w-full max-w-[720px] text-center px-4 py-8 bg-[radial-gradient(ellipse_at_center,oklch(0.18_0.008_60_/_0.7)_0%,oklch(0.18_0.008_60_/_0)_70%)] max-[1440px]:max-w-[560px] max-[1200px]:max-w-[400px] max-[900px]:max-w-container-prose max-sm:px-2 max-sm:py-4">
               {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
               <H2
                 variant="image-text"

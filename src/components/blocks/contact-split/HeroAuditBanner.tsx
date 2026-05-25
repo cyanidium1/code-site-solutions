@@ -20,7 +20,7 @@ function HeroAuditBannerInner() {
 
   return (
     <div
-      className="max-w-container mx-auto mb-8 py-[18px] px-[22px] flex gap-[14px] items-start border border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] rounded-[14px] max-[700px]:mb-[22px] max-[700px]:py-[14px] max-[700px]:px-4"
+      className="max-w-container mx-auto mb-[22px] py-[14px] px-4 flex gap-[14px] items-start border border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] rounded-[14px] md:mb-8 md:py-[18px] md:px-[22px]"
       role="status"
       aria-live="polite"
     >
@@ -29,10 +29,10 @@ function HeroAuditBannerInner() {
         aria-hidden="true"
       />
       <div className="flex-1 min-w-0">
-        <div className="font-sans font-bold text-[14px] tracking-[-0.005em] text-ink mb-1 max-[700px]:text-[13px]">
+        <div className="font-sans font-bold text-[13px] tracking-[-0.005em] text-ink mb-1 md:text-[14px]">
           {heading}
         </div>
-        <p className="text-[13px] leading-[1.5] text-[var(--ink-2)] m-0 max-[700px]:text-[12.5px]">
+        <p className="text-[12.5px] leading-[1.5] text-[var(--ink-2)] m-0 md:text-[13px]">
           {body}
         </p>
       </div>

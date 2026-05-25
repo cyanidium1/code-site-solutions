@@ -22,7 +22,7 @@ export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
       aria-labelledby="launch-cta-heading"
     >
       <div className="relative mx-auto max-w-container min-h-[480px] grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center max-[1280px]:min-h-[420px] max-[1024px]:grid-cols-[minmax(0,1fr)] max-[1024px]:min-h-0 max-[1024px]:gap-10">
-        <div className="relative z-[2] max-w-[570px] flex flex-col gap-6 max-[1024px]:max-w-none max-[700px]:gap-[18px]">
+        <div className="relative z-[2] max-w-[570px] flex flex-col gap-[18px] max-[1024px]:max-w-none md:gap-6">
           <div className="flex flex-col gap-7">
             <div className="flex flex-row items-center gap-2" aria-hidden="true">
               <span className="block w-3 h-3 rounded-[3px] bg-[#7c54cd] shadow-[0_0_8px_rgba(124,84,205,0.6)]" />
@@ -33,12 +33,12 @@ export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
               {t("heading")}
             </H2>
           </div>
-          <p className="m-0 font-sans text-[14px] leading-[1.6] text-[var(--ink-2)] max-w-[50ch] max-[700px]:text-[13.5px]">
+          <p className="m-0 font-sans text-[13.5px] leading-[1.6] text-[var(--ink-2)] max-w-[50ch] md:text-[14px]">
             {t("sub")}
           </p>
           <Link
             href={href}
-            className="self-start inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] text-white font-sans font-semibold text-[14px] tracking-[0.01em] no-underline cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.25)] hover:-translate-y-px hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-[3px] max-[700px]:px-[22px] max-[700px]:py-3 max-[700px]:text-[13px]"
+            className="self-start inline-flex items-center gap-2.5 px-[22px] py-3 rounded-full bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] text-white font-sans font-semibold text-[13px] tracking-[0.01em] no-underline cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.25)] hover:-translate-y-px hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-[3px] md:px-7 md:py-3.5 md:text-[14px]"
           >
             {t("button")}
           </Link>

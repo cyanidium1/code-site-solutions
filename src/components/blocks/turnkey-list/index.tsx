@@ -94,7 +94,7 @@ const ICON_BOX_CLASS =
   "flex-shrink-0 w-10 h-10 inline-flex items-center justify-center border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)] rounded-xl bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] text-accent";
 
 const NOT_LIST_CLASS =
-  "list-none m-0 p-0 grid grid-cols-2 gap-y-2 gap-x-7 max-[700px]:grid-cols-1 " +
+  "list-none m-0 p-0 grid grid-cols-1 gap-y-2 gap-x-7 md:grid-cols-2 " +
   "[&_li]:relative [&_li]:pl-[18px] [&_li]:text-[13.5px] [&_li]:leading-[1.5] [&_li]:text-[var(--ink-2)] " +
   "[&_li]:before:content-['—'] [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-0 [&_li]:before:text-[var(--ink-3)]";
 

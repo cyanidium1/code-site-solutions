@@ -54,15 +54,15 @@ export function Audit({
   return (
     <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-[linear-gradient(180deg,var(--bg)_0%,oklch(0.13_0.02_300)_100%)] overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_60%_at_0%_50%,oklch(from_var(--color-accent-2)_l_c_h_/_0.18),transparent_70%),radial-gradient(ellipse_40%_50%_at_100%_100%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%)]" />
-      <div className="relative z-[2] max-w-container mx-auto grid grid-cols-[minmax(0,1fr)_minmax(0,460px)] gap-[72px] items-center max-[1100px]:grid-cols-1 max-[1100px]:gap-9">
+      <div className="relative z-[2] max-w-container mx-auto grid grid-cols-1 gap-9 items-center xl:grid-cols-[minmax(0,1fr)_minmax(0,460px)] xl:gap-[72px]">
         <div>
-          <h2 className="font-display font-bold text-[clamp(34px,4.4vw,54px)] leading-none tracking-[-0.035em] mb-[22px] text-ink uppercase text-balance max-[700px]:text-[clamp(24px,8vw,34px)] max-[700px]:mb-4">
+          <h2 className="font-display font-bold text-[clamp(24px,8vw,34px)] leading-none tracking-[-0.035em] mb-4 text-ink uppercase text-balance md:text-[clamp(34px,4.4vw,54px)] md:mb-[22px]">
             {heading}
           </h2>
-          <p className="text-[15px] leading-[1.6] text-[var(--ink-2)] mb-8 max-w-[46ch] max-[700px]:text-[13px] max-[700px]:mb-[22px] [&_em]:not-italic [&_em]:font-medium">
+          <p className="text-[13px] leading-[1.6] text-[var(--ink-2)] mb-[22px] max-w-[46ch] md:text-[15px] md:mb-8 [&_em]:not-italic [&_em]:font-medium">
             {sub}
           </p>
-          <ul className="list-none flex flex-col gap-3 mb-7 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[14px] [&>li]:leading-[1.5] [&>li]:text-ink [&>li_em]:not-italic [&>li_em]:font-medium max-[700px]:[&>li]:text-[13px]">
+          <ul className="list-none flex flex-col gap-3 mb-7 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.5] [&>li]:text-ink [&>li_em]:not-italic [&>li_em]:font-medium md:[&>li]:text-[14px]">
             {list.map((it, i) => (
               <li key={i}>
                 <span className="w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.3)]">
@@ -72,12 +72,12 @@ export function Audit({
               </li>
             ))}
           </ul>
-          <p className="italic text-[13px] text-[var(--ink-3)] max-w-[50ch] leading-[1.55] max-[700px]:text-[12px]">
+          <p className="italic text-[12px] text-[var(--ink-3)] max-w-[50ch] leading-[1.55] md:text-[13px]">
             {foot}
           </p>
         </div>
         <form
-          className="pt-8 px-7 pb-7 border border-[var(--line-2)] rounded-[22px] bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] flex flex-col gap-3 max-[1100px]:max-w-[460px] max-[700px]:px-5 max-[700px]:py-[22px] max-[700px]:rounded-2xl"
+          className="px-5 py-[22px] max-w-[460px] border border-[var(--line-2)] rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] flex flex-col gap-3 md:px-7 md:py-7 md:pt-8 md:rounded-[22px] xl:max-w-none"
           onSubmit={(e) => e.preventDefault()}
         >
           <input

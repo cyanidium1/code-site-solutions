@@ -39,13 +39,13 @@ function TierX() {
 }
 
 const TIER_BASE =
-  "relative pt-8 px-7 pb-8 border rounded-[18px] flex flex-col gap-6 transition-[border-color,transform] duration-[250ms] max-[700px]:px-[22px] max-[700px]:py-[26px] max-[700px]:gap-5";
+  "relative px-[22px] py-[26px] border rounded-[18px] flex flex-col gap-5 transition-[border-color,transform] duration-[250ms] md:px-7 md:py-8 md:gap-6";
 
 const TIER_DEFAULT =
   "border-line bg-[oklch(0.16_0.005_300)] hover:border-[var(--line-2)] hover:-translate-y-0.5";
 
 const TIER_POP =
-  "border-[oklch(from_var(--accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] -translate-y-2 hover:-translate-y-2.5 max-[1100px]:translate-y-0 max-[1100px]:hover:-translate-y-0.5";
+  "border-[oklch(from_var(--accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-0.5 xl:-translate-y-2 xl:hover:-translate-y-2.5";
 
 const TIER_BTN_BASE =
   "w-full px-5 py-3.5 rounded-full font-sans text-[11px] font-bold tracking-[0.12em] uppercase cursor-pointer transition-all duration-[250ms]";
@@ -86,10 +86,10 @@ export function Tier({
         </div>
       )}
       <div className="flex flex-col gap-3.5">
-        <div className="font-display font-bold text-[13px] tracking-[0.14em] uppercase text-ink leading-[1.2] max-[700px]:text-[12px]">
+        <div className="font-display font-bold text-[12px] tracking-[0.14em] uppercase text-ink leading-[1.2] md:text-[13px]">
           {name}
         </div>
-        <h3 className="font-display font-bold text-[38px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-[var(--ink-3)] [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 max-[700px]:text-[32px]">
+        <h3 className="font-display font-bold text-[32px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-[var(--ink-3)] [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 md:text-[38px]">
           <em>{priceLabel}</em>
           {price}
         </h3>

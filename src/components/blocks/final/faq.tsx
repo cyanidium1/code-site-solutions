@@ -118,20 +118,20 @@ const FAQ_ITEM =
   "border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] !shadow-none overflow-hidden transition-[border-color] duration-200 !m-0 data-[open=true]:border-line-strong";
 
 const FAQ_ITEM_TRIGGER =
-  "group/trigger py-[22px] px-6 gap-4 cursor-pointer max-[700px]:p-[18px] max-[700px]:gap-3";
+  "group/trigger p-[18px] gap-3 cursor-pointer md:py-[22px] md:px-6 md:gap-4";
 
 const FAQ_ITEM_TITLE =
-  "font-sans !text-[15px] font-semibold !text-ink leading-[1.35] max-[700px]:!text-[13px]";
+  "font-sans !text-[13px] font-semibold !text-ink leading-[1.35] md:!text-[15px]";
 
 // HeroUI puts content padding via internal class; we override with !important
 // (px-6 pt-0 pb-[22px]) because the data-* slot specificity is identical to
 // HeroUI's. Same caveat as the legacy CSS file noted (`!important` retained
 // for content padding because data-attribute selectors collide).
 const FAQ_ITEM_CONTENT =
-  "!px-6 !pt-0 !pb-[22px] text-[14px] leading-[1.65] text-[var(--ink-2)] text-pretty " +
+  "!px-[18px] !pt-0 !pb-[18px] text-[13px] leading-[1.65] text-[var(--ink-2)] text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "[&_.rich-link]:text-accent-soft [&_.rich-link]:font-medium [&_.rich-link]:underline [&_.rich-link]:decoration-[oklch(0.7_0.14_295_/_0.4)] [&_.rich-link]:underline-offset-[3px] [&_.rich-link]:transition-[color,text-decoration-color] [&_.rich-link]:duration-200 [&_.rich-link:hover]:text-ink [&_.rich-link:hover]:decoration-ink " +
-  "max-[700px]:!px-[18px] max-[700px]:!pb-[18px] max-[700px]:text-[13px]";
+  "md:!px-6 md:!pb-[22px] md:text-[14px]";
 
 // HeroUI's default indicator slot animates rotation; we render our own
 // indicator via render-prop, so disable any built-in motion.
@@ -146,7 +146,7 @@ const FAQ_PLUS_BASE =
   "transition-[background-color,color,border-color,transform] duration-[250ms] " +
   "group-hover/trigger:text-accent-soft group-hover/trigger:border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
   "[&_svg]:transition-transform [&_svg]:duration-[250ms] " +
-  "max-[700px]:w-[26px] max-[700px]:h-[26px] max-[700px]:[&_svg]:w-[11px] max-[700px]:[&_svg]:h-[11px]";
+  "max-md:w-[26px] max-md:h-[26px] max-md:[&_svg]:w-[11px] max-md:[&_svg]:h-[11px]";
 
 const FAQ_PLUS_OPEN =
   "!bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] !border-transparent !text-[oklch(1_0_0_/_0.98)] [&_svg]:rotate-45";
@@ -177,7 +177,7 @@ export function FAQ({
     <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
       <div className={`absolute inset-0 z-0 pointer-events-none ${FAQ_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
-        <H2 variant="comparison" className="mb-12 text-ink uppercase max-[700px]:mb-7">
+        <H2 variant="comparison" className="mb-7 text-ink uppercase md:mb-12">
           {heading}
         </H2>
         <Accordion
