@@ -101,7 +101,7 @@ function StackVisual({ locale }: { locale: PriceLocale }) {
           key={l}
           className="flex items-center gap-2.5 border-b border-dashed border-[oklch(1_0_0_/_0.06)] py-1.5 last:border-b-0"
         >
-          <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border border-[oklch(from_var(--color-accent)_l_c_h_/_0.30)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.14)] text-[var(--accent-soft,var(--color-ink))]">
+          <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border border-[oklch(from_var(--color-accent)_l_c_h_/_0.30)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.14)] text-[var(--color-accent-soft)]">
             <Check size={11} strokeWidth={2.4} />
           </span>
           <span className="font-mono text-[11.5px] tracking-[0.04em] text-ink-dim">{l}</span>
