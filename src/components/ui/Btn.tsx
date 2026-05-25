@@ -3,8 +3,12 @@ import { cn } from "./cn";
 
 export type BtnVariant = "primary" | "ghost";
 
+// `min-h-11` enforces the WCAG 2.5.5 (AAA) 44px touch-target floor on every
+// `<Btn>` instance regardless of the variant's per-breakpoint padding ladder.
+// The variants below already meet 44px at every breakpoint, but the floor
+// guards against future font/padding tweaks accidentally regressing it.
 const base =
-  "inline-flex items-center gap-2.5 rounded-full font-sans text-sm transition cursor-pointer no-underline";
+  "inline-flex items-center gap-2.5 rounded-full font-sans text-sm transition cursor-pointer no-underline min-h-11";
 
 // Responsive padding/sizing mirror the legacy .btn-primary / .btn-ghost
 // rules from buttons.css (now deleted). Phase 2 will re-express these as
