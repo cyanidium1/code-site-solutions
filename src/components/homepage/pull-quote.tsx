@@ -36,7 +36,7 @@ export function PullQuote({
       <div className="relative py-6 text-center">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_800px_360px_at_50%_50%,oklch(from_var(--accent)_l_c_h_/_0.10),transparent_70%)]"
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_800px_360px_at_50%_50%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%)]"
         />
         <div className="relative z-[1] mx-auto max-w-container-prose px-6">
           <p className="font-sans text-[clamp(22px,2.5vw,32px)] font-medium leading-[1.4] text-ink [&_em]:not-italic [&_em]:bg-text-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:italic">

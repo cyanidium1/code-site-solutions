@@ -163,7 +163,7 @@ export default function HomePageEn() {
           { icon: LifeBuoy, title: "1 year of support", line: "Bugs, updates, advice" },
         ]}
         footer={
-          <p className="mx-auto max-w-container-form text-center text-[13px] leading-relaxed text-[var(--ink-3)]">
+          <p className="mx-auto max-w-container-form text-center text-[13px] leading-relaxed text-[var(--color-ink-3)]">
             Not included — product photography and full logo branding. If you need them, we&apos;ll connect
             you with vetted partners.
           </p>

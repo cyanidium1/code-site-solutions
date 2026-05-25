@@ -84,7 +84,7 @@ export function FinalCta3({
                 className={cn(
                   "relative block rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] p-7 no-underline text-inherit transition-[transform,border-color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:border-line-strong",
                   c.featured &&
-                    "border-2 [border-image:linear-gradient(180deg,var(--accent-soft),var(--accent))_1] bg-[oklch(from_var(--accent)_l_c_h_/_0.05)]",
+                    "border-2 [border-image:linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))_1] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.05)]",
                 )}
               >
                 <div

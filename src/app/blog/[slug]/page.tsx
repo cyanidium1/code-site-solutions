@@ -252,7 +252,7 @@ export default async function BlogPostPage({
 
         {/* Meta strip — author + date + updated */}
         <section className="bg-bg px-5 md:px-12">
-          <div className="max-w-container mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-[var(--ink-3)] border-b border-line">
+          <div className="max-w-container mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-[var(--color-ink-3)] border-b border-line">
             {post.author?.name ? (
               <span className="flex items-center gap-2.5">
                 {post.author.photoUrl ? (
@@ -264,7 +264,7 @@ export default async function BlogPostPage({
                     className="rounded-full border border-line block"
                   />
                 ) : null}
-                <span className="text-[var(--ink-2)]">{post.author.name}</span>
+                <span className="text-[var(--color-ink-dim)]">{post.author.name}</span>
                 {post.author.role ? (
                   <span className="opacity-60">· {post.author.role}</span>
                 ) : null}

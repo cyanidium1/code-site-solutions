@@ -143,7 +143,7 @@ export default async function EnPortfolioPage() {
               })}
             </div>
           ) : (
-            <p className="py-[60px] text-center font-mono text-[var(--ink-3)]">
+            <p className="py-[60px] text-center font-mono text-[var(--color-ink-3)]">
               Cases loading…
             </p>
           )}

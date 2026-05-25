@@ -99,12 +99,12 @@ const DEFAULT_INDUSTRIES: Industry[] = [
 const cardBase =
   "group/ind relative flex flex-col overflow-hidden rounded-[18px] border border-line bg-[oklch(1_0_0_/_0.02)] p-6 text-inherit no-underline transition-[transform,border-color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
   // ::before radial overlay (hover)
-  "before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(400px_200px_at_0%_0%,oklch(from_var(--accent-color,var(--accent))_l_c_h_/_0.10),transparent_70%)] before:opacity-0 before:transition-opacity before:duration-[0.25s] " +
+  "before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(400px_200px_at_0%_0%,oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.10),transparent_70%)] before:opacity-0 before:transition-opacity before:duration-[0.25s] " +
   // ::after gradient line on top edge (hover)
-  "after:absolute after:inset-x-0 after:top-0 after:h-px after:bg-[linear-gradient(90deg,transparent,var(--accent-color,var(--accent)),transparent)] after:opacity-0 after:transition-opacity after:duration-[0.25s]";
+  "after:absolute after:inset-x-0 after:top-0 after:h-px after:bg-[linear-gradient(90deg,transparent,var(--accent-color,var(--color-accent)),transparent)] after:opacity-0 after:transition-opacity after:duration-[0.25s]";
 
 const cardEnabledHover =
-  "hover:-translate-y-0.5 hover:border-[oklch(from_var(--accent-color,var(--accent))_l_c_h_/_0.5)] hover:before:opacity-100 hover:after:opacity-100";
+  "hover:-translate-y-0.5 hover:border-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.5)] hover:before:opacity-100 hover:after:opacity-100";
 
 const cardDisabled =
   "cursor-default opacity-[0.78] hover:transform-none hover:border-line hover:before:opacity-0 hover:after:opacity-0";
@@ -133,7 +133,7 @@ export function Industries({
             const Icon = ind.icon;
             const inner = (
               <>
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-[12px] border border-line bg-[oklch(from_var(--accent-color,var(--accent))_l_c_h_/_0.12)] text-[var(--accent-color,var(--accent))]">
+                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-[12px] border border-line bg-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.12)] text-[var(--accent-color,var(--color-accent))]">
                   <Icon size={20} strokeWidth={1.6} />
                 </div>
                 <h3 className="m-0 font-sans text-[17px] font-semibold text-ink">{ind.title}</h3>
@@ -154,7 +154,7 @@ export function Industries({
                     <ArrowUpRight
                       size={16}
                       strokeWidth={1.8}
-                      className="text-[var(--accent-color,var(--accent))] transition-transform duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/ind:translate-x-1 group-hover/ind:-translate-y-1"
+                      className="text-[var(--accent-color,var(--color-accent))] transition-transform duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/ind:translate-x-1 group-hover/ind:-translate-y-1"
                     />
                   ) : null}
                 </div>

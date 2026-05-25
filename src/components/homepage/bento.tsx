@@ -101,7 +101,7 @@ function StackVisual({ locale }: { locale: PriceLocale }) {
           key={l}
           className="flex items-center gap-2.5 border-b border-dashed border-[oklch(1_0_0_/_0.06)] py-1.5 last:border-b-0"
         >
-          <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border border-[oklch(from_var(--accent)_l_c_h_/_0.30)] bg-[oklch(from_var(--accent)_l_c_h_/_0.14)] text-[var(--accent-soft,var(--ink))]">
+          <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border border-[oklch(from_var(--color-accent)_l_c_h_/_0.30)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.14)] text-[var(--accent-soft,var(--color-ink))]">
             <Check size={11} strokeWidth={2.4} />
           </span>
           <span className="font-mono text-[11.5px] tracking-[0.04em] text-ink-dim">{l}</span>
@@ -134,7 +134,7 @@ function CommitLogVisual() {
           <span
             className={cn(
               "ml-auto text-[10.5px] text-ink-3",
-              r.accent && "font-semibold text-[oklch(from_var(--accent)_0.85_0.18_h)]",
+              r.accent && "font-semibold text-[oklch(from_var(--color-accent)_0.85_0.18_h)]",
             )}
           >
             {r.meta}
@@ -214,7 +214,7 @@ function PriceTableVisual({ locale }: { locale: PriceLocale }) {
           <span
             className={cn(
               "font-semibold text-ink [font-feature-settings:'tnum'_1]",
-              r.accent && "text-[oklch(from_var(--accent)_0.88_0.16_h)]",
+              r.accent && "text-[oklch(from_var(--color-accent)_0.88_0.16_h)]",
             )}
           >
             {r.price}
@@ -241,7 +241,7 @@ function WarrantyTimelineVisual({ locale }: { locale: PriceLocale }) {
   return (
     <div className={cn(VIS_CLASS, "flex flex-col gap-3.5")} aria-hidden="true">
       <div className="relative">
-        <div className="absolute top-1.5 right-1.5 left-1.5 h-px bg-[linear-gradient(90deg,oklch(1_0_0_/_0.06),oklch(from_var(--accent)_l_c_h_/_0.35)_50%,oklch(1_0_0_/_0.06))]" />
+        <div className="absolute top-1.5 right-1.5 left-1.5 h-px bg-[linear-gradient(90deg,oklch(1_0_0_/_0.06),oklch(from_var(--color-accent)_l_c_h_/_0.35)_50%,oklch(1_0_0_/_0.06))]" />
         <div className="relative grid grid-cols-3">
           {points.map((p, idx) => (
             <div
@@ -294,7 +294,7 @@ function SupportTimerVisual({ locale }: { locale: PriceLocale }) {
         <span
           className={cn(
             segBase,
-            "border-[oklch(from_var(--accent)_l_c_h_/_0.40)] bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-ink [box-shadow:0_0_16px_oklch(from_var(--accent)_l_c_h_/_0.25)]",
+            "border-[oklch(from_var(--color-accent)_l_c_h_/_0.40)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-ink [box-shadow:0_0_16px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]",
           )}
         >
           04
@@ -408,7 +408,7 @@ const DEFAULT_BENTO: BentoCell[] = [
 // from ScrollReveal so we don't need a CSS sidecar for `.is-visible`.
 const cellBase =
   "group/bento-cell relative flex flex-col overflow-hidden rounded-[22px] border border-line p-7 " +
-  "[background:radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--accent)_l_c_h_/_0.06),transparent_70%),oklch(1_0_0_/_0.02)] " +
+  "[background:radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),oklch(1_0_0_/_0.02)] " +
   // entrance: blurred + offset until grid reaches viewport, then settle.
   "opacity-0 translate-y-6 scale-[0.97] blur-[6px] " +
   "[transition:opacity_0.85s_cubic-bezier(0.2,0.8,0.2,1),transform_0.85s_cubic-bezier(0.2,0.8,0.2,1),filter_0.85s_cubic-bezier(0.2,0.8,0.2,1)] " +
@@ -416,7 +416,7 @@ const cellBase =
   "group-data-[visible=true]/bento-reveal:opacity-100 group-data-[visible=true]/bento-reveal:translate-y-0 group-data-[visible=true]/bento-reveal:scale-100 group-data-[visible=true]/bento-reveal:blur-none " +
   "motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:blur-none motion-reduce:transition-none " +
   // ::before top accent line that fades in after the entrance settles
-  "before:pointer-events-none before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--accent)_l_c_h_/_0.45),transparent)] before:opacity-0 before:transition-opacity before:duration-[600ms] before:[transition-delay:calc(var(--i,0)*0.09s+0.4s)] " +
+  "before:pointer-events-none before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.45),transparent)] before:opacity-0 before:transition-opacity before:duration-[600ms] before:[transition-delay:calc(var(--i,0)*0.09s+0.4s)] " +
   "group-data-[visible=true]/bento-reveal:before:opacity-100 motion-reduce:before:opacity-100 motion-reduce:before:transition-none";
 
 const spanClass: Record<BentoCell["span"], string> = {
@@ -473,7 +473,7 @@ export function Bento({
                     className={cn(
                       "inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-line bg-[oklch(1_0_0_/_0.04)] text-ink",
                       isOneByOne &&
-                        "max-lg:h-9 max-lg:w-9 max-lg:border-[oklch(from_var(--accent)_l_c_h_/_0.30)] max-lg:bg-[oklch(from_var(--accent)_l_c_h_/_0.10)] max-lg:text-accent-soft",
+                        "max-lg:h-9 max-lg:w-9 max-lg:border-[oklch(from_var(--color-accent)_l_c_h_/_0.30)] max-lg:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.10)] max-lg:text-accent-soft",
                     )}
                   >
                     <Icon size={18} strokeWidth={1.6} />
@@ -481,7 +481,7 @@ export function Bento({
                   {c.stat ? (
                     <span
                       className={cn(
-                        "ml-auto whitespace-nowrap rounded-full border border-[oklch(from_var(--accent)_l_c_h_/_0.40)] bg-[oklch(from_var(--accent)_l_c_h_/_0.10)] px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[oklch(from_var(--accent)_0.92_0.12_h)]",
+                        "ml-auto whitespace-nowrap rounded-full border border-[oklch(from_var(--color-accent)_l_c_h_/_0.40)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.10)] px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[oklch(from_var(--color-accent)_0.92_0.12_h)]",
                         isOneByOne &&
                           "max-lg:col-start-2 max-lg:row-start-3 max-lg:ml-0 max-lg:self-start max-lg:pt-1.5",
                       )}

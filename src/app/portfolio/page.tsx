@@ -125,7 +125,7 @@ export default async function PortfolioPage() {
               })}
             </div>
           ) : (
-            <p className="py-[60px] text-center font-mono text-[var(--ink-3)]">
+            <p className="py-[60px] text-center font-mono text-[var(--color-ink-3)]">
               Кейси завантажуються…
             </p>
           )}
