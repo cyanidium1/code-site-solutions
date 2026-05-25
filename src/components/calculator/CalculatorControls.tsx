@@ -280,7 +280,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           <H3 variant="calc-intro">{t("controls.customizeTitle")}</H3>
           <button
             type="button"
-            className="border border-line bg-transparent text-ink-dim rounded-full px-3 py-[7px] text-[11px] tracking-[0.08em] uppercase cursor-pointer font-mono transition-[border-color,color,background] duration-200 hover:border-line-strong hover:text-ink"
+            className="inline-flex items-center min-h-11 border border-line bg-transparent text-ink-dim rounded-full px-3 py-[7px] text-[11px] tracking-[0.08em] uppercase cursor-pointer font-mono transition-[border-color,color,background] duration-200 hover:border-line-strong hover:text-ink"
             onClick={resetToBasicSetup}
           >
             {t("controls.resetBtn")}
@@ -396,7 +396,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                   </span>
                   <button
                     type="button"
-                    className="border-none bg-transparent text-ink-3 p-0 text-[11px] text-left underline underline-offset-2 cursor-pointer w-fit relative z-10 hover:text-ink"
+                    className="inline-flex items-center min-h-11 border-none bg-transparent text-ink-3 p-0 text-[11px] text-left underline underline-offset-2 cursor-pointer w-fit relative z-10 hover:text-ink"
                     onClick={(event) => {
                       event.stopPropagation();
                       setPreviewDesign(id as DesignComplexity);
@@ -547,7 +547,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
               <h4 className="m-0 text-[14px]">{t(`options.design.${previewDesign}.label` as never)}</h4>
               <button
                 type="button"
-                className="border border-line rounded-full bg-transparent text-ink-dim px-3 py-[7px] cursor-pointer"
+                className="inline-flex items-center min-h-11 border border-line rounded-full bg-transparent text-ink-dim px-3 py-[7px] cursor-pointer"
                 onClick={() => setPreviewDesign(null)}
                 aria-label={t("controls.modalClose")}
               >

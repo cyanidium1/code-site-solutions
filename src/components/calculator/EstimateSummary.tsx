@@ -204,7 +204,7 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
       <details
         className={
           "text-[13px] " +
-          "[&>summary]:cursor-pointer [&>summary]:list-none [&>summary]:text-[13px] " +
+          "[&>summary]:cursor-pointer [&>summary]:list-none [&>summary]:min-h-11 [&>summary]:text-[13px] " +
           "[&>summary]:text-ink [&>summary]:font-medium [&>summary]:flex [&>summary]:items-center [&>summary]:justify-between " +
           "[&>summary::-webkit-details-marker]:hidden " +
           "[&>summary]:after:content-['+'] [&>summary]:after:text-accent-soft [&>summary]:after:text-[13px] " +

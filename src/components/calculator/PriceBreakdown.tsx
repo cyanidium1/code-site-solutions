@@ -23,7 +23,7 @@ type PriceBreakdownProps = {
 
 const BREAKDOWN_CLASS =
   "border-t-0 pt-0 mt-0 " +
-  "[&>summary]:cursor-pointer [&>summary]:list-none [&>summary]:text-[13px] [&>summary]:text-ink " +
+  "[&>summary]:cursor-pointer [&>summary]:list-none [&>summary]:min-h-11 [&>summary]:text-[13px] [&>summary]:text-ink " +
   "[&>summary]:font-medium [&>summary]:flex [&>summary]:items-center [&>summary]:justify-between [&>summary]:select-none " +
   "[&>summary::-webkit-details-marker]:hidden " +
   "[&>summary]:after:content-['+'] [&>summary]:after:text-accent-soft [&>summary]:after:text-[13px] " +
