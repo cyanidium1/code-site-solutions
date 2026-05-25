@@ -57,11 +57,6 @@ export const hpLinkClass =
   "[&_svg]:transition-transform [&_svg]:duration-[0.25s] [&_svg]:ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
   "hover:[&_svg]:translate-x-1";
 
-// CTA wrapper used inside Process / Cases blocks so the shared `.btn-primary`
-// button anchors at the inner container's left edge with the same top spacing
-// the old `.hp-link` used to have.
-export const hpSectionCtaClass = "mt-9 self-start";
-
 // Section header wrapper — column layout, items at flex-start, 40px bottom
 // margin. The `SectionHead` shared component renders this layout.
 export const hpSectionHeadClass = "flex flex-col items-start gap-0 mb-10";
