@@ -101,43 +101,8 @@
   --animate-hp-drawer-in: hp-drawer-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-/* ─── Phase 1 compatibility shim ──────────────────────────────────────────
-   Re-exposes the @theme color/container tokens under their pre-refactor
-   names (--bg, --ink, --accent, --line, --container-*). Many consumers
-   across src/ still reference these short names directly
-   (e.g. bg-[oklch(from_var(--color-accent)_...)]). Phase 3 will migrate
-   consumers to the @theme-derived --color-* names then delete this block.
-   Phase 2 removed the --gutter-x / --section-y* entries — those are now
-   exclusively @theme --spacing-* tokens consumed via Tailwind utilities.
-   ─────────────────────────────────────────────────────────────────────── */
-:root {
-  color-scheme: dark;
-
-  --bg: #121212;
-  --bg-subtle: #1a1620;
-  --bg-raised: #1f1a26;
-
-  --ink: oklch(0.97 0.005 300);
-  --ink-2: oklch(0.78 0.012 300);
-  --ink-3: oklch(0.55 0.01 300);
-  --ink-muted: oklch(0.55 0.01 70);
-
-  --line: oklch(1 0 0 / 0.08);
-  --line-2: oklch(1 0 0 / 0.14);
-
-  --accent: oklch(0.55 0.18 295);
-  --accent-soft: oklch(0.7 0.14 295);
-  --accent-deep: oklch(0.45 0.2 285);
-  --accent-2: oklch(0.45 0.20 285);
-
-  --container-max: 1440px;
-  --container-h1: 920px;
-  --container-narrow: 880px;
-  --container-prose: 760px;
-  --container-form: 720px;
-}
-
 html {
+  color-scheme: dark;
   scroll-behavior: smooth;
 }
 
