@@ -175,6 +175,31 @@ h3 em {
   box-decoration-break: clone;
 }
 
+/* ─── Container max-width utilities ───────────────────────────────────────
+   Tailwind v4's `--container-*` @theme namespace generates `max-w-{name}`
+   utilities, but ONLY for the built-in scale names (xs, sm, …, 7xl). It
+   does NOT auto-generate `max-w-container`, `max-w-container-narrow`, etc.
+   from custom `--container-max` / `--container-narrow` tokens. The Phase D
+   trim (a7c439f) assumed it did, so the explicit utilities were lost.
+   These `@utility` declarations restore them on top of the @theme tokens,
+   so consumers can keep using `max-w-container[-narrow|-h1|-prose|-form]`.
+   ────────────────────────────────────────────────────────────────────────── */
+@utility max-w-container {
+  max-width: var(--container-max);
+}
+@utility max-w-container-h1 {
+  max-width: var(--container-h1);
+}
+@utility max-w-container-narrow {
+  max-width: var(--container-narrow);
+}
+@utility max-w-container-prose {
+  max-width: var(--container-prose);
+}
+@utility max-w-container-form {
+  max-width: var(--container-form);
+}
+
 @layer utilities {
   .text-gradient {
     background: linear-gradient(
