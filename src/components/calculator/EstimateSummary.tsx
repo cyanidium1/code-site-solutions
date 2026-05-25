@@ -35,7 +35,7 @@ const CALC_BTN_PRIMARY =
   "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
 
 const CALC_BTN_GHOST =
-  "inline-flex items-center justify-center w-full border border-line rounded-full bg-transparent text-ink-dim " +
+  "inline-flex items-center justify-center w-full min-h-11 border border-line rounded-full bg-transparent text-ink-dim " +
   "px-[18px] py-[11px] font-sans text-[12px] uppercase tracking-[0.1em] font-semibold no-underline cursor-pointer mt-[10px] " +
   "transition-[border-color,color] duration-200 hover:border-line-strong hover:text-ink " +
   "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";

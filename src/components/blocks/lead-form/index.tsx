@@ -127,7 +127,7 @@ const SUBMIT_BUTTON_CLASS =
 
 // Compact-form "more details" toggle pill.
 const TOGGLE_CLASS =
-  "inline-flex items-center gap-2 self-start py-2.5 px-[14px] border border-dashed border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] text-[var(--color-ink-dim)] font-mono text-[12px] tracking-[0.04em] cursor-pointer " +
+  "inline-flex items-center gap-2 self-start min-h-11 py-2.5 px-[14px] border border-dashed border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] text-[var(--color-ink-dim)] font-mono text-[12px] tracking-[0.04em] cursor-pointer " +
   "transition-[color,border-color,background-color] duration-200 " +
   "hover:text-accent-soft hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] hover:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.05)]";
 
