@@ -407,3 +407,42 @@ Each item: **scope** (S = small, M = medium, L = large), **risk** (low/med/high)
 - **No prerendered HTML available** for inlined-CSS analysis (E.1). Most marketing routes are dynamic; blog/portfolio SSG output is `page.js` chunks, not `.html` files. To audit inlined critical CSS, the team would need to `npm run start` and fetch rendered HTML for a representative URL.
 - **`bundle-analyzer` not run** — could provide JS chunk attribution per route but not CSS. Out of scope for this audit.
 - **No `lighthouse` / runtime CSS coverage** measurement — would identify utilities that are *generated* but never *applied* at runtime on any page. Recommended as a Phase 5 follow-up if dead-code sweep doesn't reduce bundle as expected.
+
+---
+
+## Phase 5 — Applied findings (2026-05-25)
+
+Applied the safe-set + OKLCH-token promotion findings from the audit above. 7 commits on `refactor/style-system-unification`; all verified with `npm run typecheck && npm run lint && npm run build` between commits.
+
+### Changes
+- **13 dead @theme tokens deleted** (Finding B.2/B.3/B.5/B.6/B.7): all 8 `--color-industry-*` colors, `--color-accent-deep` (duplicate of `--color-accent-2`), `--color-bg-subtle`, `--spacing-gutter-sm` + `--spacing-gutter-md` (kept `--spacing-gutter-x` per task spec; comment block references it), `--background-image-hero-glow`.
+- **6 dead @layer utilities deleted** (Finding B.1): `.text-gradient`, `.text-gradient-brand`, `.text-gradient-soft`, `.grid-bg`, `.dotted-bg`, `.ease-soft`. Entire `@layer utilities { ... }` block removed.
+- **`var(--bg-2)` orphan in hero/index.tsx fixed** (Finding B.4): Replaced with `var(--color-bg)`. Gradient is now visually flat top-to-bottom (matches current observable behavior — `--bg-2` was undefined and rendering as transparent since Phase 3 Session 5). If the original "darker bottom" intent matters, a follow-up should add a `--color-bg-deep` token.
+- **`hpSectionCtaClass` deleted** (Finding D.1): zero consumers.
+- **`hpSectionTightClass` inlined** (Finding D.2): single consumer was `newsletter.tsx`; literal value inlined and export removed.
+- **Stale `about-values-secondary-card` className removed** (Finding B.8): no matching CSS rule existed.
+- **5 OKLCH-from-accent alphas promoted to @theme tokens** (Finding C.1):
+  - `--color-accent-12` (17 consumer sites)
+  - `--color-accent-18` (8 sites)
+  - `--color-accent-25` (7 sites)
+  - `--color-accent-30` (11 sites, merged `0.3` and `0.30` source forms)
+  - `--color-accent-40` (12 sites, merged `0.4` and `0.40` source forms)
+  - 55 direct `bg-[oklch(...)]` / `border-[oklch(...)]` consumer strings migrated to `bg-accent-NN` / `border-accent-NN` across 23 .tsx files. Compound arbitrary-value uses (oklch inside larger `bg-[radial-gradient(...)]` strings, e.g. HERO_BG_CLASS) intentionally left intact — they require a different rewrite (inline `var()` substitution).
+
+### Bundle delta
+- **Before:** 448,565 B raw / 63,408 B gzipped (from Section A.1)
+- **After:**  446,639 B raw / 63,120 B gzipped
+- **Net:**    **−1,926 B raw / −288 B gzipped**
+
+The bundle savings landed at the lower end of the Section-A estimate (~2–4 KB raw / ~0.5–1 KB gzipped). The OKLCH-promotion deduplication mostly compresses well in the gzipped stream, so the headline number on disk is smaller than the source-code change suggests; the real win is DX (className strings dropped from ~55 chars to ~14 chars at 55 sites).
+
+### Deferred to Phase 6+
+- **Non-canonical breakpoint promotion** (Finding G.4): `max-[1440px]:` (47×) + `max-[760px]:` (32×) outliers — affects ~80 utilities; warrants its own audit pass to pick non-conflicting names.
+- **Remaining 10+ OKLCH patterns below the top-5 cutoff** (Finding C.1 tail): `0.10` (12×), `0.06` (12×), `0.20` (10×), `0.35` (12×), `0.55` (9×), `0.15` (8×), `0.22` (7×), `0.60` (7×). Promoting them is mechanical; deferred to keep this session's churn bounded.
+- **Compound OKLCH inside `bg-[radial-gradient(...)]` etc.** (Finding C.1 edge): ~5 sites where the OKLCH is nested inside a longer arbitrary-value gradient. Migrating to `var(--color-accent-NN)` is straightforward but per-site.
+- **Surface-bg scale** (Finding C.2): ~70 sites using `oklch(0.13 | 0.155 | 0.16 | 0.22 0.005 300)` would benefit from a `--color-surface-1..4` scale. Larger-scope refactor.
+- **Brand-gradient consolidation** (Finding C.3): 10 sites use the 135° diagonal form; promote to a new token.
+- **`border-[oklch(1 0 0 / 0.06)]` → `border-line`** (Finding C.4): 14 sites; visual diff is imperceptible.
+- **`[var(--color-X)]` → named utility** (Finding G.5): ~30–50 sites; consistency win.
+- **rgba → OKLCH holdouts** (Finding G.6): 7 sites.
+- **Long className-constant splitting** (Finding G.1) + **static `cn()` hoisting** (Finding G.2): DX-only; per-consumer judgement.
