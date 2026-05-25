@@ -392,3 +392,55 @@ If any page regresses, the inversion at that block was wrong — restore from gi
 - Touch-target audit (≥44×44px on interactive elements)
 - Color-token migration (`var(--bg)` → `var(--color-bg)` etc.); delete `:root` compat shim
 - HeroUI dark-theme review under mobile-first baseline
+
+## Phase 3 Session 6 — Touch-target audit
+
+All interactive elements brought to ≥44×44 px (WCAG 2.5.5 AAA) via `min-h-11`
+on the relevant utility-class strings. Behavioural changes worth eyeballing
+before merge:
+
+### Footer link rows (visible layout change)
+
+- **File:** `src/components/layout/hp-footer.tsx`
+  (`footerColListClass`, `footerContactsClass`, `footerSocialClass`)
+- **What changed:** every footer column link, contact link (tel/email/telegram)
+  and social-icon link now has `min-h-11` (44 px). On mobile this makes the
+  footer noticeably taller (each link row 44 px instead of ~18-20 px).
+- **Why:** the footer is the primary nav surface ≤lg (the desktop nav row is
+  `max-lg:hidden`). Footer links MUST hit 44 px on touch screens — accepted
+  layout impact in exchange for compliance.
+- **Verify:** scroll to footer at 380 / 640 / 800 px viewports; confirm links
+  are individually tappable without hitting neighbours, taller-but-not-broken.
+
+### Btn primitive — `min-h-11` floor
+
+- **File:** `src/components/ui/Btn.tsx` (`base` class)
+- **What changed:** added `min-h-11` to the shared `base` class so every
+  `<Btn>` / `btnClass(...)` consumer is guaranteed ≥44 px tall regardless of
+  per-variant padding ladder.
+- **Verify:** primary + ghost variants at hero / vs-* / case CTAs render at
+  the same visible height as before (existing padding already produced ≥44
+  in all variant×breakpoint combinations; floor is defensive).
+
+### HeroUI Button size="sm" — additional `min-h-11`
+
+- **File:** `src/components/about/team-section.tsx` ("Read more" + Modal close)
+- **What changed:** added `min-h-11` to override HeroUI Button `size="sm"`
+  (default 32 px) and `size="md"` (default 40 px).
+- **Verify:** team cards on `/about` and the modal footer button render
+  visibly taller than before (~44 px instead of 32/40); spacing inside the
+  card still looks balanced.
+
+### No layout-forced exceptions
+
+No interactive element was left below 44×44. Every fail surfaced in the
+audit was reachable with `min-h-11` alone; no `before:` hit-area
+extension was required.
+
+### Verification
+
+```
+npm run typecheck   # passed (0 errors)
+npm run lint        # passed (warnings only — pre-existing <img> warnings)
+npm run build       # passed
+```
