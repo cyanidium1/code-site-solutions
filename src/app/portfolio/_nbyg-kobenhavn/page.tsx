@@ -245,7 +245,7 @@ export default function NbygKobenhavnCasePage() {
       {/* Section 5: Outcome */}
       <ImageText
         variant="centered"
-        sectionClassName="pt-5 max-[800px]:pt-5"
+        sectionClassName="pt-5"
         eyebrow="РЕЗУЛЬТАТ"
         heading={
           <>

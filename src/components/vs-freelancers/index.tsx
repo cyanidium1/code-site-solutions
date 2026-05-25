@@ -63,7 +63,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             sub={c.horrorStories.sub}
           />
           {/* Top 3 horror-stories as full cards, rest compact. */}
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.horrorStories.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
@@ -90,7 +90,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             })}
           </div>
           {c.horrorStories.items.length > 3 ? (
-            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.horrorStories.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -198,7 +198,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <h3 className="font-display text-[12px] font-bold tracking-[0.16em] uppercase text-accent-soft mb-4 text-center">
             {c.team.coreHeading}
           </h3>
-          <div className="grid grid-cols-2 gap-4 mb-12 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 mb-12 md:grid-cols-2">
             {c.team.core.map((p) => {
               const Icon = p.icon;
               return (
@@ -225,7 +225,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <h3 className="font-display text-[12px] font-bold tracking-[0.16em] uppercase text-[var(--ink-3)] mb-4 text-center max-w-[64ch] mx-auto">
             {c.team.partnersHeading}
           </h3>
-          <div className="grid grid-cols-4 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
             {c.team.partners.map((p) => {
               const Icon = p.icon;
               return (
@@ -261,7 +261,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.payFor.heading}
             sub={c.payFor.sub}
           />
-          <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             {c.payFor.items.map((it) => {
               const Icon = it.icon;
               return (
@@ -333,7 +333,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
@@ -366,7 +366,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.caseStudy.heading}
             sub={c.caseStudy.sub}
           />
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-3">
             {[
               { heading: c.caseStudy.situationHeading, items: c.caseStudy.situation, tone: "bad" as const },
               { heading: c.caseStudy.actionHeading, items: c.caseStudy.action, tone: "neutral" as const },

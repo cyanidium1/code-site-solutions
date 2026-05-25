@@ -63,7 +63,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           />
           {/* Top 3 hidden-costs as full cards, remaining as a compact
               secondary row so 6 uniform cards don't read as template. */}
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.costs.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
@@ -93,7 +93,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             })}
           </div>
           {c.costs.items.length > 3 ? (
-            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.costs.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -170,7 +170,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           <div className="text-center -mt-8 mb-10 font-mono text-[12px] tracking-[0.14em] uppercase text-[var(--ink-3)]">
             {c.caseStudy.subEyebrow}
           </div>
-          <div className="grid grid-cols-2 gap-5 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <div className="border border-line rounded-[18px] p-7 bg-[oklch(0.13_0.005_300)]">
               <div className="font-display text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--ink-3)] mb-5">
                 {c.caseStudy.beforeLabel}
@@ -240,7 +240,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             heading={c.seo.heading}
             sub={c.seo.sub}
           />
-          <div className="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {c.seo.cards.map((card, i) => (
               <div
                 key={i}
@@ -275,7 +275,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             sub={c.admin.sub}
           />
           {/* Mobile-safe table — horizontal scroll wrapper for narrow viewports */}
-          <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)] mb-12 max-[700px]:overflow-x-auto">
+          <div className="border border-line rounded-[18px] overflow-x-auto bg-[oklch(0.155_0.005_300)] mb-12 md:overflow-hidden">
             <CmpTable className="min-w-[600px]">
               <CmpThead>
                 <tr>
@@ -305,7 +305,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
@@ -337,7 +337,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             eyebrow={c.process.eyebrow}
             heading={c.process.heading}
           />
-          <ol className="list-none grid grid-cols-5 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <ol className="list-none grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
             {c.process.steps.map((s) => (
               <li
                 key={s.num}

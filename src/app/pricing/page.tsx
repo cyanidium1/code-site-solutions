@@ -189,7 +189,7 @@ export default function PricingPage() {
       {/* Section 2: 4 tiers */}
       <section className={hpSectionClass} id="tiers">
         <div className={hpInnerClass}>
-          <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[1100px]:gap-3.5 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 xl:grid-cols-4 xl:gap-4">
             {TIERS.map((t, i) => (
               <Tier key={i} {...t} />
             ))}

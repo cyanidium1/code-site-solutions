@@ -62,7 +62,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             sub={c.outgrew.sub}
           />
           {/* Top 3 outgrew-reasons as full cards, rest compact. */}
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.outgrew.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
@@ -89,7 +89,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             })}
           </div>
           {c.outgrew.items.length > 3 ? (
-            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.outgrew.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -122,7 +122,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             heading={c.costs.heading}
             sub={c.costs.sub}
           />
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.costs.items.map((it) => {
               const Icon = it.icon;
               return (
@@ -225,7 +225,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             heading={c.builders.heading}
             sub={c.builders.sub}
           />
-          <div className="grid grid-cols-2 gap-4 max-[1100px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
             {c.builders.items.map((b) => (
               <div
                 key={b.name}
@@ -331,7 +331,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}

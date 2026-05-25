@@ -358,10 +358,10 @@ export function TeamSection({
   };
 
   return (
-    <section className="relative py-14 lg:py-[100px] px-12 bg-bg max-[800px]:px-6">
+    <section className="relative py-14 lg:py-[100px] px-6 bg-bg lg:px-12">
       <div className="max-w-container mx-auto">
         {(eyebrow || heading || sub) && (
-          <header className="flex flex-col mb-16 max-[800px]:mb-10">
+          <header className="flex flex-col mb-10 lg:mb-16">
             {eyebrow ? (
               <span className="inline-flex items-center self-start gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)]">
                 {eyebrow}
@@ -380,7 +380,7 @@ export function TeamSection({
           </header>
         )}
 
-        <div className="grid grid-cols-4 gap-5 max-[1100px]:grid-cols-2 max-[600px]:grid-cols-1">
+        <div className="grid grid-cols-2 gap-5 max-[600px]:grid-cols-1 xl:grid-cols-4">
           {members.map((m) => (
             <MemberCard
               key={m.id}

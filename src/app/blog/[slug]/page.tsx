@@ -228,7 +228,7 @@ export default async function BlogPostPage({
         {/* Hero cover — rendered above the H1. Full standard width to
             match /sites-for/medicine and other site pages. */}
         {post.coverImage?.src ? (
-          <section className="bg-bg px-12 pt-10 max-[800px]:px-5 max-[800px]:pt-6">
+          <section className="bg-bg px-5 pt-6 lg:px-12 lg:pt-10">
             <div className="max-w-container mx-auto">
               <img
                 src={post.coverImage.src}
@@ -251,7 +251,7 @@ export default async function BlogPostPage({
         />
 
         {/* Meta strip — author + date + updated */}
-        <section className="bg-bg px-12 max-[700px]:px-5">
+        <section className="bg-bg px-5 md:px-12">
           <div className="max-w-container mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-[var(--ink-3)] border-b border-line">
             {post.author?.name ? (
               <span className="flex items-center gap-2.5">
@@ -283,7 +283,7 @@ export default async function BlogPostPage({
             break out to match the rest of the site. Prose elements are
             individually capped to a 720px reading measure via the
             .blog-prose CSS rules. */}
-        <section className="relative bg-bg pt-16 px-12 pb-20 max-[700px]:pt-10 max-[700px]:px-5 max-[700px]:pb-14">
+        <section className="relative bg-bg pt-10 px-5 pb-14 md:pt-16 md:px-12 md:pb-20">
           <div className="blog-post-bg absolute inset-0 z-0 pointer-events-none" />
           <article className="blog-prose relative z-[1] max-w-container mx-auto">
             <BlogPortableText value={post.body} />
