@@ -45,7 +45,7 @@ const TIER_DEFAULT =
   "border-line bg-[oklch(0.16_0.005_300)] hover:border-[var(--color-line-strong)] hover:-translate-y-0.5";
 
 const TIER_POP =
-  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-0.5 xl:-translate-y-2 xl:hover:-translate-y-2.5";
+  "border-accent-40 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-0.5 xl:-translate-y-2 xl:hover:-translate-y-2.5";
 
 const TIER_BTN_BASE =
   "inline-flex items-center justify-center min-h-11 w-full px-5 py-3.5 rounded-full font-sans text-[11px] font-bold tracking-[0.12em] uppercase cursor-pointer transition-all duration-[250ms]";

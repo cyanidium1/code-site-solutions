@@ -256,7 +256,7 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
           "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]"
         }
       >
-        <span className="inline-flex items-center justify-center w-[26px] h-[26px] rounded-lg bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft">
+        <span className="inline-flex items-center justify-center w-[26px] h-[26px] rounded-lg bg-accent-18 text-accent-soft">
           <Sparkles size={14} strokeWidth={1.7} />
         </span>
         <h4 className={SUMMARY_H4}>{t("summary.roiTitle")}</h4>

@@ -75,7 +75,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                     <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
@@ -101,7 +101,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                     key={it.num}
                     className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1">
@@ -191,7 +191,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                 ))}
               </ul>
             </div>
-            <div className="border border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] rounded-[18px] p-7 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)]">
+            <div className="border border-accent-40 rounded-[18px] p-7 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)]">
               <div className="font-display text-[11px] font-bold tracking-[0.18em] uppercase text-accent-soft mb-5">
                 {c.caseStudy.afterLabel}
               </div>
@@ -246,7 +246,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                 key={i}
                 className="border border-line rounded-[18px] p-7 bg-[oklch(0.155_0.005_300)] flex gap-4"
               >
-                <span className="w-8 h-8 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
+                <span className="w-8 h-8 shrink-0 rounded-full inline-flex items-center justify-center bg-accent-18 text-accent-soft border border-accent-30">
                   <CheckCircle2 size={16} strokeWidth={1.6} />
                 </span>
                 <div>

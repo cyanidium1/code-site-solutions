@@ -33,6 +33,18 @@
   --color-accent-soft: oklch(0.7 0.14 295);
   --color-accent-2: oklch(0.45 0.20 285);
 
+  /* Accent alpha scale — Tailwind v4 can't synthesise relative-color
+     alpha modifiers from a base token. These pre-computed
+     `oklch(from var(--color-accent) l c h / 0.NN)` variants generate
+     utilities like `bg-accent-12`, `border-accent-40`, etc. Promoted
+     in Phase 5 from 95+ repeated arbitrary-value occurrences. Names
+     are alpha × 100; both `0.NN` and `0.N0` source forms map here. */
+  --color-accent-12: oklch(from var(--color-accent) l c h / 0.12);
+  --color-accent-18: oklch(from var(--color-accent) l c h / 0.18);
+  --color-accent-25: oklch(from var(--color-accent) l c h / 0.25);
+  --color-accent-30: oklch(from var(--color-accent) l c h / 0.30);
+  --color-accent-40: oklch(from var(--color-accent) l c h / 0.40);
+
   /* Container widths — generates max-w-container, max-w-container-h1, etc. */
   --container-max: 1440px;
   --container-h1: 920px;

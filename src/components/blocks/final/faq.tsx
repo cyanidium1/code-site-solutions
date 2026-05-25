@@ -144,7 +144,7 @@ const FAQ_PLUS_BASE =
   "w-8 h-8 rounded-full border border-line-strong bg-transparent text-[var(--color-ink-dim)] " +
   "inline-flex items-center justify-center shrink-0 " +
   "transition-[background-color,color,border-color,transform] duration-[250ms] " +
-  "group-hover/trigger:text-accent-soft group-hover/trigger:border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
+  "group-hover/trigger:text-accent-soft group-hover/trigger:border-accent-40 " +
   "[&_svg]:transition-transform [&_svg]:duration-[250ms] " +
   "max-md:w-[26px] max-md:h-[26px] max-md:[&_svg]:w-[11px] max-md:[&_svg]:h-[11px]";
 

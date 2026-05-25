@@ -39,7 +39,7 @@ const SEG_BTN =
   "hover:border-line-strong hover:text-ink " +
   "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
 const SEG_BTN_ACTIVE =
-  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] !text-ink";
+  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] bg-accent-12 !text-ink";
 const NOTE = "text-ink-3 text-[12px] leading-[1.5]";
 
 // Renders <em>…</em> chunks inside next-intl rich messages. Reused for every
@@ -64,7 +64,7 @@ function InfoCardGrid({ cards }: { cards: InfoCard[] }) {
             key={c.title}
             className="border border-line rounded-[22px] bg-[radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),oklch(0.16_0.005_300)] px-[22px] py-6 flex flex-col gap-3 transition-[border-color,transform] duration-200"
           >
-            <span className="inline-flex items-center justify-center w-9 h-9 rounded-[12px] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft">
+            <span className="inline-flex items-center justify-center w-9 h-9 rounded-[12px] bg-accent-12 text-accent-soft">
               <Icon size={18} strokeWidth={1.6} />
             </span>
             <H3 variant="calc-card">{c.title}</H3>

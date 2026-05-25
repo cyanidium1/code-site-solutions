@@ -25,10 +25,10 @@ const VISUAL_CONTENT =
   "absolute inset-x-0 bottom-0 top-[30px] p-6 flex flex-col gap-3.5";
 
 const CHECK_PILL =
-  "w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]";
+  "w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center bg-accent-18 text-accent-soft border border-accent-30";
 
 const BENEFIT_LIST =
-  "flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-[var(--color-ink-dim)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium [&>li_mark]:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] [&>li_mark]:text-accent-soft [&>li_mark]:px-1.5 [&>li_mark]:py-px [&>li_mark]:rounded [&>li_mark]:font-medium md:[&>li]:text-[14px]";
+  "flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-[var(--color-ink-dim)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium [&>li_mark]:bg-accent-18 [&>li_mark]:text-accent-soft [&>li_mark]:px-1.5 [&>li_mark]:py-px [&>li_mark]:rounded [&>li_mark]:font-medium md:[&>li]:text-[14px]";
 
 export function MockPages({
   url,
@@ -132,7 +132,7 @@ export function MockAdmin({ url }: { url: string }) {
         <div className="grid grid-cols-[110px_1fr] gap-3 h-full">
           <div className="bg-[oklch(0.16_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-lg pt-3.5 px-2.5 pb-3.5 flex flex-col gap-2">
             <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />
-            <div className="h-[18px] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.3)] border-l-2 border-l-accent-soft rounded" />
+            <div className="h-[18px] bg-accent-30 border-l-2 border-l-accent-soft rounded" />
             <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />
             <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />
             <div className="h-[18px] bg-[oklch(0.22_0.005_300)] rounded" />

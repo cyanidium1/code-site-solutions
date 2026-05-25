@@ -126,7 +126,7 @@ const FEAT_CLASS =
 // U — circular check icon.
 const FEAT_CHECK_CLASS =
   "w-[26px] h-[26px] rounded-full flex items-center justify-center shrink-0 text-accent " +
-  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
+  "bg-accent-12 border border-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
   "max-sm:w-[22px] max-sm:h-[22px] [&_svg]:max-sm:w-3 [&_svg]:max-sm:h-3";
 
 const FEAT_LABEL_CLASS =

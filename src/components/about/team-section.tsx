@@ -228,7 +228,7 @@ function MemberCard({
   moreLabel: string;
 }) {
   return (
-    <article className="group flex flex-col rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] hover:-translate-y-0.5">
+    <article className="group flex flex-col rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-accent-40 hover:-translate-y-0.5">
       <MemberPhoto member={member} variant="card" />
       <div className="px-5 pt-5 pb-5 flex flex-col flex-1">
         <h3 className="font-display font-semibold text-[18px] tracking-[-0.01em] text-ink">

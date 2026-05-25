@@ -108,7 +108,7 @@ export function ImageText({
   const checkColorClass =
     bulletIcon === "cross"
       ? "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.78_0.16_25)]"
-      : "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft";
+      : "bg-accent-18 text-accent-soft";
 
   const imageBlock = <div className={imageClass}>{image}</div>;
   const contentBlock = (

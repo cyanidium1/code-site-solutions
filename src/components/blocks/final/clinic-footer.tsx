@@ -138,7 +138,7 @@ export function ClinicFooter({
           <p className="text-[12px] leading-[1.65] text-[var(--color-ink-3)] max-w-[30ch] mb-5">
             {resolvedBrandDesc}
           </p>
-          <div className="flex gap-2 [&>a]:w-8 [&>a]:h-8 [&>a]:border [&>a]:border-line [&>a]:rounded-lg [&>a]:inline-flex [&>a]:items-center [&>a]:justify-center [&>a]:text-[var(--color-ink-dim)] [&>a]:transition-all [&>a]:duration-200 [&>a:hover]:text-accent-soft [&>a:hover]:border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)]">
+          <div className="flex gap-2 [&>a]:w-8 [&>a]:h-8 [&>a]:border [&>a]:border-line [&>a]:rounded-lg [&>a]:inline-flex [&>a]:items-center [&>a]:justify-center [&>a]:text-[var(--color-ink-dim)] [&>a]:transition-all [&>a]:duration-200 [&>a:hover]:text-accent-soft [&>a:hover]:border-accent-40">
             {socials.map((kind) => (
               <a
                 key={kind}

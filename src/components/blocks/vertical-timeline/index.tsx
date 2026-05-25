@@ -35,7 +35,7 @@ function MarkerCircle({ n, size = "lg" }: { n: string; size?: "lg" | "sm" }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center justify-center rounded-full border border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft font-mono font-semibold tracking-[0.04em]",
+        "inline-flex items-center justify-center rounded-full border border-accent-40 bg-accent-12 text-accent-soft font-mono font-semibold tracking-[0.04em]",
         sz,
       )}
     >

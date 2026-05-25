@@ -117,7 +117,7 @@ export function SecondaryFeatureCard({ icon, title, items }: Feature) {
   const blurb = items.length > 0 ? items[0] : null;
   return (
     <div className="relative px-4 py-3.5 border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] transition-[border-color,background] duration-[200ms] flex items-center gap-3 hover:border-[var(--color-line-strong)] hover:bg-[oklch(0.18_0.005_300)] md:px-5 md:py-4 md:gap-4">
-      <div className="w-8 h-8 shrink-0 rounded-lg bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)] flex items-center justify-center md:w-9 md:h-9 [&>svg]:w-[18px] [&>svg]:h-[18px]">
+      <div className="w-8 h-8 shrink-0 rounded-lg bg-accent-12 text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)] flex items-center justify-center md:w-9 md:h-9 [&>svg]:w-[18px] [&>svg]:h-[18px]">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
@@ -151,7 +151,7 @@ export function FeatureCard({ icon, title, items, bg }: Feature) {
       <ul className="flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[12px] [&>li]:leading-[1.5] [&>li]:text-[var(--color-ink-dim)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[13px]">
         {items.map((it, i) => (
           <li key={i}>
-            <span className="w-4 h-4 rounded-full bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)] mt-0.5 inline-flex items-center justify-center shrink-0">
+            <span className="w-4 h-4 rounded-full bg-accent-18 text-accent-soft border border-accent-25 mt-0.5 inline-flex items-center justify-center shrink-0">
               <CheckIcon />
             </span>
             <span>{it}</span>

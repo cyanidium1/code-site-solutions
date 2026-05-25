@@ -74,7 +74,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
@@ -97,7 +97,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     key={it.num}
                     className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1 font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight">
@@ -134,7 +134,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
@@ -236,7 +236,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                 </h3>
                 <ul className="list-none flex flex-col gap-3">
                   <li className="flex gap-3">
-                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
+                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] border border-accent-30">
                       <CheckCircle2 size={13} strokeWidth={1.8} />
                     </span>
                     <span className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
@@ -271,7 +271,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     </li>
                   ) : null}
                   <li className="flex gap-3">
-                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
+                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] border border-accent-30">
                       <Target size={13} strokeWidth={1.8} />
                     </span>
                     <span className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">

@@ -197,7 +197,7 @@ export function Reasons({
                     {r.title}
                   </h3>
                   <p
-                    className={`leading-[1.65] text-[var(--color-ink-dim)] text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium [&_mark]:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] [&_mark]:text-accent-soft [&_mark]:px-1.5 [&_mark]:py-px [&_mark]:rounded [&_mark]:font-medium ${
+                    className={`leading-[1.65] text-[var(--color-ink-dim)] text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium [&_mark]:bg-accent-18 [&_mark]:text-accent-soft [&_mark]:px-1.5 [&_mark]:py-px [&_mark]:rounded [&_mark]:font-medium ${
                       isPrimary
                         ? "text-[14px] max-w-[58ch] sm:text-[15.5px]"
                         : "text-[13px] max-w-[50ch] sm:text-[13.5px]"

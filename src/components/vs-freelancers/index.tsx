@@ -129,7 +129,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 key={i}
                 className="flex gap-4 border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)]"
               >
-                <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
+                <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft border border-accent-30">
                   <CheckCircle2 size={15} strokeWidth={1.8} />
                 </span>
                 <div>
@@ -206,7 +206,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   key={p.role}
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex gap-4 items-start"
                 >
-                  <span className="w-10 h-10 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
+                  <span className="w-10 h-10 shrink-0 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
                     <Icon size={18} strokeWidth={1.6} />
                   </span>
                   <div>
@@ -273,7 +273,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                     <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
@@ -376,7 +376,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 key={i}
                 className={`border rounded-[18px] p-6 flex flex-col gap-4 ${
                   col.tone === "good"
-                    ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)]"
+                    ? "border-accent-30 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)]"
                     : "border-line bg-[oklch(0.155_0.005_300)]"
                 }`}
               >

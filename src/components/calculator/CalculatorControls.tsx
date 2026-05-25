@@ -64,7 +64,7 @@ const SEG_BTN_CLASS =
   "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
 
 const SEG_BTN_ACTIVE_CLASS =
-  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] !text-ink";
+  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] bg-accent-12 !text-ink";
 
 // Checkbox-card class used by CMS / SEO / Features groups. Children
 // (input, span, strong, small) styled via descendant selectors.
@@ -234,7 +234,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                     "[&>b]:mt-1 [&>b]:border [&>b]:border-line [&>b]:rounded-full [&>b]:px-3 [&>b]:py-2 [&>b]:w-fit " +
                     "[&>b]:text-[10px] [&>b]:tracking-[0.1em] [&>b]:uppercase [&>b]:text-ink [&>b]:font-semibold " +
                     (isRecommended
-                      ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-[2px] xl:-translate-y-[6px] xl:hover:-translate-y-[8px] [&>b]:bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] [&>b]:border-transparent [&>b]:text-[oklch(1_0_0_/_0.98)] "
+                      ? "border-accent-40 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-[2px] xl:-translate-y-[6px] xl:hover:-translate-y-[8px] [&>b]:bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] [&>b]:border-transparent [&>b]:text-[oklch(1_0_0_/_0.98)] "
                       : "bg-[oklch(0.16_0.005_300)] ") +
                     (isActive
                       ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.22)]"
@@ -245,7 +245,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                   onClick={() => applyPreset(preset.id)}
                 >
                   <div className="flex justify-between items-center gap-2">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-accent-12 text-accent-soft">
                       {preset.id === "starterLanding" ? <Zap size={15} /> : preset.id === "growthWebsite" ? <Rocket size={15} /> : <Store size={15} />}
                     </span>
                     <em className="not-italic text-[10px] tracking-[0.1em] uppercase border border-line rounded-full px-[9px] py-1 text-ink-dim">

@@ -297,7 +297,7 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
               const Icon = step.icon;
               return (
                 <li key={i} className="grid grid-cols-[32px_1fr] gap-3 items-start">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft">
+                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-accent-12 text-accent-soft">
                     <Icon size={14} strokeWidth={1.7} />
                   </span>
                   <span className="flex flex-col gap-[3px]">

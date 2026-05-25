@@ -65,7 +65,7 @@ export function Audit({
           <ul className="list-none flex flex-col gap-3 mb-7 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.5] [&>li]:text-ink [&>li_em]:not-italic [&>li_em]:font-medium md:[&>li]:text-[14px]">
             {list.map((it, i) => (
               <li key={i}>
-                <span className="w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
+                <span className="w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center bg-accent-18 text-accent-soft border border-accent-30">
                   <CheckIcon />
                 </span>
                 <span>{it}</span>

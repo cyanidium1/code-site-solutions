@@ -149,7 +149,7 @@ const LIST_ICN_BAD_CLASS =
   "bg-[oklch(0.65_0.18_25_/_0.12)] text-[oklch(0.78_0.16_25)] border-[oklch(0.65_0.18_25_/_0.25)]";
 
 const LIST_ICN_GOOD_CLASS =
-  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]";
+  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft border-accent-30";
 
 const CARD_FOOT_CLASS =
   "mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";
