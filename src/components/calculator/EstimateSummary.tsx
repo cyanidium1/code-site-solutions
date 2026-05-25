@@ -27,10 +27,10 @@ import { H3 } from "@/components/ui";
 // + uppercase tracking are not part of the global Btn primitive variants.
 const CALC_BTN_PRIMARY =
   "inline-flex items-center justify-center w-full border-none rounded-full " +
-  "bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] " +
+  "bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] " +
   "px-[18px] py-[14px] font-sans text-[12px] uppercase tracking-[0.1em] font-bold no-underline cursor-pointer " +
-  "transition-[transform,filter,box-shadow] duration-200 shadow-[0_6px_18px_oklch(from_var(--accent)_l_c_h_/_0.3)] " +
-  "hover:-translate-y-[1px] hover:shadow-[0_10px_24px_oklch(from_var(--accent)_l_c_h_/_0.4)] " +
+  "transition-[transform,filter,box-shadow] duration-200 shadow-[0_6px_18px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] " +
+  "hover:-translate-y-[1px] hover:shadow-[0_10px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
   "active:[filter:brightness(0.93)] " +
   "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
 
@@ -168,7 +168,7 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
 
       <div className={`${SECTION} items-start`}>
         <p className="m-0 mb-1 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3">{t("summary.rangeLabel")}</p>
-        <h4 className="m-0 font-sans text-[28px] tracking-[-0.02em] font-bold bg-[linear-gradient(180deg,var(--accent-soft),var(--accent))] bg-clip-text text-transparent">
+        <h4 className="m-0 font-sans text-[28px] tracking-[-0.02em] font-bold bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] bg-clip-text text-transparent">
           {formatEur(estimate.lowEstimate)} – {formatEur(estimate.highEstimate)}
         </h4>
         <small className="block mt-[6px] text-ink-3 text-[11px]">{t("summary.rangeNote")}</small>
@@ -253,10 +253,10 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
       <div
         className={
           `${SECTION} gap-2 relative p-[14px] rounded-[14px] ` +
-          "bg-[oklch(from_var(--accent)_l_c_h_/_0.08)] border border-[oklch(from_var(--accent)_l_c_h_/_0.22)]"
+          "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]"
         }
       >
-        <span className="inline-flex items-center justify-center w-[26px] h-[26px] rounded-lg bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] text-accent-soft">
+        <span className="inline-flex items-center justify-center w-[26px] h-[26px] rounded-lg bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft">
           <Sparkles size={14} strokeWidth={1.7} />
         </span>
         <h4 className={SUMMARY_H4}>{t("summary.roiTitle")}</h4>

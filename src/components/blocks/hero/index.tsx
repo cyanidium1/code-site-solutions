@@ -14,11 +14,11 @@ import "./hero-effects.css";
 
 // U — fixed background with dual accent radials + linear base; ::before
 // paints an 80px grid clipped by a radial mask. Both gradient layers and
-// the mask use raw OKLCH because they are oklch(from var(--accent) ...)
+// the mask use raw OKLCH because they are oklch(from var(--color-accent) ...)
 // relative-color functions that no @theme token captures.
 const HERO_BG_CLASS =
   "fixed inset-0 z-0 pointer-events-none " +
-  "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--bg)_0%,var(--bg-2)_100%)] " +
+  "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--bg-2)_100%)] " +
   "before:content-[''] before:absolute before:inset-0 " +
   "before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.025)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.025)_1px,transparent_1px)] " +
   "before:bg-[size:80px_80px] " +
@@ -61,7 +61,7 @@ const EYEBROW_DOT_CLASS =
   "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] max-sm:w-[5px] max-sm:h-[5px]";
 
 // U — separator + emphasized text inside the eyebrow.
-const EYEBROW_SEP_CLASS = "text-[var(--ink-3)] -mx-0.5";
+const EYEBROW_SEP_CLASS = "text-[var(--color-ink-3)] -mx-0.5";
 const EYEBROW_EM_CLASS = "text-accent font-semibold";
 
 // T — H1 sizing handled by <H1 variant="hp"> primitive. This class
@@ -74,7 +74,7 @@ const HERO_H1_CLASS =
   // Italic <em> uses the brand vertical gradient (accent-soft → accent).
   // Tailwind cannot express this via a token because it relies on
   // -webkit-text-fill-color: transparent applied to the descendant.
-  "[&_em]:italic [&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
+  "[&_em]:italic [&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
 
 // U — each H1 line is block-level with capped max-width so the headline
 // wraps at the same point as the legacy design.
@@ -91,7 +91,7 @@ const H1_ACCENT_CLASS =
 // tabular-nums, brand-gradient text-clipped. Mobile drops to 1.3em.
 const H1_NUM_CLASS =
   "text-[1.4em] font-extrabold [font-feature-settings:'tnum'] leading-[0.85] " +
-  "bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] bg-clip-text [-webkit-text-fill-color:transparent] " +
+  "bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] bg-clip-text [-webkit-text-fill-color:transparent] " +
   "max-sm:text-[1.3em]";
 
 // U — KPI label small text, sits next to the number.
@@ -126,14 +126,14 @@ const FEAT_CLASS =
 // U — circular check icon.
 const FEAT_CHECK_CLASS =
   "w-[26px] h-[26px] rounded-full flex items-center justify-center shrink-0 text-accent " +
-  "bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] border border-[oklch(from_var(--accent)_l_c_h_/_0.2)] " +
+  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
   "max-sm:w-[22px] max-sm:h-[22px] [&_svg]:max-sm:w-3 [&_svg]:max-sm:h-3";
 
 const FEAT_LABEL_CLASS =
   "text-[13px] font-semibold text-ink leading-[1.2] " +
   "max-[1440px]:text-xs max-sm:text-xs";
 const FEAT_SUB_CLASS =
-  "text-[11px] text-[var(--ink-3)] mt-0.5 tracking-[0.02em] " +
+  "text-[11px] text-[var(--color-ink-3)] mt-0.5 tracking-[0.02em] " +
   "max-[1440px]:text-[10px] max-sm:text-[10px]";
 
 // U — CTA row. Wraps below at ≤640 to stretched-column buttons.
@@ -143,7 +143,7 @@ const CTA_ROW_CLASS =
   "max-sm:flex-col max-sm:gap-2.5 max-sm:items-stretch max-sm:mb-6";
 
 const CTA_FOOTNOTE_CLASS =
-  "text-[12.5px] tracking-[0.01em] text-[var(--ink-3)] m-0 mb-[30px] leading-[1.5]";
+  "text-[12.5px] tracking-[0.01em] text-[var(--color-ink-3)] m-0 mb-[30px] leading-[1.5]";
 
 // U — stats card. Flex row of 3 stat cells separated by 1px vertical
 // dividers. Translucent bg with backdrop-blur. Padding/gap tighten at
@@ -159,7 +159,7 @@ const STAT_NUM_CLASS =
   "font-sans font-bold text-[28px] tracking-[-0.03em] leading-none text-ink " +
   "max-[1440px]:text-2xl max-[1080px]:text-[22px] max-sm:text-[22px]";
 const STAT_LBL_CLASS =
-  "text-[10px] text-[var(--ink-3)] uppercase tracking-[0.08em] leading-[1.3] " +
+  "text-[10px] text-[var(--color-ink-3)] uppercase tracking-[0.08em] leading-[1.3] " +
   "max-sm:text-[9px]";
 const STAT_DIV_CLASS =
   "w-px h-10 bg-line max-sm:h-[30px]";
@@ -171,13 +171,13 @@ const STAT_DIV_CLASS =
 // background below the hero.
 const DEVICE_STAGE_CLASS =
   "relative w-full h-full min-w-0 [perspective:2000px] overflow-visible " +
-  "max-sm:after:content-[''] max-sm:after:absolute max-sm:after:bottom-0 max-sm:after:left-0 max-sm:after:right-0 max-sm:after:h-[60px] max-sm:after:bg-[linear-gradient(180deg,transparent,var(--bg)_90%)] max-sm:after:z-[3] max-sm:after:pointer-events-none";
+  "max-sm:after:content-[''] max-sm:after:absolute max-sm:after:bottom-0 max-sm:after:left-0 max-sm:after:right-0 max-sm:after:h-[60px] max-sm:after:bg-[linear-gradient(180deg,transparent,var(--color-bg)_90%)] max-sm:after:z-[3] max-sm:after:pointer-events-none";
 
 // U — soft accent glow halo behind the device. Inset is negative so the
 // glow extends outside the column; blurred 40px.
 const DEVICE_GLOW_CLASS =
   "absolute -inset-[10%] pointer-events-none blur-[40px] " +
-  "bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,oklch(from_var(--accent)_l_c_h_/_0.18),transparent_70%)]";
+  "bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,oklch(from_var(--color-accent)_l_c_h_/_0.18),transparent_70%)]";
 
 // U — dotted-grid overlay behind the device, faded out toward edges by
 // an elliptical mask. Both background dot-pattern and mask must stay
@@ -223,7 +223,7 @@ const DT_DOT_CLASS =
 
 // U — small mono text suffix inside a device-tag; .dt-good variant
 // tints the same span accent.
-const DT_MINI_CLASS = "font-mono text-[10px] text-[var(--ink-3)]";
+const DT_MINI_CLASS = "font-mono text-[10px] text-[var(--color-ink-3)]";
 const DT_GOOD_CLASS = "text-accent";
 
 // U — mockup wrapper: absolute, centered, transparent overflow for
@@ -251,7 +251,7 @@ const MOCKUP_IMG_HOMEPAGE_CLASS =
 // matches the real .mockup img so layout stays balanced.
 const MOCKUP_PLACEHOLDER_CLASS =
   "w-[110%] [aspect-ratio:16/10] translate-x-[2%] rounded-[14px] border border-[oklch(1_0_0_/_0.06)] relative overflow-hidden " +
-  "bg-[radial-gradient(ellipse_at_28%_24%,oklch(from_var(--accent)_l_c_h_/_0.22)_0%,transparent_55%),radial-gradient(ellipse_at_78%_78%,oklch(0.5_0.18_280_/_0.18)_0%,transparent_55%),linear-gradient(160deg,oklch(0.18_0.012_240)_0%,oklch(0.12_0.006_250)_100%)] " +
+  "bg-[radial-gradient(ellipse_at_28%_24%,oklch(from_var(--color-accent)_l_c_h_/_0.22)_0%,transparent_55%),radial-gradient(ellipse_at_78%_78%,oklch(0.5_0.18_280_/_0.18)_0%,transparent_55%),linear-gradient(160deg,oklch(0.18_0.012_240)_0%,oklch(0.12_0.006_250)_100%)] " +
   "[filter:drop-shadow(0_50px_60px_oklch(0_0_0_/_0.55))_drop-shadow(0_20px_30px_oklch(0_0_0_/_0.35))]";
 
 const MOCKUP_PLACEHOLDER_BAR_CLASS =

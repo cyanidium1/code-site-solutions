@@ -71,17 +71,17 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                 </div>
@@ -97,7 +97,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     key={it.num}
                     className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)]">
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1 font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight">
@@ -108,7 +108,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               })}
             </div>
           ) : null}
-          <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[60ch] mx-auto">
+          <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--color-ink-dim)] max-w-[60ch] mx-auto">
             {c.outgrew.foot}
           </p>
         </div>
@@ -131,17 +131,17 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-[18px] tracking-[-0.01em] text-ink">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                   <div className="mt-auto pt-2 border-t border-line text-[12px] font-mono tracking-[0.04em] text-accent-soft">
@@ -151,7 +151,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               );
             })}
           </div>
-          <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[60ch] mx-auto [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--color-ink-dim)] max-w-[60ch] mx-auto [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.costs.foot}
           </p>
         </div>
@@ -173,18 +173,18 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             <table className="w-full min-w-[720px] text-left border-collapse">
               <thead>
                 <tr className="border-b border-line">
-                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--ink-3)] px-4 py-4 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
+                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--color-ink-3)] px-4 py-4 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
                     {c.compare.criterionHeader}
                   </th>
                   {c.compare.builderHeaders.map((b) => (
                     <th
                       key={b}
-                      className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--ink-3)] px-4 py-4 whitespace-nowrap"
+                      className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--color-ink-3)] px-4 py-4 whitespace-nowrap"
                     >
                       {b}
                     </th>
                   ))}
-                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft px-4 py-4 whitespace-nowrap bg-[oklch(from_var(--accent)_l_c_h_/_0.06)]">
+                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft px-4 py-4 whitespace-nowrap bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)]">
                     {c.compare.usHeader}
                   </th>
                 </tr>
@@ -195,18 +195,18 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     key={i}
                     className="border-b border-line last:border-b-0"
                   >
-                    <td className="text-[12px] text-[var(--ink-3)] tracking-[0.02em] uppercase font-medium px-4 py-3.5 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
+                    <td className="text-[12px] text-[var(--color-ink-3)] tracking-[0.02em] uppercase font-medium px-4 py-3.5 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
                       {row.criterion}
                     </td>
                     {row.values.map((v, j) => (
                       <td
                         key={j}
-                        className="text-[13px] text-[var(--ink-3)] px-4 py-3.5"
+                        className="text-[13px] text-[var(--color-ink-3)] px-4 py-3.5"
                       >
                         {v}
                       </td>
                     ))}
-                    <td className="text-[13px] text-accent-soft font-semibold px-4 py-3.5 bg-[oklch(from_var(--accent)_l_c_h_/_0.06)]">
+                    <td className="text-[13px] text-accent-soft font-semibold px-4 py-3.5 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)]">
                       {row.us}
                     </td>
                   </tr>
@@ -236,10 +236,10 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                 </h3>
                 <ul className="list-none flex flex-col gap-3">
                   <li className="flex gap-3">
-                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--accent)_l_c_h_/_0.15)] border border-[oklch(from_var(--accent)_l_c_h_/_0.3)]">
+                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
                       <CheckCircle2 size={13} strokeWidth={1.8} />
                     </span>
-                    <span className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                    <span className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                       <strong className="text-ink font-semibold">
                         {c.builders.goodLabel}.
                       </strong>{" "}
@@ -250,7 +250,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-[oklch(0.7_0.15_25)] bg-[oklch(0.55_0.18_25_/_0.12)] border border-[oklch(0.55_0.18_25_/_0.3)]">
                       <XCircle size={13} strokeWidth={1.8} />
                     </span>
-                    <span className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                    <span className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                       <strong className="text-ink font-semibold">
                         {c.builders.capLabel}.
                       </strong>{" "}
@@ -262,7 +262,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                       <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-[oklch(0.78_0.15_75)] bg-[oklch(0.55_0.18_75_/_0.12)] border border-[oklch(0.55_0.18_75_/_0.3)]">
                         <AlertTriangle size={13} strokeWidth={1.8} />
                       </span>
-                      <span className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                      <span className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                         <strong className="text-ink font-semibold">
                           {c.builders.noteLabel}.
                         </strong>{" "}
@@ -271,10 +271,10 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     </li>
                   ) : null}
                   <li className="flex gap-3">
-                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--accent)_l_c_h_/_0.15)] border border-[oklch(from_var(--accent)_l_c_h_/_0.3)]">
+                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
                       <Target size={13} strokeWidth={1.8} />
                     </span>
-                    <span className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                    <span className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                       <strong className="text-ink font-semibold">
                         {c.builders.whenLabel}.
                       </strong>{" "}
@@ -308,7 +308,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   className="block h-full w-full object-cover object-top"
                 />
               </div>
-              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--ink-3)] text-center">
+              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--color-ink-3)] text-center">
                 {c.admin.desktopCaption}
               </figcaption>
             </figure>
@@ -322,7 +322,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   className="block h-full w-full object-cover object-top"
                 />
               </div>
-              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--ink-3)] text-center">
+              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--color-ink-3)] text-center">
                 {c.admin.mobileCaption}
               </figcaption>
             </figure>
@@ -337,20 +337,20 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                 key={cap.num}
                 className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
               >
-                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                   {cap.num}
                 </span>
                 <h4 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
                   {cap.title}
                 </h4>
-                <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                   {cap.body}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-8 max-w-[64ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--ink-2)] [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 max-w-[64ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--color-ink-dim)] [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.admin.foot}
           </p>
         </div>
@@ -390,7 +390,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               </tbody>
             </CmpTable>
           </div>
-          <p className="mt-8 max-w-[60ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--ink-3)]">
+          <p className="mt-8 max-w-[60ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--color-ink-3)]">
             {c.patterns.foot}
           </p>
         </div>
@@ -417,14 +417,14 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   <h3 className="font-display font-bold text-[15px] text-ink mb-1">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                 </div>
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--ink-3)] max-w-[60ch] mx-auto">
+          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--color-ink-3)] max-w-[60ch] mx-auto">
             {c.filter.foot}
           </p>
         </div>
@@ -443,7 +443,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               <Tier key={i} {...t} />
             ))}
           </CmpPricingGrid>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--ink-2)] max-w-[68ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--color-ink-dim)] max-w-[68ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.pricing.foot}
           </p>
         </div>

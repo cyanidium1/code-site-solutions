@@ -23,7 +23,7 @@ export function ValuesSecondaryRow({ cells, ariaLabel }: ValuesSecondaryRowProps
               key={c.title}
               className="about-values-secondary-card flex items-start gap-3.5 rounded-[14px] border border-line bg-[oklch(0.16_0.005_300)] px-[18px] py-4"
             >
-              <div className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[10px] border border-[oklch(from_var(--accent)_l_c_h_/_0.22)] bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft">
+              <div className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[10px] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft">
                 <Icon size={18} strokeWidth={1.6} />
               </div>
               <div className="min-w-0">

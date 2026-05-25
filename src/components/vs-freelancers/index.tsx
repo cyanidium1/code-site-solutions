@@ -72,7 +72,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
                     <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(0.55_0.18_25_/_0.12)] text-[oklch(0.78_0.15_25)] border border-[oklch(0.55_0.18_25_/_0.3)]">
@@ -82,7 +82,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   <h3 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                 </div>
@@ -109,7 +109,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               })}
             </div>
           ) : null}
-          <p className="mt-8 max-w-[68ch] mx-auto text-center text-[14px] leading-[1.65] text-[var(--ink-2)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 max-w-[68ch] mx-auto text-center text-[14px] leading-[1.65] text-[var(--color-ink-dim)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.horrorStories.foot}
           </p>
         </div>
@@ -129,21 +129,21 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 key={i}
                 className="flex gap-4 border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)]"
               >
-                <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.15)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.3)]">
+                <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
                   <CheckCircle2 size={15} strokeWidth={1.8} />
                 </span>
                 <div>
                   <h3 className="font-display font-bold text-[15px] text-ink mb-1">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                 </div>
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--ink-3)] max-w-[60ch] mx-auto">
+          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--color-ink-3)] max-w-[60ch] mx-auto">
             {c.rightChoice.foot}
           </p>
         </div>
@@ -206,14 +206,14 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   key={p.role}
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex gap-4 items-start"
                 >
-                  <span className="w-10 h-10 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.25)]">
+                  <span className="w-10 h-10 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
                     <Icon size={18} strokeWidth={1.6} />
                   </span>
                   <div>
                     <h4 className="font-display font-bold text-[16px] tracking-[-0.01em] text-ink mb-1">
                       {p.role}
                     </h4>
-                    <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                    <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                       {p.body}
                     </p>
                   </div>
@@ -222,7 +222,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             })}
           </div>
 
-          <h3 className="font-display text-[12px] font-bold tracking-[0.16em] uppercase text-[var(--ink-3)] mb-4 text-center max-w-[64ch] mx-auto">
+          <h3 className="font-display text-[12px] font-bold tracking-[0.16em] uppercase text-[var(--color-ink-3)] mb-4 text-center max-w-[64ch] mx-auto">
             {c.team.partnersHeading}
           </h3>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -233,13 +233,13 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   key={p.role}
                   className="border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)] flex flex-col gap-2"
                 >
-                  <span className="w-8 h-8 rounded-full inline-flex items-center justify-center bg-[oklch(0.18_0.005_300)] text-[var(--ink-2)] border border-line">
+                  <span className="w-8 h-8 rounded-full inline-flex items-center justify-center bg-[oklch(0.18_0.005_300)] text-[var(--color-ink-dim)] border border-line">
                     <Icon size={15} strokeWidth={1.6} />
                   </span>
                   <h4 className="font-display font-bold text-[14px] tracking-[-0.01em] text-ink">
                     {p.role}
                   </h4>
-                  <p className="text-[12px] leading-[1.5] text-[var(--ink-3)]">
+                  <p className="text-[12px] leading-[1.5] text-[var(--color-ink-3)]">
                     {p.body}
                   </p>
                 </div>
@@ -247,7 +247,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             })}
           </div>
 
-          <p className="mt-8 text-center text-[13px] leading-[1.65] text-[var(--ink-2)] max-w-[60ch] mx-auto">
+          <p className="mt-8 text-center text-[13px] leading-[1.65] text-[var(--color-ink-dim)] max-w-[60ch] mx-auto">
             {c.team.foot}
           </p>
         </div>
@@ -270,17 +270,17 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-[16px] tracking-[-0.01em] text-ink">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                 </div>
@@ -310,7 +310,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   className="block h-full w-full object-cover object-top"
                 />
               </div>
-              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--ink-3)] text-center">
+              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--color-ink-3)] text-center">
                 {c.admin.desktopCaption}
               </figcaption>
             </figure>
@@ -324,7 +324,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   className="block h-full w-full object-cover object-top"
                 />
               </div>
-              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--ink-3)] text-center">
+              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--color-ink-3)] text-center">
                 {c.admin.mobileCaption}
               </figcaption>
             </figure>
@@ -339,20 +339,20 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 key={cap.num}
                 className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
               >
-                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                   {cap.num}
                 </span>
                 <h4 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
                   {cap.title}
                 </h4>
-                <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                   {cap.body}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-8 max-w-[68ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--ink-2)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 max-w-[68ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--color-ink-dim)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.admin.foot}
           </p>
         </div>
@@ -376,27 +376,27 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 key={i}
                 className={`border rounded-[18px] p-6 flex flex-col gap-4 ${
                   col.tone === "good"
-                    ? "border-[oklch(from_var(--accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--accent)_l_c_h_/_0.06)]"
+                    ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)]"
                     : "border-line bg-[oklch(0.155_0.005_300)]"
                 }`}
               >
                 <h3
                   className={`font-display text-[12px] font-bold tracking-[0.16em] uppercase ${
-                    col.tone === "good" ? "text-accent-soft" : "text-[var(--ink-3)]"
+                    col.tone === "good" ? "text-accent-soft" : "text-[var(--color-ink-3)]"
                   }`}
                 >
                   {col.heading}
                 </h3>
                 <ul className="list-none flex flex-col gap-2.5">
                   {col.items.map((item, j) => (
-                    <li key={j} className="flex gap-2.5 text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                    <li key={j} className="flex gap-2.5 text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                       <span
                         className={`mt-[6px] w-1.5 h-1.5 shrink-0 rounded-full ${
                           col.tone === "good"
                             ? "bg-accent-soft"
                             : col.tone === "bad"
                               ? "bg-[oklch(0.65_0.18_25)]"
-                              : "bg-[var(--ink-3)]"
+                              : "bg-[var(--color-ink-3)]"
                         }`}
                       />
                       <span>{item}</span>
@@ -406,7 +406,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               </div>
             ))}
           </div>
-          <p className="mt-8 max-w-[68ch] mx-auto text-center text-[14px] leading-[1.65] text-[var(--ink-2)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 max-w-[68ch] mx-auto text-center text-[14px] leading-[1.65] text-[var(--color-ink-dim)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.caseStudy.foot}
           </p>
         </div>
@@ -433,14 +433,14 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   <h3 className="font-display font-bold text-[15px] text-ink mb-1">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                 </div>
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--ink-3)] max-w-[60ch] mx-auto">
+          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--color-ink-3)] max-w-[60ch] mx-auto">
             {c.filter.foot}
           </p>
         </div>
@@ -514,7 +514,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                   </tbody>
                 </CmpTable>
               </div>
-              <p className="mt-4 text-[13px] leading-[1.65] text-[var(--ink-2)] max-w-[68ch] [&_strong]:text-accent-soft [&_strong]:font-semibold">
+              <p className="mt-4 text-[13px] leading-[1.65] text-[var(--color-ink-dim)] max-w-[68ch] [&_strong]:text-accent-soft [&_strong]:font-semibold">
                 {scenario.verdict}
               </p>
             </div>

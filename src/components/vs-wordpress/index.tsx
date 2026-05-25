@@ -72,17 +72,17 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.25)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-[18px] tracking-[-0.01em] text-ink">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                   <div className="mt-auto pt-2 border-t border-line text-[12px] font-mono tracking-[0.04em] text-accent-soft">
@@ -101,7 +101,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                     key={it.num}
                     className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)]">
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1">
@@ -117,7 +117,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               })}
             </div>
           ) : null}
-          <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[58ch] mx-auto [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--color-ink-dim)] max-w-[58ch] mx-auto [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.costs.foot}
           </p>
         </div>
@@ -167,12 +167,12 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             eyebrow={c.caseStudy.eyebrow}
             heading={c.caseStudy.heading}
           />
-          <div className="text-center -mt-8 mb-10 font-mono text-[12px] tracking-[0.14em] uppercase text-[var(--ink-3)]">
+          <div className="text-center -mt-8 mb-10 font-mono text-[12px] tracking-[0.14em] uppercase text-[var(--color-ink-3)]">
             {c.caseStudy.subEyebrow}
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <div className="border border-line rounded-[18px] p-7 bg-[oklch(0.13_0.005_300)]">
-              <div className="font-display text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--ink-3)] mb-5">
+              <div className="font-display text-[11px] font-bold tracking-[0.18em] uppercase text-[var(--color-ink-3)] mb-5">
                 {c.caseStudy.beforeLabel}
               </div>
               <ul className="list-none flex flex-col gap-4">
@@ -181,17 +181,17 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                     key={i}
                     className="flex items-baseline justify-between gap-4 text-[13px]"
                   >
-                    <span className="text-[var(--ink-3)] tracking-[0.02em] uppercase font-mono text-[11px]">
+                    <span className="text-[var(--color-ink-3)] tracking-[0.02em] uppercase font-mono text-[11px]">
                       {b.label}
                     </span>
-                    <span className="text-[var(--ink-2)] text-right">
+                    <span className="text-[var(--color-ink-dim)] text-right">
                       {b.value}
                     </span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="border border-[oklch(from_var(--accent)_l_c_h_/_0.4)] rounded-[18px] p-7 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)]">
+            <div className="border border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] rounded-[18px] p-7 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)]">
               <div className="font-display text-[11px] font-bold tracking-[0.18em] uppercase text-accent-soft mb-5">
                 {c.caseStudy.afterLabel}
               </div>
@@ -201,7 +201,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                     key={i}
                     className="flex items-baseline justify-between gap-4 text-[13px]"
                   >
-                    <span className="text-[var(--ink-3)] tracking-[0.02em] uppercase font-mono text-[11px]">
+                    <span className="text-[var(--color-ink-3)] tracking-[0.02em] uppercase font-mono text-[11px]">
                       {a.label}
                     </span>
                     <span className="text-right">
@@ -219,7 +219,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           </div>
           <blockquote className="mt-10 border-l-2 border-accent-soft pl-6 text-[18px] leading-[1.55] text-ink max-w-[820px] mx-auto [&_em]:not-italic [&_em]:font-semibold [&_em]:text-accent-soft">
             {c.caseStudy.quote}
-            <footer className="mt-4 not-italic text-[13px] text-[var(--ink-3)]">
+            <footer className="mt-4 not-italic text-[13px] text-[var(--color-ink-3)]">
               — {c.caseStudy.quoteAuthor}
             </footer>
           </blockquote>
@@ -246,21 +246,21 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                 key={i}
                 className="border border-line rounded-[18px] p-7 bg-[oklch(0.155_0.005_300)] flex gap-4"
               >
-                <span className="w-8 h-8 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.3)]">
+                <span className="w-8 h-8 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.18)] text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.3)]">
                   <CheckCircle2 size={16} strokeWidth={1.6} />
                 </span>
                 <div>
                   <h3 className="font-display font-bold text-[17px] mb-2 text-ink">
                     {card.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.6] text-[var(--ink-2)] [&_strong]:text-accent-soft">
+                  <p className="text-[13px] leading-[1.6] text-[var(--color-ink-dim)] [&_strong]:text-accent-soft">
                     {card.body}
                   </p>
                 </div>
               </div>
             ))}
           </div>
-          <p className="mt-8 max-w-[58ch] mx-auto text-center text-[14px] leading-[1.65] text-[var(--ink-2)]">
+          <p className="mt-8 max-w-[58ch] mx-auto text-center text-[14px] leading-[1.65] text-[var(--color-ink-dim)]">
             {c.seo.closing}
           </p>
         </div>
@@ -311,20 +311,20 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                 key={cap.num}
                 className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
               >
-                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--color-ink-3)]">
                   {cap.num}
                 </span>
                 <h4 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
                   {cap.title}
                 </h4>
-                <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                   {cap.body}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-8 max-w-[64ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--ink-2)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 max-w-[64ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--color-ink-dim)] [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.admin.foot}
           </p>
         </div>
@@ -349,10 +349,10 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                 <h3 className="font-display font-bold text-[16px] text-ink">
                   {s.title}
                 </h3>
-                <span className="font-mono text-[11px] tracking-[0.04em] text-[var(--ink-3)]">
+                <span className="font-mono text-[11px] tracking-[0.04em] text-[var(--color-ink-3)]">
                   {s.duration}
                 </span>
-                <p className="text-[12.5px] leading-[1.55] text-[var(--ink-2)]">
+                <p className="text-[12.5px] leading-[1.55] text-[var(--color-ink-dim)]">
                   {s.body}
                 </p>
               </li>
@@ -382,14 +382,14 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                   <h3 className="font-display font-bold text-[15px] text-ink mb-1">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-[var(--color-ink-dim)]">
                     {it.body}
                   </p>
                 </div>
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--ink-3)] max-w-[60ch] mx-auto">
+          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--color-ink-3)] max-w-[60ch] mx-auto">
             {c.filter.foot}
           </p>
         </div>
@@ -408,7 +408,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               <Tier key={i} {...t} />
             ))}
           </CmpPricingGrid>
-          <p className="mt-7 text-center text-[13px] text-[var(--ink-3)] max-w-[64ch] mx-auto">
+          <p className="mt-7 text-center text-[13px] text-[var(--color-ink-3)] max-w-[64ch] mx-auto">
             {c.pricing.foot}
           </p>
         </div>

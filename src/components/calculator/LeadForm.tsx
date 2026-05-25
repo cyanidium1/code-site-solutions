@@ -19,10 +19,10 @@ const UI_INPUT_WRAPPER =
   "transition-[border-color,box-shadow,background] duration-200 " +
   "hover:!border-line-strong " +
   "data-[hover=true]:!border-line-strong " +
-  "data-[focus=true]:!border-[oklch(from_var(--accent)_l_c_h_/_0.7)] " +
-  "data-[focus=true]:!shadow-[0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--accent)_l_c_h_/_0.2)] " +
-  "data-[focus-visible=true]:!border-[oklch(from_var(--accent)_l_c_h_/_0.7)] " +
-  "data-[focus-visible=true]:!shadow-[0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--accent)_l_c_h_/_0.2)]";
+  "data-[focus=true]:!border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
+  "data-[focus=true]:!shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
+  "data-[focus-visible=true]:!border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
+  "data-[focus-visible=true]:!shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)]";
 
 const UI_INPUT =
   "!text-ink placeholder:!text-[oklch(from_var(--color-ink-3)_l_c_h_/_0.75)] " +
@@ -36,8 +36,8 @@ const UI_TEXTAREA = UI_INPUT + " !leading-[1.5]";
 const UI_SELECT_TRIGGER = UI_INPUT_WRAPPER + " !px-3";
 const UI_SELECT_POPOVER = "!bg-[oklch(0.16_0.005_300)] !border !border-line";
 const UI_SELECT_LISTBOX =
-  "[&_[data-hover=true]]:!bg-[oklch(from_var(--accent)_l_c_h_/_0.2)] " +
-  "[&_[data-selected=true]]:!bg-[oklch(from_var(--accent)_l_c_h_/_0.2)]";
+  "[&_[data-hover=true]]:!bg-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
+  "[&_[data-selected=true]]:!bg-[oklch(from_var(--color-accent)_l_c_h_/_0.2)]";
 
 type LeadFormProps = {
   input: CalculatorInput;
@@ -267,10 +267,10 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           type="submit"
           className={
             "inline-flex items-center justify-center w-full border-none rounded-full " +
-            "bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] text-[oklch(1_0_0_/_0.98)] " +
+            "bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] " +
             "px-[18px] py-[14px] font-sans text-[12px] uppercase tracking-[0.1em] font-bold no-underline cursor-pointer " +
-            "transition-[transform,filter,box-shadow] duration-200 shadow-[0_6px_18px_oklch(from_var(--accent)_l_c_h_/_0.3)] " +
-            "hover:-translate-y-[1px] hover:shadow-[0_10px_24px_oklch(from_var(--accent)_l_c_h_/_0.4)] " +
+            "transition-[transform,filter,box-shadow] duration-200 shadow-[0_6px_18px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] " +
+            "hover:-translate-y-[1px] hover:shadow-[0_10px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
             "active:[filter:brightness(0.93)] focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2 " +
             "min-h-[52px]"
           }
@@ -297,7 +297,7 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
               const Icon = step.icon;
               return (
                 <li key={i} className="grid grid-cols-[32px_1fr] gap-3 items-start">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft">
+                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft">
                     <Icon size={14} strokeWidth={1.7} />
                   </span>
                   <span className="flex flex-col gap-[3px]">

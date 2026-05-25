@@ -19,7 +19,7 @@ const CARD_BUTTON =
   "text-left text-ink cursor-pointer transition-[border-color,transform] duration-200 " +
   "hover:border-line-strong hover:-translate-y-[1px]";
 const CARD_SELECTED =
-  "border-[oklch(from_var(--accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.3)]";
+  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.3)]";
 
 export function OptionCard({
   title,

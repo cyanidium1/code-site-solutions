@@ -64,14 +64,14 @@ const SEG_BTN_CLASS =
   "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
 
 const SEG_BTN_ACTIVE_CLASS =
-  "border-[oklch(from_var(--accent)_l_c_h_/_0.55)] bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] !text-ink";
+  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] !text-ink";
 
 // Checkbox-card class used by CMS / SEO / Features groups. Children
 // (input, span, strong, small) styled via descendant selectors.
 const CHECKBOX_CLASS =
   "flex gap-[10px] items-start border border-line rounded-[12px] px-3 py-[10px] min-h-[88px] " +
   "transition-[border-color] duration-200 hover:border-line-strong " +
-  "[&>input]:mt-[3px] [&>input]:accent-[var(--accent)] " +
+  "[&>input]:mt-[3px] [&>input]:accent-[var(--color-accent)] " +
   "[&>span]:grid [&>span]:gap-1 [&>span]:text-[13px] " +
   "[&_strong]:inline-block [&_strong]:text-accent-soft [&_strong]:text-[12px] " +
   "[&_small]:block [&_small]:mt-[3px] [&_small]:text-ink-3 [&_small]:text-[11px]";
@@ -80,18 +80,18 @@ const CHECKBOX_CLASS =
 // arbitrary variants. The gradient track + glowing thumb match
 // legacy .calc-range-input from calculator.css.
 const RANGE_INPUT_CLASS =
-  "appearance-none w-full h-[6px] rounded-full bg-[linear-gradient(90deg,var(--accent-soft),var(--accent))] outline-none cursor-pointer " +
+  "appearance-none w-full h-[6px] rounded-full bg-[linear-gradient(90deg,var(--color-accent-soft),var(--color-accent))] outline-none cursor-pointer " +
   "[&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 " +
   "[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[oklch(0.99_0.01_290)] " +
-  "[&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[oklch(from_var(--accent)_l_c_h_/_0.6)] " +
-  "[&::-webkit-slider-thumb]:shadow-[0_0_0_4px_oklch(from_var(--accent)_l_c_h_/_0.12),0_0_14px_oklch(from_var(--accent)_l_c_h_/_0.4)] " +
+  "[&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[oklch(from_var(--color-accent)_l_c_h_/_0.6)] " +
+  "[&::-webkit-slider-thumb]:shadow-[0_0_0_4px_oklch(from_var(--color-accent)_l_c_h_/_0.12),0_0_14px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
   "[&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:transition-[box-shadow,transform] [&::-webkit-slider-thumb]:duration-[180ms] " +
-  "hover:[&::-webkit-slider-thumb]:shadow-[0_0_0_6px_oklch(from_var(--accent)_l_c_h_/_0.18),0_0_22px_oklch(from_var(--accent)_l_c_h_/_0.55)] " +
+  "hover:[&::-webkit-slider-thumb]:shadow-[0_0_0_6px_oklch(from_var(--color-accent)_l_c_h_/_0.18),0_0_22px_oklch(from_var(--color-accent)_l_c_h_/_0.55)] " +
   "hover:[&::-webkit-slider-thumb]:scale-[1.06] " +
   "[&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full " +
   "[&::-moz-range-thumb]:bg-[oklch(0.99_0.01_290)] [&::-moz-range-thumb]:border-2 " +
-  "[&::-moz-range-thumb]:border-[oklch(from_var(--accent)_l_c_h_/_0.6)] " +
-  "[&::-moz-range-thumb]:shadow-[0_0_0_4px_oklch(from_var(--accent)_l_c_h_/_0.12),0_0_14px_oklch(from_var(--accent)_l_c_h_/_0.4)] " +
+  "[&::-moz-range-thumb]:border-[oklch(from_var(--color-accent)_l_c_h_/_0.6)] " +
+  "[&::-moz-range-thumb]:shadow-[0_0_0_4px_oklch(from_var(--color-accent)_l_c_h_/_0.12),0_0_14px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
   "[&::-moz-range-thumb]:cursor-grab";
 
 type CalculatorControlsProps = {
@@ -234,10 +234,10 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                     "[&>b]:mt-1 [&>b]:border [&>b]:border-line [&>b]:rounded-full [&>b]:px-3 [&>b]:py-2 [&>b]:w-fit " +
                     "[&>b]:text-[10px] [&>b]:tracking-[0.1em] [&>b]:uppercase [&>b]:text-ink [&>b]:font-semibold " +
                     (isRecommended
-                      ? "border-[oklch(from_var(--accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-[2px] xl:-translate-y-[6px] xl:hover:-translate-y-[8px] [&>b]:bg-[linear-gradient(135deg,var(--accent-soft),var(--accent))] [&>b]:border-transparent [&>b]:text-[oklch(1_0_0_/_0.98)] "
+                      ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.4)] bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-[2px] xl:-translate-y-[6px] xl:hover:-translate-y-[8px] [&>b]:bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] [&>b]:border-transparent [&>b]:text-[oklch(1_0_0_/_0.98)] "
                       : "bg-[oklch(0.16_0.005_300)] ") +
                     (isActive
-                      ? "border-[oklch(from_var(--accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.22)]"
+                      ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.22)]"
                       : isRecommended
                         ? ""
                         : "border-line")
@@ -245,7 +245,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                   onClick={() => applyPreset(preset.id)}
                 >
                   <div className="flex justify-between items-center gap-2">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.12)] text-accent-soft">
                       {preset.id === "starterLanding" ? <Zap size={15} /> : preset.id === "growthWebsite" ? <Rocket size={15} /> : <Store size={15} />}
                     </span>
                     <em className="not-italic text-[10px] tracking-[0.1em] uppercase border border-line rounded-full px-[9px] py-1 text-ink-dim">
@@ -261,7 +261,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                  <span className="font-actay text-[22px] font-bold tracking-[-0.02em] bg-[linear-gradient(180deg,var(--accent-soft),var(--accent))] bg-clip-text text-transparent mt-auto">
+                  <span className="font-actay text-[22px] font-bold tracking-[-0.02em] bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] bg-clip-text text-transparent mt-auto">
                     {t(`options.presets.${preset.id}.estimatedRange` as never)}
                   </span>
                   <p className="m-0 px-3 py-[10px] border border-dashed border-line-strong rounded-[10px] bg-[oklch(0.14_0.005_300_/_0.6)] text-ink-3 text-[11.5px] leading-[1.45] italic">
@@ -368,7 +368,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                     "transition-[border-color,background,box-shadow] duration-200 overflow-hidden " +
                     "hover:border-line-strong hover:bg-[oklch(0.19_0.01_300)] " +
                     (isActive
-                      ? "border-[oklch(from_var(--accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--accent)_l_c_h_/_0.25)]"
+                      ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]"
                       : "border-line")
                   }
                   role="button"
