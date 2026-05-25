@@ -102,12 +102,13 @@
 }
 
 /* ─── Phase 1 compatibility shim ──────────────────────────────────────────
-   Re-exposes the @theme tokens under their pre-refactor names
-   (--bg, --ink, --accent, --line, --gutter-x, --section-y, --container-*).
-   Many consumers across src/ still reference these short names directly
-   (e.g. bg-[oklch(from_var(--accent)_...)], style={{ "--section-y": ... }}).
-   Phase 2 will migrate consumers to the @theme-derived --color-* / --spacing-*
-   names then delete this block.
+   Re-exposes the @theme color/container tokens under their pre-refactor
+   names (--bg, --ink, --accent, --line, --container-*). Many consumers
+   across src/ still reference these short names directly
+   (e.g. bg-[oklch(from_var(--accent)_...)]). Phase 3 will migrate
+   consumers to the @theme-derived --color-* names then delete this block.
+   Phase 2 removed the --gutter-x / --section-y* entries — those are now
+   exclusively @theme --spacing-* tokens consumed via Tailwind utilities.
    ─────────────────────────────────────────────────────────────────────── */
 :root {
   color-scheme: dark;
@@ -134,13 +135,6 @@
   --container-narrow: 880px;
   --container-prose: 760px;
   --container-form: 720px;
-
-  /* Fixed (no responsive overrides) — Phase 1 endpoint behavior. */
-  --gutter-x: 48px;
-  --section-y: 100px;
-  --section-y-md: 80px;
-  --section-y-tight: 56px;
-  --section-y-lg: 120px;
 }
 
 html {
