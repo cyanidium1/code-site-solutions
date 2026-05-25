@@ -444,3 +444,48 @@ npm run typecheck   # passed (0 errors)
 npm run lint        # passed (warnings only — pre-existing <img> warnings)
 npm run build       # passed
 ```
+
+---
+
+## Phase 3 — Complete (Sessions 1–7)
+
+### Sub-project A: Color-token migration — DONE
+- All consumer `var(--bg)` / `var(--ink)` / `var(--accent)` / `var(--line)` / legacy alias references migrated to canonical `@theme --color-*` names.
+- `:root` color shim DELETED from `globals.css`. Container tokens (`--container-max`, etc.) intact in `@theme`.
+- `html, body` rule updated to use `--color-bg` / `--color-ink`.
+- 5 commits across all CSS + JSX/TSX consumers; ~470 references migrated.
+
+### Sub-project B: Touch-target audit + fix — DONE
+- 37 interactive elements audited across Btn primitive, header/footer/drawer links, lead-form/calculator inputs, FAQ + locale switcher, OptionCard + segment buttons, comparison/tier/case/team/newsletter/reasons.
+- 25 elements fixed with `min-h-11` (44px floor); 0 documented as exceptions.
+- HeroUI Input/Textarea/Select with `radius="lg"` already compliant (56px default).
+- Inline prose links intentionally exempt per WCAG 2.5.5 spacing rule.
+
+### Sub-project C: HeroUI verification — DONE
+- Drawer (mobile-menu): backdrop click-to-close confirmed working (Issue 5 hotfix held); panel z-stacking correct.
+- Accordion (FAQ): expand/collapse + indicator + dark theme correct.
+- Input/Textarea/Select (lead-form, calculator): focus ring, error state, popover dark theme correct.
+- useDisclosure (mobile-menu): state propagates correctly.
+
+### Final pre-merge visual sweep checklist
+
+At each viewport (1440 / 1100 / 800 / 700 / 640 / 380 px), confirm:
+- [ ] No element rendering with browser-default unstyled colors (white text on white)
+- [ ] No layout shifts vs. Phase 2 baseline (acceptable: sub-pixel anti-aliasing)
+- [ ] Hero block effects intact (background glow, grain overlay, marquee, device mockup)
+- [ ] Bento grid cell reveal animation works at scroll-in
+- [ ] FAQ accordion expand/collapse + indicator rotation
+- [ ] Mobile menu drawer slide-in + stagger + click-outside-to-close
+- [ ] Lead form input focus rings + error states render in dark theme
+- [ ] Calculator multi-step flow works end-to-end
+- [ ] Locale switcher (header desktop ≥800px, drawer mobile ≤700px) toggles UK ↔ EN
+- [ ] Sticky elements (`/blog/<slug>` reading progress, `/calculator` summary) overlap correctly with drawer when open
+
+### Phase 4 candidates (out of scope)
+
+- Light theme / multi-theme support (currently dark-only)
+- Replace HeroUI with another component library (if pain points emerge)
+- Performance optimization (CSS bundle audit, critical-CSS extraction)
+- Visual redesign
+- Re-evaluate `--bg-2` token referenced in `hero/index.tsx` (was undefined even in Phase 1, browser falls back to invalid-property; either define it or remove the reference)
+
