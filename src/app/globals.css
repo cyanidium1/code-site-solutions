@@ -19,7 +19,6 @@
 
   /* Colors — mirror legacy :root values below; legacy :root retained during Phase 1 for back-compat. */
   --color-bg: #121212;
-  --color-bg-subtle: #1a1620;
   --color-bg-raised: #1f1a26;
 
   --color-ink: oklch(0.97 0.005 300);
@@ -32,17 +31,7 @@
 
   --color-accent: oklch(0.55 0.18 295);
   --color-accent-soft: oklch(0.7 0.14 295);
-  --color-accent-deep: oklch(0.45 0.2 285);
   --color-accent-2: oklch(0.45 0.20 285);
-
-  --color-industry-healthcare: #0EA5E9;
-  --color-industry-legal: #8B5CF6;
-  --color-industry-accounting: #10B981;
-  --color-industry-ecommerce: #F59E0B;
-  --color-industry-saas: #0070F3;
-  --color-industry-realestate: #EF4444;
-  --color-industry-cosmetology: #EC4899;
-  --color-industry-education: #14B8A6;
 
   /* Container widths — generates max-w-container, max-w-container-h1, etc. */
   --container-max: 1440px;
@@ -58,8 +47,6 @@
      py-section-y-lg, etc. Consumers should prefer the utility-stack
      pattern on primitives rather than var() references. */
   --spacing-gutter-x: 24px;          /* mobile baseline (≤640) */
-  --spacing-gutter-sm: 32px;         /* sm+ */
-  --spacing-gutter-md: 48px;         /* lg+ desktop gutter */
 
   --spacing-section-y: 56px;         /* mobile baseline */
   --spacing-section-y-md: 36px;      /* tight variant mobile */
@@ -73,9 +60,7 @@
   /* Easing */
   --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-  /* Background images — generates bg-hero-glow, bg-brand-gradient, bg-text-gradient utilities. */
-  --background-image-hero-glow:
-    radial-gradient(ellipse 1400px 700px at 50% -150px, oklch(0.55 0.18 295 / 0.40) 0%, oklch(0.55 0.18 295 / 0.12) 35%, transparent 70%);
+  /* Background images — generates bg-brand-gradient, bg-text-gradient utilities. */
   --background-image-brand-gradient:
     linear-gradient(180deg, var(--color-accent-soft) 0%, var(--color-accent) 100%);
   --background-image-text-gradient:
