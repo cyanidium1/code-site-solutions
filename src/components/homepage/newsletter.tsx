@@ -63,7 +63,7 @@ export function Newsletter() {
             />
             <button
               type="submit"
-              className="cursor-pointer rounded-full border-0 bg-brand-gradient px-6 py-3 font-sans text-[13px] font-semibold text-white transition-transform duration-200 hover:-translate-y-px"
+              className="inline-flex items-center justify-center min-h-11 cursor-pointer rounded-full border-0 bg-brand-gradient px-6 py-3 font-sans text-[13px] font-semibold text-white transition-transform duration-200 hover:-translate-y-px"
               disabled={status === "submitting" || status === "success"}
             >
               {buttonLabel}

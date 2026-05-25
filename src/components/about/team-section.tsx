@@ -245,7 +245,7 @@ function MemberCard({
           variant="bordered"
           radius="full"
           size="sm"
-          className="mt-5 self-start font-mono tracking-[0.06em] text-[11px] border-line hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] text-[var(--color-ink-dim)] hover:text-ink"
+          className="mt-5 self-start min-h-11 font-mono tracking-[0.06em] text-[11px] border-line hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] text-[var(--color-ink-dim)] hover:text-ink"
         >
           {moreLabel}
         </Button>
@@ -318,7 +318,7 @@ function TeamModal({
                   onPress={onClose}
                   variant="flat"
                   radius="full"
-                  className="font-mono tracking-[0.06em] text-[11px] bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] text-ink"
+                  className="min-h-11 font-mono tracking-[0.06em] text-[11px] bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] text-ink"
                 >
                   {closeLabel}
                 </Button>

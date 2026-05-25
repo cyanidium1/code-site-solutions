@@ -235,7 +235,7 @@ export function Reasons({
           </div>
           <button
             type="button"
-            className="bg-ink text-bg border-0 justify-center px-[18px] py-3.5 rounded-full text-[13px] font-semibold inline-flex items-center gap-2.5 cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_4px_16px_oklch(from_var(--color-accent)_l_c_h_/_0.2),0_0_0_1px_oklch(1_0_0_/_0.1)_inset] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.3),0_0_0_1px_oklch(1_0_0_/_0.1)_inset] sm:justify-normal sm:px-[22px] sm:py-3"
+            className="bg-ink text-bg border-0 justify-center min-h-11 px-[18px] py-3.5 rounded-full text-[13px] font-semibold inline-flex items-center gap-2.5 cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_4px_16px_oklch(from_var(--color-accent)_l_c_h_/_0.2),0_0_0_1px_oklch(1_0_0_/_0.1)_inset] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.3),0_0_0_1px_oklch(1_0_0_/_0.1)_inset] sm:justify-normal sm:px-[22px] sm:py-3"
           >
             <span>{footCtaLabel}</span>
             {ARROW_ICON}
