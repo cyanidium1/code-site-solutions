@@ -25,24 +25,24 @@ function isActive(pathname: string | null, href: string): boolean {
 const headerClass =
   "sticky top-0 z-50 border-b border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.7)] backdrop-blur-[14px] px-6 sm:px-8 lg:px-12";
 const headerInnerClass =
-  "mx-auto max-w-container flex items-center justify-between py-[18px] max-[1100px]:py-[14px] max-[800px]:py-[14px]";
+  "mx-auto max-w-container flex items-center justify-between py-[18px] max-xl:py-[14px] max-lg:py-[14px]";
 const headerEndClass =
-  "flex items-center gap-[92px] min-w-0 max-[1440px]:gap-14 max-[1100px]:gap-8";
+  "flex items-center gap-[92px] min-w-0 max-[1440px]:gap-14 max-xl:gap-8";
 const headerNavClass =
-  "flex gap-7 max-[1440px]:gap-[22px] max-[1100px]:gap-4 max-[800px]:hidden";
+  "flex gap-7 max-[1440px]:gap-[22px] max-xl:gap-4 max-lg:hidden";
 // Trailing-colon variant builders for hover-active state on nav links.
 const navLinkBaseClass =
-  "font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim no-underline transition-colors duration-200 hover:text-ink max-[1440px]:text-[10.5px] max-[1100px]:text-[10px] max-[1100px]:tracking-[0.1em]";
+  "font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim no-underline transition-colors duration-200 hover:text-ink max-[1440px]:text-[10.5px] max-xl:text-[10px] max-xl:tracking-[0.1em]";
 const navLinkActiveClass =
   "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
 const headerCtaClass =
-  "px-[18px] py-2.5 rounded-full border-0 bg-ink text-bg font-sans font-semibold text-[12px] tracking-[0.04em] uppercase no-underline transition-transform duration-200 hover:-translate-y-px max-[1440px]:px-4 max-[1440px]:py-[9px] max-[1440px]:text-[11px] max-[1100px]:px-3.5 max-[1100px]:py-2 max-[1100px]:text-[10.5px] max-[800px]:hidden";
+  "px-[18px] py-2.5 rounded-full border-0 bg-ink text-bg font-sans font-semibold text-[12px] tracking-[0.04em] uppercase no-underline transition-transform duration-200 hover:-translate-y-px max-[1440px]:px-4 max-[1440px]:py-[9px] max-[1440px]:text-[11px] max-xl:px-3.5 max-xl:py-2 max-xl:text-[10.5px] max-lg:hidden";
 
 // <details>-based hover/click dropdown. `cursor-pointer + select-none` on
 // summary + hiding the marker. Chevron rotates 180° when [open].
 const navDdClass = "relative self-stretch flex items-center";
 const navDdTriggerClass =
-  "list-none flex items-center gap-1.5 cursor-pointer font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink max-[1440px]:text-[10.5px] max-[1100px]:text-[10px] max-[1100px]:tracking-[0.1em]";
+  "list-none flex items-center gap-1.5 cursor-pointer font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink max-[1440px]:text-[10.5px] max-xl:text-[10px] max-xl:tracking-[0.1em]";
 const navDdChevronClass =
   "shrink-0 opacity-75 transition-transform duration-200 group-open/dd:rotate-180";
 const navDdPanelClass =

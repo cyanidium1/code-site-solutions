@@ -61,7 +61,7 @@ export function FinalCta3({
       <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
         {urgency ? (
-          <div className="-mt-4 mb-8 inline-flex max-w-full items-center gap-3 rounded-full border border-[oklch(0.55_0.18_295_/_0.35)] bg-[oklch(0.55_0.18_295_/_0.08)] px-[18px] py-3 font-mono text-[12px] tracking-[0.02em] text-ink max-[700px]:flex max-[700px]:w-full max-[700px]:rounded-[14px] max-[700px]:px-[14px] max-[700px]:py-3 max-[700px]:text-[11.5px] max-[700px]:leading-[1.45]">
+          <div className="-mt-4 mb-8 flex w-full max-w-full items-center gap-3 rounded-[14px] border border-[oklch(0.55_0.18_295_/_0.35)] bg-[oklch(0.55_0.18_295_/_0.08)] px-[14px] py-3 font-mono text-[11.5px] tracking-[0.02em] leading-[1.45] text-ink md:inline-flex md:w-auto md:rounded-full md:px-[18px] md:text-[12px] md:leading-normal">
             <span
               aria-hidden="true"
               className="h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_0_4px_oklch(0.55_0.18_295_/_0.2)] [animation:hp-urgency-pulse_2s_ease-in-out_infinite]"
@@ -71,7 +71,7 @@ export function FinalCta3({
             </span>
           </div>
         ) : null}
-        <div className="grid grid-cols-3 gap-5 max-[800px]:grid-cols-1">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           {cards.map((c, i) => {
             const Icon = c.icon;
             const external = c.href.startsWith("http");

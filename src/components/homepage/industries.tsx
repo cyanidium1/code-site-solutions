@@ -128,7 +128,7 @@ export function Industries({
     <section className={hpSectionClass} id="solutions">
       <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
-        <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[800px]:grid-cols-1">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-4">
           {items.map((ind, i) => {
             const Icon = ind.icon;
             const inner = (

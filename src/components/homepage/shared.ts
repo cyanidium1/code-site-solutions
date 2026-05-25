@@ -38,8 +38,8 @@ export const hpEyebrowDotClass =
 // primitive when the consumer wants only the typography; use this class
 // when migrating away from `className="hp-h2"` so the visual is identical.
 export const hpH2Class =
-  "font-actay font-bold text-[clamp(34px,4vw,56px)] leading-[1.05] tracking-[-0.02em] " +
-  "mt-6 max-w-container-narrow text-ink max-[700px]:text-[clamp(28px,7vw,40px)] " +
+  "font-actay font-bold text-[clamp(28px,7vw,40px)] leading-[1.05] tracking-[-0.02em] " +
+  "mt-6 max-w-container-narrow text-ink md:text-[clamp(34px,4vw,56px)] " +
   "[&_em]:not-italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent";
 
 // Standard sub-paragraph beneath an H2. 16px Manrope, ink-2 colour, capped

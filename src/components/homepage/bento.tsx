@@ -421,16 +421,16 @@ const cellBase =
 
 const spanClass: Record<BentoCell["span"], string> = {
   "1x1": "",
-  "2x1": "col-span-2 max-[800px]:col-span-1",
-  "2x2": "col-span-2 row-span-2 max-[800px]:col-span-1 max-[800px]:row-span-1 max-[800px]:p-6",
-  "3x1": "col-span-3 max-[800px]:col-span-1 max-[800px]:p-[22px]",
+  "2x1": "col-span-2 max-lg:col-span-1",
+  "2x2": "col-span-2 row-span-2 max-lg:col-span-1 max-lg:row-span-1 max-lg:p-6",
+  "3x1": "col-span-3 max-lg:col-span-1 max-lg:p-[22px]",
 };
 
 // Mobile (<=800px) compresses 1x1 cells into a 2-col icon+text grid.
 // We attach the override only to 1x1 cells via the `mobile1x1` chunk.
 const mobile1x1 =
-  "max-[800px]:grid max-[800px]:grid-cols-[auto_1fr] max-[800px]:gap-x-[14px] max-[800px]:gap-y-0.5 max-[800px]:p-[18px_20px] " +
-  "max-[800px]:before:inset-x-[18px]";
+  "max-lg:grid max-lg:grid-cols-[auto_1fr] max-lg:gap-x-[14px] max-lg:gap-y-0.5 max-lg:p-[18px_20px] " +
+  "max-lg:before:inset-x-[18px]";
 
 export function Bento({
   eyebrow = "ЧОМУ МИ",
@@ -451,7 +451,7 @@ export function Bento({
     <section className={hpSectionClass} id="why-us">
       <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} />
-        <ScrollReveal className="group/bento-reveal grid grid-cols-4 gap-4 [grid-auto-rows:minmax(280px,auto)] max-[1100px]:grid-cols-2 max-[800px]:grid-cols-1 max-[800px]:[grid-auto-rows:auto]">
+        <ScrollReveal className="group/bento-reveal grid grid-cols-1 gap-4 [grid-auto-rows:auto] lg:grid-cols-2 lg:[grid-auto-rows:minmax(280px,auto)] xl:grid-cols-4">
           {cells.map((c, i) => {
             const Icon = c.icon;
             const isOneByOne = c.span === "1x1";
@@ -466,14 +466,14 @@ export function Bento({
                   className={cn(
                     "flex items-center gap-3",
                     isOneByOne &&
-                      "max-[800px]:col-start-1 max-[800px]:row-span-2 max-[800px]:self-start",
+                      "max-lg:col-start-1 max-lg:row-span-2 max-lg:self-start",
                   )}
                 >
                   <div
                     className={cn(
                       "inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-line bg-[oklch(1_0_0_/_0.04)] text-ink",
                       isOneByOne &&
-                        "max-[800px]:h-9 max-[800px]:w-9 max-[800px]:border-[oklch(from_var(--accent)_l_c_h_/_0.30)] max-[800px]:bg-[oklch(from_var(--accent)_l_c_h_/_0.10)] max-[800px]:text-accent-soft",
+                        "max-lg:h-9 max-lg:w-9 max-lg:border-[oklch(from_var(--accent)_l_c_h_/_0.30)] max-lg:bg-[oklch(from_var(--accent)_l_c_h_/_0.10)] max-lg:text-accent-soft",
                     )}
                   >
                     <Icon size={18} strokeWidth={1.6} />
@@ -483,7 +483,7 @@ export function Bento({
                       className={cn(
                         "ml-auto whitespace-nowrap rounded-full border border-[oklch(from_var(--accent)_l_c_h_/_0.40)] bg-[oklch(from_var(--accent)_l_c_h_/_0.10)] px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[oklch(from_var(--accent)_0.92_0.12_h)]",
                         isOneByOne &&
-                          "max-[800px]:col-start-2 max-[800px]:row-start-3 max-[800px]:ml-0 max-[800px]:self-start max-[800px]:pt-1.5",
+                          "max-lg:col-start-2 max-lg:row-start-3 max-lg:ml-0 max-lg:self-start max-lg:pt-1.5",
                       )}
                     >
                       {c.stat}
@@ -495,7 +495,7 @@ export function Bento({
                     "relative mt-[18px] font-sans text-[19px] font-semibold leading-[1.25] text-ink [text-wrap:balance] [word-break:keep-all] [hyphens:manual]",
                     c.span === "2x2" && "text-[28px]",
                     isOneByOne &&
-                      "max-[800px]:col-start-2 max-[800px]:row-start-1 max-[800px]:mt-0 max-[800px]:text-base max-[800px]:leading-[1.25] max-[800px]:tracking-[-0.01em]",
+                      "max-lg:col-start-2 max-lg:row-start-1 max-lg:mt-0 max-lg:text-base max-lg:leading-[1.25] max-lg:tracking-[-0.01em]",
                   )}
                 >
                   {c.title}
@@ -505,7 +505,7 @@ export function Bento({
                     "relative mt-2 text-[13.5px] leading-[1.55] text-ink-dim [text-wrap:pretty] [&_p]:m-0 [&_p]:mb-2 [&_p:last-child]:mb-0 [&_p_strong]:font-semibold [&_p_strong]:text-ink [&_strong]:font-semibold [&_strong]:text-ink",
                     c.span === "2x2" && "text-[15px]",
                     isOneByOne &&
-                      "max-[800px]:col-start-2 max-[800px]:row-start-2 max-[800px]:mt-1 max-[800px]:text-[13px] max-[800px]:leading-[1.5] [&_p]:max-[800px]:mb-1.5",
+                      "max-lg:col-start-2 max-lg:row-start-2 max-lg:mt-1 max-lg:text-[13px] max-lg:leading-[1.5] [&_p]:max-lg:mb-1.5",
                   )}
                 >
                   {typeof c.body === "string" ? <p>{c.body}</p> : c.body}
@@ -514,7 +514,7 @@ export function Bento({
                   <div
                     className={cn(
                       isOneByOne &&
-                        "max-[800px]:col-span-2 max-[800px]:row-start-4 max-[800px]:mt-1 max-[800px]:pt-2",
+                        "max-lg:col-span-2 max-lg:row-start-4 max-lg:mt-1 max-lg:pt-2",
                     )}
                   >
                     <BentoVisual kind={c.visual} locale={locale} />

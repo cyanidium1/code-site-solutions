@@ -17,12 +17,10 @@ import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 
-// Burger button — only visible below 800px (the @800 media query was
-// the legacy `.hp-burger-btn { display: none }` default + an inverse
-// `inline-flex` in the @800 block). Replaced here with `hidden` default
-// + `max-[800px]:inline-flex`.
+// Burger button — only visible below 800px (lg breakpoint). Mobile-first:
+// shown by default, hidden at lg+.
 const burgerBtnClass =
-  "hidden items-center justify-center w-11 h-11 -mr-2.5 p-0 border-0 bg-transparent text-ink cursor-pointer rounded-xl transition-colors duration-150 hover:bg-[oklch(1_0_0/0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2 max-[800px]:inline-flex";
+  "inline-flex items-center justify-center w-11 h-11 -mr-2.5 p-0 border-0 bg-transparent text-ink cursor-pointer rounded-xl transition-colors duration-150 hover:bg-[oklch(1_0_0/0.06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2 lg:hidden";
 const burgerIconClass = "relative w-[22px] h-[14px] inline-block";
 // Burger 3-line ↔ X morph. The data-open attribute lives on the parent
 // .burgerIcon and the children read it via the `group-data-[open=true]`

@@ -38,10 +38,10 @@ export function Stack({
       <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
         <div className="relative overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] [background-image:radial-gradient(circle,oklch(1_0_0_/_0.03)_1px,transparent_1px)] [background-size:24px_24px]">
-          <div className="grid grid-cols-5 max-[1100px]:grid-cols-3 max-[800px]:grid-cols-2">
+          <div className="grid grid-cols-5 max-xl:grid-cols-3 max-lg:grid-cols-2">
             {items.map((it) => (
               <div
-                className="flex flex-col items-center justify-center border-r border-b border-line bg-[oklch(0_0_0_/_0.20)] px-4 py-10 [&:nth-child(5n)]:border-r-0 max-[1100px]:[&:nth-child(5n)]:border-r max-[800px]:[&:nth-child(5n)]:border-r [&:nth-last-child(-n+5)]:border-b-0 max-[1100px]:[&:nth-last-child(-n+5)]:border-b max-[800px]:[&:nth-last-child(-n+5)]:border-b max-[1100px]:[&:nth-child(3n)]:border-r-0 max-[800px]:[&:nth-child(3n)]:border-r max-[800px]:[&:nth-child(2n)]:border-r-0"
+                className="flex flex-col items-center justify-center border-r border-b border-line bg-[oklch(0_0_0_/_0.20)] px-4 py-10 [&:nth-child(5n)]:border-r-0 max-xl:[&:nth-child(5n)]:border-r max-lg:[&:nth-child(5n)]:border-r [&:nth-last-child(-n+5)]:border-b-0 max-xl:[&:nth-last-child(-n+5)]:border-b max-lg:[&:nth-last-child(-n+5)]:border-b max-xl:[&:nth-child(3n)]:border-r-0 max-lg:[&:nth-child(3n)]:border-r max-lg:[&:nth-child(2n)]:border-r-0"
                 key={it.name}
               >
                 <div className="font-sans text-lg font-semibold text-ink">{it.name}</div>

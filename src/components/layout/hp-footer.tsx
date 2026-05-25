@@ -57,9 +57,9 @@ const footerClass =
 // 5-col grid on UA (with Compare + Legal split), collapses to 4 cols on EN.
 // data-locale="en" selector replaced by conditional class.
 const footerInnerUaClass =
-  "mx-auto max-w-container grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-8 max-[800px]:grid-cols-2 max-[800px]:[&>:first-child]:col-span-2";
+  "mx-auto max-w-container grid grid-cols-2 [&>:first-child]:col-span-2 gap-8 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] lg:[&>:first-child]:col-span-1";
 const footerInnerEnClass =
-  "mx-auto max-w-container grid grid-cols-[2fr_1fr_1fr_1fr] gap-8 max-[800px]:grid-cols-2 max-[800px]:[&>:first-child]:col-span-2";
+  "mx-auto max-w-container grid grid-cols-2 [&>:first-child]:col-span-2 gap-8 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:[&>:first-child]:col-span-1";
 const footerBrandClass =
   "font-sans text-[20px] font-bold tracking-[-0.01em] [&>em]:not-italic [&>em]:bg-brand-gradient [&>em]:bg-clip-text [&>em]:text-transparent";
 const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[320px]";
