@@ -51,17 +51,19 @@ function BurgerIcon({ open }: { open: boolean }) {
 }
 
 // HeroUI Drawer slot classes. `!`-prefixed where they override HeroUI's
-// internal class precedence (background, max-width, border, z-index).
-// The wrapper z-index override is required because @heroui/drawer's own
-// z-50 class isn't picked up by our Tailwind content paths (only
-// @heroui/theme is scanned) — the wrapper would otherwise compute z:auto
-// and let z-indexed page content (.blog-prose at z:1) render on top.
+// internal class precedence (background, max-width, border).
+// The wrapper z-index is intentionally NOT overridden: HeroUI's own
+// wrapper manages click-outside delegation, and forcing a higher z-index
+// on the wrapper turned the backdrop into a sibling that swallowed
+// pointer events without firing the close handler. `base` (the panel)
+// keeps its z bump so it renders above the backdrop within HeroUI's
+// own z-50 wrapper, while page content at z:1 (.blog-prose etc.) still
+// renders below the wrapper itself.
 const drawerClassNames = {
   base:
     "!bg-bg !bg-[linear-gradient(180deg,oklch(0.10_0.005_300)_0%,oklch(0.08_0.01_295)_100%)] " +
-    "!border-l !border-line text-ink !max-w-[420px] !w-screen !rounded-none !m-0 !z-[61]",
-  backdrop: "!bg-[oklch(0.06_0.005_300/0.55)] !backdrop-blur-[8px] !z-[60]",
-  wrapper: "!z-[60]",
+    "!border-l !border-line text-ink !max-w-[420px] !w-screen !rounded-none !m-0",
+  backdrop: "!bg-[oklch(0.06_0.005_300/0.55)] !backdrop-blur-[8px]",
 };
 
 const drawerHeadClass =
