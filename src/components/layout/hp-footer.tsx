@@ -64,11 +64,11 @@ const footerBrandClass =
   "font-sans text-[20px] font-bold tracking-[-0.01em] [&>em]:not-italic [&>em]:bg-brand-gradient [&>em]:bg-clip-text [&>em]:text-transparent";
 const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[320px]";
 const footerContactsClass =
-  "mt-5 font-mono text-[12px] flex flex-col gap-1.5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 hover:[&>a]:text-ink";
+  "mt-5 font-mono text-[12px] flex flex-col gap-1.5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 [&>a:hover]:text-ink";
 const footerColHClass =
   "font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3";
 const footerColListClass =
-  "list-none mt-4 p-0 flex flex-col gap-2.5 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 hover:[&_a]:text-ink";
+  "list-none mt-4 p-0 flex flex-col gap-2.5 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 // Vertical gap between the Compare and Legal sub-columns when they're
 // stacked inside the same grid cell on EN. The legacy CSS used
 // `.hp-footer-col-section + .hp-footer-col-section { margin-top: 24px }`.
@@ -76,10 +76,10 @@ const footerColListClass =
 const footerColSectionGapClass = "mt-6";
 const footerDisabledClass = "font-sans text-[13px] text-ink-3 cursor-default";
 const footerBottomClass =
-  "mx-auto max-w-container-max mt-12 pt-6 border-t border-line flex justify-between items-center flex-wrap gap-4";
+  "mx-auto max-w-container mt-12 pt-6 border-t border-line flex justify-between items-center flex-wrap gap-4";
 const footerCopyClass = "font-mono text-[11px] text-ink-3";
 const footerSocialClass =
-  "flex gap-4 [&_a]:text-ink-3 [&_a]:transition-colors [&_a]:duration-200 hover:[&_a]:text-ink";
+  "flex gap-4 [&_a]:text-ink-3 [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 
 export function HpFooter({
   socials = DEFAULT_SOCIALS,
