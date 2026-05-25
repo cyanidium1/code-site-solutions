@@ -320,3 +320,75 @@ Affected pages: every homepage-component consumer (homepage, all marketing pages
 - [ ] Footer columns + social icons
 - [ ] Shared `.hp-section` rhythm preserved across every page using a homepage component
 - [ ] Shared `.hp-eyebrow` pill renders identically wherever it appears
+
+
+---
+
+## Phase 2 — Mobile-first inversion (Sessions 1–5)
+
+### Custom breakpoint scale (IMPORTANT for new developers)
+
+This codebase uses a CUSTOM Tailwind breakpoint scale that does NOT match Tailwind's defaults:
+
+| Token | Width | Tailwind default for comparison |
+|---|---|---|
+| `xs` | 380px | (not in defaults) |
+| `sm` | 640px | 640px ✓ (matches) |
+| `md` | 700px | 768px ✗ (custom) |
+| `lg` | 800px | 1024px ✗ (custom) |
+| `xl` | 1100px | 1280px ✗ (custom) |
+
+Defined via `@theme --breakpoint-*` in `src/app/globals.css`. Generates `xs:`, `sm:`, `md:`, `lg:`, `xl:` (mobile-first min-width) and `max-xs:`, etc. (max-width, kept for outliers).
+
+### Spacing tokens migrated
+
+`--gutter-x` and `--section-y*` are now `@theme --spacing-*` tokens consumed via Tailwind utilities (`px-gutter-x`, `py-section-y`, etc.). The `:root` compat shim no longer defines these — the color/container tokens remain (Phase 3 scope).
+
+### Inversion pattern
+
+Every `max-[Npx]:` utility at canonical breakpoints (380/640/700/800/1100) was inverted to mobile-first equivalent. Outliers (760/900/960/1080/1200/1440) stay as `max-[Npx]:`. Where mobile-first was infeasible due to cascade interactions with non-canonical outliers on the same property, the canonical breakpoint was rewritten in `max-{token}:` form (e.g., `max-sm:`, `max-lg:`) — same semantics as the original `max-[640px]:` but named.
+
+### Files using `max-{token}:` instead of full mobile-first inversion
+
+These files had complex same-property cascade with non-canonical outliers; canonical max-[Npx] was rewritten to max-{token} form rather than full inversion. Visual parity preserved either way:
+- `src/components/ui/Btn.tsx` (1440 + 640 stack)
+- `src/components/blocks/comparison/cmp-table.tsx` (table reflow)
+- `src/components/blocks/final/faq.tsx` (FAQ svg sizing)
+- `src/components/blocks/image-text/index.tsx` (lines 188, 192)
+- `src/components/homepage/bento.tsx` (mobile 1x1 reflow)
+- `src/components/homepage/process.tsx` (5-col timeline)
+- `src/components/homepage/stack.tsx` (5/3/2 col grid with :nth-child border resets)
+- `src/components/layout/hp-header.tsx` + `locale-switcher.tsx`
+- `src/components/blocks/hero/index.tsx` (27 occurrences, dense 1440/1080 outlier interleaving)
+- `src/components/blocks/vertical-timeline/index.tsx` line 140 (max-[1080px] became min-[1080px] outlier — functionally equivalent)
+
+### Visual verification (REQUIRED before merge)
+
+Phase 2 must NOT change rendering at any viewport. Eyeball each page at 1440 / 1100 / 800 / 700 / 640 / 380 px and compare against Phase 1 baseline:
+
+- [ ] `/` and `/en` — hero, marquee, bento, cases, process, pull-quote, finalcta, footer
+- [ ] `/about` and `/en/about` — page hero, stats, image-text, values-secondary-row, team
+- [ ] `/portfolio` UK+EN — list grid
+- [ ] `/portfolio/[slug]` UK+EN — Sanity case + hardcoded cases (nbyg-kobenhavn, efedra-clinic)
+- [ ] `/process`, `/pricing` UK+EN
+- [ ] `/calculator` — full multi-step click-through
+- [ ] `/contacts`, `/blog`, `/blog/[slug]` UK+EN
+- [ ] Mobile menu drawer (≤700px viewport): burger morph, stagger animations
+- [ ] Header dropdowns and locale switcher (≥800px viewport)
+- [ ] FAQ accordion across pages
+- [ ] Hero block at 640px viewport (highest-risk single component, 27 inversions)
+- [ ] Bento grid mobile 1x1 reflow
+- [ ] Comparison table mobile card mode
+- [ ] Primary + ghost buttons at every breakpoint
+
+If any page regresses, the inversion at that block was wrong — restore from git and re-invert with correct semantics.
+
+### Viewport meta
+
+`src/app/layout.tsx` now exports `viewport: { width: "device-width", initialScale: 1, viewportFit: "cover" }`. Inspect any rendered page's `<head>` to confirm.
+
+### Phase 3 scope (out of Phase 2)
+
+- Touch-target audit (≥44×44px on interactive elements)
+- Color-token migration (`var(--bg)` → `var(--color-bg)` etc.); delete `:root` compat shim
+- HeroUI dark-theme review under mobile-first baseline
