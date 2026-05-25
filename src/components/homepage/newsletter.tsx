@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { hpInnerClass, hpSectionTightClass } from "@/components/homepage/shared";
+import { hpInnerClass } from "@/components/homepage/shared";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -40,7 +40,7 @@ export function Newsletter() {
         : t("button");
 
   return (
-    <section className={hpSectionTightClass}>
+    <section className="relative py-9 lg:py-14 px-6 sm:px-8 lg:px-12 overflow-hidden bg-bg">
       <div className={hpInnerClass}>
         <div className="flex flex-col gap-6 rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] px-9 py-8 min-[800px]:flex-row min-[800px]:items-center min-[800px]:justify-between">
           <div>

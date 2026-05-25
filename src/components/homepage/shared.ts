@@ -17,8 +17,6 @@
 // shorter tight spacing scale.
 export const hpSectionClass =
   "relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 overflow-hidden bg-bg";
-export const hpSectionTightClass =
-  "relative py-9 lg:py-14 px-6 sm:px-8 lg:px-12 overflow-hidden bg-bg";
 
 // Max-width container, centred, with positioning context for inner overlays.
 export const hpInnerClass = "max-w-container mx-auto relative z-[1]";
