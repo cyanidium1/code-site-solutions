@@ -17,8 +17,8 @@
 /* ─── Body wrapper backdrop (subtle, matches hp pages) ──────────────────── */
 .blog-post-bg {
   background:
-    radial-gradient(ellipse 50% 40% at 90% 20%, oklch(from var(--accent) l c h / 0.06), transparent 70%),
-    radial-gradient(ellipse 40% 50% at 5% 80%, oklch(from var(--accent-2) l c h / 0.04), transparent 70%);
+    radial-gradient(ellipse 50% 40% at 90% 20%, oklch(from var(--color-accent) l c h / 0.06), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 5% 80%, oklch(from var(--color-accent-2) l c h / 0.04), transparent 70%);
 }
 
 /* ─── Single-column layout ────────────────────────────────────────────────
@@ -170,7 +170,7 @@
   @apply border-l-[3px] border-accent;
   margin: 32px auto;
   padding: 22px 26px;
-  background: oklch(from var(--accent) l c h / 0.06);
+  background: oklch(from var(--color-accent) l c h / 0.06);
   border-radius: 0 14px 14px 0;
 }
 .blog-tldr-title {
@@ -213,7 +213,7 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 50% 0%, oklch(from var(--accent) l c h / 0.10), transparent 70%);
+    radial-gradient(ellipse 60% 80% at 50% 0%, oklch(from var(--color-accent) l c h / 0.10), transparent 70%);
   pointer-events: none;
 }
 .blog-cta-eyebrow {
@@ -263,7 +263,7 @@
 .blog-cta-btn.secondary {
   @apply bg-transparent text-ink border border-line-strong;
 }
-.blog-cta-btn.secondary:hover { border-color: oklch(from var(--accent) l c h / 0.5); }
+.blog-cta-btn.secondary:hover { border-color: oklch(from var(--color-accent) l c h / 0.5); }
 
 @media (max-width: 700px) {
   .blog-cta { padding: 24px 20px; }

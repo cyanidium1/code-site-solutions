@@ -9,9 +9,9 @@
   width: 48px;
   height: 48px;
   border-radius: 999px;
-  border: 1px solid var(--line-2);
+  border: 1px solid var(--color-line-strong);
   background: oklch(1 0 0 / 0.04);
-  color: var(--ink);
+  color: var(--color-ink);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -21,8 +21,8 @@
 }
 
 .swiper-nav-btn:hover:not(:disabled) {
-  background: oklch(from var(--accent) l c h / 0.12);
-  border-color: oklch(from var(--accent) l c h / 0.5);
+  background: oklch(from var(--color-accent) l c h / 0.12);
+  border-color: oklch(from var(--color-accent) l c h / 0.5);
   transform: translateY(-1px);
 }
 
@@ -32,7 +32,7 @@
 }
 
 .swiper-nav-btn:focus-visible {
-  outline: 2px solid var(--accent-soft);
+  outline: 2px solid var(--color-accent-soft);
   outline-offset: 2px;
 }
 
@@ -54,7 +54,7 @@
   pointer-events: none;
   background: radial-gradient(
     ellipse 800px 360px at 50% 50%,
-    oklch(from var(--accent) l c h / 0.10),
+    oklch(from var(--color-accent) l c h / 0.10),
     transparent 70%
   );
 }
@@ -127,11 +127,11 @@
   font-weight: 500;
   font-size: clamp(22px, 2.5vw, 32px);
   line-height: 1.4;
-  color: var(--ink);
+  color: var(--color-ink);
 }
 .hp-pqs-quote em {
   font-style: italic;
-  background: linear-gradient(180deg, var(--accent-soft) 0%, var(--accent) 100%);
+  background: linear-gradient(180deg, var(--color-accent-soft) 0%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -152,23 +152,23 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(180deg, var(--accent-soft) 0%, var(--accent) 100%);
+  background: linear-gradient(180deg, var(--color-accent-soft) 0%, var(--color-accent) 100%);
   font-family: 'Manrope', sans-serif;
   font-weight: 700;
   font-size: 18px;
-  color: var(--bg);
+  color: var(--color-bg);
 }
 .hp-pqs-name {
   font-family: 'Manrope', sans-serif;
   font-weight: 600;
   font-size: 16px;
-  color: var(--ink);
+  color: var(--color-ink);
 }
 .hp-pqs-role {
   margin-top: 2px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: var(--ink-3);
+  color: var(--color-ink-3);
 }
 .hp-pqs-li {
   display: inline-flex;
@@ -177,11 +177,11 @@
   margin-top: 8px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: var(--ink-2);
+  color: var(--color-ink-dim);
   text-decoration: none;
   transition: color 0.2s;
 }
-.hp-pqs-li:hover { color: var(--ink); }
+.hp-pqs-li:hover { color: var(--color-ink); }
 
 .hp-pqs-cta {
   margin-top: 32px;

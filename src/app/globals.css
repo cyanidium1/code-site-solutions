@@ -105,7 +105,7 @@
    Re-exposes the @theme color/container tokens under their pre-refactor
    names (--bg, --ink, --accent, --line, --container-*). Many consumers
    across src/ still reference these short names directly
-   (e.g. bg-[oklch(from_var(--accent)_...)]). Phase 3 will migrate
+   (e.g. bg-[oklch(from_var(--color-accent)_...)]). Phase 3 will migrate
    consumers to the @theme-derived --color-* names then delete this block.
    Phase 2 removed the --gutter-x / --section-y* entries — those are now
    exclusively @theme --spacing-* tokens consumed via Tailwind utilities.
@@ -143,8 +143,8 @@ html {
 
 html,
 body {
-  background: var(--bg);
-  color: var(--ink);
+  background: var(--color-bg);
+  color: var(--color-ink);
 }
 
 body {
@@ -216,8 +216,8 @@ h3 em {
   .text-gradient-brand {
     background: linear-gradient(
       180deg,
-      var(--accent-soft) 0%,
-      var(--accent) 100%
+      var(--color-accent-soft) 0%,
+      var(--color-accent) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;

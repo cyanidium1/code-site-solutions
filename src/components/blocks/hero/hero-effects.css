@@ -23,7 +23,7 @@
    built-in `animate-pulse` utility, and `float` is unique to the
    device-tag floating decoration. */
 @keyframes hero-pulse {
-  50% { box-shadow: 0 0 0 6px oklch(from var(--accent) l c h / 0); }
+  50% { box-shadow: 0 0 0 6px oklch(from var(--color-accent) l c h / 0); }
 }
 @keyframes float {
   50% { transform: translateY(-8px); }
