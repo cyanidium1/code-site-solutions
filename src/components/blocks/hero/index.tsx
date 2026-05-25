@@ -31,7 +31,7 @@ const HERO_BG_CLASS =
 const HERO_SHELL_CLASS =
   "relative z-[5] pt-6 px-6 sm:px-8 lg:px-12 pb-[60px] " +
   "max-[1440px]:pt-8 max-[1440px]:pb-14 " +
-  "max-[640px]:pt-0 max-[640px]:pb-9";
+  "max-sm:pt-0 max-sm:pb-9";
 
 // U — two-column grid: 1000px text col + 1fr device col, 48px gap,
 // center-aligned, capped at --container-max. min-height is a clamp
@@ -44,7 +44,7 @@ const HERO_GRID_CLASS =
   "data-[variant=compare]:lg:grid-cols-[minmax(0,50%)_minmax(0,50%)] " +
   "max-[1440px]:gap-7 " +
   "max-[1080px]:gap-[22px] " +
-  "max-[640px]:grid-cols-[minmax(0,1fr)] max-[640px]:grid-rows-[auto_auto] max-[640px]:gap-0 max-[640px]:min-h-0";
+  "max-sm:grid-cols-[minmax(0,1fr)] max-sm:grid-rows-[auto_auto] max-sm:gap-0 max-sm:min-h-0";
 
 // U — text column wrapper.
 const HERO_LEFT_CLASS = "relative z-[4]";
@@ -54,11 +54,11 @@ const HERO_LEFT_CLASS = "relative z-[4]";
 // font-size and dot. Padding 6px 12px 6px 10px → mirrored.
 const EYEBROW_CLASS =
   "inline-flex items-center gap-2.5 pl-3 pr-3.5 py-2 border border-line-strong rounded-full text-[11px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] backdrop-blur-[8px] mb-8 " +
-  "max-[640px]:text-[9px] max-[640px]:pl-2.5 max-[640px]:pr-3 max-[640px]:py-1.5 max-[640px]:gap-2 max-[640px]:mb-[18px] max-[640px]:tracking-[0.1em]";
+  "max-sm:text-[9px] max-sm:pl-2.5 max-sm:pr-3 max-sm:py-1.5 max-sm:gap-2 max-sm:mb-[18px] max-sm:tracking-[0.1em]";
 
 // U — 6px accent dot inside the eyebrow with subtle glow.
 const EYEBROW_DOT_CLASS =
-  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] max-[640px]:w-[5px] max-[640px]:h-[5px]";
+  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] max-sm:w-[5px] max-sm:h-[5px]";
 
 // U — separator + emphasized text inside the eyebrow.
 const EYEBROW_SEP_CLASS = "text-[var(--ink-3)] -mx-0.5";
@@ -70,7 +70,7 @@ const EYEBROW_EM_CLASS = "text-accent font-semibold";
 // + the line-height mobile override (handled inside Heading.tsx hp row).
 // margin-bottom shrinks at ≤640 to 18px.
 const HERO_H1_CLASS =
-  "text-ink m-0 mb-7 max-[640px]:mb-[18px] " +
+  "text-ink m-0 mb-7 max-sm:mb-[18px] " +
   // Italic <em> uses the brand vertical gradient (accent-soft → accent).
   // Tailwind cannot express this via a token because it relies on
   // -webkit-text-fill-color: transparent applied to the descendant.
@@ -85,20 +85,20 @@ const H1_LINE_CLASS = "block max-w-[50vw]";
 const H1_ACCENT_CLASS =
   "flex items-end gap-4 mt-1 " +
   "max-[1440px]:gap-3 " +
-  "max-[640px]:gap-3 max-[640px]:mt-0.5";
+  "max-sm:gap-3 max-sm:mt-0.5";
 
 // U — the big KPI number: 1.4em (relative to surrounding H1), 800w,
 // tabular-nums, brand-gradient text-clipped. Mobile drops to 1.3em.
 const H1_NUM_CLASS =
   "text-[1.4em] font-extrabold [font-feature-settings:'tnum'] leading-[0.85] " +
   "bg-[linear-gradient(180deg,var(--accent-soft)_0%,var(--accent)_100%)] bg-clip-text [-webkit-text-fill-color:transparent] " +
-  "max-[640px]:text-[1.3em]";
+  "max-sm:text-[1.3em]";
 
 // U — KPI label small text, sits next to the number.
 const H1_NUM_LABEL_CLASS =
   "text-[0.32em] font-medium tracking-normal text-ink-dim leading-[1.15] pb-[0.4em] lowercase max-w-[8em] " +
   "max-[1440px]:text-[0.34em] " +
-  "max-[640px]:text-[0.32em] max-[640px]:pb-[0.5em]";
+  "max-sm:text-[0.32em] max-sm:pb-[0.5em]";
 
 // U — lede paragraph under H1. Width caps differ across breakpoints;
 // at ≤1080 it spans the full text column.
@@ -107,7 +107,7 @@ const LEDE_CLASS =
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "max-[1440px]:max-w-[460px] max-[1440px]:mb-6 " +
   "max-[1080px]:max-w-full " +
-  "max-[640px]:leading-[1.55] max-[640px]:mb-[22px] max-[640px]:max-w-full";
+  "max-sm:leading-[1.55] max-sm:mb-[22px] max-sm:max-w-full";
 
 // U — 2-col features grid. Mobile collapses to single column inside
 // a bordered card with backdrop bg (this is the only place where
@@ -117,30 +117,30 @@ const FEATURES_CLASS =
   "grid grid-cols-2 gap-x-6 gap-y-3 mb-9 max-w-[480px] " +
   "max-[1440px]:max-w-[460px] max-[1440px]:gap-x-[18px] max-[1440px]:gap-y-2.5 max-[1440px]:mb-[26px] " +
   "max-[1080px]:max-w-full max-[1080px]:gap-x-3.5 max-[1080px]:gap-y-2 " +
-  "max-[640px]:grid-cols-1 max-[640px]:gap-2.5 max-[640px]:mb-[22px] max-[640px]:px-4 max-[640px]:py-3.5 max-[640px]:border max-[640px]:border-line max-[640px]:rounded-2xl max-[640px]:bg-[oklch(1_0_0_/_0.02)]";
+  "max-sm:grid-cols-1 max-sm:gap-2.5 max-sm:mb-[22px] max-sm:px-4 max-sm:py-3.5 max-sm:border max-sm:border-line max-sm:rounded-2xl max-sm:bg-[oklch(1_0_0_/_0.02)]";
 
 // U — individual feature row.
 const FEAT_CLASS =
-  "flex items-center gap-3 max-[640px]:gap-2.5";
+  "flex items-center gap-3 max-sm:gap-2.5";
 
 // U — circular check icon.
 const FEAT_CHECK_CLASS =
   "w-[26px] h-[26px] rounded-full flex items-center justify-center shrink-0 text-accent " +
   "bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] border border-[oklch(from_var(--accent)_l_c_h_/_0.2)] " +
-  "max-[640px]:w-[22px] max-[640px]:h-[22px] [&_svg]:max-[640px]:w-3 [&_svg]:max-[640px]:h-3";
+  "max-sm:w-[22px] max-sm:h-[22px] [&_svg]:max-sm:w-3 [&_svg]:max-sm:h-3";
 
 const FEAT_LABEL_CLASS =
   "text-[13px] font-semibold text-ink leading-[1.2] " +
-  "max-[1440px]:text-xs max-[640px]:text-xs";
+  "max-[1440px]:text-xs max-sm:text-xs";
 const FEAT_SUB_CLASS =
   "text-[11px] text-[var(--ink-3)] mt-0.5 tracking-[0.02em] " +
-  "max-[1440px]:text-[10px] max-[640px]:text-[10px]";
+  "max-[1440px]:text-[10px] max-sm:text-[10px]";
 
 // U — CTA row. Wraps below at ≤640 to stretched-column buttons.
 const CTA_ROW_CLASS =
   "flex gap-3 flex-wrap items-center mb-3.5 " +
   "max-[1440px]:mb-7 " +
-  "max-[640px]:flex-col max-[640px]:gap-2.5 max-[640px]:items-stretch max-[640px]:mb-6";
+  "max-sm:flex-col max-sm:gap-2.5 max-sm:items-stretch max-sm:mb-6";
 
 const CTA_FOOTNOTE_CLASS =
   "text-[12.5px] tracking-[0.01em] text-[var(--ink-3)] m-0 mb-[30px] leading-[1.5]";
@@ -152,17 +152,17 @@ const STATS_CLASS =
   "flex items-center gap-6 px-7 py-5 border border-line rounded-[18px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
   "max-[1440px]:px-5 max-[1440px]:py-4 max-[1440px]:gap-[18px] " +
   "max-[1080px]:gap-3.5 max-[1080px]:px-4 max-[1080px]:py-3.5 " +
-  "max-[640px]:px-4 max-[640px]:py-3.5 max-[640px]:gap-3 max-[640px]:rounded-[14px] max-[640px]:max-w-full";
+  "max-sm:px-4 max-sm:py-3.5 max-sm:gap-3 max-sm:rounded-[14px] max-sm:max-w-full";
 
 const STAT_CLASS = "flex-1 flex flex-col gap-1.5";
 const STAT_NUM_CLASS =
   "font-sans font-bold text-[28px] tracking-[-0.03em] leading-none text-ink " +
-  "max-[1440px]:text-2xl max-[1080px]:text-[22px] max-[640px]:text-[22px]";
+  "max-[1440px]:text-2xl max-[1080px]:text-[22px] max-sm:text-[22px]";
 const STAT_LBL_CLASS =
   "text-[10px] text-[var(--ink-3)] uppercase tracking-[0.08em] leading-[1.3] " +
-  "max-[640px]:text-[9px]";
+  "max-sm:text-[9px]";
 const STAT_DIV_CLASS =
-  "w-px h-10 bg-line max-[640px]:h-[30px]";
+  "w-px h-10 bg-line max-sm:h-[30px]";
 
 // ─── Device stage (hero right column) ─────────────────────────────────
 
@@ -171,7 +171,7 @@ const STAT_DIV_CLASS =
 // background below the hero.
 const DEVICE_STAGE_CLASS =
   "relative w-full h-full min-w-0 [perspective:2000px] overflow-visible " +
-  "max-[640px]:after:content-[''] max-[640px]:after:absolute max-[640px]:after:bottom-0 max-[640px]:after:left-0 max-[640px]:after:right-0 max-[640px]:after:h-[60px] max-[640px]:after:bg-[linear-gradient(180deg,transparent,var(--bg)_90%)] max-[640px]:after:z-[3] max-[640px]:after:pointer-events-none";
+  "max-sm:after:content-[''] max-sm:after:absolute max-sm:after:bottom-0 max-sm:after:left-0 max-sm:after:right-0 max-sm:after:h-[60px] max-sm:after:bg-[linear-gradient(180deg,transparent,var(--bg)_90%)] max-sm:after:z-[3] max-sm:after:pointer-events-none";
 
 // U — soft accent glow halo behind the device. Inset is negative so the
 // glow extends outside the column; blurred 40px.
@@ -198,7 +198,7 @@ const DEVICE_TAG_CLASS =
   "absolute z-[5] px-3.5 py-2 backdrop-blur-[12px] border border-line-strong rounded-full text-[11px] font-medium text-ink inline-flex items-center gap-2 tracking-[0.02em] " +
   "bg-[oklch(0.22_0.008_60_/_0.85)] shadow-[0_4px_16px_oklch(0_0_0_/_0.4)] animate-float " +
   "max-[1440px]:text-[10px] max-[1440px]:px-[11px] max-[1440px]:py-1.5 " +
-  "max-[640px]:hidden";
+  "max-sm:hidden";
 
 // U — per-instance position + animation-delay for each of the 3 tags.
 // On ≤1440 tag 2 is hidden and the other two shift slightly inward.
@@ -237,14 +237,14 @@ const MOCKUP_CLASS =
 const MOCKUP_IMG_CLASS =
   "w-[clamp(420px,50vw,1000px)] h-auto max-w-none max-h-none -translate-x-[10%] " +
   "[filter:drop-shadow(0_50px_60px_oklch(0_0_0_/_0.55))_drop-shadow(0_20px_30px_oklch(0_0_0_/_0.35))] " +
-  "max-[640px]:w-full max-[640px]:max-w-full max-[640px]:max-h-full";
+  "max-sm:w-full max-sm:max-w-full max-sm:max-h-full";
 
 // U — homepage mockup variant: absolutely positioned + offset so the
 // laptop hero image lands in the back-centre of the cluster. Width
 // uses a larger clamp (this image is the full design composition).
 const MOCKUP_IMG_HOMEPAGE_CLASS =
   "w-[clamp(420px,100vw,1200px)] absolute -top-[136px] -left-[272px] " +
-  "max-[640px]:w-full max-[640px]:relative max-[640px]:top-[unset] max-[640px]:left-[unset] max-[640px]:max-w-none max-[640px]:max-h-none max-[640px]:translate-x-[10%]";
+  "max-sm:w-full max-sm:relative max-sm:top-[unset] max-sm:left-[unset] max-sm:max-w-none max-sm:max-h-none max-sm:translate-x-[10%]";
 
 // U — placeholder used when no mockup src is provided. 3-layer radial
 // + linear-gradient background mimics a device screen; drop-shadow
@@ -267,7 +267,7 @@ const TICKER_CLASS =
   "relative z-[5] mt-10 border-t border-b border-line py-5 overflow-hidden " +
   "[mask:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)] " +
   "[-webkit-mask:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)] " +
-  "max-[640px]:mt-6 max-[640px]:py-3";
+  "max-sm:mt-6 max-sm:py-3";
 
 // U — animated track. Legacy ticker keyframe (translateX 0 → -50%) is
 // functionally identical to --animate-marquee, but legacy used a 40s
@@ -283,7 +283,7 @@ const TICKER_ROW_CLASS =
   "flex items-center gap-8 font-display font-semibold text-2xl tracking-[-0.02em] text-ink-dim pr-8 " +
   "[&_span:nth-child(even)]:text-accent " +
   "max-[1440px]:text-lg max-[1440px]:gap-6 " +
-  "max-[640px]:text-sm max-[640px]:gap-[18px] max-[640px]:pr-[18px]";
+  "max-sm:text-sm max-sm:gap-[18px] max-sm:pr-[18px]";
 
 // U — device-stage wrapper. Stretches to fill the grid row min-height
 // (height:100% beats the prior aspect-ratio which Firefox respected
@@ -292,8 +292,8 @@ const TICKER_ROW_CLASS =
 // past the gutter via negative margin trick.
 const HERO_RIGHT_CLASS =
   "relative min-w-0 w-full h-full min-h-[420px] overflow-visible [contain:layout] z-10 " +
-  "max-[640px]:-order-1 max-[640px]:[aspect-ratio:auto] max-[640px]:z-[-1] max-[640px]:h-[320px] " +
-  "max-[640px]:-mx-6 max-[640px]:-mb-10 max-[640px]:w-[calc(100%+48px)]";
+  "max-sm:-order-1 max-sm:[aspect-ratio:auto] max-sm:z-[-1] max-sm:h-[320px] " +
+  "max-sm:-mx-6 max-sm:-mb-10 max-sm:w-[calc(100%+48px)]";
 
 export type Feature = { label: string; sub: string };
 
