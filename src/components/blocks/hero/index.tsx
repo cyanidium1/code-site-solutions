@@ -18,7 +18,7 @@ import "./hero-effects.css";
 // relative-color functions that no @theme token captures.
 const HERO_BG_CLASS =
   "fixed inset-0 z-0 pointer-events-none " +
-  "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--bg-2)_100%)] " +
+  "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg)_100%)] " +
   "before:content-[''] before:absolute before:inset-0 " +
   "before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.025)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.025)_1px,transparent_1px)] " +
   "before:bg-[size:80px_80px] " +
