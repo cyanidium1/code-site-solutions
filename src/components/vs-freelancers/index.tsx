@@ -13,6 +13,7 @@ import {
   VS_FREELANCERS_EN,
 } from "@/content/comparisons/vs-freelancers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { localizePath } from "@/constants/i18n-routes";
 
 export type VfLocale = "uk" | "en";
 
@@ -29,6 +30,7 @@ export function getVsFreelancersContent(locale: VfLocale): Content {
 
 export function VsFreelancersView({ locale }: { locale: VfLocale }) {
   const c = CONTENT[locale];
+  const isEn = locale === "en";
 
   return (
     <>
@@ -41,7 +43,9 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
         lede={c.hero.lede}
         features={c.hero.badges}
         ctaPrimaryLabel={c.hero.ctaPrimary}
+        ctaPrimaryHref={localizePath("/calculator", isEn)}
         ctaSecondaryLabel={c.hero.ctaSecondary}
+        ctaSecondaryHref={localizePath("/process", isEn)}
         ctaSecondaryShowPlay={false}
         showStats={false}
         showTicker={false}

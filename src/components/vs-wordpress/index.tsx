@@ -13,6 +13,7 @@ import {
   VS_WORDPRESS_EN,
 } from "@/content/comparisons/vs-wordpress";
 import { hpInnerClass, hpLinkClass, hpSectionClass } from "@/components/homepage/shared";
+import { localizePath } from "@/constants/i18n-routes";
 
 export type VsLocale = "uk" | "en";
 
@@ -29,6 +30,7 @@ export function getVsWordpressContent(locale: VsLocale): Content {
 
 export function VsWordpressView({ locale }: { locale: VsLocale }) {
   const c = CONTENT[locale];
+  const isEn = locale === "en";
   return (
     <>
       <HpHeader />
@@ -40,7 +42,9 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
         lede={c.hero.lede}
         features={c.hero.badges}
         ctaPrimaryLabel={c.hero.ctaPrimary}
+        ctaPrimaryHref={localizePath("/calculator", isEn)}
         ctaSecondaryLabel={c.hero.ctaSecondary}
+        ctaSecondaryHref={localizePath("/contacts", isEn)}
         ctaSecondaryShowPlay={false}
         showStats={false}
         showTicker={false}

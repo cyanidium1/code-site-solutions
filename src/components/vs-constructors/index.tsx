@@ -13,6 +13,7 @@ import {
   VS_CONSTRUCTORS_EN,
 } from "@/content/comparisons/vs-constructors";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { localizePath } from "@/constants/i18n-routes";
 
 export type VcLocale = "uk" | "en";
 
@@ -29,6 +30,7 @@ export function getVsConstructorsContent(locale: VcLocale): Content {
 
 export function VsConstructorsView({ locale }: { locale: VcLocale }) {
   const c = CONTENT[locale];
+  const isEn = locale === "en";
   return (
     <>
       <HpHeader />
@@ -40,7 +42,9 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
         lede={c.hero.lede}
         features={c.hero.badges}
         ctaPrimaryLabel={c.hero.ctaPrimary}
+        ctaPrimaryHref={localizePath("/calculator", isEn)}
         ctaSecondaryLabel={c.hero.ctaSecondary}
+        ctaSecondaryHref={localizePath("/contacts", isEn)}
         ctaSecondaryShowPlay={false}
         showStats={false}
         showTicker={false}
