@@ -54,12 +54,11 @@ const LEGAL_HREFS: Array<{ key: string; href: string }> = [
 // Reusable utility-class strings — keeps the JSX below readable.
 const footerClass =
   "relative pt-14 lg:pt-20 px-6 sm:px-8 lg:px-12 pb-8 border-t border-line bg-[oklch(0_0_0_/_0.20)]";
-// 5-col grid on UA (with Compare + Legal split), collapses to 4 cols on EN.
-// data-locale="en" selector replaced by conditional class.
-const footerInnerUaClass =
-  "mx-auto max-w-container grid grid-cols-2 [&>:first-child]:col-span-2 gap-8 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] lg:[&>:first-child]:col-span-1";
-const footerInnerEnClass =
-  "mx-auto max-w-container grid grid-cols-2 [&>:first-child]:col-span-2 gap-8 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:[&>:first-child]:col-span-1";
+// 5-col grid on both locales: brand spans 2fr, then Solutions / Company /
+// Compare / Legal each get their own 1fr column. Mobile stacks to 2 cols
+// with the brand cell spanning both.
+const footerInnerClass =
+  "mx-auto max-w-container grid grid-cols-2 [&>:first-child]:col-span-2 gap-6 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] lg:[&>:first-child]:col-span-1";
 const footerBrandClass =
   "font-sans text-[20px] font-bold tracking-[-0.01em] [&>em]:not-italic [&>em]:bg-brand-gradient [&>em]:bg-clip-text [&>em]:text-transparent";
 const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[320px]";
@@ -77,11 +76,6 @@ const footerColHClass =
 // nav surface on small viewports (the desktop nav is hidden ≤lg).
 const footerColListClass =
   "list-none mt-4 p-0 flex flex-col gap-2.5 [&_a]:inline-flex [&_a]:items-center [&_a]:min-h-11 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
-// Vertical gap between the Compare and Legal sub-columns when they're
-// stacked inside the same grid cell on EN. The legacy CSS used
-// `.hp-footer-col-section + .hp-footer-col-section { margin-top: 24px }`.
-// Applied directly to the second sibling instead of via arbitrary `&+&`.
-const footerColSectionGapClass = "mt-6";
 const footerDisabledClass = "font-sans text-[13px] text-ink-3 cursor-default";
 const footerBottomClass =
   "mx-auto max-w-container mt-12 pt-6 border-t border-line flex justify-between items-center flex-wrap gap-4";
@@ -138,7 +132,7 @@ export function HpFooter({
 
   return (
     <footer className={footerClass}>
-      <div className={isEn ? footerInnerEnClass : footerInnerUaClass}>
+      <div className={footerInnerClass}>
         <div>
           <div className={footerBrandClass}>
             <em>Code-Site</em>.art
@@ -171,61 +165,30 @@ export function HpFooter({
           </ul>
         </div>
         {/*
-          Compare + Legal share the 4th grid cell on EN (4-col grid) and split
-          across two cells on UA (5-col grid). The `[&+&]:mt-6` selector on the
-          col-section class supplies the vertical margin when they're stacked.
+          Compare + Legal each get their own column on both locales (5-col
+          desktop grid). EN compare links get a `/en` prefix; legal pages
+          are locale-agnostic.
         */}
-        {isEn ? (
-          <div>
-            <div>
-              <div className={footerColHClass}>{t("compareHeading")}</div>
-              <ul className={footerColListClass}>
-                {COMPARE_HREFS.map(({ key, href }) => (
-                  <li key={key}>
-                    <Link href={`/en${href}`}>{tCmp(key)}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className={footerColSectionGapClass}>
-              <div className={footerColHClass}>{t("legalHeading")}</div>
-              <ul className={footerColListClass}>
-                {LEGAL_HREFS.map(({ key, href }) => (
-                  <li key={key}>
-                    <Link href={href}>{tLeg(key)}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ) : (
-          <>
-            <div>
-              <div>
-                <div className={footerColHClass}>{t("compareHeading")}</div>
-                <ul className={footerColListClass}>
-                  {COMPARE_HREFS.map(({ key, href }) => (
-                    <li key={key}>
-                      <Link href={href}>{tCmp(key)}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div>
-              <div>
-                <div className={footerColHClass}>{t("legalHeading")}</div>
-                <ul className={footerColListClass}>
-                  {LEGAL_HREFS.map(({ key, href }) => (
-                    <li key={key}>
-                      <Link href={href}>{tLeg(key)}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </>
-        )}
+        <div>
+          <div className={footerColHClass}>{t("compareHeading")}</div>
+          <ul className={footerColListClass}>
+            {COMPARE_HREFS.map(({ key, href }) => (
+              <li key={key}>
+                <Link href={isEn ? `/en${href}` : href}>{tCmp(key)}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div className={footerColHClass}>{t("legalHeading")}</div>
+          <ul className={footerColListClass}>
+            {LEGAL_HREFS.map(({ key, href }) => (
+              <li key={key}>
+                <Link href={href}>{tLeg(key)}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <div className={footerBottomClass}>
         <span className={footerCopyClass}>{t("copy")}</span>
