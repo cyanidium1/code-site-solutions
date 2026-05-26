@@ -4,7 +4,7 @@
  * and EN (`src/app/en/portfolio/_nbyg-kobenhavn`) versions.
  *
  * Once real screenshots arrive from the founder, `ScreenshotPending`
- * goes away. `MetaStrip` and `RelatedCard` may be promoted to a generic
+ * goes away. `RelatedCard` may be promoted to a generic
  * `src/components/portfolio/case-page-bits.tsx` when a second case page
  * needs the same shape.
  */
