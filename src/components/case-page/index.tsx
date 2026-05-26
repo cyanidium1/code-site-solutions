@@ -39,7 +39,6 @@ import type {
   CaseStudySection,
   Locale,
   MediaGallerySection,
-  RichTextSimple,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import { SanityImg } from "@/lib/shared/sanity-image";
@@ -50,6 +49,7 @@ import {
 } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
+import { pickRichText } from "@/lib/shared/pick-rich-text";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── locale / path helpers ───────────────────────────────────────────── */
@@ -58,21 +58,6 @@ function pathFor(slug: string, locale: Locale): string {
   return locale === "en"
     ? `/en/portfolio/${slug}`
     : `/portfolio/${slug}`;
-}
-
-function pickRichText(
-  uk: RichTextSimple | undefined,
-  en: RichTextSimple | undefined,
-  locale: Locale,
-): RichTextSimple | undefined {
-  if (locale === "en") {
-    if (en && en.length) return en;
-    if (process.env.NODE_ENV !== "production") {
-      console.warn("[pickRichText] missing EN translation; returning undefined");
-    }
-    return undefined;
-  }
-  return uk;
 }
 
 export function hasEnglishCaseContent(doc: CaseStudyDoc): boolean {

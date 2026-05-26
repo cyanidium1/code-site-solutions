@@ -29,7 +29,6 @@ import type {
   IndustrySection,
   Locale,
   OutcomeSection,
-  RichTextSimple,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import {
@@ -39,6 +38,7 @@ import {
   formatLine,
 } from "@/lib/shared/sanity-portable";
 import { SanityImg } from "@/lib/shared/sanity-image";
+import { pickRichText } from "@/lib/shared/pick-rich-text";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 
 function findSection<T extends IndustrySection>(
@@ -46,29 +46,6 @@ function findSection<T extends IndustrySection>(
   type: T["_type"],
 ): T | undefined {
   return sections?.find((s): s is T => s._type === type);
-}
-
-/**
- * Returns the rich-text body for the requested locale, or undefined if
- * that locale's content is missing. Was previously a UA-fallback (EN
- * → UA when missing) which silently leaked Ukrainian into EN pages.
- * In dev mode we console.warn so missing translations surface during
- * build/QA; in prod the caller renders nothing rather than the wrong
- * language.
- */
-function pickRichText(
-  uk: RichTextSimple | undefined,
-  en: RichTextSimple | undefined,
-  locale: Locale,
-): RichTextSimple | undefined {
-  if (locale === "en") {
-    if (en && en.length) return en;
-    if (process.env.NODE_ENV !== "production") {
-      console.warn("[pickRichText] missing EN translation; returning undefined");
-    }
-    return undefined;
-  }
-  return uk;
 }
 
 function pathFor(slug: string, locale: Locale): string {
