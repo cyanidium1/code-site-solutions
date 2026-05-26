@@ -22,27 +22,9 @@ import {
   PullQuote,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { btnClass, cn } from "@/components/ui";
+import { btnClass } from "@/components/ui";
 import {
-  caseLinkClass,
-  caseCoverClass,
-  caseCoverBgClass,
-  caseCoverDotsClass,
-  caseShotClass,
-  caseShotBarClass,
-  caseShotDotClass,
-  caseShotBodyClass,
-  caseShotLineS1,
-  caseShotLineS2,
-  caseShotLineS3,
-  caseBodyClass,
-  caseChipsClass,
-  caseChipClass,
-  caseNameRowClass,
-  caseNameClass,
-  caseArrowClass,
-  caseMetaClass,
-  caseMetricsClass,
+  RelatedCard,
   casesGridClass,
 } from "@/components/blocks/related-card";
 
@@ -67,7 +49,7 @@ import {
   plainPortable,
 } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
-import { presentationForCase } from "@/lib/shared/case-presentation";
+import { caseRefToCardItem } from "@/lib/shared/case-card-item";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── locale / path helpers ───────────────────────────────────────────── */
@@ -448,86 +430,6 @@ function SectionBlock({
   }
 }
 
-/* ─── related-cases card (Sanity-driven) ─────────────────────────────── */
-
-function buildMetaLine(c: CaseStudyRef, locale: Locale, label: string): string {
-  const region = loc(c.region, locale);
-  const year = c.year ? String(c.year) : null;
-  return [label, region, year].filter(Boolean).join(" · ");
-}
-
-function RelatedCard({
-  c,
-  locale,
-}: {
-  c: CaseStudyRef;
-  locale: Locale;
-}) {
-  const pres = presentationForCase(c.slug, c.industrySlug);
-  const href = pathFor(c.slug, locale);
-  const name = loc(c.title, locale) || c.client || c.slug;
-  const meta = buildMetaLine(c, locale, pres.label);
-  const metrics = loc(c.metricsLine, locale);
-  const industryLabel = pres.label;
-
-  return (
-    <Link href={href} className={caseLinkClass}>
-      <div className={caseCoverClass}>
-        <div
-          className={caseCoverBgClass}
-          // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient string per case
-          style={{ background: pres.gradient }}
-        />
-        <div className={caseCoverDotsClass} />
-        <div className={cn(caseShotClass, c.coverImage?.asset?.url && "flex flex-col")}>
-          <div className={caseShotBarClass}>
-            <span className={caseShotDotClass} />
-            <span className={caseShotDotClass} />
-            <span className={caseShotDotClass} />
-          </div>
-          {c.coverImage?.asset?.url ? (
-            <div className={cn(caseShotBodyClass, "relative min-h-0 flex-1 overflow-hidden p-0")}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={c.coverImage.asset.url}
-                alt={loc(c.coverImage.alt, locale) || name}
-                className="absolute inset-0 block h-full w-full object-cover object-top"
-              />
-            </div>
-          ) : (
-            <div className={caseShotBodyClass}>
-              <div className={caseShotLineS1} />
-              <div className={caseShotLineS2} />
-              <div className={caseShotLineS3} />
-            </div>
-          )}
-        </div>
-      </div>
-      <div className={caseBodyClass}>
-        <div className={caseChipsClass}>
-          <span
-            className={caseChipClass}
-            // eslint-disable-next-line react/forbid-dom-props -- per-case industry color
-            style={{
-              color: pres.color,
-              borderColor: `${pres.color}55`,
-            }}
-          >
-            {industryLabel}
-          </span>
-          <span className={caseChipClass}>{pres.tech}</span>
-        </div>
-        <div className={caseNameRowClass}>
-          <h3 className={caseNameClass}>{name}</h3>
-          <ArrowUpRight size={20} strokeWidth={1.6} className={caseArrowClass} />
-        </div>
-        <div className={caseMetaClass}>{meta}</div>
-        {metrics ? <div className={caseMetricsClass}>{metrics}</div> : null}
-      </div>
-    </Link>
-  );
-}
-
 /* ─── main page component ────────────────────────────────────────────── */
 
 export async function CasePageView({
@@ -613,9 +515,28 @@ export async function CasePageView({
               <h2 className={hpH2Class}>{relatedHeading}</h2>
             </div>
             <div className={casesGridClass}>
-              {related.map((r) => (
-                <RelatedCard key={r._id} c={r} locale={locale} />
-              ))}
+              {related.map((r) => {
+                const item = caseRefToCardItem(r, locale);
+                const metaLine = [item.industry, item.region, item.year]
+                  .filter(Boolean)
+                  .join(" · ");
+                return (
+                  <RelatedCard
+                    key={r._id}
+                    metrics={item.chips}
+                    title={item.name}
+                    eyebrow={metaLine || undefined}
+                    sub={item.metrics || undefined}
+                    coverImage={
+                      item.coverImage
+                        ? { src: item.coverImage, alt: item.coverImageAlt ?? item.name }
+                        : undefined
+                    }
+                    gradient={item.gradient}
+                    href={item.href}
+                  />
+                );
+              })}
             </div>
             <Link
               href={locale === "en" ? "/en/portfolio" : "/portfolio"}
