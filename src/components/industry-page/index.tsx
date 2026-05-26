@@ -64,7 +64,6 @@ function pickRichText(
   if (locale === "en") {
     if (en && en.length) return en;
     if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
       console.warn("[pickRichText] missing EN translation; returning undefined");
     }
     return undefined;
