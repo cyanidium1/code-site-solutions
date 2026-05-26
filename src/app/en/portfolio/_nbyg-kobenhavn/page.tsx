@@ -239,9 +239,6 @@ export default function NbygKobenhavnEnCasePage() {
         image={<ScreenshotPending label="New site / admin screenshot — coming soon" />}
       />
 
-      {/* TODO: screenshots gallery — awaiting assets from founder. Mirror Efedra layout when added. */}
-      {/* TODO: outcome YouTube walkthrough — awaiting video from founder. */}
-
       {/* Section 5: Outcome */}
       <ImageText
         variant="centered"
