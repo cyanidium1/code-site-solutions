@@ -198,10 +198,10 @@ export function Comparison({
         </div>
 
         <div className="flex flex-col gap-2.5 flex-wrap mb-14 md:flex-row md:gap-3 md:mb-20 xl:mb-[120px]">
-          <button className={CMP_CTA_PRIMARY_CLASS}>
+          <button type="button" className={CMP_CTA_PRIMARY_CLASS}>
             {tableCtaPrimary}
           </button>
-          <button className={CMP_CTA_GHOST_CLASS}>
+          <button type="button" className={CMP_CTA_GHOST_CLASS}>
             {tableCtaGhost}
           </button>
         </div>

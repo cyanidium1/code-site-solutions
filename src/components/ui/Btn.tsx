@@ -75,7 +75,7 @@ export function Btn(props: BtnProps) {
     );
   }
   return (
-    <button className={classes} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
+    <button type="button" className={classes} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
       {label}
     </button>
   );

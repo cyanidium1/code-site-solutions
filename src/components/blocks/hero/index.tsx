@@ -494,7 +494,7 @@ export function HeroEditorial({
                   {ARROW_ICON}
                 </Link>
               ) : (
-                <button className={btnClass("primary")}>
+                <button type="button" className={btnClass("primary")}>
                   <span>{ctaPrimaryLabel}</span>
                   {ARROW_ICON}
                 </button>
@@ -518,7 +518,7 @@ export function HeroEditorial({
                   ) : null}
                 </Link>
               ) : (
-                <button className={btnClass("ghost")}>
+                <button type="button" className={btnClass("ghost")}>
                   {ctaSecondaryShowPlay ? (
                     <span className={PLAY_ICON_CLASS}>▶</span>
                   ) : null}
