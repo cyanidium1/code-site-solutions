@@ -115,6 +115,17 @@ const CMP_BG =
 const CMP_CONTACT_BG =
   "bg-[radial-gradient(ellipse_80%_100%_at_50%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.18),transparent_70%),linear-gradient(180deg,oklch(0.18_0.01_300),oklch(0.14_0.005_300))]";
 
+// Below-table CTA pair + contact-form submit. All three are 250+ char
+// inline strings; hoisting moves the literal off the render path.
+const CMP_CTA_PRIMARY_CLASS =
+  "inline-flex items-center justify-center min-h-11 bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] border-0 w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-bold tracking-[0.1em] uppercase cursor-pointer transition-all duration-[250ms] shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_oklch(from_var(--color-accent)_l_c_h_/_0.45)] md:w-auto md:px-[22px] md:text-[11px]";
+
+const CMP_CTA_GHOST_CLASS =
+  "inline-flex items-center justify-center min-h-11 bg-transparent text-ink border border-line-strong w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-semibold tracking-[0.1em] uppercase cursor-pointer transition-all duration-200 hover:border-ink-dim hover:bg-[oklch(1_0_0_/_0.04)] md:w-auto md:px-5 md:py-3 md:text-[11px]";
+
+const CMP_CONTACT_SUBMIT_CLASS =
+  "inline-flex items-center justify-center min-h-11 w-full px-[18px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[11px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 hover:-translate-y-0.5 md:px-[22px] md:py-4 md:text-[12px]";
+
 export function Comparison({
   tableHeading = (
     <>
@@ -187,10 +198,10 @@ export function Comparison({
         </div>
 
         <div className="flex flex-col gap-2.5 flex-wrap mb-14 md:flex-row md:gap-3 md:mb-20 xl:mb-[120px]">
-          <button className="inline-flex items-center justify-center min-h-11 bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] border-0 w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-bold tracking-[0.1em] uppercase cursor-pointer transition-all duration-[250ms] shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_oklch(from_var(--color-accent)_l_c_h_/_0.45)] md:w-auto md:px-[22px] md:text-[11px]">
+          <button className={CMP_CTA_PRIMARY_CLASS}>
             {tableCtaPrimary}
           </button>
-          <button className="inline-flex items-center justify-center min-h-11 bg-transparent text-ink border border-line-strong w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-semibold tracking-[0.1em] uppercase cursor-pointer transition-all duration-200 hover:border-ink-dim hover:bg-[oklch(1_0_0_/_0.04)] md:w-auto md:px-5 md:py-3 md:text-[11px]">
+          <button className={CMP_CTA_GHOST_CLASS}>
             {tableCtaGhost}
           </button>
         </div>
@@ -225,7 +236,7 @@ export function Comparison({
                 placeholder={contactBrief}
               />
               <button
-                className="inline-flex items-center justify-center min-h-11 w-full px-[18px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[11px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 hover:-translate-y-0.5 md:px-[22px] md:py-4 md:text-[12px]"
+                className={CMP_CONTACT_SUBMIT_CLASS}
                 type="submit"
               >
                 {contactSubmit}

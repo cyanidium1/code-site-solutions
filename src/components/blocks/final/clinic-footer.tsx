@@ -6,6 +6,16 @@ import Link from "next/link";
 import { SITE_CONTACT } from "@/constants/site";
 import { FOOTER_SOCIAL_HREFS, SocialIcon, type SocialKind } from "./social-icon";
 
+// Hoisted footer class strings. Both target descendants of the
+// container (>a or >li>a) and are reused across multiple column
+// renders inside .map(). Module-level so React allocates the literal
+// once per process rather than per-render.
+const FOOTER_SOCIALS_CLASS =
+  "flex gap-2 [&>a]:w-8 [&>a]:h-8 [&>a]:border [&>a]:border-line [&>a]:rounded-lg [&>a]:inline-flex [&>a]:items-center [&>a]:justify-center [&>a]:text-[var(--color-ink-dim)] [&>a]:transition-all [&>a]:duration-200 [&>a:hover]:text-accent-soft [&>a:hover]:border-accent-40";
+
+const FOOTER_COL_LIST_CLASS =
+  "list-none flex flex-col gap-2 [&>li>a]:text-[12px] [&>li>a]:text-[var(--color-ink-dim)] [&>li>a]:no-underline [&>li>a]:tracking-[0.02em] [&>li>a]:uppercase [&>li>a]:transition-colors [&>li>a]:duration-200 [&>li>a:hover]:text-accent-soft [&>li_.nolink]:text-[12px] [&>li_.nolink]:text-[var(--color-ink-dim)] [&>li_.nolink]:tracking-[0.02em] [&>li_.nolink]:uppercase";
+
 export type FootColumn = {
   h: string;
   items: React.ReactNode[];
@@ -138,7 +148,7 @@ export function ClinicFooter({
           <p className="text-[12px] leading-[1.65] text-[var(--color-ink-3)] max-w-[30ch] mb-5">
             {resolvedBrandDesc}
           </p>
-          <div className="flex gap-2 [&>a]:w-8 [&>a]:h-8 [&>a]:border [&>a]:border-line [&>a]:rounded-lg [&>a]:inline-flex [&>a]:items-center [&>a]:justify-center [&>a]:text-[var(--color-ink-dim)] [&>a]:transition-all [&>a]:duration-200 [&>a:hover]:text-accent-soft [&>a:hover]:border-accent-40">
+          <div className={FOOTER_SOCIALS_CLASS}>
             {socials.map((kind) => (
               <a
                 key={kind}
@@ -157,7 +167,7 @@ export function ClinicFooter({
             <div className="font-display text-[11px] font-bold tracking-[0.14em] uppercase text-ink mb-3.5">
               {col.h}
             </div>
-            <ul className="list-none flex flex-col gap-2 [&>li>a]:text-[12px] [&>li>a]:text-[var(--color-ink-dim)] [&>li>a]:no-underline [&>li>a]:tracking-[0.02em] [&>li>a]:uppercase [&>li>a]:transition-colors [&>li>a]:duration-200 [&>li>a:hover]:text-accent-soft [&>li_.nolink]:text-[12px] [&>li_.nolink]:text-[var(--color-ink-dim)] [&>li_.nolink]:tracking-[0.02em] [&>li_.nolink]:uppercase">
+            <ul className={FOOTER_COL_LIST_CLASS}>
               {col.items.map((item, j) => (
                 <li key={j}>{item}</li>
               ))}

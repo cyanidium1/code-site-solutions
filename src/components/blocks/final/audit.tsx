@@ -2,6 +2,15 @@
 
 import type * as React from "react";
 
+// Hoisted module-level class strings. The four <input>s share the same
+// 250+ char Tailwind string; extracting prevents the React reconciler
+// from re-allocating an identical literal on every render.
+const AUDIT_INPUT_CLASS =
+  "w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-[var(--color-line-strong)] rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-[var(--color-ink-3)] focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]";
+
+const AUDIT_SUBMIT_CLASS =
+  "w-full px-[22px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[12px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 uppercase hover:-translate-y-0.5";
+
 function CheckIcon() {
   return (
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
@@ -81,27 +90,27 @@ export function Audit({
           onSubmit={(e) => e.preventDefault()}
         >
           <input
-            className="w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-[var(--color-line-strong)] rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-[var(--color-ink-3)] focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]"
+            className={AUDIT_INPUT_CLASS}
             type="text"
             placeholder={inputName}
           />
           <input
-            className="w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-[var(--color-line-strong)] rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-[var(--color-ink-3)] focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]"
+            className={AUDIT_INPUT_CLASS}
             type="text"
             placeholder={inputContact}
           />
           <input
-            className="w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-[var(--color-line-strong)] rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-[var(--color-ink-3)] focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]"
+            className={AUDIT_INPUT_CLASS}
             type="tel"
             placeholder={inputPhone}
           />
           <input
-            className="w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-[var(--color-line-strong)] rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-[var(--color-ink-3)] focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]"
+            className={AUDIT_INPUT_CLASS}
             type="url"
             placeholder={inputUrl}
           />
           <button
-            className="w-full px-[22px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[12px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 uppercase hover:-translate-y-0.5"
+            className={AUDIT_SUBMIT_CLASS}
             type="submit"
           >
             {submit}
