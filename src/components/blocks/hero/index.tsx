@@ -374,9 +374,9 @@ export type HeroEditorialProps = {
   lede?: React.ReactNode;
   features?: Feature[];
   ctaPrimaryLabel?: string;
-  ctaPrimaryHref?: string;
+  ctaPrimaryHref: string;
   ctaSecondaryLabel?: string;
-  ctaSecondaryHref?: string;
+  ctaSecondaryHref: string;
   ctaSecondaryShowPlay?: boolean;
   ctaFootnote?: React.ReactNode;
   showStats?: boolean;
@@ -488,54 +488,27 @@ export function HeroEditorial({
             </div>
 
             <div className={CTA_ROW_CLASS}>
-              {ctaPrimaryHref ? (
-                <Link href={ctaPrimaryHref} className={btnClass("primary")}>
-                  <span>{ctaPrimaryLabel}</span>
-                  {ARROW_ICON}
-                </Link>
-              ) : (
-                <button type="button" className={btnClass("primary")}>
-                  <span>{ctaPrimaryLabel}</span>
-                  {ARROW_ICON}
-                </button>
-              )}
-              {ctaSecondaryHref ? (
-                <Link href={ctaSecondaryHref} className={btnClass("ghost")}>
-                  {ctaSecondaryShowPlay ? (
-                    <span className={PLAY_ICON_CLASS}>▶</span>
-                  ) : null}
-                  <span>{ctaSecondaryLabel}</span>
-                  {!ctaSecondaryShowPlay ? (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M5 12h14M13 5l7 7-7 7"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  ) : null}
-                </Link>
-              ) : (
-                <button type="button" className={btnClass("ghost")}>
-                  {ctaSecondaryShowPlay ? (
-                    <span className={PLAY_ICON_CLASS}>▶</span>
-                  ) : null}
-                  <span>{ctaSecondaryLabel}</span>
-                  {!ctaSecondaryShowPlay ? (
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M5 12h14M13 5l7 7-7 7"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  ) : null}
-                </button>
-              )}
+              <Link href={ctaPrimaryHref} className={btnClass("primary")}>
+                <span>{ctaPrimaryLabel}</span>
+                {ARROW_ICON}
+              </Link>
+              <Link href={ctaSecondaryHref} className={btnClass("ghost")}>
+                {ctaSecondaryShowPlay ? (
+                  <span className={PLAY_ICON_CLASS}>▶</span>
+                ) : null}
+                <span>{ctaSecondaryLabel}</span>
+                {!ctaSecondaryShowPlay ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5 12h14M13 5l7 7-7 7"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                ) : null}
+              </Link>
             </div>
             {ctaFootnote ? <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p> : null}
 
