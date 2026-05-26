@@ -16,9 +16,11 @@
  * Site chrome (header, footer, mobile menu, locale switcher) lives under
  * `@/components/layout/` — re-exported here for back-compat.
  *
- * CSS is loaded by consumers via `import "@/components/homepage/homepage.css"`
- * (this file does not import it so it can be imported from RSC and client
- * components without forcing a CSS dependency at the barrel boundary).
+ * Styling: as of Session 7 there is no sidecar `homepage.css`. Shared
+ * layout class strings (section, eyebrow, h2, sub, link, etc.) live in
+ * `@/components/homepage/shared` and are composed at each call site with
+ * regular Tailwind utilities. The barrel file therefore has no CSS
+ * dependency and can be imported from RSC and client components alike.
  */
 
 // Section components

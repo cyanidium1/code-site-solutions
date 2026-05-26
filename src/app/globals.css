@@ -1,119 +1,125 @@
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
 
-:root {
-  color-scheme: dark;
+@theme {
+  /* ─────────────────────────────────────────────────────────────────────
+     CUSTOM BREAKPOINT SCALE — does NOT match Tailwind defaults.
+     These values preserve the legacy visual design exactly. Generates
+     Tailwind 4 utilities `xs:`, `sm:`, `md:`, `md-wide:`, `lg:`, `xl:`,
+     `2xl:` (mobile-first min-width) and `max-xs:`/`max-sm:`/etc.
+     (max-width, kept for outliers).
+     NOTE for new developers: `md:` is 700px here, NOT Tailwind's default
+     768px. `lg:` is 800px, NOT 1024px. See docs/superpowers/specs/2026-
+     05-25-phase-2-mobile-first-design.md for rationale.
+     ───────────────────────────────────────────────────────────────────── */
+  --breakpoint-xs: 380px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 700px;
+  --breakpoint-md-wide: 760px;
+  --breakpoint-lg: 800px;
+  --breakpoint-xl: 1100px;
+  --breakpoint-2xl: 1440px;
 
-  --bg: #121212;
-  --bg-subtle: #1a1620;
-  --bg-raised: #1f1a26;
+  /* Colors — canonical tokens. Generates utilities `bg-bg`, `text-ink`,
+     `text-ink-dim`, `border-line`, `bg-accent`, etc. The legacy `:root`
+     color shim was removed in Phase 3. */
+  --color-bg: #121212;
+  --color-bg-raised: #1f1a26;
 
-  --ink: oklch(0.97 0.005 300);
-  --ink-2: oklch(0.78 0.012 300);
-  --ink-3: oklch(0.55 0.01 300);
-  --ink-muted: oklch(0.55 0.01 70);
+  --color-ink: oklch(0.97 0.005 300);
+  --color-ink-dim: oklch(0.78 0.012 300);
+  --color-ink-3: oklch(0.55 0.01 300);
+  --color-ink-muted: oklch(0.55 0.01 70);
 
-  --line: oklch(1 0 0 / 0.08);
-  --line-2: oklch(1 0 0 / 0.14);
+  --color-line: oklch(1 0 0 / 0.08);
+  --color-line-strong: oklch(1 0 0 / 0.14);
 
-  --accent: oklch(0.55 0.18 295);
-  --accent-soft: oklch(0.7 0.14 295);
-  --accent-deep: oklch(0.45 0.2 285);
-  --accent-2: oklch(0.45 0.20 285);
+  --color-accent: oklch(0.55 0.18 295);
+  --color-accent-soft: oklch(0.7 0.14 295);
+  --color-accent-2: oklch(0.45 0.20 285);
 
+  /* Accent alpha scale — Tailwind v4 can't synthesise relative-color
+     alpha modifiers from a base token. These pre-computed
+     `oklch(from var(--color-accent) l c h / 0.NN)` variants generate
+     utilities like `bg-accent-12`, `border-accent-40`, etc. Names are
+     alpha × 100; both `0.NN` and `0.N0` source forms map here. */
+  --color-accent-6:  oklch(from var(--color-accent) l c h / 0.06);
+  --color-accent-8:  oklch(from var(--color-accent) l c h / 0.08);
+  --color-accent-10: oklch(from var(--color-accent) l c h / 0.10);
+  --color-accent-12: oklch(from var(--color-accent) l c h / 0.12);
+  --color-accent-15: oklch(from var(--color-accent) l c h / 0.15);
+  --color-accent-18: oklch(from var(--color-accent) l c h / 0.18);
+  --color-accent-20: oklch(from var(--color-accent) l c h / 0.20);
+  --color-accent-22: oklch(from var(--color-accent) l c h / 0.22);
+  --color-accent-25: oklch(from var(--color-accent) l c h / 0.25);
+  --color-accent-30: oklch(from var(--color-accent) l c h / 0.30);
+  --color-accent-35: oklch(from var(--color-accent) l c h / 0.35);
+  --color-accent-40: oklch(from var(--color-accent) l c h / 0.40);
+  --color-accent-50: oklch(from var(--color-accent) l c h / 0.50);
+  --color-accent-55: oklch(from var(--color-accent) l c h / 0.55);
+
+  /* Container widths — generates max-w-container, max-w-container-h1, etc. */
   --container-max: 1440px;
   --container-h1: 920px;
   --container-narrow: 880px;
   --container-prose: 760px;
   --container-form: 720px;
 
-  /* Horizontal gutter ladder — shared by hero, header, sections, footer.
-     Overrides at each breakpoint below keep all outer wrappers in lockstep
-     so header/hero/section content columns align on every viewport. */
-  --gutter-x: 48px;
+  /* Section vertical rhythm + horizontal gutter.
+     Mobile-first: base values target small viewports; primitives stack
+     responsive utilities (sm:/lg:/etc.) to reach desktop values.
+     Generates utilities: px-gutter-x, py-section-y, py-section-y-md,
+     py-section-y-lg, etc. Consumers should prefer the utility-stack
+     pattern on primitives rather than var() references. */
+  --spacing-gutter-x: 24px;          /* mobile baseline (≤640) */
 
-  /* Section vertical rhythm — media-query-aware via overrides below.
-     Dominant rhythm is --section-y (100/56). Newer blocks already use
-     this; .hp-section was migrated UP from 56→100 to match. */
-  --section-y: 100px;
-  --section-y-md: 80px;
-  --section-y-tight: 56px;
-  --section-y-lg: 120px;
-}
+  --spacing-section-y: 56px;         /* mobile baseline */
+  --spacing-section-y-md: 36px;      /* tight variant mobile */
+  --spacing-section-y-lg: 72px;      /* lg variant mobile */
 
-@media (max-width: 1100px) {
-  :root {
-    --section-y: 80px;
-    --section-y-lg: 100px;
-    --gutter-x: 32px;
-  }
-}
+  /* Shadows */
+  --shadow-accent-glow:
+    0 4px 20px oklch(0.55 0.18 295 / 0.35),
+    0 0 0 1px oklch(0.55 0.18 295 / 0.30);
 
-@media (max-width: 800px) {
-  :root {
-    --section-y-md: 56px;
-    --section-y-tight: 36px;
-  }
-}
+  /* Easing */
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-@media (max-width: 700px) {
-  :root {
-    --section-y: 56px;
-    --section-y-lg: 72px;
-    --gutter-x: 24px;
-  }
-}
+  /* Background images — generates bg-brand-gradient, bg-text-gradient utilities. */
+  --background-image-brand-gradient:
+    linear-gradient(180deg, var(--color-accent-soft) 0%, var(--color-accent) 100%);
+  --background-image-text-gradient:
+    linear-gradient(180deg, var(--color-accent-soft) 0%, var(--color-accent) 100%);
 
-@media (max-width: 380px) {
-  :root {
-    --gutter-x: 18px;
-  }
+  /* Font families — Manrope for body/display; Actay for headings; JetBrains for mono.
+     Generates font-display, font-sans, font-actay, font-mono utilities. */
+  --font-display: var(--font-manrope), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-actay: var(--font-actay), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* Animations — keyframes are defined in keyframes.css; hero-pulse
+     and float keyframes live in src/components/blocks/hero/hero-effects.css
+     alongside the only block that uses them. */
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  --animate-svg-glow-blue: svg-glow-blue 4s ease-in-out infinite;
+  --animate-svg-glow-pink: svg-glow-pink 4s ease-in-out infinite;
+  --animate-svg-glow-dark: svg-glow-dark 4s ease-in-out infinite;
+  --animate-hero-pulse: hero-pulse 2s infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-hp-drawer-in: hp-drawer-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 html {
+  color-scheme: dark;
   scroll-behavior: smooth;
 }
 
 html,
 body {
-  background: var(--bg);
-  color: var(--ink);
-}
-
-/* h1–h3 and shared heading classes — Actay Wide (--font-actay in layout.tsx) */
-h1,
-h2,
-h3,
-.h1,
-.hp-h2,
-.case-h2,
-.turnkey-list-h2,
-.turnkey-list-title,
-.contact-split-heading,
-.hp-case-name,
-.blog-prose .blog-h2,
-.blog-prose .blog-h3,
-.calc-info-card h3,
-.calc-manual-intro h3,
-.calc-summary-h3,
-.calc-after-title,
-.calc-lead h3,
-.calc-group > h3,
-h1.font-display,
-h2.font-display,
-h3.font-display {
-  font-family: var(--font-actay), system-ui, sans-serif;
-}
-
-h1 em,
-h2 em,
-h3 em,
-.h1 em,
-.hp-h2 em,
-.case-h2 em,
-.turnkey-list-h2 em,
-.contact-split-heading em {
-  font-family: inherit;
+  background: var(--color-bg);
+  color: var(--color-ink);
 }
 
 body {
@@ -127,106 +133,44 @@ body {
   overflow-x: clip;
 }
 
-/* italic glyphs slant past the inline-box edge — додаємо padding,
-   щоб background-clip:text gradient не різав хвостик курсиву.
-   0.16em покриває і Manrope sans, і Manrope serif italic.
-   box-decoration-break: clone — щоб padding застосовувався до кожного
-   фрагмента, якщо italic переноситься на кілька рядків.
-   Scope: лише heading-em контексти, де italic-gradient ще використовується
-   (H1/H2 у героях, hp-h2, case-h2). У body em прибрано, тож глобальне
-   правило більше не потрібне. */
-.h1 em,
-.hp-h2 em,
-.case-h2 em,
-.page-hero h1 em,
-.hero-grid h1 em {
+/* ─── Italic-em padding fix for heading gradients ─────────────────────────
+   Brand-gradient italic <em> glyphs slant past the inline-box edge; without
+   trailing padding, background-clip:text clips the descender/tail.
+   box-decoration-clone makes the padding apply per fragment when the em
+   wraps to multiple lines. Covers any raw <h1>/<h2>/<h3> with [&_em]:bg-clip-text
+   utilities that don't go through the Heading primitive (which applies its
+   own EM_GRADIENT_FIX). Cost is 0.16em of trailing space — invisible when
+   the em isn't gradient-clipped.
+   ─────────────────────────────────────────────────────────────────────── */
+h1 em,
+h2 em,
+h3 em {
   padding-inline-end: 0.16em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
-/* About page values-secondary row: collapses to 1-col on mobile, 2-col
-   on tablets. Inline-styled grid in about/page.tsx uses 3-col by default. */
-@media (max-width: 900px) {
-  .about-values-secondary {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
+/* ─── Container max-width utilities ───────────────────────────────────────
+   Tailwind v4's `--container-*` @theme namespace generates `max-w-{name}`
+   utilities, but ONLY for the built-in scale names (xs, sm, …, 7xl). It
+   does NOT auto-generate `max-w-container`, `max-w-container-narrow`, etc.
+   from custom `--container-max` / `--container-narrow` tokens. These
+   `@utility` declarations restore them on top of the @theme tokens, so
+   consumers can keep using `max-w-container[-narrow|-h1|-prose|-form]`.
+   ────────────────────────────────────────────────────────────────────────── */
+@utility max-w-container {
+  max-width: var(--container-max);
 }
-@media (max-width: 600px) {
-  .about-values-secondary {
-    grid-template-columns: 1fr !important;
-  }
+@utility max-w-container-h1 {
+  max-width: var(--container-h1);
 }
-
-@layer utilities {
-  .text-gradient {
-    background: linear-gradient(
-      180deg,
-      oklch(0.97 0.005 300) 0%,
-      oklch(0.78 0.012 300) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  .text-gradient-brand {
-    background: linear-gradient(
-      180deg,
-      var(--accent-soft) 0%,
-      var(--accent) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  .text-gradient-soft {
-    background: linear-gradient(
-      180deg,
-      oklch(0.97 0.005 300) 0%,
-      oklch(0.78 0.012 300) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  .grid-bg {
-    background-image:
-      linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  .dotted-bg {
-    background-image: radial-gradient(
-      circle,
-      oklch(1 0 0 / 0.06) 1px,
-      transparent 1px
-    );
-    background-size: 24px 24px;
-  }
-
-  .container-page {
-    max-width: var(--container-max);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .ease-soft {
-    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
+@utility max-w-container-narrow {
+  max-width: var(--container-narrow);
+}
+@utility max-w-container-prose {
+  max-width: var(--container-prose);
+}
+@utility max-w-container-form {
+  max-width: var(--container-form);
 }
 
-@media (min-width: 768px) {
-  .container-page {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}

@@ -1,6 +1,7 @@
 "use client";
 
 import type { TableRowData } from "@/types/pricing";
+import { CmpTd } from "./cmp-table";
 
 export function TableRow({
   param,
@@ -11,18 +12,18 @@ export function TableRow({
 }: TableRowData & { labels: string[] }) {
   return (
     <tr>
-      <td className="cmp-td-param" data-label={labels[0]}>
+      <CmpTd kind="param" data-label={labels[0]}>
         {param}
-      </td>
-      <td className="cmp-td-bad" data-label={labels[1]}>
+      </CmpTd>
+      <CmpTd kind="bad" data-label={labels[1]}>
         {wp}
-      </td>
-      <td className="cmp-td-bad" data-label={labels[2]}>
+      </CmpTd>
+      <CmpTd kind="bad" data-label={labels[2]}>
         {wix}
-      </td>
-      <td className="cmp-td-good" data-label={labels[3]}>
+      </CmpTd>
+      <CmpTd kind="good" data-label={labels[3]}>
         {custom}
-      </td>
+      </CmpTd>
     </tr>
   );
 }

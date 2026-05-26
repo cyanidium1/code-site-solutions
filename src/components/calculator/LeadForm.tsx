@@ -6,6 +6,38 @@ import { Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { Quote, Clock, Phone, FileCheck2 } from "lucide-react";
 import type { CalculatorEstimate, CalculatorInput } from "@/types/pricing";
 import { formatEur } from "@/lib/shared/format-eur";
+import { H3 } from "@/components/ui";
+
+// HeroUI slot classNames for Calculator inputs. We hit several Input
+// slots whose internal classes win at equal specificity, so `!` (which
+// becomes `!important`) is needed on the slot strings — same pattern as
+// the Session 3 lead-form migration. The custom min-height + focus
+// glow are inlined here so the file is self-contained when the legacy
+// .calc-ui-* CSS is removed.
+const UI_INPUT_WRAPPER =
+  "!bg-[oklch(0.14_0.005_300_/_0.9)] !border-line !min-h-[52px] " +
+  "transition-[border-color,box-shadow,background] duration-200 " +
+  "hover:!border-line-strong " +
+  "data-[hover=true]:!border-line-strong " +
+  "data-[focus=true]:!border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
+  "data-[focus=true]:!shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
+  "data-[focus-visible=true]:!border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
+  "data-[focus-visible=true]:!shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)]";
+
+const UI_INPUT =
+  "!text-ink placeholder:!text-[oklch(from_var(--color-ink-3)_l_c_h_/_0.75)] " +
+  "[&_input]:!outline-none [&_input]:!shadow-none [&_textarea]:!outline-none [&_textarea]:!shadow-none";
+
+const UI_LABEL = "!text-ink-dim";
+
+const UI_TEXTAREA_WRAPPER = UI_INPUT_WRAPPER + " !min-h-[132px]";
+const UI_TEXTAREA = UI_INPUT + " !leading-[1.5]";
+
+const UI_SELECT_TRIGGER = UI_INPUT_WRAPPER + " !px-3";
+const UI_SELECT_POPOVER = "!bg-[oklch(0.16_0.005_300)] !border !border-line";
+const UI_SELECT_LISTBOX =
+  "[&_[data-hover=true]]:!bg-accent-20 " +
+  "[&_[data-selected=true]]:!bg-accent-20";
 
 type LeadFormProps = {
   input: CalculatorInput;
@@ -124,10 +156,13 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
   ];
 
   return (
-    <div className="calc-lead-layout">
-      <form className="calc-lead" onSubmit={onSubmit}>
-        <h3>{t("title")}</h3>
-        <p>{t("sub")}</p>
+    <div className="grid grid-cols-1 gap-[18px] items-stretch xl:grid-cols-[minmax(0,1.2fr)_minmax(0,380px)]">
+      <form
+        className="border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] p-6 grid gap-3 h-full [&_input:focus-visible]:outline-2 [&_input:focus-visible]:outline-accent-soft [&_input:focus-visible]:outline-offset-2 [&_textarea:focus-visible]:outline-2 [&_textarea:focus-visible]:outline-accent-soft [&_textarea:focus-visible]:outline-offset-2 [&_select:focus-visible]:outline-2 [&_select:focus-visible]:outline-accent-soft [&_select:focus-visible]:outline-offset-2"
+        onSubmit={onSubmit}
+      >
+        <H3 variant="calc-lead">{t("title")}</H3>
+        <p className="m-0 mb-1 text-ink-3 text-[13px]">{t("sub")}</p>
 
         <Input
           label={t("name")}
@@ -141,9 +176,9 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           required
           isInvalid={fieldRequired(form.name)}
           classNames={{
-            inputWrapper: "calc-ui-input-wrapper",
-            input: "calc-ui-input",
-            label: "calc-ui-label",
+            inputWrapper: UI_INPUT_WRAPPER,
+            input: UI_INPUT,
+            label: UI_LABEL,
           }}
         />
 
@@ -159,9 +194,9 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           required
           isInvalid={fieldRequired(form.contact)}
           classNames={{
-            inputWrapper: "calc-ui-input-wrapper",
-            input: "calc-ui-input",
-            label: "calc-ui-label",
+            inputWrapper: UI_INPUT_WRAPPER,
+            input: UI_INPUT,
+            label: UI_LABEL,
           }}
         />
 
@@ -175,9 +210,9 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           value={form.company}
           onChange={(e) => setForm((prev) => ({ ...prev, company: e.target.value }))}
           classNames={{
-            inputWrapper: "calc-ui-input-wrapper",
-            input: "calc-ui-input",
-            label: "calc-ui-label",
+            inputWrapper: UI_INPUT_WRAPPER,
+            input: UI_INPUT,
+            label: UI_LABEL,
           }}
         />
 
@@ -192,9 +227,9 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           value={form.projectBrief}
           onChange={(e) => setForm((prev) => ({ ...prev, projectBrief: e.target.value }))}
           classNames={{
-            inputWrapper: "calc-ui-input-wrapper calc-ui-textarea-wrapper",
-            input: "calc-ui-input calc-ui-textarea",
-            label: "calc-ui-label",
+            inputWrapper: UI_TEXTAREA_WRAPPER,
+            input: UI_TEXTAREA,
+            label: UI_LABEL,
           }}
         />
 
@@ -214,11 +249,11 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           size="lg"
           disallowEmptySelection
           classNames={{
-            trigger: "calc-ui-input-wrapper calc-ui-select-trigger",
-            value: "calc-ui-input",
-            label: "calc-ui-label",
-            popoverContent: "calc-ui-select-popover",
-            listbox: "calc-ui-select-listbox",
+            trigger: UI_SELECT_TRIGGER,
+            value: UI_INPUT,
+            label: UI_LABEL,
+            popoverContent: UI_SELECT_POPOVER,
+            listbox: UI_SELECT_LISTBOX,
           }}
         >
           <SelectItem key="email">{t("methodEmail")}</SelectItem>
@@ -230,36 +265,44 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
 
         <button
           type="submit"
-          className="calc-btn-primary calc-lead-submit"
+          className={
+            "inline-flex items-center justify-center w-full border-none rounded-full " +
+            "bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] " +
+            "px-[18px] py-[14px] font-sans text-[12px] uppercase tracking-[0.1em] font-bold no-underline cursor-pointer " +
+            "transition-[transform,filter,box-shadow] duration-200 shadow-[0_6px_18px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] " +
+            "hover:-translate-y-[1px] hover:shadow-[0_10px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
+            "active:[filter:brightness(0.93)] focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2 " +
+            "min-h-[52px]"
+          }
           disabled={status === "submitting" || status === "success"}
         >
           {status === "submitting" ? "…" : t("submit")}
         </button>
-        <small className="calc-lead-trust-line">{t("trustLine")}</small>
+        <small className="text-ink-3 text-[11px]">{t("trustLine")}</small>
         {status === "success" ? (
-          <div className="calc-success" role="status">{t("success")}</div>
+          <div className="text-[12px] text-accent-soft" role="status">{t("success")}</div>
         ) : null}
         {status === "error" ? (
-          <div className="calc-error" role="alert">
+          <div className="text-[12px] text-[oklch(0.78_0.16_25)] mt-[6px]" role="alert">
             Не вдалося надіслати. Спробуйте ще раз або напишіть напряму.
           </div>
         ) : null}
       </form>
 
-      <aside className="calc-side-column">
-        <div className="calc-after-submit">
-          <h4>{t("afterSubmitTitle")}</h4>
-          <ol>
+      <aside className="flex flex-col gap-[14px] h-auto xl:h-full">
+        <div className="border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] px-[22px] pt-[22px] pb-5 flex-1 flex flex-col gap-[14px]">
+          <h4 className="m-0 font-sans text-[15px] font-bold tracking-[-0.01em] text-ink">{t("afterSubmitTitle")}</h4>
+          <ol className="list-none m-0 p-0 grid gap-[14px]">
             {afterSubmitSteps.map((step, i) => {
               const Icon = step.icon;
               return (
-                <li key={i}>
-                  <span className="calc-after-icon">
+                <li key={i} className="grid grid-cols-[32px_1fr] gap-3 items-start">
+                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-accent-12 text-accent-soft">
                     <Icon size={14} strokeWidth={1.7} />
                   </span>
-                  <span className="calc-after-body">
-                    <strong>{step.when}</strong>
-                    <span>{step.body}</span>
+                  <span className="flex flex-col gap-[3px]">
+                    <strong className="text-[12.5px] text-ink font-semibold">{step.when}</strong>
+                    <span className="text-[12.5px] text-ink-3 leading-[1.5]">{step.body}</span>
                   </span>
                 </li>
               );
@@ -267,16 +310,16 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
           </ol>
         </div>
 
-        <figure className="calc-side-testimonial">
-          <Quote size={16} strokeWidth={1.6} className="calc-side-testimonial-icon" />
-          <blockquote>
+        <figure className="m-0 border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] px-5 py-[18px] flex flex-col gap-[10px]">
+          <Quote size={16} strokeWidth={1.6} className="text-accent-soft" />
+          <blockquote className="m-0 font-sans text-[14px] leading-[1.5] text-ink italic [&>strong]:text-accent-soft [&>strong]:font-bold [&>strong]:not-italic">
             {t.rich("testimonialQuote", {
               strong: (chunks) => <strong>{chunks}</strong>,
             })}
           </blockquote>
-          <figcaption>
-            <span className="calc-side-testimonial-name">{t("testimonialName")}</span>
-            <span className="calc-side-testimonial-role">{t("testimonialRole")}</span>
+          <figcaption className="flex flex-col gap-[2px]">
+            <span className="text-[12px] text-ink font-semibold">{t("testimonialName")}</span>
+            <span className="text-[10.5px] text-ink-3 tracking-[0.04em] uppercase">{t("testimonialRole")}</span>
           </figcaption>
         </figure>
       </aside>

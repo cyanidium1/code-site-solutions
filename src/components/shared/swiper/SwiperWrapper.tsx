@@ -11,9 +11,8 @@
  * Reusable by any future slider (Cases carousel, Process slider, etc.).
  */
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/effect-coverflow";
+// swiper/css imports were hoisted to app/layout.tsx so vendor.css overrides
+// (like .hp-pqs-swiper breakout) load after the library defaults.
 
 import {
   type ReactNode,
@@ -28,8 +27,6 @@ import type { Swiper as SwiperType } from "swiper";
 import type { SwiperModule } from "swiper/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { twMerge } from "tailwind-merge";
-
-import "./swiper-wrapper.css";
 
 type ButtonPosition = "right" | "center" | "onSlides";
 

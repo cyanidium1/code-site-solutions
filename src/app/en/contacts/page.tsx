@@ -4,7 +4,6 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import { SITE_ORIGIN, ORG_ID, pageUrl } from "@/constants/site";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 
@@ -142,7 +141,7 @@ export default function EnContactsPage() {
 
       <ContactSplit source="contacts" variant="compact" locale="en" />
 
-      <section style={{ background: "var(--bg)" }}>
+      <section className="bg-bg">
         <FAQ
           heading="Common questions before inquiring"
           items={CONTACTS_FAQ}

@@ -12,8 +12,6 @@
  * sibling files directly.
  */
 
-import "./final.css";
-
 export { FAQ } from "./faq";
 export { Audit } from "./audit";
 export { ClinicFooter, type FootColumn } from "./clinic-footer";

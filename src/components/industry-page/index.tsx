@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { HpHeader } from "@/components/layout/hp-header";
-import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { Reasons } from "@/components/blocks/reasons";
@@ -30,7 +29,6 @@ import type {
   IndustrySection,
   Locale,
   OutcomeSection,
-  RichTextSimple,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import {
@@ -40,37 +38,15 @@ import {
   formatLine,
 } from "@/lib/shared/sanity-portable";
 import { SanityImg } from "@/lib/shared/sanity-image";
+import { pickRichText } from "@/lib/shared/pick-rich-text";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { localizePath } from "@/constants/i18n-routes";
 
 function findSection<T extends IndustrySection>(
   sections: IndustrySection[] | undefined,
   type: T["_type"],
 ): T | undefined {
   return sections?.find((s): s is T => s._type === type);
-}
-
-/**
- * Returns the rich-text body for the requested locale, or undefined if
- * that locale's content is missing. Was previously a UA-fallback (EN
- * → UA when missing) which silently leaked Ukrainian into EN pages.
- * In dev mode we console.warn so missing translations surface during
- * build/QA; in prod the caller renders nothing rather than the wrong
- * language.
- */
-function pickRichText(
-  uk: RichTextSimple | undefined,
-  en: RichTextSimple | undefined,
-  locale: Locale,
-): RichTextSimple | undefined {
-  if (locale === "en") {
-    if (en && en.length) return en;
-    if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
-      console.warn("[pickRichText] missing EN translation; returning undefined");
-    }
-    return undefined;
-  }
-  return uk;
 }
 
 function pathFor(slug: string, locale: Locale): string {
@@ -561,8 +537,8 @@ function SectionBlock({
 
     case "richTextBlock":
       return (
-        <section className="py-16 px-12 bg-bg max-[700px]:px-5">
-          <div className="max-w-container-narrow mx-auto [&_p]:text-[16px] [&_p]:leading-[1.7] [&_p]:text-[var(--ink-2)] [&_h2]:font-display [&_h2]:text-[clamp(24px,3vw,36px)] [&_h2]:font-bold [&_h2]:text-ink [&_h2]:mb-4 [&_h3]:font-display [&_h3]:font-semibold [&_h3]:text-ink [&_h3]:mb-3">
+        <section className="py-16 px-5 bg-bg md:px-12">
+          <div className="max-w-container-narrow mx-auto [&_p]:text-[16px] [&_p]:leading-[1.7] [&_p]:text-ink-dim [&_h2]:font-display [&_h2]:text-[clamp(24px,3vw,36px)] [&_h2]:font-bold [&_h2]:text-ink [&_h2]:mb-4 [&_h3]:font-display [&_h3]:font-semibold [&_h3]:text-ink [&_h3]:mb-3">
             <PortableText
               value={pickRichText(section.content, section.contentEn, locale)}
             />
@@ -639,7 +615,9 @@ export async function IndustryPageView({
             : undefined
         }
         ctaPrimaryLabel={loc(hero?.ctaPrimary, locale) || undefined}
+        ctaPrimaryHref={localizePath("/contacts", locale === "en")}
         ctaSecondaryLabel={loc(hero?.ctaSecondary, locale) || undefined}
+        ctaSecondaryHref={localizePath("/calculator", locale === "en")}
         stats={
           hero?.stats?.length
             ? hero.stats.map((s) => ({

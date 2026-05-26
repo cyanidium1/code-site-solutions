@@ -2,7 +2,7 @@ import type { Locale } from "@/types/sanity";
 
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { PullQuoteSwiperClient } from "./client";
-import "./pull-quote-swiper.css";
+import { hpSectionClass } from "@/components/homepage/shared";
 
 /**
  * Homepage testimonials slider. Fetches `featured` testimonial docs from
@@ -19,7 +19,7 @@ export async function PullQuoteSwiper({
   const slides = await fetchTestimonialSlides(locale);
   if (slides.length === 0) return null;
   return (
-    <section className="hp-section">
+    <section className={hpSectionClass}>
       <div className="hp-pqs">
         <div className="hp-pqs-bg" aria-hidden="true" />
         <PullQuoteSwiperClient slides={slides} />

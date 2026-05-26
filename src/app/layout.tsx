@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { Manrope, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
@@ -6,7 +6,14 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
 import { SITE_ORIGIN } from "@/constants/site";
+// Third-party CSS first so vendor.css and component styles can override.
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-coverflow";
+
 import "./globals.css";
+import "./keyframes.css";
+import "./vendor.css";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -53,6 +60,12 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     alternateLocale: ["en_US"],
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default async function RootLayout({

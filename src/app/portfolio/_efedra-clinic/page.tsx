@@ -15,8 +15,14 @@ import {
   PullQuote,
   FinalCta3,
 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
+import {
+  NbygMetaStrip,
+  NbygRelatedCard as RelatedCard,
+  type NbygRelatedRow,
+} from "@/components/portfolio/nbyg-shared";
+import { casesGridClass } from "@/components/blocks/related-card";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title: "Efedra Clinic — кейс редизайну сайту клініки в Одесі",
@@ -90,54 +96,18 @@ function OutcomeYoutubeEmbed({ videoId }: { videoId: string }) {
   );
 }
 
-/* ─── Meta strip ────────────────────────────────────────────────────────── */
+/* ─── Page-local data ───────────────────────────────────────────────────── */
 
-function MetaStrip() {
-  return (
-    <section
-      style={{
-        background: "var(--bg)",
-        padding: "0 48px 24px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "var(--container-max)",
-          margin: "0 auto",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px 24px",
-          fontFamily: "JetBrains Mono, monospace",
-          fontSize: 12,
-          color: "var(--ink-3)",
-          letterSpacing: "0.04em",
-        }}
-      >
-        <span>· Industry: Healthcare</span>
-        <span>· Region: Odesa, Ukraine</span>
-        <span>· Year: 2025</span>
-        <span>· Stack: Next.js, Sanity, Vercel</span>
-        <span>· Duration: 6 weeks</span>
-        <span>· Budget: $5,000</span>
-      </div>
-    </section>
-  );
-}
+const META_ITEMS = [
+  "· Industry: Healthcare",
+  "· Region: Odesa, Ukraine",
+  "· Year: 2025",
+  "· Stack: Next.js, Sanity, Vercel",
+  "· Duration: 6 weeks",
+  "· Budget: $5,000",
+];
 
-/* ─── Related cases (3 disabled cards) ──────────────────────────────────── */
-
-type Related = {
-  name: string;
-  meta: string;
-  metrics: string;
-  industry: string;
-  industryColor: string;
-  tech: string;
-  gradient: string;
-  href?: string;
-};
-
-const RELATED: Related[] = [
+const RELATED: NbygRelatedRow[] = [
   {
     name: "NBYG København",
     meta: "Construction · Copenhagen + Bornholm, Denmark · 2024",
@@ -170,102 +140,6 @@ const RELATED: Related[] = [
       "linear-gradient(135deg, oklch(0.50 0.20 295) 0%, oklch(0.40 0.18 280) 100%)",
   },
 ];
-
-function RelatedCard({ row }: { row: Related }) {
-  const disabled = !row.href;
-
-  const cover = (
-    <div className="hp-case-cover">
-      <div className="hp-case-cover-bg" style={{ background: row.gradient }} />
-      <div className="hp-case-cover-dots" />
-      <div className="hp-case-shot">
-        <div className="hp-case-shot-bar">
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
-          <span className="hp-case-shot-dot" />
-        </div>
-        <div className="hp-case-shot-body">
-          <div className="hp-case-shot-line s1" />
-          <div className="hp-case-shot-line s2" />
-          <div className="hp-case-shot-line s3" />
-        </div>
-      </div>
-      {disabled ? (
-        <span
-          style={{
-            position: "absolute",
-            top: 14,
-            right: 14,
-            padding: "4px 10px",
-            border: "1px solid oklch(1 0 0 / 0.18)",
-            borderRadius: 999,
-            background: "oklch(0 0 0 / 0.40)",
-            backdropFilter: "blur(6px)",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 10,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: "oklch(1 0 0 / 0.85)",
-          }}
-        >
-          Coming soon
-        </span>
-      ) : null}
-    </div>
-  );
-
-  const body = (
-    <div className="hp-case-body">
-      <div className="hp-case-chips">
-        <span
-          className="hp-case-chip"
-          style={{
-            color: row.industryColor,
-            borderColor: `${row.industryColor}55`,
-          }}
-        >
-          {row.industry}
-        </span>
-        <span className="hp-case-chip">{row.tech}</span>
-      </div>
-      <div className="hp-case-name-row">
-        <h3 className="hp-case-name">{row.name}</h3>
-        {!disabled ? (
-          <ArrowUpRight
-            size={20}
-            strokeWidth={1.6}
-            className="hp-case-arrow"
-          />
-        ) : null}
-      </div>
-      <div className="hp-case-meta">{row.meta}</div>
-      <div className="hp-case-metrics">{row.metrics}</div>
-    </div>
-  );
-
-  if (disabled) {
-    return (
-      <div
-        className="hp-case-link"
-        style={{
-          cursor: "default",
-          pointerEvents: "none",
-          opacity: 0.78,
-        }}
-      >
-        {cover}
-        {body}
-      </div>
-    );
-  }
-
-  return (
-    <Link href={row.href!} className="hp-case-link">
-      {cover}
-      {body}
-    </Link>
-  );
-}
 
 /* ─── JSON-LD ───────────────────────────────────────────────────────────── */
 
@@ -373,7 +247,7 @@ export default function EfedraCasePage() {
         }
         sub="Двонапрямкова клініка в Одесі: стоматологія + естетична медицина. Перенесли з застарілого WordPress на Next.js + Sanity з мобільним онлайн-записом і локальним SEO."
       />
-      <MetaStrip />
+      <NbygMetaStrip items={META_ITEMS} />
 
       {/* Section 2: Stats bar */}
       <StatsBar
@@ -454,7 +328,7 @@ export default function EfedraCasePage() {
       {/* Section 6: Outcome */}
       <ImageText
         variant="centered"
-        sectionClassName="pt-5 max-[800px]:pt-5"
+        sectionClassName="pt-5"
         eyebrow="РЕЗУЛЬТАТ"
         heading={
           <>
@@ -494,23 +368,23 @@ export default function EfedraCasePage() {
       />
 
       {/* Section 8: Related cases */}
-      <section className="hp-section">
-        <div className="hp-inner">
-          <div className="hp-section-head">
-            <div className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
+          <div className={hpSectionHeadClass}>
+            <div className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>СУМІЖНІ КЕЙСИ</span>
             </div>
-            <h2 className="hp-h2">
+            <h2 className={hpH2Class}>
               Інші <em>кейси</em>
             </h2>
           </div>
-          <div className="hp-cases-grid">
+          <div className={casesGridClass}>
             {RELATED.map((r) => (
               <RelatedCard key={r.name} row={r} />
             ))}
           </div>
-          <Link href="/portfolio" className="hp-link">
+          <Link href="/portfolio" className={hpLinkClass}>
             Всі кейси
             <ArrowUpRight size={14} strokeWidth={1.8} />
           </Link>

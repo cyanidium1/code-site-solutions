@@ -1,12 +1,21 @@
 import type * as React from "react";
 
+import {
+  hpEyebrowClass,
+  hpEyebrowDotClass,
+  hpH2Class,
+  hpSectionHeadClass,
+  hpSubClass,
+} from "@/components/homepage/shared";
+
 /**
  * Shared section-header primitive. Renders an optional eyebrow tag,
  * an h2 heading, and an optional sub-paragraph. Used across the
  * homepage, comparison pages (vs-*), and other marketing pages.
  *
- * The CSS classes (`hp-section-head`, `hp-eyebrow`, `hp-h2`, `hp-sub`)
- * are defined in `src/components/homepage/homepage.css`.
+ * Utility-class strings are imported from `@/components/homepage/shared`
+ * (the migration target of the legacy `.hp-section-head`, `.hp-eyebrow`,
+ * `.hp-h2`, `.hp-sub` rules — see Session 7).
  */
 export function SectionHead({
   eyebrow,
@@ -18,15 +27,15 @@ export function SectionHead({
   sub?: React.ReactNode;
 }) {
   return (
-    <div className="hp-section-head">
+    <div className={hpSectionHeadClass}>
       {eyebrow ? (
-        <div className="hp-eyebrow">
-          <span className="hp-eyebrow-dot" />
+        <div className={hpEyebrowClass}>
+          <span className={hpEyebrowDotClass} />
           <span>{eyebrow}</span>
         </div>
       ) : null}
-      <h2 className="hp-h2">{heading}</h2>
-      {sub ? <p className="hp-sub">{sub}</p> : null}
+      <h2 className={hpH2Class}>{heading}</h2>
+      {sub ? <p className={hpSubClass}>{sub}</p> : null}
     </div>
   );
 }

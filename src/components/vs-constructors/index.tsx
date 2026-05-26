@@ -1,10 +1,8 @@
 import { AlertTriangle, CheckCircle2, Target, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import "@/components/homepage/homepage.css";
 import { HeroEditorial } from "@/components/blocks/hero";
-import { Tier } from "@/components/blocks/comparison";
-import "@/components/blocks/comparison/comparison.css";
+import { Tier, CmpTable, CmpThead, CmpTh, CmpTd, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
@@ -14,6 +12,8 @@ import {
   VS_CONSTRUCTORS_UK,
   VS_CONSTRUCTORS_EN,
 } from "@/content/comparisons/vs-constructors";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { localizePath } from "@/constants/i18n-routes";
 
 export type VcLocale = "uk" | "en";
 
@@ -30,6 +30,7 @@ export function getVsConstructorsContent(locale: VcLocale): Content {
 
 export function VsConstructorsView({ locale }: { locale: VcLocale }) {
   const c = CONTENT[locale];
+  const isEn = locale === "en";
   return (
     <>
       <HpHeader />
@@ -41,7 +42,9 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
         lede={c.hero.lede}
         features={c.hero.badges}
         ctaPrimaryLabel={c.hero.ctaPrimary}
+        ctaPrimaryHref={localizePath("/calculator", isEn)}
         ctaSecondaryLabel={c.hero.ctaSecondary}
+        ctaSecondaryHref={localizePath("/contacts", isEn)}
         ctaSecondaryShowPlay={false}
         showStats={false}
         showTicker={false}
@@ -55,15 +58,15 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       />
 
       {/* 02 — 5 outgrew signs */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.outgrew.eyebrow}
             heading={c.outgrew.heading}
             sub={c.outgrew.sub}
           />
           {/* Top 3 outgrew-reasons as full cards, rest compact. */}
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.outgrew.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
@@ -72,17 +75,17 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-ink-dim">
                     {it.body}
                   </p>
                 </div>
@@ -90,7 +93,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             })}
           </div>
           {c.outgrew.items.length > 3 ? (
-            <div className="mt-3 grid grid-cols-3 gap-3 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.outgrew.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -98,7 +101,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     key={it.num}
                     className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.22)]">
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-22">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1 font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight">
@@ -109,21 +112,21 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               })}
             </div>
           ) : null}
-          <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[60ch] mx-auto">
+          <p className="mt-8 text-center text-[14px] leading-[1.65] text-ink-dim max-w-[60ch] mx-auto">
             {c.outgrew.foot}
           </p>
         </div>
       </section>
 
       {/* 03 — Hidden costs */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.costs.eyebrow}
             heading={c.costs.heading}
             sub={c.costs.sub}
           />
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.costs.items.map((it) => {
               const Icon = it.icon;
               return (
@@ -132,17 +135,17 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
                       {it.num}
                     </span>
-                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--accent)_l_c_h_/_0.12)] text-accent-soft border border-[oklch(from_var(--accent)_l_c_h_/_0.25)]">
+                    <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                   </div>
                   <h3 className="font-display font-bold text-[18px] tracking-[-0.01em] text-ink">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-ink-dim">
                     {it.body}
                   </p>
                   <div className="mt-auto pt-2 border-t border-line text-[12px] font-mono tracking-[0.04em] text-accent-soft">
@@ -152,15 +155,15 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               );
             })}
           </div>
-          <p className="mt-8 text-center text-[14px] leading-[1.65] text-[var(--ink-2)] max-w-[60ch] mx-auto [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 text-center text-[14px] leading-[1.65] text-ink-dim max-w-[60ch] mx-auto [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.costs.foot}
           </p>
         </div>
       </section>
 
       {/* 04 — Wide side-by-side comparison (7 cols, horizontal scroll on mobile) */}
-      <section className="hp-section" id="compare-table">
-        <div className="hp-inner">
+      <section className={hpSectionClass} id="compare-table">
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.compare.eyebrow}
             heading={c.compare.heading}
@@ -171,21 +174,21 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             role="region"
             aria-label={c.compare.criterionHeader}
           >
-            <table className="w-full text-left border-collapse" style={{ minWidth: 720 }}>
+            <table className="w-full min-w-[720px] text-left border-collapse">
               <thead>
                 <tr className="border-b border-line">
-                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--ink-3)] px-4 py-4 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
+                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-ink-3 px-4 py-4 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
                     {c.compare.criterionHeader}
                   </th>
                   {c.compare.builderHeaders.map((b) => (
                     <th
                       key={b}
-                      className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--ink-3)] px-4 py-4 whitespace-nowrap"
+                      className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-ink-3 px-4 py-4 whitespace-nowrap"
                     >
                       {b}
                     </th>
                   ))}
-                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft px-4 py-4 whitespace-nowrap bg-[oklch(from_var(--accent)_l_c_h_/_0.06)]">
+                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft px-4 py-4 whitespace-nowrap bg-accent-6">
                     {c.compare.usHeader}
                   </th>
                 </tr>
@@ -196,18 +199,18 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     key={i}
                     className="border-b border-line last:border-b-0"
                   >
-                    <td className="text-[12px] text-[var(--ink-3)] tracking-[0.02em] uppercase font-medium px-4 py-3.5 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
+                    <td className="text-[12px] text-ink-3 tracking-[0.02em] uppercase font-medium px-4 py-3.5 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
                       {row.criterion}
                     </td>
                     {row.values.map((v, j) => (
                       <td
                         key={j}
-                        className="text-[13px] text-[var(--ink-3)] px-4 py-3.5"
+                        className="text-[13px] text-ink-3 px-4 py-3.5"
                       >
                         {v}
                       </td>
                     ))}
-                    <td className="text-[13px] text-accent-soft font-semibold px-4 py-3.5 bg-[oklch(from_var(--accent)_l_c_h_/_0.06)]">
+                    <td className="text-[13px] text-accent-soft font-semibold px-4 py-3.5 bg-accent-6">
                       {row.us}
                     </td>
                   </tr>
@@ -219,14 +222,14 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 05 — Each builder honest */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.builders.eyebrow}
             heading={c.builders.heading}
             sub={c.builders.sub}
           />
-          <div className="grid grid-cols-2 gap-4 max-[1100px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
             {c.builders.items.map((b) => (
               <div
                 key={b.name}
@@ -237,10 +240,10 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                 </h3>
                 <ul className="list-none flex flex-col gap-3">
                   <li className="flex gap-3">
-                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--accent)_l_c_h_/_0.15)] border border-[oklch(from_var(--accent)_l_c_h_/_0.3)]">
+                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-accent-15 border border-accent-30">
                       <CheckCircle2 size={13} strokeWidth={1.8} />
                     </span>
-                    <span className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                    <span className="text-[13px] leading-[1.55] text-ink-dim">
                       <strong className="text-ink font-semibold">
                         {c.builders.goodLabel}.
                       </strong>{" "}
@@ -251,7 +254,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-[oklch(0.7_0.15_25)] bg-[oklch(0.55_0.18_25_/_0.12)] border border-[oklch(0.55_0.18_25_/_0.3)]">
                       <XCircle size={13} strokeWidth={1.8} />
                     </span>
-                    <span className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                    <span className="text-[13px] leading-[1.55] text-ink-dim">
                       <strong className="text-ink font-semibold">
                         {c.builders.capLabel}.
                       </strong>{" "}
@@ -263,7 +266,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                       <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-[oklch(0.78_0.15_75)] bg-[oklch(0.55_0.18_75_/_0.12)] border border-[oklch(0.55_0.18_75_/_0.3)]">
                         <AlertTriangle size={13} strokeWidth={1.8} />
                       </span>
-                      <span className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                      <span className="text-[13px] leading-[1.55] text-ink-dim">
                         <strong className="text-ink font-semibold">
                           {c.builders.noteLabel}.
                         </strong>{" "}
@@ -272,10 +275,10 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                     </li>
                   ) : null}
                   <li className="flex gap-3">
-                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-[oklch(from_var(--accent)_l_c_h_/_0.15)] border border-[oklch(from_var(--accent)_l_c_h_/_0.3)]">
+                    <span className="w-6 h-6 shrink-0 rounded-full inline-flex items-center justify-center text-accent-soft bg-accent-15 border border-accent-30">
                       <Target size={13} strokeWidth={1.8} />
                     </span>
-                    <span className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                    <span className="text-[13px] leading-[1.55] text-ink-dim">
                       <strong className="text-ink font-semibold">
                         {c.builders.whenLabel}.
                       </strong>{" "}
@@ -290,8 +293,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       </section>
 
       {/* 06 — Admin after migration (Sanity Studio reassurance) */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.admin.eyebrow}
             heading={c.admin.heading}
@@ -309,7 +312,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   className="block h-full w-full object-cover object-top"
                 />
               </div>
-              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--ink-3)] text-center">
+              <figcaption className="mt-3 text-[12px] leading-[1.5] text-ink-3 text-center">
                 {c.admin.desktopCaption}
               </figcaption>
             </figure>
@@ -323,7 +326,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   className="block h-full w-full object-cover object-top"
                 />
               </div>
-              <figcaption className="mt-3 text-[12px] leading-[1.5] text-[var(--ink-3)] text-center">
+              <figcaption className="mt-3 text-[12px] leading-[1.5] text-ink-3 text-center">
                 {c.admin.mobileCaption}
               </figcaption>
             </figure>
@@ -332,83 +335,74 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
                 className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
               >
-                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-[var(--ink-3)]">
+                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
                   {cap.num}
                 </span>
                 <h4 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
                   {cap.title}
                 </h4>
-                <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                <p className="text-[13px] leading-[1.55] text-ink-dim">
                   {cap.body}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-8 max-w-[64ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--ink-2)] [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <p className="mt-8 max-w-[64ch] mx-auto text-center text-[13px] leading-[1.65] text-ink-dim [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.admin.foot}
           </p>
         </div>
       </section>
 
       {/* 07 — Migration patterns */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.patterns.eyebrow}
             heading={c.patterns.heading}
             sub={c.patterns.sub}
           />
           <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
-            <table className="cmp-table">
-              <thead>
+            <CmpTable>
+              <CmpThead>
                 <tr>
-                  <th>{c.patterns.headers.metric}</th>
-                  <th>{c.patterns.headers.before}</th>
-                  <th className="cmp-th-good">{c.patterns.headers.after}</th>
+                  <CmpTh>{c.patterns.headers.metric}</CmpTh>
+                  <CmpTh>{c.patterns.headers.before}</CmpTh>
+                  <CmpTh good>{c.patterns.headers.after}</CmpTh>
                 </tr>
-              </thead>
+              </CmpThead>
               <tbody>
                 {c.patterns.rows.map((row, i) => (
                   <tr key={i}>
-                    <td
-                      className="cmp-td-param"
-                      data-label={c.patterns.headers.metric}
-                    >
+                    <CmpTd kind="param" data-label={c.patterns.headers.metric}>
                       {row.metric}
-                    </td>
-                    <td
-                      className="cmp-td-bad"
-                      data-label={c.patterns.headers.before}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="bad" data-label={c.patterns.headers.before}>
                       {row.before}
-                    </td>
-                    <td
-                      className="cmp-td-good"
-                      data-label={c.patterns.headers.after}
-                    >
+                    </CmpTd>
+                    <CmpTd kind="good" data-label={c.patterns.headers.after}>
                       {row.after}
-                    </td>
+                    </CmpTd>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </CmpTable>
           </div>
-          <p className="mt-8 max-w-[60ch] mx-auto text-center text-[13px] leading-[1.65] text-[var(--ink-3)]">
+          <p className="mt-8 max-w-[60ch] mx-auto text-center text-[13px] leading-[1.65] text-ink-3">
             {c.patterns.foot}
           </p>
         </div>
       </section>
 
       {/* 08 — What we don't do */}
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.filter.eyebrow}
             heading={c.filter.heading}
@@ -427,33 +421,33 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                   <h3 className="font-display font-bold text-[15px] text-ink mb-1">
                     {it.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.55] text-[var(--ink-2)]">
+                  <p className="text-[13px] leading-[1.55] text-ink-dim">
                     {it.body}
                   </p>
                 </div>
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--ink-3)] max-w-[60ch] mx-auto">
+          <p className="mt-7 text-center text-[13px] leading-[1.65] text-ink-3 max-w-[60ch] mx-auto">
             {c.filter.foot}
           </p>
         </div>
       </section>
 
       {/* 09 — Pricing */}
-      <section className="hp-section" id="pricing">
-        <div className="hp-inner">
+      <section className={hpSectionClass} id="pricing">
+        <div className={hpInnerClass}>
           <SectionHead
             eyebrow={c.pricing.eyebrow}
             heading={c.pricing.heading}
             sub={c.pricing.sub}
           />
-          <div className="cmp-pricing-grid">
+          <CmpPricingGrid>
             {c.pricing.tiers.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
-          </div>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-[var(--ink-2)] max-w-[68ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          </CmpPricingGrid>
+          <p className="mt-7 text-center text-[13px] leading-[1.65] text-ink-dim max-w-[68ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.pricing.foot}
           </p>
         </div>

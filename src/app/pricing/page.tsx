@@ -4,7 +4,6 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier } from "@/components/blocks/comparison";
-import "@/components/blocks/comparison/comparison.css";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
 import {
@@ -13,10 +12,10 @@ import {
   Bento,
   FinalCta3,
 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { plainRich } from "@/lib/shared/rich-text";
 import { ADDONS_CELLS, PRICING_FAQ, TIERS } from "@/content/uk/pricing";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
@@ -46,38 +45,16 @@ function GradPlaceholder({
 }) {
   return (
     <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)`,
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient stops
+      style={{ "--gp-from": from, "--gp-to": to } as React.CSSProperties}
+      className="relative flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--gp-from)_0%,var(--gp-to)_100%)]"
     >
       <div
         aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-          opacity: 0.5,
-        }}
+        className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-50"
       />
       {label ? (
-        <span
-          style={{
-            position: "relative",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: 11,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.85)",
-          }}
-        >
+        <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-white/85">
           {label}
         </span>
       ) : null}
@@ -210,9 +187,9 @@ export default function PricingPage() {
       />
 
       {/* Section 2: 4 tiers */}
-      <section className="hp-section" id="tiers">
-        <div className="hp-inner">
-          <div className="pricing-tier-grid-4">
+      <section className={hpSectionClass} id="tiers">
+        <div className={hpInnerClass}>
+          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 xl:grid-cols-4 xl:gap-4">
             {TIERS.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
@@ -342,7 +319,7 @@ export default function PricingPage() {
       />
 
       {/* Section 8: FAQ */}
-      <section style={{ background: "var(--bg)" }}>
+      <section className="bg-bg">
         <FAQ heading="Часті питання про ціни" items={PRICING_FAQ} />
       </section>
 

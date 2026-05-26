@@ -3,9 +3,8 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/blocks/page-hero";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import { fetchCaseStudies } from "@/components/case-page";
-import { RelatedCard } from "@/components/blocks/related-card";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import {
   caseRefToCardItem,
   enCasesNoun,
@@ -13,6 +12,7 @@ import {
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasEnCase } from "@/constants/i18n-routes";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title: "Portfolio — real projects with real metrics | Code-Site.Art",
@@ -112,10 +112,10 @@ export default async function EnPortfolioPage() {
         sub='Every case is a full breakdown with "before / after" and metrics. ×3.2 inquiries, $4M raised, 24 leads/mo.'
       />
 
-      <section className="hp-section">
-        <div className="hp-inner">
+      <section className={hpSectionClass}>
+        <div className={hpInnerClass}>
           {cases.length > 0 ? (
-            <div className="hp-cases-grid">
+            <div className={casesGridClass}>
               {cases.map((c) => {
                 const item = caseRefToCardItem(c, "en");
                 const metaLine = [item.industry, item.region, item.year]
@@ -143,14 +143,7 @@ export default async function EnPortfolioPage() {
               })}
             </div>
           ) : (
-            <p
-              style={{
-                textAlign: "center",
-                fontFamily: "JetBrains Mono, monospace",
-                color: "var(--ink-3)",
-                padding: "60px 0",
-              }}
-            >
+            <p className="py-[60px] text-center font-mono text-ink-3">
               Cases loading…
             </p>
           )}

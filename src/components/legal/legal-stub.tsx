@@ -5,7 +5,6 @@
  */
 
 import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
-import "@/components/homepage/homepage.css";
 import { PageHero } from "@/components/blocks/page-hero";
 
 export function LegalStub({
@@ -37,27 +36,14 @@ export function LegalStub({
         sub={sub}
       />
 
-      <section style={{ background: "var(--bg)", padding: "60px 48px" }}>
-        <div
-          style={{
-            maxWidth: "var(--container-prose)",
-            margin: "0 auto",
-            fontFamily: "Manrope, sans-serif",
-            fontSize: 16,
-            lineHeight: 1.7,
-            color: "var(--ink-2)",
-          }}
-        >
-          <p style={{ marginBottom: 16 }}>{body}</p>
-          <p style={{ marginBottom: 16 }}>
+      <section className="bg-bg px-12 py-[60px]">
+        <div className="mx-auto max-w-container-prose font-sans text-base leading-relaxed text-ink-dim">
+          <p className="mb-4">{body}</p>
+          <p className="mb-4">
             Поточну версію документа можна запросити email&apos;ом —{" "}
             <a
               href="mailto:hi@code-site.art"
-              style={{
-                color: "var(--ink)",
-                textDecoration: "underline",
-                textUnderlineOffset: 3,
-              }}
+              className="text-ink underline underline-offset-[3px]"
             >
               hi@code-site.art
             </a>

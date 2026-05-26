@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
-import { Tier } from "@/components/blocks/comparison";
-import "@/components/blocks/comparison/comparison.css";
+import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
+import { FAQ } from "@/components/blocks/final";
 import {
   HpHeader,
   Marquee,
@@ -26,9 +26,9 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import "@/components/homepage/homepage.css";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
-import { EN_INDUSTRIES, EN_BENTO, EN_TIERS } from "@/content/en/homepage";
+import { EN_INDUSTRIES, EN_BENTO, EN_TIERS, EN_HOMEPAGE_FAQ } from "@/content/en/homepage";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title:
@@ -164,16 +164,7 @@ export default function HomePageEn() {
           { icon: LifeBuoy, title: "1 year of support", line: "Bugs, updates, advice" },
         ]}
         footer={
-          <p
-            style={{
-              maxWidth: "var(--container-form)",
-              margin: "0 auto",
-              textAlign: "center",
-              fontSize: 13,
-              lineHeight: 1.6,
-              color: "var(--ink-3)",
-            }}
-          >
+          <p className="mx-auto max-w-container-form text-center text-[13px] leading-relaxed text-ink-3">
             Not included — product photography and full logo branding. If you need them, we&apos;ll connect
             you with vetted partners.
           </p>
@@ -234,25 +225,25 @@ export default function HomePageEn() {
 
       <PullQuoteSwiper locale="en" />
 
-      <section className="hp-section" id="pricing">
-        <div className="hp-inner">
-          <div className="hp-section-head">
-            <div className="hp-eyebrow">
-              <span className="hp-eyebrow-dot" />
+      <section className={hpSectionClass} id="pricing">
+        <div className={hpInnerClass}>
+          <div className={hpSectionHeadClass}>
+            <div className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
               <span>PRICING</span>
             </div>
-            <h2 className="hp-h2">
+            <h2 className={hpH2Class}>
               Transparent pricing — from <em>$800</em> to <em>$6,000+</em>
             </h2>
-            <p className="hp-sub">
+            <p className={hpSubClass}>
               No &ldquo;request a quote.&rdquo; No hidden fees.
             </p>
           </div>
-          <div className="cmp-pricing-grid">
+          <CmpPricingGrid>
             {EN_TIERS.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
-          </div>
+          </CmpPricingGrid>
         </div>
       </section>
 
@@ -278,6 +269,7 @@ export default function HomePageEn() {
         ]}
       />
 
+      <FAQ heading="Top questions before we start" items={EN_HOMEPAGE_FAQ} />
       <LaunchCta locale="en" />
       </main>
       <HpFooter />

@@ -6,6 +6,16 @@ import Link from "next/link";
 import { SITE_CONTACT } from "@/constants/site";
 import { FOOTER_SOCIAL_HREFS, SocialIcon, type SocialKind } from "./social-icon";
 
+// Hoisted footer class strings. Both target descendants of the
+// container (>a or >li>a) and are reused across multiple column
+// renders inside .map(). Module-level so React allocates the literal
+// once per process rather than per-render.
+const FOOTER_SOCIALS_CLASS =
+  "flex gap-2 [&>a]:w-8 [&>a]:h-8 [&>a]:border [&>a]:border-line [&>a]:rounded-lg [&>a]:inline-flex [&>a]:items-center [&>a]:justify-center [&>a]:text-ink-dim [&>a]:transition-all [&>a]:duration-200 [&>a:hover]:text-accent-soft [&>a:hover]:border-accent-40";
+
+const FOOTER_COL_LIST_CLASS =
+  "list-none flex flex-col gap-2 [&>li>a]:text-[12px] [&>li>a]:text-ink-dim [&>li>a]:no-underline [&>li>a]:tracking-[0.02em] [&>li>a]:uppercase [&>li>a]:transition-colors [&>li>a]:duration-200 [&>li>a:hover]:text-accent-soft [&>li_.nolink]:text-[12px] [&>li_.nolink]:text-ink-dim [&>li_.nolink]:tracking-[0.02em] [&>li_.nolink]:uppercase";
+
 export type FootColumn = {
   h: string;
   items: React.ReactNode[];
@@ -129,16 +139,16 @@ export function ClinicFooter({
     tt: "TikTok",
   };
   return (
-    <footer className="bg-[oklch(0.10_0.005_300)] pt-14 px-12 pb-8 border-t border-line relative max-[1100px]:px-8 max-[700px]:pt-10 max-[700px]:px-[18px] max-[700px]:pb-6">
-      <div className="max-w-container mx-auto grid grid-cols-[1.4fr_1fr_1fr_1fr] gap-12 mb-9 max-[1100px]:grid-cols-2 max-[1100px]:gap-8 max-[700px]:grid-cols-1 max-[700px]:gap-7 max-[700px]:mb-6">
+    <footer className="bg-[oklch(0.10_0.005_300)] pt-10 px-[18px] pb-6 border-t border-line relative md:pt-14 md:px-8 md:pb-8 xl:px-12">
+      <div className="max-w-container mx-auto grid grid-cols-1 gap-7 mb-6 md:grid-cols-2 md:gap-8 md:mb-9 xl:grid-cols-[1.4fr_1fr_1fr_1fr] xl:gap-12">
         <div>
           <div className="font-display font-bold text-[15px] tracking-[0.18em] uppercase text-ink mb-[18px] [&_em]:not-italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
             {brandName}
           </div>
-          <p className="text-[12px] leading-[1.65] text-[var(--ink-3)] max-w-[30ch] mb-5">
+          <p className="text-[12px] leading-[1.65] text-ink-3 max-w-[30ch] mb-5">
             {resolvedBrandDesc}
           </p>
-          <div className="flex gap-2 [&>a]:w-8 [&>a]:h-8 [&>a]:border [&>a]:border-line [&>a]:rounded-lg [&>a]:inline-flex [&>a]:items-center [&>a]:justify-center [&>a]:text-[var(--ink-2)] [&>a]:transition-all [&>a]:duration-200 [&>a:hover]:text-accent-soft [&>a:hover]:border-[oklch(from_var(--accent)_l_c_h_/_0.4)]">
+          <div className={FOOTER_SOCIALS_CLASS}>
             {socials.map((kind) => (
               <a
                 key={kind}
@@ -157,7 +167,7 @@ export function ClinicFooter({
             <div className="font-display text-[11px] font-bold tracking-[0.14em] uppercase text-ink mb-3.5">
               {col.h}
             </div>
-            <ul className="list-none flex flex-col gap-2 [&>li>a]:text-[12px] [&>li>a]:text-[var(--ink-2)] [&>li>a]:no-underline [&>li>a]:tracking-[0.02em] [&>li>a]:uppercase [&>li>a]:transition-colors [&>li>a]:duration-200 [&>li>a:hover]:text-accent-soft [&>li_.nolink]:text-[12px] [&>li_.nolink]:text-[var(--ink-2)] [&>li_.nolink]:tracking-[0.02em] [&>li_.nolink]:uppercase">
+            <ul className={FOOTER_COL_LIST_CLASS}>
               {col.items.map((item, j) => (
                 <li key={j}>{item}</li>
               ))}
@@ -165,7 +175,7 @@ export function ClinicFooter({
           </div>
         ))}
       </div>
-      <div className="max-w-container mx-auto pt-[22px] border-t border-line text-[11px] text-[var(--ink-3)] tracking-[0.04em]">
+      <div className="max-w-container mx-auto pt-[22px] border-t border-line text-[11px] text-ink-3 tracking-[0.04em]">
         {bottomText}
       </div>
     </footer>

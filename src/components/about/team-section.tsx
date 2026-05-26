@@ -183,7 +183,7 @@ function MemberPhoto({
     return (
       <div className="aspect-square overflow-hidden relative bg-[linear-gradient(135deg,oklch(0.30_0.10_290)_0%,oklch(0.20_0.06_270)_100%)] flex items-center justify-center">
         {showFallback ? (
-          <span className="inline-flex items-center justify-center w-[110px] h-[110px] rounded-full bg-brand-gradient font-display font-bold text-[36px] text-bg tracking-[-0.02em] shadow-[0_0_60px_oklch(from_var(--accent)_l_c_h_/_0.35)]">
+          <span className="inline-flex items-center justify-center w-[110px] h-[110px] rounded-full bg-brand-gradient font-display font-bold text-[36px] text-bg tracking-[-0.02em] shadow-[0_0_60px_oklch(from_var(--color-accent)_l_c_h_/_0.35)]">
             {getInitials(member.name)}
           </span>
         ) : (
@@ -228,7 +228,7 @@ function MemberCard({
   moreLabel: string;
 }) {
   return (
-    <article className="group flex flex-col rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-[oklch(from_var(--accent)_l_c_h_/_0.4)] hover:-translate-y-0.5">
+    <article className="group flex flex-col rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-accent-40 hover:-translate-y-0.5">
       <MemberPhoto member={member} variant="card" />
       <div className="px-5 pt-5 pb-5 flex flex-col flex-1">
         <h3 className="font-display font-semibold text-[18px] tracking-[-0.01em] text-ink">
@@ -237,7 +237,7 @@ function MemberCard({
         <div className="mt-1 font-mono text-[10.5px] tracking-[0.12em] uppercase text-accent-soft">
           {member.role}
         </div>
-        <p className="mt-3 font-sans text-[13px] leading-[1.55] text-[var(--ink-2)] flex-1">
+        <p className="mt-3 font-sans text-[13px] leading-[1.55] text-ink-dim flex-1">
           {member.shortDescription}
         </p>
         <Button
@@ -245,7 +245,7 @@ function MemberCard({
           variant="bordered"
           radius="full"
           size="sm"
-          className="mt-5 self-start font-mono tracking-[0.06em] text-[11px] border-line hover:border-[oklch(from_var(--accent)_l_c_h_/_0.5)] text-[var(--ink-2)] hover:text-ink"
+          className="mt-5 self-start min-h-11 font-mono tracking-[0.06em] text-[11px] border-line hover:border-accent-50 text-ink-dim hover:text-ink"
         >
           {moreLabel}
         </Button>
@@ -273,10 +273,10 @@ function TeamModal({
       backdrop="blur"
       scrollBehavior="inside"
       classNames={{
-        base: "bg-[var(--bg-raised)] border border-line",
+        base: "bg-bg-raised border border-line",
         header: "border-b border-line",
         footer: "border-t border-line",
-        closeButton: "text-[var(--ink-3)] hover:text-ink",
+        closeButton: "text-ink-3 hover:text-ink",
       }}
     >
       <ModalContent>
@@ -295,7 +295,7 @@ function TeamModal({
                 </div>
               </ModalHeader>
               <ModalBody className="py-5">
-                <div className="flex flex-col gap-3 font-sans text-[14px] leading-[1.6] text-[var(--ink-2)]">
+                <div className="flex flex-col gap-3 font-sans text-[14px] leading-[1.6] text-ink-dim">
                   {member.fullDescription.map((p, i) => (
                     <p key={i}>{p}</p>
                   ))}
@@ -305,7 +305,7 @@ function TeamModal({
                     {member.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center px-2.5 py-1 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] font-mono text-[10.5px] tracking-[0.06em] uppercase text-[var(--ink-2)]"
+                        className="inline-flex items-center px-2.5 py-1 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] font-mono text-[10.5px] tracking-[0.06em] uppercase text-ink-dim"
                       >
                         {tag}
                       </span>
@@ -318,7 +318,7 @@ function TeamModal({
                   onPress={onClose}
                   variant="flat"
                   radius="full"
-                  className="font-mono tracking-[0.06em] text-[11px] bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] text-ink"
+                  className="min-h-11 font-mono tracking-[0.06em] text-[11px] bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] text-ink"
                 >
                   {closeLabel}
                 </Button>
@@ -358,12 +358,12 @@ export function TeamSection({
   };
 
   return (
-    <section className="relative py-[var(--section-y)] px-12 bg-bg max-[800px]:px-6">
+    <section className="relative py-14 lg:py-[100px] px-6 bg-bg lg:px-12">
       <div className="max-w-container mx-auto">
         {(eyebrow || heading || sub) && (
-          <header className="flex flex-col mb-16 max-[800px]:mb-10">
+          <header className="flex flex-col mb-10 lg:mb-16">
             {eyebrow ? (
-              <span className="inline-flex items-center self-start gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--ink-3)]">
+              <span className="inline-flex items-center self-start gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
                 {eyebrow}
               </span>
             ) : null}
@@ -373,14 +373,14 @@ export function TeamSection({
               </h2>
             ) : null}
             {sub ? (
-              <p className="mt-4 font-sans text-[16px] leading-[1.55] text-[var(--ink-2)] max-w-[640px]">
+              <p className="mt-4 font-sans text-[16px] leading-[1.55] text-ink-dim max-w-[640px]">
                 {sub}
               </p>
             ) : null}
           </header>
         )}
 
-        <div className="grid grid-cols-4 gap-5 max-[1100px]:grid-cols-2 max-[600px]:grid-cols-1">
+        <div className="grid grid-cols-2 gap-5 max-[600px]:grid-cols-1 xl:grid-cols-4">
           {members.map((m) => (
             <MemberCard
               key={m.id}

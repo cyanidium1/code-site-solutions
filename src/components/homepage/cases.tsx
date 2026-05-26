@@ -3,13 +3,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { fetchCaseStudies } from "@/components/case-page";
-import { RelatedCard } from "@/components/blocks/related-card";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { btnClass } from "@/components/ui";
 import {
   caseRefToCardItem,
   type CaseCardItem,
 } from "@/lib/shared/case-card-item";
 import type { Locale } from "@/types/sanity";
 import { SectionHead } from "@/components/shared/section-head";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export async function Cases({
   eyebrow = "КЕЙСИ",
@@ -38,10 +40,10 @@ export async function Cases({
       .slice(0, 3)
       .map((c) => caseRefToCardItem(c, locale));
   return (
-    <section className="hp-section" id="cases">
-      <div className="hp-inner">
+    <section className={hpSectionClass} id="cases">
+      <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} />
-        <div className="hp-cases-grid">
+        <div className={casesGridClass}>
           {finalItems.map((c) => {
             const metaLine = [c.industry, c.region, c.year]
               .filter(Boolean)
@@ -64,7 +66,7 @@ export async function Cases({
             );
           })}
         </div>
-        <Link href={ctaHref} className="btn-primary hp-section-cta">
+        <Link href={ctaHref} className={btnClass("primary", "hp-section-cta")}>
           <span>{ctaLabel}</span>
           <ArrowRight size={18} strokeWidth={1.8} />
         </Link>

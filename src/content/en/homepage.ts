@@ -17,6 +17,7 @@ import {
 
 import type { BentoCell, Industry } from "@/types/homepage";
 import type { TierProps } from "@/types/pricing";
+import type { FAQItem } from "@/types/faq";
 import { formatPrice } from "@/lib/shared/format-price";
 import { TIER_AMOUNTS, TIER_NAMES, TIER_WEEKS } from "@/constants/pricing-tiers";
 
@@ -209,5 +210,91 @@ export const EN_TIERS: TierProps[] = [
     },
     ctaLabel: "Talk to us",
     ctaGhost: true,
+  },
+];
+
+export const EN_HOMEPAGE_FAQ: FAQItem[] = [
+  {
+    q: "How much will my site cost?",
+    a: [
+      "Depends on the tier. ",
+      { em: TIER_NAMES.landing.en },
+      " — from ",
+      { em: formatPrice(TIER_AMOUNTS.landing, { locale: "en" }) },
+      ". ",
+      { em: TIER_NAMES.corporate.en },
+      " (healthcare, legal, accounting, real estate, etc.) — from ",
+      { em: formatPrice(TIER_AMOUNTS.corporate, { locale: "en" }) },
+      ". ",
+      { em: TIER_NAMES.custom.en },
+      " with bespoke architecture — from ",
+      { em: formatPrice(TIER_AMOUNTS.custom, { locale: "en" }) },
+      ". An exact figure — via the ",
+      { link: { href: "/en/calculator", text: "calculator" } },
+      " or after a 30-minute call.",
+    ],
+  },
+  {
+    q: "How long from brief to launch?",
+    a: [
+      { em: TIER_NAMES.landing.en },
+      " — ",
+      { em: TIER_WEEKS.landing.en },
+      ". ",
+      { em: TIER_NAMES.corporate.en },
+      " — ",
+      { em: TIER_WEEKS.corporate.en },
+      ". ",
+      { em: TIER_NAMES.custom.en },
+      " — ",
+      { em: TIER_WEEKS.custom.en },
+      ". That includes all revisions, content, and SEO. No surprises — the date is fixed in the contract.",
+    ],
+  },
+  {
+    q: "What if my budget is below your minimum?",
+    a: [
+      "We'll tell you honestly that we can't deliver at that price, and point you toward someone who can. We don't take on projects we can't ship well at your budget.",
+    ],
+  },
+  {
+    q: "What if I don't know exactly what I need?",
+    a: [
+      "That's normal. On a free 30-minute call we'll ask ",
+      { em: "10-15 questions" },
+      " and draft the spec for you. Your job is to describe the business.",
+    ],
+  },
+  {
+    q: "Can I see the code before paying in full?",
+    a: [
+      "Yes. After the first stage (design) you get access to the ",
+      { em: "repository" },
+      ". Browse, leave comments, decide whether to continue.",
+    ],
+  },
+  {
+    q: "What happens after launch?",
+    a: [
+      "The first ",
+      { em: "2 months" },
+      " — free revisions, monitoring, and fixes. Then 1 year of warranty included (bugs fixed within 4 business hours). Ongoing support / growth — at a fixed rate, no surprises.",
+    ],
+  },
+  {
+    q: "Can I start with a landing page and grow into a full site later?",
+    a: [
+      "Yes. The architecture we write ",
+      { em: "scales" },
+      ". Start with a Landing — in a year we add CMS, blog, additional verticals — without rewriting from scratch.",
+    ],
+  },
+  {
+    q: "What if I already have a designer / content / logo?",
+    a: [
+      "Then we work from your files or Figma. That's ",
+      { em: "-10-15% off the price" },
+      " and a shorter timeline. The contract spells out what you provide and when.",
+    ],
   },
 ];

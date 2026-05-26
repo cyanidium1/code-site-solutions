@@ -22,8 +22,11 @@ import {
   PullQuote,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import "@/components/homepage/homepage.css";
-import "@/components/blocks/buttons/buttons.css";
+import { btnClass } from "@/components/ui";
+import {
+  RelatedCard,
+  casesGridClass,
+} from "@/components/blocks/related-card";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
@@ -36,7 +39,6 @@ import type {
   CaseStudySection,
   Locale,
   MediaGallerySection,
-  RichTextSimple,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import { SanityImg } from "@/lib/shared/sanity-image";
@@ -46,7 +48,9 @@ import {
   plainPortable,
 } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
-import { presentationForCase } from "@/lib/shared/case-presentation";
+import { caseRefToCardItem } from "@/lib/shared/case-card-item";
+import { pickRichText } from "@/lib/shared/pick-rich-text";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── locale / path helpers ───────────────────────────────────────────── */
 
@@ -54,22 +58,6 @@ function pathFor(slug: string, locale: Locale): string {
   return locale === "en"
     ? `/en/portfolio/${slug}`
     : `/portfolio/${slug}`;
-}
-
-function pickRichText(
-  uk: RichTextSimple | undefined,
-  en: RichTextSimple | undefined,
-  locale: Locale,
-): RichTextSimple | undefined {
-  if (locale === "en") {
-    if (en && en.length) return en;
-    if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
-      console.warn("[pickRichText] missing EN translation; returning undefined");
-    }
-    return undefined;
-  }
-  return uk;
 }
 
 export function hasEnglishCaseContent(doc: CaseStudyDoc): boolean {
@@ -205,24 +193,8 @@ function YouTubeSection({
   title: string;
 }) {
   return (
-    <section
-      style={{
-        background: "var(--bg)",
-        padding: "var(--section-y-tight) var(--gutter-x) 0",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "var(--container-narrow)",
-          margin: "0 auto",
-          position: "relative",
-          aspectRatio: "16 / 9",
-          borderRadius: 18,
-          overflow: "hidden",
-          border: "1px solid var(--line)",
-          background: "oklch(0 0 0 / 0.6)",
-        }}
-      >
+    <section className="bg-bg px-6 sm:px-8 lg:px-12 pt-9 lg:pt-14">
+      <div className="relative mx-auto aspect-[16/9] max-w-container-narrow overflow-hidden rounded-[18px] border border-line bg-[oklch(0_0_0/0.6)]">
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${videoId}`}
           title={title}
@@ -230,13 +202,7 @@ function YouTubeSection({
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
           loading="lazy"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            border: 0,
-          }}
+          className="absolute inset-0 h-full w-full border-0"
         />
       </div>
     </section>
@@ -248,24 +214,7 @@ function YouTubeSection({
 
 function ScreenshotPending({ label }: { label: string }) {
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background:
-          "linear-gradient(135deg, oklch(0.55 0.20 25 / 0.18) 0%, oklch(0.62 0.18 60 / 0.18) 100%)",
-        color: "var(--ink-3)",
-        fontFamily: "JetBrains Mono, monospace",
-        fontSize: 12,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase",
-        textAlign: "center",
-        padding: 24,
-      }}
-    >
+    <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,oklch(0.55_0.20_25_/_0.18)_0%,oklch(0.62_0.18_60_/_0.18)_100%)] p-6 text-center font-mono text-xs uppercase tracking-[0.08em] text-ink-3">
       {label}
     </div>
   );
@@ -465,104 +414,6 @@ function SectionBlock({
   }
 }
 
-/* ─── related-cases card (Sanity-driven) ─────────────────────────────── */
-
-function buildMetaLine(c: CaseStudyRef, locale: Locale, label: string): string {
-  const region = loc(c.region, locale);
-  const year = c.year ? String(c.year) : null;
-  return [label, region, year].filter(Boolean).join(" · ");
-}
-
-function RelatedCard({
-  c,
-  locale,
-}: {
-  c: CaseStudyRef;
-  locale: Locale;
-}) {
-  const pres = presentationForCase(c.slug, c.industrySlug);
-  const href = pathFor(c.slug, locale);
-  const name = loc(c.title, locale) || c.client || c.slug;
-  const meta = buildMetaLine(c, locale, pres.label);
-  const metrics = loc(c.metricsLine, locale);
-  const industryLabel = pres.label;
-
-  return (
-    <Link href={href} className="hp-case-link">
-      <div className="hp-case-cover">
-        <div
-          className="hp-case-cover-bg"
-          style={{ background: pres.gradient }}
-        />
-        <div className="hp-case-cover-dots" />
-        <div
-          className="hp-case-shot"
-          style={
-            c.coverImage?.asset?.url
-              ? { display: "flex", flexDirection: "column" }
-              : undefined
-          }
-        >
-          <div className="hp-case-shot-bar">
-            <span className="hp-case-shot-dot" />
-            <span className="hp-case-shot-dot" />
-            <span className="hp-case-shot-dot" />
-          </div>
-          {c.coverImage?.asset?.url ? (
-            <div
-              className="hp-case-shot-body"
-              style={{
-                flex: 1,
-                minHeight: 0,
-                padding: 0,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={c.coverImage.asset.url}
-                alt={loc(c.coverImage.alt, locale) || name}
-                className="absolute inset-0 block h-full w-full object-cover object-top"
-              />
-            </div>
-          ) : (
-            <div className="hp-case-shot-body">
-              <div className="hp-case-shot-line s1" />
-              <div className="hp-case-shot-line s2" />
-              <div className="hp-case-shot-line s3" />
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="hp-case-body">
-        <div className="hp-case-chips">
-          <span
-            className="hp-case-chip"
-            style={{
-              color: pres.color,
-              borderColor: `${pres.color}55`,
-            }}
-          >
-            {industryLabel}
-          </span>
-          <span className="hp-case-chip">{pres.tech}</span>
-        </div>
-        <div className="hp-case-name-row">
-          <h3 className="hp-case-name">{name}</h3>
-          <ArrowUpRight
-            size={20}
-            strokeWidth={1.6}
-            className="hp-case-arrow"
-          />
-        </div>
-        <div className="hp-case-meta">{meta}</div>
-        {metrics ? <div className="hp-case-metrics">{metrics}</div> : null}
-      </div>
-    </Link>
-  );
-}
-
 /* ─── main page component ────────────────────────────────────────────── */
 
 export async function CasePageView({
@@ -638,23 +489,42 @@ export async function CasePageView({
       ))}
 
       {related.length > 0 ? (
-        <section className="hp-section">
-          <div className="hp-inner">
-            <div className="hp-section-head">
-              <div className="hp-eyebrow">
-                <span className="hp-eyebrow-dot" />
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <div className={hpSectionHeadClass}>
+              <div className={hpEyebrowClass}>
+                <span className={hpEyebrowDotClass} />
                 <span>{locale === "en" ? "RELATED" : "СУМІЖНІ КЕЙСИ"}</span>
               </div>
-              <h2 className="hp-h2">{relatedHeading}</h2>
+              <h2 className={hpH2Class}>{relatedHeading}</h2>
             </div>
-            <div className="hp-cases-grid">
-              {related.map((r) => (
-                <RelatedCard key={r._id} c={r} locale={locale} />
-              ))}
+            <div className={casesGridClass}>
+              {related.map((r) => {
+                const item = caseRefToCardItem(r, locale);
+                const metaLine = [item.industry, item.region, item.year]
+                  .filter(Boolean)
+                  .join(" · ");
+                return (
+                  <RelatedCard
+                    key={r._id}
+                    metrics={item.chips}
+                    title={item.name}
+                    eyebrow={metaLine || undefined}
+                    sub={item.metrics || undefined}
+                    coverImage={
+                      item.coverImage
+                        ? { src: item.coverImage, alt: item.coverImageAlt ?? item.name }
+                        : undefined
+                    }
+                    gradient={item.gradient}
+                    href={item.href}
+                  />
+                );
+              })}
             </div>
             <Link
               href={locale === "en" ? "/en/portfolio" : "/portfolio"}
-              className="btn-primary hp-section-cta"
+              className={btnClass("primary", "hp-section-cta")}
             >
               <span>{relatedLink}</span>
               <ArrowUpRight size={18} strokeWidth={1.8} />

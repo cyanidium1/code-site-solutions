@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
-import { RelatedCard } from "@/components/blocks/related-card";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { FAQ } from "@/components/blocks/final";
 import "@/components/blocks/blog/blog.css";
 
@@ -20,6 +20,7 @@ import type {
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── Static params + metadata ──────────────────────────────────────────── */
 
@@ -227,7 +228,7 @@ export default async function BlogPostPage({
         {/* Hero cover — rendered above the H1. Full standard width to
             match /sites-for/medicine and other site pages. */}
         {post.coverImage?.src ? (
-          <section className="bg-bg px-12 pt-10 max-[800px]:px-5 max-[800px]:pt-6">
+          <section className="bg-bg px-5 pt-6 lg:px-12 lg:pt-10">
             <div className="max-w-container mx-auto">
               <img
                 src={post.coverImage.src}
@@ -250,8 +251,8 @@ export default async function BlogPostPage({
         />
 
         {/* Meta strip — author + date + updated */}
-        <section className="bg-bg px-12 max-[700px]:px-5">
-          <div className="max-w-container mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-[var(--ink-3)] border-b border-line">
+        <section className="bg-bg px-5 md:px-12">
+          <div className="max-w-container mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-ink-3 border-b border-line">
             {post.author?.name ? (
               <span className="flex items-center gap-2.5">
                 {post.author.photoUrl ? (
@@ -263,7 +264,7 @@ export default async function BlogPostPage({
                     className="rounded-full border border-line block"
                   />
                 ) : null}
-                <span className="text-[var(--ink-2)]">{post.author.name}</span>
+                <span className="text-ink-dim">{post.author.name}</span>
                 {post.author.role ? (
                   <span className="opacity-60">· {post.author.role}</span>
                 ) : null}
@@ -282,7 +283,7 @@ export default async function BlogPostPage({
             break out to match the rest of the site. Prose elements are
             individually capped to a 720px reading measure via the
             .blog-prose CSS rules. */}
-        <section className="relative bg-bg pt-16 px-12 pb-20 max-[700px]:pt-10 max-[700px]:px-5 max-[700px]:pb-14">
+        <section className="relative bg-bg pt-10 px-5 pb-14 md:pt-16 md:px-12 md:pb-20">
           <div className="blog-post-bg absolute inset-0 z-0 pointer-events-none" />
           <article className="blog-prose relative z-[1] max-w-container mx-auto">
             <BlogPortableText value={post.body} />
@@ -294,18 +295,18 @@ export default async function BlogPostPage({
 
         {/* Related articles */}
         {related.length > 0 ? (
-          <section className="hp-section">
-            <div className="hp-inner">
-              <div className="hp-section-head">
-                <div className="hp-eyebrow">
-                  <span className="hp-eyebrow-dot" />
+          <section className={hpSectionClass}>
+            <div className={hpInnerClass}>
+              <div className={hpSectionHeadClass}>
+                <div className={hpEyebrowClass}>
+                  <span className={hpEyebrowDotClass} />
                   <span>/ ЩЕ ПОЧИТАТИ</span>
                 </div>
-                <h2 className="hp-h2">
+                <h2 className={hpH2Class}>
                   Схожі <em>статті</em>
                 </h2>
               </div>
-              <div className="hp-cases-grid">
+              <div className={casesGridClass}>
                 {related.slice(0, 2).map((p) => {
                   const reading = p.readingTimeMinutes
                     ? `${p.readingTimeMinutes} хв читання`
@@ -334,7 +335,7 @@ export default async function BlogPostPage({
                   );
                 })}
               </div>
-              <Link href="/blog" className="hp-link">
+              <Link href="/blog" className={hpLinkClass}>
                 Усі статті →
               </Link>
             </div>

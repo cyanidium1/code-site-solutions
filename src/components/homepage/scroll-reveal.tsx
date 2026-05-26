@@ -39,10 +39,14 @@ export function ScrollReveal({
     return () => io.disconnect();
   }, [threshold, rootMargin]);
 
+  // `data-visible` lets consumers attach Tailwind variants
+  // (e.g. group-data-[visible=true]/reveal:opacity-100) without coupling
+  // to a legacy `.is-visible` class on a CSS sidecar.
   return (
     <div
       ref={ref}
-      className={`${className}${visible ? " is-visible" : ""}`.trim()}
+      data-visible={visible ? "true" : "false"}
+      className={className}
     >
       {children}
     </div>

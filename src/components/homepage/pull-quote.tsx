@@ -2,6 +2,9 @@ import type * as React from "react";
 import Link from "next/link";
 import { Linkedin, ArrowUpRight } from "lucide-react";
 
+import { btnClass } from "@/components/ui";
+import { hpSectionClass } from "@/components/homepage/shared";
+
 export function PullQuote({
   quote = (
     <>
@@ -29,23 +32,30 @@ export function PullQuote({
   caseLabel?: string;
 }> = {}) {
   return (
-    <section className="hp-section">
-      <div className="hp-pull">
-        <div className="hp-pull-bg" />
-        <div className="hp-pull-inner">
-          <p className="hp-pull-quote">«{quote}»</p>
-          <div className="hp-pull-author">
+    <section className={hpSectionClass}>
+      <div className="relative py-6 text-center">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_800px_360px_at_50%_50%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%)]"
+        />
+        <div className="relative z-[1] mx-auto max-w-container-prose px-6">
+          <p className="font-sans text-[clamp(22px,2.5vw,32px)] font-medium leading-[1.4] text-ink [&_em]:not-italic [&_em]:bg-text-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:italic">
+            «{quote}»
+          </p>
+          <div className="mt-9 inline-flex flex-col items-center gap-3">
             {showAvatar ? (
-              <div className="hp-pull-avatar">{initials}</div>
+              <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand-gradient font-sans text-lg font-bold text-bg">
+                {initials}
+              </div>
             ) : null}
             <div>
-              <div className="hp-pull-name">{name}</div>
-              <div className="hp-pull-role">{role}</div>
+              <div className="font-sans text-base font-semibold text-ink">{name}</div>
+              <div className="mt-0.5 font-mono text-[11px] text-ink-3">{role}</div>
             </div>
             {liHref ? (
               <a
                 href={liHref}
-                className="hp-pull-li"
+                className="mt-2 inline-flex items-center gap-1.5 font-mono text-[11px] text-ink-dim transition-colors duration-200 hover:text-ink"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -54,8 +64,8 @@ export function PullQuote({
             ) : null}
           </div>
           {caseHref ? (
-            <div className="hp-pull-cta">
-              <Link href={caseHref} className="btn-primary">
+            <div className="mt-8 text-center">
+              <Link href={caseHref} className={btnClass("primary")}>
                 <span>{caseLabel ?? "Подивитись повний кейс"}</span>
                 <ArrowUpRight size={18} strokeWidth={1.8} />
               </Link>

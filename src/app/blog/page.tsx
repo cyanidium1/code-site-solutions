@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
-import { RelatedCard } from "@/components/blocks/related-card";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
 import type { BlogPostListItem } from "@/types/sanity";
+import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
 export const metadata: Metadata = {
   title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
   description:
@@ -59,10 +60,10 @@ export default async function BlogPage() {
           sub="Раз на місяць — одна стаття про реальний проєкт: бюджет, помилки, що б зробили інакше. Без води і без новин."
         />
 
-        <section className="hp-section">
-          <div className="hp-inner">
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
             {posts.length > 0 ? (
-              <div className="hp-cases-grid">
+              <div className={casesGridClass}>
                 {posts.map((p) => {
                   const date = formatUkDate(p.publishedAt);
                   const reading = p.readingTimeMinutes
@@ -93,7 +94,7 @@ export default async function BlogPage() {
                 })}
               </div>
             ) : (
-              <p className="hp-sub" style={{ textAlign: "center", padding: "60px 0" }}>
+              <p className={`${hpSubClass} py-[60px] text-center`}>
                 Поки що порожньо. Перший допис уже готується.
               </p>
             )}
