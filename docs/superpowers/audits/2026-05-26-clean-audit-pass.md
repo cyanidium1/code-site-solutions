@@ -184,3 +184,34 @@ Prioritized list (small / medium / large × risk × outcome):
 8. **(small / low / hygiene)** Delete the 2 portfolio TODOs or convert to issues. Finding 15.
 
 No critical findings. 2 medium-impact items (Findings 2, 3). Remaining are minor / hygienic.
+
+## Phase 8 — finding resolution (2026-05-26)
+
+Applied 9 of the 15 findings inline; 1 partially applied; 5 deferred with reasoning.
+
+### Fixed
+- **Finding 1** — Consolidated `cn()` helper. Deleted `src/lib/shared/cn.ts`, migrated all 6 import sites to `@/components/ui`. Commit `refactor(p8): consolidate cn() helper to @/components/ui`.
+- **Finding 2** — Defaulted `type="button"` on the `Btn` primitive's `<button>` branch (caller can still override via spread). Added explicit `type="button"` to the 2 bare-button fallbacks in hero (lines 497, 521) and the 2 in comparison (lines 201, 204). Commit `fix(p8): default type="button" on Btn + bare-button sites`.
+- **Finding 3** — Added `<FAQ>` to EN homepage with 8-item `EN_HOMEPAGE_FAQ` constant in `src/content/en/homepage.ts` mirroring `HOMEPAGE_FAQ` structure (general copy about pricing/timeline/process; not vertical-specific so EN translation was tractable). FAQ placed after Stack (before LaunchCta), so EN order is now `… PullQuoteSwiper → Pricing → Stack → FAQ → LaunchCta` — matches UK's "FAQ before LaunchCta" with Stack retained as the intentional EN-extra. Commit `feat(p8): add FAQ section to EN homepage; pass marquee label explicitly`.
+- **Finding 5** — Passed an explicit `label` to UK `<Marquee>` (was relying on the component default). Folded into the Finding-3 commit.
+- **Finding 6** — Deleted unused `MetaStrip` primitive (`src/components/ui/MetaStrip.tsx`), removed its barrel export, and updated the stale "may be promoted to a generic" doc comment in `nbyg-shared.tsx`. Commit `refactor(p8): delete unused MetaStrip primitive`.
+- **Finding 7** — Extracted `pickRichText` into `src/lib/shared/pick-rich-text.ts`; case-page and industry-page now import from there. Also removed the now-unused `RichTextSimple` import from both files. Commit `refactor(p8): extract pickRichText to lib/shared`.
+- **Finding 8** — Constrained `Container.as` to `"div" | "section" | "main" | "article" | "aside"` and `Section.as` to `"section" | "div" | "main" | "article"`. Dropped the `ElementType` import in both files. Commit `refactor(p8): constrain Container/Section as-prop to string union`.
+- **Finding 12** — Bulk swept 210 occurrences of `(text|bg|border)-[var(--color-*)]` raw-var arbitrary-values to bare token utilities across 31 files (most prevalent: `text-ink-3`×95, `text-ink-dim`×90, `border-line-strong`×14). Tailwind 4 compiles both forms to identical CSS, so output is byte-equivalent. Build verified green. Commit `refactor(p8): sweep text/bg/border raw var() arbitrary-values to named utilities`.
+- **Finding 13** — Inlined the `[...Array(2)].map((_, i) => ...)` ticker antipattern in `hero/index.tsx` into two explicit `<div className={TICKER_ROW_CLASS}>` blocks (second is `aria-hidden`). `marquee.tsx` does not use the antipattern (it uses `[...items, ...items]` which is data-doubling, not render-loop-doubling) — left unchanged. Commit `refactor(p8): inline hero ticker duplicates`.
+- **Finding 15** — Deleted the two stale `TODO: screenshots gallery / outcome YouTube walkthrough — awaiting … from founder` comments from both the UA and EN `_nbyg-kobenhavn/page.tsx`. Commit `chore(p8): remove stale portfolio TODO comments`.
+
+### Partial / Blocked
+- **Finding 11** — **Blocked.** Audit asserted "4 of 4 consumers always pass both hrefs" for `HeroEditorial`. Verification showed there are 6 consumers, and 4 of them (`vs-wordpress`, `vs-freelancers`, `vs-constructors`, `industry-page`) do NOT pass `ctaPrimaryHref` / `ctaSecondaryHref`. Making the props required would break those consumers, and wiring real hrefs through `vs-*` and the Sanity-driven industry page is a content/data decision, not a refactor. The `<button>` fallback branches remain reachable in production for those 4 pages and are not unreachable dead code. Leaving as-is; recommend re-auditing whether those 4 consumers SHOULD pass hrefs, then revisiting.
+
+### Deferred (with reasoning)
+- **Finding 4** — UK page consumes block content via component defaults (hardcoded inside component files); EN passes content via props from `src/content/en/`. Migrating UK to the same pattern requires lifting defaults from ~10 component files into `src/content/uk/homepage.ts` and is a self-contained sub-project worth its own session. Deferred.
+- **Finding 9** — Sanity client constants (`SANITY_PROJECT_ID`, `SANITY_DATASET`, `SANITY_API_VERSION`) flagged as having no in-tree consumers. Kept — they are deliberate API surface for studio embedding; deletion is unsafe without checking the wider repo. Left as `export const`.
+- **Finding 10** — Verified both `src/content/uk/pricing.ts` and `src/content/en/pricing.tsx` use the same `TierProps` data shape. EN needs `.tsx` because it embeds JSX (lucide-react icons in `TURNKEY_ITEMS_EN`); UK pricing has no JSX and `.ts` is correct. Symmetry rename only needed if UK ever needs JSX. Deferred.
+- **Finding 14** — Splitting `case-page/index.tsx` (557 LOC) into per-concern modules (`fetchers.ts`, `jsonld.ts`, `sections.tsx`, `view.tsx`) is a 200+ line restructure best paired with the next feature touch. Deferred.
+
+### Verification
+- `npm run typecheck` — passes
+- `npm run lint` — passes (only pre-existing `<img>` warnings remain; no new `react/forbid-dom-props` errors)
+- `npm run build` — passes; first-load JS unchanged at 102 kB shared
+
