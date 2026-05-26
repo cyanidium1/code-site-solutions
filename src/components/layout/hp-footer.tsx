@@ -75,7 +75,7 @@ const footerColHClass =
 // footer noticeably taller — accepted because the footer is the primary
 // nav surface on small viewports (the desktop nav is hidden ≤lg).
 const footerColListClass =
-  "list-none mt-4 p-0 flex flex-col gap-2.5 [&_a]:inline-flex [&_a]:items-center [&_a]:min-h-11 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
+  "list-none mt-4 p-0 flex flex-col gap-1.5 [&_a]:inline-flex [&_a]:items-center [&_a]:min-h-11 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 const footerDisabledClass = "font-sans text-[13px] text-ink-3 cursor-default";
 const footerBottomClass =
   "mx-auto max-w-container mt-12 pt-6 border-t border-line flex justify-between items-center flex-wrap gap-4";

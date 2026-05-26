@@ -71,7 +71,7 @@ export function FinalCta3({
             </span>
           </div>
         ) : null}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 mb-4">
           {cards.map((c, i) => {
             const Icon = c.icon;
             const external = c.href.startsWith("http");

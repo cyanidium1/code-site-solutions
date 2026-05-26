@@ -79,7 +79,7 @@ export function Process({
         <div
           ref={wrapRef}
           data-visible={visible ? "true" : "false"}
-          className="group/proc relative"
+          className="group/proc relative mb-4"
         >
           <div
             aria-hidden="true"

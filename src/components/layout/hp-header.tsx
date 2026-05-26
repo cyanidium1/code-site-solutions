@@ -32,7 +32,7 @@ const headerNavClass =
   "flex gap-7 max-2xl:gap-[22px] max-xl:gap-4 max-lg:hidden";
 // Trailing-colon variant builders for hover-active state on nav links.
 const navLinkBaseClass =
-  "font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim no-underline transition-colors duration-200 hover:text-ink max-2xl:text-[10.5px] max-xl:text-[10px] max-xl:tracking-[0.1em]";
+  "flex items-center font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim no-underline transition-colors duration-200 hover:text-ink max-2xl:text-[10.5px] max-xl:text-[10px] max-xl:tracking-[0.1em]";
 const navLinkActiveClass =
   "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
 const headerCtaClass =

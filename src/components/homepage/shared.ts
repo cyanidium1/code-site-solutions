@@ -57,4 +57,4 @@ export const hpLinkClass =
 
 // Section header wrapper — column layout, items at flex-start, 40px bottom
 // margin. The `SectionHead` shared component renders this layout.
-export const hpSectionHeadClass = "flex flex-col items-start gap-0 mb-10";
+export const hpSectionHeadClass = "flex flex-col items-start gap-4 mb-10";

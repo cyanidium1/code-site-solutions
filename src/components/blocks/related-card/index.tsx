@@ -50,7 +50,7 @@ export const caseMetaClass = "mt-1 font-mono text-[11px] text-ink-3";
 export const caseMetricsClass = "mt-4 text-[13px] leading-[1.55] text-ink-dim";
 // 3-up grid wrapper. Used by Cases (homepage), case-page related grid,
 // portfolio listings. Falls to 1-col @800px.
-export const casesGridClass = "grid grid-cols-1 gap-5 lg:grid-cols-3";
+export const casesGridClass = "grid grid-cols-1 gap-5 lg:grid-cols-3 mb-4";
 
 export function RelatedCard({
   eyebrow,
