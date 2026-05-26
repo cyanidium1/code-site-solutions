@@ -55,9 +55,12 @@ export function PortableText({
       renderSpan(span, block.markDefs, `${bi}-${si}`),
     );
     const style = block.style ?? "normal";
-    if (style === "h2") return <h2 key={bi} className="font-actay">{children}</h2>;
-    if (style === "h3") return <h3 key={bi} className="font-actay">{children}</h3>;
-    if (style === "h4") return <h4 key={bi} className="font-actay">{children}</h4>;
+    if (style === "h2")
+      return <h2 key={bi} className="font-actay uppercase">{children}</h2>;
+    if (style === "h3")
+      return <h3 key={bi} className="font-actay uppercase">{children}</h3>;
+    if (style === "h4")
+      return <h4 key={bi} className="font-actay uppercase">{children}</h4>;
     if (style === "blockquote") return <blockquote key={bi}>{children}</blockquote>;
     return <p key={bi}>{children}</p>;
   });

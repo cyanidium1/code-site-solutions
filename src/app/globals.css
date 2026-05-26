@@ -150,6 +150,16 @@ h3 em {
   box-decoration-break: clone;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-actay), system-ui, sans-serif;
+  text-transform: uppercase;
+}
+
 /* ─── Container max-width utilities ───────────────────────────────────────
    Tailwind v4's `--container-*` @theme namespace generates `max-w-{name}`
    utilities, but ONLY for the built-in scale names (xs, sm, …, 7xl). It

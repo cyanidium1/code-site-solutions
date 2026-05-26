@@ -43,7 +43,8 @@ export const caseChipsClass = "flex flex-wrap gap-1.5";
 export const caseChipClass =
   "inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-2 py-[3px] font-mono text-[10.5px] text-ink-3";
 export const caseNameRowClass = "mt-3.5 flex items-start justify-between gap-3";
-export const caseNameClass = "font-actay text-xl font-semibold leading-[1.2] text-ink";
+export const caseNameClass =
+  "font-actay uppercase text-xl font-semibold leading-[1.2] text-ink";
 export const caseArrowClass =
   "shrink-0 text-ink-3 transition-[transform,color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/case:translate-x-1 group-hover/case:-translate-y-1 group-hover/case:text-ink";
 export const caseMetaClass = "mt-1 font-mono text-[11px] text-ink-3";

@@ -172,7 +172,7 @@ export function TurnkeyList({
                       variant: card-tile titles at this size don't merit a
                       shared variant. The explicit `font-actay` utility
                       applies the heading typeface (no global selector). */}
-                  <h3 className="font-actay font-semibold text-[15.5px] tracking-[-0.01em] text-ink leading-[1.2] m-0">
+                  <h3 className="font-actay uppercase font-semibold text-[15.5px] text-ink leading-[1.2] m-0">
                     {it.title}
                   </h3>
                   <p className="text-[13.5px] leading-[1.5] text-ink-dim m-0">

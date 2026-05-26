@@ -117,6 +117,7 @@ const sizes: Record<Level, Record<Variant, string>> = {
  * rule in globals.css for raw heading tags that bypass this primitive.
  */
 const EM_GRADIENT_FIX = "[&_em]:pe-[0.16em] [&_em]:box-decoration-clone";
+const GLOBAL_HEADING_STYLE = "uppercase";
 
 export function Heading({
   level,
@@ -127,7 +128,10 @@ export function Heading({
 }: HeadingProps) {
   const Tag = `h${level}` as "h1" | "h2" | "h3";
   return (
-    <Tag className={cn(sizes[level][variant], EM_GRADIENT_FIX, className)} {...rest}>
+    <Tag
+      className={cn(sizes[level][variant], EM_GRADIENT_FIX, GLOBAL_HEADING_STYLE, className)}
+      {...rest}
+    >
       {children}
     </Tag>
   );
