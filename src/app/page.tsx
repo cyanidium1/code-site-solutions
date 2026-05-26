@@ -104,7 +104,7 @@ export default function HomePage() {
         deviceMockupSrc="/hero/hero-mockup.webp"
       />
 
-      <Marquee />
+      <Marquee label="47+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK" />
       <TurnkeyList />
       <Industries />
       <Bento />

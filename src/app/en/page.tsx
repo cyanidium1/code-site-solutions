@@ -13,6 +13,7 @@ import {
 import { HeroEditorial } from "@/components/blocks/hero";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
+import { FAQ } from "@/components/blocks/final";
 import {
   HpHeader,
   Marquee,
@@ -26,7 +27,7 @@ import {
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
-import { EN_INDUSTRIES, EN_BENTO, EN_TIERS } from "@/content/en/homepage";
+import { EN_INDUSTRIES, EN_BENTO, EN_TIERS, EN_HOMEPAGE_FAQ } from "@/content/en/homepage";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
@@ -268,6 +269,7 @@ export default function HomePageEn() {
         ]}
       />
 
+      <FAQ heading="Top questions before we start" items={EN_HOMEPAGE_FAQ} />
       <LaunchCta locale="en" />
       </main>
       <HpFooter />
