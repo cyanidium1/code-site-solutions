@@ -82,7 +82,7 @@ export function VerticalTimeline({
     <section className="relative py-14 lg:py-[100px] px-6 bg-bg lg:px-12">
       <div className="max-w-container mx-auto">
         {(eyebrow || heading || sub) && (
-          <div className="mb-9 max-w-[820px] lg:mb-14">
+          <div className="mb-9 max-w-[840px] lg:mb-14">
             {eyebrow ? (
               <span className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 mb-6">
                 {eyebrow}

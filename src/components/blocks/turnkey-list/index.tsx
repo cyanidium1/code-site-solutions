@@ -141,7 +141,7 @@ export function TurnkeyList({
         className={`absolute inset-0 z-0 pointer-events-none ${TURNKEY_BG}`}
       />
       <div className="relative z-[1] max-w-container mx-auto">
-        <div className="flex flex-col items-start mb-14 max-w-[820px]">
+        <div className="flex flex-col items-start mb-14 max-w-[840px]">
           <span className={EYEBROW_CLASS}>{eyebrow}</span>
           <H2
             variant="turnkey"

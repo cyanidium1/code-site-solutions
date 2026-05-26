@@ -238,7 +238,7 @@ export function Services({
           className={
             hasVisual
               ? "grid grid-cols-1 gap-[26px] items-center pb-12 mb-12 border-b border-line md:gap-9 md:pb-[72px] md:mb-[72px] xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] xl:gap-[72px] xl:pb-[100px] xl:mb-[100px]"
-              : "max-w-[820px] mx-auto text-center pb-12 mb-12 border-b border-line md:pb-[72px] md:mb-[72px] xl:pb-[100px] xl:mb-[100px]"
+              : "max-w-[840px] mx-auto text-center pb-12 mb-12 border-b border-line md:pb-[72px] md:mb-[72px] xl:pb-[100px] xl:mb-[100px]"
           }
         >
           {hasVisual ? (

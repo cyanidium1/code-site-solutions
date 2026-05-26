@@ -127,7 +127,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.rightChoice.heading}
             sub={c.rightChoice.sub}
           />
-          <ul className="list-none flex flex-col gap-3 max-w-[820px] mx-auto">
+          <ul className="list-none flex flex-col gap-3 max-w-[840px] mx-auto">
             {c.rightChoice.items.map((it, i) => (
               <li
                 key={i}
@@ -424,7 +424,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.filter.heading}
             sub={c.filter.sub}
           />
-          <ul className="list-none flex flex-col gap-3 max-w-[820px] mx-auto">
+          <ul className="list-none flex flex-col gap-3 max-w-[840px] mx-auto">
             {c.filter.items.map((it, i) => (
               <li
                 key={i}

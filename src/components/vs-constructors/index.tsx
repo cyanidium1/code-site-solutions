@@ -408,7 +408,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             heading={c.filter.heading}
             sub={c.filter.sub}
           />
-          <ul className="list-none flex flex-col gap-3 max-w-[820px] mx-auto">
+          <ul className="list-none flex flex-col gap-3 max-w-[840px] mx-auto">
             {c.filter.items.map((it, i) => (
               <li
                 key={i}

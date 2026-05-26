@@ -221,7 +221,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               </ul>
             </div>
           </div>
-          <blockquote className="mt-10 border-l-2 border-accent-soft pl-6 text-[18px] leading-[1.55] text-ink max-w-[820px] mx-auto [&_em]:not-italic [&_em]:font-semibold [&_em]:text-accent-soft">
+          <blockquote className="mt-10 border-l-2 border-accent-soft pl-6 text-[18px] leading-[1.55] text-ink max-w-[840px] mx-auto [&_em]:not-italic [&_em]:font-semibold [&_em]:text-accent-soft">
             {c.caseStudy.quote}
             <footer className="mt-4 not-italic text-[13px] text-ink-3">
               — {c.caseStudy.quoteAuthor}
@@ -373,7 +373,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             heading={c.filter.heading}
             sub={c.filter.sub}
           />
-          <ul className="list-none flex flex-col gap-3 max-w-[820px] mx-auto">
+          <ul className="list-none flex flex-col gap-3 max-w-[840px] mx-auto">
             {c.filter.items.map((it, i) => (
               <li
                 key={i}
