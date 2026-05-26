@@ -1,4 +1,4 @@
-import { cn } from "@/lib/shared/cn";
+import { cn } from "@/components/ui";
 import { H2 } from "@/components/ui";
 
 export type ImageTextCta = { label: string; href: string };

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/shared/cn";
+import { cn } from "@/components/ui";
 
 export type TimelineColumn = {
   heading: string;

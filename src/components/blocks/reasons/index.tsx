@@ -1,4 +1,4 @@
-import { cn } from "@/lib/shared/cn";
+import { cn } from "@/components/ui";
 
 // Background decoration: 2-layer radial gradient + masked vertical-line grid
 // overlay. Inlined as arbitrary values so no semantic .reasons-bg class needed.

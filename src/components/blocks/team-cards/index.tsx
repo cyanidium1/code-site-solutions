@@ -1,4 +1,4 @@
-import { cn } from "@/lib/shared/cn";
+import { cn } from "@/components/ui";
 
 export type TeamSocialKind = "li" | "tg" | "gh" | "ig" | "tt" | "x";
 export type TeamSocial = { kind: TeamSocialKind; href: string };

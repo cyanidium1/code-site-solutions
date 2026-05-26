@@ -1,4 +1,4 @@
-import { cn } from "@/lib/shared/cn";
+import { cn } from "@/components/ui";
 
 export type StatItem = { value: React.ReactNode; label: string };
 

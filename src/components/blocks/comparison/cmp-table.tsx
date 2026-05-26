@@ -15,7 +15,7 @@
  */
 
 import type { HTMLAttributes, ReactNode, TdHTMLAttributes, ThHTMLAttributes } from "react";
-import { cn } from "@/lib/shared/cn";
+import { cn } from "@/components/ui";
 
 // Outer `<table>` — full width, border-collapse, plus tr-level resets for ≤700px reflow.
 const TABLE_CLASS =
