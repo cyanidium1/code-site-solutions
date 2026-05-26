@@ -104,8 +104,8 @@ export default function HomePage() {
         deviceMockupSrc="/hero/hero-mockup.webp"
       />
 
-      <TurnkeyList />
       <Marquee />
+      <TurnkeyList />
       <Industries />
       <Bento />
       <Process />
