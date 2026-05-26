@@ -170,8 +170,8 @@ export function TurnkeyList({
                 <div className="flex flex-col gap-1 min-w-0">
                   {/* Small card label (15.5px) — intentionally NOT using H3
                       variant: card-tile titles at this size don't merit a
-                      shared variant; the global h1/h2/h3 selector still
-                      applies font-actay during Phase C. */}
+                      shared variant. The explicit `font-actay` utility
+                      applies the heading typeface (no global selector). */}
                   <h3 className="font-actay font-semibold text-[15.5px] tracking-[-0.01em] text-ink leading-[1.2] m-0">
                     {it.title}
                   </h3>

@@ -11,8 +11,10 @@ const base =
   "inline-flex items-center gap-2.5 rounded-full font-sans text-sm transition cursor-pointer no-underline min-h-11";
 
 // Responsive padding/sizing mirror the legacy .btn-primary / .btn-ghost
-// rules from buttons.css (now deleted). Phase 2 will re-express these as
-// mobile-first utilities; for Phase 1 we preserve the desktop-first shape.
+// rules from buttons.css (now deleted). The utility stack below uses the
+// `max-2xl:` / `max-sm:` max-width prefixes from the canonical breakpoint
+// scale to express the desktop-first ladder without re-introducing arbitrary
+// pixel media queries.
 const variantClass: Record<BtnVariant, string> = {
   primary: cn(
     "relative overflow-hidden bg-ink text-bg font-semibold px-6 py-4 max-2xl:px-[18px] max-2xl:py-[13px] max-2xl:text-[13px] max-sm:w-full max-sm:justify-center max-sm:px-[18px] max-sm:py-[14px]",

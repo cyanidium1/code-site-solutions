@@ -25,26 +25,18 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
 }
 
 /**
- * Utility strings reproduce legacy .h1 / .hp-h1 / .hp-h2 / .case-h2 /
- * .page-hero-h1 sizes from globals.css as of 2026-05-24. The H2 `case`
- * variant was reconciled to the legacy `.case-h2` values from case.css
- * (clamp(34px,4.6vw,60px), leading-none, tracking -0.035em, max-w 14ch,
- * text-balance, with responsive 1100px and 700px overrides) on case.css
- * deletion (Session 4). The `hp` variants were reconciled on hero.css
- * deletion (Session 5): H1 `hp` matches legacy `.h1` from hero.css
- * (clamp(36px,5vw,64px), leading 0.96, tracking -0.035em, uppercase,
- * @640 leading 0.98); H2 `hp` matches legacy `.hp-h2` from homepage.css
- * (clamp(34px,4vw,56px), leading 1.05, tracking -0.02em, @700 clamp
- * 28-40px). Headings inherit
- * the Actay Wide font via the global `h1,h2,h3` selector during Phase 1;
- * once that selector is removed in Task 43, the font-actay class below
- * applies it explicitly.
+ * Utility strings reproduce the legacy `.h1` / `.hp-h1` / `.hp-h2` /
+ * `.case-h2` / `.page-hero-h1` sizes from the deleted per-block CSS files.
+ * Each variant matches a specific block's typography contract and is
+ * documented at the row level — see also docs/superpowers/specs for the
+ * design tokens that informed the clamp ranges. The `font-actay` class
+ * applies the heading typeface explicitly (no global selector inheritance).
  *
- * NON-STANDARD SIZES — IMPORTANT for Phase C block migrations:
+ * NON-STANDARD SIZES — IMPORTANT when adding new blocks:
  * Several blocks in the codebase use heading sizes that are NOT just
  * "section h2" or "page hero h1". Examples include calculator info-card
  * h3, blog markdown headings, hero stat numbers, turnkey-list titles, and
- * comparison plan headers. When migrating a block whose heading does not
+ * comparison plan headers. When adding a block whose heading does not
  * match an existing variant in this table:
  *
  *   1. Prefer adding a NEW variant (e.g. `variant="calc-card"`) to this
@@ -52,7 +44,7 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
  *      let designers find sizes in one place.
  *   2. Do NOT pass arbitrary `text-[Npx]` overrides via `className` as the
  *      default solution — that re-creates the "inline styles everywhere"
- *      problem this refactor is trying to kill.
+ *      problem this refactor killed.
  *   3. The `className` escape hatch exists for one-off, genuinely unique
  *      headings (a hero numeric counter that is not text, a marquee title
  *      that animates per-character). Use sparingly and add a comment
@@ -121,8 +113,8 @@ const sizes: Record<Level, Record<Variant, string>> = {
  * descender/tail. box-decoration-clone makes the padding apply per fragment
  * when the em wraps to multiple lines. Applies to every Heading regardless
  * of whether the em uses a gradient (cost is 2.5px of trailing space which
- * is invisible without the gradient). Mirrors the legacy .h1/.hp-h2/.case-h2
- * em rule from globals.css (removed in Phase D).
+ * is invisible without the gradient). Mirrors the `h1 em / h2 em / h3 em`
+ * rule in globals.css for raw heading tags that bypass this primitive.
  */
 const EM_GRADIENT_FIX = "[&_em]:pe-[0.16em] [&_em]:box-decoration-clone";
 

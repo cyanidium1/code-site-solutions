@@ -18,8 +18,8 @@ interface SectionProps extends HTMLAttributes<HTMLElement> {
 /**
  * Vertical-rhythm wrapper. Mobile-first utility stack: base values
  * target ≤800px viewports, `lg:` overrides reach desktop values.
- * Reconciled with Phase 1's --section-y / --section-y-md / --section-y-lg
- * legacy spacing tokens at the lg breakpoint (800px+).
+ * Mirrors the @theme --spacing-section-y / -md / -lg token values at
+ * the lg breakpoint (800px+).
  */
 export function Section({
   variant = "default",

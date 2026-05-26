@@ -4,9 +4,10 @@
 @theme {
   /* ─────────────────────────────────────────────────────────────────────
      CUSTOM BREAKPOINT SCALE — does NOT match Tailwind defaults.
-     These values preserve the Phase 1 visual design exactly. Generates
-     Tailwind 4 utilities `xs:`, `sm:`, `md:`, `lg:`, `xl:` (mobile-first
-     min-width) and `max-xs:`/`max-sm:`/etc. (max-width, kept for outliers).
+     These values preserve the legacy visual design exactly. Generates
+     Tailwind 4 utilities `xs:`, `sm:`, `md:`, `md-wide:`, `lg:`, `xl:`,
+     `2xl:` (mobile-first min-width) and `max-xs:`/`max-sm:`/etc.
+     (max-width, kept for outliers).
      NOTE for new developers: `md:` is 700px here, NOT Tailwind's default
      768px. `lg:` is 800px, NOT 1024px. See docs/superpowers/specs/2026-
      05-25-phase-2-mobile-first-design.md for rationale.
@@ -19,7 +20,9 @@
   --breakpoint-xl: 1100px;
   --breakpoint-2xl: 1440px;
 
-  /* Colors — mirror legacy :root values below; legacy :root retained during Phase 1 for back-compat. */
+  /* Colors — canonical tokens. Generates utilities `bg-bg`, `text-ink`,
+     `text-ink-dim`, `border-line`, `bg-accent`, etc. The legacy `:root`
+     color shim was removed in Phase 3. */
   --color-bg: #121212;
   --color-bg-raised: #1f1a26;
 
@@ -38,9 +41,8 @@
   /* Accent alpha scale — Tailwind v4 can't synthesise relative-color
      alpha modifiers from a base token. These pre-computed
      `oklch(from var(--color-accent) l c h / 0.NN)` variants generate
-     utilities like `bg-accent-12`, `border-accent-40`, etc. Promoted
-     in Phase 5 from 95+ repeated arbitrary-value occurrences. Names
-     are alpha × 100; both `0.NN` and `0.N0` source forms map here. */
+     utilities like `bg-accent-12`, `border-accent-40`, etc. Names are
+     alpha × 100; both `0.NN` and `0.N0` source forms map here. */
   --color-accent-6:  oklch(from var(--color-accent) l c h / 0.06);
   --color-accent-8:  oklch(from var(--color-accent) l c h / 0.08);
   --color-accent-10: oklch(from var(--color-accent) l c h / 0.10);
@@ -64,7 +66,7 @@
   --container-form: 720px;
 
   /* Section vertical rhythm + horizontal gutter.
-     Phase 2 endpoint: base values are MOBILE; primitives stack
+     Mobile-first: base values target small viewports; primitives stack
      responsive utilities (sm:/lg:/etc.) to reach desktop values.
      Generates utilities: px-gutter-x, py-section-y, py-section-y-md,
      py-section-y-lg, etc. Consumers should prefer the utility-stack
@@ -152,10 +154,9 @@ h3 em {
    Tailwind v4's `--container-*` @theme namespace generates `max-w-{name}`
    utilities, but ONLY for the built-in scale names (xs, sm, …, 7xl). It
    does NOT auto-generate `max-w-container`, `max-w-container-narrow`, etc.
-   from custom `--container-max` / `--container-narrow` tokens. The Phase D
-   trim (a7c439f) assumed it did, so the explicit utilities were lost.
-   These `@utility` declarations restore them on top of the @theme tokens,
-   so consumers can keep using `max-w-container[-narrow|-h1|-prose|-form]`.
+   from custom `--container-max` / `--container-narrow` tokens. These
+   `@utility` declarations restore them on top of the @theme tokens, so
+   consumers can keep using `max-w-container[-narrow|-h1|-prose|-form]`.
    ────────────────────────────────────────────────────────────────────────── */
 @utility max-w-container {
   max-width: var(--container-max);

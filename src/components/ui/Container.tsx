@@ -19,10 +19,9 @@ interface ContainerProps extends HTMLAttributes<HTMLElement> {
 /**
  * Centered, max-width-capped wrapper with horizontal gutter.
  * Mobile-first utility stack: 24px base (≤640) → 32px at sm: (640+)
- *  → 48px at lg: (800+). Matches the Phase 2 @theme --spacing-gutter-*
- * token values; the utility stack is preferred over var() references
- * because Tailwind's responsive prefixes give mobile-first scaling
- * for free.
+ *  → 48px at lg: (800+). Matches the @theme --spacing-gutter-* token
+ * values; the utility stack is preferred over var() references because
+ * Tailwind's responsive prefixes give mobile-first scaling for free.
  */
 export function Container({
   variant = "default",
