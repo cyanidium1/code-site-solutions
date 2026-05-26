@@ -128,10 +128,10 @@ export function Reasons({
       <div className="relative z-[2] max-w-container mx-auto">
         <header className="grid grid-cols-1 gap-4 items-start mb-9 pb-5 border-b border-line sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-8 sm:items-end sm:mb-14 sm:pb-6 xl:gap-10 xl:mb-[72px] xl:pb-8">
           <div>
-            <div className="inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-[var(--color-line-strong)] rounded-full text-[11px] font-medium tracking-[0.12em] text-[var(--color-ink-dim)] bg-[oklch(1_0_0_/_0.025)] mb-5">
+            <div className="inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-line-strong rounded-full text-[11px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
               <span>{eyebrow}</span>
-              <span className="font-mono text-[10px] text-[var(--color-ink-3)]">
+              <span className="font-mono text-[10px] text-ink-3">
                 {eyebrowNum}
               </span>
             </div>
@@ -139,7 +139,7 @@ export function Reasons({
               {heading}
             </h2>
           </div>
-          <div className="font-mono text-[11px] text-[var(--color-ink-3)] tracking-[0.04em] text-left whitespace-nowrap pb-2 sm:text-right">
+          <div className="font-mono text-[11px] text-ink-3 tracking-[0.04em] text-left whitespace-nowrap pb-2 sm:text-right">
             {metaRows.map((row, i) => (
               <div
                 className={cn(
@@ -182,7 +182,7 @@ export function Reasons({
                   >
                     {r.n}
                   </div>
-                  <span className="font-mono text-[9px] font-medium text-[var(--color-ink-3)] tracking-[0.08em] px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] shrink-0 sm:text-[10px]">
+                  <span className="font-mono text-[9px] font-medium text-ink-3 tracking-[0.08em] px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] shrink-0 sm:text-[10px]">
                     {r.tag}
                   </span>
                 </header>
@@ -197,7 +197,7 @@ export function Reasons({
                     {r.title}
                   </h3>
                   <p
-                    className={`leading-[1.65] text-[var(--color-ink-dim)] text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium [&_mark]:bg-accent-18 [&_mark]:text-accent-soft [&_mark]:px-1.5 [&_mark]:py-px [&_mark]:rounded [&_mark]:font-medium ${
+                    className={`leading-[1.65] text-ink-dim text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium [&_mark]:bg-accent-18 [&_mark]:text-accent-soft [&_mark]:px-1.5 [&_mark]:py-px [&_mark]:rounded [&_mark]:font-medium ${
                       isPrimary
                         ? "text-[14px] max-w-[58ch] sm:text-[15.5px]"
                         : "text-[13px] max-w-[50ch] sm:text-[13.5px]"
@@ -214,11 +214,11 @@ export function Reasons({
                   >
                     {r.stat.n}
                   </div>
-                  <div className="text-[11.5px] text-[var(--color-ink-3)] leading-[1.4] tracking-[0.02em] flex-1">
+                  <div className="text-[11.5px] text-ink-3 leading-[1.4] tracking-[0.02em] flex-1">
                     {r.stat.lbl}
                   </div>
                   {r.stat.src ? (
-                    <div className="font-mono text-[9px] text-[var(--color-ink-3)] tracking-[0.06em] uppercase shrink-0 hidden sm:block">
+                    <div className="font-mono text-[9px] text-ink-3 tracking-[0.06em] uppercase shrink-0 hidden sm:block">
                       {r.stat.src}
                     </div>
                   ) : null}
@@ -229,7 +229,7 @@ export function Reasons({
         </ol>
 
         <div className="flex flex-col items-stretch gap-4 flex-wrap mt-8 p-[18px] border border-line rounded-[18px] bg-[oklch(1_0_0_/_0.02)] sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:mt-12 sm:py-[22px] sm:px-7 sm:rounded-full">
-          <div className="text-[13px] text-[var(--color-ink-dim)] flex items-center justify-center text-center gap-3 [&_strong]:text-ink [&_strong]:font-semibold sm:text-[14px] sm:justify-normal sm:text-start">
+          <div className="text-[13px] text-ink-dim flex items-center justify-center text-center gap-3 [&_strong]:text-ink [&_strong]:font-semibold sm:text-[14px] sm:justify-normal sm:text-start">
             <span className="inline-block w-2 h-2 [border-right:1.5px_solid_var(--color-accent-soft)] [border-bottom:1.5px_solid_var(--color-accent-soft)] rotate-[-45deg]" />
             <span>{footText}</span>
           </div>

@@ -13,13 +13,13 @@ function CheckIcon() {
 }
 
 const VISUAL_SHELL =
-  "relative rounded-[14px] border border-[var(--color-line-strong)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.14_0.006_300))] aspect-[16/11] overflow-hidden flex items-center justify-center shadow-[0_30px_60px_oklch(0_0_0_/_0.4)] md:aspect-[4/3] md:rounded-[18px] before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:20px_20px]";
+  "relative rounded-[14px] border border-line-strong bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.14_0.006_300))] aspect-[16/11] overflow-hidden flex items-center justify-center shadow-[0_30px_60px_oklch(0_0_0_/_0.4)] md:aspect-[4/3] md:rounded-[18px] before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:20px_20px]";
 
 const VISUAL_BAR =
   "absolute top-0 left-0 right-0 h-[30px] flex items-center gap-1.5 px-3.5 bg-[oklch(0.16_0.004_300)] border-b border-[oklch(1_0_0_/_0.06)] [&>span:not(.url)]:w-[9px] [&>span:not(.url)]:h-[9px] [&>span:not(.url)]:rounded-full [&>span:not(.url)]:bg-[oklch(0.3_0.005_60)]";
 
 const VISUAL_URL =
-  "url flex-1 ml-2 h-4 bg-[oklch(0.22_0.005_300)] rounded font-mono text-[9px] text-[var(--color-ink-3)] inline-flex items-center px-2.5 max-w-[200px]";
+  "url flex-1 ml-2 h-4 bg-[oklch(0.22_0.005_300)] rounded font-mono text-[9px] text-ink-3 inline-flex items-center px-2.5 max-w-[200px]";
 
 const VISUAL_CONTENT =
   "absolute inset-x-0 bottom-0 top-[30px] p-6 flex flex-col gap-3.5";
@@ -28,7 +28,7 @@ const CHECK_PILL =
   "w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center bg-accent-18 text-accent-soft border border-accent-30";
 
 const BENEFIT_LIST =
-  "flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-[var(--color-ink-dim)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium [&>li_mark]:bg-accent-18 [&>li_mark]:text-accent-soft [&>li_mark]:px-1.5 [&>li_mark]:py-px [&>li_mark]:rounded [&>li_mark]:font-medium md:[&>li]:text-[14px]";
+  "flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium [&>li_mark]:bg-accent-18 [&>li_mark]:text-accent-soft [&>li_mark]:px-1.5 [&>li_mark]:py-px [&>li_mark]:rounded [&>li_mark]:font-medium md:[&>li]:text-[14px]";
 
 export function MockPages({
   url,
@@ -98,18 +98,18 @@ export function MockBookingForm({
           <div className="font-display text-[11px] font-semibold text-ink mb-1 tracking-[-0.01em]">
             {s.heading}
           </div>
-          <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--color-ink-3)]">
+          <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-ink-3">
             {s.name}
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--color-ink-3)]">
+            <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-ink-3">
               {s.phone}
             </div>
-            <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--color-ink-3)]">
+            <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-ink-3">
               17:30
             </div>
           </div>
-          <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-[var(--color-ink-3)]">
+          <div className="h-[26px] bg-[oklch(0.22_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-ink-3">
             {s.service}
           </div>
           <div className="h-[30px] mt-1 bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] rounded-md flex items-center justify-center font-display text-[10px] font-semibold text-[oklch(1_0_0_/_0.95)] tracking-[0.02em]">
@@ -159,7 +159,7 @@ const BENEFIT_ROW_REVERSE_ORDER =
 const BENEFIT_TEXT = "px-0 xl:px-2";
 
 const BENEFIT_ROW_NUM =
-  "font-mono text-[11px] text-[var(--color-ink-3)] tracking-[0.08em] mb-3.5 inline-flex items-center gap-2.5 before:content-[''] before:w-[22px] before:h-px before:bg-[var(--color-accent-soft)]";
+  "font-mono text-[11px] text-ink-3 tracking-[0.08em] mb-3.5 inline-flex items-center gap-2.5 before:content-[''] before:w-[22px] before:h-px before:bg-accent-soft";
 
 const BENEFIT_H3 =
   "font-display font-bold text-[22px] leading-[1.1] tracking-[-0.025em] mb-6 text-ink text-balance max-w-full md:text-[clamp(24px,2.6vw,32px)] xl:max-w-[18ch] [&_em]:italic [&_em]:font-light [&_em]:text-accent-soft";
@@ -214,7 +214,7 @@ export function Outcome({
       <div className="relative z-[2] max-w-container mx-auto">
         {/* Recap pull-quote */}
         <div className="max-w-[760px] mx-auto mb-14 text-center relative xl:mb-20">
-          <div className="inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-[var(--color-line-strong)] rounded-full text-[11px] font-medium tracking-[0.12em] text-[var(--color-ink-dim)] bg-[oklch(1_0_0_/_0.025)] mb-7">
+          <div className="inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-line-strong rounded-full text-[11px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-7">
             <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
             <span>{recapEyebrow}</span>
           </div>
@@ -224,26 +224,26 @@ export function Outcome({
         </div>
 
         {/* Directions card */}
-        <article className="relative border border-[var(--color-line-strong)] rounded-[18px] bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] px-5 py-6 mb-14 overflow-hidden md:p-8 md:mb-20 md:rounded-3xl xl:pt-11 xl:px-12 xl:pb-11 xl:mb-[120px] before:content-[''] before:absolute before:top-0 before:right-0 before:w-[200px] before:h-[200px] before:pointer-events-none before:bg-[radial-gradient(circle_at_top_right,oklch(from_var(--color-accent)_l_c_h_/_0.12),transparent_70%)]">
-          <div className="inline-flex items-center gap-2.5 font-mono text-[10px] tracking-[0.12em] text-accent-soft uppercase mb-3.5 before:content-[''] before:w-[22px] before:h-px before:bg-[var(--color-accent-soft)]">
+        <article className="relative border border-line-strong rounded-[18px] bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] px-5 py-6 mb-14 overflow-hidden md:p-8 md:mb-20 md:rounded-3xl xl:pt-11 xl:px-12 xl:pb-11 xl:mb-[120px] before:content-[''] before:absolute before:top-0 before:right-0 before:w-[200px] before:h-[200px] before:pointer-events-none before:bg-[radial-gradient(circle_at_top_right,oklch(from_var(--color-accent)_l_c_h_/_0.12),transparent_70%)]">
+          <div className="inline-flex items-center gap-2.5 font-mono text-[10px] tracking-[0.12em] text-accent-soft uppercase mb-3.5 before:content-[''] before:w-[22px] before:h-px before:bg-accent-soft">
             {directionsEyebrow}
           </div>
           <h3 className="font-display font-bold text-[22px] leading-[1.05] tracking-[-0.025em] mb-[18px] text-ink text-balance max-w-[24ch] md:text-[clamp(26px,3.2vw,38px)] [&_em]:italic [&_em]:font-light [&_em]:text-accent-soft">
             {directionsTitle}
           </h3>
-          <p className="text-[14px] leading-[1.7] text-[var(--color-ink-dim)] mb-[26px] max-w-[70ch] md:text-[15px] md:mb-9 [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium">
+          <p className="text-[14px] leading-[1.7] text-ink-dim mb-[26px] max-w-[70ch] md:text-[15px] md:mb-9 [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium">
             {directionsLede}
           </p>
           <div className="grid grid-cols-1 gap-7 pt-[22px] border-t border-dashed border-line md:grid-cols-2 md:gap-8 md:pt-7 xl:gap-12">
             <div>
-              <h4 className="font-display text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--color-ink-3)] mb-[18px] flex items-center gap-2.5">
+              <h4 className="font-display text-[11px] font-bold tracking-[0.15em] uppercase text-ink-3 mb-[18px] flex items-center gap-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.65_0.05_60)]" />
                 {replaceLabel}
               </h4>
-              <ul className="list-none flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-[var(--color-ink-dim)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[14px]">
+              <ul className="list-none flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[14px]">
                 {replaceItems.map((it, i) => (
                   <li key={i}>
-                    <span className="w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center text-[4px] text-[var(--color-ink-3)] border border-[var(--color-line-strong)]">
+                    <span className="w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center text-[4px] text-ink-3 border border-line-strong">
                       ●
                     </span>
                     <span>{it}</span>
@@ -252,11 +252,11 @@ export function Outcome({
               </ul>
             </div>
             <div>
-              <h4 className="font-display text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--color-ink-3)] mb-[18px] flex items-center gap-2.5">
+              <h4 className="font-display text-[11px] font-bold tracking-[0.15em] uppercase text-ink-3 mb-[18px] flex items-center gap-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-soft shadow-[0_0_8px_var(--color-accent-soft)]" />
                 {allowedLabel}
               </h4>
-              <ul className="list-none flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-[var(--color-ink-dim)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[14px]">
+              <ul className="list-none flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[14px]">
                 {allowedItems.map((it, i) => (
                   <li key={i}>
                     <span className={CHECK_PILL}><CheckIcon /></span>
@@ -273,7 +273,7 @@ export function Outcome({
           <h2 className="font-display font-bold text-[clamp(28px,9vw,38px)] leading-none tracking-[-0.035em] text-ink text-balance max-w-full md:text-[clamp(34px,4.6vw,60px)] xl:max-w-[16ch] [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
             {benefitsHeading}
           </h2>
-          <p className="text-[14px] leading-[1.65] text-[var(--color-ink-dim)] text-pretty pb-2 md:text-[15px] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium">
+          <p className="text-[14px] leading-[1.65] text-ink-dim text-pretty pb-2 md:text-[15px] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium">
             {benefitsSub}
           </p>
         </header>
@@ -290,7 +290,7 @@ export function Outcome({
               <div className="text-[14px] leading-[1.5] text-ink font-medium mb-2 md:text-[15px]">
                 {benefitHeroLede}
               </div>
-              <div className="font-mono text-[11px] text-[var(--color-ink-3)] tracking-[0.04em]">
+              <div className="font-mono text-[11px] text-ink-3 tracking-[0.04em]">
                 {benefitHeroSource}
               </div>
             </div>

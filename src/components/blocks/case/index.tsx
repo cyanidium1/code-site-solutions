@@ -9,7 +9,7 @@ const HEADING_EM_CLASS =
   "[&_em]:not-italic [&_em]:font-light [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const SECTION_CLASS =
-  "relative overflow-hidden bg-[var(--color-bg)] py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
+  "relative overflow-hidden bg-bg py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
 
 // Two stacked radial gradients — accent (top-right) + accent-2 (bottom-left).
 // Preserved as raw OKLCH because no @theme token captures this dual-gradient
@@ -49,7 +49,7 @@ const GRID_CLASS =
   "grid grid-cols-1 gap-[18px] relative " +
   "md:grid-cols-2 md:gap-7 " +
   "md:before:content-['VS'] md:before:absolute md:before:top-1/2 md:before:left-1/2 md:before:-translate-x-1/2 md:before:-translate-y-1/2 md:before:z-[5] " +
-  "md:before:font-display md:before:font-bold md:before:tracking-[0.1em] md:before:text-ink-3 md:before:bg-[var(--color-bg)] " +
+  "md:before:font-display md:before:font-bold md:before:tracking-[0.1em] md:before:text-ink-3 md:before:bg-bg " +
   "md:before:border md:before:border-line-strong md:before:rounded-full md:before:pointer-events-none " +
   "md:before:text-[14px] md:before:px-3 md:before:py-2.5 " +
   "xl:before:text-[18px] xl:before:px-3.5 xl:before:py-3";
@@ -162,7 +162,7 @@ const RESULTS_CLASS =
   "md:mt-14 xl:grid-cols-4";
 
 const RESULT_CLASS =
-  "bg-[var(--color-bg)] p-4 flex flex-col gap-1.5 relative " +
+  "bg-bg p-4 flex flex-col gap-1.5 relative " +
   "md:px-5 md:py-[18px] " +
   "xl:px-7 xl:py-6";
 

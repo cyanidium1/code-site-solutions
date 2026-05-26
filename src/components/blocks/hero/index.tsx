@@ -61,7 +61,7 @@ const EYEBROW_DOT_CLASS =
   "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] max-sm:w-[5px] max-sm:h-[5px]";
 
 // U — separator + emphasized text inside the eyebrow.
-const EYEBROW_SEP_CLASS = "text-[var(--color-ink-3)] -mx-0.5";
+const EYEBROW_SEP_CLASS = "text-ink-3 -mx-0.5";
 const EYEBROW_EM_CLASS = "text-accent font-semibold";
 
 // T — H1 sizing handled by <H1 variant="hp"> primitive. This class
@@ -133,7 +133,7 @@ const FEAT_LABEL_CLASS =
   "text-[13px] font-semibold text-ink leading-[1.2] " +
   "max-2xl:text-xs max-sm:text-xs";
 const FEAT_SUB_CLASS =
-  "text-[11px] text-[var(--color-ink-3)] mt-0.5 tracking-[0.02em] " +
+  "text-[11px] text-ink-3 mt-0.5 tracking-[0.02em] " +
   "max-2xl:text-[10px] max-sm:text-[10px]";
 
 // U — CTA row. Wraps below at ≤640 to stretched-column buttons.
@@ -143,7 +143,7 @@ const CTA_ROW_CLASS =
   "max-sm:flex-col max-sm:gap-2.5 max-sm:items-stretch max-sm:mb-6";
 
 const CTA_FOOTNOTE_CLASS =
-  "text-[12.5px] tracking-[0.01em] text-[var(--color-ink-3)] m-0 mb-[30px] leading-[1.5]";
+  "text-[12.5px] tracking-[0.01em] text-ink-3 m-0 mb-[30px] leading-[1.5]";
 
 // U — stats card. Flex row of 3 stat cells separated by 1px vertical
 // dividers. Translucent bg with backdrop-blur. Padding/gap tighten at
@@ -159,7 +159,7 @@ const STAT_NUM_CLASS =
   "font-sans font-bold text-[28px] tracking-[-0.03em] leading-none text-ink " +
   "max-2xl:text-2xl max-[1080px]:text-[22px] max-sm:text-[22px]";
 const STAT_LBL_CLASS =
-  "text-[10px] text-[var(--color-ink-3)] uppercase tracking-[0.08em] leading-[1.3] " +
+  "text-[10px] text-ink-3 uppercase tracking-[0.08em] leading-[1.3] " +
   "max-sm:text-[9px]";
 const STAT_DIV_CLASS =
   "w-px h-10 bg-line max-sm:h-[30px]";
@@ -223,7 +223,7 @@ const DT_DOT_CLASS =
 
 // U — small mono text suffix inside a device-tag; .dt-good variant
 // tints the same span accent.
-const DT_MINI_CLASS = "font-mono text-[10px] text-[var(--color-ink-3)]";
+const DT_MINI_CLASS = "font-mono text-[10px] text-ink-3";
 const DT_GOOD_CLASS = "text-accent";
 
 // U — mockup wrapper: absolute, centered, transparent overflow for

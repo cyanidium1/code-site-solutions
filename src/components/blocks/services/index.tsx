@@ -116,7 +116,7 @@ export function SecondaryFeatureCard({ icon, title, items }: Feature) {
   // Use the first bullet as a one-line description if available.
   const blurb = items.length > 0 ? items[0] : null;
   return (
-    <div className="relative px-4 py-3.5 border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] transition-[border-color,background] duration-[200ms] flex items-center gap-3 hover:border-[var(--color-line-strong)] hover:bg-[oklch(0.18_0.005_300)] md:px-5 md:py-4 md:gap-4">
+    <div className="relative px-4 py-3.5 border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] transition-[border-color,background] duration-[200ms] flex items-center gap-3 hover:border-line-strong hover:bg-[oklch(0.18_0.005_300)] md:px-5 md:py-4 md:gap-4">
       <div className="w-8 h-8 shrink-0 rounded-lg bg-accent-12 text-accent-soft border border-accent-22 flex items-center justify-center md:w-9 md:h-9 [&>svg]:w-[18px] [&>svg]:h-[18px]">
         {icon}
       </div>
@@ -125,7 +125,7 @@ export function SecondaryFeatureCard({ icon, title, items }: Feature) {
           {title}
         </div>
         {blurb ? (
-          <div className="text-[11.5px] leading-[1.45] text-[var(--color-ink-dim)] line-clamp-1 [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium md:text-[12.5px]">
+          <div className="text-[11.5px] leading-[1.45] text-ink-dim line-clamp-1 [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium md:text-[12.5px]">
             {blurb}
           </div>
         ) : null}
@@ -148,7 +148,7 @@ export function FeatureCard({ icon, title, items, bg }: Feature) {
       <h3 className="font-display font-bold text-[13px] tracking-[0.05em] uppercase leading-[1.2] text-ink text-balance md:text-[15px]">
         {title}
       </h3>
-      <ul className="flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[12px] [&>li]:leading-[1.5] [&>li]:text-[var(--color-ink-dim)] [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[13px]">
+      <ul className="flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[12px] [&>li]:leading-[1.5] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[13px]">
         {items.map((it, i) => (
           <li key={i}>
             <span className="w-4 h-4 rounded-full bg-accent-18 text-accent-soft border border-accent-25 mt-0.5 inline-flex items-center justify-center shrink-0">
@@ -170,7 +170,7 @@ const SVC_HEADER_CLASSES =
   "grid grid-cols-1 gap-[22px] items-start pb-[22px] border-b border-line xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-14 xl:items-end xl:pb-7";
 
 const SVC_SUB_BASE =
-  "text-[13px] leading-[1.65] text-[var(--color-ink-dim)] text-pretty md:text-[15px] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium";
+  "text-[13px] leading-[1.65] text-ink-dim text-pretty md:text-[15px] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium";
 
 export function Services({
   testimonialEyebrow = "ВІДГУК КЛІЄНТА",
@@ -242,7 +242,7 @@ export function Services({
           }
         >
           {hasVisual ? (
-            <div className="relative aspect-[16/10] rounded-[14px] max-w-[600px] border border-[var(--color-line-strong)] bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] md:rounded-[22px] xl:aspect-[5/4] xl:max-w-none before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:24px_24px] after:content-['IMAGE_PLACEHOLDER'] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:font-mono after:text-[11px] after:tracking-[0.15em] after:text-[oklch(1_0_0_/_0.18)]">
+            <div className="relative aspect-[16/10] rounded-[14px] max-w-[600px] border border-line-strong bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] md:rounded-[22px] xl:aspect-[5/4] xl:max-w-none before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:24px_24px] after:content-['IMAGE_PLACEHOLDER'] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:font-mono after:text-[11px] after:tracking-[0.15em] after:text-[oklch(1_0_0_/_0.18)]">
               <img
                 src={testimonialVisualSrc}
                 alt=""
@@ -252,7 +252,7 @@ export function Services({
             </div>
           ) : null}
           <div className={hasVisual ? "flex flex-col" : "flex flex-col items-center"}>
-            <div className={`inline-flex ${hasVisual ? "self-start" : ""} items-center gap-2.5 pl-2.5 pr-[11px] py-1.5 border border-[var(--color-line-strong)] rounded-full text-[9px] font-medium tracking-[0.12em] text-[var(--color-ink-dim)] bg-[oklch(1_0_0_/_0.025)] mb-[22px] md:pl-3 md:pr-3.5 md:py-[7px] md:text-[11px] md:mb-7`}>
+            <div className={`inline-flex ${hasVisual ? "self-start" : ""} items-center gap-2.5 pl-2.5 pr-[11px] py-1.5 border border-line-strong rounded-full text-[9px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-[22px] md:pl-3 md:pr-3.5 md:py-[7px] md:text-[11px] md:mb-7`}>
               <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
               <span>{testimonialEyebrow}</span>
             </div>
@@ -270,7 +270,7 @@ export function Services({
                 <div className="font-display font-bold text-[11px] tracking-[0.12em] uppercase text-ink md:text-[12px]">
                   {testimonialAuthorName}
                 </div>
-                <div className="text-[11px] text-[var(--color-ink-3)] mt-[3px] md:text-[12px]">
+                <div className="text-[11px] text-ink-3 mt-[3px] md:text-[12px]">
                   {testimonialAuthorRole}
                 </div>
               </div>
@@ -308,7 +308,7 @@ export function Services({
           {integrations.map((name, i) => (
             <div
               key={i}
-              className="relative h-11 border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[10px] tracking-[0.06em] uppercase text-[var(--color-ink-dim)] overflow-hidden md:h-[52px] md:text-[11px] md:tracking-[0.1em] [&>span]:relative [&>span]:z-[2]"
+              className="relative h-11 border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[10px] tracking-[0.06em] uppercase text-ink-dim overflow-hidden md:h-[52px] md:text-[11px] md:tracking-[0.1em] [&>span]:relative [&>span]:z-[2]"
             >
               <span>{name}</span>
             </div>

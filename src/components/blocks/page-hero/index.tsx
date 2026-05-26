@@ -21,7 +21,7 @@ export function PageHero({
     <div>
       {breadcrumbs.length > 0 && (
         <nav
-          className="flex flex-wrap gap-2 items-center font-mono text-[11px] tracking-[0.1em] uppercase text-[var(--color-ink-3)] mb-6 lg:mb-9 [&_a]:text-[var(--color-ink-dim)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink"
+          className="flex flex-wrap gap-2 items-center font-mono text-[11px] tracking-[0.1em] uppercase text-ink-3 mb-6 lg:mb-9 [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink"
           aria-label="Breadcrumbs"
         >
           {breadcrumbs.map((c, i) => {
@@ -29,25 +29,25 @@ export function PageHero({
             return (
               <span key={i} className="contents">
                 {i > 0 && (
-                  <span className="text-[var(--color-ink-3)] opacity-60">/</span>
+                  <span className="text-ink-3 opacity-60">/</span>
                 )}
                 {c.href && !isLast ? (
                   <Link href={c.href}>{c.label}</Link>
                 ) : (
-                  <span className="text-[var(--color-ink-3)]">{c.label}</span>
+                  <span className="text-ink-3">{c.label}</span>
                 )}
               </span>
             );
           })}
         </nav>
       )}
-      <span className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-[var(--color-ink-3)] uppercase before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]">
+      <span className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-ink-3 uppercase before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]">
         {eyebrow}
       </span>
       <H1 variant="page-hero" className="mt-6 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
         {headline}
       </H1>
-      <p className="mt-6 font-sans text-[15px] leading-[1.55] text-[var(--color-ink-dim)] lg:text-[17px]">
+      <p className="mt-6 font-sans text-[15px] leading-[1.55] text-ink-dim lg:text-[17px]">
         {sub}
       </p>
     </div>

@@ -24,7 +24,7 @@ function TierCheck() {
 function TierX() {
   return (
     <svg
-      className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[var(--color-ink-3)] opacity-50"
+      className="w-3.5 h-3.5 shrink-0 mt-0.5 text-ink-3 opacity-50"
       viewBox="0 0 24 24"
       fill="none"
     >
@@ -42,7 +42,7 @@ const TIER_BASE =
   "relative px-[22px] py-[26px] border rounded-[18px] flex flex-col gap-5 transition-[border-color,transform] duration-[250ms] md:px-7 md:py-8 md:gap-6";
 
 const TIER_DEFAULT =
-  "border-line bg-[oklch(0.16_0.005_300)] hover:border-[var(--color-line-strong)] hover:-translate-y-0.5";
+  "border-line bg-[oklch(0.16_0.005_300)] hover:border-line-strong hover:-translate-y-0.5";
 
 const TIER_POP =
   "border-accent-40 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-0.5 xl:-translate-y-2 xl:hover:-translate-y-2.5";
@@ -54,14 +54,14 @@ const TIER_BTN_PRIMARY =
   "bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] border-0 shadow-[0_6px_18px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] hover:-translate-y-0.5 hover:shadow-[0_10px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.4)]";
 
 const TIER_BTN_GHOST =
-  "bg-transparent border border-[var(--color-line-strong)] text-ink shadow-none hover:border-accent-soft hover:text-accent-soft hover:bg-accent-8";
+  "bg-transparent border border-line-strong text-ink shadow-none hover:border-accent-soft hover:text-accent-soft hover:bg-accent-8";
 
 const TIER_LIST_BASE =
   "list-none flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[13px] [&>li]:leading-[1.45] [&>li_em]:not-italic";
 
-const TIER_LIST_DEFAULT = "[&>li]:text-[var(--color-ink-dim)]";
+const TIER_LIST_DEFAULT = "[&>li]:text-ink-dim";
 
-const TIER_LIST_MUTED = "[&>li]:text-[var(--color-ink-3)]";
+const TIER_LIST_MUTED = "[&>li]:text-ink-3";
 
 export function Tier({
   name,
@@ -89,11 +89,11 @@ export function Tier({
         <div className="font-display font-bold text-[12px] tracking-[0.14em] uppercase text-ink leading-[1.2] md:text-[13px]">
           {name}
         </div>
-        <h3 className="font-display font-bold text-[32px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-[var(--color-ink-3)] [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 md:text-[38px]">
+        <h3 className="font-display font-bold text-[32px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-ink-3 [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 md:text-[38px]">
           <em>{priceLabel}</em>
           {price}
         </h3>
-        <div className="text-[12px] text-[var(--color-ink-3)] tracking-[0.04em]">
+        <div className="text-[12px] text-ink-3 tracking-[0.04em]">
           {weeks}
         </div>
         {bestFor ? (
@@ -101,7 +101,7 @@ export function Tier({
             <div className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-1.5">
               {bestForLabel}
             </div>
-            <p className="m-0 text-[12.5px] leading-[1.5] text-[var(--color-ink-dim)]">
+            <p className="m-0 text-[12.5px] leading-[1.5] text-ink-dim">
               {bestFor}
             </p>
           </div>
@@ -126,7 +126,7 @@ export function Tier({
         <>
           <div className="h-px bg-line m-0" />
           <div>
-            <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--color-ink-3)] mb-3">
+            <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-ink-3 mb-3">
               {excludes.heading ?? "Не входить"}
             </h4>
             <ul className={`${TIER_LIST_BASE} ${TIER_LIST_MUTED}`}>

@@ -128,7 +128,7 @@ const FAQ_ITEM_TITLE =
 // HeroUI's. Same caveat as the legacy CSS file noted (`!important` retained
 // for content padding because data-attribute selectors collide).
 const FAQ_ITEM_CONTENT =
-  "!px-[18px] !pt-0 !pb-[18px] text-[13px] leading-[1.65] text-[var(--color-ink-dim)] text-pretty " +
+  "!px-[18px] !pt-0 !pb-[18px] text-[13px] leading-[1.65] text-ink-dim text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "[&_.rich-link]:text-accent-soft [&_.rich-link]:font-medium [&_.rich-link]:underline [&_.rich-link]:decoration-[oklch(0.7_0.14_295_/_0.4)] [&_.rich-link]:underline-offset-[3px] [&_.rich-link]:transition-[color,text-decoration-color] [&_.rich-link]:duration-200 [&_.rich-link:hover]:text-ink [&_.rich-link:hover]:decoration-ink " +
   "md:!px-6 md:!pb-[22px] md:text-[14px]";
@@ -141,7 +141,7 @@ const FAQ_ITEM_INDICATOR = "!rotate-0 !transition-none";
 // indicator slot inside the trigger), so we can use `group-hover/trigger:`
 // for the hover colour swap.
 const FAQ_PLUS_BASE =
-  "w-8 h-8 rounded-full border border-line-strong bg-transparent text-[var(--color-ink-dim)] " +
+  "w-8 h-8 rounded-full border border-line-strong bg-transparent text-ink-dim " +
   "inline-flex items-center justify-center shrink-0 " +
   "transition-[background-color,color,border-color,transform] duration-[250ms] " +
   "group-hover/trigger:text-accent-soft group-hover/trigger:border-accent-40 " +
@@ -216,7 +216,7 @@ export function FAQ({
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
-              className="inline-flex items-center gap-2.5 min-h-11 px-6 py-3 border border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--color-ink-dim)] hover:border-accent-soft hover:text-ink transition-colors duration-200"
+              className="inline-flex items-center gap-2.5 min-h-11 px-6 py-3 border border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim hover:border-accent-soft hover:text-ink transition-colors duration-200"
               aria-expanded={expanded}
             >
               {toggleLabel}

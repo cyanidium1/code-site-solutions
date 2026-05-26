@@ -111,7 +111,7 @@ function SocialIcon({ kind }: { kind: TeamSocialKind }) {
 
 function TeamCard({ m }: { m: TeamMember }) {
   return (
-    <article className="relative flex flex-col basis-[65vw] grow-0 shrink-0 max-w-[280px] snap-start border border-line rounded-[22px] bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-[var(--color-line-strong)] hover:-translate-y-0.5 lg:basis-auto lg:grow lg:shrink lg:max-w-none lg:snap-none">
+    <article className="relative flex flex-col basis-[65vw] grow-0 shrink-0 max-w-[280px] snap-start border border-line rounded-[22px] bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-line-strong hover:-translate-y-0.5 lg:basis-auto lg:grow lg:shrink lg:max-w-none lg:snap-none">
       <div className="aspect-square overflow-hidden relative bg-[linear-gradient(135deg,oklch(0.30_0.10_290)_0%,oklch(0.20_0.06_270)_100%)] flex items-center justify-center [&>img]:w-full [&>img]:h-full [&>img]:object-cover [&>img]:block">
         {m.photo ? (
           <img src={m.photo} alt={m.name} />
@@ -140,16 +140,16 @@ function TeamCard({ m }: { m: TeamMember }) {
           {m.role}
         </div>
         {(m.experience || m.location) && (
-          <div className="mt-3.5 flex flex-wrap gap-x-2.5 gap-y-1.5 font-mono text-[11px] text-[var(--color-ink-3)]">
+          <div className="mt-3.5 flex flex-wrap gap-x-2.5 gap-y-1.5 font-mono text-[11px] text-ink-3">
             {m.experience ? <span>{m.experience}</span> : null}
             {m.experience && m.location ? (
-              <span className="text-[var(--color-line-strong)]">·</span>
+              <span className="text-line-strong">·</span>
             ) : null}
             {m.location ? <span>{m.location}</span> : null}
           </div>
         )}
         {m.spec ? (
-          <p className="mt-3.5 font-sans text-[12.5px] leading-[1.55] text-[var(--color-ink-dim)] lg:text-[13px]">
+          <p className="mt-3.5 font-sans text-[12.5px] leading-[1.55] text-ink-dim lg:text-[13px]">
             {m.spec}
           </p>
         ) : null}
@@ -158,12 +158,12 @@ function TeamCard({ m }: { m: TeamMember }) {
             <span className="font-display text-[36px] leading-[0.7] text-accent-soft mt-1 select-none">
               “
             </span>
-            <span className="font-sans italic text-[12.5px] leading-[1.55] text-[var(--color-ink-dim)] lg:text-[13.5px]">
+            <span className="font-sans italic text-[12.5px] leading-[1.55] text-ink-dim lg:text-[13.5px]">
               {m.quote}
             </span>
           </blockquote>
         ) : m.socials && m.socials.length > 0 ? (
-          <div className="flex gap-3 mt-4.5 pt-4 border-t border-line [&_a]:text-[var(--color-ink-3)] [&_a]:inline-flex [&_a]:items-center [&_a]:justify-center [&_a]:w-7 [&_a]:h-7 [&_a]:rounded-lg [&_a]:transition-[color,background] [&_a]:duration-200 [&_a:hover]:text-ink [&_a:hover]:bg-[oklch(1_0_0_/_0.04)]">
+          <div className="flex gap-3 mt-4.5 pt-4 border-t border-line [&_a]:text-ink-3 [&_a]:inline-flex [&_a]:items-center [&_a]:justify-center [&_a]:w-7 [&_a]:h-7 [&_a]:rounded-lg [&_a]:transition-[color,background] [&_a]:duration-200 [&_a:hover]:text-ink [&_a:hover]:bg-[oklch(1_0_0_/_0.04)]">
             {m.socials.map((s, i) => (
               <a
                 key={i}
@@ -203,7 +203,7 @@ export function TeamCards({
         {(eyebrow || heading || sub) && (
           <header className="flex flex-col mb-16">
             {eyebrow ? (
-              <span className="inline-flex items-center self-start gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--color-ink-3)] before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]">
+              <span className="inline-flex items-center self-start gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]">
                 {eyebrow}
               </span>
             ) : null}
@@ -213,7 +213,7 @@ export function TeamCards({
               </h2>
             ) : null}
             {sub ? (
-              <p className="mt-4.5 font-sans text-[16px] leading-[1.55] text-[var(--color-ink-dim)] max-w-[640px]">
+              <p className="mt-4.5 font-sans text-[16px] leading-[1.55] text-ink-dim max-w-[640px]">
                 {sub}
               </p>
             ) : null}
@@ -223,7 +223,7 @@ export function TeamCards({
         {groupList.map((g, gi) => (
           <div className={cn(gi > 0 && "mt-14")} key={gi}>
             {g.label ? (
-              <div className="mb-6 font-mono text-[11px] tracking-[0.14em] uppercase text-[var(--color-ink-3)] flex items-center gap-3 after:content-[''] after:flex-1 after:h-px after:bg-line">
+              <div className="mb-6 font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 flex items-center gap-3 after:content-[''] after:flex-1 after:h-px after:bg-line">
                 <span>{g.label}</span>
               </div>
             ) : null}

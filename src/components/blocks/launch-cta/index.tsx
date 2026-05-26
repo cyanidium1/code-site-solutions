@@ -33,7 +33,7 @@ export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
               {t("heading")}
             </H2>
           </div>
-          <p className="m-0 font-sans text-[13.5px] leading-[1.6] text-[var(--color-ink-dim)] max-w-[50ch] md:text-[14px]">
+          <p className="m-0 font-sans text-[13.5px] leading-[1.6] text-ink-dim max-w-[50ch] md:text-[14px]">
             {t("sub")}
           </p>
           <Link

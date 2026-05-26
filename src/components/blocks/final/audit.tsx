@@ -6,7 +6,7 @@ import type * as React from "react";
 // 250+ char Tailwind string; extracting prevents the React reconciler
 // from re-allocating an identical literal on every render.
 const AUDIT_INPUT_CLASS =
-  "w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-[var(--color-line-strong)] rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-[var(--color-ink-3)] focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]";
+  "w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-line-strong rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]";
 
 const AUDIT_SUBMIT_CLASS =
   "w-full px-[22px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[12px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 uppercase hover:-translate-y-0.5";
@@ -68,7 +68,7 @@ export function Audit({
           <h2 className="font-display font-bold text-[clamp(24px,8vw,34px)] leading-none tracking-[-0.035em] mb-4 text-ink uppercase text-balance md:text-[clamp(34px,4.4vw,54px)] md:mb-[22px]">
             {heading}
           </h2>
-          <p className="text-[13px] leading-[1.6] text-[var(--color-ink-dim)] mb-[22px] max-w-[46ch] md:text-[15px] md:mb-8 [&_em]:not-italic [&_em]:font-medium">
+          <p className="text-[13px] leading-[1.6] text-ink-dim mb-[22px] max-w-[46ch] md:text-[15px] md:mb-8 [&_em]:not-italic [&_em]:font-medium">
             {sub}
           </p>
           <ul className="list-none flex flex-col gap-3 mb-7 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.5] [&>li]:text-ink [&>li_em]:not-italic [&>li_em]:font-medium md:[&>li]:text-[14px]">
@@ -81,12 +81,12 @@ export function Audit({
               </li>
             ))}
           </ul>
-          <p className="italic text-[12px] text-[var(--color-ink-3)] max-w-[50ch] leading-[1.55] md:text-[13px]">
+          <p className="italic text-[12px] text-ink-3 max-w-[50ch] leading-[1.55] md:text-[13px]">
             {foot}
           </p>
         </div>
         <form
-          className="px-5 py-[22px] max-w-[460px] border border-[var(--color-line-strong)] rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] flex flex-col gap-3 md:px-7 md:py-7 md:pt-8 md:rounded-[22px] xl:max-w-none"
+          className="px-5 py-[22px] max-w-[460px] border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] flex flex-col gap-3 md:px-7 md:py-7 md:pt-8 md:rounded-[22px] xl:max-w-none"
           onSubmit={(e) => e.preventDefault()}
         >
           <input
@@ -115,7 +115,7 @@ export function Audit({
           >
             {submit}
           </button>
-          <div className="text-[11px] leading-[1.5] text-[var(--color-ink-3)] mt-2">
+          <div className="text-[11px] leading-[1.5] text-ink-3 mt-2">
             {disclaim}
           </div>
         </form>
