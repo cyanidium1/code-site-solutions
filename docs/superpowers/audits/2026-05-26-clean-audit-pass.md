@@ -215,3 +215,26 @@ Applied 9 of the 15 findings inline; 1 partially applied; 5 deferred with reason
 - `npm run lint` — passes (only pre-existing `<img>` warnings remain; no new `react/forbid-dom-props` errors)
 - `npm run build` — passes; first-load JS unchanged at 102 kB shared
 
+## Phase 8.1 — Finding 11 resolution (2026-05-26)
+
+Finding 11 was marked Blocked in Phase 8 because 4 of the 6 `HeroEditorial` consumers (`vs-wordpress`, `vs-freelancers`, `vs-constructors`, `industry-page`) were not passing `ctaPrimaryHref` / `ctaSecondaryHref` — so the `<button>` fallback branches were live in production, not dead code. Resolved by wiring natural-default routes in each consumer (locale-aware via the existing `localizePath` helper), then promoting both props to required and deleting the unreachable button branches.
+
+### Natural-default destinations chosen
+- `vs-wordpress` — primary → `/calculator` ("Calculate migration"), secondary → `/contacts` ("Talk to a specialist" / "See how we migrate" — no dedicated migration page; contacts is the conversion fallback).
+- `vs-freelancers` — primary → `/calculator` ("Get an estimate"), secondary → `/process` ("See how we work" — `/process` is the natural match for the label).
+- `vs-constructors` — primary → `/calculator` ("Calculate migration"), secondary → `/contacts` ("Talk to a migration specialist" — same rationale as vs-wordpress).
+- `industry-page` — primary → `/contacts`, secondary → `/calculator`. The Sanity `hero` schema has no `ctaPrimaryHref` / `ctaSecondaryHref` fields, so defaults are used directly (could be CMS-driven in a future migration if needed). Labels remain `loc()`-driven from Sanity.
+
+All four use `localizePath(uaPath, locale === "en")` so EN routes are prefixed correctly.
+
+### Component-level change
+In `src/components/blocks/hero/index.tsx`:
+- `ctaPrimaryHref` and `ctaSecondaryHref` changed from `?: string` to required `: string`.
+- The two `ctaXHref ? <Link> : <button>` ternaries collapsed into single `<Link>` branches.
+- The `type="button"` defaults added in Phase 8 commit `4bce0ba` on those `<button>` fallback branches are gone with the buttons (they have no remaining sites — the `Btn` primitive change from Phase 8 still stands).
+
+### Verification (Phase 8.1)
+- `npm run typecheck` — passes
+- `npm run lint` — passes (no new warnings)
+- `npm run build` — passes
+
