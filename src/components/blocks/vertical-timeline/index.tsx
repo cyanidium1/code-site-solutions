@@ -56,7 +56,7 @@ function ColumnList({ col }: { col: TimelineColumn }) {
             key={i}
             className="flex gap-2.5 items-start font-sans text-[13.5px] leading-[1.5] text-[var(--color-ink-dim)]"
           >
-            <span className="inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full mt-px bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft">
+            <span className="inline-flex items-center justify-center w-[18px] h-[18px] shrink-0 rounded-full mt-px bg-accent-15 text-accent-soft">
               {CHECK}
             </span>
             <span>{it}</span>

@@ -101,7 +101,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                     key={it.num}
                     className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
+                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-22">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1">

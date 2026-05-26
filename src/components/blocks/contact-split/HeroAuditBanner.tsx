@@ -20,7 +20,7 @@ function HeroAuditBannerInner() {
 
   return (
     <div
-      className="max-w-container mx-auto mb-[22px] py-[14px] px-4 flex gap-[14px] items-start border border-accent-40 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] rounded-[14px] md:mb-8 md:py-[18px] md:px-[22px]"
+      className="max-w-container mx-auto mb-[22px] py-[14px] px-4 flex gap-[14px] items-start border border-accent-40 bg-accent-8 rounded-[14px] md:mb-8 md:py-[18px] md:px-[22px]"
       role="status"
       aria-live="polite"
     >

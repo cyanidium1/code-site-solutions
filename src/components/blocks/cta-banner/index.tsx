@@ -77,7 +77,7 @@ export function CtaBanner({
             {ctaSecondary ? (
               <a
                 href={ctaSecondary.href}
-                className={`${BTN_BASE} border border-[var(--color-line-strong)] bg-transparent text-ink hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] hover:bg-[oklch(1_0_0_/_0.04)]`}
+                className={`${BTN_BASE} border border-[var(--color-line-strong)] bg-transparent text-ink hover:border-accent-50 hover:bg-[oklch(1_0_0_/_0.04)]`}
               >
                 {ctaSecondary.label}
               </a>

@@ -105,7 +105,7 @@ const SELECT_ITEM_CLASS =
   "data-[hover=true]:!bg-[rgba(255,255,255,0.06)] data-[hover=true]:!text-ink " +
   "data-[focus=true]:!bg-[rgba(255,255,255,0.06)] data-[focus=true]:!text-ink " +
   "data-[focus-visible=true]:!bg-[rgba(255,255,255,0.06)] data-[focus-visible=true]:!text-ink " +
-  "data-[selected=true]:!bg-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] data-[selected=true]:!text-ink " +
+  "data-[selected=true]:!bg-accent-20 data-[selected=true]:!text-ink " +
   "data-[selected=true]:data-[hover=true]:!bg-[oklch(from_var(--color-accent)_l_c_h_/_0.28)]";
 
 const SELECT_CLASSNAMES = {
@@ -200,7 +200,7 @@ function LeadFormInner({
   if (status === "success") {
     return (
       <div
-        className="flex flex-col gap-3 p-8 border border-accent-40 rounded-[18px] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)]"
+        className="flex flex-col gap-3 p-8 border border-accent-40 rounded-[18px] bg-accent-6"
         role="status"
       >
         <div

@@ -245,7 +245,7 @@ function MemberCard({
           variant="bordered"
           radius="full"
           size="sm"
-          className="mt-5 self-start min-h-11 font-mono tracking-[0.06em] text-[11px] border-line hover:border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] text-[var(--color-ink-dim)] hover:text-ink"
+          className="mt-5 self-start min-h-11 font-mono tracking-[0.06em] text-[11px] border-line hover:border-accent-50 text-[var(--color-ink-dim)] hover:text-ink"
         >
           {moreLabel}
         </Button>

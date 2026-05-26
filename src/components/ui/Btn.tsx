@@ -34,7 +34,7 @@ const variantClass: Record<BtnVariant, string> = {
  * only used as a child decoration, never as a button.
  */
 export const PLAY_ICON_CLASS =
-  "inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] pl-0.5 text-[8px] text-accent";
+  "inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-accent-15 pl-0.5 text-[8px] text-accent";
 
 /**
  * Class-only helper for cases where `<Btn>` can't be used directly — e.g.

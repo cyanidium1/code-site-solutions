@@ -129,7 +129,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 key={i}
                 className="flex gap-4 border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)]"
               >
-                <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft border border-accent-30">
+                <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-accent-15 text-accent-soft border border-accent-30">
                   <CheckCircle2 size={15} strokeWidth={1.8} />
                 </span>
                 <div>
@@ -376,7 +376,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 key={i}
                 className={`border rounded-[18px] p-6 flex flex-col gap-4 ${
                   col.tone === "good"
-                    ? "border-accent-30 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)]"
+                    ? "border-accent-30 bg-accent-6"
                     : "border-line bg-[oklch(0.155_0.005_300)]"
                 }`}
               >

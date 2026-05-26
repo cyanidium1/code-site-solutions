@@ -473,7 +473,7 @@ export function Bento({
                     className={cn(
                       "inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-line bg-[oklch(1_0_0_/_0.04)] text-ink",
                       isOneByOne &&
-                        "max-lg:h-9 max-lg:w-9 max-lg:border-accent-30 max-lg:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.10)] max-lg:text-accent-soft",
+                        "max-lg:h-9 max-lg:w-9 max-lg:border-accent-30 max-lg:bg-accent-10 max-lg:text-accent-soft",
                     )}
                   >
                     <Icon size={18} strokeWidth={1.6} />
@@ -481,7 +481,7 @@ export function Bento({
                   {c.stat ? (
                     <span
                       className={cn(
-                        "ml-auto whitespace-nowrap rounded-full border border-accent-40 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.10)] px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[oklch(from_var(--color-accent)_0.92_0.12_h)]",
+                        "ml-auto whitespace-nowrap rounded-full border border-accent-40 bg-accent-10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[oklch(from_var(--color-accent)_0.92_0.12_h)]",
                         isOneByOne &&
                           "max-lg:col-start-2 max-lg:row-start-3 max-lg:ml-0 max-lg:self-start max-lg:pt-1.5",
                       )}

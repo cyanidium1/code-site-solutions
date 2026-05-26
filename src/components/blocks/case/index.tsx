@@ -62,7 +62,7 @@ const CARD_BASE_CLASS =
 // plus a ::before that paints a gradient border via mask-composite (preserved
 // verbatim — Tailwind has no utility for this masked border trick).
 const CARD_AFTER_CLASS =
-  "!border-[oklch(from_var(--color-accent)_l_c_h_/_0.35)] " +
+  "!border-accent-35 " +
   "bg-[linear-gradient(180deg,oklch(from_var(--color-accent)_l_c_h_/_0.06),oklch(from_var(--color-accent)_l_c_h_/_0.02))] " +
   "shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.15),0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] " +
   "before:content-[''] before:absolute before:inset-[-1px] before:rounded-[inherit] " +
@@ -79,7 +79,7 @@ const BADGE_BEFORE_CLASS =
   "bg-[oklch(1_0_0_/_0.06)] text-ink-dim border border-line-strong";
 
 const BADGE_AFTER_CLASS =
-  "bg-brand-gradient text-[oklch(1_0_0_/_0.98)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.5)] shadow-[0_4px_14px_oklch(from_var(--color-accent)_l_c_h_/_0.4)]";
+  "bg-brand-gradient text-[oklch(1_0_0_/_0.98)] border border-accent-50 shadow-[0_4px_14px_oklch(from_var(--color-accent)_l_c_h_/_0.4)]";
 
 const BADGE_DOT_CLASS =
   "w-1.5 h-1.5 rounded-full bg-current opacity-85";
@@ -131,7 +131,7 @@ const TAGLINE_ICN_BAD_CLASS =
   "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.75_0.16_25)]";
 
 const TAGLINE_ICN_GOOD_CLASS =
-  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] text-accent-soft";
+  "bg-accent-20 text-accent-soft";
 
 // Checklist <ul>: 12px-gap column. <li> rows have 14px body / 13px @700px,
 // pretty-wrap, and emphasised <em> spans use ink + medium weight.
@@ -149,7 +149,7 @@ const LIST_ICN_BAD_CLASS =
   "bg-[oklch(0.65_0.18_25_/_0.12)] text-[oklch(0.78_0.16_25)] border-[oklch(0.65_0.18_25_/_0.25)]";
 
 const LIST_ICN_GOOD_CLASS =
-  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.15)] text-accent-soft border-accent-30";
+  "bg-accent-15 text-accent-soft border-accent-30";
 
 const CARD_FOOT_CLASS =
   "mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";

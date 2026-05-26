@@ -54,7 +54,7 @@ const TIER_BTN_PRIMARY =
   "bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] border-0 shadow-[0_6px_18px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] hover:-translate-y-0.5 hover:shadow-[0_10px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.4)]";
 
 const TIER_BTN_GHOST =
-  "bg-transparent border border-[var(--color-line-strong)] text-ink shadow-none hover:border-accent-soft hover:text-accent-soft hover:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)]";
+  "bg-transparent border border-[var(--color-line-strong)] text-ink shadow-none hover:border-accent-soft hover:text-accent-soft hover:bg-accent-8";
 
 const TIER_LIST_BASE =
   "list-none flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[13px] [&>li]:leading-[1.45] [&>li_em]:not-italic";

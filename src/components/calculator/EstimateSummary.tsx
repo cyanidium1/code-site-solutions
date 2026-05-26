@@ -253,7 +253,7 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
       <div
         className={
           `${SECTION} gap-2 relative p-[14px] rounded-[14px] ` +
-          "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.22)]"
+          "bg-accent-8 border border-accent-22"
         }
       >
         <span className="inline-flex items-center justify-center w-[26px] h-[26px] rounded-lg bg-accent-18 text-accent-soft">

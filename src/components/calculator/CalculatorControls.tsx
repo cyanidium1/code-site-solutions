@@ -64,7 +64,7 @@ const SEG_BTN_CLASS =
   "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
 
 const SEG_BTN_ACTIVE_CLASS =
-  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] bg-accent-12 !text-ink";
+  "border-accent-55 bg-accent-12 !text-ink";
 
 // Checkbox-card class used by CMS / SEO / Features groups. Children
 // (input, span, strong, small) styled via descendant selectors.
@@ -237,7 +237,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                       ? "border-accent-40 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-[2px] xl:-translate-y-[6px] xl:hover:-translate-y-[8px] [&>b]:bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] [&>b]:border-transparent [&>b]:text-[oklch(1_0_0_/_0.98)] "
                       : "bg-[oklch(0.16_0.005_300)] ") +
                     (isActive
-                      ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.22)]"
+                      ? "border-accent-55 shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.22)]"
                       : isRecommended
                         ? ""
                         : "border-line")
@@ -368,7 +368,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                     "transition-[border-color,background,box-shadow] duration-200 overflow-hidden " +
                     "hover:border-line-strong hover:bg-[oklch(0.19_0.01_300)] " +
                     (isActive
-                      ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]"
+                      ? "border-accent-55 shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]"
                       : "border-line")
                   }
                   role="button"

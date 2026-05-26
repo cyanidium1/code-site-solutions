@@ -39,7 +39,7 @@ const SEG_BTN =
   "hover:border-line-strong hover:text-ink " +
   "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
 const SEG_BTN_ACTIVE =
-  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] bg-accent-12 !text-ink";
+  "border-accent-55 bg-accent-12 !text-ink";
 const NOTE = "text-ink-3 text-[12px] leading-[1.5]";
 
 // Renders <em>…</em> chunks inside next-intl rich messages. Reused for every
@@ -271,7 +271,7 @@ export function WebsiteCalculator() {
                           ? "bg-[linear-gradient(180deg,oklch(0.2_0.03_295),oklch(0.16_0.02_295))] "
                           : "bg-[oklch(0.18_0.008_300)] ") +
                         (isActive
-                          ? "border-[oklch(from_var(--color-accent)_l_c_h_/_0.55)] shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.28)]"
+                          ? "border-accent-55 shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.28)]"
                           : "border-line")
                       }
                       onClick={() =>
@@ -286,7 +286,7 @@ export function WebsiteCalculator() {
                           {t(`options.seoGrowth.${id}.label` as `options.seoGrowth.${SeoGrowthPlan}.label`)}
                         </strong>
                         {plan.badge ? (
-                          <span className="text-[10px] border border-[oklch(from_var(--color-accent)_l_c_h_/_0.35)] text-accent-soft rounded-full px-[7px] py-[3px] uppercase tracking-[0.1em]">
+                          <span className="text-[10px] border border-accent-35 text-accent-soft rounded-full px-[7px] py-[3px] uppercase tracking-[0.1em]">
                             {t("options.seoGrowth.badgeRecommended")}
                           </span>
                         ) : null}

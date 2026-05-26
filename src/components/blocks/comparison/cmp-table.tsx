@@ -53,7 +53,7 @@ const TH_BASE =
 
 // Highlighted "good" column header.
 const TH_GOOD =
-  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.10)] " +
+  "bg-accent-10 " +
   "border-l border-r border-l-[oklch(from_var(--color-accent)_l_c_h_/_0.25)] border-r-[oklch(from_var(--color-accent)_l_c_h_/_0.25)] " +
   "border-b-[oklch(from_var(--color-accent)_l_c_h_/_0.35)] " +
   "text-accent-soft";
@@ -96,7 +96,7 @@ const TD_BAD = "text-ink-3";
 
 const TD_GOOD =
   "text-ink font-semibold " +
-  "bg-[oklch(from_var(--color-accent)_l_c_h_/_0.10)] " +
+  "bg-accent-10 " +
   "border-l border-r border-l-[oklch(from_var(--color-accent)_l_c_h_/_0.25)] border-r-[oklch(from_var(--color-accent)_l_c_h_/_0.25)] " +
   // On mobile: transparent + accent-soft text (no side borders).
   "max-md:bg-transparent max-md:border-l-0 max-md:border-r-0 max-md:text-accent-soft max-md:font-semibold";

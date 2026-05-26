@@ -36,8 +36,8 @@ const UI_TEXTAREA = UI_INPUT + " !leading-[1.5]";
 const UI_SELECT_TRIGGER = UI_INPUT_WRAPPER + " !px-3";
 const UI_SELECT_POPOVER = "!bg-[oklch(0.16_0.005_300)] !border !border-line";
 const UI_SELECT_LISTBOX =
-  "[&_[data-hover=true]]:!bg-[oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
-  "[&_[data-selected=true]]:!bg-[oklch(from_var(--color-accent)_l_c_h_/_0.2)]";
+  "[&_[data-hover=true]]:!bg-accent-20 " +
+  "[&_[data-selected=true]]:!bg-accent-20";
 
 type LeadFormProps = {
   input: CalculatorInput;

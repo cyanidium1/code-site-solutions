@@ -32,7 +32,7 @@ const ROW_DEFAULT_CLASS =
 
 // Featured row: accent-tinted, deeper bg on hover, gradient icon (via group).
 const ROW_FEATURED_CLASS =
-  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.45)] bg-[oklch(from_var(--color-accent)_l_c_h_/_0.06)] hover:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.1)]";
+  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.45)] bg-accent-6 hover:bg-accent-10";
 
 const ICON_BASE_CLASS =
   "w-9 h-9 inline-flex items-center justify-center border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.03)] text-ink";
