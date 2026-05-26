@@ -14,8 +14,10 @@
   --breakpoint-xs: 380px;
   --breakpoint-sm: 640px;
   --breakpoint-md: 700px;
+  --breakpoint-md-wide: 760px;
   --breakpoint-lg: 800px;
   --breakpoint-xl: 1100px;
+  --breakpoint-2xl: 1440px;
 
   /* Colors — mirror legacy :root values below; legacy :root retained during Phase 1 for back-compat. */
   --color-bg: #121212;
