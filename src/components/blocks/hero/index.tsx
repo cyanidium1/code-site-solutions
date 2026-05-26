@@ -587,16 +587,22 @@ export function HeroEditorial({
         {showTicker && (
           <div className={TICKER_CLASS}>
             <div className={TICKER_TRACK_CLASS}>
-              {[...Array(2)].map((_, i) => (
-                <div className={TICKER_ROW_CLASS} key={i}>
-                  {tickerItems.map((it, j) => (
-                    <span key={j} className="contents">
-                      <span>{it}</span>
-                      <span>•</span>
-                    </span>
-                  ))}
-                </div>
-              ))}
+              <div className={TICKER_ROW_CLASS} key="a">
+                {tickerItems.map((it, j) => (
+                  <span key={j} className="contents">
+                    <span>{it}</span>
+                    <span>•</span>
+                  </span>
+                ))}
+              </div>
+              <div className={TICKER_ROW_CLASS} key="b" aria-hidden="true">
+                {tickerItems.map((it, j) => (
+                  <span key={j} className="contents">
+                    <span>{it}</span>
+                    <span>•</span>
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         )}
