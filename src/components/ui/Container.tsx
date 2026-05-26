@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ElementType } from "react";
+import { type HTMLAttributes } from "react";
 import { cn } from "./cn";
 
 type Variant = "default" | "h1" | "narrow" | "prose" | "form";
@@ -13,7 +13,7 @@ const widthClass: Record<Variant, string> = {
 
 interface ContainerProps extends HTMLAttributes<HTMLElement> {
   variant?: Variant;
-  as?: ElementType;
+  as?: "div" | "section" | "main" | "article" | "aside";
 }
 
 /**

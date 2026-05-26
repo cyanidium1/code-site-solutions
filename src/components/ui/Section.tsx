@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ElementType } from "react";
+import { type HTMLAttributes } from "react";
 import { cn } from "./cn";
 
 type Variant = "default" | "tight" | "lg" | "md";
@@ -12,7 +12,7 @@ const yClass: Record<Variant, string> = {
 
 interface SectionProps extends HTMLAttributes<HTMLElement> {
   variant?: Variant;
-  as?: ElementType;
+  as?: "section" | "div" | "main" | "article";
 }
 
 /**
