@@ -446,3 +446,45 @@ The bundle savings landed at the lower end of the Section-A estimate (~2–4 KB 
 - **`[var(--color-X)]` → named utility** (Finding G.5): ~30–50 sites; consistency win.
 - **rgba → OKLCH holdouts** (Finding G.6): 7 sites.
 - **Long className-constant splitting** (Finding G.1) + **static `cn()` hoisting** (Finding G.2): DX-only; per-consumer judgement.
+
+---
+
+## Phase 6 — Deferred polish (2026-05-26)
+
+Applied the breakpoint-promotion + additional-OKLCH-promotion + utility-hoisting items deferred from Phase 5. 6 commits on `refactor/style-system-unification`; verified with `npm run typecheck && npm run build` between batches.
+
+### Changes
+- **Two non-canonical breakpoints promoted to `@theme` tokens** (Finding G.4):
+  - `--breakpoint-2xl: 1440px` — extends the canonical scale past `xl` (1100); 47 consumer references migrated from `max-[1440px]:` to `max-2xl:` across hero, image-text, layout/hp-header, locale-switcher, and ui/Btn.
+  - `--breakpoint-md-wide: 760px` — sits between `md` (700) and `lg` (800); 32 consumer references migrated from `max-[760px]:` to `max-md-wide:` across all three calculator files. Option A (preserve design exactly) was chosen over consolidating into `max-md:`; the 60px window between 700–759 is design-significant on the calculator's grid breakpoints and consolidating would have caused single→two-column layout to occur 60px earlier than intended.
+
+- **9 additional OKLCH-from-accent alpha values promoted** (Finding C.1 tail): `--color-accent-{6, 8, 10, 15, 20, 22, 35, 50, 55}`. Selection criteria: standalone color-context usages with ≥4 references. Patterns nested inside `bg-[radial-gradient(...)]` or `shadow-[...]` arbitrary values were intentionally skipped — they're not directly promotable to single-color utilities. ~46 consumer references migrated across 26 .tsx files via a single bulk sed-script + manual verification.
+  - Convention: 1- or 2-digit suffix matches the source alpha × 100, no leading zero (`accent-6`, `accent-15`, `accent-22`) — consistent with Phase 5's `accent-12/18/25/30/40`. Both `0.1` and `0.10` source forms collapse onto `accent-10`.
+
+- **7 long inline className strings hoisted** (Finding G.1/G.2): module-level constants in 3 files:
+  - `blocks/final/audit.tsx`: 2 constants (`AUDIT_INPUT_CLASS`, `AUDIT_SUBMIT_CLASS`); 4× input + 1× submit = 5 inline occurrences deduplicated. The four `<input>`s previously shared an identical 280-char literal allocated per-render.
+  - `blocks/final/clinic-footer.tsx`: 2 constants (`FOOTER_SOCIALS_CLASS`, `FOOTER_COL_LIST_CLASS`); both contained complex `[&>...]` descendant selector chains and the column list was rendered inside `.map()`.
+  - `blocks/comparison/comparison.tsx`: 3 constants (`CMP_CTA_PRIMARY_CLASS`, `CMP_CTA_GHOST_CLASS`, `CMP_CONTACT_SUBMIT_CLASS`); each 250+ chars.
+
+### Bundle delta (Phase 6 only)
+- **Before (Phase 5 end):** 446,639 B raw / 63,120 B gzipped
+- **After (Phase 6 end):**  445,978 B raw / 61,456 B gzipped
+- **Net Phase 6:** **−661 B raw / −1,664 B gzipped**
+
+The raw delta is small (breakpoint+token renames substitute roughly-equivalent string lengths), but the gzipped delta is meaningfully larger because the promoted tokens consolidate previously-unique arbitrary-value strings into the same CSS-custom-property reference (e.g. 6 instances of `border-color:oklch(from var(--color-accent) l c h / 0.55)` collapse into 6 instances of `border-color:var(--color-accent-55)` plus one shared definition).
+
+### Cumulative delta (Phase 4 baseline → Phase 6 end)
+- **Phase 4 baseline:** 448,565 B raw / 63,408 B gzipped
+- **Phase 6 end:**     445,978 B raw / 61,456 B gzipped
+- **Cumulative:**      **−2,587 B raw / −1,952 B gzipped**
+
+### Phase 7+ candidates (still deferred)
+- Compound OKLCH inside `bg-[radial-gradient(...)]` / `shadow-[...]` arbitrary values — would need a different rewrite pattern (substitute `var(--color-accent-NN)` inline within the composite arbitrary value).
+- Remaining standalone OKLCH patterns below the new 4-ref cutoff (`accent-5`, `accent-7`, `accent-14`, `accent-28`, `accent-45`, `accent-60`, `accent-70` — each 1-2 refs).
+- Surface-bg scale (Finding C.2): still ~70 sites using `oklch(0.13|0.155|0.16|0.22 0.005 300)` — would benefit from a `--color-surface-{1..4}` scale.
+- Brand-gradient consolidation (Finding C.3): 10 sites use the 135° diagonal form.
+- `border-[oklch(1 0 0 / 0.06)]` → `border-line` (Finding C.4): 14 sites.
+- `[var(--color-X)]` → named utility (Finding G.5): ~30-50 sites.
+- rgba → OKLCH holdouts (Finding G.6): 7 sites.
+- HeroUI library swap (if pain emerges).
+- Light theme / multi-theme support.
