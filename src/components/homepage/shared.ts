@@ -16,10 +16,10 @@
 // hidden so per-section glow halos don't leak. `tight` variant uses the
 // shorter tight spacing scale.
 export const hpSectionClass =
-  "relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 overflow-hidden bg-bg";
+  "relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg";
 
 // Max-width container, centred, with positioning context for inner overlays.
-export const hpInnerClass = "max-w-container mx-auto relative z-[1]";
+export const hpInnerClass = "relative max-w-container mx-auto z-[1]";
 
 // Eyebrow pill — small uppercase mono label with a glowing dot. Pair
 // `hpEyebrowClass` (the pill) with `hpEyebrowDotClass` (the dot) inside it.

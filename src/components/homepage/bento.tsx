@@ -409,6 +409,8 @@ const DEFAULT_BENTO: BentoCell[] = [
 const cellBase =
   "group/bento-cell relative flex flex-col overflow-hidden rounded-[22px] border border-line p-7 " +
   "[background:radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),oklch(1_0_0_/_0.02)] " +
+  // Per-cell stacking context above any decoration painted inside the section.
+  "z-[1] " +
   // entrance: blurred + offset until grid reaches viewport, then settle.
   "opacity-0 translate-y-6 scale-[0.97] blur-[6px] " +
   "[transition:opacity_0.85s_cubic-bezier(0.2,0.8,0.2,1),transform_0.85s_cubic-bezier(0.2,0.8,0.2,1),filter_0.85s_cubic-bezier(0.2,0.8,0.2,1)] " +
@@ -432,6 +434,13 @@ const mobile1x1 =
   "max-lg:grid max-lg:grid-cols-[auto_1fr] max-lg:gap-x-[14px] max-lg:gap-y-0.5 max-lg:p-[18px_20px] " +
   "max-lg:before:inset-x-[18px]";
 
+// When the consumer paints a `decoration` behind the cells, the default
+// near-transparent cell bg lets the decoration bleed through the cards. This
+// variant swaps the bg layer for an opaque page-bg fill so the decoration
+// only shows in the gaps between cells (and around the grid).
+const cellOpaque =
+  "[background:radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),var(--color-bg)]";
+
 export function Bento({
   eyebrow = "ЧОМУ МИ",
   heading = (
@@ -441,15 +450,24 @@ export function Bento({
   ),
   cells = DEFAULT_BENTO,
   locale = "uk",
+  decoration,
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
   cells?: BentoCell[];
   locale?: PriceLocale;
+  /**
+   * Optional absolutely-positioned visual painted behind the cells, inside the
+   * bento section. Used by the About page to drop the CS logo / a screenshot
+   * mockup into the empty 4th column slot at xl+ widths. Render via positioned
+   * children — Bento provides only the stacking context.
+   */
+  decoration?: React.ReactNode;
 } = {}) {
   return (
     <section className={hpSectionClass} id="why-us">
-      <div className={hpInnerClass}>
+      <div className={cn(hpInnerClass, "relative")}>
+        {decoration}
         <SectionHead eyebrow={eyebrow} heading={heading} />
         <ScrollReveal className="group/bento-reveal grid grid-cols-1 gap-4 [grid-auto-rows:auto] lg:grid-cols-2 lg:[grid-auto-rows:minmax(280px,auto)] xl:grid-cols-4">
           {cells.map((c, i) => {
@@ -458,7 +476,12 @@ export function Bento({
             return (
               <div
                 key={i}
-                className={cn(cellBase, spanClass[c.span], isOneByOne && mobile1x1)}
+                className={cn(
+                  cellBase,
+                  spanClass[c.span],
+                  isOneByOne && mobile1x1,
+                  decoration && cellOpaque,
+                )}
                 // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
                 style={{ "--i": i } as React.CSSProperties}
               >
