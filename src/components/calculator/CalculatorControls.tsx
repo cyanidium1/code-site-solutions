@@ -157,7 +157,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
   const renderFeatureGroup = (title: string, items: typeof FEATURE_OPTIONS) => (
     <>
       <label className="flex flex-col gap-[6px] text-[13px] text-ink">{title}</label>
-      <div className="grid gap-[10px] grid-cols-2 max-[760px]:grid-cols-1 xl:grid-cols-3">
+      <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
         {items.map((option) => (
           <label key={option.id} className={CHECKBOX_CLASS}>
             <input
@@ -276,7 +276,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       </section>
 
       <div className="mt-2 mb-1">
-        <div className="flex items-center justify-between gap-3 max-[760px]:flex-wrap max-[760px]:gap-2">
+        <div className="flex items-center justify-between gap-3 max-md-wide:flex-wrap max-md-wide:gap-2">
           <H3 variant="calc-intro">{t("controls.customizeTitle")}</H3>
           <button
             type="button"
@@ -292,7 +292,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
       <details open className={GROUP_CLASS}>
         <summary>{t("controls.section01")}</summary>
         <div className={GROUP_CONTENT_CLASS}>
-          <div className="grid grid-cols-3 gap-[10px] max-[760px]:grid-cols-1">
+          <div className="grid grid-cols-3 gap-[10px] max-md-wide:grid-cols-1">
             {Object.entries(PROJECT_TYPE_CONFIG).map(([id, item]) => (
               <OptionCard
                 key={id}
@@ -334,7 +334,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           {value.projectType === "ecommerce" ? (
             <>
               <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.productStructLabel")}</label>
-              <div className="grid grid-cols-2 gap-2 max-[760px]:grid-cols-1">
+              <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
                 {Object.entries(PRODUCT_COMPLEXITY_OPTIONS).map(([id, option]) => (
                   <button
                     key={id}
@@ -357,7 +357,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         <summary>{t("controls.section02")}</summary>
         <div className={GROUP_CONTENT_CLASS}>
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.designLabel")}</label>
-          <div className="grid grid-cols-2 gap-2 max-[760px]:grid-cols-1 xl:grid-cols-3">
+          <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
             {Object.entries(DESIGN_COMPLEXITY_OPTIONS).map(([id, option]) => {
               const isActive = value.designComplexity === id;
               return (
@@ -411,7 +411,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           <p className={NOTE_CLASS}>{t(`options.design.${value.designComplexity}.hint` as never)}</p>
 
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.langLabel")}</label>
-          <div className="grid grid-cols-2 gap-2 max-[760px]:grid-cols-1">
+          <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
             {Object.entries(LANGUAGE_OPTIONS).map(([id, option]) => (
               <button
                 key={id}
@@ -435,7 +435,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           <label className="inline-flex items-center gap-[6px] text-[12px] text-ink-dim">
             <Database size={14} /> {t("controls.cmsSubgroup")}
           </label>
-          <div className="grid gap-[10px] grid-cols-2 max-[760px]:grid-cols-1 xl:grid-cols-3">
+          <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
             {CMS_UPGRADES.map((option) => (
               <label key={option.id} className={CHECKBOX_CLASS}>
                 <input
@@ -461,7 +461,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           <label className="inline-flex items-center gap-[6px] text-[12px] text-ink-dim">
             <Search size={14} /> {t("controls.seoSubgroup")}
           </label>
-          <div className="grid gap-[10px] grid-cols-2 max-[760px]:grid-cols-1 xl:grid-cols-3">
+          <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
             {SEO_OPTIONS.map((option) => (
               <label key={option.id} className={CHECKBOX_CLASS}>
                 <input
@@ -499,7 +499,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         <summary>{t("controls.section05")}</summary>
         <div className={GROUP_CONTENT_CLASS}>
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.contentLabel")}</label>
-          <div className="grid grid-cols-2 gap-2 max-[760px]:grid-cols-1">
+          <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
             {Object.entries(CONTENT_OPTIONS).map(([id, option]) => (
               <button
                 key={id}
@@ -514,7 +514,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           </div>
 
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.timelineLabel")}</label>
-          <div className="grid grid-cols-2 gap-2 max-[760px]:grid-cols-1">
+          <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
             {Object.entries(TIMELINE_OPTIONS).map(([id, option]) => (
               <button
                 key={id}
@@ -554,7 +554,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                 {t("controls.modalClose")}
               </button>
             </div>
-            <div className="grid grid-cols-3 gap-[10px] max-[760px]:grid-cols-1">
+            <div className="grid grid-cols-3 gap-[10px] max-md-wide:grid-cols-1">
               {DESIGN_PREVIEW_CONFIG[previewDesign].map((item) => (
                 <figure
                   key={item.src + item.caption}

@@ -131,7 +131,7 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
         "static self-start border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] " +
         "p-[22px] pb-6 max-h-none overflow-y-auto [scrollbar-width:thin] " +
         "[&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-thumb]:bg-line-strong [&::-webkit-scrollbar-thumb]:rounded-full " +
-        "max-[760px]:rounded-[18px] max-[760px]:p-[18px] xl:sticky xl:top-24 xl:max-h-[calc(100vh-112px)]"
+        "max-md-wide:rounded-[18px] max-md-wide:p-[18px] xl:sticky xl:top-24 xl:max-h-[calc(100vh-112px)]"
       }
     >
       <div className={SECTION}>

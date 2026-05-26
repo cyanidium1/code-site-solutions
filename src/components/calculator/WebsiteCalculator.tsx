@@ -56,7 +56,7 @@ type InfoCard = {
 
 function InfoCardGrid({ cards }: { cards: InfoCard[] }) {
   return (
-    <div className="grid grid-cols-2 gap-4 max-[760px]:grid-cols-1 xl:grid-cols-3">
+    <div className="grid grid-cols-2 gap-4 max-md-wide:grid-cols-1 xl:grid-cols-3">
       {cards.map((c) => {
         const Icon = c.icon;
         return (
@@ -149,9 +149,9 @@ export function WebsiteCalculator() {
   return (
     <>
       {/* Section: How this estimate works */}
-      <section className={`${hpSectionClass} py-24 max-[760px]:py-16`}>
+      <section className={`${hpSectionClass} py-24 max-md-wide:py-16`}>
         <div className={hpInnerClass}>
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+          <div className="mb-14 flex flex-col items-start gap-0 max-md-wide:mb-8">
             <span className={hpEyebrowClass}>
               <span className={hpEyebrowDotClass} />
               <span>{t("howItWorks.eyebrow")}</span>
@@ -164,9 +164,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Why these packages */}
-      <section className={`${hpSectionClass} py-24 max-[760px]:py-16`}>
+      <section className={`${hpSectionClass} py-24 max-md-wide:py-16`}>
         <div className={hpInnerClass}>
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+          <div className="mb-14 flex flex-col items-start gap-0 max-md-wide:mb-8">
             <span className={hpEyebrowClass}>
               <span className={hpEyebrowDotClass} />
               <span>{t("whyPackages.eyebrow")}</span>
@@ -179,9 +179,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Calculator (controls + sticky summary) */}
-      <section className={`${hpSectionClass} pt-20 pb-24 max-[760px]:pt-16 max-[760px]:pb-20`}>
+      <section className={`${hpSectionClass} pt-20 pb-24 max-md-wide:pt-16 max-md-wide:pb-20`}>
         <div className={hpInnerClass}>
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+          <div className="mb-14 flex flex-col items-start gap-0 max-md-wide:mb-8">
             <span className={hpEyebrowClass}>
               <span className={hpEyebrowDotClass} />
               <span>{t("customizer.eyebrow")}</span>
@@ -202,9 +202,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: After-launch (Maintenance + SEO/Growth) */}
-      <section className={`${hpSectionClass} py-24 max-[760px]:py-16`}>
+      <section className={`${hpSectionClass} py-24 max-md-wide:py-16`}>
         <div className={hpInnerClass}>
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+          <div className="mb-14 flex flex-col items-start gap-0 max-md-wide:mb-8">
             <span className={hpEyebrowClass}>
               <span className={hpEyebrowDotClass} />
               <span>{t("afterLaunch.eyebrow")}</span>
@@ -217,7 +217,7 @@ export function WebsiteCalculator() {
             <div className="border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] px-5 pt-5 pb-[22px] flex flex-col gap-3">
               <H3 variant="calc-after">{t("afterLaunch.maintenance.title")}</H3>
               <p className={NOTE}>{t("afterLaunch.maintenance.note")}</p>
-              <div className="grid grid-cols-2 gap-2 max-[760px]:grid-cols-1">
+              <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
                 {Object.entries(MAINTENANCE_OPTIONS).map(([id, option]) => (
                   <button
                     key={id}
@@ -243,7 +243,7 @@ export function WebsiteCalculator() {
             <div className="border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] px-5 pt-5 pb-[22px] flex flex-col gap-3">
               <H3 variant="calc-after">{t("afterLaunch.growth.title")}</H3>
               <p className={NOTE}>{t("afterLaunch.growth.note")}</p>
-              <div className="grid grid-cols-2 gap-[10px] max-[760px]:grid-cols-1">
+              <div className="grid grid-cols-2 gap-[10px] max-md-wide:grid-cols-1">
                 {Object.entries(SEO_GROWTH_OPTIONS).map(([id, plan]) => {
                   const includes = t.raw(
                     `options.seoGrowth.${id}.includes`,
@@ -319,9 +319,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Why we estimate this way */}
-      <section className={`${hpSectionClass} py-24 max-[760px]:py-16`}>
+      <section className={`${hpSectionClass} py-24 max-md-wide:py-16`}>
         <div className={hpInnerClass}>
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+          <div className="mb-14 flex flex-col items-start gap-0 max-md-wide:mb-8">
             <span className={hpEyebrowClass}>
               <span className={hpEyebrowDotClass} />
               <span>{t("underHood.eyebrow")}</span>
@@ -380,9 +380,9 @@ export function WebsiteCalculator() {
       </section>
 
       {/* Section: Lead form + after-submit + alt CTA */}
-      <section className={`${hpSectionClass} pt-20 pb-30 max-[760px]:pt-16 max-[760px]:pb-20`} id="calc-lead-form">
+      <section className={`${hpSectionClass} pt-20 pb-30 max-md-wide:pt-16 max-md-wide:pb-20`} id="calc-lead-form">
         <div className={hpInnerClass}>
-          <div className="mb-14 flex flex-col items-start gap-0 max-[760px]:mb-8">
+          <div className="mb-14 flex flex-col items-start gap-0 max-md-wide:mb-8">
             <span className={hpEyebrowClass}>
               <span className={hpEyebrowDotClass} />
               <span>{t("getFinal.eyebrow")}</span>
@@ -395,7 +395,7 @@ export function WebsiteCalculator() {
           <div
             className={
               "mt-[22px] flex flex-wrap gap-y-[10px] gap-x-[14px] items-center justify-center " +
-              "px-[18px] py-[14px] border border-dashed border-line-strong rounded-full max-[760px]:rounded-[18px] " +
+              "px-[18px] py-[14px] border border-dashed border-line-strong rounded-full max-md-wide:rounded-[18px] " +
               "text-[13px] text-ink-3"
             }
           >
