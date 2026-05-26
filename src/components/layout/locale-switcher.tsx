@@ -10,7 +10,13 @@ import { resolveLocaleAlternate } from "@/constants/i18n-routes";
 // Native <details> dropdown — see component-level comment for why this
 // replaced HeroUI's Dropdown. Tailwind 4 `group/locale` lets the chevron +
 // trigger color react to [open] via `group-open/locale:*` modifiers.
-const localeDdClass = "group/locale relative self-stretch flex items-center";
+//
+// Outer wrapper uses `-mx-1` to visually neutralize the `px-1` on the
+// summary so the locale trigger occupies the same horizontal space as the
+// adjacent nav links (which have no horizontal padding). Without the
+// negative margin the locale switcher leaked 8px of extra width into the
+// nav gap, producing asymmetric spacing the user reported.
+const localeDdClass = "group/locale relative -mx-1 self-stretch flex items-center";
 const localeTriggerClass =
   "list-none inline-flex items-center gap-[5px] min-h-11 px-1 py-0 border-0 bg-transparent font-mono text-[11px] tracking-[0.12em] uppercase text-ink-dim cursor-pointer transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/locale:text-ink max-2xl:text-[10.5px] max-xl:text-[10px] max-xl:tracking-[0.1em] [&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 group-open/locale:[&_svg]:rotate-180";
 const localePanelClass =
