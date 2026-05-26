@@ -170,7 +170,7 @@ export function ImageText({
       const mockupBase =
         "absolute z-[1] flex pointer-events-none [filter:drop-shadow(0_30px_40px_oklch(0_0_0_/_0.45))] " +
         "bottom-1/2 translate-y-1/2 h-full w-auto max-w-[500px] " +
-        "max-[1440px]:h-[400px] max-[1440px]:max-w-[400px] " +
+        "max-2xl:h-[400px] max-2xl:max-w-[400px] " +
         "max-[1200px]:h-[300px] max-[1200px]:max-w-[380px] " +
         "max-[1024px]:h-[320px] max-[1024px]:max-w-[380px] " +
         "max-[900px]:hidden " +
@@ -186,10 +186,10 @@ export function ImageText({
           )}
         >
           <div className="relative w-full max-w-container mx-auto flex items-center justify-center min-h-[560px] max-[1200px]:min-h-[480px] max-[1024px]:min-h-[440px] max-[900px]:min-h-[320px] max-[900px]:px-4 max-[900px]:py-8 max-sm:min-h-[280px] max-sm:py-6 max-sm:px-3">
-            <div className={cn(mockupBase, "left-[-10%] max-[1440px]:left-[-5%]")} aria-hidden="true">
+            <div className={cn(mockupBase, "left-[-10%] max-2xl:left-[-5%]")} aria-hidden="true">
               {image}
             </div>
-            <div className="relative z-[2] flex flex-col items-center w-full max-w-[720px] text-center px-4 py-8 bg-[radial-gradient(ellipse_at_center,oklch(0.18_0.008_60_/_0.7)_0%,oklch(0.18_0.008_60_/_0)_70%)] max-[1440px]:max-w-[560px] max-[1200px]:max-w-[400px] max-[900px]:max-w-container-prose max-sm:px-2 max-sm:py-4">
+            <div className="relative z-[2] flex flex-col items-center w-full max-w-[720px] text-center px-4 py-8 bg-[radial-gradient(ellipse_at_center,oklch(0.18_0.008_60_/_0.7)_0%,oklch(0.18_0.008_60_/_0)_70%)] max-2xl:max-w-[560px] max-[1200px]:max-w-[400px] max-[900px]:max-w-container-prose max-sm:px-2 max-sm:py-4">
               {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
               <H2
                 variant="image-text"
@@ -218,7 +218,7 @@ export function ImageText({
                 </ul>
               ) : null}
             </div>
-            <div className={cn(mockupBase, "right-[-10%] max-[1440px]:right-[-5%]")}>
+            <div className={cn(mockupBase, "right-[-10%] max-2xl:right-[-5%]")}>
               {secondImage}
             </div>
           </div>

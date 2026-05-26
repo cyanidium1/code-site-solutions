@@ -15,7 +15,7 @@ const base =
 // mobile-first utilities; for Phase 1 we preserve the desktop-first shape.
 const variantClass: Record<BtnVariant, string> = {
   primary: cn(
-    "relative overflow-hidden bg-ink text-bg font-semibold px-6 py-4 max-[1440px]:px-[18px] max-[1440px]:py-[13px] max-[1440px]:text-[13px] max-sm:w-full max-sm:justify-center max-sm:px-[18px] max-sm:py-[14px]",
+    "relative overflow-hidden bg-ink text-bg font-semibold px-6 py-4 max-2xl:px-[18px] max-2xl:py-[13px] max-2xl:text-[13px] max-sm:w-full max-sm:justify-center max-sm:px-[18px] max-sm:py-[14px]",
     "shadow-accent-glow",
     "hover:-translate-y-0.5 hover:shadow-[0_8px_30px_oklch(0.55_0.18_295/0.35),0_0_0_1px_oklch(1_0_0/0.1)_inset]",
     // Shimmer pseudo-element — primitive wraps children in a <span> so this paints behind text.
@@ -23,7 +23,7 @@ const variantClass: Record<BtnVariant, string> = {
     "hover:before:translate-x-full",
   ),
   ghost: cn(
-    "bg-transparent text-ink border border-line-strong font-medium px-[22px] py-[15px] max-[1440px]:px-[18px] max-[1440px]:py-[13px] max-[1440px]:text-[13px] max-sm:w-full max-sm:justify-center max-sm:px-[18px] max-sm:py-[14px]",
+    "bg-transparent text-ink border border-line-strong font-medium px-[22px] py-[15px] max-2xl:px-[18px] max-2xl:py-[13px] max-2xl:text-[13px] max-sm:w-full max-sm:justify-center max-sm:px-[18px] max-sm:py-[14px]",
     "hover:border-ink-dim hover:bg-[oklch(1_0_0/0.04)]",
   ),
 };

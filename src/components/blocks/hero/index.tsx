@@ -30,7 +30,7 @@ const HERO_BG_CLASS =
 // canonical mobile-first gutter stack (24/32/48px at base/sm/lg).
 const HERO_SHELL_CLASS =
   "relative z-[5] pt-6 px-6 sm:px-8 lg:px-12 pb-[60px] " +
-  "max-[1440px]:pt-8 max-[1440px]:pb-14 " +
+  "max-2xl:pt-8 max-2xl:pb-14 " +
   "max-sm:pt-0 max-sm:pb-9";
 
 // U — two-column grid: 1000px text col + 1fr device col, 48px gap,
@@ -42,7 +42,7 @@ const HERO_SHELL_CLASS =
 const HERO_GRID_CLASS =
   "grid grid-cols-[minmax(0,1000px)_minmax(0,1fr)] gap-12 items-center max-w-container mx-auto min-h-[clamp(560px,80vh,720px)] " +
   "data-[variant=compare]:lg:grid-cols-[minmax(0,50%)_minmax(0,50%)] " +
-  "max-[1440px]:gap-7 " +
+  "max-2xl:gap-7 " +
   "max-[1080px]:gap-[22px] " +
   "max-sm:grid-cols-[minmax(0,1fr)] max-sm:grid-rows-[auto_auto] max-sm:gap-0 max-sm:min-h-0";
 
@@ -84,7 +84,7 @@ const H1_LINE_CLASS = "block max-w-[50vw]";
 // Gap shrinks at ≤1440. Mobile keeps row direction but tightens gap.
 const H1_ACCENT_CLASS =
   "flex items-end gap-4 mt-1 " +
-  "max-[1440px]:gap-3 " +
+  "max-2xl:gap-3 " +
   "max-sm:gap-3 max-sm:mt-0.5";
 
 // U — the big KPI number: 1.4em (relative to surrounding H1), 800w,
@@ -97,7 +97,7 @@ const H1_NUM_CLASS =
 // U — KPI label small text, sits next to the number.
 const H1_NUM_LABEL_CLASS =
   "text-[0.32em] font-medium tracking-normal text-ink-dim leading-[1.15] pb-[0.4em] lowercase max-w-[8em] " +
-  "max-[1440px]:text-[0.34em] " +
+  "max-2xl:text-[0.34em] " +
   "max-sm:text-[0.32em] max-sm:pb-[0.5em]";
 
 // U — lede paragraph under H1. Width caps differ across breakpoints;
@@ -105,7 +105,7 @@ const H1_NUM_LABEL_CLASS =
 const LEDE_CLASS =
   "text-sm leading-[1.6] text-ink-dim max-w-[460px] m-0 mb-8 text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
-  "max-[1440px]:max-w-[460px] max-[1440px]:mb-6 " +
+  "max-2xl:max-w-[460px] max-2xl:mb-6 " +
   "max-[1080px]:max-w-full " +
   "max-sm:leading-[1.55] max-sm:mb-[22px] max-sm:max-w-full";
 
@@ -115,7 +115,7 @@ const LEDE_CLASS =
 // the utility list is correspondingly long there).
 const FEATURES_CLASS =
   "grid grid-cols-2 gap-x-6 gap-y-3 mb-9 max-w-[480px] " +
-  "max-[1440px]:max-w-[460px] max-[1440px]:gap-x-[18px] max-[1440px]:gap-y-2.5 max-[1440px]:mb-[26px] " +
+  "max-2xl:max-w-[460px] max-2xl:gap-x-[18px] max-2xl:gap-y-2.5 max-2xl:mb-[26px] " +
   "max-[1080px]:max-w-full max-[1080px]:gap-x-3.5 max-[1080px]:gap-y-2 " +
   "max-sm:grid-cols-1 max-sm:gap-2.5 max-sm:mb-[22px] max-sm:px-4 max-sm:py-3.5 max-sm:border max-sm:border-line max-sm:rounded-2xl max-sm:bg-[oklch(1_0_0_/_0.02)]";
 
@@ -131,15 +131,15 @@ const FEAT_CHECK_CLASS =
 
 const FEAT_LABEL_CLASS =
   "text-[13px] font-semibold text-ink leading-[1.2] " +
-  "max-[1440px]:text-xs max-sm:text-xs";
+  "max-2xl:text-xs max-sm:text-xs";
 const FEAT_SUB_CLASS =
   "text-[11px] text-[var(--color-ink-3)] mt-0.5 tracking-[0.02em] " +
-  "max-[1440px]:text-[10px] max-sm:text-[10px]";
+  "max-2xl:text-[10px] max-sm:text-[10px]";
 
 // U — CTA row. Wraps below at ≤640 to stretched-column buttons.
 const CTA_ROW_CLASS =
   "flex gap-3 flex-wrap items-center mb-3.5 " +
-  "max-[1440px]:mb-7 " +
+  "max-2xl:mb-7 " +
   "max-sm:flex-col max-sm:gap-2.5 max-sm:items-stretch max-sm:mb-6";
 
 const CTA_FOOTNOTE_CLASS =
@@ -150,14 +150,14 @@ const CTA_FOOTNOTE_CLASS =
 // each breakpoint per legacy.
 const STATS_CLASS =
   "flex items-center gap-6 px-7 py-5 border border-line rounded-[18px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
-  "max-[1440px]:px-5 max-[1440px]:py-4 max-[1440px]:gap-[18px] " +
+  "max-2xl:px-5 max-2xl:py-4 max-2xl:gap-[18px] " +
   "max-[1080px]:gap-3.5 max-[1080px]:px-4 max-[1080px]:py-3.5 " +
   "max-sm:px-4 max-sm:py-3.5 max-sm:gap-3 max-sm:rounded-[14px] max-sm:max-w-full";
 
 const STAT_CLASS = "flex-1 flex flex-col gap-1.5";
 const STAT_NUM_CLASS =
   "font-sans font-bold text-[28px] tracking-[-0.03em] leading-none text-ink " +
-  "max-[1440px]:text-2xl max-[1080px]:text-[22px] max-sm:text-[22px]";
+  "max-2xl:text-2xl max-[1080px]:text-[22px] max-sm:text-[22px]";
 const STAT_LBL_CLASS =
   "text-[10px] text-[var(--color-ink-3)] uppercase tracking-[0.08em] leading-[1.3] " +
   "max-sm:text-[9px]";
@@ -197,7 +197,7 @@ const DEVICE_GRID_CLASS =
 const DEVICE_TAG_CLASS =
   "absolute z-[5] px-3.5 py-2 backdrop-blur-[12px] border border-line-strong rounded-full text-[11px] font-medium text-ink inline-flex items-center gap-2 tracking-[0.02em] " +
   "bg-[oklch(0.22_0.008_60_/_0.85)] shadow-[0_4px_16px_oklch(0_0_0_/_0.4)] animate-float " +
-  "max-[1440px]:text-[10px] max-[1440px]:px-[11px] max-[1440px]:py-1.5 " +
+  "max-2xl:text-[10px] max-2xl:px-[11px] max-2xl:py-1.5 " +
   "max-sm:hidden";
 
 // U — per-instance position + animation-delay for each of the 3 tags.
@@ -205,15 +205,15 @@ const DEVICE_TAG_CLASS =
 const DEVICE_TAG_POSITIONS: { style: React.CSSProperties; className: string }[] = [
   {
     style: { top: "12%", left: "2%", animationDelay: "0s" },
-    className: "max-[1440px]:!top-[8%] max-[1440px]:!left-[4%] max-[1080px]:!left-[2%]",
+    className: "max-2xl:!top-[8%] max-2xl:!left-[4%] max-[1080px]:!left-[2%]",
   },
   {
     style: { top: "22%", left: "60%", animationDelay: "-2s" },
-    className: "max-[1440px]:hidden",
+    className: "max-2xl:hidden",
   },
   {
     style: { bottom: "28%", left: "40%", animationDelay: "-4s" },
-    className: "max-[1440px]:!bottom-[22%] max-[1440px]:!left-[38%] max-[1080px]:!left-[36%]",
+    className: "max-2xl:!bottom-[22%] max-2xl:!left-[38%] max-[1080px]:!left-[36%]",
   },
 ];
 
@@ -282,7 +282,7 @@ const TICKER_TRACK_CLASS =
 const TICKER_ROW_CLASS =
   "flex items-center gap-8 font-display font-semibold text-2xl tracking-[-0.02em] text-ink-dim pr-8 " +
   "[&_span:nth-child(even)]:text-accent " +
-  "max-[1440px]:text-lg max-[1440px]:gap-6 " +
+  "max-2xl:text-lg max-2xl:gap-6 " +
   "max-sm:text-sm max-sm:gap-[18px] max-sm:pr-[18px]";
 
 // U — device-stage wrapper. Stretches to fill the grid row min-height
