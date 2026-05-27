@@ -413,6 +413,7 @@ export type CaseStudyRef = {
   region?: LocalizedString;
   year?: number;
   industrySlug?: string;
+  industry?: { _id: string; slug: string; title?: LocalizedString } | null;
   coverImage?: SanityImage | null;
   status?: "draft" | "published";
   featured?: boolean;

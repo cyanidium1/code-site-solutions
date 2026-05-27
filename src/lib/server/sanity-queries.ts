@@ -102,6 +102,11 @@ export const CASE_STUDIES_QUERY = /* groq */ `
   region ${LOCALIZED_STRING},
   year,
   "industrySlug": industry->slug.current,
+  "industry": industry->{
+    _id,
+    "slug": slug.current,
+    title ${LOCALIZED_STRING}
+  },
   "coverImage": coverImage ${IMAGE_WITH_ALT},
   status,
   featured,

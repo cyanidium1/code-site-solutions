@@ -21,8 +21,9 @@ export function caseRefToCardItem(
   c: CaseStudyRef,
   locale: Locale,
 ): CaseCardItem {
-  const pres = presentationForCase(c.slug, c.industrySlug);
+  const pres = presentationForCase(c.industry?.slug ?? c.industrySlug);
   const name = loc(c.title, locale) || c.client || c.slug;
+  const industryLabel = loc(c.industry?.title, locale) || pres.label;
   const region = loc(c.region, locale);
   const year = c.year ? String(c.year) : "";
   // EN listing should deep-link into /en/portfolio/<slug> only when the
@@ -36,7 +37,7 @@ export function caseRefToCardItem(
       : `/portfolio/${c.slug}`;
   return {
     name,
-    industry: pres.label,
+    industry: industryLabel,
     region,
     year,
     chips: [pres.label, pres.tech],
