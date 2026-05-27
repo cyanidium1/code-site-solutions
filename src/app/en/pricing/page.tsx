@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
@@ -44,36 +45,6 @@ export const metadata: Metadata = {
     url: "/en/pricing",
   },
 };
-
-/* ─── Placeholder visual ─────────────────────────────────────────────────── */
-
-function GradPlaceholder({
-  from,
-  to,
-  label,
-}: {
-  from: string;
-  to: string;
-  label?: string;
-}) {
-  return (
-    <div
-      // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient stops
-      style={{ "--gp-from": from, "--gp-to": to } as React.CSSProperties}
-      className="relative flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--gp-from)_0%,var(--gp-to)_100%)]"
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-50"
-      />
-      {label ? (
-        <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-white/85">
-          {label}
-        </span>
-      ) : null}
-    </div>
-  );
-}
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
 
@@ -237,10 +208,11 @@ export default function EnPricingPage() {
           "Google Analytics + Search Console setup",
         ]}
         image={
-          <GradPlaceholder
-            from="oklch(0.55 0.16 145)"
-            to="oklch(0.45 0.20 295)"
-            label="included · all tiers"
+          <Image
+            src="/included.webp"
+            alt="What is included in all Code-Site.Art packages"
+            width={1600}
+            height={1124}
           />
         }
       />
@@ -268,10 +240,11 @@ export default function EnPricingPage() {
         ]}
         cta={{ label: "Discuss what you need", href: "/en/contacts" }}
         image={
-          <GradPlaceholder
-            from="oklch(0.45 0.18 25)"
-            to="oklch(0.30 0.12 290)"
-            label="not included"
+          <Image
+            src="/not-included.webp"
+            alt="What is not included in website pricing"
+            width={1600}
+            height={1200}
           />
         }
       />
@@ -309,10 +282,11 @@ export default function EnPricingPage() {
           "Fixed-sum contract. If we miss the deadline through our fault — we pay you the rebate",
         ]}
         image={
-          <GradPlaceholder
-            from="oklch(0.50 0.18 230)"
-            to="oklch(0.45 0.20 295)"
-            label="payment · contract"
+          <Image
+            src="/payment.webp"
+            alt="How website project payments are structured"
+            width={1600}
+            height={1200}
           />
         }
       />

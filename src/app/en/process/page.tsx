@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
@@ -32,36 +33,6 @@ export const metadata: Metadata = {
     url: "/en/process",
   },
 };
-
-/* ─── Placeholder visual ─────────────────────────────────────────────────── */
-
-function GradPlaceholder({
-  from,
-  to,
-  label,
-}: {
-  from: string;
-  to: string;
-  label?: string;
-}) {
-  return (
-    <div
-      // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient stops
-      style={{ "--gp-from": from, "--gp-to": to } as React.CSSProperties}
-      className="relative flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--gp-from)_0%,var(--gp-to)_100%)]"
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-50"
-      />
-      {label ? (
-        <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-white/85">
-          {label}
-        </span>
-      ) : null}
-    </div>
-  );
-}
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
 
@@ -157,10 +128,11 @@ export default function EnProcessPage() {
           "If you're unreachable for a week — project pauses, the deadline shifts",
         ]}
         image={
-          <GradPlaceholder
-            from="oklch(0.50 0.18 230)"
-            to="oklch(0.45 0.20 295)"
-            label="communication · transparent"
+          <Image
+            src="/communication.webp"
+            alt="How we communicate during the project"
+            width={1600}
+            height={1289}
           />
         }
       />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
@@ -31,36 +32,6 @@ export const metadata: Metadata = {
     url: "/pricing",
   },
 };
-
-/* ─── Placeholder visual ─────────────────────────────────────────────────── */
-
-function GradPlaceholder({
-  from,
-  to,
-  label,
-}: {
-  from: string;
-  to: string;
-  label?: string;
-}) {
-  return (
-    <div
-      // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient stops
-      style={{ "--gp-from": from, "--gp-to": to } as React.CSSProperties}
-      className="relative flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--gp-from)_0%,var(--gp-to)_100%)]"
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-50"
-      />
-      {label ? (
-        <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-white/85">
-          {label}
-        </span>
-      ) : null}
-    </div>
-  );
-}
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
 
@@ -221,10 +192,11 @@ export default function PricingPage() {
           "Налаштування Google Analytics + Search Console",
         ]}
         image={
-          <GradPlaceholder
-            from="oklch(0.55 0.16 145)"
-            to="oklch(0.45 0.20 295)"
-            label="included · all tiers"
+          <Image
+            src="/included.webp"
+            alt="Що входить у всі пакети Code-Site.Art"
+            width={1600}
+            height={1124}
           />
         }
       />
@@ -251,10 +223,11 @@ export default function PricingPage() {
         ]}
         cta={{ label: "Обговорити що потрібно", href: "/contacts" }}
         image={
-          <GradPlaceholder
-            from="oklch(0.45 0.18 25)"
-            to="oklch(0.30 0.12 290)"
-            label="not included"
+          <Image
+            src="/not-included.webp"
+            alt="Що не входить у вартість сайту"
+            width={1600}
+            height={1200}
           />
         }
       />
@@ -292,10 +265,11 @@ export default function PricingPage() {
           "Договір з фіксованою сумою. Якщо ми перевищуємо термін з нашої вини — компенсуємо неустойкою",
         ]}
         image={
-          <GradPlaceholder
-            from="oklch(0.50 0.18 230)"
-            to="oklch(0.45 0.20 295)"
-            label="payment · contract"
+          <Image
+            src="/payment.webp"
+            alt="Як влаштована оплата за сайт"
+            width={1600}
+            height={1200}
           />
         }
       />
