@@ -11,9 +11,9 @@ export function PullQuote({
       Перед запуском нового сайту у нас було 3 заявки на місяць. Зараз — 24.
     </>
   ),
-  initials = "SH",
-  name = "Søren Hansen",
-  role = "Owner, NBYG København Aps",
+  initials = "",
+  name = "",
+  role = "",
   liHref,
   showAvatar = true,
   caseHref,

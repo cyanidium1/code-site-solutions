@@ -9,7 +9,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 
-import { PageHero } from "@/components/blocks/page-hero";
+import { CasePageHero } from "@/components/case-page/case-page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { ImageText } from "@/components/blocks/image-text";
 import {
@@ -39,6 +39,8 @@ import type {
   CaseStudySection,
   Locale,
   MediaGallerySection,
+  QuoteSection,
+  TestimonialSection,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import { SanityImg } from "@/lib/shared/sanity-image";
@@ -247,6 +249,36 @@ function GalleryRenderer({
   return <EfedraCaseGallery tiles={tiles} />;
 }
 
+/* ─── pull-quote from CMS testimonial / quote blocks ─────────────────── */
+
+function CaseTestimonial({
+  section,
+  locale,
+}: {
+  section: QuoteSection | TestimonialSection;
+  locale: Locale;
+}) {
+  const quoteText = loc(section.quote, locale)?.trim();
+  if (!quoteText) return null;
+
+  const name = section.authorName?.trim() ?? "";
+  const role = loc(section.authorRole, locale)?.trim() ?? "";
+
+  return (
+    <PullQuote
+      quote={plainPortable([
+        {
+          _type: "block",
+          children: [{ _type: "span", text: quoteText, marks: [] }],
+        },
+      ])}
+      name={name}
+      role={role}
+      showAvatar={false}
+    />
+  );
+}
+
 /* ─── section mapper ─────────────────────────────────────────────────── */
 
 function SectionBlock({
@@ -384,31 +416,14 @@ function SectionBlock({
       );
 
     case "quoteBlock":
-      return (
-        <PullQuote
-          quote={plainPortable([
-            {
-              _type: "block",
-              children: [
-                {
-                  _type: "span",
-                  text: loc(section.quote, locale),
-                  marks: [],
-                },
-              ],
-            },
-          ])}
-          name={section.authorName ?? ""}
-          role={loc(section.authorRole, locale)}
-          showAvatar={false}
-        />
-      );
+    case "testimonialBlock":
+      return <CaseTestimonial section={section} locale={locale} />;
 
     case "mediaGalleryBlock":
       return <GalleryRenderer section={section} locale={locale} />;
 
-    /* TODO: render beforeAfterBlock / testimonialBlock / ctaBlock /
-       richTextBlock once a case actually uses them. */
+    /* TODO: render beforeAfterBlock / ctaBlock / richTextBlock once a case
+       actually uses them. */
     default:
       return null;
   }
@@ -472,7 +487,7 @@ export async function CasePageView({
       />
       <HpHeader />
 
-      <PageHero
+      <CasePageHero
         breadcrumbs={[
           { label: homeLabel, href: locale === "en" ? "/en" : "/" },
           { label: portfolioLabel, href: "/portfolio" },
