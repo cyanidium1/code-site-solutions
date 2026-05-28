@@ -27,6 +27,7 @@
 export { Marquee } from "./marquee";
 export { Industries } from "./industries";
 export { Bento } from "./bento";
+export { BusinessValue } from "./business-value";
 export { Cases } from "./cases";
 export { Stack } from "./stack";
 export { PullQuote } from "./pull-quote";

@@ -1,5 +1,6 @@
 import type * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Stethoscope,
   Scale,
@@ -93,18 +94,94 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
 ];
 
+// Atmospheric background photo per industry, keyed by the trailing href slug
+// (e.g. "/sites-for/medicine" and "/en/sites-for/medicine" → "medicine") so the
+// UK and EN content arrays resolve the same image without duplication.
+// Curated for environments / equipment / documents / systems — no people-posing
+// or cliché stock. All get the same dark grade + grain + vignette treatment.
+const UNSPLASH = (id: string) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=60`;
+
+const INDUSTRY_MEDIA: Record<string, string> = {
+  medicine: UNSPLASH("photo-1513224502586-d1e602410265"), // patient monitor / ECG
+  renovation: UNSPLASH("photo-1721244653693-1d13e68b66c1"), // architectural elevation drawing
+  legal: UNSPLASH("photo-1521791055366-0d553872125f"), // signing a document, close-up
+  finance: UNSPLASH("photo-1554224154-26032ffc0d07"), // tax forms + calculator flat-lay
+  ecommerce: UNSPLASH("photo-1601598704991-eef6114775e0"), // warehouse fulfilment aisle
+  auto: "/industries/auto.jpg", // orange 6th-gen Camaro SS (pre-facelift), alpine — local asset
+  "real-estate": UNSPLASH("photo-1633449227338-45d2df8c37b7"), // architectural interior
+  courses: UNSPLASH("photo-1525373698358-041e3a460346"), // dark laptop, code/landing editor
+};
+
+// Per-card treatment overrides for photos that need to read more literally
+// (e.g. a specific car) — a brighter image + a lighter scrim. Merged over the
+// CardMedia defaults via tailwind-merge, so other cards keep the atmospheric grade.
+const MEDIA_TUNE: Record<string, { img?: string; dim?: string }> = {
+  auto: {
+    img: "opacity-[0.85] saturate-[0.85] object-[64%_62%] group-hover/ind:opacity-[0.95]",
+    dim: "bg-[linear-gradient(180deg,oklch(0.12_0_0_/_0.5)_0%,oklch(0.11_0_0_/_0.7)_58%,oklch(0.1_0_0_/_0.92)_100%)]",
+  },
+};
+
+// Tileable monochrome grain. Inlined SVG turbulence keeps it asset-free and
+// avoids the percent-sign escaping that breaks Tailwind arbitrary url() values.
+const noiseStyle: React.CSSProperties = {
+  backgroundImage:
+    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100' height='100' filter='url(%23n)'/></svg>\")",
+  backgroundSize: "120px 120px",
+};
+
+// Layered atmospheric background: photo → dark grade + accent wash → vignette →
+// grain, plus a hover-only accent glow and a subtle image push (parallax feel).
+// `aria-hidden` + empty alt: decorative only, content stays the accessible layer.
+function CardMedia({ src, imgClass, dimClass }: { src: string; imgClass?: string; dimClass?: string }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[18px]"
+    >
+      <Image
+        src={src}
+        alt=""
+        fill
+        loading="lazy"
+        sizes="(min-width:1100px) 24vw, (min-width:768px) 48vw, 92vw"
+        quality={60}
+        className={cn(
+          "object-cover opacity-[0.55] saturate-[0.65] scale-[1.04] transition-[scale,opacity] duration-[0.9s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/ind:scale-[1.14] group-hover/ind:opacity-[0.7]",
+          imgClass,
+        )}
+      />
+      {/* dark grade for readability — darker toward the bottom where price sits */}
+      <div className={cn("absolute inset-0 bg-[linear-gradient(180deg,oklch(0.13_0_0_/_0.58)_0%,oklch(0.12_0_0_/_0.82)_55%,oklch(0.1_0_0_/_0.94)_100%)] transition-opacity duration-[0.55s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/ind:opacity-90", dimClass)} />
+      {/* per-industry accent wash for identity */}
+      <div className="absolute inset-0 bg-[linear-gradient(130deg,oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.20),transparent_55%)]" />
+      {/* hover accent glow (replaces the photo-occluded ::before radial) */}
+      <div className="absolute inset-0 opacity-0 transition-opacity duration-[0.55s] ease-[cubic-bezier(0.22,1,0.36,1)] bg-[radial-gradient(420px_220px_at_0%_0%,oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.30),transparent_70%)] group-hover/ind:opacity-100" />
+      {/* soft vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(120%_115%_at_50%_-10%,transparent_45%,oklch(0.07_0_0_/_0.6)_100%)]" />
+      {/* grain — desktop only, mobile keeps it simpler */}
+      <div
+        className="absolute inset-0 opacity-[0.06] mix-blend-overlay max-md:hidden"
+        // eslint-disable-next-line react/forbid-dom-props -- inlined SVG data-uri grain texture
+        style={noiseStyle}
+      />
+    </div>
+  );
+}
+
 // Card visual classes shared by enabled (Link) + disabled (div) variants.
 // Uses the dynamic --accent-color CSS var (per-industry color) via arbitrary
 // oklch(from var(...) ...) for hover border + before/after pseudo-elements.
 const cardBase =
-  "group/ind relative flex flex-col overflow-hidden rounded-[18px] border border-line bg-[oklch(1_0_0_/_0.02)] p-6 text-inherit no-underline transition-[transform,border-color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
+  "group/ind relative isolate flex min-h-[300px] flex-col overflow-hidden rounded-[18px] border border-line bg-[oklch(1_0_0_/_0.02)] p-6 text-inherit no-underline transition-[translate,border-color] duration-[0.5s] ease-[cubic-bezier(0.22,1,0.36,1)] " +
   // ::before radial overlay (hover)
   "before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(400px_200px_at_0%_0%,oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.10),transparent_70%)] before:opacity-0 before:transition-opacity before:duration-[0.25s] " +
   // ::after gradient line on top edge (hover)
   "after:absolute after:inset-x-0 after:top-0 after:h-px after:bg-[linear-gradient(90deg,transparent,var(--accent-color,var(--color-accent)),transparent)] after:opacity-0 after:transition-opacity after:duration-[0.25s]";
 
 const cardEnabledHover =
-  "hover:-translate-y-0.5 hover:border-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.5)] hover:before:opacity-100 hover:after:opacity-100";
+  "hover:-translate-y-1.5 hover:border-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.5)] hover:before:opacity-100 hover:after:opacity-100";
 
 const cardDisabled =
   "cursor-default opacity-[0.78] hover:transform-none hover:border-line hover:before:opacity-0 hover:after:opacity-0";
@@ -154,13 +231,24 @@ export function Industries({
                     <ArrowUpRight
                       size={16}
                       strokeWidth={1.8}
-                      className="text-[var(--accent-color,var(--color-accent))] transition-transform duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/ind:translate-x-1 group-hover/ind:-translate-y-1"
+                      className="text-[var(--accent-color,var(--color-accent))] transition-[translate] duration-[0.45s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/ind:translate-x-1 group-hover/ind:-translate-y-1"
                     />
                   ) : null}
                 </div>
               </>
             );
             const cardStyle = { "--accent-color": ind.color } as React.CSSProperties;
+            const slug = ind.href?.split("/").pop() ?? "";
+            const mediaSrc = INDUSTRY_MEDIA[slug];
+            const mediaTune = MEDIA_TUNE[slug];
+            const body = (
+              <>
+                {mediaSrc ? (
+                  <CardMedia src={mediaSrc} imgClass={mediaTune?.img} dimClass={mediaTune?.dim} />
+                ) : null}
+                <div className="relative z-[1] flex flex-1 flex-col">{inner}</div>
+              </>
+            );
             if (!ind.href) {
               return (
                 <div
@@ -169,7 +257,7 @@ export function Industries({
                   // eslint-disable-next-line react/forbid-dom-props -- dynamic per-industry accent color
                   style={cardStyle}
                 >
-                  {inner}
+                  {body}
                 </div>
               );
             }
@@ -180,7 +268,7 @@ export function Industries({
                 className={cn(cardBase, cardEnabledHover)}
                 style={cardStyle}
               >
-                {inner}
+                {body}
               </Link>
             );
           })}

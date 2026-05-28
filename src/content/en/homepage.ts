@@ -3,19 +3,13 @@ import {
   Scale,
   Calculator,
   ShoppingCart,
-  Rocket,
   Building,
   Car,
   Home,
   GraduationCap,
-  Gauge,
-  Github,
-  DollarSign,
-  Shield,
-  ArrowRightLeft,
 } from "lucide-react";
 
-import type { BentoCell, Industry } from "@/types/homepage";
+import type { Industry } from "@/types/homepage";
 import type { TierProps } from "@/types/pricing";
 import type { FAQItem } from "@/types/faq";
 import { formatPrice } from "@/lib/shared/format-price";
@@ -96,57 +90,6 @@ export const EN_INDUSTRIES: Industry[] = [
     tags: ["Stripe", "Teachable", "A/B"],
     price: "From $800 · 4–8 weeks",
     href: "/en/sites-for/courses",
-  },
-];
-
-export const EN_BENTO: BentoCell[] = [
-  {
-    title: "Loads in under 1 second",
-    icon: Gauge,
-    stat: "98 LH",
-    body: "Custom code, zero plugins. Tested on real 3G/4G connections.",
-    span: "1x1",
-    visual: "lh",
-  },
-  {
-    title: "Code in your GitHub",
-    icon: Github,
-    stat: "100%",
-    body: "Not in ours. Yours from the first commit.",
-    span: "1x1",
-    visual: "commits",
-  },
-  {
-    title: "Live in 4 weeks",
-    icon: Rocket,
-    stat: "4 WK",
-    body: "Industry-ready turnkey site.",
-    span: "1x1",
-    visual: "weeks",
-  },
-  {
-    title: "Pricing in the brief",
-    icon: DollarSign,
-    stat: "$3.5K+",
-    body: "No “request a quote.” A real number, in writing.",
-    span: "1x1",
-    visual: "price",
-  },
-  {
-    title: "Warranty + rebate",
-    icon: Shield,
-    stat: "1Y",
-    body: "1 year of fixes. We pay you 30% if we miss the deadline.",
-    span: "1x1",
-    visual: "warranty",
-  },
-  {
-    title: "Migrate without losing SEO",
-    icon: ArrowRightLeft,
-    stat: "47 / 0",
-    body: "301 redirects, content move, schema.org. Typically 2 weeks with no ranking drop.",
-    span: "1x1",
-    visual: "mig",
   },
 ];
 

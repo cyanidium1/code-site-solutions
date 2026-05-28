@@ -18,7 +18,7 @@ import {
   HpHeader,
   Marquee,
   Industries,
-  Bento,
+  BusinessValue,
   Process,
   Cases,
   Stack,
@@ -27,7 +27,7 @@ import {
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
-import { EN_INDUSTRIES, EN_BENTO, EN_TIERS, EN_HOMEPAGE_FAQ } from "@/content/en/homepage";
+import { EN_INDUSTRIES, EN_TIERS, EN_HOMEPAGE_FAQ } from "@/content/en/homepage";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
@@ -182,16 +182,7 @@ export default function HomePageEn() {
         items={EN_INDUSTRIES}
       />
 
-      <Bento
-        eyebrow="WHY US"
-        heading={
-          <>
-            Built to convert, <em>not just to look pretty.</em>
-          </>
-        }
-        cells={EN_BENTO}
-        locale="en"
-      />
+      <BusinessValue locale="en" />
 
       <Process
         eyebrow="PROCESS · 4-10 WEEKS"

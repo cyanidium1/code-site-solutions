@@ -6,7 +6,7 @@ import {
   HpHeader,
   Marquee,
   Industries,
-  Bento,
+  BusinessValue,
   Process,
   Cases,
   PullQuoteSwiper,
@@ -107,7 +107,7 @@ export default function HomePage() {
       <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
       <TurnkeyList />
       <Industries />
-      <Bento />
+      <BusinessValue />
       <Process />
       <Cases />
 
