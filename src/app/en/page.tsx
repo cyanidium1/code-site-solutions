@@ -188,17 +188,25 @@ export default function HomePageEn() {
         eyebrow="PROCESS · 4-10 WEEKS"
         heading={
           <>
-            Launch in 5 steps. <em>No surprises.</em>
+            Build. Launch. Grow.
+            <br />
+            <em>Without six months of meetings.</em>
+          </>
+        }
+        sub={
+          <>
+            Fixed scope. Fixed timeline. Fixed price.{" "}
+            <span className="text-ink-3">No endless calls, no chaos, no disappearing contractors.</span>
           </>
         }
         steps={[
-          { n: "01", name: "Brief", duration: "1 day · free", body: "Goals, audience, scope" },
-          { n: "02", name: "Design", duration: "1–2 weeks", body: "Wireframes → hi-fi" },
-          { n: "03", name: "Development", duration: "2–6 weeks", body: "Custom code, weekly demos" },
-          { n: "04", name: "Testing", duration: "1 week", body: "60-point QA checklist" },
-          { n: "05", name: "Launch + Support", duration: "+ 1 year", body: "Support included" },
+          { n: "01", name: "Discovery", duration: "1 day", items: ["Business goals", "Structure", "Competitor review"] },
+          { n: "02", name: "Architecture", duration: "1–2 weeks", items: ["Pages", "Funnels", "SEO structure"] },
+          { n: "03", name: "Design & Build", duration: "2–6 weeks", items: ["UI Design", "CMS Setup", "Integrations"] },
+          { n: "04", name: "QA & Migration", duration: "~1 week", items: ["Testing", "Analytics", "Redirects"] },
+          { n: "05", name: "Launch & Support", duration: "1 year support", items: ["Monitoring", "Warranty", "Growth"] },
         ]}
-        ctaLabel="See the full process"
+        ctaLabel="Full process"
         ctaHref="/process"
       />
 
