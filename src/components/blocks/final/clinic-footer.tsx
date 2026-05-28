@@ -92,10 +92,10 @@ const EN_FOOT_COLS: FootColumn[] = [
   {
     h: "Menu",
     items: [
-      <Link key="portfolio" href="/portfolio">Portfolio</Link>,
+      <Link key="portfolio" href="/en/portfolio">Portfolio</Link>,
       <Link key="home" href="/en">Home</Link>,
       <Link key="services" href="/en#solutions">Services</Link>,
-      <Link key="blog" href="/blog">Blog</Link>,
+      <Link key="blog" href="/en/blog">Blog</Link>,
       <Link key="contacts" href="/en#contact">Contact</Link>,
     ],
   },
@@ -112,7 +112,7 @@ const EN_FOOT_COLS: FootColumn[] = [
 export function ClinicFooter({
   brandName,
   brandDesc,
-  socials = ["li", "ig", "tg", "tt"] as SocialKind[],
+  socials = ["li", "ig", "tg"] as SocialKind[],
   cols,
   bottomText = "© Code-site.art, 2026",
   locale = "uk",
@@ -129,8 +129,8 @@ export function ClinicFooter({
   const resolvedBrandDesc =
     brandDesc ??
     (locale === "en"
-      ? "Code-site.art — boutique custom website studio. 47 projects in 3 years across 4 regions: UA · EU · US · DK."
-      : "Code-site.art — кастомна розробка сайтів. 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.");
+      ? "Code-Site.Art — boutique custom website studio. 50+ projects over 5 years across 7 regions: UA · EU · US · DK · ZA · UK · FR."
+      : "Code-Site.Art — бутик-студія з розробки сайтів на замовлення. 50+ проєктів за 5 років у 7 країнах: UA · EU · US · DK · ZA · UK · FR.");
   const labels: Record<SocialKind, string> = {
     li: "LinkedIn",
     ig: "Instagram",

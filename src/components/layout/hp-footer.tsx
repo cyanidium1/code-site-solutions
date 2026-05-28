@@ -1,14 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Linkedin,
-  Send,
-  Instagram,
-  Music2,
-  Github,
-  type LucideIcon,
-} from "lucide-react";
+import { Linkedin, Send, Instagram, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { hasEnIndustry } from "@/constants/i18n-routes";
@@ -20,8 +13,6 @@ const DEFAULT_SOCIALS: SocialDef[] = [
   { icon: Linkedin, href: "https://linkedin.com/in/fedirdev", label: "LinkedIn" },
   { icon: Send, href: "https://t.me/fedirdev", label: "Telegram" },
   { icon: Instagram, href: "https://instagram.com/fedirdev", label: "Instagram" },
-  { icon: Music2, href: "https://tiktok.com/@fedirdev", label: "TikTok" },
-  { icon: Github, href: "https://github.com/fedirdev", label: "GitHub" },
 ];
 
 // All 8 industries have published Sanity pages and live UA links.

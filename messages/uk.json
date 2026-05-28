@@ -27,11 +27,11 @@
     "courses": "Курси і лендинги"
   },
   "Footer": {
-    "brandDesc": "European boutique studio з Києва. Custom-coded сайти для бізнесу — 47 проєктів за 3 роки у 4 країнах: UA · EU · US · DK.",
-    "solutionsHeading": "/ SOLUTIONS",
-    "companyHeading": "/ COMPANY",
-    "compareHeading": "/ COMPARE",
-    "legalHeading": "/ LEGAL",
+    "brandDesc": "Бутик-студія з розробки сайтів на замовлення — 50+ проєктів за 5 років у 7 країнах: UA · EU · US · DK · ZA · UK · FR.",
+    "solutionsHeading": "/ ГАЛУЗІ",
+    "companyHeading": "/ КОМПАНІЯ",
+    "compareHeading": "/ ПОРІВНЯННЯ",
+    "legalHeading": "/ ЮРИДИЧНЕ",
     "solutions": {
       "healthcare": "Медицина",
       "renovation": "Будівництво / ремонт",
@@ -43,26 +43,26 @@
       "courses": "Курси і лендинги"
     },
     "company": {
-      "about": "About",
-      "process": "Process",
-      "pricing": "Pricing",
-      "calculator": "Calculator",
+      "about": "Про нас",
+      "process": "Процес",
+      "pricing": "Прайс",
+      "calculator": "Калькулятор",
       "portfolio": "Кейси",
-      "blog": "Blog",
-      "contacts": "Contacts"
+      "blog": "Блог",
+      "contacts": "Контакти"
     },
     "compare": {
       "wordpress": "vs WordPress",
-      "constructors": "vs Конструктори",
-      "freelancers": "vs Фрілансери"
+      "constructors": "vs конструктори",
+      "freelancers": "vs фрілансери"
     },
     "legal": {
-      "privacy": "Privacy",
-      "terms": "Terms",
-      "publicContract": "Public contract",
-      "legalData": "Legal data"
+      "privacy": "Конфіденційність",
+      "terms": "Оферта",
+      "publicContract": "Публічний договір",
+      "legalData": "Юридичні дані"
     },
-    "copy": "© 2026 Code-Site.art · Made in Kyiv 🇺🇦"
+    "copy": "© 2026 Code-Site.art"
   },
   "Newsletter": {
     "heading": "Як не злити бюджет на сайт",
