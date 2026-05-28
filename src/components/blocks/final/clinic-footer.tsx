@@ -4,6 +4,8 @@ import type * as React from "react";
 import Link from "next/link";
 
 import { SITE_CONTACT } from "@/constants/site";
+import Logo from "@/components/layout/logo/logo";
+import { headerBrandClass } from "@/components/layout/header-classes";
 import { FOOTER_SOCIAL_HREFS, SocialIcon, type SocialKind } from "./social-icon";
 
 // Hoisted footer class strings. Both target descendants of the
@@ -14,7 +16,7 @@ const FOOTER_SOCIALS_CLASS =
   "flex gap-2 [&>a]:w-8 [&>a]:h-8 [&>a]:border [&>a]:border-line [&>a]:rounded-lg [&>a]:inline-flex [&>a]:items-center [&>a]:justify-center [&>a]:text-ink-dim [&>a]:transition-all [&>a]:duration-200 [&>a:hover]:text-accent-soft [&>a:hover]:border-accent-40";
 
 const FOOTER_COL_LIST_CLASS =
-  "list-none flex flex-col gap-2 [&>li>a]:text-[12px] [&>li>a]:text-ink-dim [&>li>a]:no-underline [&>li>a]:tracking-[0.02em] [&>li>a]:uppercase [&>li>a]:transition-colors [&>li>a]:duration-200 [&>li>a:hover]:text-accent-soft [&>li_.nolink]:text-[12px] [&>li_.nolink]:text-ink-dim [&>li_.nolink]:tracking-[0.02em] [&>li_.nolink]:uppercase";
+  "list-none flex flex-col gap-1 [&>li]:h-5 [&>li>a]:inline-flex [&>li>a]:items-center [&>li>a]:h-5 [&>li>a]:leading-5 [&>li>a]:text-[12px] [&>li>a]:text-ink-dim [&>li>a]:no-underline [&>li>a]:tracking-[0.02em] [&>li>a]:uppercase [&>li>a]:transition-colors [&>li>a]:duration-200 [&>li>a:hover]:text-accent-soft [&>li_.nolink]:inline-flex [&>li_.nolink]:items-center [&>li_.nolink]:h-5 [&>li_.nolink]:leading-5 [&>li_.nolink]:text-[12px] [&>li_.nolink]:text-ink-dim [&>li_.nolink]:tracking-[0.02em] [&>li_.nolink]:uppercase";
 
 export type FootColumn = {
   h: string;
@@ -108,11 +110,7 @@ const EN_FOOT_COLS: FootColumn[] = [
 ];
 
 export function ClinicFooter({
-  brandName = (
-    <>
-      <em>Code-Site</em>.Art
-    </>
-  ),
+  brandName,
   brandDesc,
   socials = ["li", "ig", "tg", "tt"] as SocialKind[],
   cols,
@@ -126,6 +124,7 @@ export function ClinicFooter({
   bottomText: string;
   locale: "uk" | "en";
 }> = {}) {
+  const homeHref = locale === "en" ? "/en" : "/";
   const resolvedCols = cols ?? (locale === "en" ? EN_FOOT_COLS : DEFAULT_FOOT_COLS);
   const resolvedBrandDesc =
     brandDesc ??
@@ -139,11 +138,13 @@ export function ClinicFooter({
     tt: "TikTok",
   };
   return (
-    <footer className="bg-[oklch(0.10_0.005_300)] pt-10 px-[18px] pb-6 border-t border-line relative md:pt-14 md:px-8 md:pb-8 xl:px-12">
-      <div className="max-w-container mx-auto grid grid-cols-1 gap-7 mb-6 md:grid-cols-2 md:gap-8 md:mb-9 xl:grid-cols-[1.4fr_1fr_1fr_1fr] xl:gap-12">
+    <footer className="bg-[oklch(0.10_0.005_300)] pt-12 px-[18px] pb-6 border-t border-line relative md:px-8 md:pb-8 lg:pt-16 xl:px-12">
+      <div className="max-w-container mx-auto grid grid-cols-1 gap-6 mb-5 md:grid-cols-2 md:gap-7 md:mb-8 xl:grid-cols-[1.4fr_1fr_1fr_1fr] xl:gap-10">
         <div>
-          <div className="font-display font-bold text-[15px] tracking-[0.18em] uppercase text-ink mb-[18px] [&_em]:not-italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
-            {brandName}
+          <div className="mb-4">
+            {brandName ?? (
+              <Logo href={homeHref} className={headerBrandClass} />
+            )}
           </div>
           <p className="text-[12px] leading-[1.65] text-ink-3 max-w-[30ch] mb-5">
             {resolvedBrandDesc}
@@ -164,7 +165,7 @@ export function ClinicFooter({
         </div>
         {resolvedCols.map((col, i) => (
           <div key={i}>
-            <div className="font-display text-[11px] font-bold tracking-[0.14em] uppercase text-ink mb-3.5">
+            <div className="font-display text-[11px] font-bold tracking-[0.14em] uppercase text-ink mb-3">
               {col.h}
             </div>
             <ul className={FOOTER_COL_LIST_CLASS}>
@@ -175,7 +176,7 @@ export function ClinicFooter({
           </div>
         ))}
       </div>
-      <div className="max-w-container mx-auto pt-[22px] border-t border-line text-[11px] text-ink-3 tracking-[0.04em]">
+      <div className="max-w-container mx-auto pt-5 border-t border-line text-[11px] text-ink-3 tracking-[0.04em]">
         {bottomText}
       </div>
     </footer>

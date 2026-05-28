@@ -12,6 +12,8 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 
 import { hasEnIndustry } from "@/constants/i18n-routes";
+import Logo from "./logo/logo";
+import { headerBrandClass } from "./header-classes";
 
 type SocialDef = { icon: LucideIcon; href: string; label: string };
 const DEFAULT_SOCIALS: SocialDef[] = [
@@ -53,32 +55,23 @@ const LEGAL_HREFS: Array<{ key: string; href: string }> = [
 
 // Reusable utility-class strings — keeps the JSX below readable.
 const footerClass =
-  "relative pt-14 lg:pt-20 px-6 sm:px-8 lg:px-12 pb-8 border-t border-line bg-[oklch(0_0_0_/_0.20)]";
+  "relative pt-12 lg:pt-16 px-6 sm:px-8 lg:px-12 pb-8 border-t border-line bg-[oklch(0_0_0_/_0.20)]";
 // 5-col grid on both locales: brand spans 2fr, then Solutions / Company /
 // Compare / Legal each get their own 1fr column. Mobile stacks to 2 cols
 // with the brand cell spanning both.
 const footerInnerClass =
   "mx-auto max-w-container grid grid-cols-2 [&>:first-child]:col-span-2 gap-6 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] lg:[&>:first-child]:col-span-1";
-const footerBrandClass =
-  "font-sans text-[20px] font-bold tracking-[-0.01em] [&>em]:not-italic [&>em]:bg-brand-gradient [&>em]:bg-clip-text [&>em]:text-transparent";
 const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[320px]";
-// Per-link `min-h-11 inline-flex items-center` enforces the WCAG 2.5.5 44px
-// touch-target on each contact row (tel/email/telegram) — these are
-// nav-style links, not inline-prose, so the floor applies.
 const footerContactsClass =
-  "mt-5 font-mono text-[12px] flex flex-col gap-1.5 [&>a]:inline-flex [&>a]:items-center [&>a]:min-h-11 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 [&>a:hover]:text-ink";
+  "mt-5 font-mono text-[12px] leading-5 flex flex-col gap-1 [&>a]:inline-flex [&>a]:items-center [&>a]:h-5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 [&>a:hover]:text-ink";
 const footerColHClass =
   "font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3";
-// Per-link `min-h-11 inline-flex items-center` enforces the WCAG 2.5.5 44px
-// touch-target on each column entry. The visible `gap-2.5` between siblings
-// stays the same; only the per-link hit area grows. On mobile this makes the
-// footer noticeably taller — accepted because the footer is the primary
-// nav surface on small viewports (the desktop nav is hidden ≤lg).
 const footerColListClass =
-  "list-none mt-4 p-0 flex flex-col gap-1.5 [&_a]:inline-flex [&_a]:items-center [&_a]:min-h-11 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
-const footerDisabledClass = "font-sans text-[13px] text-ink-3 cursor-default";
+  "list-none mt-3 p-0 flex flex-col gap-1 [&_li]:h-5 [&_a]:inline-flex [&_a]:items-center [&_a]:h-5 [&_a]:leading-5 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
+const footerDisabledClass =
+  "inline-flex h-5 items-center font-sans text-[13px] leading-5 text-ink-3 cursor-default";
 const footerBottomClass =
-  "mx-auto max-w-container mt-12 pt-6 border-t border-line flex justify-between items-center flex-wrap gap-4";
+  "mx-auto max-w-container mt-10 pt-5 border-t border-line flex justify-between items-center flex-wrap gap-4";
 const footerCopyClass = "font-mono text-[11px] text-ink-3";
 // Social icon links: explicit `w-11 h-11 inline-flex` so each social anchor
 // hits 44×44 even though the icon glyph itself is only 18px. The visible
@@ -96,6 +89,7 @@ export function HpFooter({
   const tLeg = useTranslations("Footer.legal");
   const locale = useLocale();
   const isEn = locale === "en";
+  const homeHref = isEn ? "/en" : "/";
 
   // Render rules:
   //   - UA: if the industry page is published, link to /sites-for/<slug>;
@@ -134,9 +128,7 @@ export function HpFooter({
     <footer className={footerClass}>
       <div className={footerInnerClass}>
         <div>
-          <div className={footerBrandClass}>
-            <em>Code-Site</em>.art
-          </div>
+          <Logo href={homeHref} className={headerBrandClass} />
           <p className={footerDescClass}>{t("brandDesc")}</p>
           <div className={footerContactsClass}>
             <a href="tel:+380970068707">+380-97-006-87-07</a>
