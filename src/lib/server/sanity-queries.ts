@@ -139,6 +139,7 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
     heading ${LOCALIZED_TEXT},
     subheading ${LOCALIZED_TEXT},
     "heroImage": heroImage ${IMAGE_WITH_ALT},
+    link{ label ${LOCALIZED_STRING}, href },
     metrics[] ${METRIC}
   },
   sections[]{

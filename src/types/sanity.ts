@@ -593,6 +593,7 @@ export type CaseStudyDoc = {
     heading?: LocalizedText;
     subheading?: LocalizedText;
     heroImage?: SanityImage | null;
+    link?: CtaAction | null;
     metrics?: Metric[];
   };
   sections?: CaseStudySection[];

@@ -452,6 +452,14 @@ export async function CasePageView({
   const eyebrow = loc(doc.hero?.eyebrow, locale);
   const heading = formatLine(loc(doc.hero?.heading, locale));
   const sub = loc(doc.hero?.subheading, locale);
+  const heroCta = doc.hero?.link?.href
+    ? {
+        label:
+          loc(doc.hero.link.label, locale) ||
+          (locale === "en" ? "Visit site" : "Перейти на сайт"),
+        href: doc.hero.link.href,
+      }
+    : undefined;
 
   const homeLabel = locale === "en" ? "Home" : "Головна";
   const portfolioLabel = locale === "en" ? "Portfolio" : "Портфоліо";
@@ -497,6 +505,7 @@ export async function CasePageView({
         headline={heading ?? title}
         sub={sub}
         image={heroImageNode}
+        cta={heroCta}
       />
 
       {doc.sections?.map((s) => (

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { ArrowUpRight } from "lucide-react";
 
 import type { Crumb } from "@/components/blocks/page-hero";
-import { H1 } from "@/components/ui";
+import { Btn, H1 } from "@/components/ui";
 
 /**
  * Case-study hero layout preserved from PageHero before 27ba5ee (about-page
@@ -15,12 +16,14 @@ export function CasePageHero({
   headline,
   sub,
   image,
+  cta,
 }: {
   breadcrumbs?: Crumb[];
   eyebrow: string;
   headline: ReactNode;
   sub: ReactNode;
   image?: ReactNode;
+  cta?: { label: string; href: string };
 }) {
   const text = (
     <div>
@@ -58,6 +61,19 @@ export function CasePageHero({
       <p className="mt-6 font-sans text-[15px] leading-[1.55] text-ink-dim lg:text-[17px]">
         {sub}
       </p>
+      {cta?.href && cta.label ? (
+        <Btn
+          as="a"
+          variant="primary"
+          href={cta.href}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          className="mt-8"
+        >
+          {cta.label}
+          <ArrowUpRight size={18} strokeWidth={1.8} />
+        </Btn>
+      ) : null}
     </div>
   );
 

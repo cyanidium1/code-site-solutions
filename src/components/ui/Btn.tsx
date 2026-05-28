@@ -65,7 +65,7 @@ export function Btn(props: BtnProps) {
     as?: "button" | "a";
   };
   const classes = btnClass(variant, className);
-  const label = variant === "primary" ? <span className="relative z-10">{children}</span> : children;
+  const label = variant === "primary" ? <span className="relative z-10 flex items-center gap-2.5 justify-center">{children}</span> : children;
 
   if (as === "a") {
     return (
