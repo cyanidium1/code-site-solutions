@@ -186,7 +186,7 @@ export const EN_TIERS: TierProps[] = [
         "5+ integrations",
         "Local SEO",
         "Compliance: GDPR / HIPAA-ready",
-        "EN + 1 extra language",
+        "Multilingual (2+ languages)",
       ],
     },
     ctaLabel: "Choose Corporate",

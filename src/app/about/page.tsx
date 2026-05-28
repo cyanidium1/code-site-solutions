@@ -263,14 +263,7 @@ export default function AboutPage() {
       />
 
       {/* Section 10: Cases */}
-      <Cases
-        eyebrow="КЕЙСИ"
-        heading={
-          <>
-            Реальні кейси з <em>реальними</em> метриками
-          </>
-        }
-      />
+      <Cases />
 
       {/* Section 11: FAQ */}
       <section className="bg-bg">

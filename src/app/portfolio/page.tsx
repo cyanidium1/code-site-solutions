@@ -7,7 +7,7 @@ import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import {
   caseRefToCardItem,
-  ukRealCasesPhrase,
+  ukProjectsBackedHeadline,
 } from "@/lib/shared/case-card-item";
 import { loc } from "@/lib/shared/sanity-locale";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
@@ -32,6 +32,7 @@ export const revalidate = 3600;
 
 export default async function PortfolioPage() {
   const cases = await fetchCaseStudies();
+  const portfolioHeadline = ukProjectsBackedHeadline(cases.length);
 
   const PORTFOLIO_URL = pageUrl("/portfolio");
   const jsonLd = {
@@ -87,8 +88,8 @@ export default async function PortfolioPage() {
         eyebrow="/ PORTFOLIO"
         headline={
           <>
-            {cases.length} {ukRealCasesPhrase(cases.length)} з{" "}
-            <em>реальними метриками</em>
+            {portfolioHeadline.count},{" "}
+            <em>{portfolioHeadline.backed}</em>
           </>
         }
         sub="Кожен кейс — повний розбір з «до/після», цифрами і скриншотами."

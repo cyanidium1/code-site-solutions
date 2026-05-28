@@ -267,9 +267,12 @@ export default function EnAboutPage() {
         eyebrow="CASES"
         heading={
           <>
-            Real projects with <em>real metrics</em>
+            Projects <em>backed by the numbers</em>
           </>
         }
+        locale="en"
+        ctaLabel="See all work"
+        ctaHref="/en/portfolio"
       />
 
       <section className="bg-bg">

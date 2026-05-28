@@ -36,7 +36,7 @@ export const HOMEPAGE_TIERS: TierProps[] = [
         "5+ інтеграцій",
         "Локальне SEO",
         "Compliance: МОЗ / RODO / HIPAA-aware",
-        "UA + RU",
+        "Багатомовність",
       ],
     },
     ctaLabel: "Обрати Корпоративний",

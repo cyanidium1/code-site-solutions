@@ -17,7 +17,7 @@ export async function Cases({
   eyebrow = "КЕЙСИ",
   heading = (
     <>
-      Реальні кейси з <em>реальними</em> метриками
+      Проєкти, <em>підкріплені цифрами</em>
     </>
   ),
   items,

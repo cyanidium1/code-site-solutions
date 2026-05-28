@@ -128,8 +128,8 @@ export default function HomePageEn() {
         ctaFootnote="No sales call. No email list. Just an audit."
         showStats
         stats={[
-          { num: "47", lbl: <>projects<br />across 3 years</> },
-          { num: "4", lbl: <>regions<br />UA · EU · US · DK</> },
+          { num: "50+", lbl: <>projects<br />across 5 years</> },
+          { num: "7", lbl: <>regions<br />UA · EU · US · DK · ZA · UK · FR</> },
           { num: "×3.2", lbl: <>avg.<br />lead lift</> },
           { num: "4.9/5", lbl: <>client<br />rating</> },
         ]}
@@ -142,7 +142,7 @@ export default function HomePageEn() {
         deviceMockupSrc="/hero/hero-mockup.webp"
       />
 
-      <Marquee label="47+ BUSINESSES TRUSTED · UA · EU · US · DK" />
+      <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
 
       <TurnkeyList
         eyebrow="SCOPE"
@@ -215,7 +215,7 @@ export default function HomePageEn() {
         eyebrow="CASES"
         heading={
           <>
-            Real projects with <em>real metrics.</em>
+            Projects <em>backed by the numbers</em>
           </>
         }
         locale="en"

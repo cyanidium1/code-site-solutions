@@ -2,7 +2,7 @@ import type { MarqueeLogo } from "@/types/homepage";
 
 const DEFAULT_MARQUEE: MarqueeLogo[] = [
   { src: "/partners/efedra.webp", alt: "Efedra Clinic" },
-  { src: "/partners/tatarka.webp", alt: "Tatarka" },
+  { src: "/partners/tatarka.svg", alt: "Tatarka" },
   { src: "/partners/aleko.webp", alt: "Aleko" },
   { src: "/partners/solid-renovation.webp", alt: "Solid Renovation" },
   { src: "/partners/art-lover.webp", alt: "Art Lover" },
@@ -20,7 +20,7 @@ const DEFAULT_MARQUEE: MarqueeLogo[] = [
 ];
 
 export function Marquee({
-  label = "47+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK",
+  label = "50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR",
   items = DEFAULT_MARQUEE,
 }: {
   label?: string;

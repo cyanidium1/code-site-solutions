@@ -7,7 +7,7 @@ import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import {
   caseRefToCardItem,
-  enCasesNoun,
+  enProjectsBackedHeadline,
 } from "@/lib/shared/case-card-item";
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasEnCase } from "@/constants/i18n-routes";
@@ -40,6 +40,7 @@ export const revalidate = 3600;
 
 export default async function EnPortfolioPage() {
   const cases = await fetchCaseStudies();
+  const portfolioHeadline = enProjectsBackedHeadline(cases.length);
 
   const PORTFOLIO_URL = pageUrl("/en/portfolio");
   const jsonLd = {
@@ -105,8 +106,8 @@ export default async function EnPortfolioPage() {
         eyebrow="PORTFOLIO"
         headline={
           <>
-            {cases.length} real {enCasesNoun(cases.length)}. The{" "}
-            <em>numbers are real</em>.
+            {portfolioHeadline.count},{" "}
+            <em>{portfolioHeadline.backed}</em>
           </>
         }
         sub='Every case is a full breakdown with "before / after" and metrics. ×3.2 inquiries, $4M raised, 24 leads/mo.'

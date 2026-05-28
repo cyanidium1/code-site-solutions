@@ -109,7 +109,7 @@ export const TIERS: TierProps[] = [
         "Local SEO targeting your area",
         "Client account area",
         "E-signature (Diia.Sign / DocuSign)",
-        "UA + RU multilingual",
+        "Multilingual (2+ languages)",
         "Cost calculators (1–3)",
         "Up to 30 pages",
         "1-year warranty + 30% rebate for delays",

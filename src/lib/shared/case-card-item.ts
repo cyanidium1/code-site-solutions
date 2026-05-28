@@ -69,3 +69,46 @@ export function ukRealCasesPhrase(n: number): string {
 export function enCasesNoun(n: number): string {
   return n === 1 ? "case" : "cases";
 }
+
+type UkCountForm = "one" | "few" | "many";
+
+function ukCountForm(n: number): UkCountForm {
+  const mod100 = n % 100;
+  const mod10 = n % 10;
+  if (mod100 >= 11 && mod100 <= 14) return "many";
+  if (mod10 === 1) return "one";
+  if (mod10 >= 2 && mod10 <= 4) return "few";
+  return "many";
+}
+
+/** e.g. 9 → { count: "9 проєктів", backed: "підкріплених цифрами" } */
+export function ukProjectsBackedHeadline(n: number): {
+  count: string;
+  backed: string;
+} {
+  const form = ukCountForm(n);
+  const count =
+    form === "one"
+      ? `${n} проєкт`
+      : form === "few"
+        ? `${n} проєкти`
+        : `${n} проєктів`;
+  const backed =
+    form === "one"
+      ? "підкріплений цифрами"
+      : form === "few"
+        ? "підкріплені цифрами"
+        : "підкріплених цифрами";
+  return { count, backed };
+}
+
+/** e.g. 9 → { count: "9 projects", backed: "backed by the numbers" } */
+export function enProjectsBackedHeadline(n: number): {
+  count: string;
+  backed: string;
+} {
+  return {
+    count: n === 1 ? `${n} project` : `${n} projects`,
+    backed: "backed by the numbers",
+  };
+}

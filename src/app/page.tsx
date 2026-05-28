@@ -90,8 +90,8 @@ export default function HomePage() {
         ctaFootnote="Без розмови з sales. Без email-розсилки. Просто аудит."
         showStats
         stats={[
-          { num: "47", lbl: <>проєктів<br/>за 3 роки</> },
-          { num: "4", lbl: <>країни<br/>UA · EU · US · DK</> },
+          { num: "50+", lbl: <>проєктів<br/>за 5 років</> },
+          { num: "7", lbl: <>країн<br/>UA · EU · US · DK · ZA · UK · FR</> },
           { num: "×3.2", lbl: <>заявок<br/>у середньому</> },
           { num: "4.9/5", lbl: <>оцінка<br/>клієнтів</> },
         ]}
@@ -104,7 +104,7 @@ export default function HomePage() {
         deviceMockupSrc="/hero/hero-mockup.webp"
       />
 
-      <Marquee label="47+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK" />
+      <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
       <TurnkeyList />
       <Industries />
       <Bento />
