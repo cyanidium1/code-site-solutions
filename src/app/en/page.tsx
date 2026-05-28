@@ -1,17 +1,6 @@
 import type { Metadata } from "next";
-import {
-  Rocket,
-  FileText,
-  Palette,
-  Smartphone,
-  Code,
-  LayoutDashboard,
-  Lock,
-  Cloud,
-  LifeBuoy,
-} from "lucide-react";
 import { HeroEditorial } from "@/components/blocks/hero";
-import { TurnkeyList } from "@/components/blocks/turnkey-list";
+import { ValueStack } from "@/components/blocks/value-stack";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
@@ -144,32 +133,7 @@ export default function HomePageEn() {
 
       <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
 
-      <TurnkeyList
-        eyebrow="SCOPE"
-        heading={
-          <>
-            9 things <em>we do for you.</em>
-          </>
-        }
-        sub="You pay a fixed price and get a finished site. No briefs to write, no references to hunt down, no photographer to chase. Here's what's in every project — no upsells:"
-        items={[
-          { icon: FileText, title: "Copywriting", line: "Hero, SEO articles, opening cases" },
-          { icon: Palette, title: "Design", line: "2 rounds of revisions included" },
-          { icon: Smartphone, title: "Frontend", line: "Responsive: mobile / tablet / desktop" },
-          { icon: Code, title: "Engineering", line: "Next.js, all integrations" },
-          { icon: LayoutDashboard, title: "CMS", line: "Sanity — edit content from your phone" },
-          { icon: Lock, title: "Domain & SSL", line: "We set it up for you" },
-          { icon: Cloud, title: "Hosting", line: "Vercel or Cloudflare on your account" },
-          { icon: Rocket, title: "Launch", line: "Search Console, Analytics, 301s" },
-          { icon: LifeBuoy, title: "1 year of support", line: "Bugs, updates, advice" },
-        ]}
-        footer={
-          <p className="mx-auto max-w-container-form text-center text-[13px] leading-relaxed text-ink-3">
-            Not included — product photography and full logo branding. If you need them, we&apos;ll connect
-            you with vetted partners.
-          </p>
-        }
-      />
+      <ValueStack locale="en" />
 
       <Industries
         eyebrow=""

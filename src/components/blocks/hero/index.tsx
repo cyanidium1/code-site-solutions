@@ -314,7 +314,11 @@ export function DeviceMockup({
           height={1674}
           priority
           fetchPriority="high"
-          sizes="(max-width: 640px) 100vw"
+          quality={70}
+          // Display width is clamp(420px, 50vw, 1000px); bound `sizes` to it so
+          // the browser/preload picks an ~800px candidate on mobile instead of
+          // over-fetching the 1920px source (the LCP regression).
+          sizes="(max-width: 639px) 440px, (max-width: 1999px) 50vw, 1000px"
           className={`${MOCKUP_IMG_CLASS} ${MOCKUP_IMG_HOMEPAGE_CLASS}`}
         />
       ) : (

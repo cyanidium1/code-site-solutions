@@ -1,5 +1,5 @@
 import { HeroEditorial } from "@/components/blocks/hero";
-import { TurnkeyList } from "@/components/blocks/turnkey-list";
+import { ValueStack } from "@/components/blocks/value-stack";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
@@ -105,7 +105,7 @@ export default function HomePage() {
       />
 
       <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
-      <TurnkeyList />
+      <ValueStack />
       <Industries />
       <BusinessValue />
       <Process />
