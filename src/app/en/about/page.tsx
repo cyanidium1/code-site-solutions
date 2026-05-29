@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
+import { Calendar, MessageCircle, Mail } from "lucide-react";
 
-import { PageHero } from "@/components/blocks/page-hero";
-import { StatsBar } from "@/components/blocks/stats-bar";
-import { ImageText } from "@/components/blocks/image-text";
-import { TeamSection } from "@/components/about/team-section";
-import { ValuesSecondaryRow } from "@/components/about/values-secondary-row";
-import { FAQ } from "@/components/blocks/final";
 import {
-  HpHeader,
-  HpFooter,
-  Bento,
-  Process,
-  Cases,
-  Stack,
-} from "@/components/homepage";
-import { LaunchCta } from "@/components/blocks/launch-cta";
+  AboutHero,
+  Founder,
+  TrackRecord,
+  Philosophy,
+  RealProjects,
+  WhatYouBuy,
+  Guarantees,
+} from "@/components/about/sections";
+import { FAQ } from "@/components/blocks/final";
+import { HpHeader, HpFooter, Marquee, PullQuote, FinalCta3 } from "@/components/homepage";
 import {
   ORG_ID,
   SITE_CONTACT,
@@ -22,12 +19,11 @@ import {
   WEBSITE_ID,
   pageUrl,
 } from "@/constants/site";
-import { ABOUT_FAQ, VALUES_CELLS, VS_CELLS } from "@/content/en/about";
+import { ABOUT_EN as C } from "@/content/en/about";
 
 export const metadata: Metadata = {
-  title: "About — boutique studio of 12 in Kyiv | Code-Site.Art",
-  description:
-    "Not an agency, not a freelancer. 12 people building custom sites for SMBs. 47 projects across UA, EU, US, DK. You talk to the people who code and design.",
+  title: C.meta.title,
+  description: C.meta.description,
   alternates: {
     canonical: "/en/about",
     languages: {
@@ -37,51 +33,23 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "About — boutique studio of 12 in Kyiv | Code-Site.Art",
-    description:
-      "12 people building sites that bring leads. 47 projects across UA, EU, US, DK.",
+    title: C.meta.title,
+    description: C.meta.description,
     type: "website",
     locale: "en_US",
     url: "/en/about",
   },
 };
 
-/* ─── Placeholder visual ─────────────────────────────────────────────────── */
-
-import { type CSSProperties } from "react";
-
-function GradPlaceholder({
-  from,
-  to,
-  label,
-}: {
-  from: string;
-  to: string;
-  label?: string;
-}) {
-  return (
-    <div
-      // eslint-disable-next-line react/forbid-dom-props -- dynamic gradient stops
-      style={{ "--gp-from": from, "--gp-to": to } as CSSProperties}
-      className="relative flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,var(--gp-from)_0%,var(--gp-to)_100%)]"
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-50"
-      />
-      {label ? (
-        <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-white/85">
-          {label}
-        </span>
-      ) : null}
-    </div>
-  );
-}
-
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
 
 const ABOUT_URL = pageUrl("/en/about");
 const FOUNDER_ID = `${pageUrl("/about")}#fedir-alpatov`;
+const FOUNDER_PROFILES = [
+  "https://github.com/cyanidium1",
+  "https://www.linkedin.com/in/fediralpatov/",
+  "https://www.instagram.com/cyanidium/",
+];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -90,9 +58,8 @@ const jsonLd = {
       "@type": "AboutPage",
       "@id": `${ABOUT_URL}#aboutpage`,
       url: ABOUT_URL,
-      name: "About — Code-Site.Art",
-      description:
-        "12 people building sites that bring leads. 47 projects across 4 regions: UA · EU · US · DK.",
+      name: C.meta.title,
+      description: C.meta.description,
       inLanguage: "en",
       isPartOf: { "@id": WEBSITE_ID },
       about: { "@id": ORG_ID },
@@ -101,14 +68,11 @@ const jsonLd = {
       "@type": "Person",
       "@id": FOUNDER_ID,
       name: "Fedir Alpatov",
-      jobTitle: "Founder, Code-Site.Art",
+      jobTitle: "Developer, Tech Lead & Founder, Code-Site.Art",
       worksFor: { "@id": ORG_ID },
-      sameAs: [
-        "https://www.linkedin.com/in/fediralpatov/",
-        SITE_CONTACT.telegram,
-        "https://www.tiktok.com/@cyanidium.dev",
-        "https://www.instagram.com/cyanidium/",
-      ],
+      alumniOf: "Kyiv Polytechnic Institute",
+      knowsAbout: ["Next.js", "React", "TypeScript", "Sanity CMS"],
+      sameAs: FOUNDER_PROFILES,
     },
     {
       "@type": "Organization",
@@ -117,30 +81,21 @@ const jsonLd = {
       url: SITE_ORIGIN,
       email: SITE_CONTACT.email,
       telephone: SITE_CONTACT.phone,
-      foundingDate: "2023",
+      foundingDate: "2025",
       founder: { "@id": FOUNDER_ID },
       address: {
         "@type": "PostalAddress",
         addressLocality: "Kyiv",
         addressCountry: "UA",
       },
-      areaServed: ["UA", "EU", "US", "DK"],
+      areaServed: ["UA", "EU", "DK"],
+      sameAs: FOUNDER_PROFILES,
     },
     {
       "@type": "BreadcrumbList",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: `${SITE_ORIGIN}/en`,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "About",
-          item: ABOUT_URL,
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_ORIGIN}/en` },
+        { "@type": "ListItem", position: 2, name: "About", item: ABOUT_URL },
       ],
     },
   ],
@@ -157,137 +112,84 @@ export default function EnAboutPage() {
       />
       <HpHeader />
 
-      <PageHero
-        breadcrumbs={[
-          { label: "Home", href: "/en" },
-          { label: "About" },
-        ]}
-        eyebrow="ABOUT"
-        headline={
-          <>
-            12 people who build sites that{" "}
-            <em>bring leads</em>.
-          </>
-        }
-        sub={
-          <>
-            Boutique studio out of Kyiv. 47 projects across 4 regions in 3
-            years. You talk directly to the people who write code and design —
-            no account managers as filters, no &ldquo;I&apos;ll pass that to
-            the team.&rdquo;
-          </>
-        }
-      />
+      <main>
+        {/* 1 — Hero */}
+        <AboutHero c={C.hero} />
 
-      <StatsBar
-        items={[
-          { value: "47", label: "projects in 3 years" },
-          { value: "UA · EU · US · DK", label: "regions of launch" },
-          { value: "4.9/5", label: "average client rating" },
-          { value: "×3.2", label: "more inquiries on average" },
-        ]}
-      />
+        {/* 2 — Who is behind the studio */}
+        <Founder c={C.founder} />
 
-      <ImageText
-        variant="side"
-        imageVariant="imageRight"
-        eyebrow="ABOUT"
-        heading={
-          <>
-            Not an agency. <em>Not a freelancer.</em>
-          </>
-        }
-        body={[
-          "We deliberately don't grow to 50 employees. At a big agency, your project is one of thirty, and a manager runs it — not the person writing the code. With a freelancer, your project depends on one person who can disappear for 3 weeks.",
-          "12 people is the size where the team keeps quality high, and you know everyone involved in your project. Since 2022 we've built sites for clinics, law firms, accounting offices, renovation companies, e-commerce, and SaaS — mostly in Ukraine and the EU.",
-        ]}
-        image={
-          <GradPlaceholder
-            from="oklch(0.50 0.18 280)"
-            to="oklch(0.30 0.10 240)"
-            label="team · 2026"
-          />
-        }
-      />
+        {/* 3 — Public track record ("verify us yourself") */}
+        <TrackRecord c={C.trackRecord} />
 
-      <TeamSection
-        locale="en"
-        eyebrow="TEAM"
-        heading={
-          <>
-            12 people. You&apos;ll hear from four <em>every day</em>.
-          </>
-        }
-        sub="This is the core — the people you'll talk to directly: tech lead, designer, frontend, marketing. Behind them, 8 more work in the background: 4 developers, 2 designers, 2 QA engineers. You see results, not process."
-      />
+        {/* 4 — Why we work this way (ownership philosophy) */}
+        <Philosophy c={C.philosophy} />
 
-      <Bento
-        eyebrow="VALUES"
-        heading={
-          <>
-            What we <em>won&apos;t compromise on</em>
-          </>
-        }
-        cells={VALUES_CELLS.slice(0, 3)}
-      />
-      <ValuesSecondaryRow cells={VALUES_CELLS.slice(3)} ariaLabel="Additional values" />
+        {/* 5 — Real projects + partner logos + client testimonial */}
+        <RealProjects c={C.projects} />
+        <Marquee label="COMPANIES THAT TRUSTED US WITH THEIR SITE · UA · EU · DK" />
+        <PullQuote
+          quote={
+            <>
+              Construction on Bornholm is a tight niche. We were afraid of losing
+              even the little visibility we had. 30 days after the switch traffic
+              held, after 60 we were <em>#1</em>. Now I create new service pages
+              myself — from my phone.
+            </>
+          }
+          initials="SH"
+          name="Søren Hansen"
+          role="Owner, NBYG København Aps"
+          caseHref="/en/portfolio/nbyg-kobenhavn"
+          caseLabel="See the full case"
+        />
 
-      <Stack
-        eyebrow="STACK"
-        heading={
-          <>
-            Technologies we <em>go deep on</em>
-          </>
-        }
-        sub="We don't try everything. 10 tools we're strong in. No experiments on your money."
-      />
+        {/* 6 — What clients actually buy */}
+        <WhatYouBuy c={C.whatYouBuy} />
 
-      <Bento
-        eyebrow="DIFFERENCE"
-        heading={
-          <>
-            How we <em>differ from</em> others
-          </>
-        }
-        cells={VS_CELLS}
-      />
+        {/* 7 — Guarantees (major trust section) */}
+        <Guarantees c={C.guarantees} />
 
-      <Process
-        eyebrow="PROCESS · 4-10 WEEKS"
-        heading={
-          <>
-            How we <em>work</em>
-          </>
-        }
-        ctaLabel="See the full process"
-        ctaHref="/en/process"
-      />
+        {/* 8 — FAQ */}
+        <section className="bg-bg">
+          <FAQ heading="About the studio — FAQ" items={C.faq} locale="en" />
+        </section>
 
-      <Cases
-        eyebrow="CASES"
-        heading={
-          <>
-            Projects <em>backed by the numbers</em>
-          </>
-        }
-        locale="en"
-        ctaLabel="See all work"
-        ctaHref="/en/portfolio"
-      />
-
-      <section className="bg-bg">
-        <FAQ heading="About FAQ" items={ABOUT_FAQ} locale="en" />
-      </section>
-
-      <LaunchCta
-        locale="en"
-        heading={
-          <>
-            <em>30 minutes</em> — and you&apos;ll know if we&apos;re a fit
-          </>
-        }
-        sub="No commitment. We show real cases, listen to your task, and honestly say whether we can build what you need."
-      />
+        {/* 9 — Final CTA */}
+        <FinalCta3
+          eyebrow="GET IN TOUCH"
+          heading={
+            <>
+              Need a site your business <em>actually owns</em>?
+            </>
+          }
+          sub="Drop us a line — we'll talk through your task, tell you honestly what's realistic and what it costs. No pressure, no mailing lists."
+          cards={[
+            {
+              icon: MessageCircle,
+              title: "Telegram",
+              body: "The fastest channel. We usually reply within a few hours.",
+              cta: "Message us →",
+              href: SITE_CONTACT.telegram,
+              featured: true,
+            },
+            {
+              icon: Mail,
+              title: "Email",
+              body: `Write to ${SITE_CONTACT.email} and we'll get back to you.`,
+              cta: "Send an email →",
+              href: `mailto:${SITE_CONTACT.email}`,
+            },
+            {
+              icon: Calendar,
+              title: "Send a brief",
+              body: "Describe the project in the form and we'll come back with next steps.",
+              cta: "Open the form →",
+              href: "/en/contacts",
+            },
+          ]}
+        />
+      </main>
 
       <HpFooter />
     </>
