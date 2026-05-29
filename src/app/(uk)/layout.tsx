@@ -1,19 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
 import { Manrope, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
-import { Providers } from "./providers";
-import { SITE_ORIGIN } from "@/constants/site";
-// Swiper's CSS is NOT imported here anymore. It used to be render-blocking on
-// every route even though Swiper is only used by the (below-the-fold) homepage
-// testimonial carousel. It now ships with the lazily-loaded SwiperWrapper chunk
-// so it stays off the critical path. See components/shared/swiper/SwiperWrapper.
+import { setRequestLocale } from "next-intl/server";
+import ukMessages from "../../../messages/uk.json";
 
-import "./globals.css";
-import "./keyframes.css";
-import "./vendor.css";
+import { Providers } from "../providers";
+import { SITE_ORIGIN } from "@/constants/site";
+
+import "../globals.css";
+import "../keyframes.css";
+import "../vendor.css";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -31,8 +28,8 @@ const jetbrains = JetBrains_Mono({
 
 const actay = localFont({
   src: [
-    { path: "../../public/fonts/ActayWide-Bold.woff2", weight: "700", style: "normal" },
-    { path: "../../public/fonts/ActayWide-BoldItalic.woff2", weight: "700", style: "italic" },
+    { path: "../../../public/fonts/ActayWide-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../../../public/fonts/ActayWide-BoldItalic.woff2", weight: "700", style: "italic" },
   ],
   variable: "--font-actay",
   display: "swap",
@@ -68,22 +65,33 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default async function RootLayout({
+/**
+ * Root layout for the Ukrainian (default-locale) route group.
+ *
+ * `<html lang>` is hardcoded statically so this layout — and the routes
+ * inside the (uk) group — render statically. That lets Next's CSS-inlining
+ * (`experimental.inlineCss`) work, which removes the render-blocking CSS
+ * <link> that was gating LCP.
+ *
+ * The English routes live under `app/(en)/en/*` and have their own root
+ * layout with `lang="en"`.
+ */
+export default function UkRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const messages = await getMessages();
-  const pathname = (await headers()).get("x-pathname") ?? "/";
-  const lang = pathname.startsWith("/en") ? "en" : "uk";
+  // Pin the request locale so next-intl's request config (`requestLocale`)
+  // picks UA messages without needing a request-time header.
+  setRequestLocale("uk");
   return (
     <html
-      lang={lang}
+      lang="uk"
       suppressHydrationWarning
       className={`${manrope.variable} ${jetbrains.variable} ${actay.variable}`}
     >
       <body className="font-sans bg-bg text-ink antialiased">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale="uk" messages={ukMessages}>
           <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>

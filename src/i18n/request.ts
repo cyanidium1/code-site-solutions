@@ -1,17 +1,20 @@
-import { headers } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
 
 /**
- * Resolves the active locale from the request pathname. The pathname is
- * surfaced into request headers by middleware.ts as `x-pathname`.
- *
- * Routes under /en/* render the EN catalog; everything else (including
- * the bare /) defaults to UA. This mirrors the same heuristic used in
- * src/app/layout.tsx for the <html lang> attribute.
+ * Locale + messages for next-intl. The locale is pinned by `setRequestLocale`
+ * in each route group's root layout (`app/(uk)/layout.tsx`, `app/(en)/layout.tsx`),
+ * so this config no longer needs to read request headers — which means pages
+ * stay statically renderable and `experimental.inlineCss` can actually run.
  */
-export default getRequestConfig(async () => {
-  const pathname = (await headers()).get("x-pathname") ?? "/";
-  const locale = pathname.startsWith("/en") ? "en" : "uk";
+const LOCALES = ["uk", "en"] as const;
+type Locale = (typeof LOCALES)[number];
+
+export default getRequestConfig(async ({ requestLocale }) => {
+  const requested = await requestLocale;
+  const locale: Locale =
+    requested && (LOCALES as readonly string[]).includes(requested)
+      ? (requested as Locale)
+      : "uk";
   const messages =
     locale === "en"
       ? (await import("../../messages/en.json")).default

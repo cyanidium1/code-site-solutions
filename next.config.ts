@@ -5,6 +5,13 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    // Inline CSS into the HTML <style> at render time, eliminating the
+    // render-blocking <link rel=stylesheet> requests that were gating LCP.
+    // Only kicks in for statically-rendered pages — the app/(uk)/ and
+    // app/(en)/ route groups own their <html lang> so pages stay static.
+    inlineCss: true,
+  },
   images: {
     // Prefer AVIF (≈20-30% smaller than WebP) then fall back to WebP — shrinks
     // the hero LCP image and all card photography on the optimizer path.

@@ -10,6 +10,17 @@
       "env": {
         "NODE_OPTIONS": "--max-old-space-size=4096"
       }
+    },
+    {
+      "name": "Next.js prod",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start"],
+      "port": 3008,
+      "autoPort": true,
+      "env": {
+        "PORT": "3008",
+        "NODE_OPTIONS": "--max-old-space-size=4096"
+      }
     }
   ]
 }

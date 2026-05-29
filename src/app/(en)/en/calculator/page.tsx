@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import enMessages from "../../../../messages/en.json";
+import enMessages from "../../../../../messages/en.json";
 
 import { HpFooter, HpHeader } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";

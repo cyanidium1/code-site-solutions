@@ -17,7 +17,10 @@ import { NextResponse, type NextRequest } from "next/server";
  * /en/sites-for/medicine) are honored as-is — the user clicked through
  * to that specific URL, we don't want to fight them.
  *
- * The pathname header is still set so the root layout can pick `<html lang>`.
+ * No request headers are mutated: `<html lang>` is now hardcoded statically
+ * in each route group's root layout, so the renderer doesn't need to know
+ * the request path. Keeping the middleware lean lets the rest of the app
+ * render statically.
  */
 
 const COOKIE_NAME = "NEXT_LOCALE";
@@ -57,11 +60,7 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-pathname", pathname);
-  return NextResponse.next({
-    request: { headers: requestHeaders },
-  });
+  return NextResponse.next();
 }
 
 export const config = {
