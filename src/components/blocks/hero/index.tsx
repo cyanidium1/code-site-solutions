@@ -314,12 +314,13 @@ export function DeviceMockup({
           height={1674}
           priority
           fetchPriority="high"
-          quality={82}
-          // The homepage variant renders this at ~100vw (clamp 420px→1200px), not
-          // 50vw — so `sizes` must reflect that or the browser under-fetches and
-          // upscales (the blurry-on-desktop bug). Mobile stays capped smaller to
-          // protect LCP; desktop gets a ~1200px candidate for a crisp render.
-          sizes="(max-width: 639px) 480px, (max-width: 1200px) 100vw, 1200px"
+          quality={75}
+          // This renders at ~100vw (clamp 420px→1200px). `sizes` must say 100vw
+          // or the browser mis-picks a candidate: too small → blurry desktop
+          // (the old 50vw bug); too large → a heavy mobile LCP image (the old
+          // 480px slot fetched w=1080 at dpr2 for a ~375px display). 100vw lets
+          // it fetch ~w=828 on phones and w=1200 on desktop — both 1:1.
+          sizes="(max-width: 1200px) 100vw, 1200px"
           className={`${MOCKUP_IMG_CLASS} ${MOCKUP_IMG_HOMEPAGE_CLASS}`}
         />
       ) : (
