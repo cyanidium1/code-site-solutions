@@ -4,7 +4,8 @@
  * once the legal team approves wording.
  */
 
-import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
+import { HpHeader, HpFooter } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import { PageHero } from "@/components/blocks/page-hero";
 
 export function LegalStub({
@@ -52,11 +53,7 @@ export function LegalStub({
         </div>
       </section>
 
-      <FinalCta3
-        eyebrow="/ GET IN TOUCH"
-        heading={finalHeading}
-        sub={finalSub}
-      />
+      <LaunchCta locale="uk" heading={finalHeading} sub={finalSub} />
 
       <HpFooter />
     </>

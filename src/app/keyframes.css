@@ -26,11 +26,6 @@
   50%      { filter: drop-shadow(0 0 6px oklch(0.55 0.18 295 / 0.35)); }
 }
 
-/* Homepage urgency-line pulse halo. Used by FinalCta3 urgency badge. */
-@keyframes hp-urgency-pulse {
-  50% { box-shadow: 0 0 0 8px oklch(from var(--color-accent) l c h / 0); }
-}
-
 /* Mobile drawer item stagger — used by `mobile-menu.tsx`. Each item sets
    its own `--i` index and the animation token below scales delay by it. */
 @keyframes hp-drawer-in {

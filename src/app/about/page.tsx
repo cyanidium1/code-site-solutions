@@ -12,8 +12,8 @@ import {
   Process,
   Cases,
   Stack,
-  FinalCta3,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import {
   ORG_ID,
   SITE_CONTACT,
@@ -271,8 +271,8 @@ export default function AboutPage() {
       </section>
 
       {/* Section 12: Final CTA */}
-      <FinalCta3
-        eyebrow="ЗВ'ЯЗОК"
+      <LaunchCta
+        locale="uk"
         heading={
           <>
             <em>30 хвилин</em> — і ви знатимете, чи підходимо одне одному

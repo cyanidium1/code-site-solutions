@@ -13,8 +13,8 @@ import {
   HpHeader,
   HpFooter,
   PullQuote,
-  FinalCta3,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import {
   NbygMetaStrip,
   NbygRelatedCard as RelatedCard,
@@ -392,8 +392,8 @@ export default function EfedraCasePage() {
       </section>
 
       {/* Section 9: Final CTA */}
-      <FinalCta3
-        eyebrow="ЗВ'ЯЗОК"
+      <LaunchCta
+        locale="uk"
         heading={
           <>
             Готові <em>обговорити</em> проєкт?

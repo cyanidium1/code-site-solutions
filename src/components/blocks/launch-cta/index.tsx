@@ -1,3 +1,4 @@
+import type * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -12,7 +13,17 @@ import { H2 } from "@/components/ui";
  * off the right edge into the gutter. Below 1024px the layout stacks
  * single-column with the image rendered statically beneath the text.
  */
-export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
+export function LaunchCta({
+  locale = "uk",
+  heading,
+  sub,
+}: {
+  locale?: "uk" | "en";
+  // Optional per-page copy overrides — fall back to the translated defaults
+  // so existing call sites (homepage, comparison pages) stay unchanged.
+  heading?: React.ReactNode;
+  sub?: React.ReactNode;
+} = {}) {
   const t = useTranslations("LaunchCta");
   const href = localizePath("/contacts", locale === "en");
 
@@ -30,11 +41,11 @@ export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
               <span className="block w-3 h-3 rounded-[3px] bg-[#7c54cd] shadow-[0_0_8px_rgba(124,84,205,0.6)]" />
             </div>
             <H2 id="launch-cta-heading" variant="launch-cta" className="text-ink">
-              {t("heading")}
+              {heading ?? t("heading")}
             </H2>
           </div>
           <p className="m-0 font-sans text-[13.5px] leading-[1.6] text-ink-dim max-w-[50ch] md:text-[14px]">
-            {t("sub")}
+            {sub ?? t("sub")}
           </p>
           <Link
             href={href}
@@ -50,8 +61,8 @@ export function LaunchCta({ locale = "uk" }: { locale?: "uk" | "en" } = {}) {
           <Image
             src="/home/launch-cta-devices.webp"
             alt={t("imageAlt")}
-            width={1119}
-            height={549}
+            width={2074}
+            height={1355}
             sizes="(max-width: 1024px) 90vw, 60vw"
             priority={false}
           />

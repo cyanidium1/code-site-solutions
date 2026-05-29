@@ -13,8 +13,8 @@ import {
   Process,
   Cases,
   Stack,
-  FinalCta3,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import {
   ORG_ID,
   SITE_CONTACT,
@@ -279,8 +279,8 @@ export default function EnAboutPage() {
         <FAQ heading="About FAQ" items={ABOUT_FAQ} locale="en" />
       </section>
 
-      <FinalCta3
-        eyebrow="GET IN TOUCH"
+      <LaunchCta
+        locale="en"
         heading={
           <>
             <em>30 minutes</em> — and you&apos;ll know if we&apos;re a fit

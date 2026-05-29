@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { CtaBanner } from "@/components/blocks/cta-banner";
-import { HpHeader, HpFooter, FinalCta3 } from "@/components/homepage";
+import { HpHeader, HpFooter } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import {
@@ -151,8 +152,8 @@ export default async function PortfolioPage() {
         }}
       />
 
-      <FinalCta3
-        eyebrow="/ GET IN TOUCH"
+      <LaunchCta
+        locale="uk"
         heading={
           <>
             Готові <em>обговорити</em> проєкт?

@@ -1,18 +1,59 @@
 "use client";
 
+import type { ComponentType, SVGProps } from "react";
 import Link from "next/link";
-import { Linkedin, Send, Instagram, type LucideIcon } from "lucide-react";
+import { Linkedin, Send, Instagram, Mail, Phone, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { hasEnIndustry } from "@/constants/i18n-routes";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 
+// lucide has no brand WhatsApp glyph — wire-style outline (Tabler-derived) that
+// matches the stroke weight of the lucide icons used for the other channels.
+type WireIconProps = { size?: number; strokeWidth?: number } & SVGProps<SVGSVGElement>;
+function WhatsAppIcon({ size = 14, strokeWidth = 1.6, ...rest }: WireIconProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...rest}
+    >
+      <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+      <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+    </svg>
+  );
+}
+
 type SocialDef = { icon: LucideIcon; href: string; label: string };
 const DEFAULT_SOCIALS: SocialDef[] = [
   { icon: Linkedin, href: "https://linkedin.com/in/fedirdev", label: "LinkedIn" },
   { icon: Send, href: "https://t.me/fedirdev", label: "Telegram" },
   { icon: Instagram, href: "https://instagram.com/fedirdev", label: "Instagram" },
+];
+
+// Footer contact channels. Order mirrors the design reference:
+// WhatsApp → Mail → Telegram → Phone. Each icon inherits text colour via
+// `currentColor` so they fade/hover in sync with the label.
+type ContactIcon = ComponentType<{ size?: number; strokeWidth?: number }>;
+const FOOTER_CONTACTS: Array<{
+  Icon: ContactIcon;
+  href: string;
+  label: string;
+  external?: boolean;
+}> = [
+  { Icon: WhatsAppIcon, href: "https://wa.me/355689286136", label: "+355-68-928-6136", external: true },
+  { Icon: Mail, href: "mailto:hi@code-site.art", label: "hi@code-site.art" },
+  { Icon: Send, href: "https://t.me/fedirdev", label: "@fedirdev", external: true },
+  { Icon: Phone, href: "tel:+380970068707", label: "+380-97-006-87-07" },
 ];
 
 // All 8 industries have published Sanity pages and live UA links.
@@ -54,7 +95,7 @@ const footerInnerClass =
   "mx-auto max-w-container grid grid-cols-2 [&>:first-child]:col-span-2 gap-6 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] lg:[&>:first-child]:col-span-1";
 const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[320px]";
 const footerContactsClass =
-  "mt-5 font-mono text-[12px] leading-5 flex flex-col gap-1 [&>a]:inline-flex [&>a]:items-center [&>a]:h-5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 [&>a:hover]:text-ink";
+  "mt-5 font-mono text-[12px] leading-5 flex flex-col gap-1.5 [&>a]:inline-flex [&>a]:items-center [&>a]:gap-2 [&>a]:h-5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 [&>a:hover]:text-ink [&_svg]:shrink-0 [&_svg]:text-ink-3 [&>a:hover_svg]:text-accent-soft [&_svg]:transition-colors [&_svg]:duration-200";
 const footerColHClass =
   "font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3";
 const footerColListClass =
@@ -122,11 +163,17 @@ export function HpFooter({
           <Logo href={homeHref} className={headerBrandClass} />
           <p className={footerDescClass}>{t("brandDesc")}</p>
           <div className={footerContactsClass}>
-            <a href="tel:+380970068707">+380-97-006-87-07</a>
-            <a href="mailto:hi@code-site.art">hi@code-site.art</a>
-            <a href="https://t.me/fedirdev" target="_blank" rel="noreferrer">
-              @fedirdev
-            </a>
+            {FOOTER_CONTACTS.map(({ Icon, href, label, external }) => (
+              <a
+                key={href}
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noreferrer" : undefined}
+              >
+                <Icon size={14} strokeWidth={1.6} />
+                <span>{label}</span>
+              </a>
+            ))}
           </div>
         </div>
         <div>

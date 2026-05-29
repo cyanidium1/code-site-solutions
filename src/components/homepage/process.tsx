@@ -27,10 +27,10 @@ type ProcessStep = {
 const STEP_ICONS: LucideIcon[] = [Search, Workflow, LayoutTemplate, ShieldCheck, Rocket];
 
 const DEFAULT_PROCESS: ProcessStep[] = [
-  { n: "01", name: "Дискавері", duration: "1 день", items: ["Бізнес-цілі", "Структура", "Аналіз конкурентів"] },
+  { n: "01", name: "Бриф", duration: "1 день", items: ["Бізнес-цілі", "Структура", "Аналіз конкурентів"] },
   { n: "02", name: "Архітектура", duration: "1–2 тижні", items: ["Сторінки", "Воронки", "SEO-структура"] },
   { n: "03", name: "Дизайн і розробка", duration: "2–6 тижнів", items: ["UI-дизайн", "Налаштування CMS", "Інтеграції"] },
-  { n: "04", name: "QA і міграція", duration: "~1 тиждень", items: ["Тестування", "Аналітика", "Redirects"] },
+  { n: "04", name: "Тестування", duration: "~1 тиждень", items: ["Тестування", "Аналітика", "Redirects"] },
   { n: "05", name: "Запуск і підтримка", duration: "Підтримка 1 рік", items: ["Моніторинг", "Гарантія", "Розвиток"] },
 ];
 
@@ -112,7 +112,7 @@ export function Process({
         <div
           ref={wrapRef}
           data-visible={visible ? "true" : "false"}
-          className="group/proc relative mb-5"
+          className="group/proc relative mb-[30px]"
         >
           <div
             aria-hidden="true"
@@ -184,7 +184,7 @@ export function Process({
             })}
           </ol>
         </div>
-        <div className="flex justify-end max-lg:justify-start">
+        <div className="flex justify-start">
           <Link
             href={ctaHref}
             className={btnClass("ghost", "min-h-0 gap-2 px-4 py-2.5 text-[12px] tracking-[0.02em]")}

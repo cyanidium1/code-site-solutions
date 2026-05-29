@@ -11,8 +11,8 @@ import {
   HpHeader,
   HpFooter,
   Bento,
-  FinalCta3,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { plainRich } from "@/lib/shared/rich-text";
 import {
@@ -315,8 +315,8 @@ export default function EnPricingPage() {
       </section>
 
       {/* Section 9: Final CTA 3 options */}
-      <FinalCta3
-        eyebrow="GET IN TOUCH"
+      <LaunchCta
+        locale="en"
         heading={
           <>
             Ready to <em>discuss</em> your project?

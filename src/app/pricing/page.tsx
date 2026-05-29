@@ -11,8 +11,8 @@ import {
   HpHeader,
   HpFooter,
   Bento,
-  FinalCta3,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { plainRich } from "@/lib/shared/rich-text";
 import { ADDONS_CELLS, PRICING_FAQ, TIERS } from "@/content/uk/pricing";
@@ -298,8 +298,8 @@ export default function PricingPage() {
       </section>
 
       {/* Section 9: Final CTA 3 options */}
-      <FinalCta3
-        eyebrow="ЗВ'ЯЗОК"
+      <LaunchCta
+        locale="uk"
         heading={
           <>
             Готові <em>обговорити</em> проєкт?

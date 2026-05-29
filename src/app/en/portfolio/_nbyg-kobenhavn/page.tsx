@@ -9,8 +9,8 @@ import {
   HpHeader,
   HpFooter,
   PullQuote,
-  FinalCta3,
 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
 import {
   NbygScreenshotPending as ScreenshotPending,
   NbygMetaStrip,
@@ -297,8 +297,8 @@ export default function NbygKobenhavnEnCasePage() {
       </section>
 
       {/* Section 8: Final CTA */}
-      <FinalCta3
-        eyebrow="GET IN TOUCH"
+      <LaunchCta
+        locale="en"
         heading={
           <>
             Ready to <em>discuss</em> a project?
