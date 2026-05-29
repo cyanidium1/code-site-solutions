@@ -11,8 +11,13 @@
  * Reusable by any future slider (Cases carousel, Process slider, etc.).
  */
 
-// swiper/css imports were hoisted to app/layout.tsx so vendor.css overrides
-// (like .hp-pqs-swiper breakout) load after the library defaults.
+// Swiper's base CSS lives here (not in app/layout.tsx) so it loads with this
+// component's lazy chunk instead of render-blocking every route. vendor.css
+// only styles custom classes (.swiper-nav-btn, .hp-pqs-*), never Swiper's base
+// selectors, so load order vs. vendor.css doesn't affect correctness.
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-coverflow";
 
 import {
   type ReactNode,

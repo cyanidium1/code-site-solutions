@@ -10,7 +10,8 @@ import {
   Guarantees,
 } from "@/components/about/sections";
 import { FAQ } from "@/components/blocks/final";
-import { HpHeader, HpFooter, Marquee, PullQuote, FinalCta3 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
+import { HpHeader, HpFooter, Marquee, PullQuote } from "@/components/homepage";
 import {
   ORG_ID,
   SITE_CONTACT,
@@ -155,8 +156,8 @@ export default function AboutPage() {
         </section>
 
         {/* 9 — Final CTA */}
-        <FinalCta3
-          eyebrow="ЗВ'ЯЗОК"
+        <LaunchCta
+          locale="uk"
           heading={
             <>
               Потрібен сайт, яким ваш бізнес <em>реально володіє</em>?

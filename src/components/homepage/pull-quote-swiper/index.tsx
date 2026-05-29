@@ -1,7 +1,7 @@
 import type { Locale } from "@/types/sanity";
 
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { PullQuoteSwiperClient } from "./client";
+import { PullQuoteSwiperLazy } from "./lazy";
 import { hpSectionClass } from "@/components/homepage/shared";
 
 /**
@@ -20,9 +20,12 @@ export async function PullQuoteSwiper({
   if (slides.length === 0) return null;
   return (
     <section className={hpSectionClass}>
-      <div className="hp-pqs">
+      {/* Reserve the slide's height so the lazily-loaded (ssr:false) carousel
+          swaps in without shifting layout (keeps CLS ≈ 0). Matches the
+          .hp-pqs-slide min-heights in vendor.css across breakpoints. */}
+      <div className="hp-pqs min-h-[480px] max-[1100px]:min-h-[440px] max-[900px]:min-h-[320px] max-sm:min-h-[280px]">
         <div className="hp-pqs-bg" aria-hidden="true" />
-        <PullQuoteSwiperClient slides={slides} />
+        <PullQuoteSwiperLazy slides={slides} />
       </div>
     </section>
   );

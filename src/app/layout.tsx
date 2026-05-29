@@ -6,10 +6,10 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
 import { SITE_ORIGIN } from "@/constants/site";
-// Third-party CSS first so vendor.css and component styles can override.
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/effect-coverflow";
+// Swiper's CSS is NOT imported here anymore. It used to be render-blocking on
+// every route even though Swiper is only used by the (below-the-fold) homepage
+// testimonial carousel. It now ships with the lazily-loaded SwiperWrapper chunk
+// so it stays off the critical path. See components/shared/swiper/SwiperWrapper.
 
 import "./globals.css";
 import "./keyframes.css";

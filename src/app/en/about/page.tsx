@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Calendar, MessageCircle, Mail } from "lucide-react";
 
 import {
   AboutHero,
@@ -11,7 +10,8 @@ import {
   Guarantees,
 } from "@/components/about/sections";
 import { FAQ } from "@/components/blocks/final";
-import { HpHeader, HpFooter, Marquee, PullQuote, FinalCta3 } from "@/components/homepage";
+import { LaunchCta } from "@/components/blocks/launch-cta";
+import { HpHeader, HpFooter, Marquee, PullQuote } from "@/components/homepage";
 import {
   ORG_ID,
   SITE_CONTACT,
@@ -156,38 +156,14 @@ export default function EnAboutPage() {
         </section>
 
         {/* 9 — Final CTA */}
-        <FinalCta3
-          eyebrow="GET IN TOUCH"
+        <LaunchCta
+          locale="en"
           heading={
             <>
               Need a site your business <em>actually owns</em>?
             </>
           }
           sub="Drop us a line — we'll talk through your task, tell you honestly what's realistic and what it costs. No pressure, no mailing lists."
-          cards={[
-            {
-              icon: MessageCircle,
-              title: "Telegram",
-              body: "The fastest channel. We usually reply within a few hours.",
-              cta: "Message us →",
-              href: SITE_CONTACT.telegram,
-              featured: true,
-            },
-            {
-              icon: Mail,
-              title: "Email",
-              body: `Write to ${SITE_CONTACT.email} and we'll get back to you.`,
-              cta: "Send an email →",
-              href: `mailto:${SITE_CONTACT.email}`,
-            },
-            {
-              icon: Calendar,
-              title: "Send a brief",
-              body: "Describe the project in the form and we'll come back with next steps.",
-              cta: "Open the form →",
-              href: "/en/contacts",
-            },
-          ]}
         />
       </main>
 
