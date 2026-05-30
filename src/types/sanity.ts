@@ -434,6 +434,8 @@ export type CaseStudyRef = {
   client?: string;
   region?: LocalizedString;
   year?: number;
+  country?: string;
+  budgetBucket?: string;
   industrySlug?: string;
   industry?: { _id: string; slug: string; title?: LocalizedString } | null;
   coverImage?: SanityImage | null;
@@ -605,6 +607,8 @@ export type CaseStudyDoc = {
   date?: string;
   duration?: LocalizedString;
   budget?: string;
+  budgetBucket?: string;
+  country?: string;
   stack?: string[];
   metricsLine?: LocalizedString;
   youtubeId?: string;
