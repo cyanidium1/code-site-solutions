@@ -18,6 +18,7 @@ import { plainRich } from "@/lib/shared/rich-text";
 import { ADDONS_CELLS, PRICING_FAQ } from "@/content/uk/pricing";
 import { HOMEPAGE_TIERS } from "@/content/uk/homepage";
 import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
+import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
@@ -40,55 +41,75 @@ export const metadata: Metadata = {
 const PRICING_URL = pageUrl("/pricing");
 
 /**
- * JSON-LD `Offer` catalog. Hand-maintained mirror of the 3 canonical
- * `pricingPlan` documents in Sanity (landing/corporate/custom). Kept at
- * module scope so this page stays statically pre-renderable for the
- * crawlable schema payload; if prices in Sanity change, update here too.
+ * JSON-LD schema for the pricing page. Pure-function builder kept at module
+ * scope: the *shape* of the payload lives here (out of the page component),
+ * but the offer values are passed in by the caller so they can track CMS
+ * data on each ISR cycle. Caller is responsible for sourcing `offers`
+ * (typically from `fetchPricingPlans()` with the constants as fallback).
  */
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Service",
-      "@id": `${PRICING_URL}#service`,
-      name: "Custom website development",
-      description:
-        "Custom-coded сайти на Next.js: лендинги, корпоративні сайти, спеціалізовані під галузь рішення, enterprise-платформи.",
-      provider: { "@id": ORG_ID },
-      areaServed: ["UA", "EU", "US", "DK"],
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Code-Site.Art pricing tiers",
+type UkPricingOffer = { name: string; price: string; currency: string };
+
+function buildUkPricingJsonLd(offers: UkPricingOffer[]) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${PRICING_URL}#service`,
+        name: "Custom website development",
+        description:
+          "Custom-coded сайти на Next.js: лендинги, корпоративні сайти, спеціалізовані під галузь рішення, enterprise-платформи.",
+        provider: { "@id": ORG_ID },
+        areaServed: ["UA", "EU", "US", "DK"],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Code-Site.Art pricing tiers",
+          itemListElement: offers.map((o) => ({
+            "@type": "Offer",
+            name: o.name,
+            price: o.price,
+            priceCurrency: o.currency,
+            url: PRICING_URL,
+          })),
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "Offer", name: "Лендінг", price: "800", priceCurrency: "USD", url: PRICING_URL },
-          { "@type": "Offer", name: "Корпоративний сайт", price: "3500", priceCurrency: "USD", url: PRICING_URL },
-          { "@type": "Offer", name: "Кастомна платформа", price: "6000", priceCurrency: "USD", url: PRICING_URL },
+          { "@type": "ListItem", position: 1, name: "Головна", item: SITE_ORIGIN },
+          { "@type": "ListItem", position: 2, name: "Ціни", item: PRICING_URL },
         ],
       },
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Головна", item: SITE_ORIGIN },
-        { "@type": "ListItem", position: 2, name: "Ціни", item: PRICING_URL },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: PRICING_FAQ.map((it) => ({
-        "@type": "Question",
-        name: it.q,
-        acceptedAnswer: { "@type": "Answer", text: plainRich(it.a) },
-      })),
-    },
-  ],
-};
+      {
+        "@type": "FAQPage",
+        mainEntity: PRICING_FAQ.map((it) => ({
+          "@type": "Question",
+          name: it.q,
+          acceptedAnswer: { "@type": "Answer", text: plainRich(it.a) },
+        })),
+      },
+    ],
+  };
+}
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
 export default async function PricingPage() {
   const cmsPlans = await fetchPricingPlans("uk");
   const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : HOMEPAGE_TIERS;
+
+  const offers: UkPricingOffer[] = cmsPlans.length
+    ? cmsPlans.map((p) => ({
+        name: p.name,
+        price: String(p.priceFrom),
+        currency: p.currency,
+      }))
+    : [
+        { name: TIER_NAMES.landing.uk, price: String(TIER_AMOUNTS.landing), currency: "USD" },
+        { name: TIER_NAMES.corporate.uk, price: String(TIER_AMOUNTS.corporate), currency: "USD" },
+        { name: TIER_NAMES.custom.uk, price: String(TIER_AMOUNTS.custom), currency: "USD" },
+      ];
+  const jsonLd = buildUkPricingJsonLd(offers);
 
   return (
     <>
