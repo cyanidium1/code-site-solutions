@@ -8,8 +8,8 @@ import { ArrowUpRight } from "lucide-react";
 
 import { btnClass } from "@/components/ui";
 import {
-  BUDGET_FILTER_OPTS_BY_LOCALE,
-  COUNTRY_OPTS_BY_LOCALE,
+  FILTER_ALL_KEY,
+  FILTER_ALL_LABEL_BY_LOCALE,
   FILTER_LABELS_BY_LOCALE,
   FILTER_PLACEHOLDER_BY_LOCALE,
   INDUSTRY_CTA_LABEL_BY_LOCALE,
@@ -23,10 +23,12 @@ type FormLocale = "uk" | "en";
 export type PortfolioFiltersProps = {
   locale: FormLocale;
   /**
-   * Industries available as filter options. Derived server-side from the
-   * published `industryPage` docs and passed in as a stable list.
+   * Available options per filter. Caller passes only options that have at
+   * least one matching case — empty dropdowns are not rendered.
    */
   industryOptions: FilterOption[];
+  countryOptions: FilterOption[];
+  budgetOptions: FilterOption[];
   /**
    * Locale-aware deep-link map: industry slug → "/sites-for/<slug>" or
    * "/en/sites-for/<slug>". Caller supplies the href so this component
@@ -68,9 +70,56 @@ const SELECT_CLASSNAMES = {
   popoverContent: SELECT_POPOVER_CLASS,
 } as const;
 
+function FilterSelect({
+  label,
+  placeholder,
+  options,
+  allLabel,
+  currentValue,
+  onSelect,
+}: {
+  label: string;
+  placeholder: string;
+  options: FilterOption[];
+  allLabel: string;
+  currentValue: string;
+  onSelect: (value: string) => void;
+}) {
+  // Prepend an explicit "All" reset row. The empty-string param removal happens
+  // in onSelect when the sentinel key is picked.
+  const items: FilterOption[] = [
+    { key: FILTER_ALL_KEY, label: allLabel },
+    ...options,
+  ];
+  return (
+    <Select
+      label={label}
+      labelPlacement="outside"
+      placeholder={placeholder}
+      selectedKeys={currentValue ? [currentValue] : []}
+      onSelectionChange={(keys) => {
+        const k = Array.from(keys)[0];
+        const next = !k || String(k) === FILTER_ALL_KEY ? "" : String(k);
+        onSelect(next);
+      }}
+      variant="bordered"
+      radius="lg"
+      classNames={SELECT_CLASSNAMES}
+    >
+      {items.map((o) => (
+        <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
+          {o.label}
+        </SelectItem>
+      ))}
+    </Select>
+  );
+}
+
 export function PortfolioFilters({
   locale,
   industryOptions,
+  countryOptions,
+  budgetOptions,
   industryCtaHrefBySlug,
 }: PortfolioFiltersProps) {
   const router = useRouter();
@@ -80,8 +129,7 @@ export function PortfolioFilters({
 
   const labels = FILTER_LABELS_BY_LOCALE[locale];
   const placeholder = FILTER_PLACEHOLDER_BY_LOCALE[locale];
-  const countryOpts = COUNTRY_OPTS_BY_LOCALE[locale];
-  const budgetOpts = BUDGET_FILTER_OPTS_BY_LOCALE[locale];
+  const allLabel = FILTER_ALL_LABEL_BY_LOCALE[locale];
 
   const currentIndustry = searchParams?.get("industry") ?? "";
   const currentCountry = searchParams?.get("country") ?? "";
@@ -109,65 +157,30 @@ export function PortfolioFilters({
   return (
     <div className="flex flex-col gap-5">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Select
+        <FilterSelect
           label={labels.industry}
-          labelPlacement="outside"
           placeholder={placeholder}
-          selectedKeys={currentIndustry ? [currentIndustry] : []}
-          onSelectionChange={(keys) => {
-            const k = Array.from(keys)[0];
-            onChange("industry", k ? String(k) : "");
-          }}
-          variant="bordered"
-          radius="lg"
-          classNames={SELECT_CLASSNAMES}
-        >
-          {industryOptions.map((o) => (
-            <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
-              {o.label}
-            </SelectItem>
-          ))}
-        </Select>
-
-        <Select
+          options={industryOptions}
+          allLabel={allLabel}
+          currentValue={currentIndustry}
+          onSelect={(v) => onChange("industry", v)}
+        />
+        <FilterSelect
           label={labels.country}
-          labelPlacement="outside"
           placeholder={placeholder}
-          selectedKeys={currentCountry ? [currentCountry] : []}
-          onSelectionChange={(keys) => {
-            const k = Array.from(keys)[0];
-            onChange("country", k ? String(k) : "");
-          }}
-          variant="bordered"
-          radius="lg"
-          classNames={SELECT_CLASSNAMES}
-        >
-          {countryOpts.map((o) => (
-            <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
-              {o.label}
-            </SelectItem>
-          ))}
-        </Select>
-
-        <Select
+          options={countryOptions}
+          allLabel={allLabel}
+          currentValue={currentCountry}
+          onSelect={(v) => onChange("country", v)}
+        />
+        <FilterSelect
           label={labels.budget}
-          labelPlacement="outside"
           placeholder={placeholder}
-          selectedKeys={currentBudget ? [currentBudget] : []}
-          onSelectionChange={(keys) => {
-            const k = Array.from(keys)[0];
-            onChange("budget", k ? String(k) : "");
-          }}
-          variant="bordered"
-          radius="lg"
-          classNames={SELECT_CLASSNAMES}
-        >
-          {budgetOpts.map((o) => (
-            <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
-              {o.label}
-            </SelectItem>
-          ))}
-        </Select>
+          options={budgetOptions}
+          allLabel={allLabel}
+          currentValue={currentBudget}
+          onSelect={(v) => onChange("budget", v)}
+        />
       </div>
 
       {industryCtaHref && industryLabel ? (

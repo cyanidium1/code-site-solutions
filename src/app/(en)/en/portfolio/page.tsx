@@ -23,6 +23,10 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { INDUSTRY_PAGES_QUERY } from "@/lib/server/sanity-queries";
 import type { IndustryPageRef } from "@/types/sanity";
+import {
+  BUDGET_FILTER_OPTS_BY_LOCALE,
+  COUNTRY_OPTS_BY_LOCALE,
+} from "@/constants/portfolio-filters";
 
 export const metadata: Metadata = {
   title: "Portfolio — real projects with real metrics | Code-Site.Art",
@@ -69,13 +73,34 @@ export default async function EnPortfolioPage({
   const filtered = filterCases(cases, filterValues);
   const portfolioHeadline = enProjectsBackedHeadline(filtered.length);
 
-  // Only offer industries that exist AND have EN content; on EN the CTA must
-  // deep-link into /en/sites-for/<slug>, never the UA route.
-  const enIndustries = industries.filter((i) => hasEnIndustry(i.slug, registry));
+  // Derive option visibility from the UNFILTERED case list so users can't pick
+  // a combination guaranteed to be empty. On EN the industry dropdown is
+  // additionally constrained to industries with EN content.
+  const availableIndustries = new Set(
+    cases
+      .map((c) => c.industry?.slug ?? c.industrySlug)
+      .filter((s): s is string => Boolean(s)),
+  );
+  const availableCountries = new Set(
+    cases.map((c) => c.country).filter((s): s is string => Boolean(s)),
+  );
+  const availableBudgets = new Set(
+    cases.map((c) => c.budgetBucket).filter((s): s is string => Boolean(s)),
+  );
+
+  const enIndustries = industries.filter(
+    (i) => hasEnIndustry(i.slug, registry) && availableIndustries.has(i.slug),
+  );
   const industryOptions = enIndustries.map((i) => ({
     key: i.slug,
     label: loc(i.title, "en") || i.slug,
   }));
+  const countryOptions = COUNTRY_OPTS_BY_LOCALE.en.filter((o) =>
+    availableCountries.has(o.key),
+  );
+  const budgetOptions = BUDGET_FILTER_OPTS_BY_LOCALE.en.filter((o) =>
+    availableBudgets.has(o.key),
+  );
   const industryCtaHrefBySlug = Object.fromEntries(
     enIndustries.map((i) => [i.slug, `/en/sites-for/${i.slug}`]),
   );
@@ -157,6 +182,8 @@ export default async function EnPortfolioPage({
             <PortfolioFilters
               locale="en"
               industryOptions={industryOptions}
+              countryOptions={countryOptions}
+              budgetOptions={budgetOptions}
               industryCtaHrefBySlug={industryCtaHrefBySlug}
             />
           </div>

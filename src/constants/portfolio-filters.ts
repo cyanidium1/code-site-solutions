@@ -62,6 +62,18 @@ export const FILTER_PLACEHOLDER_BY_LOCALE: Record<"uk" | "en", string> = {
   en: "All",
 };
 
+/**
+ * Sentinel key for the explicit "All" reset option inside each dropdown.
+ * Empty string isn't safe as a HeroUI SelectItem key, so we use a sentinel
+ * and translate it to `""` (which clears the URL param) in the change handler.
+ */
+export const FILTER_ALL_KEY = "__all__";
+
+export const FILTER_ALL_LABEL_BY_LOCALE: Record<"uk" | "en", string> = {
+  uk: "Всі",
+  en: "All",
+};
+
 export const INDUSTRY_CTA_LABEL_BY_LOCALE: Record<
   "uk" | "en",
   (industryLabel: string) => string

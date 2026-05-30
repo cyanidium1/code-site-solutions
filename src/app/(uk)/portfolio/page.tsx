@@ -22,6 +22,10 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { INDUSTRY_PAGES_QUERY } from "@/lib/server/sanity-queries";
 import type { IndustryPageRef } from "@/types/sanity";
+import {
+  BUDGET_FILTER_OPTS_BY_LOCALE,
+  COUNTRY_OPTS_BY_LOCALE,
+} from "@/constants/portfolio-filters";
 
 export const metadata: Metadata = {
   title: "Портфоліо — кейси від Code-Site.Art",
@@ -61,10 +65,33 @@ export default async function PortfolioPage({
   const filtered = filterCases(cases, filterValues);
   const portfolioHeadline = ukProjectsBackedHeadline(filtered.length);
 
-  const industryOptions = industries.map((i) => ({
-    key: i.slug,
-    label: loc(i.title, "uk") || i.slug,
-  }));
+  // Derive option visibility from the UNFILTERED case list. Each dropdown only
+  // shows values that have at least one matching case overall — so users can't
+  // pick a filter combination guaranteed to be empty from the start.
+  const availableIndustries = new Set(
+    cases
+      .map((c) => c.industry?.slug ?? c.industrySlug)
+      .filter((s): s is string => Boolean(s)),
+  );
+  const availableCountries = new Set(
+    cases.map((c) => c.country).filter((s): s is string => Boolean(s)),
+  );
+  const availableBudgets = new Set(
+    cases.map((c) => c.budgetBucket).filter((s): s is string => Boolean(s)),
+  );
+
+  const industryOptions = industries
+    .filter((i) => availableIndustries.has(i.slug))
+    .map((i) => ({
+      key: i.slug,
+      label: loc(i.title, "uk") || i.slug,
+    }));
+  const countryOptions = COUNTRY_OPTS_BY_LOCALE.uk.filter((o) =>
+    availableCountries.has(o.key),
+  );
+  const budgetOptions = BUDGET_FILTER_OPTS_BY_LOCALE.uk.filter((o) =>
+    availableBudgets.has(o.key),
+  );
   const industryCtaHrefBySlug = Object.fromEntries(
     industries.map((i) => [i.slug, `/sites-for/${i.slug}`]),
   );
@@ -136,6 +163,8 @@ export default async function PortfolioPage({
             <PortfolioFilters
               locale="uk"
               industryOptions={industryOptions}
+              countryOptions={countryOptions}
+              budgetOptions={budgetOptions}
               industryCtaHrefBySlug={industryCtaHrefBySlug}
             />
           </div>
