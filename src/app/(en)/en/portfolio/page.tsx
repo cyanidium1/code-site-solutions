@@ -6,12 +6,19 @@ import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { PortfolioFilters } from "@/components/portfolio-filters";
+import {
+  dedupeIndustries,
+  dedupeOptionRefs,
+  filterCases,
+  readFilterValues,
+} from "@/components/portfolio-filters/filter-cases";
 import {
   caseRefToCardItem,
   enProjectsBackedHeadline,
 } from "@/lib/shared/case-card-item";
 import { loc } from "@/lib/shared/sanity-locale";
-import { hasEnCase } from "@/constants/i18n-routes";
+import { hasEnCase, hasEnIndustry } from "@/constants/i18n-routes";
 import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
@@ -40,12 +47,39 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-export default async function EnPortfolioPage() {
+export default async function EnPortfolioPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const filterValues = readFilterValues(params);
+
   const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
     getEnRegistrySafe(),
   ]);
-  const portfolioHeadline = enProjectsBackedHeadline(cases.length);
+
+  const filtered = filterCases(cases, filterValues);
+  const portfolioHeadline = enProjectsBackedHeadline(filtered.length);
+
+  // Build dropdown options from the UNFILTERED case list. On EN the industry
+  // dropdown is additionally constrained to industries with EN content, so
+  // the CTA never deep-links into a 404.
+  const industryOptions = dedupeIndustries(cases, "en").filter((o) =>
+    hasEnIndustry(o.key, registry),
+  );
+  const countryOptions = dedupeOptionRefs(
+    cases.map((c) => c.country),
+    "en",
+  );
+  const budgetOptions = dedupeOptionRefs(
+    cases.map((c) => c.budgetBucket),
+    "en",
+  );
+  const industryCtaHrefBySlug = Object.fromEntries(
+    industryOptions.map((o) => [o.key, `/en/sites-for/${o.key}`]),
+  );
 
   const PORTFOLIO_URL = pageUrl("/en/portfolio");
   const jsonLd = {
@@ -78,8 +112,8 @@ export default async function EnPortfolioPage() {
         inLanguage: "en",
         mainEntity: {
           "@type": "ItemList",
-          numberOfItems: cases.length,
-          itemListElement: cases.map((c, i) => {
+          numberOfItems: filtered.length,
+          itemListElement: filtered.map((c, i) => {
             const url = hasEnCase(c.slug, registry)
               ? `${SITE_ORIGIN}/en/portfolio/${c.slug}`
               : `${SITE_ORIGIN}/portfolio/${c.slug}`;
@@ -120,9 +154,19 @@ export default async function EnPortfolioPage() {
 
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
-          {cases.length > 0 ? (
+          <div className="mb-10">
+            <PortfolioFilters
+              locale="en"
+              industryOptions={industryOptions}
+              countryOptions={countryOptions}
+              budgetOptions={budgetOptions}
+              industryCtaHrefBySlug={industryCtaHrefBySlug}
+            />
+          </div>
+
+          {filtered.length > 0 ? (
             <div className={casesGridClass}>
-              {cases.map((c) => {
+              {filtered.map((c) => {
                 const item = caseRefToCardItem(c, "en", registry);
                 const metaLine = [item.industry, item.region, item.year]
                   .filter(Boolean)
@@ -150,7 +194,7 @@ export default async function EnPortfolioPage() {
             </div>
           ) : (
             <p className="py-[60px] text-center font-mono text-ink-3">
-              Cases loading…
+              No cases match the selected filters.
             </p>
           )}
         </div>

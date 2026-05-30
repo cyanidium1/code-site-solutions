@@ -100,7 +100,9 @@ export const CASE_STUDIES_QUERY = /* groq */ `
   title ${LOCALIZED_STRING},
   client,
   region ${LOCALIZED_STRING},
+  "country": country->{ "slug": slug.current, name ${LOCALIZED_STRING} },
   year,
+  "budgetBucket": budgetBucket->{ "slug": slug.current, name ${LOCALIZED_STRING} },
   "industrySlug": industry->slug.current,
   "industry": industry->{
     _id,
@@ -129,6 +131,8 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
   date,
   duration ${LOCALIZED_STRING},
   budget,
+  "budgetBucket": budgetBucket->{ "slug": slug.current, name ${LOCALIZED_STRING} },
+  "country": country->{ "slug": slug.current, name ${LOCALIZED_STRING} },
   stack,
   metricsLine ${LOCALIZED_STRING},
   youtubeId,

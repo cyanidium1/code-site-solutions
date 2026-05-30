@@ -6,6 +6,13 @@ import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { PortfolioFilters } from "@/components/portfolio-filters";
+import {
+  dedupeIndustries,
+  dedupeOptionRefs,
+  filterCases,
+  readFilterValues,
+} from "@/components/portfolio-filters/filter-cases";
 import {
   caseRefToCardItem,
   ukProjectsBackedHeadline,
@@ -32,12 +39,37 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-export default async function PortfolioPage() {
+export default async function PortfolioPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const filterValues = readFilterValues(params);
+
   const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
     getEnRegistrySafe(),
   ]);
-  const portfolioHeadline = ukProjectsBackedHeadline(cases.length);
+
+  const filtered = filterCases(cases, filterValues);
+  const portfolioHeadline = ukProjectsBackedHeadline(filtered.length);
+
+  // Build dropdown options from the UNFILTERED case list — single source of
+  // truth. Labels come from the dereferenced option docs (countryOption /
+  // budgetBucketOption / industryPage). Empty/missing refs are dropped.
+  const industryOptions = dedupeIndustries(cases, "uk");
+  const countryOptions = dedupeOptionRefs(
+    cases.map((c) => c.country),
+    "uk",
+  );
+  const budgetOptions = dedupeOptionRefs(
+    cases.map((c) => c.budgetBucket),
+    "uk",
+  );
+  const industryCtaHrefBySlug = Object.fromEntries(
+    industryOptions.map((o) => [o.key, `/sites-for/${o.key}`]),
+  );
 
   const PORTFOLIO_URL = pageUrl("/portfolio");
   const jsonLd = {
@@ -65,8 +97,8 @@ export default async function PortfolioPage() {
         inLanguage: "uk",
         mainEntity: {
           "@type": "ItemList",
-          numberOfItems: cases.length,
-          itemListElement: cases.map((c, i) => ({
+          numberOfItems: filtered.length,
+          itemListElement: filtered.map((c, i) => ({
             "@type": "ListItem",
             position: i + 1,
             name: loc(c.title, "uk") || c.client || c.slug,
@@ -102,9 +134,19 @@ export default async function PortfolioPage() {
 
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
-          {cases.length > 0 ? (
+          <div className="mb-10">
+            <PortfolioFilters
+              locale="uk"
+              industryOptions={industryOptions}
+              countryOptions={countryOptions}
+              budgetOptions={budgetOptions}
+              industryCtaHrefBySlug={industryCtaHrefBySlug}
+            />
+          </div>
+
+          {filtered.length > 0 ? (
             <div className={casesGridClass}>
-              {cases.map((c) => {
+              {filtered.map((c) => {
                 const item = caseRefToCardItem(c, "uk", registry);
                 const metaLine = [item.industry, item.region, item.year]
                   .filter(Boolean)
@@ -132,7 +174,7 @@ export default async function PortfolioPage() {
             </div>
           ) : (
             <p className="py-[60px] text-center font-mono text-ink-3">
-              Кейси завантажуються…
+              Жодного кейсу за обраними фільтрами.
             </p>
           )}
         </div>
