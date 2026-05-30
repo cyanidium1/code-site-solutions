@@ -22,8 +22,8 @@ export function filterCases(
       const slug = c.industry?.slug ?? c.industrySlug;
       if (slug !== industry) return false;
     }
-    if (country && c.country !== country) return false;
-    if (budget && c.budgetBucket !== budget) return false;
+    if (country && c.country?.slug !== country) return false;
+    if (budget && c.budgetBucket?.slug !== budget) return false;
     return true;
   });
 }

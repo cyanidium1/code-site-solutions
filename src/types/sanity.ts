@@ -427,6 +427,16 @@ export type IndustryPageRef = {
   order?: number;
 };
 
+/**
+ * Dereferenced option from the singleton-style option doc types
+ * (`countryOption`, `budgetBucketOption`). The `slug` is the stable
+ * identifier used in URL params; `name` is the localized display label.
+ */
+export type OptionRef = {
+  slug: string;
+  name?: LocalizedString;
+};
+
 export type CaseStudyRef = {
   _id: string;
   slug: string;
@@ -434,8 +444,8 @@ export type CaseStudyRef = {
   client?: string;
   region?: LocalizedString;
   year?: number;
-  country?: string;
-  budgetBucket?: string;
+  country?: OptionRef | null;
+  budgetBucket?: OptionRef | null;
   industrySlug?: string;
   industry?: { _id: string; slug: string; title?: LocalizedString } | null;
   coverImage?: SanityImage | null;
@@ -607,8 +617,8 @@ export type CaseStudyDoc = {
   date?: string;
   duration?: LocalizedString;
   budget?: string;
-  budgetBucket?: string;
-  country?: string;
+  budgetBucket?: OptionRef | null;
+  country?: OptionRef | null;
   stack?: string[];
   metricsLine?: LocalizedString;
   youtubeId?: string;
