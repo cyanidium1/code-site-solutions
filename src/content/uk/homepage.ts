@@ -1,7 +1,13 @@
 import type { TierProps } from "@/types/pricing";
 import type { FAQItem } from "@/types/faq";
 import { formatPrice } from "@/lib/shared/format-price";
-import { TIER_AMOUNTS, TIER_NAMES, TIER_WEEKS } from "@/constants/pricing-tiers";
+import {
+  TIER_AMOUNTS,
+  TIER_NAMES,
+  TIER_WEEKS,
+  type HomepagePlanInfo,
+  type TierKey,
+} from "@/constants/pricing-tiers";
 
 export const HOMEPAGE_TIERS: TierProps[] = [
   {
@@ -61,22 +67,41 @@ export const HOMEPAGE_TIERS: TierProps[] = [
   },
 ];
 
-export const HOMEPAGE_FAQ: FAQItem[] = [
+/**
+ * Build the homepage FAQ. Pass an `override` map (typically derived from CMS
+ * pricingPlan docs) to substitute plan name/price/weeks per tier; missing
+ * keys fall back to the static constants in `pricing-tiers.ts`.
+ */
+export function buildHomepageFaq(
+  override?: Partial<Record<TierKey, HomepagePlanInfo>>,
+): FAQItem[] {
+  const get = (key: TierKey): HomepagePlanInfo =>
+    override?.[key] ?? {
+      name: TIER_NAMES[key].uk,
+      priceFrom: TIER_AMOUNTS[key],
+      weeks: TIER_WEEKS[key].uk,
+    };
+  const fmt = (n: number) => formatPrice(n, { locale: "uk" });
+  const L = get("landing");
+  const C = get("corporate");
+  const X = get("custom");
+
+  return [
   {
     q: "Скільки коштує мій сайт?",
     a: [
       "Залежить від типу. ",
-      { em: TIER_NAMES.landing.uk },
+      { em: L.name },
       " — від ",
-      { em: formatPrice(TIER_AMOUNTS.landing, { locale: "uk" }) },
+      { em: fmt(L.priceFrom) },
       ". ",
-      { em: TIER_NAMES.corporate.uk },
+      { em: C.name },
       " (медицина, юристи, бухгалтерія, нерухомість і т.д.) — від ",
-      { em: formatPrice(TIER_AMOUNTS.corporate, { locale: "uk" }) },
+      { em: fmt(C.priceFrom) },
       ". ",
-      { em: TIER_NAMES.custom.uk },
+      { em: X.name },
       " з нестандартною архітектурою — від ",
-      { em: formatPrice(TIER_AMOUNTS.custom, { locale: "uk" }) },
+      { em: fmt(X.priceFrom) },
       ". Точна цифра — у ",
       { link: { href: "/calculator", text: "калькуляторі" } },
       " або після 30-хв розмови.",
@@ -85,17 +110,17 @@ export const HOMEPAGE_FAQ: FAQItem[] = [
   {
     q: "Скільки часу від брифу до запуску?",
     a: [
-      { em: TIER_NAMES.landing.uk },
+      { em: L.name },
       " — ",
-      { em: TIER_WEEKS.landing.uk },
+      { em: L.weeks },
       ". ",
-      { em: TIER_NAMES.corporate.uk },
+      { em: C.name },
       " — ",
-      { em: TIER_WEEKS.corporate.uk },
+      { em: C.weeks },
       ". ",
-      { em: TIER_NAMES.custom.uk },
+      { em: X.name },
       " — ",
-      { em: TIER_WEEKS.custom.uk },
+      { em: X.weeks },
       ". Це з усіма правками, контентом і SEO. Без сюрпризів — фіксована дата в договорі.",
     ],
   },
@@ -145,4 +170,8 @@ export const HOMEPAGE_FAQ: FAQItem[] = [
       " і коротший термін. У договорі прописуємо, що ви даєте і коли.",
     ],
   },
-];
+  ];
+}
+
+/** Back-compat constant export: equivalent to `buildHomepageFaq()`. */
+export const HOMEPAGE_FAQ: FAQItem[] = buildHomepageFaq();

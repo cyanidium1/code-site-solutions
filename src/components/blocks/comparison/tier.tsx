@@ -77,6 +77,7 @@ export function Tier({
   ctaLabel,
   ctaGhost,
   ctaHref,
+  discountLine,
 }: TierProps) {
   return (
     <div className={`${TIER_BASE} ${popular ? TIER_POP : TIER_DEFAULT}`}>
@@ -142,6 +143,11 @@ export function Tier({
       )}
 
       <div className="mt-auto pt-2">
+        {discountLine ? (
+          <div className="mb-2.5 text-center font-display text-[11px] font-bold uppercase tracking-[0.1em] text-accent-soft">
+            {discountLine}
+          </div>
+        ) : null}
         {ctaHref ? (
           <Link
             href={ctaHref}

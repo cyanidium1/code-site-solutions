@@ -91,4 +91,6 @@ export type TierProps = {
   ctaLabel: string;
   ctaGhost?: boolean;
   ctaHref?: string;
+  /** Optional promo/discount line rendered above the CTA. Future use. */
+  discountLine?: React.ReactNode;
 };

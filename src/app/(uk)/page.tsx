@@ -14,7 +14,12 @@ import {
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
-import { HOMEPAGE_FAQ, HOMEPAGE_TIERS } from "@/content/uk/homepage";
+import { buildHomepageFaq, HOMEPAGE_TIERS } from "@/content/uk/homepage";
+import {
+  fetchPricingPlans,
+  toHomepagePlanOverride,
+  pricingRange,
+} from "@/lib/server/fetch-pricing-plans";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 const jsonLd = {
@@ -52,7 +57,12 @@ const jsonLd = {
   ],
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cmsPlans = await fetchPricingPlans("uk");
+  const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : HOMEPAGE_TIERS;
+  const planOverride = toHomepagePlanOverride(cmsPlans);
+  const faqItems = buildHomepageFaq(planOverride);
+  const range = pricingRange(cmsPlans, "uk");
   return (
     <>
       <script
@@ -119,12 +129,12 @@ export default function HomePage() {
               <span>ЦІНИ</span>
             </div>
             <h2 className={hpH2Class}>
-              Прозорий прайс — від <em>$800</em> до <em>$6 000+</em>
+              Прозорий прайс — від <em>{range.min}</em> до <em>{range.max}+</em>
             </h2>
             <p className={hpSubClass}>Без «під запит». Без прихованих платежів.</p>
           </div>
           <CmpPricingGrid>
-            {HOMEPAGE_TIERS.map((t, i) => (
+            {tiers.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
           </CmpPricingGrid>
@@ -132,7 +142,7 @@ export default function HomePage() {
       </section>
 
       <PullQuoteSwiper locale="uk" />
-      <FAQ heading="Найчастіші питання перед стартом" items={HOMEPAGE_FAQ} />
+      <FAQ heading="Найчастіші питання перед стартом" items={faqItems} />
       <LaunchCta locale="uk" />
       </main>
       <HpFooter />

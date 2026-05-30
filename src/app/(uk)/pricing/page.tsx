@@ -4,7 +4,7 @@ import Image from "next/image";
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
-import { Tier } from "@/components/blocks/comparison";
+import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
 import {
@@ -15,7 +15,9 @@ import {
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { plainRich } from "@/lib/shared/rich-text";
-import { ADDONS_CELLS, PRICING_FAQ, TIERS } from "@/content/uk/pricing";
+import { ADDONS_CELLS, PRICING_FAQ } from "@/content/uk/pricing";
+import { HOMEPAGE_TIERS } from "@/content/uk/homepage";
+import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
@@ -37,6 +39,12 @@ export const metadata: Metadata = {
 
 const PRICING_URL = pageUrl("/pricing");
 
+/**
+ * JSON-LD `Offer` catalog. Hand-maintained mirror of the 3 canonical
+ * `pricingPlan` documents in Sanity (landing/corporate/custom). Kept at
+ * module scope so this page stays statically pre-renderable for the
+ * crawlable schema payload; if prices in Sanity change, update here too.
+ */
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -52,60 +60,17 @@ const jsonLd = {
         "@type": "OfferCatalog",
         name: "Code-Site.Art pricing tiers",
         itemListElement: [
-          {
-            "@type": "Offer",
-            name: "Starter — Landing",
-            description:
-              "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
-            price: "1000",
-            priceCurrency: "USD",
-            url: PRICING_URL,
-          },
-          {
-            "@type": "Offer",
-            name: "Industry Pro",
-            description:
-              "Сайт під специфіку галузі: медицина, юристи, бухгалтерія. З compliance і профільними інтеграціями.",
-            price: "3500",
-            priceCurrency: "USD",
-            url: PRICING_URL,
-          },
-          {
-            "@type": "Offer",
-            name: "Pro Plus",
-            description:
-              "Бізнесу, який росте в кількох країнах і потребує EN-локаль, 30+ сторінок і одну глибоку інтеграцію (CRM / ERP / платіжна система).",
-            price: "7500",
-            priceCurrency: "USD",
-            url: PRICING_URL,
-          },
-          {
-            "@type": "Offer",
-            name: "Enterprise — Custom",
-            description:
-              "Складні платформи: SaaS, marketplaces, e-commerce 1000+ SKU, мережі філій.",
-            price: "14000",
-            priceCurrency: "USD",
-            url: PRICING_URL,
-          },
+          { "@type": "Offer", name: "Лендінг", price: "800", priceCurrency: "USD", url: PRICING_URL },
+          { "@type": "Offer", name: "Корпоративний сайт", price: "3500", priceCurrency: "USD", url: PRICING_URL },
+          { "@type": "Offer", name: "Кастомна платформа", price: "6000", priceCurrency: "USD", url: PRICING_URL },
         ],
       },
     },
     {
       "@type": "BreadcrumbList",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Головна",
-          item: SITE_ORIGIN,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Ціни",
-          item: PRICING_URL,
-        },
+        { "@type": "ListItem", position: 1, name: "Головна", item: SITE_ORIGIN },
+        { "@type": "ListItem", position: 2, name: "Ціни", item: PRICING_URL },
       ],
     },
     {
@@ -113,10 +78,7 @@ const jsonLd = {
       mainEntity: PRICING_FAQ.map((it) => ({
         "@type": "Question",
         name: it.q,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: plainRich(it.a),
-        },
+        acceptedAnswer: { "@type": "Answer", text: plainRich(it.a) },
       })),
     },
   ],
@@ -124,7 +86,10 @@ const jsonLd = {
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const cmsPlans = await fetchPricingPlans("uk");
+  const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : HOMEPAGE_TIERS;
+
   return (
     <>
       <script
@@ -160,11 +125,11 @@ export default function PricingPage() {
       {/* Section 2: 4 tiers */}
       <section className={hpSectionClass} id="tiers">
         <div className={hpInnerClass}>
-          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 xl:grid-cols-4 xl:gap-4">
-            {TIERS.map((t, i) => (
+          <CmpPricingGrid>
+            {tiers.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
-          </div>
+          </CmpPricingGrid>
         </div>
       </section>
 

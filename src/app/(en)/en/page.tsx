@@ -16,7 +16,12 @@ import {
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
-import { EN_INDUSTRIES, EN_TIERS, EN_HOMEPAGE_FAQ } from "@/content/en/homepage";
+import { EN_INDUSTRIES, EN_TIERS, buildEnHomepageFaq } from "@/content/en/homepage";
+import {
+  fetchPricingPlans,
+  toHomepagePlanOverride,
+  pricingRange,
+} from "@/lib/server/fetch-pricing-plans";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
@@ -78,7 +83,12 @@ const jsonLd = {
   ],
 };
 
-export default function HomePageEn() {
+export default async function HomePageEn() {
+  const cmsPlans = await fetchPricingPlans("en");
+  const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : EN_TIERS;
+  const planOverride = toHomepagePlanOverride(cmsPlans);
+  const faqItems = buildEnHomepageFaq(planOverride);
+  const range = pricingRange(cmsPlans, "en");
   return (
     <>
       <script
@@ -196,14 +206,14 @@ export default function HomePageEn() {
               <span>PRICING</span>
             </div>
             <h2 className={hpH2Class}>
-              Transparent pricing — from <em>$800</em> to <em>$6,000+</em>
+              Transparent pricing — from <em>{range.min}</em> to <em>{range.max}+</em>
             </h2>
             <p className={hpSubClass}>
               No &ldquo;request a quote.&rdquo; No hidden fees.
             </p>
           </div>
           <CmpPricingGrid>
-            {EN_TIERS.map((t, i) => (
+            {tiers.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
           </CmpPricingGrid>
@@ -232,7 +242,7 @@ export default function HomePageEn() {
         ]}
       />
 
-      <FAQ heading="Top questions before we start" items={EN_HOMEPAGE_FAQ} />
+      <FAQ heading="Top questions before we start" items={faqItems} />
       <LaunchCta locale="en" />
       </main>
       <HpFooter />

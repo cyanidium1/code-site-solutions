@@ -27,3 +27,15 @@ export const TIER_WEEKS: Record<TierKey, Record<PriceLocale, string>> = {
 };
 
 export const TIER_ORDER: TierKey[] = ["landing", "corporate", "custom"];
+
+/**
+ * Plain-data snapshot of a tier used by content-layer FAQ builders and any
+ * place that wants name + numeric price + weeks together. Client-safe (no
+ * server-only imports), so it can flow from a server fetch into client
+ * content files via an `override?` parameter.
+ */
+export type HomepagePlanInfo = {
+  name: string;
+  priceFrom: number;
+  weeks: string;
+};

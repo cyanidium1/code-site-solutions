@@ -13,7 +13,13 @@ import type { Industry } from "@/types/homepage";
 import type { TierProps } from "@/types/pricing";
 import type { FAQItem } from "@/types/faq";
 import { formatPrice } from "@/lib/shared/format-price";
-import { TIER_AMOUNTS, TIER_NAMES, TIER_WEEKS } from "@/constants/pricing-tiers";
+import {
+  TIER_AMOUNTS,
+  TIER_NAMES,
+  TIER_WEEKS,
+  type HomepagePlanInfo,
+  type TierKey,
+} from "@/constants/pricing-tiers";
 
 export const EN_INDUSTRIES: Industry[] = [
   {
@@ -156,22 +162,41 @@ export const EN_TIERS: TierProps[] = [
   },
 ];
 
-export const EN_HOMEPAGE_FAQ: FAQItem[] = [
+/**
+ * Build the homepage FAQ. Pass an `override` map (typically derived from CMS
+ * pricingPlan docs) to substitute plan name/price/weeks per tier; missing
+ * keys fall back to the static constants in `pricing-tiers.ts`.
+ */
+export function buildEnHomepageFaq(
+  override?: Partial<Record<TierKey, HomepagePlanInfo>>,
+): FAQItem[] {
+  const get = (key: TierKey): HomepagePlanInfo =>
+    override?.[key] ?? {
+      name: TIER_NAMES[key].en,
+      priceFrom: TIER_AMOUNTS[key],
+      weeks: TIER_WEEKS[key].en,
+    };
+  const fmt = (n: number) => formatPrice(n, { locale: "en" });
+  const L = get("landing");
+  const C = get("corporate");
+  const X = get("custom");
+
+  return [
   {
     q: "How much will my site cost?",
     a: [
       "Depends on the tier. ",
-      { em: TIER_NAMES.landing.en },
+      { em: L.name },
       " — from ",
-      { em: formatPrice(TIER_AMOUNTS.landing, { locale: "en" }) },
+      { em: fmt(L.priceFrom) },
       ". ",
-      { em: TIER_NAMES.corporate.en },
+      { em: C.name },
       " (healthcare, legal, accounting, real estate, etc.) — from ",
-      { em: formatPrice(TIER_AMOUNTS.corporate, { locale: "en" }) },
+      { em: fmt(C.priceFrom) },
       ". ",
-      { em: TIER_NAMES.custom.en },
+      { em: X.name },
       " with bespoke architecture — from ",
-      { em: formatPrice(TIER_AMOUNTS.custom, { locale: "en" }) },
+      { em: fmt(X.priceFrom) },
       ". An exact figure — via the ",
       { link: { href: "/en/calculator", text: "calculator" } },
       " or after a 30-minute call.",
@@ -180,17 +205,17 @@ export const EN_HOMEPAGE_FAQ: FAQItem[] = [
   {
     q: "How long from brief to launch?",
     a: [
-      { em: TIER_NAMES.landing.en },
+      { em: L.name },
       " — ",
-      { em: TIER_WEEKS.landing.en },
+      { em: L.weeks },
       ". ",
-      { em: TIER_NAMES.corporate.en },
+      { em: C.name },
       " — ",
-      { em: TIER_WEEKS.corporate.en },
+      { em: C.weeks },
       ". ",
-      { em: TIER_NAMES.custom.en },
+      { em: X.name },
       " — ",
-      { em: TIER_WEEKS.custom.en },
+      { em: X.weeks },
       ". That includes all revisions, content, and SEO. No surprises — the date is fixed in the contract.",
     ],
   },
@@ -240,4 +265,8 @@ export const EN_HOMEPAGE_FAQ: FAQItem[] = [
       " and a shorter timeline. The contract spells out what you provide and when.",
     ],
   },
-];
+  ];
+}
+
+/** Back-compat constant export: equivalent to `buildEnHomepageFaq()`. */
+export const EN_HOMEPAGE_FAQ: FAQItem[] = buildEnHomepageFaq();

@@ -14,6 +14,28 @@ export type Locale = "uk" | "ru" | "en";
 export type LocalizedString = Partial<Record<Locale, string>>;
 export type LocalizedText = LocalizedString;
 
+/* ─── pricingPlan document (homepage + /pricing tier cards) ──────────────── */
+
+export type PricingPlanDoc = {
+  _id: string;
+  planKey?: string;
+  name?: LocalizedString;
+  priceFrom?: number;
+  currency?: "USD" | "EUR" | "UAH";
+  weeks?: LocalizedString;
+  includesHeading?: LocalizedString;
+  includes?: LocalizedString[];
+  excludesHeading?: LocalizedString;
+  excludes?: LocalizedString[];
+  ctaLabel?: LocalizedString;
+  ctaHref?: string;
+  ctaGhost?: boolean;
+  discountLine?: LocalizedString;
+  isPopular?: boolean;
+  popularLabel?: LocalizedString;
+  order?: number;
+};
+
 export type SanityAsset = {
   _id: string;
   url: string;

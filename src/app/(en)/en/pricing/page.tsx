@@ -4,7 +4,7 @@ import Image from "next/image";
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
-import { Tier } from "@/components/blocks/comparison";
+import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
 import {
@@ -18,10 +18,11 @@ import { plainRich } from "@/lib/shared/rich-text";
 import {
   ADDONS_CELLS,
   PRICING_FAQ,
-  TIERS,
   TURNKEY_FOOTER_EN,
   TURNKEY_ITEMS_EN,
 } from "@/content/en/pricing";
+import { EN_TIERS } from "@/content/en/homepage";
+import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
@@ -50,6 +51,12 @@ export const metadata: Metadata = {
 
 const PRICING_URL = pageUrl("/en/pricing");
 
+/**
+ * JSON-LD `Offer` catalog. Hand-maintained mirror of the 3 canonical
+ * `pricingPlan` documents in Sanity (landing/corporate/custom). Kept at
+ * module scope so this page stays statically pre-renderable for the
+ * crawlable schema payload; if prices in Sanity change, update here too.
+ */
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -65,59 +72,17 @@ const jsonLd = {
         "@type": "OfferCatalog",
         name: "Code-Site.Art pricing tiers",
         itemListElement: [
-          {
-            "@type": "Offer",
-            name: "Starter — Landing",
-            description: "Fast launch of one offer, MVP, hypothesis testing.",
-            price: "1000",
-            priceCurrency: "USD",
-            url: PRICING_URL,
-          },
-          {
-            "@type": "Offer",
-            name: "Industry Pro",
-            description:
-              "Industry-specific site (healthcare, legal, accounting) with compliance and industry integrations.",
-            price: "3500",
-            priceCurrency: "USD",
-            url: PRICING_URL,
-          },
-          {
-            "@type": "Offer",
-            name: "Pro Plus",
-            description:
-              "For businesses growing across multiple markets: EN locale, 30+ pages, one deep integration.",
-            price: "7500",
-            priceCurrency: "USD",
-            url: PRICING_URL,
-          },
-          {
-            "@type": "Offer",
-            name: "Enterprise — Custom",
-            description:
-              "Complex platforms: SaaS, marketplaces, e-commerce 1000+ SKU, franchise networks.",
-            price: "14000",
-            priceCurrency: "USD",
-            url: PRICING_URL,
-          },
+          { "@type": "Offer", name: "Landing", price: "800", priceCurrency: "USD", url: PRICING_URL },
+          { "@type": "Offer", name: "Corporate Website", price: "3500", priceCurrency: "USD", url: PRICING_URL },
+          { "@type": "Offer", name: "Custom Platform", price: "6000", priceCurrency: "USD", url: PRICING_URL },
         ],
       },
     },
     {
       "@type": "BreadcrumbList",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: `${SITE_ORIGIN}/en`,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Pricing",
-          item: PRICING_URL,
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_ORIGIN}/en` },
+        { "@type": "ListItem", position: 2, name: "Pricing", item: PRICING_URL },
       ],
     },
     {
@@ -125,10 +90,7 @@ const jsonLd = {
       mainEntity: PRICING_FAQ.map((it) => ({
         "@type": "Question",
         name: it.q,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: plainRich(it.a),
-        },
+        acceptedAnswer: { "@type": "Answer", text: plainRich(it.a) },
       })),
     },
   ],
@@ -136,7 +98,10 @@ const jsonLd = {
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
-export default function EnPricingPage() {
+export default async function EnPricingPage() {
+  const cmsPlans = await fetchPricingPlans("en");
+  const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : EN_TIERS;
+
   return (
     <>
       <script
@@ -176,11 +141,11 @@ export default function EnPricingPage() {
       {/* Section 2: 4 tiers */}
       <section className={hpSectionClass} id="tiers">
         <div className={hpInnerClass}>
-          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 xl:grid-cols-4 xl:gap-4">
-            {TIERS.map((t, i) => (
+          <CmpPricingGrid>
+            {tiers.map((t, i) => (
               <Tier key={i} {...t} />
             ))}
-          </div>
+          </CmpPricingGrid>
         </div>
       </section>
 
