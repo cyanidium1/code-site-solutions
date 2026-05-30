@@ -8,6 +8,8 @@ import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { PortfolioFilters } from "@/components/portfolio-filters";
 import {
+  dedupeIndustries,
+  dedupeOptionRefs,
   filterCases,
   readFilterValues,
 } from "@/components/portfolio-filters/filter-cases";
@@ -20,13 +22,6 @@ import { hasEnCase, hasEnIndustry } from "@/constants/i18n-routes";
 import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
-import { sanityFetch } from "@/lib/server/sanity-fetch";
-import { INDUSTRY_PAGES_QUERY } from "@/lib/server/sanity-queries";
-import type { IndustryPageRef } from "@/types/sanity";
-import {
-  BUDGET_FILTER_OPTS_BY_LOCALE,
-  COUNTRY_OPTS_BY_LOCALE,
-} from "@/constants/portfolio-filters";
 
 export const metadata: Metadata = {
   title: "Portfolio — real projects with real metrics | Code-Site.Art",
@@ -60,49 +55,30 @@ export default async function EnPortfolioPage({
   const params = await searchParams;
   const filterValues = readFilterValues(params);
 
-  const [cases, registry, industries] = await Promise.all([
+  const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
     getEnRegistrySafe(),
-    sanityFetch<IndustryPageRef[]>({
-      query: INDUSTRY_PAGES_QUERY,
-      revalidate: 3600,
-      tags: ["industryPage"],
-    }).catch(() => [] as IndustryPageRef[]),
   ]);
 
   const filtered = filterCases(cases, filterValues);
   const portfolioHeadline = enProjectsBackedHeadline(filtered.length);
 
-  // Derive option visibility from the UNFILTERED case list so users can't pick
-  // a combination guaranteed to be empty. On EN the industry dropdown is
-  // additionally constrained to industries with EN content.
-  const availableIndustries = new Set(
-    cases
-      .map((c) => c.industry?.slug ?? c.industrySlug)
-      .filter((s): s is string => Boolean(s)),
+  // Build dropdown options from the UNFILTERED case list. On EN the industry
+  // dropdown is additionally constrained to industries with EN content, so
+  // the CTA never deep-links into a 404.
+  const industryOptions = dedupeIndustries(cases, "en").filter((o) =>
+    hasEnIndustry(o.key, registry),
   );
-  const availableCountries = new Set(
-    cases.map((c) => c.country).filter((s): s is string => Boolean(s)),
+  const countryOptions = dedupeOptionRefs(
+    cases.map((c) => c.country),
+    "en",
   );
-  const availableBudgets = new Set(
-    cases.map((c) => c.budgetBucket).filter((s): s is string => Boolean(s)),
-  );
-
-  const enIndustries = industries.filter(
-    (i) => hasEnIndustry(i.slug, registry) && availableIndustries.has(i.slug),
-  );
-  const industryOptions = enIndustries.map((i) => ({
-    key: i.slug,
-    label: loc(i.title, "en") || i.slug,
-  }));
-  const countryOptions = COUNTRY_OPTS_BY_LOCALE.en.filter((o) =>
-    availableCountries.has(o.key),
-  );
-  const budgetOptions = BUDGET_FILTER_OPTS_BY_LOCALE.en.filter((o) =>
-    availableBudgets.has(o.key),
+  const budgetOptions = dedupeOptionRefs(
+    cases.map((c) => c.budgetBucket),
+    "en",
   );
   const industryCtaHrefBySlug = Object.fromEntries(
-    enIndustries.map((i) => [i.slug, `/en/sites-for/${i.slug}`]),
+    industryOptions.map((o) => [o.key, `/en/sites-for/${o.key}`]),
   );
 
   const PORTFOLIO_URL = pageUrl("/en/portfolio");

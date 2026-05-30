@@ -1,4 +1,6 @@
-import type { CaseStudyRef } from "@/types/sanity";
+import type { CaseStudyRef, Locale, OptionRef } from "@/types/sanity";
+import { loc } from "@/lib/shared/sanity-locale";
+import type { FilterOption } from "@/constants/portfolio-filters";
 
 export type PortfolioFilterValues = {
   industry?: string;
@@ -55,4 +57,39 @@ export function readFilterValues(
     country: pick("country"),
     budget: pick("budget"),
   };
+}
+
+/**
+ * Reduces a list of OptionRefs to a deduplicated list of {key, label} options,
+ * sorted by first appearance in the input. Empty/missing refs are dropped, so
+ * the returned list only contains keys the caller can safely render in a
+ * dropdown that will yield matching cases.
+ */
+export function dedupeOptionRefs(
+  refs: Array<OptionRef | null | undefined>,
+  locale: Locale,
+): FilterOption[] {
+  const seen = new Map<string, string>();
+  for (const r of refs) {
+    if (!r?.slug || seen.has(r.slug)) continue;
+    seen.set(r.slug, loc(r.name, locale) || r.slug);
+  }
+  return Array.from(seen, ([key, label]) => ({ key, label }));
+}
+
+/**
+ * Same shape as dedupeOptionRefs but for the inline `industry` projection
+ * (cases carry `industry: {slug, title}` rather than a generic OptionRef).
+ */
+export function dedupeIndustries(
+  cases: CaseStudyRef[],
+  locale: Locale,
+): FilterOption[] {
+  const seen = new Map<string, string>();
+  for (const c of cases) {
+    const slug = c.industry?.slug ?? c.industrySlug;
+    if (!slug || seen.has(slug)) continue;
+    seen.set(slug, loc(c.industry?.title, locale) || slug);
+  }
+  return Array.from(seen, ([key, label]) => ({ key, label }));
 }
