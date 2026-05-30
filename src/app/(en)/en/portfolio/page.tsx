@@ -6,15 +6,23 @@ import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { PortfolioFilters } from "@/components/portfolio-filters";
+import {
+  filterCases,
+  readFilterValues,
+} from "@/components/portfolio-filters/filter-cases";
 import {
   caseRefToCardItem,
   enProjectsBackedHeadline,
 } from "@/lib/shared/case-card-item";
 import { loc } from "@/lib/shared/sanity-locale";
-import { hasEnCase } from "@/constants/i18n-routes";
+import { hasEnCase, hasEnIndustry } from "@/constants/i18n-routes";
 import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { sanityFetch } from "@/lib/server/sanity-fetch";
+import { INDUSTRY_PAGES_QUERY } from "@/lib/server/sanity-queries";
+import type { IndustryPageRef } from "@/types/sanity";
 
 export const metadata: Metadata = {
   title: "Portfolio — real projects with real metrics | Code-Site.Art",
@@ -40,12 +48,37 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-export default async function EnPortfolioPage() {
-  const [cases, registry] = await Promise.all([
+export default async function EnPortfolioPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const filterValues = readFilterValues(params);
+
+  const [cases, registry, industries] = await Promise.all([
     fetchCaseStudies(),
     getEnRegistrySafe(),
+    sanityFetch<IndustryPageRef[]>({
+      query: INDUSTRY_PAGES_QUERY,
+      revalidate: 3600,
+      tags: ["industryPage"],
+    }).catch(() => [] as IndustryPageRef[]),
   ]);
-  const portfolioHeadline = enProjectsBackedHeadline(cases.length);
+
+  const filtered = filterCases(cases, filterValues);
+  const portfolioHeadline = enProjectsBackedHeadline(filtered.length);
+
+  // Only offer industries that exist AND have EN content; on EN the CTA must
+  // deep-link into /en/sites-for/<slug>, never the UA route.
+  const enIndustries = industries.filter((i) => hasEnIndustry(i.slug, registry));
+  const industryOptions = enIndustries.map((i) => ({
+    key: i.slug,
+    label: loc(i.title, "en") || i.slug,
+  }));
+  const industryCtaHrefBySlug = Object.fromEntries(
+    enIndustries.map((i) => [i.slug, `/en/sites-for/${i.slug}`]),
+  );
 
   const PORTFOLIO_URL = pageUrl("/en/portfolio");
   const jsonLd = {
@@ -78,8 +111,8 @@ export default async function EnPortfolioPage() {
         inLanguage: "en",
         mainEntity: {
           "@type": "ItemList",
-          numberOfItems: cases.length,
-          itemListElement: cases.map((c, i) => {
+          numberOfItems: filtered.length,
+          itemListElement: filtered.map((c, i) => {
             const url = hasEnCase(c.slug, registry)
               ? `${SITE_ORIGIN}/en/portfolio/${c.slug}`
               : `${SITE_ORIGIN}/portfolio/${c.slug}`;
@@ -120,9 +153,17 @@ export default async function EnPortfolioPage() {
 
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
-          {cases.length > 0 ? (
+          <div className="mb-10">
+            <PortfolioFilters
+              locale="en"
+              industryOptions={industryOptions}
+              industryCtaHrefBySlug={industryCtaHrefBySlug}
+            />
+          </div>
+
+          {filtered.length > 0 ? (
             <div className={casesGridClass}>
-              {cases.map((c) => {
+              {filtered.map((c) => {
                 const item = caseRefToCardItem(c, "en", registry);
                 const metaLine = [item.industry, item.region, item.year]
                   .filter(Boolean)
@@ -150,7 +191,7 @@ export default async function EnPortfolioPage() {
             </div>
           ) : (
             <p className="py-[60px] text-center font-mono text-ink-3">
-              Cases loading…
+              No cases match the selected filters.
             </p>
           )}
         </div>
