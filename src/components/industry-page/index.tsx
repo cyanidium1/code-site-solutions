@@ -41,6 +41,7 @@ import { SanityImg } from "@/lib/shared/sanity-image";
 import { pickRichText } from "@/lib/shared/pick-rich-text";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { localizePath } from "@/constants/i18n-routes";
+import { buildHrefWithParams } from "@/lib/shared/update-search-params";
 
 function findSection<T extends IndustrySection>(
   sections: IndustrySection[] | undefined,
@@ -617,7 +618,10 @@ export async function IndustryPageView({
         ctaPrimaryLabel={loc(hero?.ctaPrimary, locale) || undefined}
         ctaPrimaryHref={localizePath("/contacts", locale === "en")}
         ctaSecondaryLabel={loc(hero?.ctaSecondary, locale) || undefined}
-        ctaSecondaryHref={localizePath("/calculator", locale === "en")}
+        ctaSecondaryHref={buildHrefWithParams(
+          localizePath("/portfolio", locale === "en"),
+          { industry: page.slug },
+        )}
         stats={
           hero?.stats?.length
             ? hero.stats.map((s) => ({
