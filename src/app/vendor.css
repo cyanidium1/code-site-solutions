@@ -59,13 +59,21 @@
   );
 }
 
-.hp-pqs-swiper {
+/* Compound selector raises specificity from (0,1,0) to (0,2,0) so this
+   wins over Swiper's base `.swiper { margin-left: auto; margin-right: auto }`
+   regardless of stylesheet load order. SwiperWrapper is dynamic-imported
+   (commit b14fbd8), which puts `swiper/css` AFTER vendor.css in the
+   cascade — the old single-class rule lost `margin-left` to Swiper's
+   default and the slider drifted ~50% right. Do not weaken this back
+   without first re-hoisting the swiper/css imports into the root layout. */
+.swiper.hp-pqs-swiper {
   position: relative;
   z-index: 1;
   width: 100vw;
   max-width: none;
   left: 50%;
   margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 .hp-pqs-slide {
