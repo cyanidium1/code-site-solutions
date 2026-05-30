@@ -9,17 +9,22 @@
  *     on EN with valid `/en/sites-for/<slug>` links for translated
  *     industries)
  *
- * Sprint 3 ships all 8 industries fully bilingual.
+ * Source: probe-en-availability.ts (Sanity industryPage docs where
+ * `title.en` is non-empty — matches `hasEnglishContent()` gate in
+ * components/industry-page/index.tsx). Re-run that probe after
+ * publishing EN translations and update this set accordingly.
+ * All 8 industries are now EN-translated; medicine + renovation
+ * landed in the 2026-05-30 translation pass.
  */
 export const EN_INDUSTRY_SLUGS: ReadonlySet<string> = new Set([
-  "medicine",
-  "renovation",
-  "legal",
-  "finance",
-  "ecommerce",
   "auto",
-  "real-estate",
   "courses",
+  "ecommerce",
+  "finance",
+  "legal",
+  "medicine",
+  "real-estate",
+  "renovation",
 ]);
 
 export function hasEnIndustry(slug: string): boolean {
@@ -28,9 +33,22 @@ export function hasEnIndustry(slug: string): boolean {
 
 /**
  * Case-study slugs with EN content. Mirror of `title.en` presence in
- * Sanity caseStudy docs. Update when a new case ships in English.
+ * Sanity caseStudy docs (see `hasEnglishCaseContent()` in
+ * components/case-page/index.tsx). Re-derive via probe-en-availability.ts
+ * after publishing new translations. The full set landed in the
+ * 2026-05-30 translation pass.
  */
-export const EN_CASE_SLUGS: ReadonlySet<string> = new Set(["nbyg-kobenhavn"]);
+export const EN_CASE_SLUGS: ReadonlySet<string> = new Set([
+  "bravo",
+  "efedra-clinic",
+  "glimmer",
+  "kondor-device",
+  "le-muse-nature",
+  "mono-pools",
+  "nbyg-kobenhavn",
+  "right-cars",
+  "solide-renovation",
+]);
 
 export function hasEnCase(slug: string): boolean {
   return EN_CASE_SLUGS.has(slug);
