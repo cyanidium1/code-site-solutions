@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 
 import { resolveLocaleAlternate } from "@/constants/i18n-routes";
+import { useI18nRegistry } from "./i18n-registry-provider";
 
 // Native <details> dropdown — see component-level comment for why this
 // replaced HeroUI's Dropdown. Tailwind 4 `group/locale` lets the chevron +
@@ -42,7 +43,8 @@ export function LocaleSwitcher() {
   const router = useRouter();
   const t = useTranslations("LocaleSwitcher");
 
-  const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname);
+  const registry = useI18nRegistry();
+  const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname, registry);
   const currentLabel = locale === "en" ? t("en") : t("uk");
   // When the target locale has no counterpart for this pathname, the
   // button is rendered in a disabled state with a "coming soon" tooltip

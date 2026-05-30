@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { hasEnIndustry } from "@/constants/i18n-routes";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
+import { useI18nRegistry } from "./i18n-registry-provider";
 
 // lucide has no brand WhatsApp glyph — wire-style outline (Tabler-derived) that
 // matches the stroke weight of the lucide icons used for the other channels.
@@ -57,7 +58,7 @@ const FOOTER_CONTACTS: Array<{
 ];
 
 // All 8 industries have published Sanity pages and live UA links.
-// EN availability is gated by `EN_INDUSTRY_SLUGS` in `lib/i18n-routes.ts`
+// EN availability is gated by the i18n registry (Sanity-derived, see
 // — industries not yet translated render as disabled on EN.
 // Translation keys (`key`) live in `messages/{uk,en}.json` → `Footer.solutions`.
 const SOLUTIONS_HREFS: Array<{ key: string; href: string; published: boolean }> = [
@@ -121,13 +122,14 @@ export function HpFooter({
   const tLeg = useTranslations("Footer.legal");
   const locale = useLocale();
   const isEn = locale === "en";
+  const registry = useI18nRegistry();
   const homeHref = isEn ? "/en" : "/";
 
   // Render rules:
   //   - UA: if the industry page is published, link to /sites-for/<slug>;
   //     otherwise render a disabled label so the column shows all 8 names.
   //   - EN: same, but the link only resolves when an EN translation also
-  //     exists (per `EN_INDUSTRY_SLUGS` in lib/i18n-routes.ts). Industries
+  //     exists (per `useI18nRegistry`, derived from Sanity). Industries
   //     published only in UA still render as disabled on EN — same
   //     visual completeness as the homepage industry cards.
   const renderSolutionItem = (
@@ -138,7 +140,7 @@ export function HpFooter({
     if (!published) return <span className={footerDisabledClass}>{tSol(key)}</span>;
     if (!isEn) return <Link href={href}>{tSol(key)}</Link>;
     const slug = href.replace(/^\/sites-for\//, "");
-    if (hasEnIndustry(slug)) {
+    if (hasEnIndustry(slug, registry)) {
       return <Link href={`/en/sites-for/${slug}`}>{tSol(key)}</Link>;
     }
     return <span className={footerDisabledClass}>{tSol(key)}</span>;

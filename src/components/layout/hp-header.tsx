@@ -11,6 +11,7 @@ import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
+import { useI18nRegistry } from "./i18n-registry-provider";
 
 function isActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
@@ -62,6 +63,7 @@ export function HpHeader() {
   const tServices = useTranslations("ServiceNav");
   const locale = useLocale();
   const isEn = locale === "en";
+  const registry = useI18nRegistry();
 
   useEffect(() => {
     ddRef.current?.removeAttribute("open");
@@ -116,7 +118,7 @@ export function HpHeader() {
                     </span>
                   );
                 }
-                const target = resolveServiceHref(item.href, isEn);
+                const target = resolveServiceHref(item.href, isEn, registry);
                 const active = isActive(pathname, target);
                 return (
                   <Link

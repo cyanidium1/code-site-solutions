@@ -10,6 +10,7 @@ import {
   caseRefToCardItem,
   ukProjectsBackedHeadline,
 } from "@/lib/shared/case-card-item";
+import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import { loc } from "@/lib/shared/sanity-locale";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
@@ -32,7 +33,10 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function PortfolioPage() {
-  const cases = await fetchCaseStudies();
+  const [cases, registry] = await Promise.all([
+    fetchCaseStudies(),
+    getEnRegistrySafe(),
+  ]);
   const portfolioHeadline = ukProjectsBackedHeadline(cases.length);
 
   const PORTFOLIO_URL = pageUrl("/portfolio");
@@ -101,7 +105,7 @@ export default async function PortfolioPage() {
           {cases.length > 0 ? (
             <div className={casesGridClass}>
               {cases.map((c) => {
-                const item = caseRefToCardItem(c, "uk");
+                const item = caseRefToCardItem(c, "uk", registry);
                 const metaLine = [item.industry, item.region, item.year]
                   .filter(Boolean)
                   .join(" · ");

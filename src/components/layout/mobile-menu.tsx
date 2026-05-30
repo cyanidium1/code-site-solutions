@@ -16,6 +16,7 @@ import {
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
+import { useI18nRegistry } from "./i18n-registry-provider";
 
 // Burger button — only visible below 800px (lg breakpoint). Mobile-first:
 // shown by default, hidden at lg+.
@@ -158,7 +159,8 @@ export function MobileMenu() {
     }
   }, [isOpen, pathname, onClose]);
 
-  const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname);
+  const registry = useI18nRegistry();
+  const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname, registry);
   const ukDisabled = ukHref === null;
   const enDisabled = enHref === null;
   const ctaHref = localizePath("/contacts", isEn);
@@ -251,7 +253,7 @@ export function MobileMenu() {
                       >
                         {s.published ? (
                           <Link
-                            href={resolveServiceHref(s.href, isEn)}
+                            href={resolveServiceHref(s.href, isEn, registry)}
                             className={drawerLinkBaseClass}
                             onClick={close}
                           >

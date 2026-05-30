@@ -11,7 +11,8 @@ import type {
   CaseStudyRef,
   IndustryPageRef,
 } from "@/types/sanity";
-import { EN_INDUSTRY_SLUGS } from "@/constants/i18n-routes";
+import { EN_LOCALIZED_ROOTS } from "@/constants/i18n-routes";
+import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 
 const STATIC_ROUTES: {
   path: string;
@@ -34,7 +35,7 @@ const STATIC_ROUTES: {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
 
-  const [industryPages, caseStudies, blogPosts] = await Promise.all([
+  const [industryPages, caseStudies, blogPosts, registry] = await Promise.all([
     sanityFetch<IndustryPageRef[]>({
       query: INDUSTRY_PAGES_QUERY,
       revalidate: 3600,
@@ -47,25 +48,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       query: BLOG_POSTS_LIST_QUERY,
       revalidate: 3600,
     }).catch(() => [] as BlogPostListItem[]),
+    getEnRegistrySafe(),
   ]);
 
-  // Routes that are also published under /en. Used to attach hreflang
-  // alternates and emit the EN counterpart in the sitemap. Mirrors
-  // EN_LOCALIZED_ROOTS in i18n-routes.ts plus "/" (root has no entry
-  // there because it's handled separately by the locale switcher).
-  const EN_LOCALIZED_PATHS = new Set<string>([
-    "/",
-    "/vs-wordpress",
-    "/vs-constructors",
-    "/vs-freelancers",
-    "/calculator",
-    "/pricing",
-    "/about",
-    "/process",
-    "/contacts",
-    "/portfolio",
-    "/blog",
-  ]);
+  // Routes that also have an /en twin — single source is
+  // `EN_LOCALIZED_ROOTS` in `@/constants/i18n-routes` (filesystem-rooted
+  // intersection of UA + EN top-level page.tsx files). The locale
+  // switcher uses the same set. `/` is added here because the homepage
+  // pair (UA at `/`, EN at `/en`) isn't kept in EN_LOCALIZED_ROOTS — the
+  // resolver special-cases it.
+  const EN_LOCALIZED_PATHS = new Set<string>(["/", ...EN_LOCALIZED_ROOTS]);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.flatMap(
     ({ path, changeFrequency, priority }) => {
@@ -98,11 +90,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   );
 
-  // EN_INDUSTRY_SLUGS is imported from @/constants/i18n-routes — single source of
-  // truth shared with the locale switcher + header dropdown.
+  // EN-available industry slugs come from the registry — same source
+  // shared with the locale switcher + header services dropdown + footer.
   const industryEntries: MetadataRoute.Sitemap = industryPages.flatMap((p) => {
     const ukUrl = `${SITE_ORIGIN}/sites-for/${p.slug}`;
-    const hasEn = EN_INDUSTRY_SLUGS.has(p.slug);
+    const hasEn = registry.industries.has(p.slug);
     const ukEntry: MetadataRoute.Sitemap[number] = {
       url: ukUrl,
       lastModified,

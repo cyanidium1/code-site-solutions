@@ -4,6 +4,7 @@ import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { HOMEPAGE_TESTIMONIALS_QUERY } from "@/lib/server/sanity-queries";
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasEnCase } from "@/constants/i18n-routes";
+import { getEnRegistrySafe, type EnRegistry } from "@/lib/server/i18n-registry";
 import type { Locale, Testimonial } from "@/types/sanity";
 
 export type TestimonialAsset = {
@@ -61,10 +62,11 @@ function toAsset(
 function resolveCaseHref(
   slug: string | undefined,
   locale: Locale,
+  registry: EnRegistry,
 ): string | undefined {
   if (!slug) return undefined;
   if (locale === "en") {
-    return hasEnCase(slug) ? `/en/portfolio/${slug}` : `/portfolio/${slug}`;
+    return hasEnCase(slug, registry) ? `/en/portfolio/${slug}` : `/portfolio/${slug}`;
   }
   return `/portfolio/${slug}`;
 }
@@ -84,11 +86,14 @@ export async function fetchTestimonialSlides(
   // Soft-fail to [] when Sanity is unconfigured (no env) or query fails — the
   // RSC shell then renders `null` and the homepage simply skips the section,
   // matching the established pattern from `fetchCaseStudies` in case-page.
-  const docs = await sanityFetch<Testimonial[] | null>({
-    query: HOMEPAGE_TESTIMONIALS_QUERY,
-    revalidate: 300,
-    tags: ["homepage-testimonials"],
-  }).catch(() => null);
+  const [docs, registry] = await Promise.all([
+    sanityFetch<Testimonial[] | null>({
+      query: HOMEPAGE_TESTIMONIALS_QUERY,
+      revalidate: 300,
+      tags: ["homepage-testimonials"],
+    }).catch(() => null),
+    getEnRegistrySafe(),
+  ]);
   if (!docs?.length) return [];
 
   return docs
@@ -101,7 +106,7 @@ export async function fetchTestimonialSlides(
       linkedinUrl: t.linkedinUrl,
       mockupLeft: toAsset(t.mockupLeft, locale),
       mockupRight: toAsset(t.mockupRight, locale),
-      caseHref: resolveCaseHref(t.caseRef?.slug, locale),
+      caseHref: resolveCaseHref(t.caseRef?.slug, locale, registry),
       caseLabel: loc(t.caseLabel, locale) || undefined,
     }))
     .filter((s) => s.quote.trim().length > 0);

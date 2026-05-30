@@ -1,63 +1,15 @@
+import type { EnRegistry } from "@/lib/shared/i18n-registry-types";
+
 /**
- * Single source of truth for which industry slugs have an English
- * translation in Sanity. Used by:
- *   - app/sitemap.ts (emits EN URL + hreflang for these slugs)
- *   - components/homepage/locale-switcher.tsx (maps `/sites-for/<slug>`
- *     to its `/en/sites-for/<slug>` counterpart instead of bouncing to
- *     `/en`)
- *   - components/homepage/hp-header.tsx (renders the services dropdown
- *     on EN with valid `/en/sites-for/<slug>` links for translated
- *     industries)
+ * Filesystem-rooted truth: which single-segment top-level routes have
+ * BOTH a UA `page.tsx` (`app/(uk)/<seg>/page.tsx`) AND an EN twin
+ * (`app/(en)/en/<seg>/page.tsx`). The locale switcher uses this to map
+ * `/<seg>` ↔ `/en/<seg>` when toggling languages.
  *
- * Source: probe-en-availability.ts (Sanity industryPage docs where
- * `title.en` is non-empty — matches `hasEnglishContent()` gate in
- * components/industry-page/index.tsx). Re-run that probe after
- * publishing EN translations and update this set accordingly.
- * All 8 industries are now EN-translated; medicine + renovation
- * landed in the 2026-05-30 translation pass.
- */
-export const EN_INDUSTRY_SLUGS: ReadonlySet<string> = new Set([
-  "auto",
-  "courses",
-  "ecommerce",
-  "finance",
-  "legal",
-  "medicine",
-  "real-estate",
-  "renovation",
-]);
-
-export function hasEnIndustry(slug: string): boolean {
-  return EN_INDUSTRY_SLUGS.has(slug);
-}
-
-/**
- * Case-study slugs with EN content. Mirror of `title.en` presence in
- * Sanity caseStudy docs (see `hasEnglishCaseContent()` in
- * components/case-page/index.tsx). Re-derive via probe-en-availability.ts
- * after publishing new translations. The full set landed in the
- * 2026-05-30 translation pass.
- */
-export const EN_CASE_SLUGS: ReadonlySet<string> = new Set([
-  "bravo",
-  "efedra-clinic",
-  "glimmer",
-  "kondor-device",
-  "le-muse-nature",
-  "mono-pools",
-  "nbyg-kobenhavn",
-  "right-cars",
-  "solide-renovation",
-]);
-
-export function hasEnCase(slug: string): boolean {
-  return EN_CASE_SLUGS.has(slug);
-}
-
-/**
- * Top-level routes that have a fully-translated EN counterpart at
- * `/en<path>`. Used by the locale switcher to keep the user on the
- * same page when toggling languages instead of bouncing to `/en`.
+ * This stays a hardcoded constant — Sanity isn't the source of truth
+ * for code-based routes. When you add or remove a top-level page, update
+ * this set in the same commit. `Frontend/scripts/check-i18n-alignment.ts`
+ * (if it exists) cross-checks against the filesystem at CI time.
  */
 export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = new Set([
   "/vs-wordpress",
@@ -87,6 +39,37 @@ export function localizePath(uaPath: string, isEn: boolean): string {
   return `/en${uaPath}`;
 }
 
+/* ────────────── Sanity-rooted resolvers ──────────────
+ *
+ * All helpers below take an explicit `registry: EnRegistry`. The
+ * registry is fetched server-side once per layout render and exposed
+ * to client components via `I18nRegistryContext` (see
+ * `components/layout/i18n-registry-provider`). Server callers can also
+ * `await getEnRegistrySafe()` directly.
+ *
+ * Why pass it in instead of importing constants: the data lives in
+ * Sanity, not here. Reading from a registry means new translations show
+ * up within the registry's revalidate window (default 5 min) without a
+ * deploy, instead of staying dark until someone updates a hardcoded set
+ * and ships a release.
+ */
+
+export function hasEnIndustry(slug: string, registry: EnRegistry): boolean {
+  return registry.industries.has(slug);
+}
+
+export function hasEnCase(slug: string, registry: EnRegistry): boolean {
+  return registry.cases.has(slug);
+}
+
+export function uaBlogToEnSlug(uaSlug: string, registry: EnRegistry): string | undefined {
+  return registry.blogUaToEn.get(uaSlug);
+}
+
+export function enBlogToUaSlug(enSlug: string, registry: EnRegistry): string | undefined {
+  return registry.blogEnToUa.get(enSlug);
+}
+
 /**
  * Resolve a UA service-link href (`/sites-for/<slug>`) to its locale-
  * appropriate target. On UA we return the path as-is. On EN we return
@@ -97,40 +80,14 @@ export function localizePath(uaPath: string, isEn: boolean): string {
  * Shared by the desktop header dropdown and the mobile drawer so both
  * apply the same fallback rule.
  */
-export function resolveServiceHref(uaHref: string, isEn: boolean): string {
+export function resolveServiceHref(
+  uaHref: string,
+  isEn: boolean,
+  registry: EnRegistry,
+): string {
   if (!isEn) return uaHref;
   const slug = uaHref.replace(/^\/sites-for\//, "");
-  return hasEnIndustry(slug) ? `/en/sites-for/${slug}` : "/en#solutions";
-}
-
-/**
- * UA blog slug → EN blog slug mapping. Sprint 2BC ships EN translations
- * of these 3 articles. Each EN post lives at a natural English URL,
- * not a transliteration of the UA original. The map is small and
- * static — when a new article ships in EN, add its row here.
- *
- * Sanity also stores `slugEn` per blogPost doc, but routing the
- * locale switcher between /blog/<ua-slug> ↔ /en/blog/<en-slug>
- * doesn't have access to the Sanity doc — this hardcoded map keeps
- * the switcher O(1) and serverless.
- */
-export const EN_BLOG_SLUG_MAP: Record<string, string> = {
-  "skilky-koshtuye-sayt-2026": "website-cost-2026-breakdown",
-  "tilda-7200-za-3-roky": "tilda-7200-over-3-years",
-  "dohovir-z-veb-studieyu-7-punktiv": "web-studio-contract-7-items",
-};
-
-/** Inverse of EN_BLOG_SLUG_MAP — EN slug → UA slug. */
-export const UA_BLOG_SLUG_MAP: Record<string, string> = Object.fromEntries(
-  Object.entries(EN_BLOG_SLUG_MAP).map(([uk, en]) => [en, uk]),
-);
-
-export function uaBlogToEnSlug(uaSlug: string): string | undefined {
-  return EN_BLOG_SLUG_MAP[uaSlug];
-}
-
-export function enBlogToUaSlug(enSlug: string): string | undefined {
-  return UA_BLOG_SLUG_MAP[enSlug];
+  return hasEnIndustry(slug, registry) ? `/en/sites-for/${slug}` : "/en#solutions";
 }
 
 /**
@@ -145,6 +102,7 @@ export function enBlogToUaSlug(enSlug: string): string | undefined {
  */
 export function resolveLocaleAlternate(
   pathname: string,
+  registry: EnRegistry,
 ): { uk: string | null; en: string | null } {
   if (pathname === "/" || pathname === "/en") {
     return { uk: "/", en: "/en" };
@@ -158,7 +116,7 @@ export function resolveLocaleAlternate(
     // EN blog post → look up UA slug from the inverse map.
     const enBlogMatch = pathname.match(/^\/en\/blog\/([^/]+)\/?$/);
     if (enBlogMatch) {
-      const uaSlug = enBlogToUaSlug(enBlogMatch[1]);
+      const uaSlug = enBlogToUaSlug(enBlogMatch[1], registry);
       return {
         uk: uaSlug ? `/blog/${uaSlug}` : null,
         en: pathname,
@@ -170,7 +128,7 @@ export function resolveLocaleAlternate(
   // UA → EN: blog post pages (only when an EN translation exists).
   const blogMatch = pathname.match(/^\/blog\/([^/]+)\/?$/);
   if (blogMatch) {
-    const enSlug = uaBlogToEnSlug(blogMatch[1]);
+    const enSlug = uaBlogToEnSlug(blogMatch[1], registry);
     return {
       uk: `/blog/${blogMatch[1]}`,
       en: enSlug ? `/en/blog/${enSlug}` : null,
@@ -183,7 +141,7 @@ export function resolveLocaleAlternate(
     const normalized = `/sites-for/${industryMatch[1]}`;
     return {
       uk: normalized,
-      en: hasEnIndustry(industryMatch[1]) ? `/en${normalized}` : null,
+      en: hasEnIndustry(industryMatch[1], registry) ? `/en${normalized}` : null,
     };
   }
 
@@ -193,11 +151,12 @@ export function resolveLocaleAlternate(
     const normalized = `/portfolio/${caseMatch[1]}`;
     return {
       uk: normalized,
-      en: hasEnCase(caseMatch[1]) ? `/en${normalized}` : null,
+      en: hasEnCase(caseMatch[1], registry) ? `/en${normalized}` : null,
     };
   }
 
-  // UA → EN: top-level localized roots (vs-* compare pages, /calculator).
+  // UA → EN: top-level localized roots (vs-* compare pages, /calculator,
+  // /about, /portfolio, /blog, etc. — see `EN_LOCALIZED_ROOTS`).
   const rootMatch = pathname.match(/^(\/[^/]+)\/?$/);
   if (rootMatch) {
     const root = rootMatch[1];
@@ -207,8 +166,7 @@ export function resolveLocaleAlternate(
     };
   }
 
-  // Catch-all for any other UA path (e.g. /blog, /blog/<slug>): UA side
-  // is the current path; EN side has no counterpart yet (Sprint 5
-  // ships /en/blog).
+  // Catch-all for multi-segment UA-only paths (e.g. `/stories/<slug>`,
+  // `/legal/<sub>`): UA side is the current path; EN has no counterpart.
   return { uk: pathname, en: null };
 }

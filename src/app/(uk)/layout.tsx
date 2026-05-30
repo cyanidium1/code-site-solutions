@@ -7,6 +7,8 @@ import ukMessages from "../../../messages/uk.json";
 
 import { Providers } from "../providers";
 import { SITE_ORIGIN } from "@/constants/site";
+import { getEnRegistrySafe, toWire } from "@/lib/server/i18n-registry";
+import { I18nRegistryProvider } from "@/components/layout/i18n-registry-provider";
 
 import "../globals.css";
 import "../keyframes.css";
@@ -76,7 +78,7 @@ export const viewport: Viewport = {
  * The English routes live under `app/(en)/en/*` and have their own root
  * layout with `lang="en"`.
  */
-export default function UkRootLayout({
+export default async function UkRootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -84,6 +86,10 @@ export default function UkRootLayout({
   // Pin the request locale so next-intl's request config (`requestLocale`)
   // picks UA messages without needing a request-time header.
   setRequestLocale("uk");
+  // Fetch once per layout render — `unstable_cache` shares the Sanity
+  // round-trip across every page in the (uk) group within the revalidate
+  // window. Wire-format keeps RSC serialization happy across versions.
+  const i18nRegistry = toWire(await getEnRegistrySafe());
   return (
     <html
       lang="uk"
@@ -92,7 +98,11 @@ export default function UkRootLayout({
     >
       <body className="font-sans bg-bg text-ink antialiased">
         <NextIntlClientProvider locale="uk" messages={ukMessages}>
-          <Providers>{children}</Providers>
+          <Providers>
+            <I18nRegistryProvider value={i18nRegistry}>
+              {children}
+            </I18nRegistryProvider>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

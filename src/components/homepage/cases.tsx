@@ -9,6 +9,7 @@ import {
   caseRefToCardItem,
   type CaseCardItem,
 } from "@/lib/shared/case-card-item";
+import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import type { Locale } from "@/types/sanity";
 import { SectionHead } from "@/components/shared/section-head";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
@@ -34,11 +35,13 @@ export async function Cases({
   ctaLabel?: string;
   ctaHref?: string;
 } = {}) {
-  const finalItems: CaseCardItem[] =
-    items ??
-    (await fetchCaseStudies())
-      .slice(0, 3)
-      .map((c) => caseRefToCardItem(c, locale));
+  const finalItems: CaseCardItem[] = items ?? await (async () => {
+    const [cases, registry] = await Promise.all([
+      fetchCaseStudies(),
+      getEnRegistrySafe(),
+    ]);
+    return cases.slice(0, 3).map((c) => caseRefToCardItem(c, locale, registry));
+  })();
   return (
     <section className={hpSectionClass} id="cases">
       <div className={hpInnerClass}>

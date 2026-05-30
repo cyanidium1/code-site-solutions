@@ -12,6 +12,7 @@ import {
 } from "@/lib/shared/case-card-item";
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasEnCase } from "@/constants/i18n-routes";
+import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import { SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
@@ -40,7 +41,10 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function EnPortfolioPage() {
-  const cases = await fetchCaseStudies();
+  const [cases, registry] = await Promise.all([
+    fetchCaseStudies(),
+    getEnRegistrySafe(),
+  ]);
   const portfolioHeadline = enProjectsBackedHeadline(cases.length);
 
   const PORTFOLIO_URL = pageUrl("/en/portfolio");
@@ -76,7 +80,7 @@ export default async function EnPortfolioPage() {
           "@type": "ItemList",
           numberOfItems: cases.length,
           itemListElement: cases.map((c, i) => {
-            const url = hasEnCase(c.slug)
+            const url = hasEnCase(c.slug, registry)
               ? `${SITE_ORIGIN}/en/portfolio/${c.slug}`
               : `${SITE_ORIGIN}/portfolio/${c.slug}`;
             return {
@@ -119,7 +123,7 @@ export default async function EnPortfolioPage() {
           {cases.length > 0 ? (
             <div className={casesGridClass}>
               {cases.map((c) => {
-                const item = caseRefToCardItem(c, "en");
+                const item = caseRefToCardItem(c, "en", registry);
                 const metaLine = [item.industry, item.region, item.year]
                   .filter(Boolean)
                   .join(" · ");

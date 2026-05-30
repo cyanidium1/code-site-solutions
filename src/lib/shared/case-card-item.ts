@@ -1,4 +1,5 @@
 import { hasEnCase } from "@/constants/i18n-routes";
+import type { EnRegistry } from "@/lib/shared/i18n-registry-types";
 import { loc } from "@/lib/shared/sanity-locale";
 import { presentationForCase } from "@/lib/shared/case-presentation";
 import type { CaseStudyRef, Locale } from "@/types/sanity";
@@ -20,6 +21,7 @@ export type CaseCardItem = {
 export function caseRefToCardItem(
   c: CaseStudyRef,
   locale: Locale,
+  registry: EnRegistry,
 ): CaseCardItem {
   const pres = presentationForCase(c.industry?.slug ?? c.industrySlug);
   const name = loc(c.title, locale) || c.client || c.slug;
@@ -31,7 +33,7 @@ export function caseRefToCardItem(
   // the user doesn't bounce to a 404 on click.
   const href =
     locale === "en"
-      ? hasEnCase(c.slug)
+      ? hasEnCase(c.slug, registry)
         ? `/en/portfolio/${c.slug}`
         : `/portfolio/${c.slug}`
       : `/portfolio/${c.slug}`;

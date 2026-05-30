@@ -7,6 +7,8 @@ import enMessages from "../../../messages/en.json";
 
 import { Providers } from "../providers";
 import { SITE_ORIGIN } from "@/constants/site";
+import { getEnRegistrySafe, toWire } from "@/lib/server/i18n-registry";
+import { I18nRegistryProvider } from "@/components/layout/i18n-registry-provider";
 
 import "../globals.css";
 import "../keyframes.css";
@@ -74,12 +76,16 @@ export const viewport: Viewport = {
  *
  * See the (uk) layout for the rationale on static `<html lang>` + inlineCss.
  */
-export default function EnRootLayout({
+export default async function EnRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   setRequestLocale("en");
+  // Fetch once per layout render — `unstable_cache` shares the Sanity
+  // round-trip across every page in the (en) group within the revalidate
+  // window. Wire-format keeps RSC serialization happy across versions.
+  const i18nRegistry = toWire(await getEnRegistrySafe());
   return (
     <html
       lang="en"
@@ -88,7 +94,11 @@ export default function EnRootLayout({
     >
       <body className="font-sans bg-bg text-ink antialiased">
         <NextIntlClientProvider locale="en" messages={enMessages}>
-          <Providers>{children}</Providers>
+          <Providers>
+            <I18nRegistryProvider value={i18nRegistry}>
+              {children}
+            </I18nRegistryProvider>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -51,6 +51,7 @@ import {
 } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
+import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import { pickRichText } from "@/lib/shared/pick-rich-text";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
@@ -442,7 +443,10 @@ export async function CasePageView({
   if (!doc) notFound();
   if (locale === "en" && !hasEnglishCaseContent(doc)) notFound();
 
-  const allCases = await fetchCaseStudies();
+  const [allCases, registry] = await Promise.all([
+    fetchCaseStudies(),
+    getEnRegistrySafe(),
+  ]);
   const related = allCases
     .filter((c) => c.slug !== doc.slug)
     .filter((c) => locale !== "en" || Boolean(c.title?.en))
@@ -524,7 +528,7 @@ export async function CasePageView({
             </div>
             <div className={casesGridClass}>
               {related.map((r) => {
-                const item = caseRefToCardItem(r, locale);
+                const item = caseRefToCardItem(r, locale, registry);
                 const metaLine = [item.industry, item.region, item.year]
                   .filter(Boolean)
                   .join(" · ");
