@@ -328,7 +328,7 @@ export default async function EnBlogPostPage({
                   return (
                     <RelatedCard
                       key={p._id}
-                      category={p.category}
+                      category={p.category?.name?.en ?? undefined}
                       metrics={metrics}
                       title={p.titleEn ?? p.slugEn ?? ""}
                       eyebrow={date}

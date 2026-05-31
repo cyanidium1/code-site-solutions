@@ -549,8 +549,11 @@ export type BlogPostListItem = {
   lede?: string;
   /** EN translation of `lede`. */
   ledeEn?: string;
-  category?: string;
-  industry?: { slug: string; title?: LocalizedString } | null;
+  category?: {
+    slug: string;
+    name?: LocalizedString;
+    color?: string;
+  } | null;
   publishedAt?: string;
   readingTimeMinutes?: number;
   coverImage?: BlogCover | null;
@@ -578,8 +581,11 @@ export type BlogPostDoc = {
   eyebrowEn?: string;
   lede?: string;
   ledeEn?: string;
-  category?: string;
-  industry?: { slug: string; title?: LocalizedString } | null;
+  category?: {
+    slug: string;
+    name?: LocalizedString;
+    color?: string;
+  } | null;
   tags?: string[];
   publishedAt?: string;
   updatedAt?: string;
