@@ -7,12 +7,12 @@ import { LaunchCta } from "@/components/blocks/launch-cta";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { PortfolioFilters } from "@/components/portfolio-filters";
+import { filterCases } from "@/components/portfolio-filters/filter-cases";
 import {
-  dedupeIndustries,
+  dedupeIndustryRefs,
   dedupeOptionRefs,
-  filterCases,
-  readFilterValues,
-} from "@/components/portfolio-filters/filter-cases";
+} from "@/lib/shared/filters/dedupe-options";
+import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
 import {
   caseRefToCardItem,
   ukProjectsBackedHeadline,
@@ -45,7 +45,7 @@ export default async function PortfolioPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const filterValues = readFilterValues(params);
+  const filterValues = readFilterValues(params, ["industry", "country", "budget"] as const);
 
   const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
@@ -58,7 +58,11 @@ export default async function PortfolioPage({
   // Build dropdown options from the UNFILTERED case list — single source of
   // truth. Labels come from the dereferenced option docs (countryOption /
   // budgetBucketOption / industryPage). Empty/missing refs are dropped.
-  const industryOptions = dedupeIndustries(cases, "uk");
+  const industryOptions = dedupeIndustryRefs(
+    cases,
+    (c) => c.industry ?? (c.industrySlug ? { slug: c.industrySlug } : null),
+    "uk",
+  );
   const countryOptions = dedupeOptionRefs(
     cases.map((c) => c.country),
     "uk",
