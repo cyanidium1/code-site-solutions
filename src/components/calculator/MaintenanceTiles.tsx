@@ -12,7 +12,9 @@ const SEG_BTN =
   "transition-[border-color,color,background] duration-200 " +
   "hover:border-line-strong hover:text-ink " +
   "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
-const SEG_BTN_ACTIVE = "border-accent-55 bg-accent-12 !text-ink";
+const SEG_BTN_ACTIVE =
+  "border-accent-55 bg-accent-18 !text-ink " +
+  "shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]";
 const NOTE = "text-ink-3 text-[12px] leading-[1.5]";
 
 type MaintenanceTilesProps = {
