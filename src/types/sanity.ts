@@ -644,3 +644,86 @@ export type CaseStudyDoc = {
   relatedPosts?: BlogPostRef[];
   featured?: boolean;
 };
+
+/* ─── Calculator documents ──────────────────────────────────────────────── */
+
+export type CalculatorProjectTypeDoc = {
+  _id: string;
+  projectKey: "landing" | "multiPage" | "ecommerce";
+  label?: LocalizedString;
+  hint?: LocalizedText;
+  basePrice: number;
+  pages: {
+    min: number;
+    max: number;
+    defaultValue: number;
+    included: number;
+    extraPrice: number;
+  };
+  order?: number;
+};
+
+export type CalculatorOptionDoc = {
+  _id: string;
+  groupKey:
+    | "cms"
+    | "seo"
+    | "feature"
+    | "language"
+    | "design"
+    | "timeline"
+    | "maintenance"
+    | "seoGrowth"
+    | "content"
+    | "productComplexity";
+  optionKey: string;
+  label?: LocalizedString;
+  hint?: LocalizedText;
+  price?: number;
+  monthlyPrice?: number;
+  priceLabel?: string;
+  percent?: number;
+  included?: boolean;
+  featureGroup?: "leadCapture" | "conversion" | "advancedUx";
+  bestFor?: LocalizedText;
+  includes?: LocalizedString[];
+  badge?: LocalizedString;
+  previews?: { src: string; caption?: LocalizedString }[];
+  order?: number;
+};
+
+export type CalculatorPresetDoc = {
+  _id: string;
+  presetKey: string;
+  title?: LocalizedString;
+  badge?: LocalizedString;
+  bestFor?: LocalizedText;
+  includes?: LocalizedString[];
+  estimatedRange?: LocalizedString;
+  compareAnchor?: LocalizedText;
+  appliedInput?: {
+    projectType: "landing" | "multiPage" | "ecommerce";
+    pages: number;
+    productComplexity: "simple" | "medium" | "advanced";
+    designComplexity: "simple" | "custom" | "advanced";
+    languages: "one" | "two" | "three" | "fourPlus";
+    cmsUpgradeIds?: string[];
+    seoOptionIds?: string[];
+    featureIds?: string[];
+    contentOption:
+      | "clientProvided"
+      | "lightPolishing"
+      | "fullCopywriting"
+      | "seoCopywriting";
+    timeline: "standard" | "faster" | "urgent";
+    maintenancePlan: "none" | "basic" | "growth" | "dedicated";
+    seoGrowthPlan: "none" | "basicSeo" | "growthSeo" | "contentEngine";
+  };
+  order?: number;
+};
+
+export type CalculatorSettingsDoc = {
+  defaultProjectType?: "landing" | "multiPage" | "ecommerce";
+  roundStep?: number;
+  highEstimateFactor?: number;
+};
