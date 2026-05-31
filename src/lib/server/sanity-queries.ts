@@ -196,6 +196,7 @@ const BLOG_POST_LIST_ITEM = /* groq */ `{
   lede,
   ledeEn,
   category,
+  "industry": industry->{ "slug": slug.current, title ${LOCALIZED_STRING} },
   publishedAt,
   readingTimeMinutes,
   coverImage{ src, alt }
@@ -238,6 +239,7 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
   lede,
   ledeEn,
   category,
+  "industry": industry->{ "slug": slug.current, title ${LOCALIZED_STRING} },
   tags,
   publishedAt,
   updatedAt,
@@ -307,6 +309,7 @@ export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
   lede,
   ledeEn,
   category,
+  "industry": industry->{ "slug": slug.current, title ${LOCALIZED_STRING} },
   tags,
   publishedAt,
   updatedAt,
