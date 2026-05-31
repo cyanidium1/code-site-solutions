@@ -5,7 +5,6 @@ export type MarqueeLogo = { src: string; alt: string };
 
 export type Industry = {
   icon: LucideIcon;
-  color: string;
   title: string;
   description: string;
   tags: string[];
