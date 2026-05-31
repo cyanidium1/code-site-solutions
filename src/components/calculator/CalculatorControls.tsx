@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import {
   Code2,
+  Component,
   LayoutTemplate,
   ShoppingCart,
   Search,
@@ -288,8 +289,10 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                     <LayoutTemplate size={14} />
                   ) : item.key === "multiPage" ? (
                     <Code2 size={14} />
-                  ) : (
+                  ) : item.key === "ecommerce" ? (
                     <ShoppingCart size={14} />
+                  ) : (
+                    <Component size={14} />
                   )}
                 </span>
               </OptionCard>
