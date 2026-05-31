@@ -31,11 +31,11 @@ test("design + language multipliers stack", () => {
     designComplexity: "custom",
     languages: "two",
   });
-  // 1 + 0.2 + 0.15 = 1.35, but IEEE-754 yields 1.3499999999999999.
-  // 3500 * 1.3499... = 4724.99..., which Math.round/50 floors to 4700.
-  // This locks in current engine behaviour; oneTimeEstimate is the binding contract.
-  assert.ok(Math.abs(r.breakdown.multiplier - 1.35) < 1e-9);
-  assert.equal(r.oneTimeEstimate, 4700);
+  // Engine rounds the additive multiplier to 4 decimals to absorb IEEE-754
+  // drift (was 1.3499999999999999), so this now lands on the math-perfect
+  // $50 step instead of $50 lower.
+  assert.equal(r.breakdown.multiplier, 1.35);
+  assert.equal(r.oneTimeEstimate, 4750);
 });
 
 test("ecommerce includes product complexity cost", () => {
