@@ -55,8 +55,9 @@ export function calculateWebsiteEstimate(
 
   const extraPages = Math.max(0, input.pages - project.pages.included);
   const pageCost = extraPages * project.pages.extraPrice;
-  const productComplexityCost =
-    input.projectType === "ecommerce" ? productCx.price : 0;
+  const showsProductComplexity =
+    project.hasProductComplexity ?? project.key === "ecommerce";
+  const productComplexityCost = showsProductComplexity ? productCx.price : 0;
 
   const cmsCost = sumSelected(input.cmsUpgradeIds, config.cmsUpgrades);
   const seoCost = sumSelected(input.seoOptionIds, config.seoOptions);

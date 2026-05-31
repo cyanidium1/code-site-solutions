@@ -16,6 +16,13 @@ export type ConfigProjectType = {
   label: string;
   hint: string;
   basePrice: number;
+  /**
+   * When true, the calculator shows the product-complexity tier for this
+   * project type (UI section in CalculatorControls, summary list item in
+   * EstimateSummary, productComplexityCost in the engine). Optional with a
+   * backward-compat fallback at every read site: `?? (key === "ecommerce")`.
+   */
+  hasProductComplexity?: boolean;
   pages: {
     min: number;
     max: number;

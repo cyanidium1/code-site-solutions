@@ -180,7 +180,8 @@ export function EstimateSummary({
           {buildingItems.map((item, index) => (
             <li key={`${item}-${index}`}>{item}</li>
           ))}
-          {input.projectType === "ecommerce" && productMeta ? (
+          {productMeta &&
+          (projectMeta?.hasProductComplexity ?? projectMeta?.key === "ecommerce") ? (
             <li className="text-ink-3">{productMeta.label}</li>
           ) : null}
         </ul>

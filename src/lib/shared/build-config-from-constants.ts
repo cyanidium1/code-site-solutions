@@ -75,6 +75,7 @@ export function buildConfigFromConstants(
       label: t(`options.project.${key}.label`, v.label),
       hint: t(`options.project.${key}.hint`, v.hint),
       basePrice: v.basePrice,
+      hasProductComplexity: key === "ecommerce",
       pages: v.pages,
     })),
     productComplexity: (

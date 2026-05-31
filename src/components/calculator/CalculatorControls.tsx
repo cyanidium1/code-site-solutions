@@ -321,7 +321,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           </div>
           <p className={NOTE_CLASS}>{includedTpl}</p>
 
-          {value.projectType === "ecommerce" ? (
+          {(projectConfig.hasProductComplexity ?? projectConfig.key === "ecommerce") ? (
             <>
               <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.productStructLabel")}</label>
               <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
