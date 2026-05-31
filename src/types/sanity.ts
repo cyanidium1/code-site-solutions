@@ -645,14 +645,17 @@ export type CaseStudyDoc = {
   featured?: boolean;
 };
 
-/* ─── Calculator documents ──────────────────────────────────────────────── */
+/* ─── Calculator config (v2: singleton-per-group) ───────────────────────── */
 
-export type CalculatorProjectTypeDoc = {
-  _id: string;
-  projectKey: "landing" | "multiPage" | "ecommerce";
+export type CalculatorProjectTypeItem = {
+  _key: string;
+  /** Free-form camelCase id. Was a 3-value union; widened in L0 to allow custom project types. */
+  projectKey: string;
   label?: LocalizedString;
   hint?: LocalizedText;
   basePrice: number;
+  /** Drives the product-complexity tier in UI + engine. Optional; fetcher defaults to `key === "ecommerce"` if absent. */
+  hasProductComplexity?: boolean;
   pages: {
     min: number;
     max: number;
@@ -660,40 +663,10 @@ export type CalculatorProjectTypeDoc = {
     included: number;
     extraPrice: number;
   };
-  order?: number;
 };
 
-export type CalculatorOptionDoc = {
-  _id: string;
-  groupKey:
-    | "cms"
-    | "seo"
-    | "feature"
-    | "language"
-    | "design"
-    | "timeline"
-    | "maintenance"
-    | "seoGrowth"
-    | "content"
-    | "productComplexity";
-  optionKey: string;
-  label?: LocalizedString;
-  hint?: LocalizedText;
-  price?: number;
-  monthlyPrice?: number;
-  priceLabel?: string;
-  percent?: number;
-  included?: boolean;
-  featureGroup?: "leadCapture" | "conversion" | "advancedUx";
-  bestFor?: LocalizedText;
-  includes?: LocalizedString[];
-  badge?: LocalizedString;
-  previews?: { src: string; caption?: LocalizedString }[];
-  order?: number;
-};
-
-export type CalculatorPresetDoc = {
-  _id: string;
+export type CalculatorPresetItem = {
+  _key: string;
   presetKey: string;
   title?: LocalizedString;
   badge?: LocalizedString;
@@ -702,7 +675,8 @@ export type CalculatorPresetDoc = {
   estimatedRange?: LocalizedString;
   compareAnchor?: LocalizedText;
   appliedInput?: {
-    projectType: "landing" | "multiPage" | "ecommerce";
+    /** Matches a `projectKey` from `calculatorProjectTypes`. Free-form string per L0. */
+    projectType: string;
     pages: number;
     productComplexity: "simple" | "medium" | "advanced";
     designComplexity: "simple" | "custom" | "advanced";
@@ -719,11 +693,75 @@ export type CalculatorPresetDoc = {
     maintenancePlan: "none" | "basic" | "growth" | "dedicated";
     seoGrowthPlan: "none" | "basicSeo" | "growthSeo" | "contentEngine";
   };
-  order?: number;
 };
 
-export type CalculatorSettingsDoc = {
-  defaultProjectType?: "landing" | "multiPage" | "ecommerce";
-  roundStep?: number;
-  highEstimateFactor?: number;
+export type CalculatorCheckboxOptionItem = {
+  _key: string;
+  optionKey: string;
+  label?: LocalizedString;
+  hint?: LocalizedText;
+  price?: number;
+  included?: boolean;
+};
+
+export type CalculatorFeatureOptionItem = CalculatorCheckboxOptionItem & {
+  featureGroup?: "leadCapture" | "conversion" | "advancedUx";
+};
+
+export type CalculatorPercentOptionItem = {
+  _key: string;
+  optionKey: string;
+  label?: LocalizedString;
+  hint?: LocalizedText;
+  percent?: number;
+};
+
+export type CalculatorDesignOptionItem = CalculatorPercentOptionItem & {
+  previews?: { _key: string; src: string; caption?: LocalizedString }[];
+};
+
+export type CalculatorMaintenanceOptionItem = {
+  _key: string;
+  optionKey: string;
+  label?: LocalizedString;
+  monthlyPrice?: number;
+};
+
+export type CalculatorSeoGrowthOptionItem = {
+  _key: string;
+  optionKey: string;
+  label?: LocalizedString;
+  bestFor?: LocalizedText;
+  includes?: LocalizedString[];
+  badge?: LocalizedString;
+  monthlyPrice?: number;
+  priceLabel?: string;
+};
+
+export type CalculatorPriceOptionItem = {
+  _key: string;
+  optionKey: string;
+  label?: LocalizedString;
+  hint?: LocalizedText;
+  price?: number;
+};
+
+export type CalculatorConfigQueryResult = {
+  projectTypes: CalculatorProjectTypeItem[] | null;
+  presets: CalculatorPresetItem[] | null;
+  cmsOptions: CalculatorCheckboxOptionItem[] | null;
+  seoOptions: CalculatorCheckboxOptionItem[] | null;
+  featureOptions: CalculatorFeatureOptionItem[] | null;
+  languageOptions: CalculatorPercentOptionItem[] | null;
+  designOptions: CalculatorDesignOptionItem[] | null;
+  timelineOptions: CalculatorPercentOptionItem[] | null;
+  maintenanceOptions: CalculatorMaintenanceOptionItem[] | null;
+  seoGrowthOptions: CalculatorSeoGrowthOptionItem[] | null;
+  contentOptions: CalculatorPriceOptionItem[] | null;
+  productComplexityOptions: CalculatorPriceOptionItem[] | null;
+  settings: {
+    defaultProjectType?: "landing" | "multiPage" | "ecommerce";
+    roundStep?: number;
+    highEstimateFactor?: number;
+  } | null;
 };

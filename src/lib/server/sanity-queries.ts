@@ -481,44 +481,69 @@ export const PRICING_PLANS_QUERY = /* groq */ `
 } | order(order asc, _createdAt asc)
 `;
 
-export const CALCULATOR_PROJECT_TYPES_QUERY = /* groq */ `
-*[_type == "calculatorProjectType"]{
-  _id, projectKey,
-  label { uk, ru, en },
-  hint { uk, ru, en },
-  basePrice, pages, order
-} | order(order asc, _createdAt asc)
-`;
-
-export const CALCULATOR_OPTIONS_QUERY = /* groq */ `
-*[_type == "calculatorOption"]{
-  _id, groupKey, optionKey,
-  label { uk, ru, en },
-  hint { uk, ru, en },
-  price, monthlyPrice, priceLabel, percent, included, featureGroup,
-  bestFor { uk, ru, en },
-  includes[] { uk, ru, en },
-  badge { uk, ru, en },
-  previews[] { src, caption { uk, ru, en } },
-  order
-} | order(groupKey asc, order asc)
-`;
-
-export const CALCULATOR_PRESETS_QUERY = /* groq */ `
-*[_type == "calculatorPreset"]{
-  _id, presetKey,
-  title { uk, ru, en },
-  badge { uk, ru, en },
-  bestFor { uk, ru, en },
-  includes[] { uk, ru, en },
-  estimatedRange { uk, ru, en },
-  compareAnchor { uk, ru, en },
-  appliedInput, order
-} | order(order asc)
-`;
-
-export const CALCULATOR_SETTINGS_QUERY = /* groq */ `
-*[_type == "calculatorSettings"][0]{
-  defaultProjectType, roundStep, highEstimateFactor
-}
-`;
+export const CALCULATOR_CONFIG_QUERY = /* groq */ `{
+  "projectTypes": *[_id == "calculatorProjectTypes"][0]{
+    "types": types[]{
+      _key, projectKey,
+      label { uk, ru, en },
+      hint { uk, ru, en },
+      basePrice, hasProductComplexity, pages
+    }
+  }.types,
+  "presets": *[_id == "calculatorPresets"][0]{
+    "presets": presets[]{
+      _key, presetKey,
+      title { uk, ru, en },
+      badge { uk, ru, en },
+      bestFor { uk, ru, en },
+      "includes": includes[] { uk, ru, en },
+      estimatedRange { uk, ru, en },
+      compareAnchor { uk, ru, en },
+      appliedInput
+    }
+  }.presets,
+  "cmsOptions": *[_id == "calculatorCmsOptions"][0]{
+    "options": options[]{ _key, optionKey, label { uk, ru, en }, hint { uk, ru, en }, price, included }
+  }.options,
+  "seoOptions": *[_id == "calculatorSeoOptions"][0]{
+    "options": options[]{ _key, optionKey, label { uk, ru, en }, hint { uk, ru, en }, price, included }
+  }.options,
+  "featureOptions": *[_id == "calculatorFeatureOptions"][0]{
+    "options": options[]{ _key, optionKey, label { uk, ru, en }, hint { uk, ru, en }, price, included, featureGroup }
+  }.options,
+  "languageOptions": *[_id == "calculatorLanguageOptions"][0]{
+    "options": options[]{ _key, optionKey, label { uk, ru, en }, percent }
+  }.options,
+  "designOptions": *[_id == "calculatorDesignOptions"][0]{
+    "options": options[]{
+      _key, optionKey,
+      label { uk, ru, en },
+      hint { uk, ru, en },
+      percent,
+      "previews": previews[]{ _key, src, caption { uk, ru, en } }
+    }
+  }.options,
+  "timelineOptions": *[_id == "calculatorTimelineOptions"][0]{
+    "options": options[]{ _key, optionKey, label { uk, ru, en }, hint { uk, ru, en }, percent }
+  }.options,
+  "maintenanceOptions": *[_id == "calculatorMaintenanceOptions"][0]{
+    "options": options[]{ _key, optionKey, label { uk, ru, en }, monthlyPrice }
+  }.options,
+  "seoGrowthOptions": *[_id == "calculatorSeoGrowthOptions"][0]{
+    "options": options[]{
+      _key, optionKey,
+      label { uk, ru, en },
+      bestFor { uk, ru, en },
+      "includes": includes[] { uk, ru, en },
+      badge { uk, ru, en },
+      monthlyPrice, priceLabel
+    }
+  }.options,
+  "contentOptions": *[_id == "calculatorContentOptions"][0]{
+    "options": options[]{ _key, optionKey, label { uk, ru, en }, price }
+  }.options,
+  "productComplexityOptions": *[_id == "calculatorProductComplexityOptions"][0]{
+    "options": options[]{ _key, optionKey, label { uk, ru, en }, hint { uk, ru, en }, price }
+  }.options,
+  "settings": *[_id == "calculatorSettings"][0]{ defaultProjectType, roundStep, highEstimateFactor }
+}`;
