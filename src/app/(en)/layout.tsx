@@ -92,7 +92,7 @@ export default async function EnRootLayout({
       suppressHydrationWarning
       className={`${manrope.variable} ${jetbrains.variable} ${actay.variable}`}
     >
-      <body className="font-sans bg-bg text-ink antialiased">
+      <body className="font-sans bg-bg text-ink antialiased overflow-x-clip">
         <NextIntlClientProvider locale="en" messages={enMessages}>
           <Providers>
             <I18nRegistryProvider value={i18nRegistry}>

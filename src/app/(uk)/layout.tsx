@@ -96,7 +96,7 @@ export default async function UkRootLayout({
       suppressHydrationWarning
       className={`${manrope.variable} ${jetbrains.variable} ${actay.variable}`}
     >
-      <body className="font-sans bg-bg text-ink antialiased">
+      <body className="font-sans bg-bg text-ink antialiased overflow-x-clip">
         <NextIntlClientProvider locale="uk" messages={ukMessages}>
           <Providers>
             <I18nRegistryProvider value={i18nRegistry}>
