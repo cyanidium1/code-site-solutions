@@ -45,3 +45,35 @@ export function dedupeIndustryRefs<T>(
   }
   return Array.from(seen, ([key, label]) => ({ key, label }));
 }
+
+/**
+ * Same idea as dedupeIndustryRefs, but for the customizable
+ * blogCategoryOption shape: { slug, name?, color? }. Returns an array
+ * with the color attached so the caller can pass it straight into
+ * <FilterPills>. Empty/missing refs are dropped.
+ */
+export type CategoryInline = {
+  slug?: string;
+  name?: LocalizedString;
+  color?: string;
+} | null | undefined;
+
+export type CategoryFilterOption = FilterOption & { color?: string };
+
+export function dedupeCategoryRefs<T>(
+  items: readonly T[],
+  pickCategory: (item: T) => CategoryInline,
+  locale: Locale,
+): CategoryFilterOption[] {
+  const seen = new Map<string, CategoryFilterOption>();
+  for (const item of items) {
+    const c = pickCategory(item);
+    if (!c?.slug || seen.has(c.slug)) continue;
+    seen.set(c.slug, {
+      key: c.slug,
+      label: loc(c.name, locale) || c.slug,
+      color: c.color,
+    });
+  }
+  return Array.from(seen.values());
+}

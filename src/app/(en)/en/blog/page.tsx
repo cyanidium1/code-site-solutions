@@ -9,9 +9,8 @@ import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
 import type { BlogPostListItem } from "@/types/sanity";
 import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
 import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
-import { dedupeIndustryRefs } from "@/lib/shared/filters/dedupe-options";
+import { dedupeCategoryRefs } from "@/lib/shared/filters/dedupe-options";
 import { FilterPills } from "@/components/filters/filter-pills";
-import { industryAccent } from "@/constants/industry-colors";
 
 export const metadata: Metadata = {
   title: "Blog — real project breakdowns with numbers | Code-Site.Art",
@@ -63,19 +62,11 @@ export default async function EnBlogPage({
   // EN listing: only posts that have an EN translation (titleEn + slugEn).
   const enPosts = posts.filter((p) => p.titleEn && p.slugEn);
 
-  // Pills are built from the EN subset, then color-tinted via the global map.
-  const industryOptions = dedupeIndustryRefs(
-    enPosts,
-    (p) => p.industry ?? null,
-    "en",
-  );
-  const pillItems = industryOptions.map((o) => ({
-    ...o,
-    color: industryAccent(o.key),
-  }));
+  // Pills are built from the EN subset; the color comes from the category doc.
+  const pillItems = dedupeCategoryRefs(enPosts, (p) => p.category ?? null, "en");
 
   const filteredEnPosts = category
-    ? enPosts.filter((p) => p.industry?.slug === category)
+    ? enPosts.filter((p) => p.category?.slug === category)
     : enPosts;
 
   return (
@@ -104,7 +95,7 @@ export default async function EnBlogPage({
                   paramKey="category"
                   items={pillItems}
                   allLabel="All"
-                  ariaLabel="Filter by industry"
+                  ariaLabel="Filter by category"
                 />
               </div>
             ) : null}
@@ -125,8 +116,7 @@ export default async function EnBlogPage({
                         alt: p.coverImage.alt ?? p.titleEn ?? "",
                       }
                     : undefined;
-                  const categoryLabel =
-                    p.industry?.title?.en ?? p.category ?? undefined;
+                  const categoryLabel = p.category?.name?.en ?? undefined;
                   return (
                     <RelatedCard
                       key={p._id}
@@ -144,7 +134,7 @@ export default async function EnBlogPage({
             ) : (
               <p className={`${hpSubClass} py-[60px] text-center`}>
                 {category
-                  ? "No articles in this industry yet."
+                  ? "No articles in this category yet."
                   : "Coming soon. First post is on its way."}
               </p>
             )}

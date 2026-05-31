@@ -324,7 +324,7 @@ export default async function BlogPostPage({
                   return (
                     <RelatedCard
                       key={p._id}
-                      category={p.category}
+                      category={p.category?.name?.uk ?? undefined}
                       metrics={metrics}
                       title={p.title ?? p.slug}
                       eyebrow={date}
