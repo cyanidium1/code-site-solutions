@@ -96,7 +96,7 @@
       "sub": "No sales call, no “price on request”, no hidden lines. An honest range — and a clear breakdown of what drives it. Built for people deciding right now."
     },
     "stats": {
-      "projects": { "value": "47", "label": "projects · last 3 years" },
+      "projects": { "value": "50+", "label": "projects · last 5 years" },
       "range": { "value": "$1,500–$10,000", "label": "typical price range" },
       "weeks": { "value": "4–10 weeks", "label": "from brief to launch" },
       "warranty": { "value": "1 year", "label": "warranty included" }
@@ -179,7 +179,7 @@
       }
     },
     "social": {
-      "line": "<strong>47 companies</strong> ran this calculator and launched with us. Some of them:",
+      "line": "<strong>50+ companies</strong> ran this calculator and launched with us. Some of them:",
       "logos": ["NBYG København", "Efedra Clinic", "Tatarka"],
       "testimonialQuote": "Before the new site we got 3 enquiries a month. Now we get <strong>24</strong>.",
       "testimonialName": "Søren Hansen",
