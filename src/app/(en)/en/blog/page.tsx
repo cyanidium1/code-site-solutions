@@ -95,7 +95,7 @@ export default async function EnBlogPage({
                   paramKey="category"
                   items={pillItems}
                   allLabel="All"
-                  ariaLabel="Filter by industry"
+                  ariaLabel="Filter by category"
                 />
               </div>
             ) : null}
@@ -134,7 +134,7 @@ export default async function EnBlogPage({
             ) : (
               <p className={`${hpSubClass} py-[60px] text-center`}>
                 {category
-                  ? "No articles in this industry yet."
+                  ? "No articles in this category yet."
                   : "Coming soon. First post is on its way."}
               </p>
             )}

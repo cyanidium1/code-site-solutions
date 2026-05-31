@@ -86,7 +86,7 @@ export default async function BlogPage({
                   paramKey="category"
                   items={pillItems}
                   allLabel="Усі"
-                  ariaLabel="Фільтр за галуззю"
+                  ariaLabel="Фільтр за категорією"
                 />
               </div>
             ) : null}
@@ -126,7 +126,7 @@ export default async function BlogPage({
             ) : (
               <p className={`${hpSubClass} py-[60px] text-center`}>
                 {category
-                  ? "Жодної статті за обраною галуззю."
+                  ? "Жодної статті у цій категорії."
                   : "Поки що порожньо. Перший допис уже готується."}
               </p>
             )}
