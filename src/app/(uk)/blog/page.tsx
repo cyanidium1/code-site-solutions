@@ -9,9 +9,8 @@ import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
 import type { BlogPostListItem } from "@/types/sanity";
 import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
 import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
-import { dedupeIndustryRefs } from "@/lib/shared/filters/dedupe-options";
+import { dedupeCategoryRefs } from "@/lib/shared/filters/dedupe-options";
 import { FilterPills } from "@/components/filters/filter-pills";
-import { industryAccent } from "@/constants/industry-colors";
 export const metadata: Metadata = {
   title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
   description:
@@ -54,19 +53,11 @@ export default async function BlogPage({
   }).catch(() => [] as BlogPostListItem[]);
 
   // Pills are built from the unfiltered post list — single source of truth.
-  // Hide pills for industries that have no posts.
-  const industryOptions = dedupeIndustryRefs(
-    posts,
-    (p) => p.industry ?? null,
-    "uk",
-  );
-  const pillItems = industryOptions.map((o) => ({
-    ...o,
-    color: industryAccent(o.key),
-  }));
+  // Hide the pill row entirely when no post has a category assigned yet.
+  const pillItems = dedupeCategoryRefs(posts, (p) => p.category ?? null, "uk");
 
   const filtered = category
-    ? posts.filter((p) => p.industry?.slug === category)
+    ? posts.filter((p) => p.category?.slug === category)
     : posts;
 
   return (
@@ -117,8 +108,7 @@ export default async function BlogPage({
                         alt: p.coverImage.alt ?? p.title ?? "",
                       }
                     : undefined;
-                  const categoryLabel =
-                    p.industry?.title?.uk ?? p.category ?? undefined;
+                  const categoryLabel = p.category?.name?.uk ?? undefined;
                   return (
                     <RelatedCard
                       key={p._id}
