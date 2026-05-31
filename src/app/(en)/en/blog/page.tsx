@@ -8,6 +8,10 @@ import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
 import type { BlogPostListItem } from "@/types/sanity";
 import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
+import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
+import { dedupeIndustryRefs } from "@/lib/shared/filters/dedupe-options";
+import { FilterPills } from "@/components/filters/filter-pills";
+import { industryAccent } from "@/constants/industry-colors";
 
 export const metadata: Metadata = {
   title: "Blog — real project breakdowns with numbers | Code-Site.Art",
@@ -42,7 +46,14 @@ function formatEnDate(iso?: string): string | undefined {
   });
 }
 
-export default async function EnBlogPage() {
+export default async function EnBlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const { category } = readFilterValues(params, ["category"] as const);
+
   const posts = await sanityFetch<BlogPostListItem[]>({
     query: BLOG_POSTS_LIST_QUERY,
     revalidate: 300,
@@ -51,6 +62,21 @@ export default async function EnBlogPage() {
 
   // EN listing: only posts that have an EN translation (titleEn + slugEn).
   const enPosts = posts.filter((p) => p.titleEn && p.slugEn);
+
+  // Pills are built from the EN subset, then color-tinted via the global map.
+  const industryOptions = dedupeIndustryRefs(
+    enPosts,
+    (p) => p.industry ?? null,
+    "en",
+  );
+  const pillItems = industryOptions.map((o) => ({
+    ...o,
+    color: industryAccent(o.key),
+  }));
+
+  const filteredEnPosts = category
+    ? enPosts.filter((p) => p.industry?.slug === category)
+    : enPosts;
 
   return (
     <>
@@ -72,9 +98,20 @@ export default async function EnBlogPage() {
 
         <section className={hpSectionClass}>
           <div className={hpInnerClass}>
-            {enPosts.length > 0 ? (
+            {pillItems.length > 0 ? (
+              <div className="mb-10">
+                <FilterPills
+                  paramKey="category"
+                  items={pillItems}
+                  allLabel="All"
+                  ariaLabel="Filter by industry"
+                />
+              </div>
+            ) : null}
+
+            {filteredEnPosts.length > 0 ? (
               <div className={casesGridClass}>
-                {enPosts.map((p) => {
+                {filteredEnPosts.map((p) => {
                   const date = formatEnDate(p.publishedAt);
                   const reading = p.readingTimeMinutes
                     ? `${p.readingTimeMinutes} min read`
@@ -88,10 +125,12 @@ export default async function EnBlogPage() {
                         alt: p.coverImage.alt ?? p.titleEn ?? "",
                       }
                     : undefined;
+                  const categoryLabel =
+                    p.industry?.title?.en ?? p.category ?? undefined;
                   return (
                     <RelatedCard
                       key={p._id}
-                      category={p.category}
+                      category={categoryLabel}
                       metrics={metrics}
                       title={p.titleEn ?? p.slugEn ?? ""}
                       eyebrow={date}
@@ -104,7 +143,9 @@ export default async function EnBlogPage() {
               </div>
             ) : (
               <p className={`${hpSubClass} py-[60px] text-center`}>
-                Coming soon. First post is on its way.
+                {category
+                  ? "No articles in this industry yet."
+                  : "Coming soon. First post is on its way."}
               </p>
             )}
           </div>

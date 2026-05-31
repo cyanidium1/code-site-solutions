@@ -8,6 +8,10 @@ import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
 import type { BlogPostListItem } from "@/types/sanity";
 import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
+import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
+import { dedupeIndustryRefs } from "@/lib/shared/filters/dedupe-options";
+import { FilterPills } from "@/components/filters/filter-pills";
+import { industryAccent } from "@/constants/industry-colors";
 export const metadata: Metadata = {
   title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
   description:
@@ -35,12 +39,35 @@ function formatUkDate(iso?: string): string | undefined {
   return `${d.getDate()} ${UA_MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-export default async function BlogPage() {
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const { category } = readFilterValues(params, ["category"] as const);
+
   const posts = await sanityFetch<BlogPostListItem[]>({
     query: BLOG_POSTS_LIST_QUERY,
     revalidate: 300,
     tags: ["blogPost"],
   }).catch(() => [] as BlogPostListItem[]);
+
+  // Pills are built from the unfiltered post list — single source of truth.
+  // Hide pills for industries that have no posts.
+  const industryOptions = dedupeIndustryRefs(
+    posts,
+    (p) => p.industry ?? null,
+    "uk",
+  );
+  const pillItems = industryOptions.map((o) => ({
+    ...o,
+    color: industryAccent(o.key),
+  }));
+
+  const filtered = category
+    ? posts.filter((p) => p.industry?.slug === category)
+    : posts;
 
   return (
     <>
@@ -62,9 +89,20 @@ export default async function BlogPage() {
 
         <section className={hpSectionClass}>
           <div className={hpInnerClass}>
-            {posts.length > 0 ? (
+            {pillItems.length > 0 ? (
+              <div className="mb-10">
+                <FilterPills
+                  paramKey="category"
+                  items={pillItems}
+                  allLabel="Усі"
+                  ariaLabel="Фільтр за галуззю"
+                />
+              </div>
+            ) : null}
+
+            {filtered.length > 0 ? (
               <div className={casesGridClass}>
-                {posts.map((p) => {
+                {filtered.map((p) => {
                   const date = formatUkDate(p.publishedAt);
                   const reading = p.readingTimeMinutes
                     ? `${p.readingTimeMinutes} хв читання`
@@ -79,10 +117,12 @@ export default async function BlogPage() {
                         alt: p.coverImage.alt ?? p.title ?? "",
                       }
                     : undefined;
+                  const categoryLabel =
+                    p.industry?.title?.uk ?? p.category ?? undefined;
                   return (
                     <RelatedCard
                       key={p._id}
-                      category={p.category}
+                      category={categoryLabel}
                       metrics={metrics}
                       title={p.title ?? p.slug}
                       eyebrow={eyebrow}
@@ -95,7 +135,9 @@ export default async function BlogPage() {
               </div>
             ) : (
               <p className={`${hpSubClass} py-[60px] text-center`}>
-                Поки що порожньо. Перший допис уже готується.
+                {category
+                  ? "Жодної статті за обраною галуззю."
+                  : "Поки що порожньо. Перший допис уже готується."}
               </p>
             )}
           </div>

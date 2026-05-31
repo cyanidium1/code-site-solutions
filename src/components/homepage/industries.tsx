@@ -17,12 +17,12 @@ import type { Industry } from "@/types/homepage";
 import { SectionHead } from "@/components/shared/section-head";
 import { cn } from "@/components/ui";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { industryAccent } from "@/constants/industry-colors";
 
 // All 8 industries have published Sanity pages and live hrefs.
 const DEFAULT_INDUSTRIES: Industry[] = [
   {
     icon: Stethoscope,
-    color: "#0EA5E9",
     title: "Healthcare / Medicine",
     description: "Сайти для клінік, стоматологій, діагностичних центрів",
     tags: ["Helsi", "Medesk", "Online booking"],
@@ -31,7 +31,6 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
   {
     icon: Building,
-    color: "#EF4444",
     title: "Construction / Renovation",
     description: "Сайти для будівельних і ремонтних компаній",
     tags: ["CRM", "Calculator", "Local SEO"],
@@ -40,7 +39,6 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
   {
     icon: Scale,
-    color: "#8B5CF6",
     title: "Legal & Attorneys",
     description: "Сайти для юр. фірм, адвокатських бюро, приватних юристів",
     tags: ["Clio", "Diia.Sign", "Online consult"],
@@ -49,7 +47,6 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
   {
     icon: Calculator,
-    color: "#10B981",
     title: "Фінанси і бухгалтерія",
     description: "Сайти для бух-фірм, фінансових радників, трейдинг-сервісів",
     tags: ["MEDoc", "Stripe", "1С/BAS"],
@@ -58,7 +55,6 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
   {
     icon: ShoppingCart,
-    color: "#F59E0B",
     title: "E-commerce",
     description: "Інтернет-магазини, маркетплейси, B2B-каталоги",
     tags: ["Stripe", "LiqPay", "Нова Пошта"],
@@ -67,7 +63,6 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
   {
     icon: Car,
-    color: "#0070F3",
     title: "Авто-індустрія",
     description: "Сайти для імпорту авто, автодилерів, СТО і сервісних послуг",
     tags: ["Copart", "PDF-invoice", "Multi-lang"],
@@ -76,7 +71,6 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
   {
     icon: Home,
-    color: "#EC4899",
     title: "Нерухомість",
     description: "Сайти для агенцій нерухомості, забудовників, private listings",
     tags: ["Multi-lang", "Multi-currency", "Mortgage"],
@@ -85,7 +79,6 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
   {
     icon: GraduationCap,
-    color: "#14B8A6",
     title: "Курси і лендинги",
     description: "Сайти для онлайн-курсів, інфо-продуктів, блогерських воронок",
     tags: ["Stripe", "Teachable", "A/B"],
@@ -237,8 +230,8 @@ export function Industries({
                 </div>
               </>
             );
-            const cardStyle = { "--accent-color": ind.color } as React.CSSProperties;
             const slug = ind.href?.split("/").pop() ?? "";
+            const cardStyle = { "--accent-color": industryAccent(slug) } as React.CSSProperties;
             const mediaSrc = INDUSTRY_MEDIA[slug];
             const mediaTune = MEDIA_TUNE[slug];
             const body = (

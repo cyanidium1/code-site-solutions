@@ -24,7 +24,6 @@ import {
 export const EN_INDUSTRIES: Industry[] = [
   {
     icon: Stethoscope,
-    color: "#0EA5E9",
     title: "Healthcare",
     description: "Sites for clinics, dental practices, diagnostic centers",
     tags: ["EHR", "HIPAA", "Online booking"],
@@ -33,7 +32,6 @@ export const EN_INDUSTRIES: Industry[] = [
   },
   {
     icon: Building,
-    color: "#EF4444",
     title: "Construction / Renovation",
     description: "Sites for construction and renovation companies",
     tags: ["CRM", "Calculator", "Local SEO"],
@@ -42,7 +40,6 @@ export const EN_INDUSTRIES: Industry[] = [
   },
   {
     icon: Scale,
-    color: "#8B5CF6",
     title: "Legal & Attorneys",
     description: "Sites for law firms, attorney offices, solo practitioners",
     tags: ["Clio", "Diia.Sign", "Online consult"],
@@ -51,7 +48,6 @@ export const EN_INDUSTRIES: Industry[] = [
   },
   {
     icon: Calculator,
-    color: "#10B981",
     title: "Finance & Accounting",
     description:
       "Sites for accounting firms, financial advisors, trading services",
@@ -61,7 +57,6 @@ export const EN_INDUSTRIES: Industry[] = [
   },
   {
     icon: ShoppingCart,
-    color: "#F59E0B",
     title: "E-commerce",
     description: "Online stores, marketplaces, B2B catalogs",
     tags: ["Stripe", "LiqPay", "Nova Poshta"],
@@ -70,7 +65,6 @@ export const EN_INDUSTRIES: Industry[] = [
   },
   {
     icon: Car,
-    color: "#0070F3",
     title: "Auto industry",
     description:
       "Sites for car importers, auto dealers, repair shops, auto services",
@@ -80,7 +74,6 @@ export const EN_INDUSTRIES: Industry[] = [
   },
   {
     icon: Home,
-    color: "#EC4899",
     title: "Real Estate",
     description:
       "Sites for real estate agencies, developers, private listings",
@@ -90,7 +83,6 @@ export const EN_INDUSTRIES: Industry[] = [
   },
   {
     icon: GraduationCap,
-    color: "#14B8A6",
     title: "Courses & Landings",
     description: "Sites for online courses, info-products, creator funnels",
     tags: ["Stripe", "Teachable", "A/B"],

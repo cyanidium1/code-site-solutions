@@ -11,7 +11,7 @@ import type { Locale } from "@/types/sanity";
 
 export type PortfolioFilterKey = "industry" | "country" | "budget";
 
-export type FilterOption = { key: string; label: string };
+export type { FilterOption } from "@/lib/shared/filters/types";
 
 export const FILTER_LABELS_BY_LOCALE: Record<
   "uk" | "en",

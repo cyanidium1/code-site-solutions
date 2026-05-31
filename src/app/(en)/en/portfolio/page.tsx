@@ -7,12 +7,12 @@ import { LaunchCta } from "@/components/blocks/launch-cta";
 import { fetchCaseStudies } from "@/components/case-page";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { PortfolioFilters } from "@/components/portfolio-filters";
+import { filterCases } from "@/components/portfolio-filters/filter-cases";
 import {
-  dedupeIndustries,
+  dedupeIndustryRefs,
   dedupeOptionRefs,
-  filterCases,
-  readFilterValues,
-} from "@/components/portfolio-filters/filter-cases";
+} from "@/lib/shared/filters/dedupe-options";
+import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
 import {
   caseRefToCardItem,
   enProjectsBackedHeadline,
@@ -53,7 +53,7 @@ export default async function EnPortfolioPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const filterValues = readFilterValues(params);
+  const filterValues = readFilterValues(params, ["industry", "country", "budget"] as const);
 
   const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
@@ -66,9 +66,11 @@ export default async function EnPortfolioPage({
   // Build dropdown options from the UNFILTERED case list. On EN the industry
   // dropdown is additionally constrained to industries with EN content, so
   // the CTA never deep-links into a 404.
-  const industryOptions = dedupeIndustries(cases, "en").filter((o) =>
-    hasEnIndustry(o.key, registry),
-  );
+  const industryOptions = dedupeIndustryRefs(
+    cases,
+    (c) => c.industry ?? (c.industrySlug ? { slug: c.industrySlug } : null),
+    "en",
+  ).filter((o) => hasEnIndustry(o.key, registry));
   const countryOptions = dedupeOptionRefs(
     cases.map((c) => c.country),
     "en",
