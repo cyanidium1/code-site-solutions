@@ -5,6 +5,7 @@ import { HpFooter, HpHeader } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { WebsiteCalculator } from "@/components/calculator";
+import { fetchCalculatorConfig } from "@/lib/server/fetch-calculator-config";
 
 const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
@@ -32,7 +33,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CalculatorPage() {
-  const t = await getTranslations("Calculator");
+  const [t, config] = await Promise.all([
+    getTranslations("Calculator"),
+    fetchCalculatorConfig("uk"),
+  ]);
   const stats: { value: string; label: string }[] = ["projects", "range", "weeks", "warranty"].map((k) => ({
     value: t(`stats.${k}.value` as never),
     label: t(`stats.${k}.label` as never),
@@ -53,7 +57,7 @@ export default async function CalculatorPage() {
 
       <StatsBar items={stats} />
 
-      <WebsiteCalculator />
+      <WebsiteCalculator config={config} />
       <HpFooter />
     </>
   );

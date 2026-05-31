@@ -96,7 +96,7 @@
       "sub": "No sales call, no “price on request”, no hidden lines. An honest range — and a clear breakdown of what drives it. Built for people deciding right now."
     },
     "stats": {
-      "projects": { "value": "47", "label": "projects · last 3 years" },
+      "projects": { "value": "50+", "label": "projects · last 5 years" },
       "range": { "value": "$1,500–$10,000", "label": "typical price range" },
       "weeks": { "value": "4–10 weeks", "label": "from brief to launch" },
       "warranty": { "value": "1 year", "label": "warranty included" }
@@ -179,7 +179,7 @@
       }
     },
     "social": {
-      "line": "<strong>47 companies</strong> ran this calculator and launched with us. Some of them:",
+      "line": "<strong>50+ companies</strong> ran this calculator and launched with us. Some of them:",
       "logos": ["NBYG København", "Efedra Clinic", "Tatarka"],
       "testimonialQuote": "Before the new site we got 3 enquiries a month. Now we get <strong>24</strong>.",
       "testimonialName": "Søren Hansen",
@@ -273,196 +273,7 @@
       "fromPriceTpl": "from {price}",
       "extraPerPageTpl": "+{price}",
       "included": "Included",
-      "includedLower": "included",
-      "compareAnchors": {
-        "starterLanding": "Compare to: Tilda + premium plugins ≈ $600/year + ongoing config. After 3 years, costs more — and you don't own the code.",
-        "growthWebsite": "Compare to: a UA WordPress agency = $7,000–12,000 + $2,000+/year support.",
-        "ecommerceStarter": "Compare to: Shopify Plus starts at $2,000/month. Custom code — no monthly subscription."
-      }
-    },
-    "options": {
-      "project": {
-        "landing": {
-          "label": "Landing page",
-          "hint": "Best for one offer, service, event, MVP, or focused lead generation."
-        },
-        "multiPage": {
-          "label": "Multi-page website",
-          "hint": "Best for companies that need service pages, about page, cases, blog, SEO structure."
-        },
-        "ecommerce": {
-          "label": "E-commerce",
-          "hint": "Best for product catalog, cart, checkout flow, product pages, filters, and admin-managed products."
-        }
-      },
-      "product": {
-        "simple": {
-          "label": "Small store (up to ~50 products)",
-          "hint": "Basic catalog and standard product pages to start sales quickly."
-        },
-        "medium": {
-          "label": "Growing store (50-500 products)",
-          "hint": "Filters, categories, and stronger structure for scaling campaigns."
-        },
-        "advanced": {
-          "label": "Advanced store",
-          "hint": "Complex catalog logic, custom flows, and advanced UX for conversion growth."
-        }
-      },
-      "design": {
-        "simple": { "label": "Simple / clean", "hint": "Minimal design focused on clarity and speed." },
-        "custom": { "label": "Custom branded", "hint": "Branded layout with stronger visual identity." },
-        "advanced": { "label": "Advanced / premium", "hint": "Complex layouts, animations, and premium UI interactions." }
-      },
-      "language": {
-        "one": "One language",
-        "two": "Two languages",
-        "three": "Three languages",
-        "fourPlus": "Four+ languages"
-      },
-      "cms": {
-        "sanitySetup": { "label": "CMS setup", "hint": "Included in all packages." },
-        "mobileAdmin": { "label": "Mobile-friendly admin", "hint": "Included in all packages." },
-        "advancedBuilder": {
-          "label": "Advanced page builder",
-          "hint": "Manage reusable sections, landing pages, SEO pages, and content blocks without developer changes."
-        },
-        "blogSystem": {
-          "label": "Blog/news system",
-          "hint": "Admin-managed posts, categories, SEO fields, cover images."
-        },
-        "caseSystem": { "label": "Case studies/portfolio system" },
-        "teamServices": { "label": "Team/services dynamic sections" }
-      },
-      "seo": {
-        "basicSeo": {
-          "label": "Basic technical SEO",
-          "hint": "Metadata, semantic headings, sitemap-ready structure included."
-        },
-        "advancedLandingSeo": {
-          "label": "Advanced SEO landing architecture",
-          "hint": "For scalable pages by service, city, language, category, or niche."
-        },
-        "blogSeoSetup": { "label": "Blog SEO setup" },
-        "programmaticSeo": {
-          "label": "Programmatic SEO structure",
-          "hint": "For many structured landing pages generated from CMS data."
-        }
-      },
-      "feature": {
-        "contactForm": { "label": "Contact form" },
-        "leadForm": { "label": "Lead form with custom fields", "hint": "Collect qualified leads with the right questions." },
-        "email": { "label": "Email notifications", "hint": "Get new enquiries sent directly to your inbox." },
-        "telegram": { "label": "Telegram notifications", "hint": "Receive new leads instantly in Telegram." },
-        "crm": { "label": "CRM integration", "hint": "Push leads automatically into your sales pipeline." },
-        "booking": { "label": "Booking/calendar integration", "hint": "Let customers pick time slots and book faster." },
-        "payments": { "label": "Payment integration", "hint": "Accept payments online without manual follow-ups." },
-        "accounts": { "label": "User accounts/auth", "hint": "Give users a personal area for repeat actions." },
-        "uploads": { "label": "File upload forms", "hint": "Allow clients to send briefs, docs, or media files." },
-        "search": { "label": "Advanced filters/search", "hint": "Help visitors find products or services faster." },
-        "mapBasic": { "label": "Basic map", "hint": "Simple location display for office or store." },
-        "mapInteractive": { "label": "Interactive map", "hint": "Custom markers, filters, and advanced UX." },
-        "reviews": { "label": "Reviews/testimonials module", "hint": "Show social proof where users make decisions." },
-        "faqSchema": { "label": "FAQ module with schema markup", "hint": "Answer objections and improve search visibility." },
-        "analytics": { "label": "Analytics/events setup", "hint": "Track key actions and improve conversion over time." },
-        "adsTracking": { "label": "Meta Pixel / Google Ads conversion tracking", "hint": "Measure campaign ROI with conversion events." },
-        "cookie": { "label": "Cookie banner/basic consent", "hint": "Cover basic consent requirements from launch day." }
-      },
-      "content": {
-        "clientProvided": "Client provides all text",
-        "lightPolishing": "Light copy polishing",
-        "fullCopywriting": "Full copywriting for core pages",
-        "seoCopywriting": "SEO copywriting package"
-      },
-      "timeline": {
-        "standard": { "label": "Standard timeline", "hint": "Regular delivery schedule." },
-        "faster": { "label": "Faster delivery", "hint": "We allocate more parallel capacity to launch sooner." },
-        "urgent": { "label": "Urgent launch", "hint": "Priority execution with increased team load and coordination." }
-      },
-      "maintenance": {
-        "none": "No maintenance",
-        "basic": "Basic care",
-        "growth": "Growth support",
-        "dedicated": "Dedicated improvement plan"
-      },
-      "seoGrowth": {
-        "badgeRecommended": "Recommended",
-        "none": {
-          "label": "No SEO / Growth",
-          "bestFor": "No ongoing SEO or content support.",
-          "includes": ["No monthly SEO work"]
-        },
-        "basicSeo": {
-          "label": "Basic SEO",
-          "bestFor": "Small websites starting organic visibility.",
-          "includes": ["1-2 blog posts/month", "Basic keyword targeting", "On-page SEO updates", "Monthly report"]
-        },
-        "growthSeo": {
-          "label": "Growth SEO",
-          "bestFor": "Service businesses that want consistent traffic growth.",
-          "includes": [
-            "4 blog posts/month",
-            "SEO landing pages",
-            "Keyword research",
-            "Internal linking",
-            "Analytics tracking",
-            "Monthly strategy updates"
-          ]
-        },
-        "contentEngine": {
-          "label": "Content Engine",
-          "priceLabel": "$1,200-$1,500 /mo",
-          "bestFor": "Businesses that use SEO as a serious acquisition channel.",
-          "includes": [
-            "8+ articles/month",
-            "Landing page expansion",
-            "Programmatic SEO planning",
-            "CRO ideas",
-            "Analytics review",
-            "Growth roadmap"
-          ]
-        }
-      },
-      "presets": {
-        "starterLanding": {
-          "title": "Starter Landing",
-          "badge": "Fast launch",
-          "bestFor": "Campaigns, MVPs, one-service offers.",
-          "includes": ["Landing page", "6-8 sections", "One language", "Simple / clean design", "Contact form", "Basic technical SEO"],
-          "estimatedRange": "$1,500 - $2,500"
-        },
-        "growthWebsite": {
-          "title": "Growth Website",
-          "badge": "Recommended",
-          "bestFor": "Service businesses that need trust, SEO, and lead generation.",
-          "includes": [
-            "Multi-page website",
-            "5-8 pages",
-            "Two languages",
-            "Custom branded design",
-            "CMS",
-            "Basic SEO",
-            "Lead form",
-            "Analytics/events setup"
-          ],
-          "estimatedRange": "$4,500 - $7,000"
-        },
-        "ecommerceStarter": {
-          "title": "E-commerce Starter",
-          "badge": "Scalable store",
-          "bestFor": "Product businesses that need catalog, checkout, and growth structure.",
-          "includes": [
-            "E-commerce",
-            "Small or growing store structure",
-            "Product pages",
-            "Basic filters/search",
-            "Payment integration",
-            "Analytics/events setup",
-            "CMS"
-          ],
-          "estimatedRange": "$7,000 - $10,000"
-        }
-      }
+      "includedLower": "included"
     },
     "summary": {
       "title": "Estimate summary",

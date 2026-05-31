@@ -2,29 +2,15 @@
 
 import { useTranslations } from "next-intl";
 import { CalendarClock, Sparkles } from "lucide-react";
-import {
-  CMS_UPGRADES,
-  CONTENT_OPTIONS,
-  DESIGN_COMPLEXITY_OPTIONS,
-  FEATURE_OPTIONS,
-  LANGUAGE_OPTIONS,
-  MAINTENANCE_OPTIONS,
-  PRODUCT_COMPLEXITY_OPTIONS,
-  PROJECT_TYPE_CONFIG,
-  SEO_OPTIONS,
-} from "@/constants/calculator-config";
 import type {
   CalculatorEstimate,
   CalculatorInput,
-  MaintenancePlan,
-  ProductComplexity,
 } from "@/types/pricing";
+import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur } from "@/lib/shared/format-eur";
 import { PriceBreakdown } from "./PriceBreakdown";
 import { H3 } from "@/components/ui";
 
-// Calc-specific CTA classes. Kept module-local because their gradient
-// + uppercase tracking are not part of the global Btn primitive variants.
 const CALC_BTN_PRIMARY =
   "inline-flex items-center justify-center w-full border-none rounded-full " +
   "bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] " +
@@ -44,34 +30,46 @@ const SUMMARY_H4 =
   "m-0 mb-2 font-sans text-[13px] font-semibold text-ink tracking-[-0.005em]";
 
 type EstimateSummaryProps = {
+  config: CalculatorConfig;
   input: CalculatorInput;
   estimate: CalculatorEstimate;
   seoGrowthMonthly: number;
 };
 
-export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateSummaryProps) {
+export function EstimateSummary({
+  config,
+  input,
+  estimate,
+  seoGrowthMonthly,
+}: EstimateSummaryProps) {
   const t = useTranslations("Calculator");
 
-  // Avoid using the static CMS/SEO/FEATURE option `.label` (English source) in
-  // user-facing strings — translate by id instead.
-  const selectedFeatureOptions = FEATURE_OPTIONS.filter(
-    (feature) => !feature.included && input.featureIds.includes(feature.id),
+  const projectMeta = config.projectTypes.find((p) => p.key === input.projectType);
+  const langMeta = config.languages.find((l) => l.key === input.languages);
+  const timelineMeta = config.timeline.find((tm) => tm.key === input.timeline);
+  const contentMeta = config.contentOptions.find((c) => c.key === input.contentOption);
+  const designMeta = config.design.find((d) => d.key === input.designComplexity);
+  const productMeta = config.productComplexity.find((p) => p.key === input.productComplexity);
+  const maintenanceMeta = config.maintenance.find((m) => m.key === input.maintenancePlan);
+
+  const selectedFeatureOptions = config.features.filter(
+    (feature) => !feature.included && input.featureIds.includes(feature.key),
   );
-  const selectedCmsOptions = CMS_UPGRADES.filter((item) => input.cmsUpgradeIds.includes(item.id));
-  const selectedSeoOptions = SEO_OPTIONS.filter((item) => input.seoOptionIds.includes(item.id));
+  const selectedCmsOptions = config.cmsUpgrades.filter((item) =>
+    input.cmsUpgradeIds.includes(item.key),
+  );
+  const selectedSeoOptions = config.seoOptions.filter((item) =>
+    input.seoOptionIds.includes(item.key),
+  );
 
-  const cmsLabel = (id: string) => t(`options.cms.${id}.label` as never);
-  const seoLabel = (id: string) => t(`options.seo.${id}.label` as never);
-  const featLabel = (id: string) => t(`options.feature.${id}.label` as never);
-
-  const selectedFeatureLabels = selectedFeatureOptions.map((f) => featLabel(f.id));
-  const selectedCmsLabels = selectedCmsOptions.map((i) => cmsLabel(i.id));
-  const selectedSeoLabels = selectedSeoOptions.map((i) => seoLabel(i.id));
+  const selectedFeatureLabels = selectedFeatureOptions.map((f) => f.label);
+  const selectedCmsLabels = selectedCmsOptions.map((i) => i.label);
+  const selectedSeoLabels = selectedSeoOptions.map((i) => i.label);
 
   const selectedAddonsForBreakdown = [
-    ...selectedCmsOptions.map((o) => `${cmsLabel(o.id)} - +${formatEur(o.price)}`),
-    ...selectedSeoOptions.map((o) => `${seoLabel(o.id)} - +${formatEur(o.price)}`),
-    ...selectedFeatureOptions.map((o) => `${featLabel(o.id)} - +${formatEur(o.price)}`),
+    ...selectedCmsOptions.map((o) => `${o.label} - +${formatEur(o.price)}`),
+    ...selectedSeoOptions.map((o) => `${o.label} - +${formatEur(o.price)}`),
+    ...selectedFeatureOptions.map((o) => `${o.label} - +${formatEur(o.price)}`),
   ];
 
   const pageLabel =
@@ -82,36 +80,21 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
         : t("summary.pageLabelPages");
   const pageLabelLower = pageLabel.toLowerCase();
 
-  const projectTypeLabel = t(`options.project.${input.projectType}.label` as never);
-  const languageLabel = t(`options.language.${input.languages}` as never);
-  const timelineLabel = t(`options.timeline.${input.timeline}.label` as never);
-  const contentLabel = t(`options.content.${input.contentOption}` as never);
-  const designLabel = t(`options.design.${input.designComplexity}.label` as never);
-  const productLabel = t(`options.product.${input.productComplexity}.label` as never);
-  const maintenanceLabel = t(`options.maintenance.${input.maintenancePlan}` as never);
-
   const buildingItems = [
-    projectTypeLabel,
+    projectMeta?.label ?? "",
     `${input.pages} ${pageLabelLower}`,
-    languageLabel,
-    designLabel,
+    langMeta?.label ?? "",
+    designMeta?.label ?? "",
     ...selectedFeatureLabels,
     ...selectedCmsLabels,
     ...selectedSeoLabels,
-  ].slice(0, 8);
+  ]
+    .filter(Boolean)
+    .slice(0, 8);
 
   const whatYouGet = t.raw("summary.whatYouGetItems") as string[];
   const whyChanges = t.raw("summary.whyChangesItems") as string[];
 
-  // Bind generic Maintenance/Product types for next-intl's `as never` cast site.
-  void (PROJECT_TYPE_CONFIG[input.projectType] as { basePrice: number });
-  void (MAINTENANCE_OPTIONS[input.maintenancePlan as MaintenancePlan]);
-  void (PRODUCT_COMPLEXITY_OPTIONS[input.productComplexity as ProductComplexity]);
-  void DESIGN_COMPLEXITY_OPTIONS;
-  void CONTENT_OPTIONS;
-  void LANGUAGE_OPTIONS;
-
-  // Repeated chrome strings for summary section blocks.
   const SECTION = "flex flex-col [&+&]:mt-[14px]";
   const DIVIDER = "h-px bg-line my-4";
   const BULLETS =
@@ -135,15 +118,17 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
       }
     >
       <div className={SECTION}>
-        <H3 variant="calc-summary" className="mb-3">{t("summary.title")}</H3>
+        <H3 variant="calc-summary" className="mb-3">
+          {t("summary.title")}
+        </H3>
         <ul className={SUMMARY_LIST}>
           <li>
             <span>{t("summary.rowProjectType")}</span>
-            <strong>{projectTypeLabel}</strong>
+            <strong>{projectMeta?.label}</strong>
           </li>
           <li>
             <span>{t("summary.rowBasePrice")}</span>
-            <strong>{formatEur(PROJECT_TYPE_CONFIG[input.projectType].basePrice)}</strong>
+            <strong>{formatEur(projectMeta?.basePrice ?? 0)}</strong>
           </li>
           <li>
             <span>{pageLabel}</span>
@@ -151,15 +136,15 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
           </li>
           <li>
             <span>{t("summary.rowLanguages")}</span>
-            <strong>{languageLabel}</strong>
+            <strong>{langMeta?.label}</strong>
           </li>
           <li>
             <span>{t("summary.rowTimeline")}</span>
-            <strong>{timelineLabel}</strong>
+            <strong>{timelineMeta?.label}</strong>
           </li>
           <li>
             <span>{t("summary.rowContent")}</span>
-            <strong>{contentLabel}</strong>
+            <strong>{contentMeta?.label}</strong>
           </li>
         </ul>
       </div>
@@ -167,7 +152,9 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
       <div className={DIVIDER} />
 
       <div className={`${SECTION} items-start`}>
-        <p className="m-0 mb-1 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3">{t("summary.rangeLabel")}</p>
+        <p className="m-0 mb-1 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3">
+          {t("summary.rangeLabel")}
+        </p>
         <h4 className="m-0 font-sans text-[28px] tracking-[-0.02em] font-bold bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] bg-clip-text text-transparent">
           {formatEur(estimate.lowEstimate)} – {formatEur(estimate.highEstimate)}
         </h4>
@@ -193,8 +180,9 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
           {buildingItems.map((item, index) => (
             <li key={`${item}-${index}`}>{item}</li>
           ))}
-          {input.projectType === "ecommerce" ? (
-            <li className="text-ink-3">{productLabel}</li>
+          {productMeta &&
+          (projectMeta?.hasProductComplexity ?? projectMeta?.key === "ecommerce") ? (
+            <li className="text-ink-3">{productMeta.label}</li>
           ) : null}
         </ul>
       </div>
@@ -224,13 +212,17 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
       <div className={`${SECTION} gap-[6px]`}>
         <div className="flex items-baseline justify-between gap-[10px]">
           <span className="text-[12.5px] text-ink-3">{t("summary.maintenanceMonth")}</span>
-          <strong className="font-sans text-[16px] font-bold text-ink">{formatEur(estimate.monthlyMaintenance)}</strong>
+          <strong className="font-sans text-[16px] font-bold text-ink">
+            {formatEur(estimate.monthlyMaintenance)}
+          </strong>
         </div>
-        <small className="text-[11px] text-ink-3">{maintenanceLabel}</small>
+        <small className="text-[11px] text-ink-3">{maintenanceMeta?.label}</small>
         {seoGrowthMonthly > 0 ? (
           <div className="flex items-baseline justify-between gap-[10px] mt-2 pt-2 border-t border-dashed border-line">
             <span className="text-[12.5px] text-ink-3">{t.rich("summary.seoGrowthMonth")}</span>
-            <strong className="font-sans text-[16px] font-bold text-ink">{formatEur(seoGrowthMonthly)}</strong>
+            <strong className="font-sans text-[16px] font-bold text-ink">
+              {formatEur(seoGrowthMonthly)}
+            </strong>
           </div>
         ) : null}
       </div>
@@ -249,7 +241,6 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
 
       <div className={DIVIDER} />
 
-      {/* ROI: turn cost into investment */}
       <div
         className={
           `${SECTION} gap-2 relative p-[14px] rounded-[14px] ` +
@@ -269,7 +260,6 @@ export function EstimateSummary({ input, estimate, seoGrowthMonthly }: EstimateS
 
       <div className={DIVIDER} />
 
-      {/* Scarcity */}
       <div
         className={
           `${SECTION} flex-row items-center gap-2 px-3 py-[10px] rounded-[12px] ` +

@@ -5,6 +5,7 @@ import { HpFooter, HpHeader } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { WebsiteCalculator } from "@/components/calculator";
+import { fetchCalculatorConfig } from "@/lib/server/fetch-calculator-config";
 
 const T = enMessages.Calculator;
 
@@ -46,7 +47,8 @@ const stats = [
   { value: T.stats.warranty.value, label: T.stats.warranty.label },
 ];
 
-export default function CalculatorPageEn() {
+export default async function CalculatorPageEn() {
+  const config = await fetchCalculatorConfig("en");
   return (
     <>
       <HpHeader />
@@ -63,7 +65,7 @@ export default function CalculatorPageEn() {
 
       <StatsBar items={stats} />
 
-      <WebsiteCalculator />
+      <WebsiteCalculator config={config} />
       <HpFooter />
     </>
   );

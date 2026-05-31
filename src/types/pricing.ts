@@ -1,6 +1,14 @@
 import type * as React from "react";
 
-export type ProjectType = "landing" | "multiPage" | "ecommerce";
+/**
+ * Stable project-type identifier. Was a fixed union; widened to free-form
+ * `string` so editors can add new project types in Sanity (e.g. `webApp`,
+ * `portfolio`) without TS errors. The engine treats unknown keys gracefully:
+ * looks up by string in `config.projectTypes`, defaults to multi-page-like
+ * behaviour for unknown keys (no product-complexity tier, "Pages" label,
+ * generic icon). Per-type behaviour knobs live on `ConfigProjectType`.
+ */
+export type ProjectType = string;
 export type DesignComplexity = "simple" | "custom" | "advanced";
 export type LanguageOption = "one" | "two" | "three" | "fourPlus";
 export type TimelineOption = "standard" | "faster" | "urgent";
