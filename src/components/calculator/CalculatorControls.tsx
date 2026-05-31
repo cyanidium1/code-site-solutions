@@ -2,20 +2,16 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Code2, LayoutTemplate, ShoppingCart, Search, Database, Rocket, Zap, Store } from "lucide-react";
 import {
-  CMS_UPGRADES,
-  CONTENT_OPTIONS,
-  DESIGN_COMPLEXITY_OPTIONS,
-  DESIGN_PREVIEW_CONFIG,
-  FEATURE_OPTIONS,
-  LANGUAGE_OPTIONS,
-  PACKAGE_PRESETS,
-  PRODUCT_COMPLEXITY_OPTIONS,
-  PROJECT_TYPE_CONFIG,
-  SEO_OPTIONS,
-  TIMELINE_OPTIONS,
-} from "@/constants/calculator-config";
+  Code2,
+  LayoutTemplate,
+  ShoppingCart,
+  Search,
+  Database,
+  Rocket,
+  Zap,
+  Store,
+} from "lucide-react";
 import type {
   CalculatorInput,
   ContentOption,
@@ -25,15 +21,12 @@ import type {
   ProjectType,
   TimelineOption,
 } from "@/types/pricing";
+import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur, formatPercent } from "@/lib/shared/format-eur";
 import { OptionCard } from "./OptionCard";
 import { basicSetupInput, inputForPreset } from "./presets";
 import { H3 } from "@/components/ui";
 
-// Shared class strings for the controls panel — extracted so each
-// <details className="calc-group"> and its summary read short. The
-// `+ / −` marker uses [&[open]>summary]:after:content because Tailwind
-// has no built-in details-marker handling.
 const GROUP_CLASS =
   "border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] overflow-hidden " +
   "[&>summary]:list-none [&>summary]:m-0 [&>summary]:px-5 [&>summary]:py-4 " +
@@ -52,10 +45,6 @@ const GROUP_CONTENT_CLASS = "px-5 py-[18px] flex flex-col gap-[14px]";
 
 const NOTE_CLASS = "text-ink-3 text-[12px] leading-[1.5]";
 
-// Segment-button group used 4× in the form. Active state is appended via
-// template literal at the call site (legacy `.active` class). Tailwind
-// can't address the parent's `.active` modifier directly without a data-
-// attribute, so we keep the class string with a sibling override.
 const SEG_BTN_CLASS =
   "border border-line rounded-[12px] bg-transparent text-ink-dim text-left " +
   "px-[14px] py-[11px] text-[13px] cursor-pointer min-h-[50px] " +
@@ -66,8 +55,6 @@ const SEG_BTN_CLASS =
 const SEG_BTN_ACTIVE_CLASS =
   "border-accent-55 bg-accent-12 !text-ink";
 
-// Checkbox-card class used by CMS / SEO / Features groups. Children
-// (input, span, strong, small) styled via descendant selectors.
 const CHECKBOX_CLASS =
   "flex gap-[10px] items-start border border-line rounded-[12px] px-3 py-[10px] min-h-[88px] " +
   "transition-[border-color] duration-200 hover:border-line-strong " +
@@ -76,9 +63,6 @@ const CHECKBOX_CLASS =
   "[&_strong]:inline-block [&_strong]:text-accent-soft [&_strong]:text-[12px] " +
   "[&_small]:block [&_small]:mt-[3px] [&_small]:text-ink-3 [&_small]:text-[11px]";
 
-// Range slider — vendor-prefixed thumb pseudo-elements use Tailwind 4
-// arbitrary variants. The gradient track + glowing thumb match
-// legacy .calc-range-input from calculator.css.
 const RANGE_INPUT_CLASS =
   "appearance-none w-full h-[6px] rounded-full bg-[linear-gradient(90deg,var(--color-accent-soft),var(--color-accent))] outline-none cursor-pointer " +
   "[&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 " +
@@ -95,18 +79,33 @@ const RANGE_INPUT_CLASS =
   "[&::-moz-range-thumb]:cursor-grab";
 
 type CalculatorControlsProps = {
+  config: CalculatorConfig;
   value: CalculatorInput;
   onChange: (next: CalculatorInput) => void;
 };
 
-export function CalculatorControls({ value, onChange }: CalculatorControlsProps) {
-  const projectConfig = PROJECT_TYPE_CONFIG[value.projectType];
+export function CalculatorControls({ config, value, onChange }: CalculatorControlsProps) {
+  const projectConfig = config.projectTypes.find((p) => p.key === value.projectType);
   const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
   const [previewDesign, setPreviewDesign] = useState<DesignComplexity | null>(null);
   const t = useTranslations("Calculator");
 
+  const leadCaptureFeatures = useMemo(
+    () => config.features.filter((f) => f.group === "leadCapture"),
+    [config.features],
+  );
+  const conversionFeatures = useMemo(
+    () => config.features.filter((f) => f.group === "conversion"),
+    [config.features],
+  );
+  const advancedUxFeatures = useMemo(
+    () => config.features.filter((f) => f.group === "advancedUx"),
+    [config.features],
+  );
+
   const setProjectType = (projectType: ProjectType) => {
-    const defaults = PROJECT_TYPE_CONFIG[projectType];
+    const defaults = config.projectTypes.find((p) => p.key === projectType);
+    if (!defaults) return;
     onChange({
       ...value,
       projectType,
@@ -115,72 +114,42 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
     });
   };
 
-  const toggle = (source: string[], id: string) => (source.includes(id) ? source.filter((v) => v !== id) : [...source, id]);
-  const leadCaptureFeatures = useMemo(
-    () => FEATURE_OPTIONS.filter((f) => ["contactForm", "leadForm", "email", "telegram", "crm"].includes(f.id)),
-    [],
-  );
-  const conversionFeatures = useMemo(
-    () => FEATURE_OPTIONS.filter((f) => ["analytics", "adsTracking", "reviews", "faqSchema"].includes(f.id)),
-    [],
-  );
-  const advancedUxFeatures = useMemo(
-    () =>
-      FEATURE_OPTIONS.filter((f) =>
-        ["payments", "booking", "accounts", "uploads", "search", "mapBasic", "mapInteractive", "cookie"].includes(f.id),
-      ),
-    [],
-  );
-  const resetToBasicSetup = () => onChange(basicSetupInput(value));
+  const toggle = (source: string[], id: string) =>
+    source.includes(id) ? source.filter((v) => v !== id) : [...source, id];
+
+  const resetToBasicSetup = () => onChange(basicSetupInput(value, config));
   const applyPreset = (presetId: string) => {
     setSelectedPreset(presetId);
-    const next = inputForPreset(value, presetId);
+    const next = inputForPreset(value, presetId, config);
     if (next) onChange(next);
   };
 
-  const cmsLabel = (id: string) => t(`options.cms.${id}.label` as never);
-  const cmsHint = (id: string): string | null => {
-    const key = `options.cms.${id}.hint` as never;
-    return t.has(key) ? t(key) : null;
-  };
-  const seoLabel = (id: string) => t(`options.seo.${id}.label` as never);
-  const seoHint = (id: string): string | null => {
-    const key = `options.seo.${id}.hint` as never;
-    return t.has(key) ? t(key) : null;
-  };
-  const featLabel = (id: string) => t(`options.feature.${id}.label` as never);
-  const featHint = (id: string): string | null => {
-    const key = `options.feature.${id}.hint` as never;
-    return t.has(key) ? t(key) : null;
-  };
-
-  const renderFeatureGroup = (title: string, items: typeof FEATURE_OPTIONS) => (
+  const renderFeatureGroup = (title: string, items: typeof config.features) => (
     <>
       <label className="flex flex-col gap-[6px] text-[13px] text-ink">{title}</label>
       <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
         {items.map((option) => (
-          <label key={option.id} className={CHECKBOX_CLASS}>
+          <label key={option.key} className={CHECKBOX_CLASS}>
             <input
               type="checkbox"
-              checked={option.included ? true : value.featureIds.includes(option.id)}
+              checked={option.included ? true : value.featureIds.includes(option.key)}
               disabled={option.included}
               onChange={() =>
-                onChange({
-                  ...value,
-                  featureIds: toggle(value.featureIds, option.id),
-                })
+                onChange({ ...value, featureIds: toggle(value.featureIds, option.key) })
               }
             />
             <span>
-              {featLabel(option.id)}
+              {option.label}
               <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
-              {featHint(option.id) ? <small>{featHint(option.id)}</small> : null}
+              {option.hint ? <small>{option.hint}</small> : null}
             </span>
           </label>
         ))}
       </div>
     </>
   );
+
+  if (!projectConfig) return null;
 
   const pageLabel =
     value.projectType === "landing"
@@ -207,6 +176,11 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
           extra: formatEur(projectConfig.pages.extraPrice),
         });
 
+  const designSelected = config.design.find((d) => d.key === value.designComplexity);
+  const productSelected = config.productComplexity.find(
+    (p) => p.key === value.productComplexity,
+  );
+
   return (
     <div className="flex flex-col gap-[14px]">
       <section className={`${GROUP_CLASS} overflow-hidden`}>
@@ -214,13 +188,12 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         <div className={GROUP_CONTENT_CLASS}>
           <p className={NOTE_CLASS}>{t("controls.presetNote")}</p>
           <div className="grid grid-cols-1 gap-[14px] xl:grid-cols-3">
-            {PACKAGE_PRESETS.map((preset) => {
-              const includes = t.raw(`options.presets.${preset.id}.includes`) as string[];
-              const isActive = selectedPreset === preset.id;
-              const isRecommended = preset.id === "growthWebsite";
+            {config.presets.map((preset) => {
+              const isActive = selectedPreset === preset.key;
+              const isRecommended = preset.key === "growthWebsite";
               return (
                 <button
-                  key={preset.id}
+                  key={preset.key}
                   type="button"
                   className={
                     "border rounded-[18px] p-[22px_22px_20px] text-left text-ink-dim cursor-pointer flex flex-col gap-3 min-h-[360px] " +
@@ -242,31 +215,39 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                         ? ""
                         : "border-line")
                   }
-                  onClick={() => applyPreset(preset.id)}
+                  onClick={() => applyPreset(preset.key)}
                 >
                   <div className="flex justify-between items-center gap-2">
                     <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-accent-12 text-accent-soft">
-                      {preset.id === "starterLanding" ? <Zap size={15} /> : preset.id === "growthWebsite" ? <Rocket size={15} /> : <Store size={15} />}
+                      {preset.key === "starterLanding" ? (
+                        <Zap size={15} />
+                      ) : preset.key === "growthWebsite" ? (
+                        <Rocket size={15} />
+                      ) : (
+                        <Store size={15} />
+                      )}
                     </span>
                     <em className="not-italic text-[10px] tracking-[0.1em] uppercase border border-line rounded-full px-[9px] py-1 text-ink-dim">
-                      {t(`options.presets.${preset.id}.badge` as never)}
+                      {preset.badge}
                     </em>
                   </div>
-                  <strong>{t(`options.presets.${preset.id}.title` as never)}</strong>
+                  <strong>{preset.title}</strong>
                   <small>
-                    {t("controls.presetBestForLabel")} {t(`options.presets.${preset.id}.bestFor` as never)}
+                    {t("controls.presetBestForLabel")} {preset.bestFor}
                   </small>
                   <ul>
-                    {includes.map((item) => (
+                    {preset.includes.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
                   <span className="font-actay text-[22px] font-bold tracking-[-0.02em] bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] bg-clip-text text-transparent mt-auto">
-                    {t(`options.presets.${preset.id}.estimatedRange` as never)}
+                    {preset.estimatedRange}
                   </span>
-                  <p className="m-0 px-3 py-[10px] border border-dashed border-line-strong rounded-[10px] bg-[oklch(0.14_0.005_300_/_0.6)] text-ink-3 text-[11.5px] leading-[1.45] italic">
-                    {t(`controls.compareAnchors.${preset.id}` as never)}
-                  </p>
+                  {preset.compareAnchor ? (
+                    <p className="m-0 px-3 py-[10px] border border-dashed border-line-strong rounded-[10px] bg-[oklch(0.14_0.005_300_/_0.6)] text-ink-3 text-[11.5px] leading-[1.45] italic">
+                      {preset.compareAnchor}
+                    </p>
+                  ) : null}
                   <b>{t("controls.presetUse")}</b>
                 </button>
               );
@@ -293,17 +274,23 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         <summary>{t("controls.section01")}</summary>
         <div className={GROUP_CONTENT_CLASS}>
           <div className="grid grid-cols-3 gap-[10px] max-md-wide:grid-cols-1">
-            {Object.entries(PROJECT_TYPE_CONFIG).map(([id, item]) => (
+            {config.projectTypes.map((item) => (
               <OptionCard
-                key={id}
-                title={t(`options.project.${id}.label` as never)}
-                description={t(`options.project.${id}.hint` as never)}
+                key={item.key}
+                title={item.label}
+                description={item.hint}
                 priceLabel={t("controls.fromPriceTpl", { price: formatEur(item.basePrice) })}
-                selected={value.projectType === id}
-                onClick={() => setProjectType(id as ProjectType)}
+                selected={value.projectType === item.key}
+                onClick={() => setProjectType(item.key)}
               >
                 <span className="inline-flex mt-2 text-accent-soft">
-                  {id === "landing" ? <LayoutTemplate size={14} /> : id === "multiPage" ? <Code2 size={14} /> : <ShoppingCart size={14} />}
+                  {item.key === "landing" ? (
+                    <LayoutTemplate size={14} />
+                  ) : item.key === "multiPage" ? (
+                    <Code2 size={14} />
+                  ) : (
+                    <ShoppingCart size={14} />
+                  )}
                 </span>
               </OptionCard>
             ))}
@@ -335,19 +322,19 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
             <>
               <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.productStructLabel")}</label>
               <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
-                {Object.entries(PRODUCT_COMPLEXITY_OPTIONS).map(([id, option]) => (
+                {config.productComplexity.map((option) => (
                   <button
-                    key={id}
+                    key={option.key}
                     type="button"
-                    className={`${SEG_BTN_CLASS} ${value.productComplexity === id ? SEG_BTN_ACTIVE_CLASS : ""}`}
-                    onClick={() => onChange({ ...value, productComplexity: id as ProductComplexity })}
+                    className={`${SEG_BTN_CLASS} ${value.productComplexity === option.key ? SEG_BTN_ACTIVE_CLASS : ""}`}
+                    onClick={() => onChange({ ...value, productComplexity: option.key as ProductComplexity })}
                   >
-                    {t(`options.product.${id}.label` as never)}
+                    {option.label}
                     <small>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.includedLower")}</small>
                   </button>
                 ))}
               </div>
-              <p className={NOTE_CLASS}>{t(`options.product.${value.productComplexity}.hint` as never)}</p>
+              {productSelected?.hint ? <p className={NOTE_CLASS}>{productSelected.hint}</p> : null}
             </>
           ) : null}
         </div>
@@ -358,11 +345,12 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         <div className={GROUP_CONTENT_CLASS}>
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.designLabel")}</label>
           <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
-            {Object.entries(DESIGN_COMPLEXITY_OPTIONS).map(([id, option]) => {
-              const isActive = value.designComplexity === id;
+            {config.design.map((option) => {
+              const isActive = value.designComplexity === option.key;
+              const firstPreview = option.previews[0];
               return (
                 <div
-                  key={id}
+                  key={option.key}
                   className={
                     "group relative border rounded-[12px] bg-[oklch(0.18_0.008_300)] px-3 py-[11px] grid gap-[7px] cursor-pointer " +
                     "transition-[border-color,background,box-shadow] duration-200 overflow-hidden " +
@@ -373,33 +361,33 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
                   }
                   role="button"
                   tabIndex={0}
-                  onClick={() => onChange({ ...value, designComplexity: id as DesignComplexity })}
+                  onClick={() => onChange({ ...value, designComplexity: option.key as DesignComplexity })}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
-                      onChange({ ...value, designComplexity: id as DesignComplexity });
+                      onChange({ ...value, designComplexity: option.key as DesignComplexity });
                     }
                   }}
                 >
-                  <span
-                    className="absolute -right-2 -bottom-2 w-[82px] h-[56px] opacity-[0.16] [filter:blur(0.2px)_saturate(0.8)] transition-[opacity,transform] duration-200 group-hover:opacity-[0.28] group-hover:-translate-y-[2px]"
-                    aria-hidden="true"
-                  >
-                    <img src={DESIGN_PREVIEW_CONFIG[id as DesignComplexity][0].src} alt="" className="w-full h-full object-cover rounded-lg" />
-                  </span>
+                  {firstPreview ? (
+                    <span
+                      className="absolute -right-2 -bottom-2 w-[82px] h-[56px] opacity-[0.16] [filter:blur(0.2px)_saturate(0.8)] transition-[opacity,transform] duration-200 group-hover:opacity-[0.28] group-hover:-translate-y-[2px]"
+                      aria-hidden="true"
+                    >
+                      <img src={firstPreview.src} alt="" className="w-full h-full object-cover rounded-lg" />
+                    </span>
+                  ) : null}
                   <span className="relative z-10 flex justify-between gap-2 items-center">
-                    <span className="text-ink text-[13px] font-semibold">{t(`options.design.${id}.label` as never)}</span>
+                    <span className="text-ink text-[13px] font-semibold">{option.label}</span>
                     <small className="text-accent-soft text-[11px]">{formatPercent(option.percent)}</small>
                   </span>
-                  <span className="relative z-10 text-ink-3 text-[11px] leading-[1.4]">
-                    {t(`options.design.${id}.hint` as never)}
-                  </span>
+                  <span className="relative z-10 text-ink-3 text-[11px] leading-[1.4]">{option.hint}</span>
                   <button
                     type="button"
                     className="inline-flex items-center min-h-11 border-none bg-transparent text-ink-3 p-0 text-[11px] text-left underline underline-offset-2 cursor-pointer w-fit relative z-10 hover:text-ink"
                     onClick={(event) => {
                       event.stopPropagation();
-                      setPreviewDesign(id as DesignComplexity);
+                      setPreviewDesign(option.key as DesignComplexity);
                     }}
                   >
                     {t("controls.viewExamples")}
@@ -408,18 +396,18 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
               );
             })}
           </div>
-          <p className={NOTE_CLASS}>{t(`options.design.${value.designComplexity}.hint` as never)}</p>
+          {designSelected?.hint ? <p className={NOTE_CLASS}>{designSelected.hint}</p> : null}
 
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.langLabel")}</label>
           <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
-            {Object.entries(LANGUAGE_OPTIONS).map(([id, option]) => (
+            {config.languages.map((option) => (
               <button
-                key={id}
+                key={option.key}
                 type="button"
-                className={`${SEG_BTN_CLASS} ${value.languages === id ? SEG_BTN_ACTIVE_CLASS : ""}`}
-                onClick={() => onChange({ ...value, languages: id as LanguageOption })}
+                className={`${SEG_BTN_CLASS} ${value.languages === option.key ? SEG_BTN_ACTIVE_CLASS : ""}`}
+                onClick={() => onChange({ ...value, languages: option.key as LanguageOption })}
               >
-                {t(`options.language.${id}` as never)}
+                {option.label}
                 <small>{formatPercent(option.percent)}</small>
               </button>
             ))}
@@ -436,23 +424,23 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
             <Database size={14} /> {t("controls.cmsSubgroup")}
           </label>
           <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
-            {CMS_UPGRADES.map((option) => (
-              <label key={option.id} className={CHECKBOX_CLASS}>
+            {config.cmsUpgrades.map((option) => (
+              <label key={option.key} className={CHECKBOX_CLASS}>
                 <input
                   type="checkbox"
-                  checked={option.included ? true : value.cmsUpgradeIds.includes(option.id)}
+                  checked={option.included ? true : value.cmsUpgradeIds.includes(option.key)}
                   disabled={option.included}
                   onChange={() =>
                     onChange({
                       ...value,
-                      cmsUpgradeIds: toggle(value.cmsUpgradeIds, option.id),
+                      cmsUpgradeIds: toggle(value.cmsUpgradeIds, option.key),
                     })
                   }
                 />
                 <span>
-                  {cmsLabel(option.id)}
+                  {option.label}
                   <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
-                  {cmsHint(option.id) ? <small>{cmsHint(option.id)}</small> : null}
+                  {option.hint ? <small>{option.hint}</small> : null}
                 </span>
               </label>
             ))}
@@ -462,23 +450,23 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
             <Search size={14} /> {t("controls.seoSubgroup")}
           </label>
           <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
-            {SEO_OPTIONS.map((option) => (
-              <label key={option.id} className={CHECKBOX_CLASS}>
+            {config.seoOptions.map((option) => (
+              <label key={option.key} className={CHECKBOX_CLASS}>
                 <input
                   type="checkbox"
-                  checked={option.included ? true : value.seoOptionIds.includes(option.id)}
+                  checked={option.included ? true : value.seoOptionIds.includes(option.key)}
                   disabled={option.included}
                   onChange={() =>
                     onChange({
                       ...value,
-                      seoOptionIds: toggle(value.seoOptionIds, option.id),
+                      seoOptionIds: toggle(value.seoOptionIds, option.key),
                     })
                   }
                 />
                 <span>
-                  {seoLabel(option.id)}
+                  {option.label}
                   <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
-                  {seoHint(option.id) ? <small>{seoHint(option.id)}</small> : null}
+                  {option.hint ? <small>{option.hint}</small> : null}
                 </span>
               </label>
             ))}
@@ -500,14 +488,14 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
         <div className={GROUP_CONTENT_CLASS}>
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.contentLabel")}</label>
           <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
-            {Object.entries(CONTENT_OPTIONS).map(([id, option]) => (
+            {config.contentOptions.map((option) => (
               <button
-                key={id}
+                key={option.key}
                 type="button"
-                className={`${SEG_BTN_CLASS} ${value.contentOption === id ? SEG_BTN_ACTIVE_CLASS : ""}`}
-                onClick={() => onChange({ ...value, contentOption: id as ContentOption })}
+                className={`${SEG_BTN_CLASS} ${value.contentOption === option.key ? SEG_BTN_ACTIVE_CLASS : ""}`}
+                onClick={() => onChange({ ...value, contentOption: option.key as ContentOption })}
               >
-                {t(`options.content.${id}` as never)}
+                {option.label}
                 <small>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.includedLower")}</small>
               </button>
             ))}
@@ -515,14 +503,14 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
 
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.timelineLabel")}</label>
           <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
-            {Object.entries(TIMELINE_OPTIONS).map(([id, option]) => (
+            {config.timeline.map((option) => (
               <button
-                key={id}
+                key={option.key}
                 type="button"
-                className={`${SEG_BTN_CLASS} ${value.timeline === id ? SEG_BTN_ACTIVE_CLASS : ""}`}
-                onClick={() => onChange({ ...value, timeline: id as TimelineOption })}
+                className={`${SEG_BTN_CLASS} ${value.timeline === option.key ? SEG_BTN_ACTIVE_CLASS : ""}`}
+                onClick={() => onChange({ ...value, timeline: option.key as TimelineOption })}
               >
-                {t(`options.timeline.${id}.label` as never)}
+                {option.label}
                 <small>{formatPercent(option.percent)}</small>
               </button>
             ))}
@@ -544,7 +532,9 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-3 mb-[10px]">
-              <h4 className="m-0 text-[14px]">{t(`options.design.${previewDesign}.label` as never)}</h4>
+              <h4 className="m-0 text-[14px]">
+                {config.design.find((d) => d.key === previewDesign)?.label}
+              </h4>
               <button
                 type="button"
                 className="inline-flex items-center min-h-11 border border-line rounded-full bg-transparent text-ink-dim px-3 py-[7px] cursor-pointer"
@@ -555,7 +545,7 @@ export function CalculatorControls({ value, onChange }: CalculatorControlsProps)
               </button>
             </div>
             <div className="grid grid-cols-3 gap-[10px] max-md-wide:grid-cols-1">
-              {DESIGN_PREVIEW_CONFIG[previewDesign].map((item) => (
+              {(config.design.find((d) => d.key === previewDesign)?.previews ?? []).map((item) => (
                 <figure
                   key={item.src + item.caption}
                   className="m-0 border border-line rounded-[12px] overflow-hidden bg-[oklch(0.18_0.008_300)]"
