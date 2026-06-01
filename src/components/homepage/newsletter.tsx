@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { hpInnerClass } from "@/components/homepage/shared";
 import { getAttribution } from "@/lib/client/attribution";
+import { HoneypotField } from "@/components/blocks/honeypot-field";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 export function Newsletter() {
   const t = useTranslations("Newsletter");
   const [email, setEmail] = useState("");
+  const [hp, setHp] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,6 +25,7 @@ export function Newsletter() {
           contact: email,
           source: "newsletter",
           description: "Newsletter signup",
+          hp,
           attribution: getAttribution(),
         }),
       });
@@ -52,9 +55,11 @@ export function Newsletter() {
             </p>
           </div>
           <form className="flex flex-wrap gap-2.5" onSubmit={onSubmit} noValidate>
+            <HoneypotField value={hp} onChange={setHp} />
             <input
               type="email"
               required
+              aria-label={t("placeholder")}
               placeholder={t("placeholder")}
               className="min-w-[260px] flex-1 rounded-full border border-line-strong bg-[oklch(1_0_0_/_0.04)] px-[18px] py-3 font-sans text-[14px] text-ink outline-none transition-colors duration-200 placeholder:text-ink-3 focus:border-accent aria-[invalid=true]:border-[oklch(0.65_0.18_25)]"
               value={email}

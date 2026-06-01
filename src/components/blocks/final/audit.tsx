@@ -3,6 +3,7 @@
 import type * as React from "react";
 import { useState } from "react";
 import { getAttribution } from "@/lib/client/attribution";
+import { HoneypotField } from "@/components/blocks/honeypot-field";
 
 // Hoisted module-level class strings. The four <input>s share the same
 // 250+ char Tailwind string; extracting prevents the React reconciler
@@ -65,6 +66,7 @@ export function Audit({
   source: string;
 }> = {}) {
   const [form, setForm] = useState({ name: "", contact: "", phone: "", url: "" });
+  const [hp, setHp] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const busy = status === "submitting" || status === "success";
 
@@ -89,6 +91,7 @@ export function Audit({
           contact: form.contact || form.phone || undefined,
           description: description || "Запит на безкоштовний аудит сайту",
           source,
+          hp,
           attribution: getAttribution(),
         }),
       });
@@ -128,6 +131,7 @@ export function Audit({
           className="px-5 py-[22px] max-w-[460px] border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] flex flex-col gap-3 md:px-7 md:py-7 md:pt-8 md:rounded-[22px] xl:max-w-none"
           onSubmit={onSubmit}
         >
+          <HoneypotField value={hp} onChange={setHp} />
           <input
             className={AUDIT_INPUT_CLASS}
             type="text"

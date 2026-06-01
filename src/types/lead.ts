@@ -6,6 +6,8 @@ export type LeadValues = {
   description: string;
   budget: string;
   timeline: string;
+  /** Honeypot — stays empty for real users; the server drops filled submissions. */
+  hp: string;
 };
 
 /**

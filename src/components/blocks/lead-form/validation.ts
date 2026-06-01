@@ -10,6 +10,7 @@ export const INITIAL_LEAD_VALUES: LeadValues = {
   description: "",
   budget: "",
   timeline: "",
+  hp: "",
 };
 
 /**

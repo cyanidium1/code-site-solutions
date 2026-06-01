@@ -23,6 +23,7 @@ import {
   type LeadFormLocale,
 } from "@/constants/form-options";
 import { LEAD_FORM_STRINGS_BY_LOCALE as STRINGS_BY_LOCALE } from "@/content/lead-form";
+import { HoneypotField } from "@/components/blocks/honeypot-field";
 import { INITIAL_LEAD_VALUES as INITIAL, buildValidationSchema } from "./validation";
 import { submitLead } from "./submit";
 
@@ -268,6 +269,10 @@ function LeadFormInner({
         submitForm,
       }) => (
         <Form className={`flex flex-col ${isCompact ? "gap-[18px]" : "gap-[22px]"}`}>
+          <HoneypotField
+            value={values.hp}
+            onChange={(v) => setFieldValue("hp", v)}
+          />
           {isCompact ? (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Field name="name">

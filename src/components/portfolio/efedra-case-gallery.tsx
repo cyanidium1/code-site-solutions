@@ -2,9 +2,16 @@
 
 import type { KeyboardEvent } from "react";
 import { useCallback, useState } from "react";
-import Lightbox from "yet-another-react-lightbox";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import "yet-another-react-lightbox/styles.css";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+
+// Defer the lightbox JS until a tile is actually opened — it's a heavy
+// dependency that most visitors never trigger.
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), {
+  ssr: false,
+});
 
 export type EfedraGalleryTile = {
   label: string;
@@ -53,12 +60,12 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
                 onClick={() => openAt(i)}
                 onKeyDown={(e) => onCardKeyDown(e, i)}
               >
-                <img
+                <Image
                   src={t.src}
                   alt={t.alt}
-                  decoding="async"
-                  loading="lazy"
-                  className="pointer-events-none absolute inset-0 block h-full w-full object-cover object-top"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 600px"
+                  className="pointer-events-none object-cover object-top"
                 />
                 <figcaption className={CAPTION_CLASS}>{t.label}</figcaption>
               </figure>
@@ -66,12 +73,14 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
           </div>
         </div>
       </section>
-      <Lightbox
-        open={lightboxIndex >= 0}
-        close={() => setLightboxIndex(-1)}
-        index={lightboxIndex < 0 ? 0 : lightboxIndex}
-        slides={slides}
-      />
+      {lightboxIndex >= 0 && (
+        <Lightbox
+          open
+          close={() => setLightboxIndex(-1)}
+          index={lightboxIndex}
+          slides={slides}
+        />
+      )}
     </>
   );
 }

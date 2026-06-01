@@ -9,6 +9,7 @@ import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur } from "@/lib/shared/format-eur";
 import { formatCalculatorSelections } from "@/lib/shared/format-calculator-selections";
 import { getAttribution } from "@/lib/client/attribution";
+import { HoneypotField } from "@/components/blocks/honeypot-field";
 import { H3 } from "@/components/ui";
 
 // HeroUI slot classNames for Calculator inputs. We hit several Input
@@ -68,6 +69,7 @@ type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
 export function LeadForm({ config, input, estimate }: LeadFormProps) {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
+  const [hp, setHp] = useState("");
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const t = useTranslations("Calculator.leadForm");
 
@@ -122,6 +124,7 @@ export function LeadForm({ config, input, estimate }: LeadFormProps) {
       business: form.company || undefined,
       description,
       source: "calculator",
+      hp,
       attribution: getAttribution(),
     };
   };
@@ -169,6 +172,7 @@ export function LeadForm({ config, input, estimate }: LeadFormProps) {
         className="border border-line rounded-[22px] bg-[oklch(0.16_0.005_300)] p-6 grid gap-3 h-full [&_input:focus-visible]:outline-2 [&_input:focus-visible]:outline-accent-soft [&_input:focus-visible]:outline-offset-2 [&_textarea:focus-visible]:outline-2 [&_textarea:focus-visible]:outline-accent-soft [&_textarea:focus-visible]:outline-offset-2 [&_select:focus-visible]:outline-2 [&_select:focus-visible]:outline-accent-soft [&_select:focus-visible]:outline-offset-2"
         onSubmit={onSubmit}
       >
+        <HoneypotField value={hp} onChange={setHp} />
         <H3 variant="calc-lead">{t("title")}</H3>
         <p className="m-0 mb-1 text-ink-3 text-[13px]">{t("sub")}</p>
 
