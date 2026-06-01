@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { hpInnerClass } from "@/components/homepage/shared";
+import { getAttribution } from "@/lib/client/attribution";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -22,6 +23,7 @@ export function Newsletter() {
           contact: email,
           source: "newsletter",
           description: "Newsletter signup",
+          attribution: getAttribution(),
         }),
       });
       if (!res.ok) throw new Error("Lead endpoint returned non-OK");

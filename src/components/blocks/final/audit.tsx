@@ -1,6 +1,8 @@
 "use client";
 
 import type * as React from "react";
+import { useState } from "react";
+import { getAttribution } from "@/lib/client/attribution";
 
 // Hoisted module-level class strings. The four <input>s share the same
 // 250+ char Tailwind string; extracting prevents the React reconciler
@@ -48,6 +50,7 @@ export function Audit({
   inputUrl = "https://...",
   submit = "Отримати розбір за 24 години",
   disclaim = "Не надсилаємо нічого, окрім розбору і одного листа з прикладами наших робіт. Без спаму.",
+  source = "audit",
 }: Partial<{
   heading: string;
   sub: React.ReactNode;
@@ -59,7 +62,43 @@ export function Audit({
   inputUrl: string;
   submit: string;
   disclaim: string;
+  source: string;
 }> = {}) {
+  const [form, setForm] = useState({ name: "", contact: "", phone: "", url: "" });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const busy = status === "submitting" || status === "success";
+
+  const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("submitting");
+    const description = [
+      form.url.trim() ? `Сайт для аудиту: ${form.url.trim()}` : "",
+      form.phone.trim() ? `Телефон: ${form.phone.trim()}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name || undefined,
+          contact: form.contact || form.phone || undefined,
+          description: description || "Запит на безкоштовний аудит сайту",
+          source,
+          attribution: getAttribution(),
+        }),
+      });
+      if (!res.ok) throw new Error("Lead endpoint returned non-OK");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-[linear-gradient(180deg,var(--color-bg)_0%,oklch(0.13_0.02_300)_100%)] overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_60%_at_0%_50%,oklch(from_var(--color-accent-2)_l_c_h_/_0.18),transparent_70%),radial-gradient(ellipse_40%_50%_at_100%_100%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%)]" />
@@ -87,34 +126,54 @@ export function Audit({
         </div>
         <form
           className="px-5 py-[22px] max-w-[460px] border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] flex flex-col gap-3 md:px-7 md:py-7 md:pt-8 md:rounded-[22px] xl:max-w-none"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={onSubmit}
         >
           <input
             className={AUDIT_INPUT_CLASS}
             type="text"
             placeholder={inputName}
+            value={form.name}
+            onChange={set("name")}
+            required
+            disabled={busy}
           />
           <input
             className={AUDIT_INPUT_CLASS}
             type="text"
             placeholder={inputContact}
+            value={form.contact}
+            onChange={set("contact")}
+            required
+            disabled={busy}
           />
           <input
             className={AUDIT_INPUT_CLASS}
             type="tel"
             placeholder={inputPhone}
+            value={form.phone}
+            onChange={set("phone")}
+            disabled={busy}
           />
           <input
             className={AUDIT_INPUT_CLASS}
             type="url"
             placeholder={inputUrl}
+            value={form.url}
+            onChange={set("url")}
+            disabled={busy}
           />
           <button
             className={AUDIT_SUBMIT_CLASS}
             type="submit"
+            disabled={busy}
           >
-            {submit}
+            {status === "submitting" ? "…" : status === "success" ? "Дякуємо! Скоро напишемо" : submit}
           </button>
+          {status === "error" ? (
+            <div role="alert" className="text-[12px] text-[oklch(0.78_0.16_25)]">
+              Не вдалося надіслати. Спробуйте ще раз або напишіть напряму.
+            </div>
+          ) : null}
           <div className="text-[11px] leading-[1.5] text-ink-3 mt-2">
             {disclaim}
           </div>

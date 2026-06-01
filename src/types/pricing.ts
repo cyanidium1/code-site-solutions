@@ -99,6 +99,13 @@ export type TierProps = {
   ctaLabel: string;
   ctaGhost?: boolean;
   ctaHref?: string;
+  /**
+   * Lead source recorded when the CTA has no `ctaHref` and instead opens the
+   * lead modal. Defaults to "pricing". Use to identify which tier was clicked.
+   */
+  ctaSource?: string;
+  /** Tier key preselected in the lead modal when the CTA opens it. */
+  tierKey?: string;
   /** Optional promo/discount line rendered above the CTA. Future use. */
   discountLine?: React.ReactNode;
 };

@@ -1,7 +1,9 @@
 "use client";
 
 import type * as React from "react";
+import { useState } from "react";
 
+import { getAttribution } from "@/lib/client/attribution";
 import { formatPrice } from "@/lib/shared/format-price";
 import type { TableRowData, TierProps } from "@/types/pricing";
 import { H2 } from "@/components/ui";
@@ -157,6 +159,7 @@ export function Comparison({
   ),
   pricingHeading = "Скільки коштує сайт для клініки",
   tiers = DEFAULT_TIERS,
+  contactSource = "comparison-contact",
 }: Partial<{
   tableHeading: React.ReactNode;
   tableLabels: string[];
@@ -172,7 +175,34 @@ export function Comparison({
   contactFoot: React.ReactNode;
   pricingHeading: React.ReactNode;
   tiers: TierProps[];
+  contactSource: string;
 }> = {}) {
+  const [form, setForm] = useState({ name: "", channel: "", brief: "" });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const busy = status === "submitting" || status === "success";
+
+  const onContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("submitting");
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name || undefined,
+          contact: form.channel || undefined,
+          description: form.brief || undefined,
+          source: contactSource,
+          attribution: getAttribution(),
+        }),
+      });
+      if (!res.ok) throw new Error("Lead endpoint returned non-OK");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <section className="relative py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
       <div className={`absolute inset-0 z-0 pointer-events-none ${CMP_BG}`} />
@@ -219,28 +249,49 @@ export function Comparison({
             </p>
             <form
               className="flex flex-col gap-3"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={onContactSubmit}
             >
               <input
                 className={`${CMP_INPUT_BASE} rounded-full`}
                 type="text"
                 placeholder={contactName}
+                value={form.name}
+                onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
+                required
+                disabled={busy}
               />
               <input
                 className={`${CMP_INPUT_BASE} rounded-full`}
                 type="text"
                 placeholder={contactChannel}
+                value={form.channel}
+                onChange={(e) => setForm((p) => ({ ...p, channel: e.target.value }))}
+                required
+                disabled={busy}
               />
               <textarea
                 className={`${CMP_INPUT_BASE} rounded-[22px] resize-none min-h-[110px] md:py-4`}
                 placeholder={contactBrief}
+                value={form.brief}
+                onChange={(e) => setForm((p) => ({ ...p, brief: e.target.value }))}
+                disabled={busy}
               />
               <button
                 className={CMP_CONTACT_SUBMIT_CLASS}
                 type="submit"
+                disabled={busy}
               >
-                {contactSubmit}
+                {status === "submitting"
+                  ? "…"
+                  : status === "success"
+                    ? "Дякуємо! Відповімо найближчим часом"
+                    : contactSubmit}
               </button>
+              {status === "error" ? (
+                <div role="alert" className="text-[12px] text-[oklch(0.78_0.16_25)]">
+                  Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram.
+                </div>
+              ) : null}
             </form>
             <div className="text-[12px] text-ink-3 mt-5 [&_a]:text-accent-soft [&_a]:no-underline [&_a]:font-semibold [&_a:hover]:underline">
               {contactFoot}

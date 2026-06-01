@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import type { TierProps } from "@/types/pricing";
+import { useLeadModal } from "@/components/blocks/lead-modal";
 
 function TierCheck() {
   return (
@@ -77,8 +79,12 @@ export function Tier({
   ctaLabel,
   ctaGhost,
   ctaHref,
+  ctaSource,
+  tierKey,
   discountLine,
 }: TierProps) {
+  const { open } = useLeadModal();
+  const locale = useLocale() === "en" ? "en" : "uk";
   return (
     <div className={`${TIER_BASE} ${popular ? TIER_POP : TIER_DEFAULT}`}>
       {popular && (
@@ -157,6 +163,14 @@ export function Tier({
           </Link>
         ) : (
           <button
+            type="button"
+            onClick={() =>
+              open({
+                source: ctaSource ?? "pricing",
+                tier: tierKey,
+                locale,
+              })
+            }
             className={`${TIER_BTN_BASE} ${ctaGhost ? TIER_BTN_GHOST : TIER_BTN_PRIMARY}`}
           >
             {ctaLabel}

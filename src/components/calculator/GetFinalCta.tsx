@@ -11,6 +11,7 @@ import {
   hpSubClass,
 } from "@/components/homepage/shared";
 import { LeadForm } from "./LeadForm";
+import type { CalculatorConfig } from "@/types/calculator-config";
 import type {
   CalculatorEstimate,
   CalculatorInput,
@@ -19,11 +20,12 @@ import type {
 const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
 type GetFinalCtaProps = {
+  config: CalculatorConfig;
   input: CalculatorInput;
   estimate: CalculatorEstimate;
 };
 
-export function GetFinalCta({ input, estimate }: GetFinalCtaProps) {
+export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
   const t = useTranslations("Calculator");
   return (
     <section
@@ -39,7 +41,7 @@ export function GetFinalCta({ input, estimate }: GetFinalCtaProps) {
           <h2 className={hpH2Class}>{t.rich("getFinal.title", { em: emChunk })}</h2>
           <p className={hpSubClass}>{t("getFinal.sub")}</p>
         </div>
-        <LeadForm input={input} estimate={estimate} />
+        <LeadForm config={config} input={input} estimate={estimate} />
         <div
           className={
             "mt-[22px] flex flex-wrap gap-y-[10px] gap-x-[14px] items-center justify-center " +

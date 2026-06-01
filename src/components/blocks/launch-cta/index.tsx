@@ -1,10 +1,9 @@
 import type * as React from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-import { localizePath } from "@/constants/i18n-routes";
 import { H2 } from "@/components/ui";
+import { LeadCtaButton } from "@/components/blocks/lead-modal/lead-cta-button";
 
 /**
  * Launch-CTA — bottom-of-page consultation CTA with an overflowing device
@@ -25,7 +24,6 @@ export function LaunchCta({
   sub?: React.ReactNode;
 } = {}) {
   const t = useTranslations("LaunchCta");
-  const href = localizePath("/contacts", locale === "en");
 
   return (
     <section
@@ -47,12 +45,13 @@ export function LaunchCta({
           <p className="m-0 font-sans text-[13.5px] leading-[1.6] text-ink-dim max-w-[50ch] md:text-[14px]">
             {sub ?? t("sub")}
           </p>
-          <Link
-            href={href}
+          <LeadCtaButton
+            source="launch-cta"
+            locale={locale}
             className="self-start inline-flex items-center gap-2.5 px-[22px] py-3 rounded-full bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] text-white font-sans font-semibold text-[13px] tracking-[0.01em] no-underline cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.25)] hover:-translate-y-px hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-[3px] md:px-7 md:py-3.5 md:text-[14px]"
           >
             {t("button")}
-          </Link>
+          </LeadCtaButton>
         </div>
         <div
           className="relative left-1/2 w-[115%] max-w-[720px] -translate-x-1/2 pointer-events-none [&_img]:block [&_img]:h-auto [&_img]:w-full lg:absolute lg:top-1/2 lg:left-[calc(50%-24px)] lg:w-[calc(50%+24px+48px)] lg:max-w-[1120px] lg:translate-x-0 lg:-translate-y-1/2 xl:left-[calc(50%-140px)] xl:w-[calc(50%+270px+48px)]"

@@ -5,7 +5,10 @@ import { useTranslations } from "next-intl";
 import { Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { Quote, Clock, Phone, FileCheck2 } from "lucide-react";
 import type { CalculatorEstimate, CalculatorInput } from "@/types/pricing";
+import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur } from "@/lib/shared/format-eur";
+import { formatCalculatorSelections } from "@/lib/shared/format-calculator-selections";
+import { getAttribution } from "@/lib/client/attribution";
 import { H3 } from "@/components/ui";
 
 // HeroUI slot classNames for Calculator inputs. We hit several Input
@@ -40,6 +43,7 @@ const UI_SELECT_LISTBOX =
   "[&_[data-selected=true]]:!bg-accent-20";
 
 type LeadFormProps = {
+  config: CalculatorConfig;
   input: CalculatorInput;
   estimate: CalculatorEstimate;
 };
@@ -62,7 +66,7 @@ const INITIAL_FORM: FormState = {
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
-export function LeadForm({ input, estimate }: LeadFormProps) {
+export function LeadForm({ config, input, estimate }: LeadFormProps) {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const t = useTranslations("Calculator.leadForm");
@@ -93,18 +97,21 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
    */
   const buildLeadBody = () => {
     const briefLine = form.projectBrief.trim()
-      ? `Brief: ${form.projectBrief.trim()}`
+      ? `Бриф: ${form.projectBrief.trim()}`
       : "";
-    const reachOut = `Preferred contact: ${form.preferredMethod}`;
-    const estimateLine = `Estimate: ${summary.range}`;
-    const maintenanceLine = `Maintenance: ${summary.maintenanceMonthly} / mo`;
-    const inputSnapshot = `Calculator input: ${JSON.stringify(input)}`;
+    const reachOut = `Бажаний канал: ${form.preferredMethod}`;
+    const estimateLine = `Оцінка: ${summary.range}`;
+    const maintenanceLine = `Підтримка: ${summary.maintenanceMonthly} / міс`;
+    const selections = formatCalculatorSelections(input, config);
+    const selectionsBlock = selections
+      ? `Конфігурація з калькулятора:\n${selections}`
+      : "";
     const description = [
       briefLine,
       reachOut,
       estimateLine,
       maintenanceLine,
-      inputSnapshot,
+      selectionsBlock,
     ]
       .filter(Boolean)
       .join("\n");
@@ -115,6 +122,7 @@ export function LeadForm({ input, estimate }: LeadFormProps) {
       business: form.company || undefined,
       description,
       source: "calculator",
+      attribution: getAttribution(),
     };
   };
 

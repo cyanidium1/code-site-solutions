@@ -7,6 +7,7 @@ import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
+import { useLeadModal } from "@/components/blocks/lead-modal";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
 import Logo from "./logo/logo";
@@ -62,6 +63,7 @@ export function HpHeader() {
   const locale = useLocale();
   const isEn = locale === "en";
   const registry = useI18nRegistry();
+  const { open: openLeadModal } = useLeadModal();
 
   useEffect(() => {
     ddRef.current?.removeAttribute("open");
@@ -75,7 +77,6 @@ export function HpHeader() {
   }));
 
   const homeHref = localizePath("/", isEn);
-  const ctaHref = localizePath("/contacts", isEn);
   // Intentional discrepancy: "All industries" is an anchor that scrolls to
   // the Industries grid on the homepage, not a dedicated route. There is no
   // standalone /services page, so we keep it as a hash. From any non-home
@@ -151,9 +152,16 @@ export function HpHeader() {
           })}
           </nav>
           <LocaleSwitcher />
-          <Link href={ctaHref} className={headerCtaClass} onClick={closeDd}>
+          <button
+            type="button"
+            className={headerCtaClass}
+            onClick={() => {
+              closeDd();
+              openLeadModal({ source: "header", locale: isEn ? "en" : "uk" });
+            }}
+          >
             {t("cta")}
-          </Link>
+          </button>
           <MobileMenu />
         </div>
       </div>

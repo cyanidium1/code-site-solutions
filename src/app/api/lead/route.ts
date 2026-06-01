@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { LeadAttribution } from "@/types/lead";
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -12,10 +13,38 @@ type LeadPayload = {
   timeline?: string;
   description?: string;
   source?: string;
+  attribution?: LeadAttribution;
 };
 
 function escapeMd(s: string): string {
   return s.replace(/([_*[\]()~`>#+\-=|{}.!\\])/g, "\\$1");
+}
+
+function buildAttributionBlock(a: LeadAttribution | undefined): string {
+  if (!a) return "";
+  const line = (label: string, value: string | undefined) =>
+    value ? `*${label}:* ${escapeMd(value)}\n` : "";
+
+  const utm =
+    a.utm && Object.keys(a.utm).length
+      ? Object.entries(a.utm)
+          .map(([k, v]) => `${k.replace(/^utm_/, "")}=${v}`)
+          .join(", ")
+      : "";
+  const journey =
+    a.journey && a.journey.length ? a.journey.join(" → ") : "";
+  const firstVisit = a.firstVisit
+    ? a.firstVisit.replace("T", " ").slice(0, 16)
+    : "";
+
+  const body =
+    line("Реферер", a.referrer || "прямий захід") +
+    line("Перша сторінка", a.landingPage) +
+    line("UTM", utm || undefined) +
+    line("Перший візит", firstVisit) +
+    (journey ? `*Шлях по сайту:*\n${escapeMd(journey)}\n` : "");
+
+  return body ? `\n📊 *Звідки прийшов:*\n${body}` : "";
 }
 
 function buildMessage(d: LeadPayload): string {
@@ -24,14 +53,15 @@ function buildMessage(d: LeadPayload): string {
 
   return (
     `🆕 *Нова заявка з сайту*\n\n` +
-    line("Сторінка", d.source ?? "/contacts") +
+    line("Джерело форми", d.source ?? "/contacts") +
     line("Ім'я", d.name) +
     line("Контакт", d.contact) +
     line("Бізнес", d.business) +
     line("Tier", d.tier) +
     line("Бюджет", d.budget) +
     line("Терміни", d.timeline) +
-    `\n*Опис:*\n${d.description ? escapeMd(d.description) : "—"}`
+    `\n*Опис:*\n${d.description ? escapeMd(d.description) : "—"}\n` +
+    buildAttributionBlock(d.attribution)
   );
 }
 

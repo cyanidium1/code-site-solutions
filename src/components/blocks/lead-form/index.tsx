@@ -164,12 +164,15 @@ type LeadFormProps = {
   source?: string;
   variant?: LeadFormVariant;
   locale?: LeadFormLocale;
+  /** Preselects the tier dropdown when not already set via `?tier=` in the URL. */
+  tier?: string;
 };
 
 function LeadFormInner({
   source = "contacts",
   variant = "full",
   locale = "uk",
+  tier,
 }: LeadFormProps) {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<Status>("idle");
@@ -182,9 +185,10 @@ function LeadFormInner({
   const validationSchema = buildValidationSchema(strings.contactValidation);
 
   const initialValues = useMemo<LeadValues>(() => {
-    const tier = normalizeTier(searchParams?.get("tier") ?? null);
-    return { ...INITIAL, tier };
-  }, [searchParams]);
+    const urlTier = normalizeTier(searchParams?.get("tier") ?? null);
+    const propTier = normalizeTier(tier ?? null);
+    return { ...INITIAL, tier: urlTier || propTier };
+  }, [searchParams, tier]);
 
   // URL `?source=` overrides the prop when present so links like
   // /contacts?source=hero-audit get recorded as the real entry point
@@ -504,3 +508,5 @@ export function LeadForm(props: LeadFormProps = {}) {
     </Suspense>
   );
 }
+
+export type { LeadFormProps };

@@ -205,7 +205,7 @@ export function WebsiteCalculator({ config }: WebsiteCalculatorProps) {
         <FAQ heading={t("faq.heading")} items={faqItems} />
       </section>
 
-      <GetFinalCta input={input} estimate={estimate} />
+      <GetFinalCta config={config} input={input} estimate={estimate} />
     </>
   );
 }
