@@ -1,18 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { Drawer, DrawerContent, DrawerBody } from "@heroui/react";
 import { useDisclosure } from "@heroui/use-disclosure";
-import { ChevronDown, ChevronRight, X } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import {
-  localizePath,
-  resolveLocaleAlternate,
-  resolveServiceHref,
-} from "@/constants/i18n-routes";
+import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
@@ -94,28 +90,6 @@ const drawerLinkDisabledClass =
 
 const drawerDividerClass = "h-px bg-line my-1.5";
 
-// Drawer locale dropdown — collapsed `<details>`. `group/dlocale` lets the
-// chevron flip when [open] and the panel becomes visible.
-const drawerLocaleDdClass = "self-start relative group/dlocale";
-const drawerLocaleTriggerClass =
-  "list-none inline-flex items-center gap-2 px-3.5 py-2 border border-line rounded-full " +
-  "bg-[oklch(1_0_0/0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim " +
-  "cursor-pointer select-none min-h-11 [&::-webkit-details-marker]:hidden " +
-  "[&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 " +
-  "group-open/dlocale:[&_svg]:rotate-180";
-const drawerLocalePanelClass =
-  "hidden group-open/dlocale:flex absolute bottom-[calc(100%+8px)] left-0 min-w-[140px] " +
-  "p-1.5 border border-line rounded-[14px] bg-[oklch(from_var(--color-bg)_l_c_h/0.96)] " +
-  "backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] " +
-  "z-[60] flex-col gap-0.5";
-const drawerLocaleItemBaseClass =
-  "inline-flex items-center w-full text-left px-3.5 py-2.5 min-h-11 border-0 rounded-[10px] bg-transparent " +
-  "font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim cursor-pointer " +
-  "transition-[background,color] duration-150";
-const drawerLocaleItemActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.14)] text-ink";
-const drawerLocaleItemDisabledClass =
-  "opacity-40 cursor-not-allowed pointer-events-none text-ink-3";
-
 const drawerFootClass =
   "px-[22px] pt-4 pb-[calc(20px+env(safe-area-inset-bottom))] border-t border-line shrink-0";
 const drawerCtaClass =
@@ -136,13 +110,11 @@ const drawerStaggerClass =
 export function MobileMenu() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const pathname = usePathname() ?? "/";
-  const router = useRouter();
   const locale = useLocale();
   const isEn = locale === "en";
 
   const t = useTranslations("Nav");
   const tServices = useTranslations("ServiceNav");
-  const tLocale = useTranslations("LocaleSwitcher");
 
   // Close on route change. Track the pathname we opened on; when it changes,
   // close. Without this, clicking a link inside the drawer would navigate
@@ -160,9 +132,6 @@ export function MobileMenu() {
   }, [isOpen, pathname, onClose]);
 
   const registry = useI18nRegistry();
-  const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname, registry);
-  const ukDisabled = ukHref === null;
-  const enDisabled = enHref === null;
   const ctaHref = localizePath("/contacts", isEn);
   // Intentional discrepancy: "All industries" is an anchor that scrolls to
   // the Industries grid on the homepage, not a dedicated route. There is no
@@ -175,25 +144,12 @@ export function MobileMenu() {
     label: t(link.key),
   }));
 
-  const switchLocale = (key: "uk" | "en") => {
-    const target = key === "en" ? enHref : ukHref;
-    if (!target) return; // disabled — no counterpart for this pathname
-    if (typeof document !== "undefined") {
-      document.cookie = `NEXT_LOCALE=${key}; path=/; max-age=31536000; samesite=lax`;
-    }
-    router.push(target);
-    onClose();
-  };
-
   // Stagger indices, statically computed so DrawerContent's render-prop
   // can be invoked multiple times per cycle without accumulating a counter.
-  // Order: services eyebrow, services 0..N-1, "all industries", nav 0..N-1,
-  // locale block.
   const SERVICES_EYEBROW_I = 0;
   const SERVICES_BASE_I = 1;
   const ALL_SERVICES_I = SERVICES_BASE_I + SERVICE_NAV_LINKS.length;
   const NAV_BASE_I = ALL_SERVICES_I + 1;
-  const LOCALE_I = NAV_BASE_I + navLinks.length;
 
   return (
     <>
@@ -307,50 +263,6 @@ export function MobileMenu() {
                     </li>
                   ))}
                 </ul>
-
-                <div className={drawerDividerClass} />
-
-                <details
-                  className={`${drawerLocaleDdClass} ${drawerStaggerClass}`}
-                  // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-                  style={{ "--i": LOCALE_I } as CSSProperties}
-                >
-                  <summary
-                    className={drawerLocaleTriggerClass}
-                    aria-label={tLocale("ariaLabel")}
-                  >
-                    <span>{isEn ? tLocale("en") : tLocale("uk")}</span>
-                    <ChevronDown size={14} strokeWidth={2} aria-hidden />
-                  </summary>
-                  <div
-                    className={drawerLocalePanelClass}
-                    role="menu"
-                    aria-label={tLocale("ariaLabel")}
-                  >
-                    <button
-                      type="button"
-                      role="menuitemradio"
-                      aria-checked={!isEn}
-                      aria-disabled={ukDisabled || undefined}
-                      disabled={ukDisabled}
-                      className={`${drawerLocaleItemBaseClass}${!isEn ? ` ${drawerLocaleItemActiveClass}` : ""}${ukDisabled ? ` ${drawerLocaleItemDisabledClass}` : ""}`}
-                      onClick={() => switchLocale("uk")}
-                    >
-                      {tLocale("uk")}
-                    </button>
-                    <button
-                      type="button"
-                      role="menuitemradio"
-                      aria-checked={isEn}
-                      aria-disabled={enDisabled || undefined}
-                      disabled={enDisabled}
-                      className={`${drawerLocaleItemBaseClass}${isEn ? ` ${drawerLocaleItemActiveClass}` : ""}${enDisabled ? ` ${drawerLocaleItemDisabledClass}` : ""}`}
-                      onClick={() => switchLocale("en")}
-                    >
-                      {tLocale("en")}
-                    </button>
-                  </div>
-                </details>
               </DrawerBody>
 
               <div className={drawerFootClass}>

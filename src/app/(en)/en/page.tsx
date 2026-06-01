@@ -242,7 +242,7 @@ export default async function HomePageEn() {
         ]}
       />
 
-      <FAQ heading="Top questions before we start" items={faqItems} />
+      <FAQ heading="Top questions before we start" items={faqItems} locale="en" />
       <LaunchCta locale="en" />
       </main>
       <HpFooter />

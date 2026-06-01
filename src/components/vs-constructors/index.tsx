@@ -455,6 +455,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
 
       {/* 10 — FAQ */}
       <FAQ
+        locale={locale}
         heading={
           locale === "en" ? "What people ask most" : "Що питають найчастіше"
         }

@@ -9,3 +9,7 @@
  */
 export const headerBrandClass =
   "inline-flex items-center text-ink no-underline whitespace-nowrap shrink-0";
+
+/** Right-side cluster: desktop nav + locale + CTA; mobile locale + burger. */
+export const headerEndClass =
+  "flex flex-1 items-center justify-end min-w-0 gap-7 max-2xl:gap-[22px] max-xl:gap-4 max-lg:gap-2";

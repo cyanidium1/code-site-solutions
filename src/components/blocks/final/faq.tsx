@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Accordion, AccordionItem } from "@heroui/react";
 import { Plus } from "lucide-react";
+import { useLocale } from "next-intl";
 
 import { renderRich } from "@/lib/shared/rich-text";
 import type { FAQItem } from "@/types/faq";
@@ -10,7 +11,8 @@ import { H2 } from "@/components/ui";
 
 const FAQ_INITIAL_VISIBLE = 5;
 
-const DEFAULT_FAQ: FAQItem[] = [
+/** Fallback when a UK page omits `items` (e.g. legacy industry templates). */
+const DEFAULT_FAQ_UK: FAQItem[] = [
   {
     q: "Скільки часу займає запуск сайту клініки?",
     a: [
@@ -152,33 +154,49 @@ const FAQ_PLUS_OPEN =
   "!bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] !border-transparent !text-[oklch(1_0_0_/_0.98)] [&_svg]:rotate-45";
 
 export function FAQ({
-  heading = "Часті питання",
-  items = DEFAULT_FAQ,
-  showAllLabel = "Показати ще",
-  locale = "uk",
+  heading,
+  items,
+  showAllLabel,
+  locale: localeProp,
 }: {
   heading?: string;
   items?: FAQItem[];
   showAllLabel?: string;
   locale?: "uk" | "en";
 } = {}) {
+  const intlLocale = useLocale();
+  const locale: "uk" | "en" =
+    localeProp ?? (intlLocale === "en" ? "en" : "uk");
+  const resolvedItems = items ?? (locale === "en" ? [] : DEFAULT_FAQ_UK);
+  const resolvedHeading =
+    heading ?? (locale === "en" ? "FAQ" : "Часті питання");
+  const resolvedShowAllLabel =
+    showAllLabel ?? (locale === "en" ? "Show more" : "Показати ще");
+
   const [expanded, setExpanded] = useState(false);
-  const hasOverflow = items.length > FAQ_INITIAL_VISIBLE;
-  const visible = expanded ? items : items.slice(0, FAQ_INITIAL_VISIBLE);
+
+  if (resolvedItems.length === 0) {
+    return null;
+  }
+
+  const hasOverflow = resolvedItems.length > FAQ_INITIAL_VISIBLE;
+  const visible = expanded
+    ? resolvedItems
+    : resolvedItems.slice(0, FAQ_INITIAL_VISIBLE);
   const toggleLabel = expanded
     ? locale === "en"
       ? "Show fewer"
       : "Згорнути"
-    : showAllLabel === "Показати ще" && locale === "en"
-      ? `Show all ${items.length} questions`
-      : showAllLabel;
+    : locale === "en" && resolvedShowAllLabel === "Show more"
+      ? `Show all ${resolvedItems.length} questions`
+      : resolvedShowAllLabel;
 
   return (
     <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
       <div className={`absolute inset-0 z-0 pointer-events-none ${FAQ_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className="mb-7 text-ink uppercase md:mb-12">
-          {heading}
+          {resolvedHeading}
         </H2>
         <Accordion
           variant="splitted"

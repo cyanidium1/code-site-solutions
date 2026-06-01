@@ -17,8 +17,8 @@ export const BUSINESS_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> =
     { key: "accounting", label: "Accounting / бухгалтерія" },
     { key: "ecommerce", label: "E-commerce / інтернет-магазин" },
     { key: "saas", label: "SaaS / стартап" },
-    { key: "construction", label: "Construction / Renovation" },
-    { key: "other", label: "Other (вкажіть в описі)" },
+    { key: "construction", label: "Будівництво / ремонт" },
+    { key: "other", label: "Інше (вкажіть в описі)" },
   ],
   en: [
     { key: "healthcare", label: "Healthcare / clinics and dental" },

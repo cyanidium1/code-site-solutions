@@ -10,7 +10,7 @@ import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
 import Logo from "./logo/logo";
-import { headerBrandClass } from "./header-classes";
+import { headerBrandClass, headerEndClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
 
 function isActive(pathname: string | null, href: string): boolean {
@@ -20,15 +20,13 @@ function isActive(pathname: string | null, href: string): boolean {
 }
 
 // Header is sticky, backdrop-blurred. Responsive ladder shrinks the
-// nav gap, link font size, and CTA padding between 1440→800px to keep
-// the whole bar on one row without wrapping. Below 800px nav + CTA hide
-// and the burger appears.
+// nav gap, link font size, and CTA padding between 1440→1024px to keep
+// the whole bar on one row without wrapping. Below lg nav + CTA hide;
+// locale + burger stay in the bar.
 const headerClass =
   "sticky top-0 z-50 border-b border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.7)] backdrop-blur-[14px] px-6 sm:px-8 lg:px-12";
 const headerInnerClass =
-  "mx-auto max-w-container flex items-center justify-between py-[18px] max-xl:py-[14px] max-lg:py-[14px]";
-const headerEndClass =
-  "flex items-center gap-[92px] min-w-0 max-2xl:gap-14 max-xl:gap-8";
+  "mx-auto max-w-container flex items-center justify-between gap-4 py-[18px] max-xl:py-[14px] max-lg:py-[14px]";
 const headerNavClass =
   "flex gap-7 max-2xl:gap-[22px] max-xl:gap-4 max-lg:hidden";
 // Trailing-colon variant builders for hover-active state on nav links.
@@ -37,7 +35,7 @@ const navLinkBaseClass =
 const navLinkActiveClass =
   "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
 const headerCtaClass =
-  "inline-flex items-center min-h-11 px-[18px] py-2.5 rounded-full border-0 bg-ink text-bg font-sans font-semibold text-[12px] tracking-[0.04em] uppercase no-underline transition-transform duration-200 hover:-translate-y-px max-2xl:px-4 max-2xl:py-[9px] max-2xl:text-[11px] max-xl:px-3.5 max-xl:py-2 max-xl:text-[10.5px] max-lg:hidden";
+  "inline-flex items-center min-h-11 px-[18px] py-2.5 rounded-full border-0 bg-ink text-bg font-sans font-semibold text-[12px] tracking-[0.04em] uppercase no-underline transition-transform duration-200 hover:-translate-y-px max-2xl:px-4 max-2xl:py-[9px] max-2xl:text-[11px] max-xl:px-3.5 max-xl:py-2 max-xl:text-[10.5px] max-lg:hidden lg:ml-auto shrink-0";
 
 // <details>-based hover/click dropdown. `cursor-pointer + select-none` on
 // summary + hiding the marker. Chevron rotates 180° when [open].
@@ -93,7 +91,7 @@ export function HpHeader() {
       <div className={headerInnerClass}>
         <Logo href={homeHref} className={headerBrandClass} onClick={closeDd} />
         <div className={headerEndClass}>
-        <nav className={headerNavClass} aria-label={t("menuLabel")}>
+          <nav className={headerNavClass} aria-label={t("menuLabel")}>
           <details ref={ddRef} className={`group/dd ${navDdClass}`}>
             <summary
               className={`${navDdTriggerClass}${servicesActive ? ` ${navLinkActiveClass}` : ""}`}
@@ -151,13 +149,13 @@ export function HpHeader() {
               </Link>
             );
           })}
+          </nav>
           <LocaleSwitcher />
-        </nav>
-        <Link href={ctaHref} className={headerCtaClass} onClick={closeDd}>
-          {t("cta")}
-        </Link>
+          <Link href={ctaHref} className={headerCtaClass} onClick={closeDd}>
+            {t("cta")}
+          </Link>
+          <MobileMenu />
         </div>
-        <MobileMenu />
       </div>
     </header>
   );

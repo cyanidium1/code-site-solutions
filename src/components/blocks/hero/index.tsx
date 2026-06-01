@@ -78,7 +78,7 @@ const HERO_H1_CLASS =
 
 // U — each H1 line is block-level with capped max-width so the headline
 // wraps at the same point as the legacy design.
-const H1_LINE_CLASS = "block max-w-[50vw]";
+const H1_LINE_CLASS = "block md:max-w-[50vw]";
 
 // U — accent row at the bottom of the H1 (big numeric KPI + label).
 // Gap shrinks at ≤1440. Mobile keeps row direction but tightens gap.
@@ -170,7 +170,7 @@ const STAT_DIV_CLASS =
 // On mobile a faint fade-to-bg ::after blends the device image into the
 // background below the hero.
 const DEVICE_STAGE_CLASS =
-  "relative w-full h-full min-w-0 [perspective:2000px] overflow-visible " +
+  "relative w-full h-full min-w-0 [perspective:2000px] overflow-hidden lg:overflow-visible " +
   "max-sm:after:content-[''] max-sm:after:absolute max-sm:after:bottom-0 max-sm:after:left-0 max-sm:after:right-0 max-sm:after:h-[60px] max-sm:after:bg-[linear-gradient(180deg,transparent,var(--color-bg)_90%)] max-sm:after:z-[3] max-sm:after:pointer-events-none";
 
 // U — soft accent glow halo behind the device. Inset is negative so the
@@ -229,7 +229,7 @@ const DT_GOOD_CLASS = "text-accent";
 // U — mockup wrapper: absolute, centered, transparent overflow for
 // the glow halo, no pointer events so floating tags above stay clickable.
 const MOCKUP_CLASS =
-  "absolute inset-0 flex items-center justify-center z-[2] pointer-events-none overflow-visible";
+  "absolute w-[134%] top-[-65px] left-[-54px] lg:inset-0 flex items-center justify-center z-[2] pointer-events-none overflow-visible";
 
 // U — mockup <img>: viewport-relative size clamp + translateX bleed so
 // the device overlaps the text column; drop-shadow stack mirrors the
@@ -291,7 +291,7 @@ const TICKER_ROW_CLASS =
 // On mobile: order before text, fixed 320px height, bleeds full width
 // past the gutter via negative margin trick.
 const HERO_RIGHT_CLASS =
-  "relative min-w-0 w-full h-full min-h-[420px] overflow-visible [contain:layout] z-10 " +
+  "relative min-w-0 w-full h-full min-h-[320px] md:min-h-[420px] overflow-visible [contain:layout] z-10 " +
   "max-sm:-order-1 max-sm:[aspect-ratio:auto] max-sm:z-[-1] max-sm:h-[320px] " +
   "max-sm:-mx-6 max-sm:-mb-10 max-sm:w-[calc(100%+48px)]";
 

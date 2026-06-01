@@ -96,7 +96,7 @@ export function resolveServiceHref(
  *
  * Returns `null` for a locale when no counterpart exists for the current
  * pathname — the switcher renders that locale's button in a disabled
- * state (see LocaleSwitcher / MobileMenu) instead of silently bouncing
+ * state (see LocaleSwitcher) instead of silently bouncing
  * to the homepage. Always returns a non-null value for the locale the
  * user is currently on (the "current" side is just the pathname itself).
  */

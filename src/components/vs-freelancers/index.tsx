@@ -528,6 +528,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
 
       {/* 11 — FAQ (schema.org FAQPage emitted at the route level) */}
       <FAQ
+        locale={locale}
         heading={
           locale === "en" ? "What people ask most" : "Що питають найчастіше"
         }

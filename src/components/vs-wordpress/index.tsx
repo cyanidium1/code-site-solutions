@@ -420,6 +420,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
 
       {/* 09 — FAQ */}
       <FAQ
+        locale={locale}
         heading={
           locale === "en"
             ? "What people ask most"

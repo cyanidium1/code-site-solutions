@@ -499,20 +499,26 @@ function SectionBlock({
         />
       );
 
-    case "faqBlock":
-      return (
-        <FAQ
-          heading={loc(section.heading, locale) || undefined}
-          items={section.items?.map((it) => {
+    case "faqBlock": {
+      const faqItems =
+        section.items
+          ?.map((it) => {
             const ans = pickRichText(it.answer, it.answerEn, locale);
             const text = plainPortable(ans);
-            return {
-              q: loc(it.question, locale),
-              a: text ? [text] : [],
-            };
-          })}
+            const q = loc(it.question, locale);
+            if (!q) return null;
+            return { q, a: text ? [text] : [] };
+          })
+          .filter((it): it is { q: string; a: string[] } => it !== null) ?? [];
+      if (faqItems.length === 0) return null;
+      return (
+        <FAQ
+          locale={locale === "en" ? "en" : "uk"}
+          heading={loc(section.heading, locale) || undefined}
+          items={faqItems}
         />
       );
+    }
 
     case "auditBlock":
       return (

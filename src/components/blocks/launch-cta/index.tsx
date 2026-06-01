@@ -10,7 +10,7 @@ import { H2 } from "@/components/ui";
  * Launch-CTA — bottom-of-page consultation CTA with an overflowing device
  * image. Design source: 1920px wide. Image left edge sits at calc(50% - 140px)
  * of the inner container; section uses overflow:hidden so the image flows
- * off the right edge into the gutter. Below 1024px the layout stacks
+ * off the right edge into the gutter. Below `lg` the layout stacks
  * single-column with the image rendered statically beneath the text.
  */
 export function LaunchCta({
@@ -32,8 +32,8 @@ export function LaunchCta({
       className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden"
       aria-labelledby="launch-cta-heading"
     >
-      <div className="relative mx-auto max-w-container min-h-[480px] grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center max-[1280px]:min-h-[420px] max-[1024px]:grid-cols-[minmax(0,1fr)] max-[1024px]:min-h-0 max-[1024px]:gap-10">
-        <div className="relative z-[2] max-w-[570px] flex flex-col gap-[18px] max-[1024px]:max-w-none md:gap-6">
+      <div className="relative mx-auto max-w-container grid grid-cols-[minmax(0,1fr)] items-center gap-10 min-h-0 lg:min-h-[420px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-0 xl:min-h-[480px]">
+        <div className="relative z-[2] flex max-w-none flex-col gap-[18px] md:gap-6 lg:max-w-[570px]">
           <div className="flex flex-col gap-7">
             <div className="flex flex-row items-center gap-2" aria-hidden="true">
               <span className="block w-3 h-3 rounded-[3px] bg-[#7c54cd] shadow-[0_0_8px_rgba(124,84,205,0.6)]" />
@@ -55,7 +55,7 @@ export function LaunchCta({
           </Link>
         </div>
         <div
-          className="absolute top-1/2 left-[calc(50%-140px)] -translate-y-1/2 w-[calc(50%+270px+48px)] max-w-[1120px] pointer-events-none max-[1280px]:left-[calc(50%-24px)] max-[1280px]:w-[calc(50%+24px+48px)] max-[1024px]:static max-[1024px]:translate-y-0 max-[1024px]:w-full max-[1024px]:max-w-[720px] max-[1024px]:mx-auto [&_img]:block [&_img]:w-full [&_img]:h-auto"
+          className="relative left-1/2 w-[115%] max-w-[720px] -translate-x-1/2 pointer-events-none [&_img]:block [&_img]:h-auto [&_img]:w-full lg:absolute lg:top-1/2 lg:left-[calc(50%-24px)] lg:w-[calc(50%+24px+48px)] lg:max-w-[1120px] lg:translate-x-0 lg:-translate-y-1/2 xl:left-[calc(50%-140px)] xl:w-[calc(50%+270px+48px)]"
           aria-hidden="false"
         >
           <Image
