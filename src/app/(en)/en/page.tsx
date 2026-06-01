@@ -139,6 +139,7 @@ export default async function HomePageEn() {
           { kind: "good", primary: "Lighthouse", mini: "98" },
         ]}
         deviceMockupSrc="/hero/hero-mockup.webp"
+        deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
       />
 
       <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />

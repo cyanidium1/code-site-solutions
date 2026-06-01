@@ -26,7 +26,14 @@ export const metadata: Metadata = {
   title: "Портфоліо — кейси від Code-Site.Art",
   description:
     "Реальні кейси з реальними метриками. Сайти для клінік, юристів, e-commerce, стартапів. Від $1 000 до $14 000+.",
-  alternates: { canonical: "/portfolio" },
+  alternates: {
+    canonical: "/portfolio",
+    languages: {
+      uk: "/portfolio",
+      en: "/en/portfolio",
+      "x-default": "/portfolio",
+    },
+  },
   openGraph: {
     title: "Портфоліо — кейси від Code-Site.Art",
     description:

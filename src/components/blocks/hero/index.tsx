@@ -391,6 +391,7 @@ export type HeroEditorialProps = {
   tickerItems?: string[];
   deviceTags?: { kind: "default" | "good"; primary: string; mini?: string }[];
   deviceMockupSrc?: string;
+  deviceMockupAlt?: string;
   /**
    * "compare" constrains the H1/lede column to ≤50% on lg+ so the
    * empty right column (no mockup on vs-* pages) doesn't let the
@@ -448,6 +449,7 @@ export function HeroEditorial({
     { kind: "good", primary: "Lighthouse", mini: "98" },
   ],
   deviceMockupSrc,
+  deviceMockupAlt = "Code-Site.Art — custom website mockup",
   variant = "default",
 }: HeroEditorialProps) {
   return (
@@ -537,7 +539,7 @@ export function HeroEditorial({
             <div className={DEVICE_STAGE_CLASS}>
               <div className={DEVICE_GLOW_CLASS} />
               <div className={DEVICE_GRID_CLASS} />
-              <DeviceMockup src={deviceMockupSrc} />
+              <DeviceMockup src={deviceMockupSrc} alt={deviceMockupAlt} />
               {deviceTags.map((t, i) => {
                 const pos = DEVICE_TAG_POSITIONS[i] ?? DEVICE_TAG_POSITIONS[0];
                 return (

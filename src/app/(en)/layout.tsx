@@ -61,12 +61,19 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: `${SITE_ORIGIN}/en`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Custom websites that book meetings 24/7 — Code-Site.Art",
+    description:
+      "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#121212",
 };
 
 /**

@@ -112,6 +112,7 @@ export default async function HomePage() {
           { kind: "good", primary: "Lighthouse", mini: "98" },
         ]}
         deviceMockupSrc="/hero/hero-mockup.webp"
+        deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
       />
 
       <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />

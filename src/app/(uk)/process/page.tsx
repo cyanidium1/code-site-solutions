@@ -17,7 +17,10 @@ export const metadata: Metadata = {
     "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
   description:
     "Як ми робимо сайти за 4-10 тижнів. Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив. Без сюрпризів.",
-  alternates: { canonical: "/process" },
+  alternates: {
+    canonical: "/process",
+    languages: { uk: "/process", en: "/en/process", "x-default": "/process" },
+  },
   openGraph: {
     title:
       "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",

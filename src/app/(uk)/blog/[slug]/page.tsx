@@ -57,10 +57,21 @@ export async function generateMetadata({
   // (relative paths are resolved against the site origin by Next).
   const ogUrl = post.ogImage?.url ?? post.coverImage?.src;
 
+  // Mirror the EN post's hreflang only when an EN translation exists
+  // (slugEn + titleEn) — matches the EN listing/render guards and sitemap.
+  const hasEn = Boolean(post.slugEn && post.titleEn);
+  const languages = hasEn
+    ? {
+        uk: path,
+        en: `/en/blog/${post.slugEn}`,
+        "x-default": path,
+      }
+    : undefined;
+
   return {
     title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, languages },
     openGraph: {
       title,
       description,

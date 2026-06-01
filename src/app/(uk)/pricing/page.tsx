@@ -25,7 +25,10 @@ export const metadata: Metadata = {
   title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
   description:
     "Прозорі ціни без «під запит». Лендинг від $1 000, Industry Pro від $3 500, Pro Plus від $7 500, enterprise від $14 000. Гарантія 1 рік.",
-  alternates: { canonical: "/pricing" },
+  alternates: {
+    canonical: "/pricing",
+    languages: { uk: "/pricing", en: "/en/pricing", "x-default": "/pricing" },
+  },
   openGraph: {
     title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
     description:

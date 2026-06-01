@@ -59,12 +59,19 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     alternateLocale: ["en_US"],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
+    description:
+      "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#121212",
 };
 
 /**

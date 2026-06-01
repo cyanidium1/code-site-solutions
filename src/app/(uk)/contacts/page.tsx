@@ -11,7 +11,14 @@ export const metadata: Metadata = {
   title: "Контакти — обговоримо ваш проєкт | Code-Site.Art",
   description:
     "Безкоштовна 30-хв консультація. Telegram, WhatsApp, дзвінок або форма брифу. Відповідаємо за 30 хв – 2 години.",
-  alternates: { canonical: "/contacts" },
+  alternates: {
+    canonical: "/contacts",
+    languages: {
+      uk: "/contacts",
+      en: "/en/contacts",
+      "x-default": "/contacts",
+    },
+  },
   openGraph: {
     title: "Контакти — обговоримо ваш проєкт | Code-Site.Art",
     description:

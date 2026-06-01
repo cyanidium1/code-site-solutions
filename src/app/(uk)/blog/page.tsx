@@ -15,7 +15,10 @@ export const metadata: Metadata = {
   title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
   description:
     "Раз на місяць — одна стаття про реальний проєкт: бюджет, помилки, що б зробили інакше. Без води і без новин.",
-  alternates: { canonical: "/blog" },
+  alternates: {
+    canonical: "/blog",
+    languages: { uk: "/blog", en: "/en/blog", "x-default": "/blog" },
+  },
   openGraph: {
     title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
     description:
