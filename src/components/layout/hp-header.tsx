@@ -13,6 +13,7 @@ import { MobileMenu } from "./mobile-menu";
 import Logo from "./logo/logo";
 import { headerBrandClass, headerEndClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
+import { NavWorkLabel } from "./nav-work-label";
 
 function isActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
@@ -74,6 +75,7 @@ export function HpHeader() {
   const navLinks = HEADER_NAV_LINKS.map((link) => ({
     href: localizePath(link.uaHref, isEn),
     label: t(link.key),
+    key: link.key,
   }));
 
   const homeHref = localizePath("/", isEn);
@@ -146,7 +148,7 @@ export function HpHeader() {
                 aria-current={active ? "page" : undefined}
                 onClick={closeDd}
               >
-                {item.label}
+                <NavWorkLabel label={item.label} linkKey={item.key} />
               </Link>
             );
           })}

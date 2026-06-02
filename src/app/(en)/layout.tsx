@@ -8,6 +8,8 @@ import enMessages from "../../../messages/en.json";
 import { Providers } from "../providers";
 import { SITE_ORIGIN } from "@/constants/site";
 import { getEnRegistrySafe, toWire } from "@/lib/server/i18n-registry";
+import { fetchCaseStudyCount } from "@/lib/server/fetch-case-study-count";
+import { CaseCountProvider } from "@/components/layout/case-count-provider";
 import { I18nRegistryProvider } from "@/components/layout/i18n-registry-provider";
 import { GoogleTagManager } from "@/components/analytics/google-tag-manager";
 
@@ -93,7 +95,11 @@ export default async function EnRootLayout({
   // Fetch once per layout render — `unstable_cache` shares the Sanity
   // round-trip across every page in the (en) group within the revalidate
   // window. Wire-format keeps RSC serialization happy across versions.
-  const i18nRegistry = toWire(await getEnRegistrySafe());
+  // Case count matches portfolio index (`CASE_STUDIES_QUERY`), both locales.
+  const [i18nRegistry, caseCount] = await Promise.all([
+    toWire(await getEnRegistrySafe()),
+    fetchCaseStudyCount(),
+  ]);
   return (
     <html
       lang="en"
@@ -105,7 +111,7 @@ export default async function EnRootLayout({
         <NextIntlClientProvider locale="en" messages={enMessages}>
           <Providers>
             <I18nRegistryProvider value={i18nRegistry}>
-              {children}
+              <CaseCountProvider count={caseCount}>{children}</CaseCountProvider>
             </I18nRegistryProvider>
           </Providers>
         </NextIntlClientProvider>

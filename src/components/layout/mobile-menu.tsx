@@ -13,6 +13,7 @@ import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
+import { NavWorkLabel } from "./nav-work-label";
 
 // Burger button — only visible below 800px (lg breakpoint). Mobile-first:
 // shown by default, hidden at lg+.
@@ -142,6 +143,7 @@ export function MobileMenu() {
   const navLinks = HEADER_NAV_LINKS.map((link) => ({
     href: localizePath(link.uaHref, isEn),
     label: t(link.key),
+    key: link.key,
   }));
 
   // Stagger indices, statically computed so DrawerContent's render-prop
@@ -257,7 +259,9 @@ export function MobileMenu() {
                         className={`${drawerLinkBaseClass} ${drawerLinkPrimaryClass}`}
                         onClick={close}
                       >
-                        <span>{l.label}</span>
+                        <span>
+                          <NavWorkLabel label={l.label} linkKey={l.key} />
+                        </span>
                         <ChevronRight size={14} strokeWidth={1.8} />
                       </Link>
                     </li>

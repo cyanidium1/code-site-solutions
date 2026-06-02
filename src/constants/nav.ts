@@ -23,6 +23,9 @@ export type HeaderNavLink = {
   key: string;
 };
 
+/** Nav translation key for `/portfolio` — shows CMS case count in the header. */
+export const NAV_CASE_COUNT_LINK_KEY = "work";
+
 export const HEADER_NAV_LINKS: readonly HeaderNavLink[] = [
   { uaHref: "/about", key: "about" },
   { uaHref: "/calculator", key: "calculator" },

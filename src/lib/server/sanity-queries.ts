@@ -119,6 +119,11 @@ export const CASE_STUDIES_QUERY = /* groq */ `
 } | order(featured desc, year desc, _createdAt desc)
 `;
 
+/** Published case studies with a slug (UA portfolio listing). */
+export const CASE_STUDIES_COUNT_QUERY = /* groq */ `
+count(*[_type == "caseStudy" && status == "published" && defined(slug.current)])
+`;
+
 export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
 *[_type == "caseStudy" && status == "published" && slug.current == $slug][0]{
   _id,
