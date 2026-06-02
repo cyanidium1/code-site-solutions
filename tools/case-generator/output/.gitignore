@@ -1,0 +1,3 @@
+# Generated artifacts (screenshots, raw data, drafts) stay local — never commit them.
+*
+!.gitignore

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "node --import tsx --test src/lib/shared/calculate-website-estimate.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "case:crawl": "tsx tools/case-generator/index.ts"
   },
   "dependencies": {
     "@heroui/react": "^2.8.10",
@@ -39,6 +40,7 @@
     "autoprefixer": "^10.5.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "^15.5.15",
+    "playwright": "^1.49.1",
     "postcss": "^8.5.12",
     "tailwindcss": "^4.2.4",
     "tsx": "^4.21.0",

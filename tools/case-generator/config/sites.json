@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Code Site Solution",
+    "url": "https://code-site-solution.vercel.app",
+    "slug": "code-site-solution",
+    "stackHint": ["Next.js", "Tailwind", "Sanity"],
+    "businessHint": "Web studio website focused on custom-coded websites, SEO and digital systems",
+    "paths": ["/"]
+  }
+]
