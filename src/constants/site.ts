@@ -1,5 +1,7 @@
 export const SITE_ORIGIN = "https://code-site.art";
 
+export const GTM_ID = "GTM-TRCVT2FH";
+
 export const ORG_ID = `${SITE_ORIGIN}/#organization`;
 export const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
 
