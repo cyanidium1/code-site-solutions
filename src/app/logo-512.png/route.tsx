@@ -5,7 +5,6 @@ import { BrandMark } from "@/lib/shared/brand-mark";
 // JSON-LD on blog posts. Prerendered at build so the URL is a plain
 // cacheable asset rather than a per-request render.
 export const dynamic = "force-static";
-export const contentType = "image/png";
 
 export function GET() {
   return new ImageResponse(<BrandMark size={512} />, {
