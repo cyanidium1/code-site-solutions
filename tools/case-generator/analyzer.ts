@@ -1,132 +1,139 @@
-import type { CaseDraft, RawData } from "./types";
+import type { PageData, RawData } from "./types";
 
 // ─────────────────────────────────────────────────────────────────────────
-// Local, template-based case draft generator.
+// Content summary builder.
 //
-// Stage 1 (now): deterministic draft built purely from the crawled data — no
-// external API, no invented metrics. The output is a *starting point* a human
-// edits, not a finished case.
-//
-// Stage 2 (later): replace the body of `generateCaseDraft` with a Claude API
-// call using the prompt from `prompts.ts`. The `CaseGenerator` signature stays
-// identical, so `index.ts` needs no changes.
+// This module does NOT write a case. It turns the raw crawl into a readable,
+// factual digest (`content-summary.md`) so a human — or Claude Code — can read
+// the site at a glance and then write the real, selling case by hand into
+// `case-final.md` / `case-final.json`. No external API, no invented metrics,
+// no AI integration: just a faithful summary of what was actually crawled.
 // ─────────────────────────────────────────────────────────────────────────
 
-function cap(text: string, max: number): string {
-  const t = text.trim();
-  return t.length > max ? `${t.slice(0, max - 1).trimEnd()}…` : t;
-}
+const TEXT_SAMPLE_LIMIT = 2_500;
+const LINK_LIST_LIMIT = 25;
+const IMAGE_LIST_LIMIT = 25;
 
 function uniq(values: string[]): string[] {
   return Array.from(new Set(values.map((v) => v.trim()).filter(Boolean)));
-}
-
-export async function generateCaseDraft(raw: RawData): Promise<CaseDraft> {
-  const { site } = raw;
-  const home = raw.pages[0];
-
-  const business = site.businessHint?.trim();
-  const headings = uniq([...(home?.h2 ?? []), ...(home?.h3 ?? [])]);
-  const features = headings.slice(0, 8);
-  const stack = site.stackHint ?? [];
-  const metaDescription = home?.metaDescription?.trim() ?? "";
-
-  const title = site.name;
-  const slug = site.slug;
-
-  const shortDescription = cap(
-    metaDescription ||
-      `Кастомный сайт для «${site.name}»${business ? ` — ${business}` : ""}.`,
-    200,
-  );
-
-  const clientContext = [
-    `«${site.name}» — ${business ?? "бизнес, которому нужен сильный сайт как точка входа для клиентов"}.`,
-    `Сайт доступен по адресу ${site.url}.`,
-  ].join(" ");
-
-  const problem =
-    "Нужно было собрать понятное онлайн-присутствие: объяснить, чем компания " +
-    "полезна, показать услуги и довести посетителя до заявки. Важна была " +
-    "современная подача, скорость загрузки и аккуратная работа на мобильных.";
-
-  const solution =
-    features.length > 0
-      ? `Спроектировали и собрали кастомный сайт. Ключевые блоки: ${features
-          .slice(0, 5)
-          .join(", ")}. Проработали структуру, тексты, адаптив под десктоп и ` +
-        "телефон и заложили SEO-основу (title, description, семантика заголовков)."
-      : "Спроектировали и собрали кастомный сайт под задачи бизнеса: структура, " +
-        "тексты, адаптив под десктоп и мобильные, SEO-основа.";
-
-  const businessValue =
-    `Сайт даёт «${site.name}» внятное позиционирование, аккуратное первое ` +
-    "впечатление и готовый канал для заявок. Это основа, которую легко " +
-    "развивать дальше — добавлять разделы, кейсы и интеграции.";
-
-  const seoTitle = cap(metaDescription ? `${site.name}` : site.name, 60);
-  const seoDescription = cap(metaDescription || shortDescription, 160);
-
-  const screenshots = raw.pages.flatMap((p) => p.screenshots);
-
-  return {
-    title,
-    slug,
-    shortDescription,
-    clientContext,
-    problem,
-    solution,
-    features,
-    stack,
-    businessValue,
-    seoTitle,
-    seoDescription,
-    screenshots,
-  };
 }
 
 function bulletList(items: string[]): string {
   return items.length ? items.map((i) => `- ${i}`).join("\n") : "—";
 }
 
-function screenshotGallery(screenshots: string[]): string {
-  if (!screenshots.length) return "—";
-  return screenshots.map((s) => `![${s}](./${s})`).join("\n\n");
+function quoteBlock(text: string): string {
+  const trimmed = text.trim();
+  if (!trimmed) return "—";
+  const sample =
+    trimmed.length > TEXT_SAMPLE_LIMIT
+      ? `${trimmed.slice(0, TEXT_SAMPLE_LIMIT).trimEnd()}…`
+      : trimmed;
+  return sample
+    .split("\n")
+    .map((line) => `> ${line}`)
+    .join("\n");
 }
 
-export function caseDraftToMarkdown(draft: CaseDraft): string {
-  return `# ${draft.title}
+function pageSection(page: PageData): string {
+  const internal = page.internalLinks
+    .slice(0, LINK_LIST_LIMIT)
+    .map((l) => `- ${l.text || "(без текста)"} — ${l.href}`);
+  const external = page.externalLinks
+    .slice(0, LINK_LIST_LIMIT)
+    .map((l) => `- ${l.text || "(без текста)"} — ${l.href}`);
+  const withAlt = page.images.filter((i) => i.alt.trim()).length;
+  const images = page.images
+    .slice(0, IMAGE_LIST_LIMIT)
+    .map((i) => `- ${i.alt.trim() || "(без alt)"} — ${i.src}`);
 
-> Черновик кейса, сгенерирован автоматически из данных сайта. Проверьте и
-> отредактируйте перед публикацией.
+  return [
+    `## Страница: ${page.url}`,
+    "",
+    `**Title:** ${page.title || "—"}`,
+    "",
+    `**Meta description:** ${page.metaDescription || "—"}`,
+    "",
+    "### H1",
+    bulletList(page.h1),
+    "",
+    "### H2",
+    bulletList(page.h2),
+    "",
+    "### H3",
+    bulletList(page.h3),
+    "",
+    "### Основные тексты (фрагмент)",
+    quoteBlock(page.visibleTextPreview),
+    "",
+    `### Внутренние ссылки (${page.internalLinks.length})`,
+    bulletList(internal),
+    "",
+    `### Внешние ссылки (${page.externalLinks.length})`,
+    bulletList(external),
+    "",
+    `### Изображения (${page.images.length}, с alt: ${withAlt})`,
+    bulletList(images),
+    "",
+    "### Скриншоты страницы",
+    bulletList(page.screenshots),
+  ].join("\n");
+}
 
-## Кратко
-${draft.shortDescription}
+/**
+ * Build a factual markdown digest of the crawl. Strictly descriptive — the
+ * selling case is written separately by a human.
+ */
+export function buildContentSummary(raw: RawData): string {
+  const { site, pages } = raw;
 
-## Контекст
-${draft.clientContext}
+  const allHeadings = uniq(
+    pages.flatMap((p) => [...p.h1, ...p.h2, ...p.h3]),
+  );
+  const allScreenshots = pages.flatMap((p) => p.screenshots);
 
-## Задача
-${draft.problem}
+  const header = [
+    `# Сводка по сайту: ${site.name}`,
+    "",
+    `- **URL:** ${site.url}`,
+    `- **Slug:** ${site.slug}`,
+    `- **Просканировано:** ${raw.crawledAt}`,
+    `- **Страниц обойдено:** ${pages.length}`,
+    site.stackHint?.length
+      ? `- **Подсказка по стеку:** ${site.stackHint.join(", ")}`
+      : "- **Подсказка по стеку:** —",
+    site.businessHint
+      ? `- **Подсказка по бизнесу:** ${site.businessHint}`
+      : "- **Подсказка по бизнесу:** —",
+    "",
+    "## Просканированные страницы",
+    pages.length
+      ? pages.map((p) => `- ${p.url}`).join("\n")
+      : "—",
+    "",
+    "## Возможные услуги / фичи / позиционирование",
+    "_Выжимка из всех заголовков (H1–H3) — отправная точка, не финальный текст._",
+    "",
+    bulletList(allHeadings.slice(0, 30)),
+    "",
+    "## Все скриншоты",
+    bulletList(allScreenshots),
+    "",
+    "---",
+    "",
+  ].join("\n");
 
-## Что сделали
-${draft.solution}
+  const body = pages.map(pageSection).join("\n\n---\n\n");
 
-## Ключевые функции
-${bulletList(draft.features)}
+  const footer = [
+    "",
+    "---",
+    "",
+    "> Это **фактическая сводка** собранных данных, а не готовый кейс.",
+    "> Продающий кейс пишется вручную в `case-final.md` / `case-final.json`",
+    "> после просмотра скриншотов. Цифры и результаты не выдумываются.",
+    "",
+  ].join("\n");
 
-## Стек
-${bulletList(draft.stack)}
-
-## Ценность для клиента
-${draft.businessValue}
-
-## SEO
-- **Title:** ${draft.seoTitle}
-- **Description:** ${draft.seoDescription}
-- **Slug:** ${draft.slug}
-
-## Скриншоты
-${screenshotGallery(draft.screenshots)}
-`;
+  return `${header}${body}${footer}`;
 }

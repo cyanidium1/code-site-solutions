@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { caseDraftToMarkdown, generateCaseDraft } from "./analyzer";
+import { buildContentSummary } from "./analyzer";
 import { crawlSite, launchBrowser } from "./crawler";
 import type { SiteConfig } from "./types";
 
@@ -43,15 +43,9 @@ async function main(): Promise<void> {
         "utf8",
       );
 
-      const draft = await generateCaseDraft(raw);
       await writeFile(
-        path.join(outputDir, "case-draft.json"),
-        JSON.stringify(draft, null, 2),
-        "utf8",
-      );
-      await writeFile(
-        path.join(outputDir, "case-draft.md"),
-        caseDraftToMarkdown(draft),
+        path.join(outputDir, "content-summary.md"),
+        buildContentSummary(raw),
         "utf8",
       );
 
@@ -63,7 +57,11 @@ async function main(): Promise<void> {
     await browser.close();
   }
 
-  console.log("\nDone. Drafts are saved locally and NOT published anywhere.");
+  console.log(
+    "\nDone. Data + summaries are saved locally and NOT published anywhere.\n" +
+      "Next: review screenshots + content-summary.md, then write the case by\n" +
+      "hand into case-final.md / case-final.json.",
+  );
 }
 
 main().catch((err: unknown) => {

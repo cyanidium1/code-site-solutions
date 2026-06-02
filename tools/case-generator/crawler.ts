@@ -1,3 +1,4 @@
+import { mkdir } from "node:fs/promises";
 import path from "node:path";
 
 import {
@@ -195,14 +196,20 @@ export async function crawlSite(
   await desktopCtx.addInitScript(NAME_SHIM);
   await mobileCtx.addInitScript(NAME_SHIM);
 
+  // Screenshots live in a dedicated subfolder so the site folder root stays
+  // readable (raw-data.json, content-summary.md, case-final.*).
+  const shotsDir = path.join(outputDir, "screenshots");
+  await mkdir(shotsDir, { recursive: true });
+
   const pages: PageData[] = [];
 
   try {
     for (const p of paths) {
       const url = new URL(p, site.url).href;
       const label = pageLabel(p);
-      const desktopShot = `desktop-${label}.png`;
-      const mobileShot = `mobile-${label}.png`;
+      // Paths stored in the data are relative to the site's output folder.
+      const desktopShot = `screenshots/desktop-${label}.png`;
+      const mobileShot = `screenshots/mobile-${label}.png`;
 
       let extracted: ExtractedPageData | null = null;
 

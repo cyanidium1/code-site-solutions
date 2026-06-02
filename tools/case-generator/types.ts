@@ -33,7 +33,10 @@ export interface PageData {
   internalLinks: LinkInfo[];
   externalLinks: LinkInfo[];
   images: ImageInfo[];
-  /** Screenshot filenames relative to the site's output folder. */
+  /**
+   * Screenshot paths relative to the site's output folder,
+   * e.g. "screenshots/desktop-home.png".
+   */
   screenshots: string[];
 }
 
@@ -46,7 +49,13 @@ export interface RawData {
   pages: PageData[];
 }
 
-export interface CaseDraft {
+/**
+ * Shape of the final, human-written case (`case-final.json`). This file is NOT
+ * produced by the crawler — it's written by hand (by the developer / Claude
+ * Code) after reading `content-summary.md` and the screenshots. The type lives
+ * here only to document and type-check that artifact.
+ */
+export interface CaseFinal {
   title: string;
   slug: string;
   shortDescription: string;
@@ -56,13 +65,8 @@ export interface CaseDraft {
   features: string[];
   stack: string[];
   businessValue: string;
+  improvements: string[];
   seoTitle: string;
   seoDescription: string;
   screenshots: string[];
 }
-
-/**
- * The contract the analyzer fulfils. Today it's a local template; later it can
- * be swapped for a Claude-API-backed implementation with the same signature.
- */
-export type CaseGenerator = (raw: RawData) => Promise<CaseDraft>;
