@@ -66,6 +66,44 @@ async function gotoSafe(page: Page, url: string): Promise<void> {
     .catch(() => {});
 }
 
+// Many sites reveal content on scroll (IntersectionObserver / AOS-style
+// animations) and lazy-load images. A bare screenshot can catch those blocks
+// mid-animation or unloaded. So before extracting/snapshotting we walk the
+// whole page top → bottom → top to fire every reveal and trigger lazy loads,
+// then wait for the network to settle and give CSS transitions a moment.
+async function settlePage(page: Page): Promise<void> {
+  await page
+    .evaluate(async () => {
+      const sleep = (ms: number) =>
+        new Promise<void>((resolve) => setTimeout(resolve, ms));
+      const pageHeight = () =>
+        Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+        );
+
+      const step = Math.max(200, Math.floor(window.innerHeight * 0.8));
+      // Height can grow as lazy content loads, so re-read it each iteration
+      // and cap the number of steps to avoid an infinite loop.
+      for (let y = 0, guard = 0; y < pageHeight() && guard < 200; guard++) {
+        window.scrollTo(0, y);
+        await sleep(120);
+        y += step;
+      }
+      window.scrollTo(0, pageHeight());
+      await sleep(300);
+      window.scrollTo(0, 0);
+      await sleep(300);
+    })
+    .catch(() => {});
+  // Lazy images that just entered the viewport may still be fetching.
+  await page
+    .waitForLoadState("networkidle", { timeout: NETWORK_IDLE_TIMEOUT })
+    .catch(() => {});
+  // Final settle so in-flight CSS transitions finish before we snapshot.
+  await page.waitForTimeout(600);
+}
+
 async function dismissPopups(page: Page): Promise<void> {
   try {
     for (const sel of COOKIE_SELECTORS) {
@@ -217,6 +255,7 @@ export async function crawlSite(
       try {
         await gotoSafe(dPage, url);
         await dismissPopups(dPage);
+        await settlePage(dPage);
         extracted = await extractPageData(dPage);
         await dPage.screenshot({
           path: path.join(outputDir, desktopShot),
@@ -232,6 +271,7 @@ export async function crawlSite(
       try {
         await gotoSafe(mPage, url);
         await dismissPopups(mPage);
+        await settlePage(mPage);
         await mPage.screenshot({
           path: path.join(outputDir, mobileShot),
           fullPage: true,
