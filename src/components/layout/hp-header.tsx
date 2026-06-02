@@ -36,7 +36,7 @@ const navLinkBaseClass =
 const navLinkActiveClass =
   "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
 const headerCtaClass =
-  "inline-flex items-center min-h-11 px-[18px] py-2.5 rounded-full border-0 bg-ink text-bg font-sans font-semibold text-[12px] tracking-[0.04em] uppercase no-underline transition-transform duration-200 hover:-translate-y-px max-2xl:px-4 max-2xl:py-[9px] max-2xl:text-[11px] max-xl:px-3.5 max-xl:py-2 max-xl:text-[10.5px] max-lg:hidden lg:ml-auto shrink-0";
+  "inline-flex items-center min-h-11 px-[18px] py-2.5 rounded-full border-0 bg-ink text-bg font-sans font-semibold text-[12px] tracking-[0.04em] uppercase no-underline transition-transform duration-200 hover:-translate-y-px max-2xl:px-4 max-2xl:py-[9px] max-2xl:text-[11px] max-xl:px-3.5 max-xl:py-2 max-xl:text-[10.5px] max-lg:hidden shrink-0";
 
 // <details>-based hover/click dropdown. `cursor-pointer + select-none` on
 // summary + hiding the marker. Chevron rotates 180° when [open].

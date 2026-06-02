@@ -212,17 +212,6 @@ function YouTubeSection({
   );
 }
 
-/* ─── asset placeholder for inline screenshots that haven't been
-   uploaded yet (e.g. NBYG inline images, until founder supplies them). */
-
-function ScreenshotPending({ label }: { label: string }) {
-  return (
-    <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,oklch(0.55_0.20_25_/_0.18)_0%,oklch(0.62_0.18_60_/_0.18)_100%)] p-6 text-center font-mono text-xs uppercase tracking-[0.08em] text-ink-3">
-      {label}
-    </div>
-  );
-}
-
 /* ─── mediaGalleryBlock rendering ─────────────────────────────────────── */
 
 function GalleryRenderer({
@@ -345,7 +334,9 @@ function SectionBlock({
                   value={pickRichText(section.body, section.bodyEn, locale)}
                 />
               }
-              bulletList={section.bulletList?.map((b) => loc(b, locale))}
+              bulletList={section.bulletList
+                ?.map((b) => loc(b, locale))
+                .filter(Boolean)}
               image={img1}
               secondImage={img2}
             />
@@ -353,7 +344,13 @@ function SectionBlock({
         );
       }
 
-      // Side / side-with-list variants — keep ScreenshotPending fallback here only.
+      const effectiveVariant =
+        section.variant === "centered"
+          ? "centered"
+          : section.bulletList?.length
+            ? "side-with-list"
+            : (section.variant ?? "side");
+
       const imageNode: React.ReactNode = hasImage ? (
         <SanityImg
           image={section.image}
@@ -365,19 +362,11 @@ function SectionBlock({
           fill
           className="object-cover"
         />
-      ) : (
-        <ScreenshotPending
-          label={
-            locale === "en"
-              ? "Screenshot — coming soon"
-              : "Скріншот — незабаром"
-          }
-        />
-      );
+      ) : null;
 
       return (
         <ImageText
-          variant={section.variant ?? "side"}
+          variant={effectiveVariant}
           imageVariant={section.imageVariant ?? "imageRight"}
           bulletIcon={
             (section as { bulletIcon?: "check" | "cross" }).bulletIcon ??
@@ -390,7 +379,9 @@ function SectionBlock({
               value={pickRichText(section.body, section.bodyEn, locale)}
             />
           }
-          bulletList={section.bulletList?.map((b) => loc(b, locale))}
+          bulletList={section.bulletList
+            ?.map((b) => loc(b, locale))
+            .filter(Boolean)}
           image={imageNode}
           cta={
             section.cta?.label

@@ -75,14 +75,19 @@ export function ImageText({
   sectionClassName,
 }: ImageTextProps) {
   const bodyArr = Array.isArray(body) ? body : [body];
+  const bullets = bulletList?.filter(Boolean) ?? [];
   const showList =
-    variant === "side-with-list" && bulletList && bulletList.length > 0;
+    bullets.length > 0 &&
+    (variant === "side-with-list" || variant === "centered");
   const showCta = variant === "side-with-list" && cta;
   const isCentered = variant === "centered";
+  const hasImage = Boolean(image);
 
   const containerClass = isCentered
     ? "max-w-container mx-auto grid grid-cols-1 gap-12 text-center"
-    : "max-w-container mx-auto grid grid-cols-2 gap-16 items-center max-[1080px]:gap-10 max-[960px]:grid-cols-1 max-[960px]:gap-8";
+    : hasImage
+      ? "max-w-container mx-auto grid grid-cols-2 gap-16 items-center max-[1080px]:gap-10 max-[960px]:grid-cols-1 max-[960px]:gap-8"
+      : "max-w-container mx-auto grid grid-cols-1 gap-8";
 
   const imageImgClass =
     "[&_img]:block [&_img]:h-full [&_img]:w-full [&_img]:object-cover [&_img]:object-top";
@@ -110,7 +115,9 @@ export function ImageText({
       ? "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.78_0.16_25)]"
       : "bg-accent-18 text-accent-soft";
 
-  const imageBlock = <div className={imageClass}>{image}</div>;
+  const imageBlock = hasImage ? (
+    <div className={imageClass}>{image}</div>
+  ) : null;
   const contentBlock = (
     <div className={contentClass}>
       {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
@@ -127,7 +134,7 @@ export function ImageText({
       </div>
       {showList ? (
         <ul className={listClass}>
-          {bulletList!.map((it, i) => (
+          {bullets.map((it, i) => (
             <li
               key={i}
               className="flex gap-3 items-start font-sans text-[15px] text-ink-dim leading-[1.5]"
@@ -204,7 +211,7 @@ export function ImageText({
               </div>
               {showList ? (
                 <ul className={listClass}>
-                  {bulletList!.map((it, i) => (
+                  {bullets.map((it, i) => (
                     <li
                       key={i}
                       className="flex gap-3 items-start font-sans text-[15px] text-ink-dim leading-[1.5]"
@@ -229,7 +236,7 @@ export function ImageText({
     return (
       <section className={sectionClass}>
         <div className={containerClass}>
-          {imageBlock}
+          {hasImage ? imageBlock : null}
           {contentBlock}
         </div>
       </section>
