@@ -33,6 +33,22 @@ const config = [
       ],
     },
   },
+  {
+    // next/og (Satori) renders to an image, not the DOM — it only understands
+    // inline `style` props and ignores Tailwind classes. The forbid-dom-props
+    // rule doesn't apply to these image-generation files.
+    files: [
+      "src/app/**/opengraph-image.tsx",
+      "src/app/apple-icon.tsx",
+      "src/app/icon.tsx",
+      "src/app/logo-512.png/route.tsx",
+      "src/lib/server/og/**",
+      "src/lib/shared/brand-mark.tsx",
+    ],
+    rules: {
+      "react/forbid-dom-props": "off",
+    },
+  },
 ];
 
 export default config;
