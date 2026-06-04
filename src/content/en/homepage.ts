@@ -189,9 +189,9 @@ export function buildEnHomepageFaq(
       { em: X.name },
       " with bespoke architecture — from ",
       { em: fmt(X.priceFrom) },
-      ". An exact figure — via the ",
+      ". For an exact figure, use the ",
       { link: { href: "/en/calculator", text: "calculator" } },
-      " or after a 30-minute call.",
+      " or book a 30-minute call.",
     ],
   },
   {
@@ -208,13 +208,13 @@ export function buildEnHomepageFaq(
       { em: X.name },
       " — ",
       { em: X.weeks },
-      ". That includes all revisions, content, and SEO. No surprises — the date is fixed in the contract.",
+      ". That includes all revisions, content, and SEO. No surprises. The date is fixed in the contract.",
     ],
   },
   {
     q: "What if my budget is below your minimum?",
     a: [
-      "We'll tell you honestly that we can't deliver at that price, and point you toward someone who can. We don't take on projects we can't ship well at your budget.",
+      "We'll say up front that we can't deliver at that price, and point you toward someone who can. We don't take on projects we can't ship well at your budget.",
     ],
   },
   {
@@ -238,7 +238,7 @@ export function buildEnHomepageFaq(
     a: [
       "The first ",
       { em: "2 months" },
-      " — free revisions, monitoring, and fixes. Then 1 year of warranty included (bugs fixed within 4 business hours). Ongoing support / growth — at a fixed rate, no surprises.",
+      " — free revisions, monitoring, and fixes. Then 1 year of warranty included (bugs fixed within 4 business hours). Ongoing support and growth run at a fixed rate, no surprises.",
     ],
   },
   {
@@ -246,7 +246,7 @@ export function buildEnHomepageFaq(
     a: [
       "Yes. The architecture we write ",
       { em: "scales" },
-      ". Start with a Landing — in a year we add CMS, blog, additional verticals — without rewriting from scratch.",
+      ". Start with a Landing, and in a year we add CMS, blog, and extra verticals, no rewrite from scratch.",
     ],
   },
   {

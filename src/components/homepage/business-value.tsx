@@ -47,7 +47,7 @@ const UK_COPY: SectionCopy = {
   eyebrow: "ЧОМУ МИ",
   heading: (
     <>
-      Сайт як <em>інструмент</em> бізнесу, не вітрина
+      Зробіть сайт <em>інструментом</em> бізнесу
     </>
   ),
   sub: "Кожен блок сайту має працювати на швидкість, заявки, довіру та ріст бізнесу.",
@@ -57,7 +57,7 @@ const EN_COPY: SectionCopy = {
   eyebrow: "WHY US",
   heading: (
     <>
-      Your site is a <em>business tool</em>, not a showcase
+      Turn your site into a <em>business tool</em>
     </>
   ),
   sub: "Every section of your site should work for speed, leads, trust, and business growth.",
@@ -68,7 +68,7 @@ const UK_CARDS: BizCard[] = [
     icon: Handshake,
     ghost: FileSignature,
     title: "З нами легко",
-    body: "Без брифів і технічних завдань — ми самі ставимо правильні питання й оформлюємо все за вас. Працюємо офіційно, за договором.",
+    body: "Брифи й технічні завдання писати не треба: ми самі ставимо правильні питання й оформлюємо все за вас. Працюємо офіційно, за договором.",
     tone: PURPLE,
     visual: "deal",
   },
@@ -92,7 +92,7 @@ const UK_CARDS: BizCard[] = [
     icon: TrendingUp,
     label: "SEO",
     title: "Результат",
-    body: "Структура, швидкість, schema.org, redirects і контент готуються під пошук, а не просто «щоб було красиво».",
+    body: "Структуру, швидкість, schema.org, redirects і контент ми готуємо під пошук, щоб ви ранжувалися в Google.",
     tone: GREEN,
     visual: "seo",
   },
@@ -118,7 +118,7 @@ const EN_CARDS: BizCard[] = [
     icon: Handshake,
     ghost: FileSignature,
     title: "Easy to work with",
-    body: "No briefs or specs to write — we ask the right questions and handle the paperwork. And it’s all official, under a contract.",
+    body: "No briefs or specs to write. We ask the right questions and handle the paperwork, all official, under a contract.",
     tone: PURPLE,
     visual: "deal",
   },
@@ -142,7 +142,7 @@ const EN_CARDS: BizCard[] = [
     icon: TrendingUp,
     label: "SEO",
     title: "Results",
-    body: "Structure, speed, schema.org, redirects, and content are built for search — not just “to look pretty”.",
+    body: "We build structure, speed, schema.org, redirects, and content for search, so Google ranks you.",
     tone: GREEN,
     visual: "seo",
   },

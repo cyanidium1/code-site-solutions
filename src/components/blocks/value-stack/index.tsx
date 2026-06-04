@@ -63,7 +63,7 @@ const UK: Copy = {
     <>
       Створений, щоб приводити заявки.
       <br />
-      <em>А не просто гарно виглядати.</em>
+      <em>Краса — за замовчуванням.</em>
     </>
   ),
   sub: (
@@ -111,7 +111,7 @@ const EN: Copy = {
     <>
       Built to generate leads.
       <br />
-      <em>Not just look good.</em>
+      <em>Good looks come standard.</em>
     </>
   ),
   sub: (

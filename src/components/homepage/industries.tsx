@@ -186,7 +186,7 @@ export function Industries({
       Спеціалізовані рішення під <em>вашу галузь</em>
     </>
   ),
-  sub = "Не просто сайт — комплексне рішення з інтеграціями і compliance.",
+  sub = "Комплексне рішення під вашу галузь — з інтеграціями і compliance.",
   items = DEFAULT_INDUSTRIES,
 }: {
   eyebrow?: string;

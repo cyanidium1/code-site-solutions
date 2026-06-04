@@ -66,7 +66,7 @@
   },
   "Newsletter": {
     "heading": "How not to burn your website budget",
-    "sub": "Once a month — one real-project breakdown with numbers: what worked, what didn't, what it cost. For business owners thinking about commissioning a site. No news, no fluff.",
+    "sub": "Once a month, one real-project breakdown with numbers: what worked, what didn't, what it cost. For business owners thinking about commissioning a site. No news, no fluff.",
     "placeholder": "email@example.com",
     "button": "Subscribe",
     "success": "Done ✓",
@@ -74,7 +74,7 @@
   },
   "LaunchCta": {
     "heading": "Let's launch a website that works for your business",
-    "sub": "Book a consultation and we'll go through your project: structure, functionality, timeline, and budget. We'll explain what you actually need — and where it's not worth spending money.",
+    "sub": "Book a consultation and we'll go through your project: structure, functionality, timeline, and budget. We'll explain what you need and where spending money won't pay off.",
     "button": "Get in touch",
     "imageAlt": "Website mockup on a laptop and smartphone"
   },

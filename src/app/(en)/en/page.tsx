@@ -107,10 +107,10 @@ export default async function HomePageEn() {
         ]}
         lede={
           <>
-            A custom-coded website with copy, design, and integrations —
+            A custom-coded website with copy, design, and integrations,
             shipped in 4–10 weeks. We write the content, wire up the
-            forms, and set up local SEO. You spend 5 hours, total.
-            Within a month, leads start coming in on autopilot.
+            forms, and set up local SEO. You spend 5 hours, total. Within
+            a month, the first leads land in your inbox.
           </>
         }
         features={[
@@ -124,7 +124,7 @@ export default async function HomePageEn() {
         ctaSecondaryLabel="Free site audit within 24 hours"
         ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
-        ctaFootnote="No sales call. No email list. Just an audit."
+        ctaFootnote="No sales call. No email list. An audit."
         showStats
         stats={[
           { num: "50+", lbl: <>projects<br />across 5 years</> },
@@ -153,7 +153,7 @@ export default async function HomePageEn() {
             Built for <em>your industry.</em>
           </>
         }
-        sub="Not just a website — a full solution with the integrations and compliance your sector expects."
+        sub="A full solution with the integrations and compliance your sector expects."
         items={EN_INDUSTRIES}
       />
 
@@ -207,7 +207,7 @@ export default async function HomePageEn() {
               <span>PRICING</span>
             </div>
             <h2 className={hpH2Class}>
-              Transparent pricing — from <em>{range.min}</em> to <em>{range.max}+</em>
+              Transparent pricing, from <em>{range.min}</em> to <em>{range.max}+</em>
             </h2>
             <p className={hpSubClass}>
               No &ldquo;request a quote.&rdquo; No hidden fees.
