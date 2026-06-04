@@ -49,7 +49,7 @@ export const TURNKEY_FOOTER_EN = (
       ))}
     </ul>
     <p className="turnkey-list-not-foot">
-      If you need any of these — we&apos;ll connect you with vetted partners.
+      If you need any of these, we&apos;ll connect you with vetted partners.
       We don&apos;t mark up other people&apos;s work.
     </p>
   </div>
@@ -162,7 +162,7 @@ export const TIERS: TierProps[] = [
     priceLabel: "from",
     weeks: "8–16 weeks",
     bestFor:
-      "Complex products with bespoke logic — SaaS, marketplace, B2B portal.",
+      "Complex products with bespoke logic: SaaS, marketplace, B2B portal.",
     bestForLabel: "Best for:",
     includes: {
       heading: "Everything in Pro Plus, plus",
@@ -245,7 +245,7 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
   {
     q: "Why a fixed price, not \"on request\"?",
     a: [
-      "Because your time matters. You shouldn't spend 3 hours on a consultation to find out you can't afford a tier. And it's a discipline for us — if we can't quote in 30 minutes on the brief, we don't fully understand the project yet.",
+      "Because your time matters. You shouldn't spend 3 hours on a consultation to find out you can't afford a tier. It's a discipline for us too: if we can't quote in 30 minutes off the brief, we don't understand the project yet.",
     ],
   },
   {
@@ -260,7 +260,7 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
     q: "Can we negotiate a discount?",
     a: [
       { em: "10% off" },
-      " if you pay 100% upfront. Beyond that — we'd rather not. The price already accounts for fixed-cost overhead. Discounting it means cutting corners somewhere.",
+      " if you pay 100% upfront. Beyond that, we'd rather not. The price already accounts for fixed-cost overhead. Discounting it means cutting corners somewhere.",
     ],
   },
   {
@@ -281,19 +281,19 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Projects from ",
       { em: "$10,000" },
-      " can be paid in three installments — at kickoff, mid-project, and on delivery.",
+      " can be paid in three installments: at kickoff, mid-project, and on delivery.",
     ],
   },
   {
     q: "How do integrations get counted?",
     a: [
-      "Base CRM/email integration is $150. CRM systems (HubSpot, Pipedrive, KeyCRM) — $500. Industry integrations (Clio, MEDoc, etc.) — $500–$1,200 depending on API. Payment gateways — $900. All transparent in the calculator.",
+      "Base CRM/email integration is $150. CRM systems (HubSpot, Pipedrive, KeyCRM): $500. Industry integrations (Clio, MEDoc, etc.): $500–$1,200 depending on API. Payment gateways: $900. All transparent in the calculator.",
     ],
   },
   {
     q: "What if I need changes after launch?",
     a: [
-      "First year — included in warranty for bug fixes. New features — separate scope, priced per hour or per scope.",
+      "First year: bug fixes are included in the warranty. New features are separate scope, priced per hour or per scope.",
     ],
   },
 ];

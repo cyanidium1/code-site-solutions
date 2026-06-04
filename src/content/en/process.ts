@@ -8,7 +8,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
     n: "01",
     title: "Brief",
     duration: "1 day · free",
-    body: "30-min call or Telegram chat. We dig into the task, goals, audience, budget, timeline, references. By the end — an exact price range and tier recommendation.",
+    body: "30-min call or Telegram chat. We dig into the task, goals, audience, budget, timeline, references. By the end, an exact price range and tier recommendation.",
     weDo: {
       heading: "What we do",
       items: [
@@ -39,7 +39,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
     n: "02",
     title: "Contract & deposit",
     duration: "1-3 days",
-    body: "We sign the contract — via Diia.Sign (Ukraine's e-signature standard) or PDF with signature. You pay 50% upfront. The contract locks the price, the deadline, and the 30% rebate for delays.",
+    body: "We sign the contract via Diia.Sign (Ukraine's e-signature standard) or a PDF with signature. You pay 50% upfront. The contract locks the price, the deadline, and the 30% rebate for delays.",
     weDo: {
       heading: "What we do",
       items: [
@@ -101,7 +101,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
     n: "04",
     title: "Development",
     duration: "2-6 weeks",
-    body: "We write code on Next.js + Sanity. Commits in GitHub daily. Weekly screencast of progress (3-5 min). Telegram chat — daily.",
+    body: "We write code on Next.js + Sanity. Commits in GitHub daily. A weekly screencast of progress (3-5 min). Telegram chat every day.",
     weDo: {
       heading: "What we do",
       items: [
@@ -199,7 +199,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
     n: "07",
     title: "Support",
     duration: "+ 1 year (included)",
-    body: "We fix any bugs for free. We update dependencies. We give advice. If something breaks through no fault of yours — we fix it within 4 business hours, business hours.",
+    body: "We fix any bugs for free. We update dependencies. We give advice. If something breaks through no fault of yours, we fix it within 4 business hours.",
     weDo: {
       heading: "What we do",
       items: [
@@ -236,7 +236,7 @@ export const PROCESS_FAQ: { q: string; a: RichText }[] = [
     a: [
       "We pay you a ",
       { em: "30% rebate" },
-      " from the contract sum. Automatically. We've done this twice in 3 years — both times we wired the rebate without being asked.",
+      " from the contract sum, no need to ask. We've done it twice in 3 years, and both times we wired the rebate before the client raised it.",
     ],
   },
   {
@@ -250,25 +250,25 @@ export const PROCESS_FAQ: { q: string; a: RichText }[] = [
   {
     q: "What if I don't like the design result?",
     a: [
-      "That's exactly what the 2 revision rounds are for. We rework it. If after 2 rounds you still don't like it, we discuss — often the issue is in the brief, not the design.",
+      "The 2 revision rounds are there for this. We rework it. If after 2 rounds you still don't like it, we talk it through, since the problem usually sits in the brief rather than the design.",
     ],
   },
   {
     q: "What if I need changes after launch?",
     a: [
-      "First year — fixes and small tweaks are in the warranty. New features — separate scope, priced per hour or per project.",
+      "First year: fixes and small tweaks are in the warranty. New features are separate scope, priced per hour or per project.",
     ],
   },
   {
     q: "What if I want to change the scope mid-project?",
     a: [
-      "We pause, re-estimate the new scope, sign an addendum. Honest. The original contract stays for what was agreed; new scope is its own line.",
+      "We pause, re-estimate the new scope, and sign an addendum. The original contract stays for what was agreed; new scope is its own line.",
     ],
   },
   {
     q: "What if I don't have time to fill in content?",
     a: [
-      "We have a copywriter — add-on, ",
+      "We have a copywriter as an add-on, ",
       { em: "$200/page" },
       ". We can also extend the timeline if you'd rather write it yourself.",
     ],
@@ -276,13 +276,13 @@ export const PROCESS_FAQ: { q: string; a: RichText }[] = [
   {
     q: "What if a new project comes up in 6 months?",
     a: [
-      "We hold a quarterly slot for repeat clients. Telegram us when it's time — we schedule.",
+      "We hold a quarterly slot for repeat clients. Telegram us when it's time and we'll schedule it.",
     ],
   },
   {
     q: "What if I need an urgent fix for an event?",
     a: [
-      "4-hour SLA in business hours. Outside business hours — we charge an emergency rate, but we respond.",
+      "4-hour SLA in business hours. Outside business hours we charge an emergency rate, but we respond.",
     ],
   },
 ];
