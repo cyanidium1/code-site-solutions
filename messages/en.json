@@ -93,7 +93,7 @@
       "breadcrumbSelf": "Calculator",
       "eyebrow": "/ CALCULATOR",
       "title": "Know your website price <em>in 60 seconds</em>",
-      "sub": "No sales call, no “price on request”, no hidden lines. An honest range — and a clear breakdown of what drives it. Built for people deciding right now."
+      "sub": "No sales call, no “price on request”, no hidden lines. An honest range, and a clear breakdown of what drives it. Built for people deciding right now."
     },
     "stats": {
       "projects": { "value": "50+", "label": "projects · last 5 years" },
@@ -123,19 +123,19 @@
     "whyPackages": {
       "eyebrow": "/ 02 WHY THESE PACKAGES",
       "title": "Three packages cover <em>80% of requests</em>. Here's why.",
-      "sub": "Each one solves a different business question. Pick the one that matches where you are now — not where you might be in 3 years.",
+      "sub": "Each one solves a different business question. Pick the one that matches where you are now, not where you might be in 3 years.",
       "cards": {
         "starter": {
           "title": "Starter",
-          "body": "For people launching one service or testing a hypothesis. No CMS, no 20 pages — you need to validate demand fast."
+          "body": "For people launching one service or testing a hypothesis. No CMS, no 20 pages. You need to validate demand fast."
         },
         "growth": {
           "title": "Growth",
-          "body": "For people with paying clients but no website that sells. Cases, blog, SEO, lead form — everything that brings traffic and converts it into calls."
+          "body": "For people with paying clients but no website that sells. Cases, blog, SEO, lead form: everything that brings traffic and converts it into calls."
         },
         "ecommerce": {
           "title": "E-commerce",
-          "body": "For people selling products. Not a landing page with “buy via DM” — a real store: cart, payments, CMS to manage stock."
+          "body": "For people selling products. A real store: cart, payments, and a CMS to manage stock."
         }
       }
     },
@@ -162,7 +162,7 @@
     "underHood": {
       "eyebrow": "/ 05 UNDER THE HOOD",
       "title": "Why we estimate websites <em>this way</em>",
-      "sub": "Behind every visible design are page structure, SEO metadata, performance, CMS modeling, responsive layouts, forms, analytics, integrations, and launch prep. The calculator separates those layers honestly.",
+      "sub": "Behind every visible design are page structure, SEO metadata, performance, CMS modeling, responsive layouts, forms, analytics, integrations, and launch prep. The calculator separates those layers.",
       "cards": {
         "seo": {
           "title": "SEO structure",
@@ -190,23 +190,23 @@
       "items": [
         {
           "q": "What if my budget is below the calculator's lowest price?",
-          "a": "If you have $800, we will tell you honestly that we can't deliver well at that price — and recommend a person we trust who can. We don't take projects we can't ship at the standard we want our name on."
+          "a": "If you have $800, we'll tell you straight that we can't deliver well at that price, and recommend someone we trust who can. We don't take projects we can't ship at the standard we want our name on."
         },
         {
           "q": "What if the final price is higher than the calculator shows?",
-          "a": "The calculator gives a realistic range 9 times out of 10. If something falls outside it, we tell you before signing — never after. The contract carries a fixed sum: no surprises, no scope-creep invoices."
+          "a": "The calculator gives a realistic range 9 times out of 10. If something falls outside it, we tell you before signing, never after. The contract carries a fixed sum: no surprises, no scope-creep invoices."
         },
         {
           "q": "Can I start with one package and upgrade later?",
-          "a": "Yes. We design the architecture to scale. Launch as Starter; a year later, when traffic grows, add CMS, blog, or SEO — without rewriting from zero."
+          "a": "Yes. We design the architecture to scale. Launch as Starter; a year later, when traffic grows, add CMS, blog, or SEO, without rewriting from zero."
         },
         {
           "q": "What if I need only one page?",
-          "a": "We do landings starting at $1,500. Anything below that is either a templated solution or we're the wrong fit — we'll point you to who isn't."
+          "a": "We do landings starting at $1,500. Anything below that is either a templated solution or we're the wrong fit, and we'll point you to who isn't."
         },
         {
           "q": "Do I need to know exactly what I want?",
-          "a": "No. On the call we ask 10–15 questions and write the spec for you. Most clients arrive with a rough idea — that's normal."
+          "a": "No. On the call we ask 10–15 questions and write the spec for you. Most clients arrive with a rough idea. That's normal."
         },
         {
           "q": "What if I have my own designer or brand book?",
@@ -214,18 +214,18 @@
         },
         {
           "q": "Can I see the code before paying full?",
-          "a": "Yes. After the design phase we hand over the GitHub repo. You review, leave comments, then we continue. Transparent from day one — no code held hostage."
+          "a": "Yes. After the design phase we hand over the GitHub repo. You review, leave comments, then we continue. Transparent from day one, no code held hostage."
         },
         {
           "q": "What's NOT included in the price?",
-          "a": "Content copywriting, post-launch SEO promotion, and translation work. We can recommend trusted specialists for each — or quote them as add-ons. Everything else (design, code, CMS, hosting setup, 1-year warranty) is in the price."
+          "a": "Content copywriting, post-launch SEO promotion, and translation work. We can recommend trusted specialists for each, or quote them as add-ons. Everything else (design, code, CMS, hosting setup, 1-year warranty) is in the price."
         }
       ]
     },
     "getFinal": {
       "eyebrow": "/ 06 GET FINAL ESTIMATE",
       "title": "Send the brief — get a <em>final price</em>",
-      "sub": "We'll review your calculator result and send a project plan, timeline, and confirmed price range. Custom-coded websites only — if you need a quick $300 template, we're not the right fit.",
+      "sub": "We'll review your calculator result and send a project plan, timeline, and confirmed price range. Custom-coded websites only. If you need a quick $300 template, we're not the right fit.",
       "altReady": "Not ready for the form?",
       "altCalendly": "Book a 30-min call instead",
       "altOr": "or",
@@ -307,7 +307,7 @@
       "maintenanceMonth": "Maintenance / month",
       "seoGrowthMonth": "SEO & Growth / month",
       "roiTitle": "What this means for you",
-      "roiBody": "At a 3% conversion rate and a $1,000 average order — the site pays for itself in <strong>12–15 enquiries</strong>. Roughly 3–6 months of work. After that, it earns for years.",
+      "roiBody": "At a 3% conversion rate and a $1,000 average order, the site pays for itself in <strong>12–15 enquiries</strong>. Roughly 3–6 months of work. After that, it earns for years.",
       "scarcity": "Next available start: <strong>in 2 weeks</strong>. <strong>2 slots</strong> left this quarter.",
       "disclaimer": "This is an estimate, not an invoice. Final price depends on exact requirements, integrations, design references, and content volume.",
       "primaryCta": "Get exact price & project plan",
