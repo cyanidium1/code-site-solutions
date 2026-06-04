@@ -6,6 +6,8 @@ Next.js 15 (App Router) marketing site for Code-Site.Art. Sanity-driven
 content for cases, blog, and industry pages; statically authored content
 for everything else.
 
+Agent context: [`CLAUDE.md`](CLAUDE.md) (Claude Code) · [`.cursor/rules/`](.cursor/rules/) (Cursor)
+
 ## Quick start
 
 ```bash
@@ -41,6 +43,19 @@ adding a new file:
 - [`src/content/README.md`](src/content/README.md) — localized page copy
 - [`src/lib/README.md`](src/lib/README.md) — server / shared / client split
 - [`src/types/README.md`](src/types/README.md) — types-only, no runtime
+
+## Sanity document IDs
+
+The site reads Sanity from the **public CDN without a read token** (`src/lib/server/sanity-client.ts`, `perspective: "published"`). Any document `_id` with a **dot** (e.g. `caseStudy.co2lab`, `industryPage.medicine`) is **auth-only** and will not appear on the live site — regardless of schema `status` or Studio **Publish**.
+
+Production was migrated to **UUIDs** in **June 2026** (admin `reupload:dotted-*` scripts). If Studio shows more documents than the website, check dotted IDs in the admin repo before blaming GROQ limits or missing tokens.
+
+| `_id` example | Visible here (no token) |
+|---------------|-------------------------|
+| Studio UUID | Yes, after Publish |
+| `caseStudy.co2lab` | **No** |
+
+**Canonical doc:** [`docs/sanity-document-ids.md`](docs/sanity-document-ids.md) · **Admin:** [`code-site-solutions-admin`](../code-site-solutions-admin/) (Studio, repair scripts, manifests)
 
 ## Tech stack
 

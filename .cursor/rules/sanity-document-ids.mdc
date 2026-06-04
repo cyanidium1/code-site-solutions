@@ -1,0 +1,33 @@
+---
+description: Dotted Sanity _id = auth-only; no token on sanity-client; June 2026 migrated
+globs: src/lib/server/sanity*.ts,src/lib/server/**/*sanity*
+alwaysApply: false
+---
+
+# Sanity document IDs (frontend server)
+
+## Rule
+
+Root `_id` containing **`.`** (`caseStudy.co2lab`, `industryPage.medicine`, `countryOption.UA`, …) is a Content Lake **sub-path** → **never** returned to unauthenticated queries.
+
+`sanity-client.ts`: **no token**, `perspective: "published"`, CDN. Do **not** add `SANITY_API_TOKEN` / read token to mask missing docs.
+
+`status == "published"` in GROQ is schema semantics only — not a substitute for public `_id` shape.
+
+## Wrong vs right diagnosis
+
+| Symptom | Wrong fix | Check first |
+|--------|-----------|-------------|
+| Studio has more docs than site | GROQ `limit`, Releases, “republish all” | Dotted `_id` in admin (`_id match "*.*"`) |
+| Token used to “fix” portfolio | Re-add token in prod | Migrate IDs in admin (`reupload:dotted-*`) |
+
+## June 2026
+
+Production migrated to UUIDs in admin. Expect **no** dotted user content IDs. Historical 21 vs 8 cases was pre-migration.
+
+## Code in this repo
+
+- Query by **`slug.current`** for routes — not hard-coded `_id`.
+- No dotted `_id` literals in `src/lib/server/*`.
+
+Full doc: `docs/sanity-document-ids.md` · Admin: `../code-site-solutions-admin/docs/sanity-document-ids.md`
