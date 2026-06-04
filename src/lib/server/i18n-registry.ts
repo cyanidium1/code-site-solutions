@@ -5,6 +5,7 @@ import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
   FALLBACK_REGISTRY,
   fromWire,
+  toWire,
   type EnRegistry,
   type EnRegistryWire,
 } from "@/lib/shared/i18n-registry-types";
@@ -57,16 +58,26 @@ const BLOG_EN_PAIRS_QUERY = /* groq */ `
  * (`revalidateTag("i18n-alternates")` from a route handler).
  */
 async function fetchRegistryWire(): Promise<EnRegistryWire> {
-  const [industries, cases, blogPairs] = await Promise.all([
-    sanityFetch<string[]>({ query: INDUSTRY_EN_AVAILABLE_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
-    sanityFetch<string[]>({ query: CASE_EN_AVAILABLE_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
-    sanityFetch<Array<{ ua: string; en: string }>>({ query: BLOG_EN_PAIRS_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
-  ]);
-  return {
-    industries,
-    cases,
-    blogPairs: blogPairs.map((p) => [p.ua, p.en] as [string, string]),
-  };
+  try {
+    const [industries, cases, blogPairs] = await Promise.all([
+      sanityFetch<string[]>({ query: INDUSTRY_EN_AVAILABLE_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
+      sanityFetch<string[]>({ query: CASE_EN_AVAILABLE_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
+      sanityFetch<Array<{ ua: string; en: string }>>({ query: BLOG_EN_PAIRS_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
+    ]);
+    return {
+      industries: industries ?? [],
+      cases: cases ?? [],
+      blogPairs: (blogPairs ?? []).map((p) => [p.ua, p.en] as [string, string]),
+    };
+  } catch (err) {
+    // unstable_cache revalidates in the background — must not throw or Next
+    // logs "[Error: Unauthorized - Session not found]" on every revalidate.
+    console.warn(
+      "[i18n-registry] Sanity fetch failed; using FALLBACK_REGISTRY for cache entry.",
+      err,
+    );
+    return toWire(FALLBACK_REGISTRY);
+  }
 }
 
 const getEnRegistryWire = unstable_cache(

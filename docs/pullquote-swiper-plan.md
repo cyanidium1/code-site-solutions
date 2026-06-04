@@ -219,7 +219,7 @@ export const HOMEPAGE_TESTIMONIALS_QUERY = /* groq */ `
 
 `scripts/seed-homepage-testimonials.ts` — patterned on [seed-nbyg-kobenhavn.ts](../scripts/seed-nbyg-kobenhavn.ts):
 
-- Loads `.env.local` for `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_API_TOKEN`.
+- Loads `.env.local` for `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`.
 - Creates **at least 2** `testimonial` docs with fixed `_id`s (e.g. `testimonial.nbyg-kobenhavn`, `testimonial.placeholder-2`) using `createOrReplace` for idempotency.
 - Seed entry #1 = current homepage testimonial (Søren Hansen / NBYG København) including localized quote (UA + EN) — without `mockupLeft/Right` images for now (founder must supply). Script logs `TODO: upload mockupLeft/Right for testimonial.<id>` when fields are empty.
 - Seed entry #2 = TBD placeholder with `featured: false` so it doesn't show up until copy/images land. Lets us confirm filtering works.

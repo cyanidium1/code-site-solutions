@@ -212,7 +212,7 @@ Documented in `middleware.ts`:
 
 | Service | Role | Configuration |
 |---------|------|---------------|
-| **Sanity** | CMS for industries, cases, blog, SEO images | `NEXT_PUBLIC_SANITY_*`; optional `SANITY_API_READ_TOKEN` for private datasets |
+| **Sanity** | CMS for industries, cases, blog, SEO images | `NEXT_PUBLIC_SANITY_*` (CDN reads, no server token) |
 | **Telegram Bot API** | Lead notifications from forms | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` via `/api/lead` |
 | **Google Fonts** | Via `next/font` only (no duplicate `<link>` in layout — fixed from prior audit) |
 | **Unsplash** | Default imagery in `services` block | Hotlinked URLs, not in `next.config` remotePatterns |
@@ -288,7 +288,7 @@ Must be updated manually when new EN content ships.
 
 - `.env*.local` and `.env` gitignored
 - `.env.example` exposes **public** Sanity project id (normal for Sanity)
-- Server tokens: `SANITY_API_READ_TOKEN` / `SANITY_API_TOKEN` — must not be `NEXT_PUBLIC_*`
+- Sanity: no server API token — published content via CDN only
 
 ### 9.3 XSS surface
 
