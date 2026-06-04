@@ -62,7 +62,7 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
     showDetails: "Add details",
     hideDetails: "Hide details",
     detailsMeta: "tier, budget, timeline",
-    submit: "Send — we reply within 1-2 hours",
+    submit: "Send, we reply within 1-2 hours",
     successTitle: "Thanks! Your message was received.",
     successBody:
       "We'll get back within 1-2 business hours via the Telegram or email you provided.",

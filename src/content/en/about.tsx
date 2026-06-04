@@ -63,10 +63,10 @@ export const ABOUT_EN: AboutContent = {
         A real developer who <em>writes the code</em>
       </>
     ),
-    lead: "Code Site Art was founded by Fedir Alpatov — a developer who personally takes part in the architecture and implementation of every project.",
+    lead: "Code Site Art was founded by Fedir Alpatov, a developer who takes part in the architecture and implementation of every project.",
     paragraphs: [
-      "A graduate of the Kyiv Polytechnic Institute (KPI). Building professionally since 2021 — first as a freelancer, then growing into a boutique studio. Code Site Art was founded in 2025.",
-      "The focus is custom websites and business systems on Next.js, React, TypeScript and Sanity CMS. Not templates or page builders: code that solves a concrete business task — leads, sales, content management.",
+      "A graduate of the Kyiv Polytechnic Institute (KPI). Building since 2021, first as a freelancer, then growing into a boutique studio. Code Site Art was founded in 2025.",
+      "The focus is custom websites and business systems on Next.js, React, TypeScript and Sanity CMS. Not templates or page builders. The code solves a concrete business task: leads, sales, content management.",
       "Working with the studio, you don't pass your task down a chain of managers. You talk to the person responsible for the technical decisions and the result.",
     ],
     facts: [
@@ -102,7 +102,7 @@ export const ABOUT_EN: AboutContent = {
     eyebrow: "PUBLIC PROOF",
     heading: (
       <>
-        Don&apos;t take our word — <em>verify it yourself</em>
+        Don&apos;t take our word, <em>verify it yourself</em>
       </>
     ),
     sub: "The code, the profiles and real launched sites are all public. You can check who we are and what we do before the first conversation.",
@@ -126,7 +126,7 @@ export const ABOUT_EN: AboutContent = {
         Why we work <em>this way</em>
       </>
     ),
-    sub: "A website is a business system, not a brochure. And that system should belong to you — not to a contractor or a platform.",
+    sub: "A website is a business system, not a brochure. That system should belong to you, not a contractor or a platform.",
     pillars: [
       {
         icon: FileCode,
@@ -151,7 +151,7 @@ export const ABOUT_EN: AboutContent = {
     ],
     warning: {
       title: "Why depending on an agency or a builder is a risk",
-      body: "When the code, hosting and domain stay with a contractor or get locked into a builder (Tilda, Wix, WordPress on someone else's plugins), you're effectively renting your own business. They raise prices, disappear, or shut down — and you can neither move the site nor hire a different developer. We build so you can leave us at any time. That's exactly why clients stay.",
+      body: "When the code, hosting and domain stay with a contractor or get locked into a builder (Tilda, Wix, WordPress on someone else's plugins), you're effectively renting your own business. They raise prices, disappear, or shut down, and you can't move the site or hire a different developer. We build so you can leave us at any time. That's why clients stay.",
     },
   },
 
@@ -162,7 +162,7 @@ export const ABOUT_EN: AboutContent = {
         Real businesses. <em>Real launches.</em>
       </>
     ),
-    sub: "Not Dribbble mockups — sites that work for real companies across different niches and countries.",
+    sub: "Sites that work for real companies across different niches and countries.",
     items: [
       {
         name: "NBYG København",
@@ -217,18 +217,18 @@ export const ABOUT_EN: AboutContent = {
   },
 
   whatYouBuy: {
-    eyebrow: "WHAT YOU ACTUALLY BUY",
+    eyebrow: "WHAT YOU BUY",
     heading: (
       <>
         You&apos;re not buying a site. <em>You&apos;re buying a system.</em>
       </>
     ),
-    sub: "A \"website\" is just the wrapper. The real value is what's under the hood and what works for you after launch.",
+    sub: "A \"website\" is the wrapper. The real value is what's under the hood and what works for you after launch.",
     items: [
       {
         icon: Search,
         title: "SEO architecture",
-        body: "Structure, metadata and semantics built into the code from the start — so Google finds you.",
+        body: "Structure, metadata and semantics built into the code from the start, so Google finds you.",
       },
       {
         icon: LayoutDashboard,
@@ -238,7 +238,7 @@ export const ABOUT_EN: AboutContent = {
       {
         icon: Workflow,
         title: "Integrations",
-        body: "Forms, Telegram, CRM, payments, bookings — we wire up whatever your process needs.",
+        body: "Forms, Telegram, CRM, payments, bookings: we wire up whatever your process needs.",
       },
       {
         icon: BarChart3,
@@ -248,12 +248,12 @@ export const ABOUT_EN: AboutContent = {
       {
         icon: Cloud,
         title: "Infrastructure",
-        body: "Hosting, domain, SSL, CDN, deployment — set up on your accounts and handed to you.",
+        body: "Hosting, domain, SSL, CDN, deployment, all set up on your accounts and handed to you.",
       },
       {
         icon: LifeBuoy,
         title: "Support",
-        body: "Warranty and technical support after launch — the site isn't left alone with you.",
+        body: "Warranty and technical support after launch. We don't leave you alone with the site.",
       },
     ],
     cms: {
@@ -283,7 +283,7 @@ export const ABOUT_EN: AboutContent = {
         icon: ShieldCheck,
         tag: "1 year",
         title: "Warranty",
-        body: "A year of warranty is included in the price. Breaks through no fault of yours — we fix it for free.",
+        body: "A year of warranty is included in the price. If it breaks through no fault of yours, we fix it for free.",
       },
       {
         icon: KeyRound,
@@ -301,20 +301,20 @@ export const ABOUT_EN: AboutContent = {
         icon: Percent,
         tag: "−30%",
         title: "Rebate for delays",
-        body: "If we miss the deadline through our fault — we return 30%. Our incentive matches yours.",
+        body: "If we miss the deadline through our fault, we return 30%. Our incentive matches yours.",
       },
     ],
     footnote:
-      "All terms are fixed in the contract before work begins. Price, scope, timeline and guarantees — on paper, not just words.",
+      "All terms are fixed in the contract before work begins. Price, scope, timeline and guarantees: on paper, not just words.",
   },
 
   faq: [
     {
       q: "Who will work on my project?",
       a: [
-        "The founder — ",
+        "The founder, ",
         { em: "Fedir Alpatov" },
-        " — personally leads the architecture and development. It's a boutique studio, so you talk to the developer directly, not through an account manager.",
+        ", leads the architecture and development. It's a boutique studio, so you talk to the developer directly, not through an account manager.",
       ],
     },
     {
@@ -343,7 +343,7 @@ export const ABOUT_EN: AboutContent = {
     {
       q: "What if you miss the deadline?",
       a: [
-        "The deadline is fixed in the contract. If we miss it through our fault — ",
+        "The deadline is fixed in the contract. If we miss it through our fault, ",
         { em: "we return a 30% rebate" },
         ".",
       ],
@@ -359,7 +359,7 @@ export const ABOUT_EN: AboutContent = {
     {
       q: "Can I see your work?",
       a: [
-        "Yes — the ",
+        "Yes. The ",
         { em: "Portfolio" },
         " section and an open GitHub. You can verify us before we even talk.",
       ],

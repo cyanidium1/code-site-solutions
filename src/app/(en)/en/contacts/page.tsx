@@ -8,9 +8,9 @@ import { SITE_ORIGIN, ORG_ID, pageUrl } from "@/constants/site";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 
 export const metadata: Metadata = {
-  title: "Contact us — talk in Telegram or send a brief | Code-Site.Art",
+  title: "Contact us: talk in Telegram or send a brief | Code-Site.Art",
   description:
-    "Telegram replies in 30 minutes. Detailed brief — reply in 4 business hours. No bots — Fedir himself writes.",
+    "Telegram replies in 30 minutes. A detailed brief gets a reply in 4 business hours. No bots, Fedir replies in person.",
   alternates: {
     canonical: "/en/contacts",
     languages: {
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Contact us — talk in Telegram or send a brief | Code-Site.Art",
+    title: "Contact us: talk in Telegram or send a brief | Code-Site.Art",
     description:
-      "Telegram replies in 30 minutes. Detailed brief — reply in 4 business hours.",
+      "Telegram replies in 30 minutes. A detailed brief gets a reply in 4 business hours.",
     type: "website",
     locale: "en_US",
     url: "/en/contacts",
@@ -35,7 +35,7 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Telegram (",
       { em: "@fedirdev" },
-      "): within 30 minutes (business hours). Email — 1-2 business hours. Brief form — 4 business hours.",
+      "): within 30 minutes (business hours). Email: 1-2 business hours. Brief form: 4 business hours.",
     ],
   },
   {
@@ -51,15 +51,15 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Write \"",
       { em: "I don't know yet" },
-      ".\" We'll ask the questions that matter on the call and recommend a tier — Starter / Industry Pro / Pro Plus / Enterprise is our call, not yours.",
+      ".\" We'll ask the questions that matter on the call and recommend a tier. Starter / Industry Pro / Pro Plus / Enterprise is our call, not yours.",
     ],
   },
   {
     q: "I'm abroad — do you work with international clients?",
     a: [
-      "Yes. Half our work is outside Ukraine — active across ",
+      "Yes. Half our work is outside Ukraine, active across ",
       { em: "UA, EU, US, DK" },
-      ". Payments via Stripe (USD/EUR), USDT, or bank transfer. Contract in English or Ukrainian — your choice.",
+      ". Payments via Stripe (USD/EUR), USDT, or bank transfer. Contract in English or Ukrainian, your choice.",
     ],
   },
   {
@@ -67,7 +67,7 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Standard. We have a one-page ",
       { em: "NDA" },
-      " template, signable via Diia.Sign or DocuSign in 1 business day. Most clients don't ask — cases are public in the portfolio.",
+      " template, signable via Diia.Sign or DocuSign in 1 business day. Most clients don't ask, since cases are public in the portfolio.",
     ],
   },
 ];
@@ -136,7 +136,7 @@ export default function EnContactsPage() {
             Want to discuss your <em>project</em>?
           </>
         }
-        sub="Telegram chat within 30 minutes, or send a detailed brief — whichever suits you."
+        sub="Telegram chat within 30 minutes, or send a detailed brief, whichever suits you."
       />
 
       <ContactSplit source="contacts" variant="compact" locale="en" />
