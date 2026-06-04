@@ -22,10 +22,10 @@ const SUB_CLASS =
 // Channel row: grid with icon | main | time. Hover bumps border + bg + nudges
 // right. Featured variant uses accent-tinted border/bg and a gradient icon.
 const ROW_BASE_CLASS =
-  "grid grid-cols-[36px_minmax(0,1fr)_auto] items-center gap-[14px] py-3 px-[14px] border rounded-xl no-underline text-inherit " +
+  "grid grid-cols-[32px_minmax(0,1fr)] grid-rows-[auto_auto] row-gap-1 items-center gap-[14px] py-3 px-[14px] border rounded-xl no-underline text-inherit " +
   "transition-[border-color,background-color,transform] duration-200 " +
   "hover:translate-x-[2px] " +
-  "max-[500px]:grid-cols-[32px_minmax(0,1fr)] max-[500px]:grid-rows-[auto_auto] max-[500px]:row-gap-1";
+  "min-[501px]:grid-cols-[36px_minmax(0,1fr)_auto] min-[501px]:grid-rows-none min-[501px]:row-gap-0";
 
 const ROW_DEFAULT_CLASS =
   "border-line bg-[oklch(1_0_0_/_0.02)] hover:border-line-strong hover:bg-[oklch(1_0_0_/_0.04)]";
@@ -41,7 +41,7 @@ const ICON_FEATURED_CLASS =
   "!bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] !text-[oklch(1_0_0_/_0.98)] !border-transparent";
 
 const TIME_BASE_CLASS =
-  "font-mono text-[11px] tracking-[0.02em] text-ink-3 text-right whitespace-nowrap max-[500px]:col-start-2 max-[500px]:text-left";
+  "font-mono text-[11px] tracking-[0.02em] text-ink-3 col-start-2 text-left whitespace-nowrap min-[501px]:col-auto min-[501px]:text-right";
 
 const TIME_FEATURED_CLASS = "!text-accent-soft";
 
@@ -99,7 +99,7 @@ export function ContactSplit({
       {/* HeroAuditBanner is a client component that reads locale via
           next-intl useLocale — no need to thread the prop. */}
       <HeroAuditBanner />
-      <div className="max-w-container mx-auto grid grid-cols-[minmax(0,4fr)_minmax(0,6fr)] gap-14 items-start max-[900px]:grid-cols-1 max-[900px]:gap-9">
+      <div className="max-w-container mx-auto grid grid-cols-1 gap-9 items-start min-[901px]:grid-cols-[minmax(0,4fr)_minmax(0,6fr)] min-[901px]:gap-14">
         <aside>
           <div className={EYEBROW_CLASS}>{chrome.channelsEyebrow}</div>
           <H2

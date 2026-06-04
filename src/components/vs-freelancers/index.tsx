@@ -303,7 +303,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             sub={c.admin.sub}
           />
 
-          <div className="grid grid-cols-[1.5fr_1fr] gap-6 mb-12 max-[900px]:grid-cols-1">
+          <div className="grid grid-cols-1 gap-6 mb-12 min-[901px]:grid-cols-[1.5fr_1fr]">
             <figure className="m-0 flex flex-col">
               <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
                 <img

@@ -419,7 +419,7 @@ export function BusinessValue({
                   {c.body}
                 </p>
 
-                <div className="relative mt-auto pt-7 max-sm:hidden">
+                <div className="relative mt-auto pt-7 hidden sm:block">
                   <BizVisual kind={c.visual} locale={locale} />
                 </div>
               </div>

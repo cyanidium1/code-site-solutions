@@ -185,7 +185,7 @@ function CardMedia({ src, sizes }: { src: string; sizes: string }) {
       <div className="absolute inset-0 bg-[radial-gradient(125%_120%_at_50%_-10%,transparent_45%,oklch(0.07_0_0_/_0.55)_100%)]" />
       {/* grain — desktop only */}
       <div
-        className="absolute inset-0 opacity-[0.06] mix-blend-overlay max-md:hidden"
+        className="absolute inset-0 opacity-[0.06] mix-blend-overlay hidden md:block"
         // eslint-disable-next-line react/forbid-dom-props -- inlined SVG data-uri grain texture
         style={noiseStyle}
       />

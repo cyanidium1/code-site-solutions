@@ -29,11 +29,11 @@ export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
   const t = useTranslations("Calculator");
   return (
     <section
-      className={`${hpSectionClass} pt-20 pb-30 max-md-wide:pt-16 max-md-wide:pb-20`}
+      className={`${hpSectionClass} pt-16 pb-20 md-wide:pt-20 md-wide:pb-30`}
       id="calc-lead-form"
     >
       <div className={hpInnerClass}>
-        <div className="mb-14 flex flex-col items-start gap-0 max-md-wide:mb-8">
+        <div className="mb-8 flex flex-col items-start gap-0 md-wide:mb-14">
           <span className={hpEyebrowClass}>
             <span className={hpEyebrowDotClass} />
             <span>{t("getFinal.eyebrow")}</span>
@@ -45,7 +45,7 @@ export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
         <div
           className={
             "mt-[22px] flex flex-wrap gap-y-[10px] gap-x-[14px] items-center justify-center " +
-            "px-[18px] py-[14px] border border-dashed border-line-strong rounded-full max-md-wide:rounded-[18px] " +
+            "px-[18px] py-[14px] border border-dashed border-line-strong rounded-[18px] md-wide:rounded-full " +
             "text-[13px] text-ink-3"
           }
         >

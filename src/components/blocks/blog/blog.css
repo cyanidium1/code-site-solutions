@@ -136,11 +136,12 @@
   margin: 28px auto;
   border-radius: 14px;
   overflow: hidden;
+  font-size: 13px;
 }
 .blog-table th,
 .blog-table td {
   @apply text-left border-b border-line align-middle;
-  padding: 14px 18px;
+  padding: 10px 12px;
   font-size: 14px;
   line-height: 1.45;
 }
@@ -161,10 +162,10 @@
   @apply text-ink font-bold;
 }
 
-@media (max-width: 700px) {
-  .blog-table { font-size: 13px; }
+@media (min-width: 701px) {
+  .blog-table { font-size: inherit; }
   .blog-table th,
-  .blog-table td { padding: 10px 12px; }
+  .blog-table td { padding: 14px 18px; }
 }
 
 /* ─── TL;DR box — light accent-bordered callout ─────────────────────────── */
@@ -206,7 +207,7 @@
 .blog-cta {
   @apply relative border border-line text-center overflow-hidden;
   margin: 40px auto;
-  padding: 32px 36px;
+  padding: 24px 20px;
   border-radius: 22px;
   background: oklch(1 0 0 / 0.02);
 }
@@ -247,6 +248,8 @@
 .blog-cta-actions {
   @apply relative flex flex-wrap justify-center;
   gap: 10px;
+  flex-direction: column;
+  align-items: stretch;
 }
 .blog-cta-btn {
   @apply inline-flex items-center font-display font-semibold no-underline;
@@ -267,9 +270,9 @@
 }
 .blog-cta-btn.secondary:hover { border-color: oklch(from var(--color-accent) l c h / 0.5); }
 
-@media (max-width: 700px) {
-  .blog-cta { padding: 24px 20px; }
-  .blog-cta-actions { flex-direction: column; align-items: stretch; }
+@media (min-width: 701px) {
+  .blog-cta { padding: 32px 36px; }
+  .blog-cta-actions { flex-direction: row; align-items: initial; }
 }
 
 /* ─── In-body image with caption ────────────────────────────────────────── */

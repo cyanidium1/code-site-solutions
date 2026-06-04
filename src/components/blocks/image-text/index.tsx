@@ -86,7 +86,7 @@ export function ImageText({
   const containerClass = isCentered
     ? "max-w-container mx-auto grid grid-cols-1 gap-12 text-center"
     : hasImage
-      ? "max-w-container mx-auto grid grid-cols-2 gap-16 items-center max-[1080px]:gap-10 max-[960px]:grid-cols-1 max-[960px]:gap-8"
+      ? "max-w-container mx-auto grid grid-cols-1 gap-8 items-center min-[961px]:grid-cols-2 min-[961px]:gap-10 min-[1081px]:gap-16"
       : "max-w-container mx-auto grid grid-cols-1 gap-8";
 
   const imageImgClass =
@@ -94,7 +94,7 @@ export function ImageText({
 
   const imageClass = isCentered
     ? `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[4/3] lg:aspect-[16/9] ${imageImgClass}`
-    : `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] max-[960px]:-order-1 ${imageImgClass}`;
+    : `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] -order-1 min-[961px]:order-none ${imageImgClass}`;
 
   const contentClass = isCentered
     ? "flex flex-col max-w-[720px] mx-auto items-center"
@@ -175,12 +175,12 @@ export function ImageText({
       // center of the inner container, with responsive size + visibility steps
       // that match the legacy ithc-mockup--left/--right rules.
       const mockupBase =
-        "absolute z-[1] flex pointer-events-none [filter:drop-shadow(0_30px_40px_oklch(0_0_0_/_0.45))] " +
-        "bottom-1/2 translate-y-1/2 h-full w-auto max-w-[500px] " +
-        "max-2xl:h-[400px] max-2xl:max-w-[400px] " +
-        "max-[1200px]:h-[300px] max-[1200px]:max-w-[380px] " +
-        "max-[1024px]:h-[320px] max-[1024px]:max-w-[380px] " +
-        "max-[900px]:hidden " +
+        "absolute z-[1] hidden pointer-events-none [filter:drop-shadow(0_30px_40px_oklch(0_0_0_/_0.45))] " +
+        "bottom-1/2 translate-y-1/2 w-auto " +
+        "min-[901px]:flex min-[901px]:h-[320px] min-[901px]:max-w-[380px] " +
+        "min-[1025px]:h-[300px] min-[1025px]:max-w-[380px] " +
+        "min-[1201px]:h-[400px] min-[1201px]:max-w-[400px] " +
+        "2xl:h-full 2xl:max-w-[500px] " +
         "[&_img]:block [&_img]:w-full [&_img]:h-auto [&_img]:object-contain " +
         "[&>span_img]:block [&>span_img]:w-full [&>span_img]:h-auto [&>span_img]:object-contain " +
         "[&>div_img]:block [&>div_img]:w-full [&>div_img]:h-auto [&>div_img]:object-contain";
@@ -192,11 +192,11 @@ export function ImageText({
             sectionClassName,
           )}
         >
-          <div className="relative w-full max-w-container mx-auto flex items-center justify-center min-h-[560px] max-[1200px]:min-h-[480px] max-[1024px]:min-h-[440px] max-[900px]:min-h-[320px] max-[900px]:px-4 max-[900px]:py-8 max-sm:min-h-[280px] max-sm:py-6 max-sm:px-3">
-            <div className={cn(mockupBase, "left-[-10%] max-2xl:left-[-5%]")} aria-hidden="true">
+          <div className="relative w-full max-w-container mx-auto flex items-center justify-center min-h-[280px] py-6 px-3 sm:min-h-[320px] sm:px-4 sm:py-8 min-[901px]:px-0 min-[901px]:py-0 min-[901px]:min-h-[440px] min-[1025px]:min-h-[480px] min-[1201px]:min-h-[560px]">
+            <div className={cn(mockupBase, "left-[-5%] 2xl:left-[-10%]")} aria-hidden="true">
               {image}
             </div>
-            <div className="relative z-[2] flex flex-col items-center w-full max-w-[720px] text-center px-4 py-8 bg-[radial-gradient(ellipse_at_center,oklch(0.18_0.008_60_/_0.7)_0%,oklch(0.18_0.008_60_/_0)_70%)] max-2xl:max-w-[560px] max-[1200px]:max-w-[400px] max-[900px]:max-w-container-prose max-sm:px-2 max-sm:py-4">
+            <div className="relative z-[2] flex flex-col items-center w-full max-w-container-prose text-center px-2 py-4 bg-[radial-gradient(ellipse_at_center,oklch(0.18_0.008_60_/_0.7)_0%,oklch(0.18_0.008_60_/_0)_70%)] sm:px-4 sm:py-8 min-[901px]:max-w-[400px] min-[1201px]:max-w-[560px] 2xl:max-w-[720px]">
               {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
               <H2
                 variant="image-text"
@@ -225,7 +225,7 @@ export function ImageText({
                 </ul>
               ) : null}
             </div>
-            <div className={cn(mockupBase, "right-[-10%] max-2xl:right-[-5%]")}>
+            <div className={cn(mockupBase, "right-[-5%] 2xl:right-[-10%]")}>
               {secondImage}
             </div>
           </div>

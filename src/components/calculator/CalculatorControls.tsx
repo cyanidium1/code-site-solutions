@@ -129,7 +129,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
   const renderFeatureGroup = (title: string, items: typeof config.features) => (
     <>
       <label className="flex flex-col gap-[6px] text-[13px] text-ink">{title}</label>
-      <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
+      <div className="grid gap-[10px] grid-cols-1 md-wide:grid-cols-2 xl:grid-cols-3">
         {items.map((option) => (
           <label key={option.key} className={CHECKBOX_CLASS}>
             <input
@@ -259,7 +259,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
       </section>
 
       <div className="mt-2 mb-1">
-        <div className="flex items-center justify-between gap-3 max-md-wide:flex-wrap max-md-wide:gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 md-wide:flex-nowrap md-wide:gap-3">
           <H3 variant="calc-intro">{t("controls.customizeTitle")}</H3>
           <button
             type="button"
@@ -275,7 +275,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
       <details open className={GROUP_CLASS}>
         <summary>{t("controls.section01")}</summary>
         <div className={GROUP_CONTENT_CLASS}>
-          <div className="grid grid-cols-3 gap-[10px] max-md-wide:grid-cols-1">
+          <div className="grid grid-cols-1 gap-[10px] md-wide:grid-cols-3">
             {config.projectTypes.map((item) => (
               <OptionCard
                 key={item.key}
@@ -325,7 +325,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           {(projectConfig.hasProductComplexity ?? projectConfig.key === "ecommerce") ? (
             <>
               <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.productStructLabel")}</label>
-              <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
+              <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
                 {config.productComplexity.map((option) => (
                   <button
                     key={option.key}
@@ -348,7 +348,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
         <summary>{t("controls.section02")}</summary>
         <div className={GROUP_CONTENT_CLASS}>
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.designLabel")}</label>
-          <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2 xl:grid-cols-3">
             {config.design.map((option) => {
               const isActive = value.designComplexity === option.key;
               const firstPreview = option.previews[0];
@@ -403,7 +403,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           {designSelected?.hint ? <p className={NOTE_CLASS}>{designSelected.hint}</p> : null}
 
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.langLabel")}</label>
-          <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
+          <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
             {config.languages.map((option) => (
               <button
                 key={option.key}
@@ -427,7 +427,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           <label className="inline-flex items-center gap-[6px] text-[12px] text-ink-dim">
             <Database size={14} /> {t("controls.cmsSubgroup")}
           </label>
-          <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
+          <div className="grid gap-[10px] grid-cols-1 md-wide:grid-cols-2 xl:grid-cols-3">
             {config.cmsUpgrades.map((option) => (
               <label key={option.key} className={CHECKBOX_CLASS}>
                 <input
@@ -453,7 +453,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           <label className="inline-flex items-center gap-[6px] text-[12px] text-ink-dim">
             <Search size={14} /> {t("controls.seoSubgroup")}
           </label>
-          <div className="grid gap-[10px] grid-cols-2 max-md-wide:grid-cols-1 xl:grid-cols-3">
+          <div className="grid gap-[10px] grid-cols-1 md-wide:grid-cols-2 xl:grid-cols-3">
             {config.seoOptions.map((option) => (
               <label key={option.key} className={CHECKBOX_CLASS}>
                 <input
@@ -491,7 +491,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
         <summary>{t("controls.section05")}</summary>
         <div className={GROUP_CONTENT_CLASS}>
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.contentLabel")}</label>
-          <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
+          <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
             {config.contentOptions.map((option) => (
               <button
                 key={option.key}
@@ -506,7 +506,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           </div>
 
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.timelineLabel")}</label>
-          <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
+          <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
             {config.timeline.map((option) => (
               <button
                 key={option.key}
@@ -548,7 +548,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                 {t("controls.modalClose")}
               </button>
             </div>
-            <div className="grid grid-cols-3 gap-[10px] max-md-wide:grid-cols-1">
+            <div className="grid grid-cols-1 gap-[10px] md-wide:grid-cols-3">
               {(config.design.find((d) => d.key === previewDesign)?.previews ?? []).map((item) => (
                 <figure
                   key={item.src + item.caption}

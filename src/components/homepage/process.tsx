@@ -116,7 +116,7 @@ export function Process({
         >
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-7 right-7 left-7 z-0 h-px bg-[linear-gradient(90deg,transparent,var(--color-line-strong)_8%,var(--color-line-strong)_92%,transparent)] max-lg:hidden"
+            className="pointer-events-none absolute top-7 right-7 left-7 z-0 h-px bg-[linear-gradient(90deg,transparent,var(--color-line-strong)_8%,var(--color-line-strong)_92%,transparent)] hidden lg:block"
           >
             <div className="relative h-full w-0 bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.55)_12%,var(--color-accent)_100%)] [transition:width_3s_cubic-bezier(0.2,0.8,0.2,1)] [will-change:width] group-data-[visible=true]/proc:w-full motion-reduce:w-full motion-reduce:transition-none">
               <span className="absolute top-1/2 -right-3.5 inline-flex h-7 w-7 -translate-y-1/2 rotate-45 items-center justify-center rounded-full border border-accent-50 bg-bg text-accent-soft opacity-0 [filter:drop-shadow(0_0_14px_oklch(from_var(--color-accent)_l_c_h_/_0.55))] transition-opacity duration-[600ms] delay-[300ms] group-data-[visible=true]/proc:opacity-100 motion-reduce:opacity-100 motion-reduce:transition-none">
@@ -124,7 +124,7 @@ export function Process({
               </span>
             </div>
           </div>
-          <ol className="relative m-0 grid list-none grid-cols-5 items-start gap-6 p-0 max-lg:grid-cols-1 max-lg:gap-8 max-lg:before:absolute max-lg:before:top-6 max-lg:before:bottom-6 max-lg:before:left-6 max-lg:before:w-px max-lg:before:bg-[linear-gradient(180deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.4)_15%,oklch(from_var(--color-accent)_l_c_h_/_0.4)_85%,transparent)] max-lg:before:content-['']">
+          <ol className="relative m-0 grid list-none grid-cols-1 items-start gap-8 p-0 before:absolute before:top-6 before:bottom-6 before:left-6 before:w-px before:bg-[linear-gradient(180deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.4)_15%,oklch(from_var(--color-accent)_l_c_h_/_0.4)_85%,transparent)] before:content-[''] lg:grid-cols-5 lg:gap-6 lg:before:content-none">
             {steps.map((s, i) => {
               const isLast = i === steps.length - 1;
               const StepIcon = STEP_ICONS[Math.min(i, STEP_ICONS.length - 1)];
@@ -133,15 +133,15 @@ export function Process({
                   key={s.n}
                   // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
                   style={{ "--i": i } as CSSProperties}
-                  className="relative z-[1] flex min-w-0 translate-y-2.5 flex-col items-center text-center opacity-30 [transition:opacity_0.7s_ease,transform_0.7s_ease] [transition-delay:calc(var(--i,0)*0.15s)] group-data-[visible=true]/proc:translate-y-0 group-data-[visible=true]/proc:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none max-lg:grid max-lg:grid-cols-[48px_1fr] max-lg:items-start max-lg:gap-x-[18px] max-lg:text-left"
+                  className="relative z-[1] grid min-w-0 translate-y-2.5 grid-cols-[48px_1fr] items-start gap-x-[18px] text-left opacity-30 [transition:opacity_0.7s_ease,transform_0.7s_ease] [transition-delay:calc(var(--i,0)*0.15s)] group-data-[visible=true]/proc:translate-y-0 group-data-[visible=true]/proc:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none lg:flex lg:flex-col lg:items-center lg:text-center"
                 >
                   <div
                     className={cn(
-                      "inline-flex h-14 w-14 items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-sm tracking-[0.06em] text-ink max-lg:col-start-1 max-lg:row-span-3 max-lg:h-12 max-lg:w-12 max-lg:self-start max-lg:text-xs max-lg:font-semibold max-lg:[box-shadow:0_0_0_4px_var(--color-bg)]",
+                      "inline-flex col-start-1 row-span-3 h-12 w-12 self-start items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-xs tracking-[0.06em] text-ink lg:col-auto lg:row-auto lg:h-14 lg:w-14 lg:self-auto lg:text-sm",
                       !isLast && RING[Math.min(i, RING.length - 1)],
-                      !isLast && "max-lg:text-accent-soft max-lg:[border-color:oklch(from_var(--color-accent)_l_c_h_/_0.35)]",
+                      !isLast && "font-semibold text-accent-soft [border-color:oklch(from_var(--color-accent)_l_c_h_/_0.35)] [box-shadow:0_0_0_4px_var(--color-bg)] lg:font-normal lg:text-ink lg:[box-shadow:none]",
                       isLast &&
-                        "border-transparent bg-brand-gradient font-semibold text-bg [box-shadow:0_0_30px_oklch(from_var(--color-accent)_l_c_h_/_0.5)] max-lg:bg-brand-gradient max-lg:text-bg max-lg:[box-shadow:0_0_0_4px_var(--color-bg),0_0_24px_oklch(from_var(--color-accent)_l_c_h_/_0.45)]",
+                        "border-transparent bg-brand-gradient font-semibold text-bg [box-shadow:0_0_0_4px_var(--color-bg),0_0_24px_oklch(from_var(--color-accent)_l_c_h_/_0.45)] lg:[box-shadow:0_0_30px_oklch(from_var(--color-accent)_l_c_h_/_0.5)]",
                     )}
                   >
                     {s.n}
@@ -153,16 +153,16 @@ export function Process({
                       aria-hidden="true"
                       size={16}
                       strokeWidth={2}
-                      className="absolute top-7 right-0 z-[2] -translate-y-1/2 translate-x-1/2 text-accent-soft opacity-30 max-lg:hidden"
+                      className="absolute top-7 right-0 z-[2] -translate-y-1/2 translate-x-1/2 text-accent-soft opacity-30 hidden lg:block"
                     />
                   ) : null}
 
-                  <div className="mt-4 flex flex-col items-center max-lg:col-start-2 max-lg:row-start-1 max-lg:row-span-3 max-lg:mt-0 max-lg:items-start">
-                    <div className="font-sans text-lg font-semibold text-ink max-lg:text-[17px] max-lg:leading-[1.2]">
+                  <div className="col-start-2 row-start-1 row-span-3 mt-0 flex flex-col items-start lg:mt-4 lg:items-center">
+                    <div className="font-sans text-[17px] leading-[1.2] font-semibold text-ink lg:text-lg lg:leading-7">
                       {s.name}
                     </div>
 
-                    <ul className="mt-2.5 flex list-none flex-col gap-1 p-0 max-lg:mt-2 max-lg:items-start">
+                    <ul className="mt-2 flex list-none flex-col items-start gap-1 p-0 lg:mt-2.5 lg:items-stretch">
                       {s.items.map((it) => (
                         <li
                           key={it}

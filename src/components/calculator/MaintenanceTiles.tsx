@@ -30,7 +30,7 @@ export function MaintenanceTiles({ config, input, onChange }: MaintenanceTilesPr
     <div className="border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] px-5 pt-5 pb-[22px] flex flex-col gap-3">
       <H3 variant="calc-after">{t("afterLaunch.maintenance.title")}</H3>
       <p className={NOTE}>{t("afterLaunch.maintenance.note")}</p>
-      <div className="grid grid-cols-2 gap-2 max-md-wide:grid-cols-1">
+      <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
         {config.maintenance.map((opt) => (
           <button
             key={opt.key}

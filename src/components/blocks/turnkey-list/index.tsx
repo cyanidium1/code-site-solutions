@@ -155,7 +155,7 @@ export function TurnkeyList({
             </p>
           ) : null}
         </div>
-        <div className="grid grid-cols-3 gap-[14px] max-[1000px]:grid-cols-2 max-[560px]:grid-cols-1">
+        <div className="grid grid-cols-1 gap-[14px] min-[561px]:grid-cols-2 min-[1001px]:grid-cols-3">
           {items.map((it, i) => {
             const Icon = it.icon;
             const num = String(i + 1).padStart(2, "0");

@@ -82,7 +82,7 @@ export function PageHero({
         variant="page-hero"
         className={cn(
           "mt-6 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent",
-          constrainText && "max-w-[600px] max-[960px]:max-w-full",
+          constrainText && "max-w-full min-[961px]:max-w-[600px]",
         )}
       >
         {headline}
@@ -90,7 +90,7 @@ export function PageHero({
       <p
         className={cn(
           "mt-6 font-sans text-[15px] leading-[1.55] text-ink-dim lg:text-[17px]",
-          constrainText && "max-w-[600px] max-[960px]:max-w-full",
+          constrainText && "max-w-full min-[961px]:max-w-[600px]",
         )}
       >
         {sub}
@@ -118,13 +118,13 @@ export function PageHero({
            * `max-w-none` + a viewport-based clamp inside about/page.tsx
            * so it can exceed the right column width.
            */
-          <div className="grid grid-cols-[minmax(0,1000px)_minmax(0,1fr)] gap-12 items-end max-2xl:gap-7 max-[1080px]:gap-[22px] max-[960px]:grid-cols-1 max-[960px]:gap-8 max-[960px]:items-stretch">
+          <div className="grid grid-cols-1 gap-8 items-stretch min-[961px]:grid-cols-[minmax(0,1000px)_minmax(0,1fr)] min-[961px]:gap-[22px] min-[961px]:items-end min-[1081px]:gap-7 2xl:gap-12">
             <div className="flex flex-col">
               {text}
               {statsCard}
             </div>
-            <div className="relative min-h-[420px] h-full [contain:layout] overflow-visible z-10 max-[960px]:[order:-1] max-[960px]:min-h-0 max-[960px]:[contain:none] max-[960px]:z-0">
-              <div className="absolute top-[-112px] right-[-50%] flex items-center justify-center pointer-events-none max-[960px]:relative max-[960px]:inset-auto [&>img]:h-auto [&>img]:block [&>img]:max-h-none [&>svg]:h-auto [&>svg]:block [&>video]:h-auto [&>video]:block">
+            <div className="relative h-full overflow-visible [order:-1] min-h-0 [contain:none] z-0 min-[961px]:[order:0] min-[961px]:min-h-[420px] min-[961px]:[contain:layout] min-[961px]:z-10">
+              <div className="relative inset-auto flex items-center justify-center pointer-events-none min-[961px]:absolute min-[961px]:top-[-112px] min-[961px]:right-[-50%] [&>img]:h-auto [&>img]:block [&>img]:max-h-none [&>svg]:h-auto [&>svg]:block [&>video]:h-auto [&>video]:block">
                 {image}
               </div>
             </div>

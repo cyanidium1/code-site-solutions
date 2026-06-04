@@ -21,7 +21,7 @@ export function SeoGrowthTiles({ config, input, onChange }: SeoGrowthTilesProps)
     <div className="border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] px-5 pt-5 pb-[22px] flex flex-col gap-3">
       <H3 variant="calc-after">{t("afterLaunch.growth.title")}</H3>
       <p className={NOTE}>{t("afterLaunch.growth.note")}</p>
-      <div className="grid grid-cols-2 gap-[10px] max-md-wide:grid-cols-1">
+      <div className="grid grid-cols-1 gap-[10px] md-wide:grid-cols-2">
         {config.seoGrowth.map((plan) => {
           const isActive = input.seoGrowthPlan === plan.key;
           return (

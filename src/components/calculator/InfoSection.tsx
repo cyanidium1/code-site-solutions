@@ -21,13 +21,13 @@ export function InfoSection({
   eyebrow,
   title,
   sub,
-  padding = "py-24 max-md-wide:py-16",
+  padding = "py-16 md-wide:py-24",
   children,
 }: InfoSectionProps) {
   return (
     <section className={`${hpSectionClass} ${padding}`}>
       <div className={hpInnerClass}>
-        <div className="mb-14 flex flex-col items-start gap-0 max-md-wide:mb-8">
+        <div className="mb-8 flex flex-col items-start gap-0 md-wide:mb-14">
           <span className={hpEyebrowClass}>
             <span className={hpEyebrowDotClass} />
             <span>{eyebrow}</span>

@@ -23,7 +23,7 @@ export async function PullQuoteSwiper({
       {/* Reserve the slide's height so the lazily-loaded (ssr:false) carousel
           swaps in without shifting layout (keeps CLS ≈ 0). Matches the
           .hp-pqs-slide min-heights in vendor.css across breakpoints. */}
-      <div className="hp-pqs min-h-[480px] max-[1100px]:min-h-[440px] max-[900px]:min-h-[320px] max-sm:min-h-[280px]">
+      <div className="hp-pqs min-h-[280px] sm:min-h-[320px] min-[901px]:min-h-[440px] min-[1101px]:min-h-[480px]">
         <div className="hp-pqs-bg" aria-hidden="true" />
         <PullQuoteSwiperLazy slides={slides} />
       </div>

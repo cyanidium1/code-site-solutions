@@ -6,8 +6,10 @@
      CUSTOM BREAKPOINT SCALE — does NOT match Tailwind defaults.
      These values preserve the legacy visual design exactly. Generates
      Tailwind 4 utilities `xs:`, `sm:`, `md:`, `md-wide:`, `lg:`, `xl:`,
-     `2xl:` (mobile-first min-width) and `max-xs:`/`max-sm:`/etc.
-     (max-width, kept for outliers).
+     `2xl:` (mobile-first min-width). The codebase is mobile-first: base
+     classes target small viewports, `sm:`/`md:`/`lg:`/`xl:`/`2xl:` stack
+     up to desktop. Do NOT introduce `max-*` variants — the migration
+     away from them is in progress and they will be disabled at the end.
      NOTE for new developers: `md:` is 700px here, NOT Tailwind's default
      768px. `lg:` is 800px, NOT 1024px. See docs/superpowers/specs/2026-
      05-25-phase-2-mobile-first-design.md for rationale.

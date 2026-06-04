@@ -147,7 +147,7 @@ export function AboutHero({ c }: { c: AboutContent["hero"] }) {
     <section className="page-hero relative overflow-hidden bg-bg px-6 pt-[72px] pb-12 lg:px-12 lg:pt-[120px] lg:pb-16">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_60%_60%_at_80%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_40%_50%_at_10%_100%,oklch(from_var(--color-accent-2)_l_c_h_/_0.04),transparent_70%)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.022)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.022)_1px,transparent_1px)] before:bg-[length:64px_64px] before:[mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]" />
       <div className="relative z-[1] mx-auto max-w-container">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,440px)] items-center gap-14 max-[1080px]:gap-10 max-[960px]:grid-cols-1 max-[960px]:gap-9">
+        <div className="grid grid-cols-1 items-center gap-9 min-[961px]:grid-cols-[minmax(0,1fr)_minmax(0,440px)] min-[961px]:gap-10 min-[1081px]:gap-14">
           <div className="flex flex-col">
             <nav
               className="mb-6 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3 lg:mb-9"
@@ -187,7 +187,7 @@ export function AboutHero({ c }: { c: AboutContent["hero"] }) {
           </div>
 
           {/* Founder portrait — framed, with an identity caption + badge chips */}
-          <div className="relative max-[960px]:order-first max-[960px]:max-w-[420px]">
+          <div className="relative order-first max-w-[420px] min-[961px]:[order:0] min-[961px]:max-w-none">
             <div className="relative overflow-hidden rounded-[24px] border border-line bg-[oklch(1_0_0_/_0.02)]">
               <div className="relative aspect-[4/5] w-full">
                 <Image
@@ -236,7 +236,7 @@ export function Founder({ c }: { c: AboutContent["founder"] }) {
   return (
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
-        <div className="grid grid-cols-[minmax(0,360px)_minmax(0,1fr)] items-start gap-14 max-[1080px]:gap-10 max-[960px]:grid-cols-1 max-[960px]:gap-9">
+        <div className="grid grid-cols-1 items-start gap-9 min-[961px]:grid-cols-[minmax(0,360px)_minmax(0,1fr)] min-[961px]:gap-10 min-[1081px]:gap-14">
           {/* Fact panel */}
           <div className={cn(cardBase, "p-0")}>
             <div className="border-b border-line px-6 py-4 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
@@ -323,7 +323,7 @@ export function TrackRecord({ c }: { c: AboutContent["trackRecord"] }) {
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-4 max-[960px]:grid-cols-1">
+        <div className="grid grid-cols-1 gap-4 min-[961px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
           {/* GitHub callout */}
           <a
             href={c.github.href}
@@ -409,7 +409,7 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 min-[701px]:grid-cols-2 lg:grid-cols-4">
           {c.pillars.map((p) => {
             const Icon = p.icon;
             return (
@@ -429,7 +429,7 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
         </div>
 
         {/* Warning panel */}
-        <div className="mt-4 flex items-start gap-4 rounded-[22px] border border-[oklch(0.65_0.18_25_/_0.3)] bg-[oklch(0.65_0.18_25_/_0.06)] p-7 max-[700px]:flex-col max-[700px]:gap-3">
+        <div className="mt-4 flex flex-col items-start gap-3 rounded-[22px] border border-[oklch(0.65_0.18_25_/_0.3)] bg-[oklch(0.65_0.18_25_/_0.06)] p-7 min-[701px]:flex-row min-[701px]:gap-4">
           <span
             aria-hidden="true"
             className="mt-0.5 inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-[oklch(0.7_0.18_25)] shadow-[0_0_10px_oklch(0.7_0.18_25_/_0.6)]"
@@ -455,7 +455,7 @@ export function RealProjects({ c }: { c: AboutContent["projects"] }) {
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-3 gap-4 max-[960px]:grid-cols-2 max-[600px]:grid-cols-1">
+        <div className="grid grid-cols-1 gap-4 min-[601px]:grid-cols-2 min-[961px]:grid-cols-3">
           {c.items.map((p) => {
             const inner = (
               <>
@@ -524,7 +524,7 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-3 gap-4 max-[960px]:grid-cols-2 max-[600px]:grid-cols-1">
+        <div className="grid grid-cols-1 gap-4 min-[601px]:grid-cols-2 min-[961px]:grid-cols-3">
           {c.items.map((it) => {
             const Icon = it.icon;
             return (
@@ -544,7 +544,7 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
         </div>
 
         {/* CMS / ownership proof with the real Sanity Studio screenshot */}
-        <div className="mt-4 grid grid-cols-2 items-center gap-10 rounded-[24px] border border-line bg-[oklch(1_0_0_/_0.02)] p-7 max-[960px]:grid-cols-1 max-[960px]:gap-7 lg:p-9">
+        <div className="mt-4 grid grid-cols-1 items-center gap-7 rounded-[24px] border border-line bg-[oklch(1_0_0_/_0.02)] p-7 lg:p-9 min-[961px]:grid-cols-2 min-[961px]:gap-10">
           <div className="flex flex-col">
             <h3 className="font-actay text-[clamp(22px,2.6vw,30px)] font-bold uppercase leading-[1.12] tracking-[-0.01em] text-ink">
               {c.cms.title}
@@ -601,7 +601,7 @@ export function Guarantees({ c }: { c: AboutContent["guarantees"] }) {
       />
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-2 gap-4 max-[700px]:grid-cols-1 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 min-[701px]:grid-cols-2 lg:grid-cols-4">
           {c.items.map((g) => {
             const Icon = g.icon;
             return (

@@ -10,14 +10,12 @@ export type BtnVariant = "primary" | "ghost";
 const base =
   "inline-flex items-center gap-2.5 rounded-full font-sans text-sm transition cursor-pointer no-underline min-h-11";
 
-// Responsive padding/sizing mirror the legacy .btn-primary / .btn-ghost
-// rules from buttons.css (now deleted). The utility stack below uses the
-// `max-2xl:` / `max-sm:` max-width prefixes from the canonical breakpoint
-// scale to express the desktop-first ladder without re-introducing arbitrary
-// pixel media queries.
+// Mobile-first padding/sizing mirrors the legacy .btn-primary / .btn-ghost
+// rules from buttons.css (now deleted). Mobile is a full-width stacked
+// button; sm+ becomes an inline-flex pill that tightens at 2xl.
 const variantClass: Record<BtnVariant, string> = {
   primary: cn(
-    "relative overflow-hidden bg-ink text-bg font-semibold px-6 py-4 max-2xl:px-[18px] max-2xl:py-[13px] max-2xl:text-[13px] max-sm:w-full max-sm:justify-center max-sm:px-[18px] max-sm:py-[14px]",
+    "relative overflow-hidden bg-ink text-bg font-semibold w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-6 2xl:py-4 2xl:text-sm",
     "shadow-accent-glow",
     "hover:-translate-y-0.5 hover:shadow-[0_8px_30px_oklch(0.55_0.18_295/0.35),0_0_0_1px_oklch(1_0_0/0.1)_inset]",
     // Shimmer pseudo-element — primitive wraps children in a <span> so this paints behind text.
@@ -25,7 +23,7 @@ const variantClass: Record<BtnVariant, string> = {
     "hover:before:translate-x-full",
   ),
   ghost: cn(
-    "bg-transparent text-ink border border-line-strong font-medium px-[22px] py-[15px] max-2xl:px-[18px] max-2xl:py-[13px] max-2xl:text-[13px] max-sm:w-full max-sm:justify-center max-sm:px-[18px] max-sm:py-[14px]",
+    "bg-transparent text-ink border border-line-strong font-medium w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-[22px] 2xl:py-[15px] 2xl:text-sm",
     "hover:border-ink-dim hover:bg-[oklch(1_0_0/0.04)]",
   ),
 };

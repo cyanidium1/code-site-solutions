@@ -22,8 +22,8 @@ const localeTriggerClass =
   " font-mono text-[13px] tracking-[0.14em] uppercase text-ink-dim cursor-pointer " +
   "transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/locale:text-ink " +
   "[&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 group-open/locale:[&_svg]:rotate-180 " +
-  "lg:min-h-11 lg:gap-[5px] lg:px-1 lg:py-0 lg:border-0 lg:rounded-none lg:bg-transparent lg:text-[11px] lg:tracking-[0.12em] " +
-  "lg:max-2xl:text-[10.5px] lg:max-xl:text-[10px] lg:max-xl:tracking-[0.1em]";
+  "lg:min-h-11 lg:gap-[5px] lg:px-1 lg:py-0 lg:border-0 lg:rounded-none lg:bg-transparent lg:text-[10px] lg:tracking-[0.1em] " +
+  "xl:text-[10.5px] xl:tracking-[0.12em] 2xl:text-[11px]";
 const localeChevronClass = "w-3.5 h-3.5 lg:w-3 lg:h-3";
 const localePanelClass =
   "hidden group-open/locale:flex absolute top-[calc(100%+12px)] right-0 min-w-[148px] p-2 border border-line rounded-[14px] " +

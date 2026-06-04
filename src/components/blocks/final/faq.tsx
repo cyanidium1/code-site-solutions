@@ -143,12 +143,12 @@ const FAQ_ITEM_INDICATOR = "!rotate-0 !transition-none";
 // indicator slot inside the trigger), so we can use `group-hover/trigger:`
 // for the hover colour swap.
 const FAQ_PLUS_BASE =
-  "w-8 h-8 rounded-full border border-line-strong bg-transparent text-ink-dim " +
+  "w-[26px] h-[26px] rounded-full border border-line-strong bg-transparent text-ink-dim " +
   "inline-flex items-center justify-center shrink-0 " +
   "transition-[background-color,color,border-color,transform] duration-[250ms] " +
   "group-hover/trigger:text-accent-soft group-hover/trigger:border-accent-40 " +
-  "[&_svg]:transition-transform [&_svg]:duration-[250ms] " +
-  "max-md:w-[26px] max-md:h-[26px] max-md:[&_svg]:w-[11px] max-md:[&_svg]:h-[11px]";
+  "[&_svg]:w-[11px] [&_svg]:h-[11px] [&_svg]:transition-transform [&_svg]:duration-[250ms] " +
+  "md:w-8 md:h-8 md:[&_svg]:w-[13px] md:[&_svg]:h-[13px]";
 
 const FAQ_PLUS_OPEN =
   "!bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] !border-transparent !text-[oklch(1_0_0_/_0.98)] [&_svg]:rotate-45";

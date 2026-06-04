@@ -404,10 +404,10 @@ const DEFAULT_BENTO: BentoCell[] = [
 ];
 
 // Cell base — every span variant gets the same border/background/transition.
-// The scroll-reveal entrance lives on a Tailwind data-visible group selector
-// from ScrollReveal so we don't need a CSS sidecar for `.is-visible`.
+// Padding lives per-span (in `spanClass`/`mobile1x1`) so each variant can set
+// its own mobile padding without colliding with a base `p-7`.
 const cellBase =
-  "group/bento-cell relative flex flex-col overflow-hidden rounded-[22px] border border-line p-7 " +
+  "group/bento-cell relative flex flex-col overflow-hidden rounded-[22px] border border-line " +
   "[background:radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),oklch(1_0_0_/_0.02)] " +
   // Per-cell stacking context above any decoration painted inside the section.
   "z-[1] " +
@@ -421,18 +421,20 @@ const cellBase =
   "before:pointer-events-none before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.45),transparent)] before:opacity-0 before:transition-opacity before:duration-[600ms] before:[transition-delay:calc(var(--i,0)*0.09s+0.4s)] " +
   "group-data-[visible=true]/bento-reveal:before:opacity-100 motion-reduce:before:opacity-100 motion-reduce:before:transition-none";
 
+// Mobile-first: at base every cell stacks in the parent's single column.
+// At lg+ the parent grid becomes multi-column and span values take effect.
 const spanClass: Record<BentoCell["span"], string> = {
-  "1x1": "",
-  "2x1": "col-span-2 max-lg:col-span-1",
-  "2x2": "col-span-2 row-span-2 max-lg:col-span-1 max-lg:row-span-1 max-lg:p-6",
-  "3x1": "col-span-3 max-lg:col-span-1 max-lg:p-[22px]",
+  "1x1": "lg:p-7",
+  "2x1": "p-7 lg:col-span-2",
+  "2x2": "p-6 lg:col-span-2 lg:row-span-2 lg:p-7",
+  "3x1": "p-[22px] lg:col-span-3 lg:p-7",
 };
 
-// Mobile (<=800px) compresses 1x1 cells into a 2-col icon+text grid.
-// We attach the override only to 1x1 cells via the `mobile1x1` chunk.
+// 1x1 cells use a compact icon+text two-column grid at mobile, then
+// revert to the standard flex-col stacked layout at lg+.
 const mobile1x1 =
-  "max-lg:grid max-lg:grid-cols-[auto_1fr] max-lg:gap-x-[14px] max-lg:gap-y-0.5 max-lg:p-[18px_20px] " +
-  "max-lg:before:inset-x-[18px]";
+  "grid grid-cols-[auto_1fr] gap-x-[14px] gap-y-0.5 p-[18px_20px] before:inset-x-[18px] " +
+  "lg:flex lg:gap-0 lg:before:inset-x-6";
 
 // When the consumer paints a `decoration` behind the cells, the default
 // near-transparent cell bg lets the decoration bleed through the cards. This
@@ -489,14 +491,15 @@ export function Bento({
                   className={cn(
                     "flex items-center gap-3",
                     isOneByOne &&
-                      "max-lg:col-start-1 max-lg:row-span-2 max-lg:self-start",
+                      "col-start-1 row-span-2 self-start lg:col-auto lg:row-auto lg:self-auto",
                   )}
                 >
                   <div
                     className={cn(
-                      "inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-line bg-[oklch(1_0_0_/_0.04)] text-ink",
-                      isOneByOne &&
-                        "max-lg:h-9 max-lg:w-9 max-lg:border-accent-30 max-lg:bg-accent-10 max-lg:text-accent-soft",
+                      "inline-flex items-center justify-center rounded-[10px]",
+                      isOneByOne
+                        ? "h-9 w-9 border border-accent-30 bg-accent-10 text-accent-soft lg:h-10 lg:w-10 lg:border-line lg:bg-[oklch(1_0_0_/_0.04)] lg:text-ink"
+                        : "h-10 w-10 border border-line bg-[oklch(1_0_0_/_0.04)] text-ink",
                     )}
                   >
                     <Icon size={18} strokeWidth={1.6} />
@@ -504,9 +507,10 @@ export function Bento({
                   {c.stat ? (
                     <span
                       className={cn(
-                        "ml-auto whitespace-nowrap rounded-full border border-accent-40 bg-accent-10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[oklch(from_var(--color-accent)_0.92_0.12_h)]",
-                        isOneByOne &&
-                          "max-lg:col-start-2 max-lg:row-start-3 max-lg:ml-0 max-lg:self-start max-lg:pt-1.5",
+                        "whitespace-nowrap rounded-full border border-accent-40 bg-accent-10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[oklch(from_var(--color-accent)_0.92_0.12_h)]",
+                        isOneByOne
+                          ? "col-start-2 row-start-3 ml-0 self-start pt-1.5 lg:col-auto lg:row-auto lg:ml-auto lg:self-auto lg:pt-0"
+                          : "ml-auto",
                       )}
                     >
                       {c.stat}
@@ -515,20 +519,22 @@ export function Bento({
                 </div>
                 <h3
                   className={cn(
-                    "relative mt-[18px] font-sans text-[19px] font-semibold leading-[1.25] text-ink [text-wrap:balance] [word-break:keep-all] [hyphens:manual]",
+                    "relative font-sans font-semibold leading-[1.25] text-ink [text-wrap:balance] [word-break:keep-all] [hyphens:manual]",
+                    isOneByOne
+                      ? "col-start-2 row-start-1 mt-0 text-base tracking-[-0.01em] lg:col-auto lg:row-auto lg:mt-[18px] lg:text-[19px] lg:tracking-normal"
+                      : "mt-[18px] text-[19px]",
                     c.span === "2x2" && "text-[28px]",
-                    isOneByOne &&
-                      "max-lg:col-start-2 max-lg:row-start-1 max-lg:mt-0 max-lg:text-base max-lg:leading-[1.25] max-lg:tracking-[-0.01em]",
                   )}
                 >
                   {c.title}
                 </h3>
                 <div
                   className={cn(
-                    "relative mt-2 text-[13.5px] leading-[1.55] text-ink-dim [text-wrap:pretty] [&_p]:m-0 [&_p]:mb-2 [&_p:last-child]:mb-0 [&_p_strong]:font-semibold [&_p_strong]:text-ink [&_strong]:font-semibold [&_strong]:text-ink",
+                    "relative text-ink-dim [text-wrap:pretty] [&_p]:m-0 [&_p:last-child]:mb-0 [&_p_strong]:font-semibold [&_p_strong]:text-ink [&_strong]:font-semibold [&_strong]:text-ink",
+                    isOneByOne
+                      ? "col-start-2 row-start-2 mt-1 text-[13px] leading-[1.5] [&_p]:mb-1.5 lg:col-auto lg:row-auto lg:mt-2 lg:text-[13.5px] lg:leading-[1.55] [&_p]:lg:mb-2"
+                      : "mt-2 text-[13.5px] leading-[1.55] [&_p]:mb-2",
                     c.span === "2x2" && "text-[15px]",
-                    isOneByOne &&
-                      "max-lg:col-start-2 max-lg:row-start-2 max-lg:mt-1 max-lg:text-[13px] max-lg:leading-[1.5] [&_p]:max-lg:mb-1.5",
                   )}
                 >
                   {typeof c.body === "string" ? <p>{c.body}</p> : c.body}
@@ -537,7 +543,7 @@ export function Bento({
                   <div
                     className={cn(
                       isOneByOne &&
-                        "max-lg:col-span-2 max-lg:row-start-4 max-lg:mt-1 max-lg:pt-2",
+                        "col-span-2 row-start-4 mt-1 pt-2 lg:col-auto lg:row-auto lg:mt-0 lg:pt-0",
                     )}
                   >
                     <BentoVisual kind={c.visual} locale={locale} />

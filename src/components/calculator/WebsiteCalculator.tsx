@@ -34,7 +34,7 @@ type InfoCard = {
 
 function InfoCardGrid({ cards }: { cards: InfoCard[] }) {
   return (
-    <div className="grid grid-cols-2 gap-4 max-md-wide:grid-cols-1 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 md-wide:grid-cols-2 xl:grid-cols-3">
       {cards.map((c) => {
         const Icon = c.icon;
         return (
@@ -167,7 +167,7 @@ export function WebsiteCalculator({ config }: WebsiteCalculatorProps) {
         eyebrow={t("customizer.eyebrow")}
         title={t.rich("customizer.title", { em: emChunk })}
         sub={t("customizer.sub")}
-        padding="pt-20 pb-24 max-md-wide:pt-16 max-md-wide:pb-20"
+        padding="pt-16 pb-20 md-wide:pt-20 md-wide:pb-24"
       >
         <div className="grid grid-cols-[1fr] gap-6 items-start xl:grid-cols-[minmax(0,1fr)_360px]">
           <CalculatorControls config={config} value={input} onChange={setInput} />
