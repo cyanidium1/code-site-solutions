@@ -1,5 +1,7 @@
 # code-site-solutions
 
+<!-- redeploy: pick up Sanity project env (NEXT_PUBLIC_SANITY_PROJECT_ID) -->
+
 Next.js 15 (App Router) marketing site for Code-Site.Art. Sanity-driven
 content for cases, blog, and industry pages; statically authored content
 for everything else.
