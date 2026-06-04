@@ -2,8 +2,14 @@ import "server-only";
 
 import { createClient, type SanityClient } from "@sanity/client";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+// TEMP OVERRIDE: the Vercel env pinned NEXT_PUBLIC_SANITY_PROJECT_ID to a stale
+// project (vh20xg14) that has no content for the current schema, so cases/blog/
+// industries rendered empty. Hardcode the correct project until the dashboard
+// env is fixed, then revert to the env-driven values below.
+//   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+//   const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+const projectId = "4lk0x7o9";
+const dataset = "production";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION ?? "2024-10-01";
 const useCdn =
   (process.env.NEXT_PUBLIC_SANITY_USE_CDN ?? "true").toLowerCase() !== "false";
