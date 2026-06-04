@@ -9,6 +9,7 @@ import {
   WhatYouBuy,
   Guarantees,
 } from "@/components/about/sections";
+import { TeamSection } from "@/components/about/team-section";
 import { FAQ } from "@/components/blocks/final";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { HpHeader, HpFooter, Marquee, PullQuote } from "@/components/homepage";
@@ -118,6 +119,17 @@ export default function AboutPage() {
 
         {/* 2 — Who is behind the studio */}
         <Founder c={C.founder} />
+
+        {/* 2.5 — The team behind the studio */}
+        <TeamSection
+          eyebrow="КОМАНДА"
+          heading={
+            <>
+              12 людей. Чотирьох ви будете чути <em>щодня</em>.
+            </>
+          }
+          sub="Це ключове ядро — з ким ви будете спілкуватися безпосередньо: тех-лід, дизайнер, фронтенд, маркетинг. За ними ще 8 людей у фоновій роботі: 4 розробники, 2 дизайнери, 2 QA-інженери. Ви бачите результат — не процес."
+        />
 
         {/* 3 — Public track record ("verify us yourself") */}
         <TrackRecord c={C.trackRecord} />

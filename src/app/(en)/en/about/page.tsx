@@ -9,6 +9,7 @@ import {
   WhatYouBuy,
   Guarantees,
 } from "@/components/about/sections";
+import { TeamSection } from "@/components/about/team-section";
 import { FAQ } from "@/components/blocks/final";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { HpHeader, HpFooter, Marquee, PullQuote } from "@/components/homepage";
@@ -118,6 +119,18 @@ export default function EnAboutPage() {
 
         {/* 2 — Who is behind the studio */}
         <Founder c={C.founder} />
+
+        {/* 2.5 — The team behind the studio */}
+        <TeamSection
+          locale="en"
+          eyebrow="TEAM"
+          heading={
+            <>
+              12 people. You&apos;ll hear from four <em>every day</em>.
+            </>
+          }
+          sub="This is the core — the people you'll talk to directly: tech lead, designer, frontend, marketing. Behind them, 8 more work in the background: 4 developers, 2 designers, 2 QA engineers. You see results, not process."
+        />
 
         {/* 3 — Public track record ("verify us yourself") */}
         <TrackRecord c={C.trackRecord} />
