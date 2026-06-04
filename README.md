@@ -69,3 +69,4 @@ English. Locale-aware path resolution lives in
 | A new shared type used by 2+ files              | `src/types/<name>.ts`                         |
 | A new Sanity query / server fetch               | `src/lib/server/<name>.ts` (+ `server-only`)  |
 | A new pure helper                               | `src/lib/shared/<name>.ts`                    |
+
