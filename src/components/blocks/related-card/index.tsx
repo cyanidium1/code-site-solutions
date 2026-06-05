@@ -44,12 +44,16 @@ export const caseChipsClass = "flex flex-wrap gap-1.5";
 export const caseChipClass =
   "inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-2 py-[3px] font-mono text-[10.5px] text-ink-3";
 export const caseNameRowClass = "mt-3.5 flex items-start justify-between gap-3";
+// Line-clamps below prevent layout shift when card sets swap behind a filter
+// (homepage Cases pills, /portfolio dropdowns): all variable text regions
+// have a hard line ceiling, so any swap produces same-height cards row-to-row.
+// Counts chosen to fit the longest current CMS strings without truncation.
 export const caseNameClass =
-  "font-actay uppercase text-xl font-semibold leading-[1.2] text-ink";
+  "font-actay uppercase text-xl font-semibold leading-[1.2] text-ink line-clamp-2";
 export const caseArrowClass =
   "shrink-0 text-ink-3 transition-[transform,color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/case:translate-x-1 group-hover/case:-translate-y-1 group-hover/case:text-ink";
-export const caseMetaClass = "mt-1 font-mono text-[11px] text-ink-3";
-export const caseMetricsClass = "mt-4 text-[13px] leading-[1.55] text-ink-dim";
+export const caseMetaClass = "mt-1 font-mono text-[11px] text-ink-3 line-clamp-2";
+export const caseMetricsClass = "mt-4 text-[13px] leading-[1.55] text-ink-dim line-clamp-3";
 // 3-up grid wrapper. Used by Cases (homepage), case-page related grid,
 // portfolio listings. Falls to 1-col @800px.
 export const casesGridClass = "grid grid-cols-1 gap-5 lg:grid-cols-3 mb-4";

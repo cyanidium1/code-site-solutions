@@ -1,10 +1,6 @@
 import type * as React from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
-import { fetchCaseStudies } from "@/components/case-page";
-import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
-import { btnClass } from "@/components/ui";
+import { fetchHomepageCases } from "@/lib/server/fetch-homepage-cases";
 import {
   caseRefToCardItem,
   type CaseCardItem,
@@ -13,6 +9,29 @@ import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import type { Locale } from "@/types/sanity";
 import { SectionHead } from "@/components/shared/section-head";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+
+import {
+  CasesGridAndFilters,
+  type IndustryKey,
+} from "./cases-grid-and-filters";
+
+const PILL_LABELS_BY_LOCALE: Record<Locale, Record<IndustryKey, string>> = {
+  uk: {
+    legal: "Юридичні",
+    medicine: "Медицина",
+    "real-estate": "Нерухомість",
+  },
+  ru: {
+    legal: "Юридические",
+    medicine: "Медицина",
+    "real-estate": "Недвижимость",
+  },
+  en: {
+    legal: "Legal",
+    medicine: "Medicine",
+    "real-estate": "Real estate",
+  },
+};
 
 export async function Cases({
   eyebrow = "КЕЙСИ",
@@ -28,51 +47,49 @@ export async function Cases({
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
+  /**
+   * Optional override — when provided, the section renders these cards
+   * verbatim with no industry filters (kept for back-compat with any
+   * non-homepage caller; the homepage path uses the CMS fetcher below).
+   */
   items?: CaseCardItem[];
-  /** Used when `items` is not provided — fetches Sanity case studies in
-   *  the given locale and maps them into card data. */
   locale?: Locale;
   ctaLabel?: string;
   ctaHref?: string;
 } = {}) {
-  const finalItems: CaseCardItem[] = items ?? await (async () => {
-    const [cases, registry] = await Promise.all([
-      fetchCaseStudies(),
-      getEnRegistrySafe(),
-    ]);
-    return cases.slice(0, 3).map((c) => caseRefToCardItem(c, locale, registry));
-  })();
+  const [curated, registry] = await Promise.all([
+    fetchHomepageCases(),
+    getEnRegistrySafe(),
+  ]);
+
+  const defaultItems: CaseCardItem[] =
+    items ?? curated.default.map((c) => caseRefToCardItem(c, locale, registry));
+
+  const setsByIndustry: Record<IndustryKey, CaseCardItem[]> = items
+    ? { legal: [], medicine: [], "real-estate": [] }
+    : {
+        legal: curated.legal.map((c) => caseRefToCardItem(c, locale, registry)),
+        medicine: curated.medicine.map((c) =>
+          caseRefToCardItem(c, locale, registry),
+        ),
+        "real-estate": curated["real-estate"].map((c) =>
+          caseRefToCardItem(c, locale, registry),
+        ),
+      };
+
+  const pillLabels = PILL_LABELS_BY_LOCALE[locale];
+
   return (
     <section className={hpSectionClass} id="cases">
       <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} />
-        <div className={casesGridClass}>
-          {finalItems.map((c) => {
-            const metaLine = [c.industry, c.region, c.year]
-              .filter(Boolean)
-              .join(" · ");
-            return (
-              <RelatedCard
-                key={c.href ?? c.name}
-                metrics={c.chips}
-                title={c.name}
-                eyebrow={metaLine || undefined}
-                sub={c.metrics || undefined}
-                coverImage={
-                  c.coverImage
-                    ? { src: c.coverImage, alt: c.coverImageAlt ?? c.name }
-                    : undefined
-                }
-                gradient={c.gradient}
-                href={c.href}
-              />
-            );
-          })}
-        </div>
-        <Link href={ctaHref} className={btnClass("primary", "hp-section-cta")}>
-          <span>{ctaLabel}</span>
-          <ArrowRight size={18} strokeWidth={1.8} />
-        </Link>
+        <CasesGridAndFilters
+          defaultItems={defaultItems}
+          setsByIndustry={setsByIndustry}
+          pillLabels={pillLabels}
+          ctaLabel={ctaLabel}
+          ctaHref={ctaHref}
+        />
       </div>
     </section>
   );

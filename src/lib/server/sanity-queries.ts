@@ -93,8 +93,13 @@ const CASE_STUDY_REF = /* groq */ `{
   featured
 }`;
 
-export const CASE_STUDIES_QUERY = /* groq */ `
-*[_type == "caseStudy" && status == "published" && defined(slug.current)]{
+/**
+ * Card-level projection used wherever a list of caseStudy refs is rendered
+ * (/portfolio listing, homepage Cases section, homepage curation). Mirrors
+ * `CaseStudyRef` in `types/sanity.ts`. Keep in sync with
+ * `Sanity/queries/fragments.ts::CASE_STUDY_LISTING_PROJECTION`.
+ */
+const CASE_STUDY_LISTING_PROJECTION = /* groq */ `{
   _id,
   "slug": slug.current,
   title ${LOCALIZED_STRING},
@@ -116,12 +121,32 @@ export const CASE_STUDIES_QUERY = /* groq */ `
   hero{
     metrics[] ${METRIC}
   }
-} | order(featured desc, year desc, _createdAt desc)
+}`;
+
+export const CASE_STUDIES_QUERY = /* groq */ `
+*[_type == "caseStudy" && status == "published" && defined(slug.current)]
+  ${CASE_STUDY_LISTING_PROJECTION}
+  | order(featured desc, year desc, _createdAt desc)
 `;
 
 /** Published case studies with a slug (UA portfolio listing). */
 export const CASE_STUDIES_COUNT_QUERY = /* groq */ `
 count(*[_type == "caseStudy" && status == "published" && defined(slug.current)])
+`;
+
+/**
+ * Singleton — homepage curation. Returns 4 arrays of CaseStudyRef shapes.
+ * The frontend fetcher (`fetchHomepageCases`) falls back to the top 3 from
+ * CASE_STUDIES_QUERY when `default` is empty, and hides any industry pill
+ * whose set is empty.
+ */
+export const HOMEPAGE_CASES_QUERY = /* groq */ `
+*[_type == "homepageCases" && _id == "homepageCases"][0]{
+  "default":     defaultCases[]->${CASE_STUDY_LISTING_PROJECTION},
+  "legal":       legalCases[]->${CASE_STUDY_LISTING_PROJECTION},
+  "medicine":    medicineCases[]->${CASE_STUDY_LISTING_PROJECTION},
+  "realEstate":  realEstateCases[]->${CASE_STUDY_LISTING_PROJECTION}
+}
 `;
 
 export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `

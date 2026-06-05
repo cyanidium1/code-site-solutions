@@ -455,6 +455,30 @@ export type CaseStudyRef = {
   hero?: { metrics?: Metric[] };
 };
 
+/**
+ * Result shape of `HOMEPAGE_CASES_QUERY`. `null` when the singleton has
+ * never been published. GROQ projects the four curated arrays as the
+ * keys below; the inner shape matches `CaseStudyRef`.
+ */
+export type HomepageCasesQueryResult = {
+  default: CaseStudyRef[] | null;
+  legal: CaseStudyRef[] | null;
+  medicine: CaseStudyRef[] | null;
+  realEstate: CaseStudyRef[] | null;
+} | null;
+
+/**
+ * Normalised, render-ready shape consumed by the homepage Cases section.
+ * Keys are the industry slugs used on `/sites-for/<slug>` so the frontend
+ * can deep-link or filter consistently.
+ */
+export type HomepageCasesData = {
+  default: CaseStudyRef[];
+  legal: CaseStudyRef[];
+  medicine: CaseStudyRef[];
+  "real-estate": CaseStudyRef[];
+};
+
 export type BlogPostRef = {
   _id: string;
   slug: string;
