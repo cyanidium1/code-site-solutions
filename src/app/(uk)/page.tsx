@@ -97,6 +97,7 @@ export default async function HomePage() {
         ctaSecondaryLabel="Безкоштовний аудит сайту за 24 год"
         ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
+        ctaSecondaryVariant="primary"
         ctaFootnote="Без розмови з sales. Без email-розсилки. Просто аудит."
         showStats
         stats={[

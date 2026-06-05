@@ -124,6 +124,7 @@ export default async function HomePageEn() {
         ctaSecondaryLabel="Free site audit within 24 hours"
         ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
+        ctaSecondaryVariant="primary"
         ctaFootnote="No sales call. No email list. An audit."
         showStats
         stats={[

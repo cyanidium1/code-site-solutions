@@ -380,6 +380,15 @@ export type HeroEditorialProps = {
   ctaSecondaryLabel?: string;
   ctaSecondaryHref: string;
   ctaSecondaryShowPlay?: boolean;
+  /**
+   * Visual style for the secondary CTA. Defaults to "ghost" (transparent,
+   * bordered) to preserve the appearance on `/sites-for/*` and `/vs-*`
+   * pages. Set to "primary" to render it identically to the primary CTA
+   * (white bg, shimmer on hover) — used on the home page where both CTAs
+   * are primary-style. Only meaningful when `ctaSecondaryShowPlay={false}`;
+   * the play-icon decoration assumes a ghost background.
+   */
+  ctaSecondaryVariant?: "ghost" | "primary";
   ctaFootnote?: React.ReactNode;
   showStats?: boolean;
   stats?: HeroStats[];
@@ -423,6 +432,7 @@ export function HeroEditorial({
   ctaSecondaryLabel = "Подивитися кейси клінік",
   ctaSecondaryHref,
   ctaSecondaryShowPlay = true,
+  ctaSecondaryVariant = "ghost",
   ctaFootnote,
   showStats = true,
   stats = [
@@ -496,7 +506,7 @@ export function HeroEditorial({
                 <span>{ctaPrimaryLabel}</span>
                 {ARROW_ICON}
               </Link>
-              <Link href={ctaSecondaryHref} className={btnClass("ghost")}>
+              <Link href={ctaSecondaryHref} className={btnClass(ctaSecondaryVariant)}>
                 {ctaSecondaryShowPlay ? (
                   <span className={PLAY_ICON_CLASS}>▶</span>
                 ) : null}
