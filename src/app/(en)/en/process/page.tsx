@@ -8,7 +8,12 @@ import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
 import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { SITE_ORIGIN, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/en/process";
 
@@ -36,51 +41,37 @@ export const metadata: Metadata = {
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
 
-const PROCESS_URL = pageUrl("/en/process");
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: `${SITE_ORIGIN}/en`,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Process",
-          item: PROCESS_URL,
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: PROCESS_FAQ.map((it) => ({
-        "@type": "Question",
-        name: it.q,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: plainRich(it.a),
-        },
-      })),
-    },
-  ],
-};
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: "/en/process",
+    locale: "en",
+    title: "Process — 7 steps from brief to launch | Code-Site.Art",
+    description:
+      "4-10 weeks end-to-end. Your time: 5 hours total. Fixed price, fixed deadline, 30% rebate for delays. Here's how we work.",
+  }),
+  breadcrumbNode([
+    { name: "Home", path: "/en" },
+    { name: "Process", path: "/en/process" },
+  ]),
+  {
+    "@type": "FAQPage",
+    mainEntity: PROCESS_FAQ.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: plainRich(it.a),
+      },
+    })),
+  },
+]);
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
 export default function EnProcessPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <PageHero

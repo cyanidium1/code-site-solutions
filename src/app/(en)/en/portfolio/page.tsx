@@ -20,7 +20,13 @@ import {
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasEnCase, hasEnIndustry } from "@/constants/i18n-routes";
 import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
-import { SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { SITE_ORIGIN } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
@@ -83,35 +89,15 @@ export default async function EnPortfolioPage({
     industryOptions.map((o) => [o.key, `/en/sites-for/${o.key}`]),
   );
 
-  const PORTFOLIO_URL = pageUrl("/en/portfolio");
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: `${SITE_ORIGIN}/en`,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Portfolio",
-            item: PORTFOLIO_URL,
-          },
-        ],
-      },
-      {
-        "@type": "CollectionPage",
-        "@id": `${PORTFOLIO_URL}#collection`,
-        url: PORTFOLIO_URL,
-        name: "Portfolio — Code-Site.Art",
-        description:
-          "Real projects with real metrics. Sites for clinics, law firms, e-commerce, startups.",
-        inLanguage: "en",
+  const jsonLd = buildJsonLd([
+    webPageNode({
+      path: "/en/portfolio",
+      locale: "en",
+      title: "Portfolio — Code-Site.Art",
+      description:
+        "Real projects with real metrics. Sites for clinics, law firms, e-commerce, startups.",
+      type: "CollectionPage",
+      extra: {
         mainEntity: {
           "@type": "ItemList",
           numberOfItems: filtered.length,
@@ -128,15 +114,16 @@ export default async function EnPortfolioPage({
           }),
         },
       },
-    ],
-  };
+    }),
+    breadcrumbNode([
+      { name: "Home", path: "/en" },
+      { name: "Portfolio", path: "/en/portfolio" },
+    ]),
+  ]);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <PageHero

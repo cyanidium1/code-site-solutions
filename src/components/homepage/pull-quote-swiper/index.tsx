@@ -1,22 +1,21 @@
-import type { Locale } from "@/types/sanity";
+import type { TestimonialSlide } from "@/lib/server/fetch-testimonials";
 
-import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { PullQuoteSwiperLazy } from "./lazy";
 import { hpSectionClass } from "@/components/homepage/shared";
 
 /**
- * Homepage testimonials slider. Fetches `featured` testimonial docs from
- * Sanity (server-side) and hands off to a client child that mounts Swiper.
+ * Homepage testimonials slider. The parent page fetches the slides (via
+ * `fetchTestimonialSlides`) and passes them in, so the same payload can also
+ * feed the page's JSON-LD Review nodes without a second Sanity round-trip.
  *
- * Returns `null` if Sanity has no testimonials yet — the homepage simply
- * skips this section rather than rendering an empty block.
+ * Returns `null` if no slides — the homepage simply skips this section
+ * rather than rendering an empty block.
  */
-export async function PullQuoteSwiper({
-  locale = "uk",
+export function PullQuoteSwiper({
+  slides,
 }: {
-  locale?: Locale;
+  slides: TestimonialSlide[];
 }) {
-  const slides = await fetchTestimonialSlides(locale);
   if (slides.length === 0) return null;
   return (
     <section className={hpSectionClass}>

@@ -8,7 +8,13 @@ import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
 import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { ORG_ID, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/uk/process";
 
@@ -44,59 +50,47 @@ const HOWTO_STEPS = STEPS.map((s, i) => ({
   url: `${PROCESS_URL}#step-${s.n}`,
 }));
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "HowTo",
-      "@id": `${PROCESS_URL}#howto`,
-      name: "Процес розробки сайту — 7 кроків від брифу до запуску",
-      description:
-        "Покроковий процес створення сайту в Code-Site.Art: від брифу і договору до запуску і підтримки.",
-      totalTime: "P10W",
-      step: HOWTO_STEPS,
-      provider: { "@id": ORG_ID },
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Головна",
-          item: SITE_ORIGIN,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Процес",
-          item: PROCESS_URL,
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: PROCESS_FAQ.map((it) => ({
-        "@type": "Question",
-        name: it.q,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: plainRich(it.a),
-        },
-      })),
-    },
-  ],
-};
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: "/process",
+    locale: "uk",
+    title: "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
+    description:
+      "Як ми робимо сайти за 4-10 тижнів. Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив. Без сюрпризів.",
+  }),
+  breadcrumbNode([
+    { name: "Головна", path: "/" },
+    { name: "Процес", path: "/process" },
+  ]),
+  {
+    "@type": "HowTo",
+    "@id": `${PROCESS_URL}#howto`,
+    name: "Процес розробки сайту — 7 кроків від брифу до запуску",
+    description:
+      "Покроковий процес створення сайту в Code-Site.Art: від брифу і договору до запуску і підтримки.",
+    totalTime: "P10W",
+    step: HOWTO_STEPS,
+    provider: { "@id": ORG_ID },
+  },
+  {
+    "@type": "FAQPage",
+    mainEntity: PROCESS_FAQ.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: plainRich(it.a),
+      },
+    })),
+  },
+]);
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
 export default function ProcessPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       {/* Section 1: Page hero */}

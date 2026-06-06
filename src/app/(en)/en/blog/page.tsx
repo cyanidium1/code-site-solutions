@@ -11,6 +11,47 @@ import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/
 import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
 import { dedupeCategoryRefs } from "@/lib/shared/filters/dedupe-options";
 import { FilterPills } from "@/components/filters/filter-pills";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
+
+const BLOG_DESCRIPTION =
+  "Once a month — one article on a real project: budget, mistakes, what we'd do differently. No fluff, no news.";
+
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: "/en/blog",
+    locale: "en",
+    title: "Blog — real project breakdowns with numbers | Code-Site.Art",
+    description: BLOG_DESCRIPTION,
+    type: "CollectionPage",
+  }),
+  breadcrumbNode([
+    { name: "Home", path: "/en" },
+    { name: "Blog", path: "/en/blog" },
+  ]),
+  {
+    "@type": "Blog",
+    "@id": `${pageUrl("/en/blog")}#blog`,
+    name: "Code-Site.Art Blog — real project breakdowns",
+    description: BLOG_DESCRIPTION,
+    url: pageUrl("/en/blog"),
+    inLanguage: "en-US",
+    publisher: {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: "Code-Site.Art",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_ORIGIN}/logo-512.png`,
+      },
+    },
+  },
+]);
 
 export const metadata: Metadata = {
   title: "Blog — real project breakdowns with numbers | Code-Site.Art",
@@ -71,6 +112,7 @@ export default async function EnBlogPage({
 
   return (
     <>
+      <JsonLd data={jsonLd} />
       <HpHeader />
       <main>
         <PageHero

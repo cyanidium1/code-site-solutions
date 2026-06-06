@@ -477,7 +477,7 @@ export function HeroEditorial({
               ) : null}
             </div>
 
-            <H1 variant="hp" className={HERO_H1_CLASS}>
+            <H1 variant="hp" className={HERO_H1_CLASS} data-speakable="hero-title">
               {h1Lines.map((line, i) => (
                 <span key={i} className={H1_LINE_CLASS}>
                   {line}
@@ -493,7 +493,7 @@ export function HeroEditorial({
               ) : null}
             </H1>
 
-            <p className={LEDE_CLASS}>{lede}</p>
+            <p className={LEDE_CLASS} data-speakable="hero-description">{lede}</p>
 
             <div className={FEATURES_CLASS}>
               {features.map((f) => (

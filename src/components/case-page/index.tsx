@@ -49,7 +49,16 @@ import {
   formatLine,
   plainPortable,
 } from "@/lib/shared/sanity-portable";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { ORG_ID, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  buildReviewNodes,
+  breadcrumbNode,
+  webPageNode,
+  type JsonLdNode,
+  type RawReview,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
 import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import { pickRichText } from "@/lib/shared/pick-rich-text";
@@ -129,59 +138,81 @@ export async function buildCaseStudyMetadata(
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────── */
 
-function buildJsonLd(
-  doc: CaseStudyDoc,
-  locale: Locale,
-): Record<string, unknown> {
-  const url = pageUrl(pathFor(doc.slug, locale));
+function buildCaseJsonLd(doc: CaseStudyDoc, locale: Locale): JsonLdNode {
+  const path = pathFor(doc.slug, locale);
+  const url = pageUrl(path);
   const title = loc(doc.title, locale);
   const description = loc(doc.seo?.description, locale) || undefined;
   const ABOUT_URL = pageUrl("/about");
 
   const homeName = locale === "en" ? "Home" : "Головна";
-  const homeUrl = locale === "en" ? `${SITE_ORIGIN}/en` : SITE_ORIGIN;
+  const homePath = locale === "en" ? "/en" : "/";
   const portfolioName = locale === "en" ? "Portfolio" : "Портфоліо";
-  const portfolioUrl = `${SITE_ORIGIN}/portfolio`;
+  const portfolioPath = locale === "en" ? "/en/portfolio" : "/portfolio";
 
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: homeName, item: homeUrl },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: portfolioName,
-            item: portfolioUrl,
-          },
-          { "@type": "ListItem", position: 3, name: title, item: url },
-        ],
+  // Pull testimonials embedded in the case sections. testimonialBlock is
+  // always a review; quoteBlock only counts when its `isReview` flag is on
+  // (it doubles as a press-quote / stat call-out otherwise).
+  const reviewSeeds: RawReview[] = (doc.sections ?? []).flatMap((s) => {
+    if (s._type === "testimonialBlock") {
+      return [{
+        body: loc(s.quote, locale),
+        authorName: s.authorName ?? "",
+        rating: s.rating,
+        datePublished: s.reviewDate,
+        headline: loc(s.reviewHeadline, locale) || undefined,
+      }];
+    }
+    if (s._type === "quoteBlock" && s.isReview) {
+      return [{
+        body: loc(s.quote, locale),
+        authorName: s.authorName ?? "",
+        rating: s.rating,
+        datePublished: s.reviewDate,
+        headline: loc(s.reviewHeadline, locale) || undefined,
+      }];
+    }
+    return [];
+  });
+  const reviews = buildReviewNodes(reviewSeeds, `${url}#article`);
+
+  return buildJsonLd([
+    webPageNode({
+      path,
+      locale,
+      title,
+      description,
+      type: "ItemPage",
+    }),
+    breadcrumbNode([
+      { name: homeName, path: homePath },
+      { name: portfolioName, path: portfolioPath },
+      { name: title, path },
+    ]),
+    {
+      "@type": "Article",
+      "@id": `${url}#article`,
+      url,
+      headline: title,
+      description,
+      inLanguage: locale === "en" ? "en-US" : "uk-UA",
+      datePublished:
+        doc.date ?? `${doc.year ?? new Date().getFullYear()}-01-01`,
+      author: {
+        "@type": "Person",
+        "@id": `${ABOUT_URL}#fedir-alpatov`,
+        name: "Fedir Alpatov",
+        jobTitle: "Founder, Code-Site.Art",
+        url: ABOUT_URL,
       },
-      {
-        "@type": "Article",
-        "@id": `${url}#article`,
-        url,
-        headline: title,
-        description,
-        inLanguage: locale === "en" ? "en" : "uk",
-        datePublished: doc.date ?? `${doc.year ?? new Date().getFullYear()}-01-01`,
-        author: {
-          "@type": "Person",
-          "@id": `${ABOUT_URL}#fedir-alpatov`,
-          name: "Fedir Alpatov",
-          jobTitle: "Founder, Code-Site.Art",
-          url: ABOUT_URL,
-        },
-        publisher: {
-          "@type": "Organization",
-          "@id": ORG_ID,
-          name: "Code-Site.Art",
-        },
+      publisher: {
+        "@type": "Organization",
+        "@id": ORG_ID,
+        name: "Code-Site.Art",
       },
-    ],
-  };
+    },
+    reviews,
+  ]);
 }
 
 /* ─── YouTube walkthrough section ──────────────────────────────────────
@@ -482,12 +513,7 @@ export async function CasePageView({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(buildJsonLd(doc, locale)),
-        }}
-      />
+      <JsonLd data={buildCaseJsonLd(doc, locale)} />
       <HpHeader />
 
       <CasePageHero

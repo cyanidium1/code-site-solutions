@@ -19,7 +19,13 @@ import {
 } from "@/lib/shared/case-card-item";
 import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
 import { loc } from "@/lib/shared/sanity-locale";
-import { SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { SITE_ORIGIN } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
@@ -82,30 +88,15 @@ export default async function PortfolioPage({
     industryOptions.map((o) => [o.key, `/sites-for/${o.key}`]),
   );
 
-  const PORTFOLIO_URL = pageUrl("/portfolio");
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Головна", item: SITE_ORIGIN },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Портфоліо",
-            item: PORTFOLIO_URL,
-          },
-        ],
-      },
-      {
-        "@type": "CollectionPage",
-        "@id": `${PORTFOLIO_URL}#collection`,
-        url: PORTFOLIO_URL,
-        name: "Портфоліо — Code-Site.Art",
-        description:
-          "Реальні кейси з реальними метриками. Сайти для клінік, юристів, e-commerce, стартапів.",
-        inLanguage: "uk",
+  const jsonLd = buildJsonLd([
+    webPageNode({
+      path: "/portfolio",
+      locale: "uk",
+      title: "Портфоліо — Code-Site.Art",
+      description:
+        "Реальні кейси з реальними метриками. Сайти для клінік, юристів, e-commerce, стартапів.",
+      type: "CollectionPage",
+      extra: {
         mainEntity: {
           "@type": "ItemList",
           numberOfItems: filtered.length,
@@ -117,15 +108,16 @@ export default async function PortfolioPage({
           })),
         },
       },
-    ],
-  };
+    }),
+    breadcrumbNode([
+      { name: "Головна", path: "/" },
+      { name: "Портфоліо", path: "/portfolio" },
+    ]),
+  ]);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <PageHero

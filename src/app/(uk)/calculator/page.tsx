@@ -6,6 +6,12 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { WebsiteCalculator } from "@/components/calculator";
 import { fetchCalculatorConfig } from "@/lib/server/fetch-calculator-config";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 
 const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
@@ -33,16 +39,30 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CalculatorPage() {
-  const [t, config] = await Promise.all([
+  const [t, tMeta, config] = await Promise.all([
     getTranslations("Calculator"),
+    getTranslations("Calculator.meta"),
     fetchCalculatorConfig("uk"),
   ]);
   const stats: { value: string; label: string }[] = ["projects", "range", "weeks", "warranty"].map((k) => ({
     value: t(`stats.${k}.value` as never),
     label: t(`stats.${k}.label` as never),
   }));
+  const jsonLd = buildJsonLd([
+    webPageNode({
+      path: "/calculator",
+      locale: "uk",
+      title: tMeta("title"),
+      description: tMeta("description"),
+    }),
+    breadcrumbNode([
+      { name: t("pageHero.breadcrumbHome"), path: "/" },
+      { name: t("pageHero.breadcrumbSelf"), path: "/calculator" },
+    ]),
+  ]);
   return (
     <>
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <PageHero

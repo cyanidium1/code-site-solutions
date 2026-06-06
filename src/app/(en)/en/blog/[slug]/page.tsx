@@ -20,6 +20,14 @@ import type {
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+  definedTermNodes,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
+import { glossaryTerms } from "@/constants/glossary";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── Static params + metadata ──────────────────────────────────────────── */
@@ -97,50 +105,45 @@ function formatEnDate(iso?: string): string | undefined {
 
 /* ─── JSON-LD ─────────────────────────────────────────────────────────────── */
 
-function buildJsonLd(
-  post: BlogPostDoc,
-  enSlug: string,
-): Record<string, unknown> {
-  const url = pageUrl(`/en/blog/${enSlug}`);
+const BLOG_GLOSSARY_KEYS = [
+  "seo",
+  "coreWebVitals",
+  "nextjs",
+  "isr",
+] as const;
+
+function buildBlogJsonLd(post: BlogPostDoc, enSlug: string) {
+  const path = `/en/blog/${enSlug}`;
+  const url = pageUrl(path);
   const coverAbs = post.coverImage?.src
     ? post.coverImage.src.startsWith("http")
       ? post.coverImage.src
       : `${SITE_ORIGIN}${post.coverImage.src}`
     : undefined;
   const imageUrl = post.ogImage?.url ?? coverAbs ?? undefined;
+  const title = post.titleEn ?? enSlug;
 
-  const graph: Record<string, unknown>[] = [
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: `${SITE_ORIGIN}/en`,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Blog",
-          item: `${SITE_ORIGIN}/en/blog`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: post.titleEn ?? enSlug,
-          item: url,
-        },
-      ],
-    },
+  return buildJsonLd([
+    webPageNode({
+      path,
+      locale: "en",
+      title,
+      description: post.metaDescriptionEn ?? post.ledeEn,
+      type: "ItemPage",
+    }),
+    breadcrumbNode([
+      { name: "Home", path: "/en" },
+      { name: "Blog", path: "/en/blog" },
+      { name: title, path },
+    ]),
     {
       "@type": "Article",
       "@id": `${url}#article`,
       url,
       mainEntityOfPage: url,
-      headline: post.titleEn ?? enSlug,
+      headline: title,
       description: post.metaDescriptionEn ?? post.ledeEn,
-      inLanguage: "en",
+      inLanguage: "en-US",
       datePublished: post.publishedAt,
       dateModified: post.updatedAt ?? post.publishedAt,
       image: imageUrl ? [imageUrl] : undefined,
@@ -164,23 +167,21 @@ function buildJsonLd(
       articleSection: post.category,
       keywords: post.tags?.length ? post.tags.join(", ") : undefined,
     },
-  ];
-
-  if (post.faqEn?.length) {
-    graph.push({
-      "@type": "FAQPage",
-      mainEntity: post.faqEn.map((item) => ({
-        "@type": "Question",
-        name: item.question ?? "",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer ?? "",
-        },
-      })),
-    });
-  }
-
-  return { "@context": "https://schema.org", "@graph": graph };
+    post.faqEn?.length
+      ? {
+          "@type": "FAQPage",
+          mainEntity: post.faqEn.map((item) => ({
+            "@type": "Question",
+            name: item.question ?? "",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer ?? "",
+            },
+          })),
+        }
+      : null,
+    definedTermNodes(glossaryTerms(BLOG_GLOSSARY_KEYS, "en"), "en"),
+  ]);
 }
 
 /* ─── Related-articles resolver ──────────────────────────────────────────── */
@@ -215,7 +216,7 @@ export default async function EnBlogPostPage({
   // can't accidentally publish as a broken EN page.
   if (!post || !post.titleEn || !post.bodyEn?.length) notFound();
 
-  const jsonLd = buildJsonLd(post, slug);
+  const jsonLd = buildBlogJsonLd(post, slug);
   const dateStr = formatEnDate(post.publishedAt);
   const updatedStr =
     post.updatedAt && post.updatedAt !== post.publishedAt
@@ -231,10 +232,7 @@ export default async function EnBlogPostPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
       <main>
         {post.coverImage?.src ? (

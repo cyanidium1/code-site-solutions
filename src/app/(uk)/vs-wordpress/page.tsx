@@ -4,7 +4,13 @@ import {
   VsWordpressView,
   getVsWordpressContent,
 } from "@/components/vs-wordpress";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { ORG_ID, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 
 const PATH = "/vs-wordpress";
 const URL = pageUrl(PATH);
@@ -31,59 +37,46 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Головна",
-          item: SITE_ORIGIN,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Перейти з WordPress",
-          item: URL,
-        },
-      ],
-    },
-    {
-      "@type": "Service",
-      "@id": `${URL}#service`,
-      name: "Міграція з WordPress на Next.js",
-      description: CONTENT.metaDescription,
-      provider: { "@id": ORG_ID },
-      areaServed: ["UA", "EU", "US", "DK"],
-      offers: CONTENT.pricing.tiers.map((t) => ({
-        "@type": "Offer",
-        name: typeof t.name === "string" ? t.name : "Migration tier",
-        price: t.price.replace(/[^\d]/g, ""),
-        priceCurrency: "USD",
-        url: URL,
-      })),
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: CONTENT.faq.items.map((it) => ({
-        "@type": "Question",
-        name: it.q,
-        acceptedAnswer: { "@type": "Answer", text: it.a },
-      })),
-    },
-  ],
-};
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: PATH,
+    locale: "uk",
+    title: CONTENT.metaTitle,
+    description: CONTENT.metaDescription,
+  }),
+  breadcrumbNode([
+    { name: "Головна", path: "/" },
+    { name: "Перейти з WordPress", path: PATH },
+  ]),
+  {
+    "@type": "Service",
+    "@id": `${URL}#service`,
+    name: "Міграція з WordPress на Next.js",
+    description: CONTENT.metaDescription,
+    provider: { "@id": ORG_ID },
+    areaServed: ["UA", "EU", "US", "DK"],
+    offers: CONTENT.pricing.tiers.map((t) => ({
+      "@type": "Offer",
+      name: typeof t.name === "string" ? t.name : "Migration tier",
+      price: t.price.replace(/[^\d]/g, ""),
+      priceCurrency: "USD",
+      url: URL,
+    })),
+  },
+  {
+    "@type": "FAQPage",
+    mainEntity: CONTENT.faq.items.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: { "@type": "Answer", text: it.a },
+    })),
+  },
+]);
 
 export default function VsWordpressPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <VsWordpressView locale="uk" />
     </>
   );

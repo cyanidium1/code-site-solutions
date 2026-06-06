@@ -13,7 +13,13 @@ import {
   Bento,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { ORG_ID, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import {
   ADDONS_CELLS,
@@ -62,46 +68,47 @@ const PRICING_URL = pageUrl("/en/pricing");
 type EnPricingOffer = { name: string; price: string; currency: string };
 
 function buildEnPricingJsonLd(offers: EnPricingOffer[]) {
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        "@id": `${PRICING_URL}#service`,
-        name: "Custom website development",
-        description:
-          "Custom-coded websites on Next.js: landing pages, business sites, industry-specific solutions, enterprise platforms.",
-        provider: { "@id": ORG_ID },
-        areaServed: ["UA", "EU", "US", "DK"],
-        hasOfferCatalog: {
-          "@type": "OfferCatalog",
-          name: "Code-Site.Art pricing tiers",
-          itemListElement: offers.map((o) => ({
-            "@type": "Offer",
-            name: o.name,
-            price: o.price,
-            priceCurrency: o.currency,
-            url: PRICING_URL,
-          })),
-        },
-      },
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_ORIGIN}/en` },
-          { "@type": "ListItem", position: 2, name: "Pricing", item: PRICING_URL },
-        ],
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: PRICING_FAQ.map((it) => ({
-          "@type": "Question",
-          name: it.q,
-          acceptedAnswer: { "@type": "Answer", text: plainRich(it.a) },
+  return buildJsonLd([
+    webPageNode({
+      path: "/en/pricing",
+      locale: "en",
+      title: "Pricing — $1,000 to $14,000+ fixed in contract | Code-Site.Art",
+      description:
+        "Transparent pricing for custom-coded websites. From $1,000 to $14,000+. Fixed in contract. 1-year warranty. 30% rebate if we miss the deadline.",
+    }),
+    breadcrumbNode([
+      { name: "Home", path: "/en" },
+      { name: "Pricing", path: "/en/pricing" },
+    ]),
+    {
+      "@type": "Service",
+      "@id": `${PRICING_URL}#service`,
+      name: "Custom website development",
+      description:
+        "Custom-coded websites on Next.js: landing pages, business sites, industry-specific solutions, enterprise platforms.",
+      provider: { "@id": ORG_ID },
+      areaServed: ["UA", "EU", "US", "DK"],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Code-Site.Art pricing tiers",
+        itemListElement: offers.map((o) => ({
+          "@type": "Offer",
+          name: o.name,
+          price: o.price,
+          priceCurrency: o.currency,
+          url: PRICING_URL,
         })),
       },
-    ],
-  };
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: PRICING_FAQ.map((it) => ({
+        "@type": "Question",
+        name: it.q,
+        acceptedAnswer: { "@type": "Answer", text: plainRich(it.a) },
+      })),
+    },
+  ]);
 }
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
@@ -125,10 +132,7 @@ export default async function EnPricingPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       {/* Section 1: Page hero */}

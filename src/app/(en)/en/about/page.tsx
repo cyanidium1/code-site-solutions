@@ -13,13 +13,14 @@ import { TeamSection } from "@/components/about/team-section";
 import { FAQ } from "@/components/blocks/final";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { HpHeader, HpFooter, Marquee, PullQuote } from "@/components/homepage";
+import { ORG_ID, pageUrl } from "@/constants/site";
 import {
-  ORG_ID,
-  SITE_CONTACT,
-  SITE_ORIGIN,
-  WEBSITE_ID,
-  pageUrl,
-} from "@/constants/site";
+  buildJsonLd,
+  breadcrumbNode,
+  organizationNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { ABOUT_EN as C } from "@/content/en/about";
 
 export const metadata: Metadata = {
@@ -44,7 +45,6 @@ export const metadata: Metadata = {
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
 
-const ABOUT_URL = pageUrl("/en/about");
 const FOUNDER_ID = `${pageUrl("/about")}#fedir-alpatov`;
 const FOUNDER_PROFILES = [
   "https://github.com/cyanidium1",
@@ -52,65 +52,38 @@ const FOUNDER_PROFILES = [
   "https://www.instagram.com/cyanidium/",
 ];
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "AboutPage",
-      "@id": `${ABOUT_URL}#aboutpage`,
-      url: ABOUT_URL,
-      name: C.meta.title,
-      description: C.meta.description,
-      inLanguage: "en",
-      isPartOf: { "@id": WEBSITE_ID },
-      about: { "@id": ORG_ID },
-    },
-    {
-      "@type": "Person",
-      "@id": FOUNDER_ID,
-      name: "Fedir Alpatov",
-      jobTitle: "Developer, Tech Lead & Founder, Code-Site.Art",
-      worksFor: { "@id": ORG_ID },
-      alumniOf: "Kyiv Polytechnic Institute",
-      knowsAbout: ["Next.js", "React", "TypeScript", "Sanity CMS"],
-      sameAs: FOUNDER_PROFILES,
-    },
-    {
-      "@type": "Organization",
-      "@id": ORG_ID,
-      name: "Code-Site.Art",
-      url: SITE_ORIGIN,
-      email: SITE_CONTACT.email,
-      telephone: SITE_CONTACT.phone,
-      foundingDate: "2025",
-      founder: { "@id": FOUNDER_ID },
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Kyiv",
-        addressCountry: "UA",
-      },
-      areaServed: ["UA", "EU", "DK"],
-      sameAs: FOUNDER_PROFILES,
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_ORIGIN}/en` },
-        { "@type": "ListItem", position: 2, name: "About", item: ABOUT_URL },
-      ],
-    },
-  ],
-};
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: "/en/about",
+    locale: "en",
+    title: C.meta.title,
+    description: C.meta.description,
+    type: "AboutPage",
+    extra: { about: { "@id": ORG_ID } },
+  }),
+  breadcrumbNode([
+    { name: "Home", path: "/en" },
+    { name: "About", path: "/en/about" },
+  ]),
+  organizationNode(),
+  {
+    "@type": "Person",
+    "@id": FOUNDER_ID,
+    name: "Fedir Alpatov",
+    jobTitle: "Developer, Tech Lead & Founder, Code-Site.Art",
+    worksFor: { "@id": ORG_ID },
+    alumniOf: "Kyiv Polytechnic Institute",
+    knowsAbout: ["Next.js", "React", "TypeScript", "Sanity CMS"],
+    sameAs: FOUNDER_PROFILES,
+  },
+]);
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
 export default function EnAboutPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <main>

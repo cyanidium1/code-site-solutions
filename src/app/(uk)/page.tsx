@@ -13,62 +13,69 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
+import { ORG_ID } from "@/constants/site";
+import {
+  buildJsonLd,
+  buildReviewNodes,
+  organizationNode,
+  webPageNode,
+  websiteNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { buildHomepageFaq, HOMEPAGE_TIERS } from "@/content/uk/homepage";
 import {
   fetchPricingPlans,
   toHomepagePlanOverride,
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
+import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": ORG_ID,
-      name: "Code-Site.Art",
-      url: SITE_ORIGIN,
-      email: SITE_CONTACT.email,
-      telephone: SITE_CONTACT.phone,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Kyiv",
-        addressCountry: "UA",
-      },
-      sameAs: [
-        SITE_CONTACT.telegram,
-        SITE_CONTACT.linkedin,
-        SITE_CONTACT.github,
-      ],
-      foundingDate: "2023",
-    },
-    {
-      "@type": "WebSite",
-      "@id": WEBSITE_ID,
-      url: SITE_ORIGIN,
-      name: "Code-Site.Art",
-      description:
-        "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
-      inLanguage: "uk",
-      publisher: { "@id": ORG_ID },
-    },
-  ],
-};
+const HOMEPAGE_DESCRIPTION =
+  "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.";
 
 export default async function HomePage() {
-  const cmsPlans = await fetchPricingPlans("uk");
+  const [cmsPlans, testimonialSlides] = await Promise.all([
+    fetchPricingPlans("uk"),
+    fetchTestimonialSlides("uk"),
+  ]);
   const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : HOMEPAGE_TIERS;
   const planOverride = toHomepagePlanOverride(cmsPlans);
   const faqItems = buildHomepageFaq(planOverride);
   const range = pricingRange(cmsPlans, "uk");
+
+  // Reviews attach to the Organization — same slides feed the slider, so
+  // Google's "review visible on page" rule is satisfied. Slides missing
+  // rating or date are silently dropped by `buildReviewNodes`.
+  const reviews = buildReviewNodes(
+    testimonialSlides.map((s) => ({
+      body: s.quote,
+      authorName: s.authorName,
+      rating: s.rating,
+      datePublished: s.reviewDate ?? s.createdAt?.slice(0, 10),
+      headline: s.reviewHeadline,
+    })),
+    ORG_ID,
+  );
+
+  const jsonLd = buildJsonLd([
+    organizationNode(),
+    websiteNode("uk", HOMEPAGE_DESCRIPTION),
+    webPageNode({
+      path: "/",
+      locale: "uk",
+      title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
+      description: HOMEPAGE_DESCRIPTION,
+      speakableSelectors: [
+        '[data-speakable="hero-title"]',
+        '[data-speakable="hero-description"]',
+      ],
+    }),
+    reviews,
+  ]);
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <main>
@@ -143,7 +150,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <PullQuoteSwiper locale="uk" />
+      <PullQuoteSwiper slides={testimonialSlides} />
       <FAQ heading="Найчастіші питання перед стартом" items={faqItems} />
       <LaunchCta locale="uk" />
       </main>

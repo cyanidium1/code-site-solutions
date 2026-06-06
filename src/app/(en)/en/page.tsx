@@ -15,7 +15,16 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { ORG_ID, SITE_CONTACT, SITE_ORIGIN, WEBSITE_ID } from "@/constants/site";
+import { ORG_ID, SITE_ORIGIN } from "@/constants/site";
+import {
+  buildJsonLd,
+  buildReviewNodes,
+  organizationNode,
+  webPageNode,
+  websiteNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
+import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { EN_INDUSTRIES, EN_TIERS, buildEnHomepageFaq } from "@/content/en/homepage";
 import {
   fetchPricingPlans,
@@ -48,53 +57,51 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": ORG_ID,
-      name: "Code-Site.Art",
-      url: SITE_ORIGIN,
-      email: SITE_CONTACT.email,
-      telephone: SITE_CONTACT.phone,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Kyiv",
-        addressCountry: "UA",
-      },
-      sameAs: [
-        SITE_CONTACT.telegram,
-        SITE_CONTACT.linkedin,
-        SITE_CONTACT.github,
-      ],
-      foundingDate: "2023",
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${WEBSITE_ID}#en`,
-      url: `${SITE_ORIGIN}/en`,
-      name: "Code-Site.Art",
-      description:
-        "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.",
-      inLanguage: "en",
-      publisher: { "@id": ORG_ID },
-    },
-  ],
-};
+const HOMEPAGE_EN_DESCRIPTION =
+  "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.";
 
 export default async function HomePageEn() {
-  const cmsPlans = await fetchPricingPlans("en");
+  const [cmsPlans, testimonialSlides] = await Promise.all([
+    fetchPricingPlans("en"),
+    fetchTestimonialSlides("en"),
+  ]);
   const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : EN_TIERS;
   const planOverride = toHomepagePlanOverride(cmsPlans);
   const faqItems = buildEnHomepageFaq(planOverride);
   const range = pricingRange(cmsPlans, "en");
+
+  // Same slides feed the slider below — Google's "review visible on page"
+  // rule is satisfied. Slides missing rating or date are silently dropped.
+  const reviews = buildReviewNodes(
+    testimonialSlides.map((s) => ({
+      body: s.quote,
+      authorName: s.authorName,
+      rating: s.rating,
+      datePublished: s.reviewDate ?? s.createdAt?.slice(0, 10),
+      headline: s.reviewHeadline,
+    })),
+    ORG_ID,
+  );
+
+  const jsonLd = buildJsonLd([
+    organizationNode(),
+    websiteNode("en", HOMEPAGE_EN_DESCRIPTION),
+    webPageNode({
+      path: "/en",
+      locale: "en",
+      title:
+        "Code-Site.Art — Custom websites that book meetings 24/7. Live in 4–10 weeks.",
+      description: HOMEPAGE_EN_DESCRIPTION,
+      speakableSelectors: [
+        '[data-speakable="hero-title"]',
+        '[data-speakable="hero-description"]',
+      ],
+    }),
+    reviews,
+  ]);
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <main>
@@ -198,7 +205,7 @@ export default async function HomePageEn() {
         ctaHref="/portfolio"
       />
 
-      <PullQuoteSwiper locale="en" />
+      <PullQuoteSwiper slides={testimonialSlides} />
 
       <section className={hpSectionClass} id="pricing">
         <div className={hpInnerClass}>

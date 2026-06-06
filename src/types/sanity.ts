@@ -213,6 +213,9 @@ export type ServicesSection = BlockBase<"servicesBlock"> & {
     authorInitials?: string;
     authorRole?: LocalizedString;
     authorAvatar?: SanityAsset | null;
+    rating?: number;
+    reviewDate?: string;
+    reviewHeadline?: LocalizedString;
   };
   sub?: LocalizedText;
   features?: Array<{
@@ -326,6 +329,11 @@ export type QuoteSection = BlockBase<"quoteBlock"> & {
   authorName?: string;
   authorRole?: LocalizedString;
   authorAvatar?: SanityImage | null;
+  /** When true, emit this quote as a schema.org Review on the case page. */
+  isReview?: boolean;
+  rating?: number;
+  reviewDate?: string;
+  reviewHeadline?: LocalizedString;
 };
 
 export type MediaGallerySection = BlockBase<"mediaGalleryBlock"> & {
@@ -350,6 +358,9 @@ export type TestimonialSection = BlockBase<"testimonialBlock"> & {
   authorName?: string;
   authorRole?: LocalizedString;
   authorAvatar?: SanityImage | null;
+  rating?: number;
+  reviewDate?: string;
+  reviewHeadline?: LocalizedString;
 };
 
 /**
@@ -370,6 +381,11 @@ export type Testimonial = {
   caseLabel?: LocalizedString;
   featured?: boolean;
   order?: number;
+  rating?: number;
+  reviewDate?: string;
+  reviewHeadline?: LocalizedString;
+  /** Surfaced as the Review.datePublished fallback when `reviewDate` is empty. */
+  _createdAt?: string;
 };
 
 export type IndustrySection =

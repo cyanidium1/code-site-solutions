@@ -29,6 +29,7 @@ import type {
   IndustrySection,
   Locale,
   OutcomeSection,
+  ServicesSection,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import {
@@ -39,7 +40,17 @@ import {
 } from "@/lib/shared/sanity-portable";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import { pickRichText } from "@/lib/shared/pick-rich-text";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { ORG_ID, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  buildReviewNodes,
+  breadcrumbNode,
+  webPageNode,
+  definedTermNodes,
+  type JsonLdNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
+import { glossaryTerms } from "@/constants/glossary";
 import { localizePath } from "@/constants/i18n-routes";
 import { buildHrefWithParams } from "@/lib/shared/update-search-params";
 
@@ -54,11 +65,21 @@ function pathFor(slug: string, locale: Locale): string {
   return locale === "en" ? `/en/sites-for/${slug}` : `/sites-for/${slug}`;
 }
 
+/** Glossary keys to attach as DefinedTerm nodes on every industry page. */
+const INDUSTRY_GLOSSARY_KEYS = [
+  "seo",
+  "coreWebVitals",
+  "lcp",
+  "nextjs",
+  "headlessCms",
+] as const;
+
 function buildIndustryJsonLd(
   doc: IndustryPageDoc,
   locale: Locale,
-): Record<string, unknown> {
-  const url = pageUrl(pathFor(doc.slug, locale));
+): JsonLdNode {
+  const path = pathFor(doc.slug, locale);
+  const url = pageUrl(path);
   const title = loc(doc.title, locale);
   const description = loc(doc.seo?.description, locale) || undefined;
 
@@ -67,6 +88,24 @@ function buildIndustryJsonLd(
     "comparisonBlock",
   );
   const faq = findSection<FaqSection>(doc.sections, "faqBlock");
+  const services = findSection<ServicesSection>(doc.sections, "servicesBlock");
+
+  // Industry testimonial is about the studio overall — itemReviewed = Organization.
+  const industryReview = services?.testimonial;
+  const reviews = industryReview
+    ? buildReviewNodes(
+        [
+          {
+            body: loc(industryReview.quote, locale),
+            authorName: industryReview.authorName ?? "",
+            rating: industryReview.rating,
+            datePublished: industryReview.reviewDate,
+            headline: loc(industryReview.reviewHeadline, locale) || undefined,
+          },
+        ],
+        ORG_ID,
+      )
+    : [];
 
   const offers =
     comparison?.tiers?.map((t) => {
@@ -90,57 +129,63 @@ function buildIndustryJsonLd(
       };
     }) ?? [];
 
-  const graph: Record<string, unknown>[] = [];
-
-  if (offers.length) {
-    graph.push({
-      "@type": "Service",
-      "@id": `${url}#service`,
-      name: title,
-      description,
-      provider: { "@id": ORG_ID },
-      areaServed: ["UA", "EU", "US", "DK"],
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
+  const serviceNode: JsonLdNode | null = offers.length
+    ? {
+        "@type": "Service",
+        "@id": `${url}#service`,
         name: title,
-        itemListElement: offers,
-      },
-    });
-  }
-
-  graph.push({
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: locale === "en" ? "Home" : "Головна",
-        item: locale === "en" ? `${SITE_ORIGIN}/en` : SITE_ORIGIN,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: title,
-        item: url,
-      },
-    ],
-  });
-
-  if (faq?.items?.length) {
-    graph.push({
-      "@type": "FAQPage",
-      mainEntity: faq.items.map((it) => ({
-        "@type": "Question",
-        name: loc(it.question, locale),
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: plainPortable(pickRichText(it.answer, it.answerEn, locale)),
+        description,
+        provider: { "@id": ORG_ID },
+        areaServed: ["UA", "EU", "US", "DK"],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: title,
+          itemListElement: offers,
         },
-      })),
-    });
-  }
+      }
+    : null;
 
-  return { "@context": "https://schema.org", "@graph": graph };
+  const faqNode: JsonLdNode | null = faq?.items?.length
+    ? {
+        "@type": "FAQPage",
+        mainEntity: faq.items.map((it) => ({
+          "@type": "Question",
+          name: loc(it.question, locale),
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: plainPortable(pickRichText(it.answer, it.answerEn, locale)),
+          },
+        })),
+      }
+    : null;
+
+  return buildJsonLd([
+    webPageNode({
+      path,
+      locale,
+      title,
+      description,
+      speakableSelectors: [
+        '[data-speakable="hero-title"]',
+        '[data-speakable="hero-description"]',
+      ],
+    }),
+    breadcrumbNode([
+      {
+        name: locale === "en" ? "Home" : "Головна",
+        path: locale === "en" ? "/en" : "/",
+      },
+      {
+        name: locale === "en" ? "Industry solutions" : "Рішення для галузей",
+        path: locale === "en" ? "/en/#solutions" : "/#solutions",
+      },
+      { name: title, path },
+    ]),
+    serviceNode,
+    faqNode,
+    reviews,
+    definedTermNodes(glossaryTerms(INDUSTRY_GLOSSARY_KEYS, locale), locale),
+  ]);
 }
 
 function buildOutcomeMock(
@@ -585,10 +630,7 @@ export async function IndustryPageView({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
       <main>
       <HeroEditorial

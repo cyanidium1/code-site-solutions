@@ -6,6 +6,12 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
 import { WebsiteCalculator } from "@/components/calculator";
 import { fetchCalculatorConfig } from "@/lib/server/fetch-calculator-config";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 
 const T = enMessages.Calculator;
 
@@ -47,10 +53,24 @@ const stats = [
   { value: T.stats.warranty.value, label: T.stats.warranty.label },
 ];
 
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: "/en/calculator",
+    locale: "en",
+    title: T.meta.title,
+    description: T.meta.description,
+  }),
+  breadcrumbNode([
+    { name: T.pageHero.breadcrumbHome, path: "/en" },
+    { name: T.pageHero.breadcrumbSelf, path: "/en/calculator" },
+  ]),
+]);
+
 export default async function CalculatorPageEn() {
   const config = await fetchCalculatorConfig("en");
   return (
     <>
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <PageHero

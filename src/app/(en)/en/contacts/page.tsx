@@ -4,7 +4,13 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { SITE_ORIGIN, ORG_ID, pageUrl } from "@/constants/site";
+import { ORG_ID } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 
 export const metadata: Metadata = {
@@ -72,57 +78,37 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
   },
 ];
 
-const CONTACTS_URL = pageUrl("/en/contacts");
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "ContactPage",
-      "@id": `${CONTACTS_URL}#contactpage`,
-      url: CONTACTS_URL,
-      name: "Contact us — Code-Site.Art",
-      about: { "@id": ORG_ID },
-      inLanguage: "en",
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: `${SITE_ORIGIN}/en`,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Contact",
-          item: CONTACTS_URL,
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: CONTACTS_FAQ.map((it) => ({
-        "@type": "Question",
-        name: it.q,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: plainRich(it.a),
-        },
-      })),
-    },
-  ],
-};
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: "/en/contacts",
+    locale: "en",
+    title: "Contact us — Code-Site.Art",
+    description:
+      "Telegram replies in 30 minutes. A detailed brief gets a reply in 4 business hours. No bots, Fedir replies in person.",
+    type: "ContactPage",
+    extra: { about: { "@id": ORG_ID } },
+  }),
+  breadcrumbNode([
+    { name: "Home", path: "/en" },
+    { name: "Contact", path: "/en/contacts" },
+  ]),
+  {
+    "@type": "FAQPage",
+    mainEntity: CONTACTS_FAQ.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: plainRich(it.a),
+      },
+    })),
+  },
+]);
 
 export default function EnContactsPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
 
       <PageHero

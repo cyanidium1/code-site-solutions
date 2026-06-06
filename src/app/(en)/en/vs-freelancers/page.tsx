@@ -4,7 +4,13 @@ import {
   VsFreelancersView,
   getVsFreelancersContent,
 } from "@/components/vs-freelancers";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { ORG_ID, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 
 const PATH = "/en/vs-freelancers";
 const UK_PATH = "/vs-freelancers";
@@ -32,52 +38,39 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: `${SITE_ORIGIN}/en`,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Studio vs Freelancer",
-          item: URL,
-        },
-      ],
-    },
-    {
-      "@type": "Service",
-      "@id": `${URL}#service`,
-      name: "Studio web development as an alternative to a freelancer",
-      description: CONTENT.metaDescription,
-      provider: { "@id": ORG_ID },
-      areaServed: ["UA", "EU", "US", "DK"],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: CONTENT.faq.items.map((it) => ({
-        "@type": "Question",
-        name: it.q,
-        acceptedAnswer: { "@type": "Answer", text: it.a },
-      })),
-    },
-  ],
-};
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: PATH,
+    locale: "en",
+    title: CONTENT.metaTitle,
+    description: CONTENT.metaDescription,
+  }),
+  breadcrumbNode([
+    { name: "Home", path: "/en" },
+    { name: "Studio vs Freelancer", path: PATH },
+  ]),
+  {
+    "@type": "Service",
+    "@id": `${URL}#service`,
+    name: "Studio web development as an alternative to a freelancer",
+    description: CONTENT.metaDescription,
+    provider: { "@id": ORG_ID },
+    areaServed: ["UA", "EU", "US", "DK"],
+  },
+  {
+    "@type": "FAQPage",
+    mainEntity: CONTENT.faq.items.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: { "@type": "Answer", text: it.a },
+    })),
+  },
+]);
 
 export default function VsFreelancersPageEn() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <VsFreelancersView locale="en" />
     </>
   );

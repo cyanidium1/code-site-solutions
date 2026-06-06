@@ -11,6 +11,47 @@ import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/
 import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
 import { dedupeCategoryRefs } from "@/lib/shared/filters/dedupe-options";
 import { FilterPills } from "@/components/filters/filter-pills";
+import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
+
+const BLOG_DESCRIPTION =
+  "Раз на місяць — одна стаття про реальний проєкт: бюджет, помилки, що б зробили інакше. Без води і без новин.";
+
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: "/blog",
+    locale: "uk",
+    title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
+    description: BLOG_DESCRIPTION,
+    type: "CollectionPage",
+  }),
+  breadcrumbNode([
+    { name: "Головна", path: "/" },
+    { name: "Блог", path: "/blog" },
+  ]),
+  {
+    "@type": "Blog",
+    "@id": `${pageUrl("/blog")}#blog`,
+    name: "Блог Code-Site.Art — розбори реальних проєктів",
+    description: BLOG_DESCRIPTION,
+    url: pageUrl("/blog"),
+    inLanguage: "uk-UA",
+    publisher: {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: "Code-Site.Art",
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_ORIGIN}/logo-512.png`,
+      },
+    },
+  },
+]);
 export const metadata: Metadata = {
   title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
   description:
@@ -65,6 +106,7 @@ export default async function BlogPage({
 
   return (
     <>
+      <JsonLd data={jsonLd} />
       <HpHeader />
       <main>
         <PageHero

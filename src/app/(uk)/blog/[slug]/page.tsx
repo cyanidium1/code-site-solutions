@@ -20,6 +20,14 @@ import type {
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/sanity-portable";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+  definedTermNodes,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
+import { glossaryTerms } from "@/constants/glossary";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── Static params + metadata ──────────────────────────────────────────── */
@@ -102,10 +110,17 @@ function formatUkDate(iso?: string): string | undefined {
 
 /* ─── JSON-LD ─────────────────────────────────────────────────────────────── */
 
-function buildJsonLd(
-  post: BlogPostDoc,
-): Record<string, unknown> {
-  const url = pageUrl(`/blog/${post.slug}`);
+/** Glossary terms attached to every blog post — keep small to avoid bloat. */
+const BLOG_GLOSSARY_KEYS = [
+  "seo",
+  "coreWebVitals",
+  "nextjs",
+  "isr",
+] as const;
+
+function buildBlogJsonLd(post: BlogPostDoc) {
+  const path = `/blog/${post.slug}`;
+  const url = pageUrl(path);
   // JSON-LD wants an absolute URL — the static cover path needs SITE_ORIGIN
   // prepended; Sanity ogImage is already absolute.
   const coverAbs = post.coverImage?.src
@@ -114,34 +129,29 @@ function buildJsonLd(
       : `${SITE_ORIGIN}${post.coverImage.src}`
     : undefined;
   const imageUrl = post.ogImage?.url ?? coverAbs ?? undefined;
+  const title = post.title ?? post.slug;
 
-  const graph: Record<string, unknown>[] = [
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Головна", item: SITE_ORIGIN },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Блог",
-          item: `${SITE_ORIGIN}/blog`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: post.title ?? post.slug,
-          item: url,
-        },
-      ],
-    },
+  return buildJsonLd([
+    webPageNode({
+      path,
+      locale: "uk",
+      title,
+      description: post.metaDescription ?? post.lede,
+      type: "ItemPage",
+    }),
+    breadcrumbNode([
+      { name: "Головна", path: "/" },
+      { name: "Блог", path: "/blog" },
+      { name: title, path },
+    ]),
     {
       "@type": "Article",
       "@id": `${url}#article`,
       url,
       mainEntityOfPage: url,
-      headline: post.title ?? post.slug,
+      headline: title,
       description: post.metaDescription ?? post.lede,
-      inLanguage: "uk",
+      inLanguage: "uk-UA",
       datePublished: post.publishedAt,
       dateModified: post.updatedAt ?? post.publishedAt,
       image: imageUrl ? [imageUrl] : undefined,
@@ -165,23 +175,21 @@ function buildJsonLd(
       articleSection: post.category,
       keywords: post.tags?.length ? post.tags.join(", ") : undefined,
     },
-  ];
-
-  if (post.faq?.length) {
-    graph.push({
-      "@type": "FAQPage",
-      mainEntity: post.faq.map((item) => ({
-        "@type": "Question",
-        name: item.question ?? "",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer ?? "",
-        },
-      })),
-    });
-  }
-
-  return { "@context": "https://schema.org", "@graph": graph };
+    post.faq?.length
+      ? {
+          "@type": "FAQPage",
+          mainEntity: post.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question ?? "",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer ?? "",
+            },
+          })),
+        }
+      : null,
+    definedTermNodes(glossaryTerms(BLOG_GLOSSARY_KEYS, "uk"), "uk"),
+  ]);
 }
 
 /* ─── Related-articles resolver ──────────────────────────────────────────── */
@@ -213,7 +221,7 @@ export default async function BlogPostPage({
   const post = await fetchPost(slug);
   if (!post) notFound();
 
-  const jsonLd = buildJsonLd(post);
+  const jsonLd = buildBlogJsonLd(post);
   const dateStr = formatUkDate(post.publishedAt);
   const updatedStr =
     post.updatedAt && post.updatedAt !== post.publishedAt
@@ -230,10 +238,7 @@ export default async function BlogPostPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <HpHeader />
       <main>
         {/* Hero cover — rendered above the H1. Full standard width to

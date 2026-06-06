@@ -483,7 +483,11 @@ export const HOMEPAGE_TESTIMONIALS_QUERY = /* groq */ `
   "caseRef": caseRef->{ "slug": slug.current },
   caseLabel ${LOCALIZED_STRING},
   featured,
-  order
+  order,
+  rating,
+  reviewDate,
+  reviewHeadline ${LOCALIZED_STRING},
+  _createdAt
 } | order(order asc, _createdAt desc)
 `;
 

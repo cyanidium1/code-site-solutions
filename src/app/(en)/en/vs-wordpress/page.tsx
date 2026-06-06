@@ -4,7 +4,13 @@ import {
   VsWordpressView,
   getVsWordpressContent,
 } from "@/components/vs-wordpress";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { ORG_ID, pageUrl } from "@/constants/site";
+import {
+  buildJsonLd,
+  breadcrumbNode,
+  webPageNode,
+} from "@/lib/shared/jsonld";
+import { JsonLd } from "@/components/shared/json-ld";
 
 const PATH = "/en/vs-wordpress";
 const UK_PATH = "/vs-wordpress";
@@ -32,59 +38,46 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: `${SITE_ORIGIN}/en`,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Migrate off WordPress",
-          item: URL,
-        },
-      ],
-    },
-    {
-      "@type": "Service",
-      "@id": `${URL}#service`,
-      name: "WordPress to Next.js migration",
-      description: CONTENT.metaDescription,
-      provider: { "@id": ORG_ID },
-      areaServed: ["UA", "EU", "US", "DK"],
-      offers: CONTENT.pricing.tiers.map((t) => ({
-        "@type": "Offer",
-        name: typeof t.name === "string" ? t.name : "Migration tier",
-        price: t.price.replace(/[^\d]/g, ""),
-        priceCurrency: "USD",
-        url: URL,
-      })),
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: CONTENT.faq.items.map((it) => ({
-        "@type": "Question",
-        name: it.q,
-        acceptedAnswer: { "@type": "Answer", text: it.a },
-      })),
-    },
-  ],
-};
+const jsonLd = buildJsonLd([
+  webPageNode({
+    path: PATH,
+    locale: "en",
+    title: CONTENT.metaTitle,
+    description: CONTENT.metaDescription,
+  }),
+  breadcrumbNode([
+    { name: "Home", path: "/en" },
+    { name: "Migrate off WordPress", path: PATH },
+  ]),
+  {
+    "@type": "Service",
+    "@id": `${URL}#service`,
+    name: "WordPress to Next.js migration",
+    description: CONTENT.metaDescription,
+    provider: { "@id": ORG_ID },
+    areaServed: ["UA", "EU", "US", "DK"],
+    offers: CONTENT.pricing.tiers.map((t) => ({
+      "@type": "Offer",
+      name: typeof t.name === "string" ? t.name : "Migration tier",
+      price: t.price.replace(/[^\d]/g, ""),
+      priceCurrency: "USD",
+      url: URL,
+    })),
+  },
+  {
+    "@type": "FAQPage",
+    mainEntity: CONTENT.faq.items.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: { "@type": "Answer", text: it.a },
+    })),
+  },
+]);
 
 export default function VsWordpressPageEn() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <VsWordpressView locale="en" />
     </>
   );

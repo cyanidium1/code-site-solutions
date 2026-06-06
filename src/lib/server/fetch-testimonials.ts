@@ -26,6 +26,12 @@ export type TestimonialSlide = {
   mockupRight?: TestimonialAsset;
   caseHref?: string;
   caseLabel?: string;
+  /** schema.org Review fields — surfaced for JSON-LD; the slider UI ignores them. */
+  rating?: number;
+  reviewDate?: string;
+  reviewHeadline?: string;
+  /** Fallback for Review.datePublished when reviewDate is empty. */
+  createdAt?: string;
 };
 
 /** Up to 2 letters, uppercased, from the first words of authorName. */
@@ -108,6 +114,10 @@ export async function fetchTestimonialSlides(
       mockupRight: toAsset(t.mockupRight, locale),
       caseHref: resolveCaseHref(t.caseRef?.slug, locale, registry),
       caseLabel: loc(t.caseLabel, locale) || undefined,
+      rating: t.rating,
+      reviewDate: t.reviewDate,
+      reviewHeadline: loc(t.reviewHeadline, locale) || undefined,
+      createdAt: t._createdAt,
     }))
     .filter((s) => s.quote.trim().length > 0);
 }
