@@ -28,17 +28,17 @@ import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
-  title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
+  title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
   description:
-    "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
+    "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендинг від $1 000 ✔️ Корпоративний сайт від $3 000 ✔️ E-commerce від $5 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
   alternates: {
     canonical: "/pricing",
     languages: { uk: "/pricing", en: "/en/pricing", "x-default": "/pricing" },
   },
   openGraph: {
-    title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
+    title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
     description:
-      "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
+      "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендинг від $1 000 ✔️ Корпоративний сайт від $3 000 ✔️ E-commerce від $5 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
     type: "website",
     locale: "uk_UA",
     url: "/pricing",
@@ -63,9 +63,9 @@ function buildUkPricingJsonLd(offers: UkPricingOffer[]) {
     webPageNode({
       path: "/pricing",
       locale: "uk",
-      title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
+      title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
       description:
-        "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
+        "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендинг від $1 000 ✔️ Корпоративний сайт від $3 000 ✔️ E-commerce від $5 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
     }),
     breadcrumbNode([
       { name: "Головна", path: "/" },

@@ -20,13 +20,13 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 
 const BLOG_DESCRIPTION =
-  "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.";
+  "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.";
 
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/blog",
     locale: "uk",
-    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
+    title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
     description: BLOG_DESCRIPTION,
     type: "CollectionPage",
   }),
@@ -37,7 +37,7 @@ const jsonLd = buildJsonLd([
   {
     "@type": "Blog",
     "@id": `${pageUrl("/blog")}#blog`,
-    name: "Code-Site.Art Blog — UK web design & development",
+    name: "Блог Code-Site.Art — вебдизайн і розробка",
     description: BLOG_DESCRIPTION,
     url: pageUrl("/blog"),
     inLanguage: "uk-UA",
@@ -53,17 +53,17 @@ const jsonLd = buildJsonLd([
   },
 ]);
 export const metadata: Metadata = {
-  title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
+  title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
   description:
-    "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
+    "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
   alternates: {
     canonical: "/blog",
     languages: { uk: "/blog", en: "/en/blog", "x-default": "/blog" },
   },
   openGraph: {
-    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
+    title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
     description:
-      "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
+      "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
     type: "website",
     locale: "uk_UA",
     url: "/blog",

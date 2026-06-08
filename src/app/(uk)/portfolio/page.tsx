@@ -29,9 +29,9 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
-  title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
+  title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
   description:
-    "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
+    "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
   alternates: {
     canonical: "/portfolio",
     languages: {
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
+    title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
     description:
-      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
+      "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
     type: "website",
     locale: "uk_UA",
     url: "/portfolio",
@@ -92,9 +92,9 @@ export default async function PortfolioPage({
     webPageNode({
       path: "/portfolio",
       locale: "uk",
-      title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
+      title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
       description:
-        "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
+        "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
       type: "CollectionPage",
       extra: {
         mainEntity: {

@@ -42,9 +42,9 @@ const actay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ᐈ Custom Website Development Studio | Code-Site.Art",
+  title: "ᐈ Студія розробки кастомних сайтів під ключ | Code-Site.Art",
   description:
-    "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+    "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $1 000 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.",
   metadataBase: new URL(SITE_ORIGIN),
   alternates: {
     canonical: SITE_ORIGIN,
@@ -55,18 +55,18 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
+    title: "ᐈ Студія розробки кастомних сайтів під ключ | Code-Site.Art",
     description:
-      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+      "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $1 000 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.",
     type: "website",
     locale: "uk_UA",
     alternateLocale: ["en_US"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
+    title: "ᐈ Студія розробки кастомних сайтів під ключ | Code-Site.Art",
     description:
-      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+      "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $1 000 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.",
   },
 };
 

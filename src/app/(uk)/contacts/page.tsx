@@ -14,9 +14,9 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 
 export const metadata: Metadata = {
-  title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
+  title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
   description:
-    "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
+    "➤ Безкоштовна консультація за 24 години ✔️ Без довгих брифів ✔️ 30-хв стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
   alternates: {
     canonical: "/contacts",
     languages: {
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
+    title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
     description:
-      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
+      "➤ Безкоштовна консультація за 24 години ✔️ Без довгих брифів ✔️ 30-хв стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
     type: "website",
     locale: "uk_UA",
     url: "/contacts",
@@ -82,9 +82,9 @@ const jsonLd = buildJsonLd([
   webPageNode({
     path: "/contacts",
     locale: "uk",
-    title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
+    title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
     description:
-      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
+      "➤ Безкоштовна консультація за 24 години ✔️ Без довгих брифів ✔️ 30-хв стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
     type: "ContactPage",
     extra: { about: { "@id": ORG_ID } },
   }),
