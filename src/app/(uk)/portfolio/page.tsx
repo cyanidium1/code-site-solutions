@@ -29,9 +29,9 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
-  title: "Портфоліо — кейси від Code-Site.Art",
+  title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
   description:
-    "Реальні кейси з реальними метриками. Сайти для клінік, юристів, e-commerce, стартапів. Від $1 000 до $14 000+.",
+    "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
   alternates: {
     canonical: "/portfolio",
     languages: {
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Портфоліо — кейси від Code-Site.Art",
+    title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
     description:
-      "Реальні кейси з реальними метриками. Сайти для клінік, юристів, e-commerce, стартапів.",
+      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
     type: "website",
     locale: "uk_UA",
     url: "/portfolio",
@@ -92,9 +92,9 @@ export default async function PortfolioPage({
     webPageNode({
       path: "/portfolio",
       locale: "uk",
-      title: "Портфоліо — Code-Site.Art",
+      title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
       description:
-        "Реальні кейси з реальними метриками. Сайти для клінік, юристів, e-commerce, стартапів.",
+        "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
       type: "CollectionPage",
       extra: {
         mainEntity: {

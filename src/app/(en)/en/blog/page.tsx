@@ -20,13 +20,13 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 
 const BLOG_DESCRIPTION =
-  "Once a month — one article on a real project: budget, mistakes, what we'd do differently. No fluff, no news.";
+  "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.";
 
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/en/blog",
     locale: "en",
-    title: "Blog — real project breakdowns with numbers | Code-Site.Art",
+    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
     description: BLOG_DESCRIPTION,
     type: "CollectionPage",
   }),
@@ -37,7 +37,7 @@ const jsonLd = buildJsonLd([
   {
     "@type": "Blog",
     "@id": `${pageUrl("/en/blog")}#blog`,
-    name: "Code-Site.Art Blog — real project breakdowns",
+    name: "Code-Site.Art Blog — UK web design & development",
     description: BLOG_DESCRIPTION,
     url: pageUrl("/en/blog"),
     inLanguage: "en-US",
@@ -54,9 +54,9 @@ const jsonLd = buildJsonLd([
 ]);
 
 export const metadata: Metadata = {
-  title: "Blog — real project breakdowns with numbers | Code-Site.Art",
+  title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
   description:
-    "Once a month — one article on a real project: budget, mistakes, what we'd do differently. No fluff, no news.",
+    "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
   alternates: {
     canonical: "/en/blog",
     languages: {
@@ -66,9 +66,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Blog — real project breakdowns with numbers | Code-Site.Art",
+    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
     description:
-      "Once a month — one article on a real project: budget, mistakes, what we'd do differently.",
+      "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
     type: "website",
     locale: "en_US",
     url: "/en/blog",

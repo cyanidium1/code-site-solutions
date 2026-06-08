@@ -244,6 +244,11 @@ export async function buildIndustryMetadata(
     languages["x-default"] = `/sites-for/${slug}`;
   }
 
+  // OG image fallback: dedicated seo.ogImage → hero device mockup → site default
+  // (handled by Next via app/opengraph-image.tsx when `images` is undefined).
+  const ogImageUrl =
+    page.seo?.ogImage?.url ?? page.hero?.deviceMockup?.asset?.url ?? undefined;
+
   return {
     title,
     description,
@@ -257,6 +262,7 @@ export async function buildIndustryMetadata(
       url: path,
       type: "website",
       locale: locale === "en" ? "en_US" : "uk_UA",
+      ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
     },
   };
 }

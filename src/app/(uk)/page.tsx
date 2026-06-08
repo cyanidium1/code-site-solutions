@@ -32,7 +32,7 @@ import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 const HOMEPAGE_DESCRIPTION =
-  "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.";
+  "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.";
 
 export default async function HomePage() {
   const [cmsPlans, testimonialSlides] = await Promise.all([
@@ -64,7 +64,7 @@ export default async function HomePage() {
     webPageNode({
       path: "/",
       locale: "uk",
-      title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
+      title: "ᐈ Custom Website Development Studio | Code-Site.Art",
       description: HOMEPAGE_DESCRIPTION,
       speakableSelectors: [
         '[data-speakable="hero-title"]',

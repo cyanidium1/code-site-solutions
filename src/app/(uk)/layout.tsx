@@ -42,9 +42,9 @@ const actay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
+  title: "ᐈ Custom Website Development Studio | Code-Site.Art",
   description:
-    "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
+    "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
   metadataBase: new URL(SITE_ORIGIN),
   alternates: {
     canonical: SITE_ORIGIN,
@@ -55,18 +55,18 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
+    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:
-      "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
+      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
     type: "website",
     locale: "uk_UA",
     alternateLocale: ["en_US"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Code-Site.Art — сайт що приймає заявки 24/7. Запуск 4-10 тижнів",
+    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:
-      "Кастомні сайти для бізнесу: ми пишемо тексти, дизайнимо, кодимо, ставимо інтеграції. Через 4-10 тижнів ви отримуєте готовий сайт що починає приводити клієнтів сам.",
+      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
   },
 };
 

@@ -122,6 +122,15 @@ export async function buildCaseStudyMetadata(
     languages["x-default"] = `/portfolio/${slug}`;
   }
 
+  // OG image fallback: dedicated seo.ogImage → hero image → cover image →
+  // file-based [slug]/opengraph-image.tsx auto-card (handled by Next when
+  // `images` is undefined).
+  const ogImageUrl =
+    doc.seo?.ogImage?.url ??
+    doc.hero?.heroImage?.asset?.url ??
+    doc.coverImage?.asset?.url ??
+    undefined;
+
   return {
     title,
     description,
@@ -132,6 +141,7 @@ export async function buildCaseStudyMetadata(
       url: path,
       type: "article",
       locale: locale === "en" ? "en_US" : "uk_UA",
+      ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
     },
   };
 }

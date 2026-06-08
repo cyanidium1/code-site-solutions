@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { LegalStub } from "@/components/legal/legal-stub";
 
 export const metadata: Metadata = {
-  title: "Політика конфіденційності — Code-Site.Art",
+  title: "Privacy Policy | Code-Site.Art",
   description:
-    "Як ми збираємо, зберігаємо та обробляємо персональні дані. GDPR-сумісна політика конфіденційності Code-Site.Art.",
+    "Privacy policy for code-site.art — how we collect, use and protect your personal data in line with GDPR requirements.",
   alternates: { canonical: "/policy" },
   robots: { index: false, follow: false },
 };

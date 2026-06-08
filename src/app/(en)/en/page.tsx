@@ -34,10 +34,9 @@ import {
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
-  title:
-    "Code-Site.Art — Custom websites that book meetings 24/7. Live in 4–10 weeks.",
+  title: "ᐈ Custom Website Development Studio | Code-Site.Art",
   description:
-    "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.",
+    "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
   alternates: {
     canonical: `${SITE_ORIGIN}/en`,
     languages: {
@@ -47,10 +46,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title:
-      "Custom websites that book meetings 24/7 — Code-Site.Art",
+    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:
-      "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.",
+      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
     type: "website",
     locale: "en_US",
     url: `${SITE_ORIGIN}/en`,
@@ -58,7 +56,7 @@ export const metadata: Metadata = {
 };
 
 const HOMEPAGE_EN_DESCRIPTION =
-  "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline.";
+  "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.";
 
 export default async function HomePageEn() {
   const [cmsPlans, testimonialSlides] = await Promise.all([
@@ -89,8 +87,7 @@ export default async function HomePageEn() {
     webPageNode({
       path: "/en",
       locale: "en",
-      title:
-        "Code-Site.Art — Custom websites that book meetings 24/7. Live in 4–10 weeks.",
+      title: "ᐈ Custom Website Development Studio | Code-Site.Art",
       description: HOMEPAGE_EN_DESCRIPTION,
       speakableSelectors: [
         '[data-speakable="hero-title"]',

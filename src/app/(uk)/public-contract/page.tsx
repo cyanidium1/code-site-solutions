@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { LegalStub } from "@/components/legal/legal-stub";
 
 export const metadata: Metadata = {
-  title: "Публічний договір (оферта) — Code-Site.Art",
+  title: "Public Contract — Web Development Services | Code-Site.Art",
   description:
-    "Публічна оферта на надання послуг з розробки сайтів від Code-Site.Art. Умови, порядок оплати, права і обов&apos;язки сторін.",
+    "Public contract for web development services provided by Code-Site.Art (FOP Alpatov Fedir Mykhailovych). Terms, pricing and obligations for all client engagements.",
   alternates: { canonical: "/public-contract" },
   robots: { index: false, follow: false },
 };

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { LegalStub } from "@/components/legal/legal-stub";
 
 export const metadata: Metadata = {
-  title: "Юридична інформація — Code-Site.Art",
+  title: "Legal Information | Code-Site.Art",
   description:
-    "Реквізити, юридична адреса і контакти Code-Site.Art для договірної та податкової документації.",
+    "Legal information, company registration details and compliance data for Code-Site.Art web development studio.",
   alternates: { canonical: "/legal" },
   robots: { index: false, follow: false },
 };

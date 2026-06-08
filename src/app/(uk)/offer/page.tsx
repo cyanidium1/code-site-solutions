@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { LegalStub } from "@/components/legal/legal-stub";
 
 export const metadata: Metadata = {
-  title: "Умови послуг — Code-Site.Art",
+  title: "Public Offer — Web Development Services | Code-Site.Art",
   description:
-    "Загальні умови надання послуг розробки сайтів Code-Site.Art: оплата, гарантія, права на код, відповідальність сторін.",
+    "Public offer agreement for web development services by Code-Site.Art. Read the full terms before accepting our services.",
   alternates: { canonical: "/offer" },
   robots: { index: false, follow: false },
 };

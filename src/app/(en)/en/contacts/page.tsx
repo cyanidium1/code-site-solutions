@@ -14,9 +14,9 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 
 export const metadata: Metadata = {
-  title: "Contact us: talk in Telegram or send a brief | Code-Site.Art",
+  title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
   description:
-    "Telegram replies in 30 minutes. A detailed brief gets a reply in 4 business hours. No bots, Fedir replies in person.",
+    "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
   alternates: {
     canonical: "/en/contacts",
     languages: {
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Contact us: talk in Telegram or send a brief | Code-Site.Art",
+    title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
-      "Telegram replies in 30 minutes. A detailed brief gets a reply in 4 business hours.",
+      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
     type: "website",
     locale: "en_US",
     url: "/en/contacts",
@@ -82,9 +82,9 @@ const jsonLd = buildJsonLd([
   webPageNode({
     path: "/en/contacts",
     locale: "en",
-    title: "Contact us — Code-Site.Art",
+    title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
-      "Telegram replies in 30 minutes. A detailed brief gets a reply in 4 business hours. No bots, Fedir replies in person.",
+      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
     type: "ContactPage",
     extra: { about: { "@id": ORG_ID } },
   }),

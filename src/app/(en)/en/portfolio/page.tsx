@@ -30,9 +30,9 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
-  title: "Portfolio — real projects with real metrics | Code-Site.Art",
+  title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
   description:
-    "Real projects with real numbers. ×3.2 inquiries, $4M raised, 24 leads/mo.",
+    "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
   alternates: {
     canonical: "/en/portfolio",
     languages: {
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Portfolio — real projects with real metrics | Code-Site.Art",
+    title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
     description:
-      "Real projects with real numbers. ×3.2 inquiries, $4M raised, 24 leads/mo.",
+      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
     type: "website",
     locale: "en_US",
     url: "/en/portfolio",
@@ -93,9 +93,9 @@ export default async function EnPortfolioPage({
     webPageNode({
       path: "/en/portfolio",
       locale: "en",
-      title: "Portfolio — Code-Site.Art",
+      title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
       description:
-        "Real projects with real metrics. Sites for clinics, law firms, e-commerce, startups.",
+        "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
       type: "CollectionPage",
       extra: {
         mainEntity: {

@@ -20,13 +20,13 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 
 const BLOG_DESCRIPTION =
-  "Раз на місяць — одна стаття про реальний проєкт: бюджет, помилки, що б зробили інакше. Без води і без новин.";
+  "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.";
 
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/blog",
     locale: "uk",
-    title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
+    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
     description: BLOG_DESCRIPTION,
     type: "CollectionPage",
   }),
@@ -37,7 +37,7 @@ const jsonLd = buildJsonLd([
   {
     "@type": "Blog",
     "@id": `${pageUrl("/blog")}#blog`,
-    name: "Блог Code-Site.Art — розбори реальних проєктів",
+    name: "Code-Site.Art Blog — UK web design & development",
     description: BLOG_DESCRIPTION,
     url: pageUrl("/blog"),
     inLanguage: "uk-UA",
@@ -53,17 +53,17 @@ const jsonLd = buildJsonLd([
   },
 ]);
 export const metadata: Metadata = {
-  title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
+  title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
   description:
-    "Раз на місяць — одна стаття про реальний проєкт: бюджет, помилки, що б зробили інакше. Без води і без новин.",
+    "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
   alternates: {
     canonical: "/blog",
     languages: { uk: "/blog", en: "/en/blog", "x-default": "/blog" },
   },
   openGraph: {
-    title: "Блог — розбори реальних проєктів з цифрами | Code-Site.Art",
+    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
     description:
-      "Раз на місяць — одна стаття про реальний проєкт: бюджет, помилки, що б зробили інакше. Без води і без новин.",
+      "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
     type: "website",
     locale: "uk_UA",
     url: "/blog",

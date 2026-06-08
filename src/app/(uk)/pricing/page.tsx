@@ -28,17 +28,17 @@ import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
-  title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
+  title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
   description:
-    "Прозорі ціни без «під запит». Лендинг від $1 000, Industry Pro від $3 500, Pro Plus від $7 500, enterprise від $14 000. Гарантія 1 рік.",
+    "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
   alternates: {
     canonical: "/pricing",
     languages: { uk: "/pricing", en: "/en/pricing", "x-default": "/pricing" },
   },
   openGraph: {
-    title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
+    title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
     description:
-      "Прозорі ціни без «під запит». Фіксована вартість за фіксований обсяг роботи.",
+      "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
     type: "website",
     locale: "uk_UA",
     url: "/pricing",
@@ -63,9 +63,9 @@ function buildUkPricingJsonLd(offers: UkPricingOffer[]) {
     webPageNode({
       path: "/pricing",
       locale: "uk",
-      title: "Прайс — від $1 000 до $14 000+ | Code-Site.Art",
+      title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
       description:
-        "Прозорі ціни без «під запит». Лендинг від $1 000, Industry Pro від $3 500, Pro Plus від $7 500, enterprise від $14 000. Гарантія 1 рік.",
+        "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
     }),
     breadcrumbNode([
       { name: "Головна", path: "/" },

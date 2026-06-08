@@ -33,9 +33,9 @@ import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
-  title: "Pricing — $1,000 to $14,000+ fixed in contract | Code-Site.Art",
+  title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
   description:
-    "Transparent pricing for custom-coded websites. From $1,000 to $14,000+. Fixed in contract. 1-year warranty. 30% rebate if we miss the deadline.",
+    "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
   alternates: {
     canonical: "/en/pricing",
     languages: {
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Pricing — $1,000 to $14,000+ fixed in contract | Code-Site.Art",
+    title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
     description:
-      "Transparent pricing for custom-coded websites. Fixed in contract.",
+      "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
     type: "website",
     locale: "en_US",
     url: "/en/pricing",
@@ -72,9 +72,9 @@ function buildEnPricingJsonLd(offers: EnPricingOffer[]) {
     webPageNode({
       path: "/en/pricing",
       locale: "en",
-      title: "Pricing — $1,000 to $14,000+ fixed in contract | Code-Site.Art",
+      title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
       description:
-        "Transparent pricing for custom-coded websites. From $1,000 to $14,000+. Fixed in contract. 1-year warranty. 30% rebate if we miss the deadline.",
+        "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
     }),
     breadcrumbNode([
       { name: "Home", path: "/en" },
