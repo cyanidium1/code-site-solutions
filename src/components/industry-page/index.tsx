@@ -283,6 +283,7 @@ function SectionBlock({
         <ImageText
           variant={section.variant ?? "side"}
           imageVariant={section.imageVariant ?? "imageRight"}
+          bulletIcon={section.bulletIcon ?? "check"}
           eyebrow={loc(section.eyebrow, locale) || undefined}
           heading={formatLine(loc(section.heading, locale)) ?? ""}
           body={

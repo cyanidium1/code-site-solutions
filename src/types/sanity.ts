@@ -117,6 +117,7 @@ export type ImageTextSection = BlockBase<"imageTextBlock"> & {
   body?: RichTextSimple;
   bodyEn?: RichTextSimple;
   bulletList?: LocalizedString[];
+  bulletIcon?: "check" | "cross" | "dot";
   image?: SanityImage | null;
   image2?: SanityImage | null;
   cta?: CtaAction | null;

@@ -364,10 +364,7 @@ function SectionBlock({
             <ImageText
               variant="centered"
               centeredLayout={section.centeredLayout ?? "vertical"}
-              bulletIcon={
-                (section as { bulletIcon?: "check" | "cross" }).bulletIcon ??
-                "check"
-              }
+              bulletIcon={section.bulletIcon ?? "check"}
               eyebrow={loc(section.eyebrow, locale) || undefined}
               heading={formatLine(loc(section.heading, locale)) ?? ""}
               body={
@@ -409,10 +406,7 @@ function SectionBlock({
         <ImageText
           variant={effectiveVariant}
           imageVariant={section.imageVariant ?? "imageRight"}
-          bulletIcon={
-            (section as { bulletIcon?: "check" | "cross" }).bulletIcon ??
-            "check"
-          }
+          bulletIcon={section.bulletIcon ?? "check"}
           eyebrow={loc(section.eyebrow, locale) || undefined}
           heading={formatLine(loc(section.heading, locale)) ?? ""}
           body={

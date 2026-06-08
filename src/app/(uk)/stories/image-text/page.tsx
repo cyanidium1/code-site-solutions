@@ -115,6 +115,40 @@ export default function ImageTextStory() {
       />
       {dashed}
 
+      {/* 4b. side-with-list · bulletIcon="dot" (inherits text colour) */}
+      <ImageText
+        variant="side-with-list"
+        imageVariant="imageLeft"
+        eyebrow="BULLET · DOT"
+        heading={<>Маркер <em>крапка</em></>}
+        body="Стиль маркера «dot» — проста крапка, що успадковує колір тексту (currentColor)."
+        bulletList={[
+          "Перший пункт списку",
+          "Другий пункт списку",
+          "Третій пункт списку",
+        ]}
+        bulletIcon="dot"
+        image={<GradPlaceholder label="dot" from="oklch(0.50 0.16 145)" to="oklch(0.45 0.20 295)" />}
+      />
+      {dashed}
+
+      {/* 4c. side-with-list · bulletIcon="cross" */}
+      <ImageText
+        variant="side-with-list"
+        imageVariant="imageRight"
+        eyebrow="BULLET · CROSS"
+        heading={<>Маркер <em>хрестик</em></>}
+        body="Стиль маркера «cross» — для списків того, чого ми НЕ робимо."
+        bulletList={[
+          "Без WordPress і плагінів",
+          "Без прихованих доплат",
+          "Без нескінченних правок",
+        ]}
+        bulletIcon="cross"
+        image={<GradPlaceholder label="cross" from="oklch(0.50 0.18 25)" to="oklch(0.40 0.18 350)" />}
+      />
+      {dashed}
+
       {/* 5. centered */}
       <ImageText
         variant="centered"

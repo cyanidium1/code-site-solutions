@@ -15,7 +15,7 @@ export type ImageTextProps = {
   heading: React.ReactNode;
   body: React.ReactNode | React.ReactNode[];
   bulletList?: React.ReactNode[];
-  bulletIcon?: "check" | "cross";
+  bulletIcon?: "check" | "cross" | "dot";
   cta?: ImageTextCta;
   image: React.ReactNode;
   /** Second image — only rendered when variant="centered" and
@@ -115,6 +115,21 @@ export function ImageText({
       ? "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.78_0.16_25)]"
       : "bg-accent-18 text-accent-soft";
 
+  // Shared marker so both list render sites (side + centered-horizontal) stay
+  // in sync. "dot" is a plain bullet that inherits the text colour
+  // (currentColor) — hardcoded for now; a configurable colour can be added
+  // later. "check"/"cross" keep the coloured badge treatment.
+  const bulletMarker =
+    bulletIcon === "dot" ? (
+      <span className="inline-flex items-center justify-center w-5 h-5 shrink-0 mt-px">
+        <span className="w-1.5 h-1.5 rounded-full bg-current" />
+      </span>
+    ) : (
+      <span className={`${checkBaseClass} ${checkColorClass}`}>
+        {bulletIcon === "cross" ? CROSS : CHECK}
+      </span>
+    );
+
   const imageBlock = hasImage ? (
     <div className={imageClass}>{image}</div>
   ) : null;
@@ -139,9 +154,7 @@ export function ImageText({
               key={i}
               className="flex gap-3 items-start font-sans text-[15px] text-ink-dim leading-[1.5]"
             >
-              <span className={`${checkBaseClass} ${checkColorClass}`}>
-                {bulletIcon === "cross" ? CROSS : CHECK}
-              </span>
+              {bulletMarker}
               <span>{it}</span>
             </li>
           ))}
@@ -216,9 +229,7 @@ export function ImageText({
                       key={i}
                       className="flex gap-3 items-start font-sans text-[15px] text-ink-dim leading-[1.5]"
                     >
-                      <span className={`${checkBaseClass} ${checkColorClass}`}>
-                        {bulletIcon === "cross" ? CROSS : CHECK}
-                      </span>
+                      {bulletMarker}
                       <span>{it}</span>
                     </li>
                   ))}
