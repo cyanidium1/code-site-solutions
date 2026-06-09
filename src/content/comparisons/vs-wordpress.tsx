@@ -685,7 +685,7 @@ export const VS_WORDPRESS_EN: Content = {
   metaTitle:
     "Migrate off WordPress in 4 weeks · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From $1,000 for a landing. 1-year warranty + 30% rebate.",
+    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £1,000 for a landing. 1-year warranty + 30% rebate.",
   hero: {
     eyebrowLabel: "/ COMPARE · WORDPRESS",
     h1Lines: [
@@ -703,7 +703,7 @@ export const VS_WORDPRESS_EN: Content = {
       { label: "0 SEO drops", sub: "across 47 projects" },
       { label: "4 weeks", sub: "brief to live" },
       { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
-      { label: "From $1,000", sub: "for a landing migration" },
+      { label: "From £1,000", sub: "for a landing migration" },
     ],
     ctaPrimary: "Calculate migration cost",
     ctaSecondary: "See how we migrate",
@@ -722,21 +722,21 @@ export const VS_WORDPRESS_EN: Content = {
         icon: Plug,
         title: "Plugins",
         body: "Yoast Premium, Wordfence, caching, forms, backups. Every plugin is a subscription, an update, and a potential vulnerability.",
-        metric: "$50–150/mo",
+        metric: "£50–150/mo",
       },
       {
         num: "02",
         icon: Server,
         title: "Hosting + CDN",
-        body: "WP-optimized hosting (Kinsta, WP Engine) starts at $30/mo. Cheap hosting = slow site. Either way, you pay.",
-        metric: "$30–200/mo",
+        body: "WP-optimized hosting (Kinsta, WP Engine) starts at £30/mo. Cheap hosting = slow site. Either way, you pay.",
+        metric: "£30–200/mo",
       },
       {
         num: "03",
         icon: ShieldAlert,
         title: "Security",
         body: "WordPress is the #1 target for attackers. Brute-force, XSS, plugin vulnerabilities. Without monthly audits — it's a matter of when, not if.",
-        metric: "1 hack = $500–5,000",
+        metric: "1 hack = £500–5,000",
       },
       {
         num: "04",
@@ -750,19 +750,19 @@ export const VS_WORDPRESS_EN: Content = {
         icon: Palette,
         title: "Theme licenses",
         body: "Premium themes (Avada, Divi, Astra Pro) — yearly subscriptions. Stop paying, support cuts off.",
-        metric: "$60–200/yr",
+        metric: "£60–200/yr",
       },
       {
         num: "06",
         icon: Wrench,
         title: "Developer",
-        body: "Every edit is either DIY in Elementor (risk breaking it) or a call to your dev ($30–80/hr).",
-        metric: "$200–800/mo",
+        body: "Every edit is either DIY in Elementor (risk breaking it) or a call to your dev (£30–80/hr).",
+        metric: "£200–800/mo",
       },
     ],
     foot: (
       <>
-        Total cost over 36 months: $5,000 to $20,000{" "}
+        Total cost over 36 months: £5,000 to £20,000{" "}
         <strong>on top of</strong> the original build. We charge once. Zero
         subscriptions.
       </>
@@ -785,8 +785,8 @@ export const VS_WORDPRESS_EN: Content = {
       },
       {
         criterion: "Monthly cost",
-        wp: "$50–200 (plugins + hosting + maintenance)",
-        us: "$0–20 (Vercel/Cloudflare only)",
+        wp: "£50–200 (plugins + hosting + maintenance)",
+        us: "£0–20 (Vercel/Cloudflare only)",
       },
       {
         criterion: "Security",
@@ -842,13 +842,13 @@ export const VS_WORDPRESS_EN: Content = {
         label: "Local search",
         value: "page 2 of Google for “byggefirma Bornholm”",
       },
-      { label: "Monthly site cost", value: "~$110 (hosting + plugins)" },
+      { label: "Monthly site cost", value: "~£110 (hosting + plugins)" },
     ],
     after: [
       { label: "LCP", value: "0.8 seconds", lift: "5× faster" },
       { label: "Inquiries/month", value: "24", lift: "8×" },
       { label: "Local search", value: "#1", lift: "6× organic traffic" },
-      { label: "Monthly cost", value: "$0", lift: "Vercel hobby tier" },
+      { label: "Monthly cost", value: "£0", lift: "Vercel hobby tier" },
     ],
     quote: (
       <>
@@ -950,12 +950,12 @@ export const VS_WORDPRESS_EN: Content = {
       },
       {
         activity: "Multi-language",
-        wp: "WPML plugin, $99/year",
+        wp: "WPML plugin, £99/year",
         us: "built in, free",
       },
       {
         activity: "SEO (title, meta, OG, schema)",
-        wp: "Yoast Premium, $99/year",
+        wp: "Yoast Premium, £99/year",
         us: "fields on every document, free",
       },
       {
@@ -975,8 +975,8 @@ export const VS_WORDPRESS_EN: Content = {
       },
       {
         activity: "Cost for a team up to 5",
-        wp: "$30+/mo hosting + plugins",
-        us: "$0",
+        wp: "£30+/mo hosting + plugins",
+        us: "£0",
       },
     ],
     capabilitiesHeading: "6 things you do without a developer",
@@ -1071,7 +1071,7 @@ export const VS_WORDPRESS_EN: Content = {
     items: [
       {
         title: "WooCommerce sites with 5,000+ SKUs",
-        body: "Shopify or a $20k+ custom build is the right call.",
+        body: "Shopify or a £20k+ custom build is the right call.",
       },
       {
         title: "WP-Multisite networks",

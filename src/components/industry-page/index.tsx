@@ -124,7 +124,7 @@ function buildIndustryJsonLd(
             .map((it) => loc(it, locale).replace(/\*/g, ""))
             .join(" · ") || undefined,
         price: priceNumeric || undefined,
-        priceCurrency: "USD",
+        priceCurrency: locale === "en" ? "GBP" : "USD",
         url,
       };
     }) ?? [];

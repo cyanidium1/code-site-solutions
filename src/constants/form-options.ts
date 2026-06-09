@@ -40,10 +40,10 @@ export const TIER_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
     { key: "undecided", label: "Не визначився" },
   ],
   en: [
-    { key: "starter", label: "Starter — from $1,000" },
-    { key: "industry", label: "Industry Pro — from $3,500" },
-    { key: "proplus", label: "Pro Plus — from $7,500" },
-    { key: "enterprise", label: "Enterprise — from $14,000" },
+    { key: "starter", label: "Starter — from £1,000" },
+    { key: "industry", label: "Industry Pro — from £3,500" },
+    { key: "proplus", label: "Pro Plus — from £7,500" },
+    { key: "enterprise", label: "Enterprise — from £14,000" },
     { key: "undecided", label: "I don't know yet" },
   ],
 };
@@ -57,10 +57,10 @@ export const BUDGET_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
     { key: "unknown", label: "Поки не знаю" },
   ],
   en: [
-    { key: "lt3k", label: "Under $3k" },
-    { key: "3-7k", label: "$3-7k" },
-    { key: "7-15k", label: "$7-15k" },
-    { key: "gt15k", label: "$15k+" },
+    { key: "lt3k", label: "Under £3k" },
+    { key: "3-7k", label: "£3-7k" },
+    { key: "7-15k", label: "£7-15k" },
+    { key: "gt15k", label: "£15k+" },
     { key: "unknown", label: "I don't know yet" },
   ],
 };

@@ -206,14 +206,14 @@ export const ADDONS_CELLS: BentoCell[] = [
     icon: ArrowRightLeft,
     title: "WordPress migration",
     body: "Move to Next.js without losing SEO history. 301 redirects, Search Console handoff.",
-    stat: "$500–$2,000",
+    stat: "£500–£2,000",
     span: "2x1",
   },
   {
     icon: Wrench,
     title: "Post-warranty support",
     body: "Fixes, updates, advice. Monthly retainer or by the hour.",
-    stat: "$200/mo or $40/hr",
+    stat: "£200/mo or £40/hr",
     span: "1x1",
   },
   {
@@ -234,7 +234,7 @@ export const ADDONS_CELLS: BentoCell[] = [
     icon: FileText,
     title: "Content",
     body: "B2B copywriter. Copy for landings, cases, blog.",
-    stat: "$200/article",
+    stat: "£200/article",
     span: "1x1",
   },
 ];
@@ -280,14 +280,14 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
     q: "Is there an installment plan for large projects?",
     a: [
       "Projects from ",
-      { em: "$10,000" },
+      { em: "£10,000" },
       " can be paid in three installments: at kickoff, mid-project, and on delivery.",
     ],
   },
   {
     q: "How do integrations get counted?",
     a: [
-      "Base CRM/email integration is $150. CRM systems (HubSpot, Pipedrive, KeyCRM): $500. Industry integrations (Clio, MEDoc, etc.): $500–$1,200 depending on API. Payment gateways: $900. All transparent in the calculator.",
+      "Base CRM/email integration is £150. CRM systems (HubSpot, Pipedrive, KeyCRM): £500. Industry integrations (Clio, MEDoc, etc.): £500–£1,200 depending on API. Payment gateways: £900. All transparent in the calculator.",
     ],
   },
   {

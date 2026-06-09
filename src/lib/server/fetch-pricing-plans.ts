@@ -56,7 +56,9 @@ export async function fetchPricingPlans(
     .filter((d) => typeof d.priceFrom === "number" && loc(d.name, locale))
     .map<ResolvedPlan>((d) => {
       const key = d.planKey || d._id;
-      const currency = (d.currency ?? "USD") as PriceCurrency;
+      // EN targets the UK market → GBP (£). UA keeps the doc currency ($).
+      const currency: PriceCurrency =
+        locale === "en" ? "GBP" : ((d.currency ?? "USD") as PriceCurrency);
       const includesItems = (d.includes ?? [])
         .map((s) => loc(s, locale))
         .filter(Boolean);
