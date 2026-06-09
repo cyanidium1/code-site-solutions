@@ -42,6 +42,12 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: "/portfolio/nbyg-kobenhavn",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "NBYG København: ×8 заявок після міграції на Next.js",
+    description:
+      "Будівнича компанія в Данії: міграція з WordPress за 6 тижнів, ×8 заявок на місяць, Top-1 в локальному пошуку, 0 SEO-падінь.",
+  },
 };
 
 /* ─── Page-local data ───────────────────────────────────────────────────── */

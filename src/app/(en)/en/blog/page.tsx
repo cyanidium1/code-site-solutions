@@ -73,6 +73,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/en/blog",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
+    description:
+      "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
+  },
 };
 
 function formatEnDate(iso?: string): string | undefined {

@@ -37,6 +37,12 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: "/portfolio/efedra-clinic",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Efedra Clinic — кейс редизайну сайту клініки в Одесі",
+    description:
+      "Custom-coded на Next.js + Sanity. ×3.2 заявок, LCP 0.8s, Top-3 Google.",
+  },
 };
 
 /* ─── Case media: public/EfedraCaseCreenshots (файли з узгодженими іменами) ─ */

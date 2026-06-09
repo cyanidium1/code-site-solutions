@@ -52,6 +52,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/en/pricing",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
+    description:
+      "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
+  },
 };
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */

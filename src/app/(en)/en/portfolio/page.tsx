@@ -49,6 +49,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/en/portfolio",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
+    description:
+      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
+  },
 };
 
 export const revalidate = 3600;

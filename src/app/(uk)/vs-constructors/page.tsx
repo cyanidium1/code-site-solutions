@@ -36,6 +36,12 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: URL,
   },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Конструктори ідеальні. Поки бізнес у них поміщається. — Code-Site.Art",
+    description: CONTENT.metaDescription,
+  },
 };
 
 const jsonLd = buildJsonLd([

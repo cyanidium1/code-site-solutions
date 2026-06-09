@@ -35,6 +35,11 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: URL,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "WordPress був правий у 2015. Не у 2026. — Code-Site.Art",
+    description: CONTENT.metaDescription,
+  },
 };
 
 const jsonLd = buildJsonLd([

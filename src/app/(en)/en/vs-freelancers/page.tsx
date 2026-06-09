@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     alternateLocale: ["uk_UA"],
     url: URL,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: CONTENT.ogTitle,
+    description: CONTENT.metaDescription,
+  },
 };
 
 const jsonLd = buildJsonLd([

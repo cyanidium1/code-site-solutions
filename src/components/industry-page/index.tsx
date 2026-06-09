@@ -264,6 +264,11 @@ export async function buildIndustryMetadata(
       locale: locale === "en" ? "en_US" : "uk_UA",
       ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
     },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 

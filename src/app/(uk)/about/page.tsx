@@ -41,6 +41,11 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: "/about",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: C.meta.title,
+    description: C.meta.description,
+  },
 };
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */

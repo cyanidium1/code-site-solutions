@@ -36,6 +36,13 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: "/process",
   },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
+    description:
+      "Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив.",
+  },
 };
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
