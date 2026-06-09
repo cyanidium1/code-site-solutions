@@ -1,7 +1,7 @@
 {
   "Meta": {
     "title": "Code-Site.Art — Custom websites that book meetings 24/7. Live in 4–10 weeks.",
-    "description": "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from $1,000. 1-year warranty + 30% rebate if we miss the deadline."
+    "description": "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from £1,000. 1-year warranty + 30% rebate if we miss the deadline."
   },
   "Nav": {
     "services": "Services",
@@ -97,7 +97,7 @@
     },
     "stats": {
       "projects": { "value": "50+", "label": "projects · last 5 years" },
-      "range": { "value": "$1,500–$10,000", "label": "typical price range" },
+      "range": { "value": "£1,500–£10,000", "label": "typical price range" },
       "weeks": { "value": "4–10 weeks", "label": "from brief to launch" },
       "warranty": { "value": "1 year", "label": "warranty included" }
     },
@@ -190,7 +190,7 @@
       "items": [
         {
           "q": "What if my budget is below the calculator's lowest price?",
-          "a": "If you have $800, we'll tell you straight that we can't deliver well at that price, and recommend someone we trust who can. We don't take projects we can't ship at the standard we want our name on."
+          "a": "If you have £800, we'll tell you straight that we can't deliver well at that price, and recommend someone we trust who can. We don't take projects we can't ship at the standard we want our name on."
         },
         {
           "q": "What if the final price is higher than the calculator shows?",
@@ -202,7 +202,7 @@
         },
         {
           "q": "What if I need only one page?",
-          "a": "We do landings starting at $1,500. Anything below that is either a templated solution or we're the wrong fit, and we'll point you to who isn't."
+          "a": "We do landings starting at £1,500. Anything below that is either a templated solution or we're the wrong fit, and we'll point you to who isn't."
         },
         {
           "q": "Do I need to know exactly what I want?",
@@ -225,7 +225,7 @@
     "getFinal": {
       "eyebrow": "/ 06 GET FINAL ESTIMATE",
       "title": "Send the brief — get a <em>final price</em>",
-      "sub": "We'll review your calculator result and send a project plan, timeline, and confirmed price range. Custom-coded websites only. If you need a quick $300 template, we're not the right fit.",
+      "sub": "We'll review your calculator result and send a project plan, timeline, and confirmed price range. Custom-coded websites only. If you need a quick £300 template, we're not the right fit.",
       "altReady": "Not ready for the form?",
       "altCalendly": "Book a 30-min call instead",
       "altOr": "or",
@@ -307,7 +307,7 @@
       "maintenanceMonth": "Maintenance / month",
       "seoGrowthMonth": "SEO & Growth / month",
       "roiTitle": "What this means for you",
-      "roiBody": "At a 3% conversion rate and a $1,000 average order, the site pays for itself in <strong>12–15 enquiries</strong>. Roughly 3–6 months of work. After that, it earns for years.",
+      "roiBody": "At a 3% conversion rate and a £1,000 average order, the site pays for itself in <strong>12–15 enquiries</strong>. Roughly 3–6 months of work. After that, it earns for years.",
       "scarcity": "Next available start: <strong>in 2 weeks</strong>. <strong>2 slots</strong> left this quarter.",
       "disclaimer": "This is an estimate, not an invoice. Final price depends on exact requirements, integrations, design references, and content volume.",
       "primaryCta": "Get exact price & project plan",

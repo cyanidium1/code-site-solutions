@@ -2,18 +2,26 @@
  * Locale-aware price formatter.
  *
  * UA locale uses NBSP ( ) as thousands separator → "$1 000".
- * EN locale uses comma → "$1,000".
- * Currency symbol always leads. No trailing "+" or "до" — callers add
+ * EN locale (UK market) uses comma and GBP → "£1,000".
+ * Currency defaults to the locale market (en → GBP, uk → USD); pass an
+ * explicit `currency` to override. Currency symbol always leads. No trailing "+" or "до" — callers add
  * range prefixes via separate keys ("from", "від").
  */
 
 export type PriceLocale = "uk" | "en";
-export type PriceCurrency = "USD" | "EUR" | "UAH";
+export type PriceCurrency = "USD" | "EUR" | "UAH" | "GBP";
 
 const CURRENCY_SYMBOL: Record<PriceCurrency, string> = {
   USD: "$",
   EUR: "€",
   UAH: "₴",
+  GBP: "£",
+};
+
+/** Market currency per locale: EN targets the UK (£), UA stays on $. */
+const LOCALE_CURRENCY: Record<PriceLocale, PriceCurrency> = {
+  uk: "USD",
+  en: "GBP",
 };
 
 const FROM_LABEL: Record<PriceLocale, string> = {
@@ -29,7 +37,7 @@ export interface FormatPriceOptions {
 }
 
 export function formatPrice(amount: number, opts: FormatPriceOptions): string {
-  const { locale, currency = "USD", withPrefix = false } = opts;
+  const { locale, currency = LOCALE_CURRENCY[locale], withPrefix = false } = opts;
 
   // Round to whole units; we don't show cents in marketing copy.
   const whole = Math.round(amount);

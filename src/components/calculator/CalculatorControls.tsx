@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import {
   Code2,
   Component,
@@ -23,7 +23,7 @@ import type {
   TimelineOption,
 } from "@/types/pricing";
 import type { CalculatorConfig } from "@/types/calculator-config";
-import { formatEur, formatPercent } from "@/lib/shared/format-eur";
+import { formatEur as formatEurRaw, formatPercent } from "@/lib/shared/format-eur";
 import { OptionCard } from "./OptionCard";
 import { basicSetupInput, inputForPreset } from "./presets";
 import { H3 } from "@/components/ui";
@@ -91,6 +91,8 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
   const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
   const [previewDesign, setPreviewDesign] = useState<DesignComplexity | null>(null);
   const t = useTranslations("Calculator");
+  const locale = useLocale() as "uk" | "en";
+  const formatEur = (n: number) => formatEurRaw(n, locale);
 
   const leadCaptureFeatures = useMemo(
     () => config.features.filter((f) => f.group === "leadCapture"),

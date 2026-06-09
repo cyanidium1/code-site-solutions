@@ -1,8 +1,8 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { H3 } from "@/components/ui";
-import { formatEur } from "@/lib/shared/format-eur";
+import { formatEur as formatEurRaw } from "@/lib/shared/format-eur";
 import type { CalculatorConfig } from "@/types/calculator-config";
 import type { CalculatorInput, SeoGrowthPlan } from "@/types/pricing";
 
@@ -16,6 +16,8 @@ type SeoGrowthTilesProps = {
 
 export function SeoGrowthTiles({ config, input, onChange }: SeoGrowthTilesProps) {
   const t = useTranslations("Calculator");
+  const locale = useLocale() as "uk" | "en";
+  const formatEur = (n: number) => formatEurRaw(n, locale);
   const suffix = t("afterLaunch.growth.monthSuffix");
   return (
     <div className="border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] px-5 pt-5 pb-[22px] flex flex-col gap-3">

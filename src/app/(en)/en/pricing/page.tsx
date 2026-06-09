@@ -130,9 +130,9 @@ export default async function EnPricingPage() {
         currency: p.currency,
       }))
     : [
-        { name: TIER_NAMES.landing.en, price: String(TIER_AMOUNTS.landing), currency: "USD" },
-        { name: TIER_NAMES.corporate.en, price: String(TIER_AMOUNTS.corporate), currency: "USD" },
-        { name: TIER_NAMES.custom.en, price: String(TIER_AMOUNTS.custom), currency: "USD" },
+        { name: TIER_NAMES.landing.en, price: String(TIER_AMOUNTS.landing), currency: "GBP" },
+        { name: TIER_NAMES.corporate.en, price: String(TIER_AMOUNTS.corporate), currency: "GBP" },
+        { name: TIER_NAMES.custom.en, price: String(TIER_AMOUNTS.custom), currency: "GBP" },
       ];
   const jsonLd = buildEnPricingJsonLd(offers);
 
@@ -153,7 +153,7 @@ export default async function EnPricingPage() {
             Pricing is what you get. Not <em>&ldquo;on request.&rdquo;</em>
           </>
         }
-        sub='From $1,000 to $14,000+, fixed in the contract. The price includes everything — copywriting, design, frontend, code, domain, hosting, launch, one year of support. You pay once, you get a finished product.'
+        sub='From £1,000 to £14,000+, fixed in the contract. The price includes everything — copywriting, design, frontend, code, domain, hosting, launch, one year of support. You pay once, you get a finished product.'
       />
 
       {/* Section 1.5: Turnkey list */}
@@ -232,7 +232,7 @@ export default async function EnPricingPage() {
           "Google Ads / Meta Ads — separate service from a performance marketer",
           "Hosting after year one — we hand over Vercel/Cloudflare accounts to you",
           "Social media strategy or management — separate service",
-          "SEO campaigns after warranty year — separate package from $300/mo",
+          "SEO campaigns after warranty year — separate package from £300/mo",
         ]}
         cta={{ label: "Discuss what you need", href: "/en/contacts" }}
         image={
@@ -273,7 +273,7 @@ export default async function EnPricingPage() {
           "Stripe (USD/EUR) — for international clients",
           "USDT TRC20 — if convenient",
           "Mono Pay / LiqPay — for smaller amounts",
-          "3-payment installment — for projects $10,000+",
+          "3-payment installment — for projects £10,000+",
           "10% discount on full upfront payment",
           "Fixed-sum contract. If we miss the deadline through our fault — we pay you the rebate",
         ]}

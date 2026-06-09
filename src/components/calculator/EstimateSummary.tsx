@@ -1,13 +1,13 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { CalendarClock, Sparkles } from "lucide-react";
 import type {
   CalculatorEstimate,
   CalculatorInput,
 } from "@/types/pricing";
 import type { CalculatorConfig } from "@/types/calculator-config";
-import { formatEur } from "@/lib/shared/format-eur";
+import { formatEur as formatEurRaw } from "@/lib/shared/format-eur";
 import { PriceBreakdown } from "./PriceBreakdown";
 import { H3 } from "@/components/ui";
 
@@ -43,6 +43,8 @@ export function EstimateSummary({
   seoGrowthMonthly,
 }: EstimateSummaryProps) {
   const t = useTranslations("Calculator");
+  const locale = useLocale() as "uk" | "en";
+  const formatEur = (n: number) => formatEurRaw(n, locale);
 
   const projectMeta = config.projectTypes.find((p) => p.key === input.projectType);
   const langMeta = config.languages.find((l) => l.key === input.languages);

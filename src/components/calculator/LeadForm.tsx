@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { Quote, Clock, Phone, FileCheck2 } from "lucide-react";
 import type { CalculatorEstimate, CalculatorInput } from "@/types/pricing";
 import type { CalculatorConfig } from "@/types/calculator-config";
-import { formatEur } from "@/lib/shared/format-eur";
+import { formatEur as formatEurRaw } from "@/lib/shared/format-eur";
 import { formatCalculatorSelections } from "@/lib/shared/format-calculator-selections";
 import { getAttribution } from "@/lib/client/attribution";
 import { HoneypotField } from "@/components/blocks/honeypot-field";
@@ -72,13 +72,14 @@ export function LeadForm({ config, input, estimate }: LeadFormProps) {
   const [hp, setHp] = useState("");
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const t = useTranslations("Calculator.leadForm");
+  const locale = useLocale() as "uk" | "en";
 
   const summary = useMemo(
     () => ({
-      range: `${formatEur(estimate.lowEstimate)} - ${formatEur(estimate.highEstimate)}`,
-      maintenanceMonthly: formatEur(estimate.monthlyMaintenance),
+      range: `${formatEurRaw(estimate.lowEstimate, locale)} - ${formatEurRaw(estimate.highEstimate, locale)}`,
+      maintenanceMonthly: formatEurRaw(estimate.monthlyMaintenance, locale),
     }),
-    [estimate],
+    [estimate, locale],
   );
 
   const payload = useMemo(

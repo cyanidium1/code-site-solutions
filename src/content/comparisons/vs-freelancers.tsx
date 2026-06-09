@@ -800,7 +800,7 @@ export const VS_FREELANCERS_EN: Content = {
         num: "03",
         icon: Wallet,
         title: "Launched and refused support",
-        body: "“That's a separate fee” — the standard reply to any request after handoff. Every text edit — from $50. After 3 months, they stop replying entirely.",
+        body: "“That's a separate fee” — the standard reply to any request after handoff. Every text edit — from £50. After 3 months, they stop replying entirely.",
       },
       {
         num: "04",
@@ -838,11 +838,11 @@ export const VS_FREELANCERS_EN: Content = {
         When NOT to <em>hire us.</em>
       </>
     ),
-    sub: "Not every project needs a studio. Here are 4 situations where a $500 freelancer is objectively the right call. If you're here — we're not the fit, and that's fine.",
+    sub: "Not every project needs a studio. Here are 4 situations where a £500 freelancer is objectively the right call. If you're here — we're not the fit, and that's fine.",
     items: [
       {
         title: "A landing under 5 pages with no integrations",
-        body: "Budget under $1,000 — a freelancer for a week. Studio overhead here is overpay.",
+        body: "Budget under £1,000 — a freelancer for a week. Studio overhead here is overpay.",
       },
       {
         title: "An MVP landing “over a weekend” to test an idea",
@@ -850,7 +850,7 @@ export const VS_FREELANCERS_EN: Content = {
       },
       {
         title: "Personal blog / portfolio without business logic",
-        body: "Tilda or a freelancer for $300. Nothing for a studio to do here.",
+        body: "Tilda or a freelancer for £300. Nothing for a studio to do here.",
       },
       {
         title: "Experimental project with an uncertain future",
@@ -871,8 +871,8 @@ export const VS_FREELANCERS_EN: Content = {
     rows: [
       {
         criterion: "Starting budget",
-        freelancer: "$300–2,000",
-        us: "$1,000–14,000",
+        freelancer: "£300–2,000",
+        us: "£1,000–14,000",
       },
       {
         criterion: "Team size",
@@ -1014,7 +1014,7 @@ export const VS_FREELANCERS_EN: Content = {
         The price gap <em>isn&apos;t the hourly rate.</em>
       </>
     ),
-    sub: "A freelancer charges $30–60/hr × 80 hours of work. We charge more. Here's what for — besides the hours:",
+    sub: "A freelancer charges £30–60/hr × 80 hours of work. We charge more. Here's what for — besides the hours:",
     items: [
       {
         num: "01",
@@ -1056,7 +1056,7 @@ export const VS_FREELANCERS_EN: Content = {
         num: "07",
         icon: Edit3,
         title: "Sanity Studio for self-edits",
-        body: "After launch, you edit content yourself. Without us. Freelancer is usually “message me, I'll fix it — from $50.”",
+        body: "After launch, you edit content yourself. Without us. Freelancer is usually “message me, I'll fix it — from £50.”",
       },
       {
         num: "08",
@@ -1074,7 +1074,7 @@ export const VS_FREELANCERS_EN: Content = {
         <em>Without us. Without a freelancer.</em>
       </>
     ),
-    sub: "The biggest freelancer trap is post-launch dependency. Want to swap a paragraph? $50. Recolor a button? $30. Three months later they stop replying, and you pay the next person to figure out the codebase. We give you Sanity Studio — a full admin where you do it all yourself. From your computer. Or your phone. Free for teams up to 5.",
+    sub: "The biggest freelancer trap is post-launch dependency. Want to swap a paragraph? £50. Recolor a button? £30. Three months later they stop replying, and you pay the next person to figure out the codebase. We give you Sanity Studio — a full admin where you do it all yourself. From your computer. Or your phone. Free for teams up to 5.",
     desktopAlt:
       "Sanity Studio admin interface on desktop — drag-and-drop block editor",
     desktopCaption: "Sanity Studio on desktop — full content control",
@@ -1132,7 +1132,7 @@ export const VS_FREELANCERS_EN: Content = {
     sub: "Not an outlier. A typical pattern. Here's what we see on a typical rescue:",
     situationHeading: "Typical situation",
     situation: [
-      "Client paid a freelancer $1,500–3,000 for a landing or site",
+      "Client paid a freelancer £1,500–3,000 for a landing or site",
       "Freelancer finished 60–80% and stopped replying",
       "Site works, but without payment integration / forms / CRM",
       "No code access — the freelancer never handed it off",
@@ -1171,8 +1171,8 @@ export const VS_FREELANCERS_EN: Content = {
     sub: "Even for serious projects, we're not for everyone. Here's when we'll say no:",
     items: [
       {
-        title: "Sites under $300–800",
-        body: "Our minimum is $1,000 for a landing. Physically can't go lower at our quality standard.",
+        title: "Sites under £300–800",
+        body: "Our minimum is £1,000 for a landing. Physically can't go lower at our quality standard.",
       },
       {
         title: "Launch by tomorrow",
@@ -1204,50 +1204,50 @@ export const VS_FREELANCERS_EN: Content = {
       { item: "Development", freelancer: formatPrice(1500, { locale: "en" }), us: formatPrice(3500, { locale: "en" }) },
       {
         item: "First-year support",
-        freelancer: "$50/mo × 12 = $600",
-        us: "$0 (included)",
+        freelancer: "£50/mo × 12 = £600",
+        us: "£0 (included)",
       },
       {
         item: "Critical bug fixes (2/year)",
-        freelancer: "$200 + $300 = $500",
-        us: "$0 (warranty)",
+        freelancer: "£200 + £300 = £500",
+        us: "£0 (warranty)",
       },
       {
         item: "SEO retrofit at 6 months",
-        freelancer: "$400",
-        us: "$0 (done at launch)",
+        freelancer: "£400",
+        us: "£0 (done at launch)",
       },
       {
         item: "Disappearance / rebuild risk (15%)",
-        freelancer: "$1,500 × 0.15 = $225",
-        us: "$0",
+        freelancer: "£1,500 × 0.15 = £225",
+        us: "£0",
       },
     ],
     s1Total: { freelancer: formatPrice(3225, { locale: "en" }), us: formatPrice(3500, { locale: "en" }) },
     s1Verdict: (
       <>
-        Difference: $275. That&apos;s the{" "}
+        Difference: £275. That&apos;s the{" "}
         <strong>base risk premium</strong>. By year 2, the freelancer route can
         be 30% more expensive.
       </>
     ),
     s2Title: "Scenario 2: Small-business e-commerce",
     s2Rows: [
-      { item: "Development", freelancer: "$4,000", us: "$5,500" },
-      { item: "Support", freelancer: "$80/mo × 12 = $960", us: "$0" },
+      { item: "Development", freelancer: "£4,000", us: "£5,500" },
+      { item: "Support", freelancer: "£80/mo × 12 = £960", us: "£0" },
       {
         item: "Integrations (CRM, payment, shipping)",
-        freelancer: "$1,200",
-        us: "$0 (included)",
+        freelancer: "£1,200",
+        us: "£0 (included)",
       },
-      { item: "Bug fixes", freelancer: "$600", us: "$0" },
+      { item: "Bug fixes", freelancer: "£600", us: "£0" },
       {
         item: "Rescue project risk (25% for e-commerce)",
-        freelancer: "$4,000 × 0.25 = $1,000",
-        us: "$0",
+        freelancer: "£4,000 × 0.25 = £1,000",
+        us: "£0",
       },
     ],
-    s2Total: { freelancer: "$11,760", us: "$5,500" },
+    s2Total: { freelancer: "£11,760", us: "£5,500" },
     s2Verdict: (
       <>
         Difference: freelancer is <strong>2.1× more expensive</strong> in year

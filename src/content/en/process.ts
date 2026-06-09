@@ -222,7 +222,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
       items: [
         "Free support for 365 days from launch",
         "Quarterly security check",
-        "Option for a support package after year one ($200-500/mo)",
+        "Option for a support package after year one (£200-500/mo)",
       ],
     },
   },
@@ -243,7 +243,7 @@ export const PROCESS_FAQ: { q: string; a: RichText }[] = [
     q: "What if I want more than 2 design revisions?",
     a: [
       "Each extra revision round is billed at ",
-      { em: "$40/hr" },
+      { em: "£40/hr" },
       ". We tell you upfront if a request crosses the limit.",
     ],
   },
@@ -269,7 +269,7 @@ export const PROCESS_FAQ: { q: string; a: RichText }[] = [
     q: "What if I don't have time to fill in content?",
     a: [
       "We have a copywriter as an add-on, ",
-      { em: "$200/page" },
+      { em: "£200/page" },
       ". We can also extend the timeline if you'd rather write it yourself.",
     ],
   },

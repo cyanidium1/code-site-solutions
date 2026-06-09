@@ -27,7 +27,7 @@ export const EN_INDUSTRIES: Industry[] = [
     title: "Healthcare",
     description: "Sites for clinics, dental practices, diagnostic centers",
     tags: ["EHR", "HIPAA", "Online booking"],
-    price: "From $3,500 · 4–10 weeks",
+    price: "From £3,500 · 4–10 weeks",
     href: "/en/sites-for/medicine",
   },
   {
@@ -35,7 +35,7 @@ export const EN_INDUSTRIES: Industry[] = [
     title: "Construction / Renovation",
     description: "Sites for construction and renovation companies",
     tags: ["CRM", "Calculator", "Local SEO"],
-    price: "From $3,500 · 4–8 weeks",
+    price: "From £3,500 · 4–8 weeks",
     href: "/en/sites-for/renovation",
   },
   {
@@ -43,7 +43,7 @@ export const EN_INDUSTRIES: Industry[] = [
     title: "Legal & Attorneys",
     description: "Sites for law firms, attorney offices, solo practitioners",
     tags: ["Clio", "Diia.Sign", "Online consult"],
-    price: "From $3,500 · 4–8 weeks",
+    price: "From £3,500 · 4–8 weeks",
     href: "/en/sites-for/legal",
   },
   {
@@ -52,7 +52,7 @@ export const EN_INDUSTRIES: Industry[] = [
     description:
       "Sites for accounting firms, financial advisors, trading services",
     tags: ["MEDoc", "Stripe", "1C/BAS"],
-    price: "From $3,500 · 4–8 weeks",
+    price: "From £3,500 · 4–8 weeks",
     href: "/en/sites-for/finance",
   },
   {
@@ -60,7 +60,7 @@ export const EN_INDUSTRIES: Industry[] = [
     title: "E-commerce",
     description: "Online stores, marketplaces, B2B catalogs",
     tags: ["Stripe", "LiqPay", "Nova Poshta"],
-    price: "From $3,000 · 6–10 weeks",
+    price: "From £3,000 · 6–10 weeks",
     href: "/en/sites-for/ecommerce",
   },
   {
@@ -69,7 +69,7 @@ export const EN_INDUSTRIES: Industry[] = [
     description:
       "Sites for car importers, auto dealers, repair shops, auto services",
     tags: ["Copart", "PDF-invoice", "Multi-lang"],
-    price: "From $3,000 · 6–10 weeks",
+    price: "From £3,000 · 6–10 weeks",
     href: "/en/sites-for/auto",
   },
   {
@@ -78,7 +78,7 @@ export const EN_INDUSTRIES: Industry[] = [
     description:
       "Sites for real estate agencies, developers, private listings",
     tags: ["Multi-lang", "Multi-currency", "Mortgage"],
-    price: "From $4,000 · 6–10 weeks",
+    price: "From £4,000 · 6–10 weeks",
     href: "/en/sites-for/real-estate",
   },
   {
@@ -86,7 +86,7 @@ export const EN_INDUSTRIES: Industry[] = [
     title: "Courses & Landings",
     description: "Sites for online courses, info-products, creator funnels",
     tags: ["Stripe", "Teachable", "A/B"],
-    price: "From $800 · 4–8 weeks",
+    price: "From £800 · 4–8 weeks",
     href: "/en/sites-for/courses",
   },
 ];

@@ -694,7 +694,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
   metaTitle:
     "Migrate from Tilda, Webflow, Wix to custom code · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate sites from Tilda, Webflow, Wix, Squarespace, Weblium to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From $1,000. No subscriptions after launch.",
+    "We migrate sites from Tilda, Webflow, Wix, Squarespace, Weblium to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £1,000. No subscriptions after launch.",
   hero: {
     eyebrowLabel: "/ COMPARE · SITE BUILDERS",
     h1Lines: [
@@ -714,7 +714,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       { label: "47 projects", sub: "0 SEO drops" },
       { label: "4 weeks", sub: "brief to launch" },
       { label: "0 subscriptions", sub: "pay once, own it" },
-      { label: "From $1,000", sub: "for a landing migration" },
+      { label: "From £1,000", sub: "for a landing migration" },
     ],
     ctaPrimary: "Calculate migration cost",
     ctaSecondary: "Jump to comparison table",
@@ -738,7 +738,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         num: "02",
         icon: CreditCard,
         title: "Monthly bill keeps creeping up",
-        body: "Started at $15, now you're at $50–80? That's the builder lifecycle: extra tier, plugins, integrations, premium template. Three years in, you've spent $1,800–3,000 on subscriptions.",
+        body: "Started at £15, now you're at £50–80? That's the builder lifecycle: extra tier, plugins, integrations, premium template. Three years in, you've spent £1,800–3,000 on subscriptions.",
       },
       {
         num: "03",
@@ -775,48 +775,48 @@ export const VS_CONSTRUCTORS_EN: Content = {
         icon: Layers,
         title: "Base subscription",
         body: "Tilda Personal, Webflow CMS, Wix Premium, Squarespace Business, Weblium Pro — minimum for a real business site.",
-        metric: "$15–49/mo",
+        metric: "£15–49/mo",
       },
       {
         num: "02",
         icon: Plug,
         title: "Add-on integrations",
         body: "Forms, chat, bookings, CRM connector. Each one — a separate subscription through the platform's app store.",
-        metric: "$10–30/mo each",
+        metric: "£10–30/mo each",
       },
       {
         num: "03",
         icon: PlusSquare,
         title: "Premium template / theme",
         body: "A good template is usually a separate purchase or a higher tier.",
-        metric: "$50–300 one-time",
+        metric: "£50–300 one-time",
       },
       {
         num: "04",
         icon: ArrowUpRight,
         title: "Page / traffic limit",
-        body: "Outgrew it? Move to a pricier tier. Tilda Business — $25/mo, Webflow CMS Plus — $39/mo.",
-        metric: "+$20–40/mo",
+        body: "Outgrew it? Move to a pricier tier. Tilda Business — £25/mo, Webflow CMS Plus — £39/mo.",
+        metric: "+£20–40/mo",
       },
       {
         num: "05",
         icon: Globe,
         title: "Custom domain on higher tiers",
         body: "Wix and Weblium free tiers don't even support custom domains.",
-        metric: "$10–15/yr + tier",
+        metric: "£10–15/yr + tier",
       },
       {
         num: "06",
         icon: Plus,
         title: "Penalty for growth",
-        body: "Site grew to 100 pages? Webflow CMS — $39/mo. Wix VIP — $39/mo. Every 100 pages, another tier.",
-        metric: "+$20–60/mo",
+        body: "Site grew to 100 pages? Webflow CMS — £39/mo. Wix VIP — £39/mo. Every 100 pages, another tier.",
+        metric: "+£20–60/mo",
       },
     ],
     foot: (
       <>
-        Over 3 years on a builder, you pay <strong>$1,800 to $4,500</strong>{" "}
-        in subscriptions. We charge once — from $1,000. You break
+        Over 3 years on a builder, you pay <strong>£1,800 to £4,500</strong>{" "}
+        in subscriptions. We charge once — from £1,000. You break
         even in year one.
       </>
     ),
@@ -840,8 +840,8 @@ export const VS_CONSTRUCTORS_EN: Content = {
       },
       {
         criterion: "Monthly cost",
-        values: ["$15–25", "$14–49", "$16–159", "$23–49", "$0–25"],
-        us: "$0–20 (hosting only)",
+        values: ["£15–25", "£14–49", "£16–159", "£23–49", "£0–25"],
+        us: "£0–20 (hosting only)",
       },
       {
         criterion: "Code ownership",
@@ -934,13 +934,13 @@ export const VS_CONSTRUCTORS_EN: Content = {
         good: "Fast launch, large block library, intuitive editor. Ideal for landings and info sites up to 10 pages.",
         cap: "Slow on mobile, limited export, monthly subscription. Custom integrations only via workaround.",
         note: "The company is registered in Russia. For some businesses, that's a separate reason to look elsewhere.",
-        when: "Your site is past 15 pages, you're paying $25+/mo, and you need a custom feature Tilda doesn't have.",
+        when: "Your site is past 15 pages, you're paying £25+/mo, and you need a custom feature Tilda doesn't have.",
       },
       {
         name: "Webflow",
         good: "The best design freedom of any builder. Cleaner code than competitors. Strong for SaaS landings and portfolios.",
-        cap: "$20–40/mo per site plus hosting. CMS is item-limited on lower tiers. Heavy animations hurt performance. Pricing model is tangled (CMS / Business / Enterprise + hosting).",
-        when: "Complex form logic, custom checkout, you need full control over performance, or your monthly bill is north of $50.",
+        cap: "£20–40/mo per site plus hosting. CMS is item-limited on lower tiers. Heavy animations hurt performance. Pricing model is tangled (CMS / Business / Enterprise + hosting).",
+        when: "Complex form logic, custom checkout, you need full control over performance, or your monthly bill is north of £50.",
       },
       {
         name: "Wix",
@@ -951,7 +951,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       {
         name: "Squarespace",
         good: "Best out-of-the-box templates. Strong for creative businesses — photographers, designers, boutiques, restaurants in US/EU.",
-        cap: "$23–49/mo. Multi-language is limited. Custom integrations are hard. SEO is decent but capped.",
+        cap: "£23–49/mo. Multi-language is limited. Custom integrations are hard. SEO is decent but capped.",
         when: "You need real multi-language, complex e-commerce logic, or performance becomes a priority.",
       },
       {
@@ -1003,7 +1003,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       {
         num: "05",
         title: "Free for teams up to 5",
-        body: "Tilda Business for a team — from $25/mo. Webflow for a team — from $39/mo. Sanity for up to 5 editors — $0.",
+        body: "Tilda Business for a team — from £25/mo. Webflow for a team — from £39/mo. Sanity for up to 5 editors — £0.",
       },
       {
         num: "06",
@@ -1013,9 +1013,9 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ],
     foot: (
       <>
-        You were paying $25–80/mo for the platform + plugins. Now you
-        pay $0/mo for the admin. Only hosting — $0–20 on
-        Vercel/Cloudflare. Annual savings: <strong>$300–960</strong>.
+        You were paying £25–80/mo for the platform + plugins. Now you
+        pay £0/mo for the admin. Only hosting — £0–20 on
+        Vercel/Cloudflare. Annual savings: <strong>£300–960</strong>.
       </>
     ),
   },
@@ -1050,8 +1050,8 @@ export const VS_CONSTRUCTORS_EN: Content = {
       },
       {
         metric: "Monthly cost",
-        before: "$25–80",
-        after: "$0–20 (Vercel/Cloudflare only)",
+        before: "£25–80",
+        after: "£0–20 (Vercel/Cloudflare only)",
       },
       {
         metric: "Time to edit content",
@@ -1076,7 +1076,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       },
       {
         title: "Wix VIP with custom code you wrote in Velo",
-        body: "If you've invested in Wix Velo logic, that's a separate scope. We'll tell you straight — either we rebuild as a new project ($14k+) or you stay.",
+        body: "If you've invested in Wix Velo logic, that's a separate scope. We'll tell you straight — either we rebuild as a new project (£14k+) or you stay.",
       },
       {
         title: "Squarespace store with 1,000+ products",
