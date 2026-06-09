@@ -33,6 +33,12 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: "/contacts",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
+    description:
+      "➤ Безкоштовна консультація за 24 години ✔️ Без довгих брифів ✔️ 30-хв стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
+  },
 };
 
 const CONTACTS_FAQ: { q: string; a: RichText }[] = [

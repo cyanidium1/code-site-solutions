@@ -37,6 +37,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/en/process",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Process — 7 steps from brief to launch | Code-Site.Art",
+    description:
+      "4-10 weeks end-to-end. Your time: 5 hours. Fixed price, 30% rebate for delays.",
+  },
 };
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */

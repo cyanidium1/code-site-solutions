@@ -53,6 +53,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: `${SITE_ORIGIN}/en`,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
+    description:
+      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+  },
 };
 
 const HOMEPAGE_EN_DESCRIPTION =

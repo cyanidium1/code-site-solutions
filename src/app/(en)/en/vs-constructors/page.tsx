@@ -37,6 +37,12 @@ export const metadata: Metadata = {
     alternateLocale: ["uk_UA"],
     url: URL,
   },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Site builders are great. Until your business outgrows them. — Code-Site.Art",
+    description: CONTENT.metaDescription,
+  },
 };
 
 const jsonLd = buildJsonLd([

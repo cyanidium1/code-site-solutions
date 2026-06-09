@@ -33,6 +33,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/en/contacts",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
+    description:
+      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
+  },
 };
 
 const CONTACTS_FAQ: { q: string; a: RichText }[] = [

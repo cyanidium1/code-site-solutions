@@ -48,6 +48,12 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: "/portfolio",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+    description:
+      "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
+  },
 };
 
 export const revalidate = 3600;

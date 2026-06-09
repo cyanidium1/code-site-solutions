@@ -35,6 +35,11 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: URL,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: CONTENT.ogTitle,
+    description: CONTENT.metaDescription,
+  },
 };
 
 const jsonLd = buildJsonLd([

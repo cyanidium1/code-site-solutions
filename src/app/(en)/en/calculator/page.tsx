@@ -44,6 +44,11 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/en/calculator",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: T.meta.title,
+    description: T.meta.description,
+  },
 };
 
 const stats = [

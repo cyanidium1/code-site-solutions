@@ -35,6 +35,11 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "uk_UA",
       url: "/calculator",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+    },
   };
 }
 

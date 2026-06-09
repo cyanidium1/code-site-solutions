@@ -68,6 +68,12 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: "/blog",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
+    description:
+      "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
+  },
 };
 
 const UA_MONTHS_SHORT = [
