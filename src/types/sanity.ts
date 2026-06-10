@@ -291,7 +291,7 @@ export type CaseSection = BlockBase<"caseBlock"> & {
   };
   results?: Array<{
     _key?: string;
-    value?: string;
+    value?: LocalizedString;
     label?: LocalizedString;
     tag?: LocalizedString;
   }>;
@@ -665,7 +665,7 @@ export type CaseStudyDoc = {
   year?: number;
   date?: string;
   duration?: LocalizedString;
-  budget?: string;
+  budget?: LocalizedString;
   budgetBucket?: OptionRef | null;
   country?: OptionRef | null;
   stack?: string[];
@@ -776,7 +776,7 @@ export type CalculatorSeoGrowthOptionItem = {
   includes?: LocalizedString[];
   badge?: LocalizedString;
   monthlyPrice?: number;
-  priceLabel?: string;
+  priceLabel?: LocalizedString;
 };
 
 export type CalculatorPriceOptionItem = {

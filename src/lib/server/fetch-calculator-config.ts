@@ -184,7 +184,7 @@ function shapeConfig(
       includes: (o.includes ?? []).map((s) => loc(s, locale)).filter(Boolean),
       badge: loc(o.badge, locale) || undefined,
       monthlyPrice: o.monthlyPrice ?? 0,
-      priceLabel: o.priceLabel,
+      priceLabel: loc(o.priceLabel, locale) || undefined,
     }),
   );
 

@@ -391,7 +391,7 @@ function SectionBlock({
             formatLine(loc(section.after?.foot, locale)) || undefined
           }
           results={section.results?.map((r) => ({
-            n: r.value ?? "",
+            n: loc(r.value, locale),
             lbl: loc(r.label, locale),
             tag: loc(r.tag, locale),
           }))}
