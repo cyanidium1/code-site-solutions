@@ -117,10 +117,7 @@ const CASE_STUDY_LISTING_PROJECTION = /* groq */ `{
   "coverImage": coverImage ${IMAGE_WITH_ALT},
   status,
   featured,
-  metricsLine ${LOCALIZED_STRING},
-  hero{
-    metrics[] ${METRIC}
-  }
+  metricsLine ${LOCALIZED_STRING}
 }`;
 
 export const CASE_STUDIES_QUERY = /* groq */ `
@@ -173,8 +170,7 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
     heading ${LOCALIZED_TEXT},
     subheading ${LOCALIZED_TEXT},
     "heroImage": heroImage ${IMAGE_WITH_ALT},
-    link{ label ${LOCALIZED_STRING}, href },
-    metrics[] ${METRIC}
+    link{ label ${LOCALIZED_STRING}, href }
   },
   sections[]{
     _type,

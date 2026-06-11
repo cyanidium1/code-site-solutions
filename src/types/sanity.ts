@@ -469,7 +469,6 @@ export type CaseStudyRef = {
   status?: "draft" | "published";
   featured?: boolean;
   metricsLine?: LocalizedString;
-  hero?: { metrics?: Metric[] };
 };
 
 /**
@@ -679,7 +678,6 @@ export type CaseStudyDoc = {
     subheading?: LocalizedText;
     heroImage?: SanityImage | null;
     link?: CtaAction | null;
-    metrics?: Metric[];
   };
   sections?: CaseStudySection[];
   relatedPosts?: BlogPostRef[];
