@@ -95,7 +95,7 @@ export function NbygRelatedCard({ row, comingSoonLabel = "Coming soon" }: Relate
           <div className={cn(caseShotBodyClass, "relative min-h-0 flex-1 overflow-hidden p-0")}>
             <img
               src={sanityCdn(row.coverImage, { w: 800, q: 60 })}
-              srcSet={sanitySrcSet(row.coverImage, [400, 600, 800, 1200], 60)}
+              srcSet={sanitySrcSet(row.coverImage, { widths: [400, 600, 800, 1200], q: 60 })}
               sizes="(min-width: 1024px) 33vw, 100vw"
               alt={row.coverImageAlt ?? row.name}
               loading="lazy"

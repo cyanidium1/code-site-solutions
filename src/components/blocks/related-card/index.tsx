@@ -78,7 +78,7 @@ export function RelatedCard({
       {coverImage ? (
         <img
           src={sanityCdn(coverImage.src, { w: 800, q: 60 })}
-          srcSet={sanitySrcSet(coverImage.src, [400, 600, 800, 1200], 60)}
+          srcSet={sanitySrcSet(coverImage.src, { widths: [400, 600, 800, 1200], q: 60 })}
           sizes="(min-width: 1024px) 33vw, 100vw"
           alt={coverImage.alt}
           loading="lazy"
