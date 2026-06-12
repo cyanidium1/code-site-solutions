@@ -2,10 +2,10 @@
 
 import type { KeyboardEvent } from "react";
 import { useCallback, useState } from "react";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import "yet-another-react-lightbox/styles.css";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { SanityImg } from "@/lib/shared/sanity-image";
 
 // Defer the lightbox JS until a tile is actually opened — it's a heavy
 // dependency that most visitors never trigger.
@@ -60,8 +60,8 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
                 onClick={() => openAt(i)}
                 onKeyDown={(e) => onCardKeyDown(e, i)}
               >
-                <Image
-                  src={t.src}
+                <SanityImg
+                  image={t.src}
                   alt={t.alt}
                   fill
                   sizes="(max-width: 768px) 50vw, 600px"
