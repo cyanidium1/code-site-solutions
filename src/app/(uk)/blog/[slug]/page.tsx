@@ -19,6 +19,10 @@ import type {
   BlogPostListItem,
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/sanity-portable";
+import { AppImage } from "@/lib/shared/app-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
+import { sanityCdn } from "@/lib/shared/sanity-cdn";
+import { SanityImg } from "@/lib/shared/sanity-image";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
@@ -63,7 +67,9 @@ export async function generateMetadata({
   const path = `/blog/${slug}`;
   // OG image: prefer explicit Sanity ogImage, else the static coverImage path
   // (relative paths are resolved against the site origin by Next).
-  const ogUrl = post.ogImage?.url ?? post.coverImage?.src;
+  const ogUrl = post.ogImage?.url
+    ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
+    : post.coverImage?.src;
 
   // Mirror the EN post's hreflang only when an EN translation exists
   // (slugEn + titleEn) — matches the EN listing/render guards and sitemap.
@@ -133,7 +139,9 @@ function buildBlogJsonLd(post: BlogPostDoc) {
       ? post.coverImage.src
       : `${SITE_ORIGIN}${post.coverImage.src}`
     : undefined;
-  const imageUrl = post.ogImage?.url ?? coverAbs ?? undefined;
+  const imageUrl = post.ogImage?.url
+    ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
+    : (coverAbs ?? undefined);
   const title = post.title ?? post.slug;
 
   return buildJsonLd([
@@ -251,9 +259,11 @@ export default async function BlogPostPage({
         {post.coverImage?.src ? (
           <section className="bg-bg px-5 pt-6 lg:px-12 lg:pt-10">
             <div className="max-w-container mx-auto">
-              <img
-                src={post.coverImage.src}
+              <SanityImg
+                image={post.coverImage.src}
                 alt={post.coverImage.alt ?? post.title ?? ""}
+                sizes={IMG_SIZES.container}
+                priority
                 className="w-full h-auto rounded-2xl border border-line block"
               />
             </div>
@@ -277,11 +287,12 @@ export default async function BlogPostPage({
             {post.author?.name ? (
               <span className="flex items-center gap-2.5">
                 {post.author.photoUrl ? (
-                  <img
+                  <AppImage
                     src={post.author.photoUrl}
                     alt={post.author.name}
                     width={28}
                     height={28}
+                    sizes="28px"
                     className="rounded-full border border-line block"
                   />
                 ) : null}
