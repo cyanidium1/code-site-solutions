@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-restricted-imports -- the one sanctioned next/image entry point (docs/images.md)
 import Image from "next/image";
 
 /**
@@ -17,5 +16,6 @@ type AppImageProps = Omit<React.ComponentProps<typeof Image>, "sizes"> & {
 };
 
 export function AppImage(props: AppImageProps) {
+  // eslint-disable-next-line jsx-a11y/alt-text -- alt is required by next/image's prop types and forwarded via {...props}
   return <Image {...props} />;
 }

@@ -81,7 +81,9 @@ export function SanityImg({
       .join(" ") || undefined;
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- canonical Sanity primitive; transforms run on Sanity's CDN, not /_next/image (docs/images.md)
+    // Raw <img> by design — the canonical Sanity primitive; transforms run on
+    // Sanity's CDN, not /_next/image (docs/images.md). The no-img-element rule
+    // is switched off for this file in eslint.config.mjs.
     <img
       src={sanityCdn(url, { w: 800, q: quality, crop, dims })}
       srcSet={sanitySrcSet(url, { widths, q: quality, crop, dims })}

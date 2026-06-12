@@ -563,7 +563,14 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                   key={item.src + item.caption}
                   className="m-0 border border-line rounded-[12px] overflow-hidden bg-[oklch(0.18_0.008_300)]"
                 >
-                  <img src={item.src} alt={item.caption} className="block w-full h-auto" />
+                  {/* eslint-disable-next-line @next/next/no-img-element -- exception per docs/images.md: SVG preview, default loader doesn't optimize SVG */}
+                  <img
+                    src={item.src}
+                    alt={item.caption}
+                    loading="lazy"
+                    decoding="async"
+                    className="block w-full h-auto"
+                  />
                   <figcaption className="px-[10px] py-2 text-[12px] text-ink-3">{item.caption}</figcaption>
                 </figure>
               ))}
