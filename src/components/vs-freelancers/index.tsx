@@ -7,6 +7,7 @@ import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
 import { SectionHead } from "@/components/shared/section-head";
+import { AppImage } from "@/lib/shared/app-image";
 import {
   type Content,
   VS_FREELANCERS_UK,
@@ -306,12 +307,12 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <div className="grid grid-cols-1 gap-6 mb-12 min-[901px]:grid-cols-[1.5fr_1fr]">
             <figure className="m-0 flex flex-col">
               <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
-                <img
+                <AppImage
                   src="/sanity-studio/admin-desktop.png"
                   alt={c.admin.desktopAlt}
-                  loading="lazy"
-                  decoding="async"
-                  className="block h-full w-full object-cover object-top"
+                  fill
+                  sizes="(min-width: 901px) 55vw, 92vw"
+                  className="object-cover object-top"
                 />
               </div>
               <figcaption className="mt-3 text-[12px] leading-[1.5] text-ink-3 text-center">
@@ -320,12 +321,12 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             </figure>
             <figure className="m-0 flex flex-col">
               <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[9/16] max-w-[280px] mx-auto w-full">
-                <img
+                <AppImage
                   src="/sanity-studio/admin-mobile.png"
                   alt={c.admin.mobileAlt}
-                  loading="lazy"
-                  decoding="async"
-                  className="block h-full w-full object-cover object-top"
+                  fill
+                  sizes="280px"
+                  className="object-cover object-top"
                 />
               </div>
               <figcaption className="mt-3 text-[12px] leading-[1.5] text-ink-3 text-center">

@@ -1,4 +1,6 @@
 import { H2 } from "@/components/ui";
+import { AppImage } from "@/lib/shared/app-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
 
 // Italic <em> inside the heading uses the brand vertical accent gradient
 // (accent-soft → accent), text-clipped. Same effect as the legacy `.case-h2 em`
@@ -253,7 +255,13 @@ export function CaseShot({
       </div>
       <div className={SHOT_IMG_WRAP_CLASS}>
         {src ? (
-          <img src={src} alt={alt} />
+          <AppImage
+            src={src}
+            alt={alt}
+            fill
+            sizes={IMG_SIZES.cardThird}
+            className="object-cover object-top"
+          />
         ) : (
           <div className={SHOT_PLACEHOLDER_CLASS} aria-hidden="true">
             <div className={SHOT_PLACEHOLDER_LINE_CLASS} />

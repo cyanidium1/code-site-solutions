@@ -380,7 +380,14 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                       className="absolute -right-2 -bottom-2 w-[82px] h-[56px] opacity-[0.16] [filter:blur(0.2px)_saturate(0.8)] transition-[opacity,transform] duration-200 group-hover:opacity-[0.28] group-hover:-translate-y-[2px]"
                       aria-hidden="true"
                     >
-                      <img src={firstPreview.src} alt="" className="w-full h-full object-cover rounded-lg" />
+                      {/* eslint-disable-next-line @next/next/no-img-element -- exception per docs/images.md: SVG preview, default loader doesn't optimize SVG */}
+                      <img
+                        src={firstPreview.src}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover rounded-lg"
+                      />
                     </span>
                   ) : null}
                   <span className="relative z-10 flex justify-between gap-2 items-center">
