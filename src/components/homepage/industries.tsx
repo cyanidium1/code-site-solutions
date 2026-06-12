@@ -1,6 +1,6 @@
 import type * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
 import {
   Stethoscope,
   Scale,
@@ -133,7 +133,7 @@ function CardMedia({ src, imgClass, dimClass }: { src: string; imgClass?: string
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[18px]"
     >
-      <Image
+      <AppImage
         src={src}
         alt=""
         fill

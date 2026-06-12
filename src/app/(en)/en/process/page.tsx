@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
@@ -125,11 +126,12 @@ export default function EnProcessPage() {
           "If you're unreachable for a week — project pauses, the deadline shifts",
         ]}
         image={
-          <Image
+          <AppImage
             src="/communication.webp"
             alt="How we communicate during the project"
             width={1600}
             height={1289}
+            sizes={IMG_SIZES.half}
           />
         }
       />

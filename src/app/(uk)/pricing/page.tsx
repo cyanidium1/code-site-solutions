@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
@@ -191,11 +192,12 @@ export default async function PricingPage() {
           "Налаштування Google Analytics + Search Console",
         ]}
         image={
-          <Image
+          <AppImage
             src="/included.webp"
             alt="Що входить у всі пакети Code-Site.Art"
             width={1600}
             height={1124}
+            sizes={IMG_SIZES.half}
           />
         }
       />
@@ -222,11 +224,12 @@ export default async function PricingPage() {
         ]}
         cta={{ label: "Обговорити що потрібно", href: "/contacts" }}
         image={
-          <Image
+          <AppImage
             src="/not-included.webp"
             alt="Що не входить у вартість сайту"
             width={1600}
             height={1200}
+            sizes={IMG_SIZES.half}
           />
         }
       />
@@ -264,11 +267,12 @@ export default async function PricingPage() {
           "Договір з фіксованою сумою. Якщо ми перевищуємо термін з нашої вини — компенсуємо неустойкою",
         ]}
         image={
-          <Image
+          <AppImage
             src="/payment.webp"
             alt="Як влаштована оплата за сайт"
             width={1600}
             height={1200}
+            sizes={IMG_SIZES.half}
           />
         }
       />

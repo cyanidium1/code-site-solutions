@@ -1,5 +1,5 @@
 import type * as React from "react";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
 import { useTranslations } from "next-intl";
 
 import { H2 } from "@/components/ui";
@@ -57,13 +57,12 @@ export function LaunchCta({
           className="relative left-1/2 w-[115%] max-w-[720px] -translate-x-1/2 pointer-events-none [&_img]:block [&_img]:h-auto [&_img]:w-full lg:absolute lg:top-1/2 lg:left-[calc(50%-24px)] lg:w-[calc(50%+24px+48px)] lg:max-w-[1120px] lg:translate-x-0 lg:-translate-y-1/2 xl:left-[calc(50%-140px)] xl:w-[calc(50%+270px+48px)]"
           aria-hidden="false"
         >
-          <Image
+          <AppImage
             src="/home/launch-cta-devices.webp"
             alt={t("imageAlt")}
             width={2074}
             height={1355}
-            sizes="(max-width: 1024px) 90vw, 60vw"
-            priority={false}
+            sizes="(max-width: 1024px) 90vw, 720px"
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
 import { useTranslations } from "next-intl";
 import { Quote } from "lucide-react";
 import {
@@ -16,7 +16,7 @@ export function SocialProof() {
     <section className={`${hpSectionClass} py-10`}>
       <div className={hpInnerClass}>
         <div className="relative px-7 py-8 flex flex-col gap-[18px] items-center text-center">
-          <Image
+          <AppImage
             src="/calculator/social-left.webp"
             alt=""
             aria-hidden="true"
@@ -56,7 +56,7 @@ export function SocialProof() {
               </figcaption>
             </figure>
           </div>
-          <Image
+          <AppImage
             src="/calculator/social-right.webp"
             alt=""
             aria-hidden="true"

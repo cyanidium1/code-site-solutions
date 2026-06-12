@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
 import { formatPrice } from "@/lib/shared/format-price";
 import { btnClass, H1, PLAY_ICON_CLASS } from "@/components/ui";
 import "./hero-effects.css";
@@ -303,7 +303,7 @@ export function DeviceMockup({
   return (
     <div className={MOCKUP_CLASS}>
       {src ? (
-        <Image
+        <AppImage
           src={src}
           alt={alt}
           width={1700}
