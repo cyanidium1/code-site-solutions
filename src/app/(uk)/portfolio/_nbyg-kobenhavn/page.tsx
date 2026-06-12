@@ -71,7 +71,6 @@ const RELATED: NbygRelatedRow[] = [
     gradient:
       "linear-gradient(135deg, oklch(0.55 0.18 230) 0%, oklch(0.55 0.16 200) 100%)",
     href: "/portfolio/efedra-clinic",
-    coverImage: "/EfedraCaseCreenshots/efedra-main-after.png",
     coverImageAlt: "Efedra Clinic — новий сайт після редизайну",
   },
   {
