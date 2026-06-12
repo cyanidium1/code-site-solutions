@@ -18,6 +18,16 @@ npm run build
 - GROQ mirrors admin repo: keep `sanity-queries.ts` in sync with `code-site-solutions-admin/queries/*`.
 - Folder READMEs under `src/{components,constants,content,lib,types}/` define where new files go.
 
+## Images (read before adding/changing any image)
+
+**Required:** [`docs/images.md`](docs/images.md)
+
+- Sanity-hosted → `<SanityImg>` (`@/lib/shared/sanity-image`) — Sanity CDN transforms; never route Sanity images through `/_next/image`.
+- `/public` or non-Sanity remote → `<AppImage>` (`@/lib/shared/app-image`).
+- `sizes` is mandatory on both — use `IMG_SIZES` presets (`@/lib/shared/image-sizes`).
+- No direct `next/image` imports, no raw `<img>` (ESLint errors). Exceptions (SVG, marquee logos) need a disable comment citing docs/images.md.
+- og:image URLs from Sanity: wrap in `sanityCdn(url, { w: 1200, q: 70 })`.
+
 ## Sanity (read before changing CMS fetches)
 
 **Required:** [`docs/sanity-document-ids.md`](docs/sanity-document-ids.md)
