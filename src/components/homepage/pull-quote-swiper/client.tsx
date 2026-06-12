@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { SwiperSlide } from "swiper/react";
 import { Linkedin, ArrowUpRight } from "lucide-react";
 
 import SwiperWrapper from "@/components/shared/swiper/SwiperWrapper";
 import { btnClass } from "@/components/ui";
+import { SanityImg } from "@/lib/shared/sanity-image";
 
 import type { TestimonialSlide } from "@/lib/server/fetch-testimonials";
 
@@ -41,13 +41,14 @@ function Slide({ slide }: { slide: TestimonialSlide }) {
       <div className="hp-pqs-slide-inner">
         {slide.mockupLeft ? (
           <div className="hp-pqs-mockup hp-pqs-mockup--left">
-            <Image
-              src={slide.mockupLeft.src}
+            {/* No lqip: mockups are transparent PNGs — the background blur
+                would show through permanently (see docs/images.md). */}
+            <SanityImg
+              image={slide.mockupLeft.src}
               alt={slide.mockupLeft.alt}
               width={slide.mockupLeft.width ?? 400}
               height={slide.mockupLeft.height ?? 800}
-              placeholder={slide.mockupLeft.lqip ? "blur" : undefined}
-              blurDataURL={slide.mockupLeft.lqip}
+              widths={[280, 400, 560, 800]}
               sizes="(max-width: 900px) 0px, (max-width: 1100px) 220px, 280px"
             />
           </div>
@@ -89,13 +90,12 @@ function Slide({ slide }: { slide: TestimonialSlide }) {
 
         {slide.mockupRight ? (
           <div className="hp-pqs-mockup hp-pqs-mockup--right">
-            <Image
-              src={slide.mockupRight.src}
+            <SanityImg
+              image={slide.mockupRight.src}
               alt={slide.mockupRight.alt}
               width={slide.mockupRight.width ?? 800}
               height={slide.mockupRight.height ?? 500}
-              placeholder={slide.mockupRight.lqip ? "blur" : undefined}
-              blurDataURL={slide.mockupRight.lqip}
+              widths={[280, 400, 560, 800]}
               sizes="(max-width: 900px) 0px, (max-width: 1100px) 300px, 380px"
             />
           </div>

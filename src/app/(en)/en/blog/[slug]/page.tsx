@@ -19,6 +19,10 @@ import type {
   BlogPostListItem,
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/sanity-portable";
+import { AppImage } from "@/lib/shared/app-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
+import { sanityCdn } from "@/lib/shared/sanity-cdn";
+import { SanityImg } from "@/lib/shared/sanity-image";
 import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
@@ -63,7 +67,11 @@ export async function generateMetadata({
   const title = post.metaTitleEn ?? post.titleEn ?? "";
   const description = post.metaDescriptionEn ?? post.ledeEn ?? "";
   const path = `/en/blog/${slug}`;
-  const ogUrl = post.ogImage?.url ?? post.coverImage?.src;
+  const ogUrl = post.ogImage?.url
+    ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
+    : post.coverImage?.src
+      ? sanityCdn(post.coverImage.src, { w: 1200, q: 70 })
+      : undefined;
 
   return {
     title,
@@ -125,7 +133,11 @@ function buildBlogJsonLd(post: BlogPostDoc, enSlug: string) {
       ? post.coverImage.src
       : `${SITE_ORIGIN}${post.coverImage.src}`
     : undefined;
-  const imageUrl = post.ogImage?.url ?? coverAbs ?? undefined;
+  const imageUrl = post.ogImage?.url
+    ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
+    : coverAbs
+      ? sanityCdn(coverAbs, { w: 1200, q: 70 })
+      : undefined;
   const title = post.titleEn ?? enSlug;
 
   return buildJsonLd([
@@ -243,10 +255,11 @@ export default async function EnBlogPostPage({
         {post.coverImage?.src ? (
           <section className="bg-bg px-5 pt-6 lg:px-12 lg:pt-10">
             <div className="max-w-container mx-auto">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={post.coverImage.src}
+              <SanityImg
+                image={post.coverImage.src}
                 alt={post.coverImage.alt ?? post.titleEn ?? ""}
+                sizes={IMG_SIZES.container}
+                priority
                 className="w-full h-auto rounded-2xl border border-line block"
               />
             </div>
@@ -269,12 +282,12 @@ export default async function EnBlogPostPage({
             {post.author?.name ? (
               <span className="flex items-center gap-2.5">
                 {post.author.photoUrl ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
+                  <AppImage
                     src={post.author.photoUrl}
                     alt={post.author.name}
                     width={28}
                     height={28}
+                    sizes="28px"
                     className="rounded-full border border-line block"
                   />
                 ) : null}

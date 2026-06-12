@@ -1,5 +1,5 @@
 import type * as React from "react";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight, type LucideIcon } from "lucide-react";
 
@@ -190,7 +190,7 @@ export function AboutHero({ c }: { c: AboutContent["hero"] }) {
           <div className="relative order-first max-w-[420px] min-[961px]:[order:0] min-[961px]:max-w-none">
             <div className="relative overflow-hidden rounded-[24px] border border-line bg-[oklch(1_0_0_/_0.02)]">
               <div className="relative aspect-[4/5] w-full">
-                <Image
+                <AppImage
                   src={c.portrait.src}
                   alt={c.portrait.alt}
                   fill
@@ -575,7 +575,7 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
             </ul>
           </div>
           <div className="overflow-hidden rounded-[16px] border border-line bg-[oklch(1_0_0_/_0.02)]">
-            <Image
+            <AppImage
               src={c.cms.src}
               alt={c.cms.alt}
               width={1600}

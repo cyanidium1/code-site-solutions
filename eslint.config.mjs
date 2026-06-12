@@ -49,6 +49,49 @@ const config = [
       "react/forbid-dom-props": "off",
     },
   },
+  {
+    // Standardized image handling (docs/images.md): every image goes through
+    // AppImage (/public + non-Sanity remotes, via next/image) or SanityImg
+    // (Sanity CDN transforms). Raw <img> needs an inline disable comment with
+    // a reason; direct next/image imports are only allowed in app-image.tsx.
+    rules: {
+      "@next/next/no-img-element": "error",
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "next/image",
+              message:
+                "Use AppImage (@/lib/shared/app-image) for /public+remote images or SanityImg (@/lib/shared/sanity-image) for Sanity images. See docs/images.md.",
+            },
+            {
+              name: "next/legacy/image",
+              message:
+                "Use AppImage (@/lib/shared/app-image) or SanityImg (@/lib/shared/sanity-image). See docs/images.md.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    // The two canonical image primitives + Satori image-generation files
+    // (next/og renders <img> to a bitmap, not the DOM).
+    files: [
+      "src/lib/shared/app-image.tsx",
+      "src/lib/shared/sanity-image.tsx",
+      "src/app/**/opengraph-image.tsx",
+      "src/app/apple-icon.tsx",
+      "src/app/icon.tsx",
+      "src/app/logo-512.png/route.tsx",
+      "src/lib/server/og/**",
+    ],
+    rules: {
+      "no-restricted-imports": "off",
+      "@next/next/no-img-element": "off",
+    },
+  },
 ];
 
 export default config;

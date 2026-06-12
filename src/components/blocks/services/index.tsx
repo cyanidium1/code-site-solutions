@@ -1,3 +1,5 @@
+import { SanityImg } from "@/lib/shared/sanity-image";
+
 function IcCalendar() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -243,11 +245,12 @@ export function Services({
         >
           {hasVisual ? (
             <div className="relative aspect-[16/10] rounded-[14px] max-w-[600px] border border-line-strong bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] md:rounded-[22px] xl:aspect-[5/4] xl:max-w-none before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:24px_24px] after:content-['IMAGE_PLACEHOLDER'] after:absolute after:inset-0 after:flex after:items-center after:justify-center after:font-mono after:text-[11px] after:tracking-[0.15em] after:text-[oklch(1_0_0_/_0.18)]">
-              <img
-                src={testimonialVisualSrc}
+              <SanityImg
+                image={testimonialVisualSrc}
                 alt=""
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
+                sizes="(min-width: 1280px) 45vw, 92vw"
+                fill
+                className="object-cover"
               />
             </div>
           ) : null}

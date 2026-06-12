@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
@@ -204,11 +205,12 @@ export default async function EnPricingPage() {
           "Google Analytics + Search Console setup",
         ]}
         image={
-          <Image
+          <AppImage
             src="/included.webp"
             alt="What is included in all Code-Site.Art packages"
             width={1600}
             height={1124}
+            sizes={IMG_SIZES.half}
           />
         }
       />
@@ -236,11 +238,12 @@ export default async function EnPricingPage() {
         ]}
         cta={{ label: "Discuss what you need", href: "/en/contacts" }}
         image={
-          <Image
+          <AppImage
             src="/not-included.webp"
             alt="What is not included in website pricing"
             width={1600}
             height={1200}
+            sizes={IMG_SIZES.half}
           />
         }
       />
@@ -278,11 +281,12 @@ export default async function EnPricingPage() {
           "Fixed-sum contract. If we miss the deadline through our fault — we pay you the rebate",
         ]}
         image={
-          <Image
+          <AppImage
             src="/payment.webp"
             alt="How website project payments are structured"
             width={1600}
             height={1200}
+            sizes={IMG_SIZES.half}
           />
         }
       />

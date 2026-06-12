@@ -40,6 +40,7 @@ export function Marquee({
               className="inline-flex h-11 shrink-0 items-center justify-center"
               title={it.alt}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element -- exception per docs/images.md: 2–12 KB logo strip rendered twice for the loop; optimizer round-trips cost more than they save */}
               <img
                 src={it.src}
                 alt={it.alt}

@@ -11,6 +11,8 @@ import {
   useDisclosure,
 } from "@heroui/react";
 
+import { AppImage } from "@/lib/shared/app-image";
+
 export type TeamLocale = "uk" | "en";
 
 export type TeamMember = {
@@ -185,14 +187,13 @@ function MemberPhoto({
             {getInitials(member.name)}
           </span>
         ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <AppImage
             src={member.image}
             alt={member.name}
-            loading="lazy"
-            decoding="async"
+            fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 92vw"
             onError={() => setHasError(true)}
-            className="w-full h-full object-cover object-top block"
+            className="object-cover object-top"
           />
         )}
       </div>
@@ -206,13 +207,13 @@ function MemberPhoto({
           {getInitials(member.name)}
         </span>
       ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <AppImage
           src={member.image}
           alt={member.name}
-          decoding="async"
+          fill
+          sizes="56px"
           onError={() => setHasError(true)}
-          className="w-full h-full object-cover object-top block"
+          className="object-cover object-top"
         />
       )}
     </div>

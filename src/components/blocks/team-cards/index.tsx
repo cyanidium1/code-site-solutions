@@ -1,4 +1,5 @@
 import { cn } from "@/components/ui";
+import { AppImage } from "@/lib/shared/app-image";
 
 export type TeamSocialKind = "li" | "tg" | "gh" | "ig" | "tt" | "x";
 export type TeamSocial = { kind: TeamSocialKind; href: string };
@@ -112,9 +113,15 @@ function SocialIcon({ kind }: { kind: TeamSocialKind }) {
 function TeamCard({ m }: { m: TeamMember }) {
   return (
     <article className="relative flex flex-col basis-[65vw] grow-0 shrink-0 max-w-[280px] snap-start border border-line rounded-[22px] bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-line-strong hover:-translate-y-0.5 lg:basis-auto lg:grow lg:shrink lg:max-w-none lg:snap-none">
-      <div className="aspect-square overflow-hidden relative bg-[linear-gradient(135deg,oklch(0.30_0.10_290)_0%,oklch(0.20_0.06_270)_100%)] flex items-center justify-center [&>img]:w-full [&>img]:h-full [&>img]:object-cover [&>img]:block">
+      <div className="aspect-square overflow-hidden relative bg-[linear-gradient(135deg,oklch(0.30_0.10_290)_0%,oklch(0.20_0.06_270)_100%)] flex items-center justify-center">
         {m.photo ? (
-          <img src={m.photo} alt={m.name} />
+          <AppImage
+            src={m.photo}
+            alt={m.name}
+            fill
+            sizes="(min-width: 1024px) 25vw, 65vw"
+            className="object-cover"
+          />
         ) : (
           <span className="inline-flex items-center justify-center w-[90px] h-[90px] rounded-full bg-brand-gradient font-display font-bold text-[30px] text-bg tracking-[-0.02em] shadow-[0_0_60px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] lg:w-[110px] lg:h-[110px] lg:text-[38px]">
             {m.initials ??

@@ -13,7 +13,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { cn } from "@/components/ui";
-import { sanityCdn, sanitySrcSet } from "@/lib/shared/sanity-cdn";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
+import { SanityImg } from "@/lib/shared/sanity-image";
 import {
   caseLinkClass,
   caseCoverClass,
@@ -93,14 +94,13 @@ export function NbygRelatedCard({ row, comingSoonLabel = "Coming soon" }: Relate
         </div>
         {row.coverImage ? (
           <div className={cn(caseShotBodyClass, "relative min-h-0 flex-1 overflow-hidden p-0")}>
-            <img
-              src={sanityCdn(row.coverImage, { w: 800, q: 60 })}
-              srcSet={sanitySrcSet(row.coverImage, [400, 600, 800, 1200], 60)}
-              sizes="(min-width: 1024px) 33vw, 100vw"
+            <SanityImg
+              image={row.coverImage}
               alt={row.coverImageAlt ?? row.name}
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 block h-full w-full object-cover object-top"
+              sizes={IMG_SIZES.cardThird}
+              widths={[400, 600, 800, 1200]}
+              fill
+              className="object-cover object-top"
             />
           </div>
         ) : (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { StatsBar } from "@/components/blocks/stats-bar";
@@ -149,11 +150,12 @@ export default function ProcessPage() {
           "Якщо вас немає тиждень — пауза проекту, дедлайн зсувається",
         ]}
         image={
-          <Image
+          <AppImage
             src="/communication.webp"
             alt="Як ми спілкуємось протягом проекту"
             width={1600}
             height={1289}
+            sizes={IMG_SIZES.half}
           />
         }
       />

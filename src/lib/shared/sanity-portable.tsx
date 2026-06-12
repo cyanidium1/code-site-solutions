@@ -7,6 +7,8 @@ import type {
   PortableSpan,
   PortableLinkAnnotation,
 } from "@/types/sanity";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
+import { SanityImg } from "@/lib/shared/sanity-image";
 
 function renderSpan(
   span: PortableSpan,
@@ -340,12 +342,10 @@ function renderBlogImage(
   }
   return (
     <figure key={key} className="blog-image">
-      <img
-        src={block.asset.url}
+      <SanityImg
+        image={{ asset: block.asset, crop: block.crop }}
         alt={block.alt}
-        loading="lazy"
-        width={block.asset.metadata?.dimensions?.width}
-        height={block.asset.metadata?.dimensions?.height}
+        sizes={IMG_SIZES.prose}
       />
       {block.caption ? <figcaption>{block.caption}</figcaption> : null}
     </figure>

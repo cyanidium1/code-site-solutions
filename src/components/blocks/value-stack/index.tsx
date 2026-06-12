@@ -1,5 +1,5 @@
 import type * as React from "react";
-import Image from "next/image";
+import { AppImage } from "@/lib/shared/app-image";
 import {
   TrendingUp,
   Target,
@@ -166,7 +166,7 @@ const noiseStyle: React.CSSProperties = {
 function CardMedia({ src, sizes }: { src: string; sizes: string }) {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      <Image
+      <AppImage
         src={src}
         alt=""
         fill
