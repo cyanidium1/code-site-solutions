@@ -41,12 +41,13 @@ function Slide({ slide }: { slide: TestimonialSlide }) {
       <div className="hp-pqs-slide-inner">
         {slide.mockupLeft ? (
           <div className="hp-pqs-mockup hp-pqs-mockup--left">
+            {/* No lqip: mockups are transparent PNGs — the background blur
+                would show through permanently (see docs/images.md). */}
             <SanityImg
               image={slide.mockupLeft.src}
               alt={slide.mockupLeft.alt}
               width={slide.mockupLeft.width ?? 400}
               height={slide.mockupLeft.height ?? 800}
-              lqip={slide.mockupLeft.lqip}
               widths={[280, 400, 560, 800]}
               sizes="(max-width: 900px) 0px, (max-width: 1100px) 220px, 280px"
             />
@@ -94,7 +95,6 @@ function Slide({ slide }: { slide: TestimonialSlide }) {
               alt={slide.mockupRight.alt}
               width={slide.mockupRight.width ?? 800}
               height={slide.mockupRight.height ?? 500}
-              lqip={slide.mockupRight.lqip}
               widths={[280, 400, 560, 800]}
               sizes="(max-width: 900px) 0px, (max-width: 1100px) 300px, 380px"
             />

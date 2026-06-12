@@ -28,13 +28,18 @@ outside the primitives and the documented exceptions.
    else lazy-loads automatically.
 4. **Object mode beats string mode** for SanityImg: pass the full
    `{ asset, crop, alt }` object when the GROQ query provides it — that's what
-   enables Studio crops (`?rect=`), CLS-safe `width`/`height`, and LQIP.
+   enables Studio crops (`?rect=`) and CLS-safe `width`/`height`.
    When adding new GROQ image projections, fetch
    `asset->{ _id, url, metadata { lqip, dimensions } }` plus `crop` (see
    `IMAGE_WITH_ALT` in `src/lib/server/sanity-queries.ts`).
-5. **og:image:** social crawlers don't read srcset — wrap Sanity URLs in
+5. **LQIP blur-up is explicit and opaque-only:** pass `lqip={...}` yourself,
+   and only for images with no transparent pixels. SanityImg paints it as a
+   CSS background that is never removed (no client JS), so it would show
+   through transparency forever (this bit the pull-quote device mockups,
+   which are alpha PNGs).
+6. **og:image:** social crawlers don't read srcset — wrap Sanity URLs in
    `sanityCdn(url, { w: 1200, q: 70 })` (see blog `[slug]` pages).
-6. **`fill` needs a positioned parent** (`relative`/`absolute`) with a fixed
+7. **`fill` needs a positioned parent** (`relative`/`absolute`) with a fixed
    aspect (`aspect-*`). Non-fill SanityImg gets `width`/`height` from asset
    metadata automatically; in string mode pass them explicitly when known.
 

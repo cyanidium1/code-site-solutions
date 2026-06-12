@@ -343,7 +343,7 @@ function renderBlogImage(
   return (
     <figure key={key} className="blog-image">
       <SanityImg
-        image={{ asset: block.asset }}
+        image={{ asset: block.asset, crop: block.crop }}
         alt={block.alt}
         sizes={IMG_SIZES.prose}
       />

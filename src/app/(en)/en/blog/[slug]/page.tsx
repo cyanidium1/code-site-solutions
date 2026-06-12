@@ -69,7 +69,9 @@ export async function generateMetadata({
   const path = `/en/blog/${slug}`;
   const ogUrl = post.ogImage?.url
     ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
-    : post.coverImage?.src;
+    : post.coverImage?.src
+      ? sanityCdn(post.coverImage.src, { w: 1200, q: 70 })
+      : undefined;
 
   return {
     title,
@@ -133,7 +135,9 @@ function buildBlogJsonLd(post: BlogPostDoc, enSlug: string) {
     : undefined;
   const imageUrl = post.ogImage?.url
     ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
-    : (coverAbs ?? undefined);
+    : coverAbs
+      ? sanityCdn(coverAbs, { w: 1200, q: 70 })
+      : undefined;
   const title = post.titleEn ?? enSlug;
 
   return buildJsonLd([

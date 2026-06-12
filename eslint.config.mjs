@@ -65,6 +65,11 @@ const config = [
               message:
                 "Use AppImage (@/lib/shared/app-image) for /public+remote images or SanityImg (@/lib/shared/sanity-image) for Sanity images. See docs/images.md.",
             },
+            {
+              name: "next/legacy/image",
+              message:
+                "Use AppImage (@/lib/shared/app-image) or SanityImg (@/lib/shared/sanity-image). See docs/images.md.",
+            },
           ],
         },
       ],

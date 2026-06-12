@@ -86,3 +86,10 @@ test("sanitySrcSet returns undefined for non-Sanity URLs", () => {
   assert.equal(sanitySrcSet("/blog/cover.webp", {}), undefined);
   assert.equal(sanitySrcSet(undefined, {}), undefined);
 });
+
+test("sanitySrcSet falls back to the default ladder for an empty widths array", () => {
+  const out = sanitySrcSet(SANITY_URL, { widths: [] });
+  assert.ok(out);
+  assert.ok(out.includes(" 400w") && out.includes(" 1600w"));
+  assert.ok(!out.includes("Infinity"));
+});

@@ -113,7 +113,7 @@ function SocialIcon({ kind }: { kind: TeamSocialKind }) {
 function TeamCard({ m }: { m: TeamMember }) {
   return (
     <article className="relative flex flex-col basis-[65vw] grow-0 shrink-0 max-w-[280px] snap-start border border-line rounded-[22px] bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-line-strong hover:-translate-y-0.5 lg:basis-auto lg:grow lg:shrink lg:max-w-none lg:snap-none">
-      <div className="aspect-square overflow-hidden relative bg-[linear-gradient(135deg,oklch(0.30_0.10_290)_0%,oklch(0.20_0.06_270)_100%)] flex items-center justify-center [&>img]:w-full [&>img]:h-full [&>img]:object-cover [&>img]:block">
+      <div className="aspect-square overflow-hidden relative bg-[linear-gradient(135deg,oklch(0.30_0.10_290)_0%,oklch(0.20_0.06_270)_100%)] flex items-center justify-center">
         {m.photo ? (
           <AppImage
             src={m.photo}

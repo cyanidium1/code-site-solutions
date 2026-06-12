@@ -69,7 +69,9 @@ export async function generateMetadata({
   // (relative paths are resolved against the site origin by Next).
   const ogUrl = post.ogImage?.url
     ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
-    : post.coverImage?.src;
+    : post.coverImage?.src
+      ? sanityCdn(post.coverImage.src, { w: 1200, q: 70 })
+      : undefined;
 
   // Mirror the EN post's hreflang only when an EN translation exists
   // (slugEn + titleEn) — matches the EN listing/render guards and sitemap.
@@ -141,7 +143,9 @@ function buildBlogJsonLd(post: BlogPostDoc) {
     : undefined;
   const imageUrl = post.ogImage?.url
     ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
-    : (coverAbs ?? undefined);
+    : coverAbs
+      ? sanityCdn(coverAbs, { w: 1200, q: 70 })
+      : undefined;
   const title = post.title ?? post.slug;
 
   return buildJsonLd([

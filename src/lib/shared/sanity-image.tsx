@@ -45,7 +45,11 @@ type SanityImgProps = {
   priority?: boolean;
   /** Cover a positioned parent (parent needs `relative`/`absolute` + a fixed aspect). */
   fill?: boolean;
-  /** Blur-up placeholder; auto-read in object mode, pass explicitly in string mode. */
+  /**
+   * Blur-up placeholder — OPAQUE images only. Painted as a CSS background and
+   * never removed (no client JS), so transparent pixels would show it through.
+   * Pass explicitly; never auto-applied.
+   */
   lqip?: string;
   className?: string;
   /** Intrinsic-dimension overrides for string mode (CLS guard). */
@@ -73,7 +77,7 @@ export function SanityImg({
   const dims = obj?.asset?.metadata?.dimensions;
   const crop = obj?.crop;
   const shown = croppedDims(crop, dims);
-  const blur = lqip ?? obj?.asset?.metadata?.lqip;
+  const blur = lqip;
 
   const cls =
     [fill ? "absolute inset-0 h-full w-full" : "", className]

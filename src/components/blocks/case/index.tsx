@@ -1,6 +1,5 @@
 import { H2 } from "@/components/ui";
-import { AppImage } from "@/lib/shared/app-image";
-import { IMG_SIZES } from "@/lib/shared/image-sizes";
+import { SanityImg } from "@/lib/shared/sanity-image";
 
 // Italic <em> inside the heading uses the brand vertical accent gradient
 // (accent-soft → accent), text-clipped. Same effect as the legacy `.case-h2 em`
@@ -106,7 +105,7 @@ const SHOT_URL_CLASS =
   "flex-1 ml-2 h-[18px] bg-[oklch(0.22_0.005_300)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-ink-3 tracking-[0.04em] max-w-[240px]";
 
 const SHOT_IMG_WRAP_CLASS =
-  "absolute inset-x-0 bottom-0 top-7 w-full h-[calc(100%-28px)] overflow-hidden [&>img]:w-full [&>img]:h-auto [&>img]:block [&>img]:object-cover [&>img]:object-top";
+  "absolute inset-x-0 bottom-0 top-7 w-full h-[calc(100%-28px)] overflow-hidden";
 
 // Placeholder shown when no screenshot is uploaded — mimics a page layout with
 // the same accent-tinted radial gradient palette used by other placeholders.
@@ -255,11 +254,11 @@ export function CaseShot({
       </div>
       <div className={SHOT_IMG_WRAP_CLASS}>
         {src ? (
-          <AppImage
-            src={src}
+          <SanityImg
+            image={src}
             alt={alt}
             fill
-            sizes={IMG_SIZES.cardThird}
+            sizes="(min-width: 768px) 50vw, 92vw"
             className="object-cover object-top"
           />
         ) : (

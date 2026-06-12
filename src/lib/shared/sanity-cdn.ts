@@ -99,12 +99,13 @@ export function sanitySrcSet(
   { widths = DEFAULT_SRCSET_WIDTHS, q = 60, crop, dims }: SrcSetOpts = {},
 ): string | undefined {
   if (!isSanityUrl(url)) return undefined;
+  const ladder = widths.length ? widths : DEFAULT_SRCSET_WIDTHS;
   const max = croppedDims(crop, dims)?.width;
   // Cap candidates at intrinsic width — the CDN won't upscale, so larger
   // candidates would all dedupe to the same bytes under different URLs.
   const capped = max
-    ? [...new Set([...widths.filter((w) => w < max), Math.min(max, Math.max(...widths))])]
-    : widths;
+    ? [...new Set([...ladder.filter((w) => w < max), Math.min(max, Math.max(...ladder))])]
+    : ladder;
   return capped
     .sort((a, b) => a - b)
     .map((w) => `${sanityCdn(url, { w, q, crop, dims })} ${w}w`)
