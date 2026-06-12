@@ -43,6 +43,7 @@ import type {
   TestimonialSection,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import {
   PortableInline,
@@ -345,6 +346,7 @@ function SectionBlock({
               loc(section.heading, locale) ||
               loc(doc.title, locale)
             }
+            sizes={IMG_SIZES.prose}
           />
         ) : null;
         const img2 = hasImage2 ? (
@@ -355,6 +357,7 @@ function SectionBlock({
               loc(section.heading, locale) ||
               loc(doc.title, locale)
             }
+            sizes={IMG_SIZES.prose}
           />
         ) : null;
 
@@ -403,6 +406,7 @@ function SectionBlock({
             loc(doc.title, locale)
           }
           fill
+          sizes={IMG_SIZES.half}
           className="object-cover"
         />
       ) : null;

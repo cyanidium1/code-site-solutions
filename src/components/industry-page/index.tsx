@@ -38,6 +38,7 @@ import {
   plainPortable,
   formatLine,
 } from "@/lib/shared/sanity-portable";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import { pickRichText } from "@/lib/shared/pick-rich-text";
 import { ORG_ID, pageUrl } from "@/constants/site";
@@ -303,6 +304,7 @@ function SectionBlock({
                 image={section.image}
                 alt={loc(section.heading, locale)}
                 fill
+                sizes={IMG_SIZES.half}
                 className="object-cover"
               />
             ) : null
