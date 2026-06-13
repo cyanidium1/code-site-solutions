@@ -42,6 +42,8 @@ export type SanityAsset = {
   metadata?: {
     lqip?: string;
     dimensions?: { width: number; height: number; aspectRatio?: number };
+    /** True when the image has no actual transparency — gates LQIP blur-up. */
+    isOpaque?: boolean;
   };
 };
 

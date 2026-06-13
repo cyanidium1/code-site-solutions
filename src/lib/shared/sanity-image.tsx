@@ -28,6 +28,7 @@ type SanityImageLike = {
     metadata?: {
       lqip?: string;
       dimensions?: SanityDims & { aspectRatio?: number };
+      isOpaque?: boolean;
     } | null;
   } | null;
   crop?: SanityCrop | null;
@@ -46,9 +47,10 @@ type SanityImgProps = {
   /** Cover a positioned parent (parent needs `relative`/`absolute` + a fixed aspect). */
   fill?: boolean;
   /**
-   * Blur-up placeholder — OPAQUE images only. Painted as a CSS background and
-   * never removed (no client JS), so transparent pixels would show it through.
-   * Pass explicitly; never auto-applied.
+   * Blur-up placeholder override. In object mode the LQIP is auto-applied from
+   * metadata for OPAQUE images only (a CSS background never clears, so it would
+   * show through transparent pixels). Use this prop in string mode, or to force
+   * a blur where auto-detection can't (e.g. you know the image is opaque).
    */
   lqip?: string;
   className?: string;
@@ -74,10 +76,15 @@ export function SanityImg({
   const url = typeof image === "string" ? image : obj?.asset?.url;
   if (!url) return null;
 
-  const dims = obj?.asset?.metadata?.dimensions;
+  const meta = obj?.asset?.metadata;
+  const dims = meta?.dimensions;
   const crop = obj?.crop;
   const shown = croppedDims(crop, dims);
-  const blur = lqip;
+  // Explicit prop wins; otherwise auto-blur from metadata, but only for images
+  // with no actual transparency (isOpaque) — the CSS background can't be cleared
+  // and would show through transparent pixels. Note isOpaque ≠ !hasAlpha: most
+  // PNG screenshots carry an unused alpha channel yet are isOpaque: true.
+  const blur = lqip ?? (meta?.isOpaque ? meta.lqip : undefined);
 
   const cls =
     [fill ? "absolute inset-0 h-full w-full" : "", className]
@@ -99,12 +106,17 @@ export function SanityImg({
       width={fill ? undefined : (width ?? shown?.width)}
       height={fill ? undefined : (height ?? shown?.height)}
       className={cls}
-      // eslint-disable-next-line react/forbid-dom-props -- dynamic LQIP data-URI blur-up, replaced by the real image on decode
-      style={
-        blur
-          ? { backgroundImage: `url(${blur})`, backgroundSize: "cover" }
-          : undefined
-      }
+      // eslint-disable-next-line react/forbid-dom-props -- `color:transparent` hides the alt-text flash during load (mirrors next/image); optional LQIP data-URI paints a blur-up that the real image covers on decode
+      style={{
+        color: "transparent",
+        ...(blur
+          ? {
+              backgroundImage: `url(${blur})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }
+          : null),
+      }}
     />
   );
 }
