@@ -489,16 +489,21 @@ export function Bento({
               >
                 <div
                   className={cn(
-                    "flex items-center gap-3",
-                    isOneByOne &&
-                      "col-start-1 row-span-2 self-start lg:col-auto lg:row-auto lg:self-auto",
+                    // 1x1 mobile: `contents` dissolves this wrapper so the icon
+                    // and stat become direct cell-grid items — the stat lands in
+                    // col2/row3 (below the body) instead of inflating the `auto`
+                    // first column and clipping the title/body. At lg+ it
+                    // restores to the flex row (icon left, stat pushed right).
+                    isOneByOne
+                      ? "contents lg:flex lg:items-center lg:gap-3"
+                      : "flex items-center gap-3",
                   )}
                 >
                   <div
                     className={cn(
                       "inline-flex items-center justify-center rounded-[10px]",
                       isOneByOne
-                        ? "h-9 w-9 border border-accent-30 bg-accent-10 text-accent-soft lg:h-10 lg:w-10 lg:border-line lg:bg-[oklch(1_0_0_/_0.04)] lg:text-ink"
+                        ? "col-start-1 row-span-2 self-start h-9 w-9 border border-accent-30 bg-accent-10 text-accent-soft lg:col-auto lg:row-auto lg:self-auto lg:h-10 lg:w-10 lg:border-line lg:bg-[oklch(1_0_0_/_0.04)] lg:text-ink"
                         : "h-10 w-10 border border-line bg-[oklch(1_0_0_/_0.04)] text-ink",
                     )}
                   >
