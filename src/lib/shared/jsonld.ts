@@ -138,7 +138,7 @@ export function organizationNode(): JsonLdNode {
     },
     description:
       "Бутик-студія з розробки кастомних сайтів для бізнесу. 50+ проєктів за 5 років у 7 країнах.",
-    foundingDate: "2021",
+    foundingDate: "2023",
     foundingLocation: {
       "@type": "Place",
       address: {

@@ -236,7 +236,7 @@ export const PROCESS_FAQ: { q: string; a: RichText }[] = [
     a: [
       "We pay you a ",
       { em: "30% rebate" },
-      " from the contract sum, no need to ask. We've done it twice in 3 years, and both times we wired the rebate before the client raised it.",
+      " from the contract sum, no need to ask. We've done it once in 3 years, and we wired the rebate before the client raised it.",
     ],
   },
   {

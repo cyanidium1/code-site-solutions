@@ -65,14 +65,14 @@ export const ABOUT_EN: AboutContent = {
     ),
     lead: "Code Site Art was founded by Fedir Alpatov, a developer who takes part in the architecture and implementation of every project.",
     paragraphs: [
-      "A graduate of the Kyiv Polytechnic Institute (KPI). Building since 2021, first as a freelancer, then growing into a boutique studio. Code Site Art was founded in 2025.",
+      "A graduate of the Kyiv Polytechnic Institute (KPI). Building since 2021, first as a freelancer, then growing into a boutique studio. Code Site Art was founded in 2023.",
       "The focus is custom websites and business systems on Next.js, React, TypeScript and Sanity CMS. Not templates or page builders. The code solves a concrete business task: leads, sales, content management.",
       "Working with the studio, you don't pass your task down a chain of managers. You talk to the person responsible for the technical decisions and the result.",
     ],
     facts: [
       { label: "Education", value: "KPI, Kyiv" },
       { label: "Developing since", value: "2021" },
-      { label: "Studio founded", value: "2025" },
+      { label: "Studio founded", value: "2023" },
       { label: "Stack", value: "Next.js · TS · Sanity" },
     ],
     profilesLabel: "FOUNDER",
