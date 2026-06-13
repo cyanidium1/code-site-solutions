@@ -28,15 +28,21 @@ outside the primitives and the documented exceptions.
    else lazy-loads automatically.
 4. **Object mode beats string mode** for SanityImg: pass the full
    `{ asset, crop, alt }` object when the GROQ query provides it — that's what
-   enables Studio crops (`?rect=`) and CLS-safe `width`/`height`.
-   When adding new GROQ image projections, fetch
-   `asset->{ _id, url, metadata { lqip, dimensions } }` plus `crop` (see
-   `IMAGE_WITH_ALT` in `src/lib/server/sanity-queries.ts`).
-5. **LQIP blur-up is explicit and opaque-only:** pass `lqip={...}` yourself,
-   and only for images with no transparent pixels. SanityImg paints it as a
-   CSS background that is never removed (no client JS), so it would show
-   through transparency forever (this bit the pull-quote device mockups,
-   which are alpha PNGs).
+   enables Studio crops (`?rect=`), CLS-safe `width`/`height`, and automatic
+   LQIP blur-up. When adding new GROQ image projections, fetch
+   `asset->{ _id, url, metadata { lqip, dimensions, isOpaque } }` plus `crop`
+   (see `IMAGE_WITH_ALT` in `src/lib/server/sanity-queries.ts`).
+5. **Loading state:** SanityImg always sets `color: transparent`, so the
+   `alt` text never flashes during load (same trick next/image uses; the `alt`
+   attribute stays intact for a11y/SEO). In object mode it then auto-paints the
+   LQIP as a blur-up background — but **only when `metadata.isOpaque` is true**,
+   because a CSS background is never cleared and would show through transparent
+   pixels forever. Gate on `isOpaque`, **not** `hasAlpha`: most PNG screenshots
+   carry an unused alpha channel (`hasAlpha: true`) yet are fully opaque, and we
+   want those blurred. The genuinely transparent device-mockups in the
+   pull-quote swiper are `isOpaque: false`, so they correctly get no blur.
+   String mode has no metadata: pass `lqip={...}` explicitly when you know the
+   image is opaque.
 6. **og:image:** social crawlers don't read srcset — wrap Sanity URLs in
    `sanityCdn(url, { w: 1200, q: 70 })` (see blog `[slug]` pages).
 7. **`fill` needs a positioned parent** (`relative`/`absolute`) with a fixed

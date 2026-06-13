@@ -25,7 +25,7 @@ const IMAGE_WITH_ALT = /* groq */ `{
   "asset": image.asset->{
     _id,
     url,
-    metadata { lqip, dimensions }
+    metadata { lqip, dimensions, isOpaque }
   },
   "hotspot": image.hotspot,
   "crop": image.crop,
@@ -180,7 +180,7 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
     "image2": image2 ${IMAGE_WITH_ALT},
     images[]{
       ...,
-      "asset": image.asset->{ _id, url, metadata { lqip, dimensions } },
+      "asset": image.asset->{ _id, url, metadata { lqip, dimensions, isOpaque } },
       "hotspot": image.hotspot,
       "crop": image.crop
     },
@@ -280,7 +280,7 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
       "asset": asset->{
         _id,
         url,
-        metadata { lqip, dimensions }
+        metadata { lqip, dimensions, isOpaque }
       },
       hotspot,
       crop,
@@ -296,7 +296,7 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
       "asset": asset->{
         _id,
         url,
-        metadata { lqip, dimensions }
+        metadata { lqip, dimensions, isOpaque }
       },
       hotspot,
       crop,
@@ -348,7 +348,7 @@ export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
       "asset": asset->{
         _id,
         url,
-        metadata { lqip, dimensions }
+        metadata { lqip, dimensions, isOpaque }
       },
       hotspot,
       crop,
@@ -364,7 +364,7 @@ export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
       "asset": asset->{
         _id,
         url,
-        metadata { lqip, dimensions }
+        metadata { lqip, dimensions, isOpaque }
       },
       hotspot,
       crop,
@@ -444,7 +444,7 @@ export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
       "asset": image.asset->{
         _id,
         url,
-        metadata { lqip, dimensions }
+        metadata { lqip, dimensions, isOpaque }
       },
       "hotspot": image.hotspot,
       "crop": image.crop
