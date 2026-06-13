@@ -444,7 +444,7 @@ function SectionBlock({
         <StatsBar
           items={
             section.items?.map((m) => ({
-              value: m.value ?? "",
+              value: loc(m.value, locale),
               label: loc(m.label, locale),
             })) ?? []
           }

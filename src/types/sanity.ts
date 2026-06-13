@@ -62,7 +62,7 @@ export type SeoFields = {
 
 export type Metric = {
   _key?: string;
-  value?: string;
+  value?: LocalizedString;
   label?: LocalizedString;
 };
 

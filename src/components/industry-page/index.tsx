@@ -325,7 +325,7 @@ function SectionBlock({
         <StatsBar
           items={
             section.items?.map((m) => ({
-              value: m.value ?? "",
+              value: loc(m.value, locale),
               label: loc(m.label, locale),
             })) ?? []
           }
@@ -687,7 +687,7 @@ export async function IndustryPageView({
         stats={
           hero?.stats?.length
             ? hero.stats.map((s) => ({
-                num: s.value ?? "",
+                num: loc(s.value, locale),
                 lbl: formatLine(loc(s.label, locale)),
               }))
             : undefined

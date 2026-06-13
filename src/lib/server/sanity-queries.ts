@@ -40,7 +40,7 @@ const SEO_FIELDS = /* groq */ `{
 
 const METRIC = /* groq */ `{
   _key,
-  value,
+  value ${LOCALIZED_STRING},
   label ${LOCALIZED_STRING}
 }`;
 
