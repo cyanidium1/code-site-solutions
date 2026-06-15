@@ -64,9 +64,9 @@ const DEFAULT_FOOT_COLS: FootColumn[] = [
   {
     h: "Юридичні дані",
     items: [
-      <a key="public-contract" href="#">Публічний договір</a>,
-      <a key="offer" href="#">Оферта</a>,
-      <a key="privacy" href="#">Конфіденційність</a>,
+      <Link key="public-contract" href="/public-contract">Публічний договір</Link>,
+      <Link key="offer" href="/offer">Оферта</Link>,
+      <Link key="privacy" href="/policy">Конфіденційність</Link>,
     ],
   },
 ];
@@ -102,9 +102,9 @@ const EN_FOOT_COLS: FootColumn[] = [
   {
     h: "Legal",
     items: [
-      <a key="public-contract" href="#">Public contract</a>,
-      <a key="offer" href="#">Terms of service</a>,
-      <a key="privacy" href="#">Privacy policy</a>,
+      <Link key="public-contract" href="/public-contract">Public contract</Link>,
+      <Link key="offer" href="/offer">Terms of service</Link>,
+      <Link key="privacy" href="/policy">Privacy policy</Link>,
     ],
   },
 ];
