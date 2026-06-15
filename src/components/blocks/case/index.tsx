@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { H2 } from "@/components/ui";
 import { SanityImg } from "@/lib/shared/sanity-image";
 
@@ -364,6 +366,7 @@ export function Case({
     </>
   ),
   ctaLabel = "Подивитися кейси клінік",
+  ctaHref,
   locale = "uk",
 }: Partial<{
   eyebrow: string;
@@ -388,6 +391,8 @@ export function Case({
   results: { n: string; lbl: string; tag: string }[];
   ctaText: React.ReactNode;
   ctaLabel: string;
+  /** Destination for the CTA button. When set, renders a link; omit and the CTA is inert. */
+  ctaHref: string;
   locale: "uk" | "en";
 }> = {}) {
   const beforeLabel = locale === "en" ? "BEFORE" : "БУЛО";
@@ -495,10 +500,17 @@ export function Case({
             <span className={CTA_ARROW_CLASS} />
             <span>{ctaText}</span>
           </div>
-          <button type="button" className={CTA_BTN_CLASS}>
-            <span>{ctaLabel}</span>
-            {ARROW_ICON}
-          </button>
+          {ctaHref ? (
+            <Link href={ctaHref} className={`${CTA_BTN_CLASS} no-underline`}>
+              <span>{ctaLabel}</span>
+              {ARROW_ICON}
+            </Link>
+          ) : (
+            <button type="button" className={CTA_BTN_CLASS}>
+              <span>{ctaLabel}</span>
+              {ARROW_ICON}
+            </button>
+          )}
         </div>
       </div>
     </section>

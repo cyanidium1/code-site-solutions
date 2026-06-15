@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type * as React from "react";
 import { useState } from "react";
 
@@ -142,7 +143,9 @@ export function Comparison({
   tableLabels = DEFAULT_TABLE_LABELS,
   rows = DEFAULT_ROWS,
   tableCtaPrimary = "Детальне порівняння конструкторів",
+  tableCtaPrimaryHref,
   tableCtaGhost = "Порівняння з WordPress",
+  tableCtaGhostHref,
   contactHeading = "Обговорити проєкт",
   contactSub = "Розкажіть коротко про вашу клініку — відповімо в Telegram протягом 1–2 годин у робочий час.",
   contactName = "Як до вас звертатися",
@@ -165,7 +168,11 @@ export function Comparison({
   tableLabels: string[];
   rows: TableRowData[];
   tableCtaPrimary: string;
+  /** Destination for the primary table CTA. When set, renders a link; omit and it is inert. */
+  tableCtaPrimaryHref: string;
   tableCtaGhost: string;
+  /** Destination for the ghost table CTA. When set, renders a link; omit and it is inert. */
+  tableCtaGhostHref: string;
   contactHeading: string;
   contactSub: string;
   contactName: string;
@@ -228,12 +235,30 @@ export function Comparison({
         </div>
 
         <div className="flex flex-col gap-2.5 flex-wrap mb-14 md:flex-row md:gap-3 md:mb-20 xl:mb-[120px]">
-          <button type="button" className={CMP_CTA_PRIMARY_CLASS}>
-            {tableCtaPrimary}
-          </button>
-          <button type="button" className={CMP_CTA_GHOST_CLASS}>
-            {tableCtaGhost}
-          </button>
+          {tableCtaPrimaryHref ? (
+            <Link
+              href={tableCtaPrimaryHref}
+              className={`${CMP_CTA_PRIMARY_CLASS} no-underline`}
+            >
+              {tableCtaPrimary}
+            </Link>
+          ) : (
+            <button type="button" className={CMP_CTA_PRIMARY_CLASS}>
+              {tableCtaPrimary}
+            </button>
+          )}
+          {tableCtaGhostHref ? (
+            <Link
+              href={tableCtaGhostHref}
+              className={`${CMP_CTA_GHOST_CLASS} no-underline`}
+            >
+              {tableCtaGhost}
+            </Link>
+          ) : (
+            <button type="button" className={CMP_CTA_GHOST_CLASS}>
+              {tableCtaGhost}
+            </button>
+          )}
         </div>
 
         <div className={`relative px-[22px] py-9 mb-14 border border-line-strong rounded-[18px] overflow-hidden text-center md:px-8 md:py-12 md:mb-20 md:rounded-3xl xl:px-12 xl:py-16 xl:mb-[120px] ${CMP_CONTACT_BG}`}>

@@ -356,6 +356,8 @@ function SectionBlock({
             formatLine(loc(section.footText, locale)) || undefined
           }
           footCtaLabel={loc(section.footCtaLabel, locale) || undefined}
+          footCtaSource="industry-audit"
+          locale={locale === "en" ? "en" : "uk"}
         />
       );
 
@@ -399,6 +401,10 @@ function SectionBlock({
           }))}
           ctaText={formatLine(loc(section.ctaText, locale)) || undefined}
           ctaLabel={loc(section.ctaLabel, locale) || undefined}
+          ctaHref={buildHrefWithParams(
+            localizePath("/portfolio", locale === "en"),
+            { industry: slug },
+          )}
           locale={locale === "en" ? "en" : "uk"}
         />
       );
@@ -510,7 +516,9 @@ function SectionBlock({
           tableCtaPrimary={
             loc(section.tableCtaPrimary, locale) || undefined
           }
+          tableCtaPrimaryHref={localizePath("/calculator", locale === "en")}
           tableCtaGhost={loc(section.tableCtaGhost, locale) || undefined}
+          tableCtaGhostHref={localizePath("/vs-wordpress", locale === "en")}
           contactHeading={loc(section.contact?.heading, locale) || undefined}
           contactSub={loc(section.contact?.sub, locale) || undefined}
           contactName={
