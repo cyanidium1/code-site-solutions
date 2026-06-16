@@ -5,6 +5,7 @@ import type * as React from "react";
 import { useState } from "react";
 
 import { getAttribution } from "@/lib/client/attribution";
+import { SITE_CONTACT } from "@/constants/site";
 import { formatPrice } from "@/lib/shared/format-price";
 import type { TableRowData, TierProps } from "@/types/pricing";
 import { H2 } from "@/components/ui";
@@ -155,8 +156,8 @@ export function Comparison({
   contactFoot = (
     <>
       Або одразу пишіть у Telegram —{" "}
-      <a href="https://t.me/fedirdev" target="_blank" rel="noreferrer">
-        @fedirdev
+      <a href={SITE_CONTACT.telegram} target="_blank" rel="noreferrer">
+        {SITE_CONTACT.telegramHandle}
       </a>
     </>
   ),

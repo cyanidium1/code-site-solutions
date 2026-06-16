@@ -8,6 +8,7 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
+import { SITE_CONTACT } from "@/constants/site";
 
 export type ContactsLocale = "uk" | "en";
 
@@ -31,8 +32,8 @@ export type Channel = {
   featured?: boolean;
 };
 
-const PHONE_RAW = "+380970068707";
-const PHONE_DISPLAY = "+380 97 006 87 07";
+const PHONE_RAW = SITE_CONTACT.phoneRaw;
+const PHONE_DISPLAY = SITE_CONTACT.phoneDisplay;
 
 /* ─── UA channels (default) ──────────────────────────────────────────────── */
 
@@ -44,8 +45,8 @@ const CHANNELS_UK: readonly Channel[] = [
     kind: "telegram",
     icon: Send,
     label: "Telegram",
-    handle: "@fedirdev",
-    href: `https://t.me/fedirdev?text=${encodeURIComponent(TG_GREETING_UK)}`,
+    handle: SITE_CONTACT.telegramHandle,
+    href: `${SITE_CONTACT.telegram}?text=${encodeURIComponent(TG_GREETING_UK)}`,
     responseTime: "30 хв в робочий час",
     external: true,
     featured: true,
@@ -54,8 +55,8 @@ const CHANNELS_UK: readonly Channel[] = [
     kind: "whatsapp",
     icon: MessageCircle,
     label: "WhatsApp",
-    handle: PHONE_DISPLAY,
-    href: `https://wa.me/${PHONE_RAW.replace("+", "")}?text=${encodeURIComponent(
+    handle: SITE_CONTACT.whatsappDisplay,
+    href: `https://wa.me/${SITE_CONTACT.whatsapp}?text=${encodeURIComponent(
       TG_GREETING_UK,
     )}`,
     responseTime: "30 хв в робочий час",
@@ -81,16 +82,16 @@ const CHANNELS_UK: readonly Channel[] = [
     kind: "email",
     icon: Mail,
     label: "Email",
-    handle: "hi@code-site.art",
-    href: `mailto:hi@code-site.art?subject=${encodeURIComponent(EMAIL_SUBJECT_UK)}`,
+    handle: SITE_CONTACT.email,
+    href: `mailto:${SITE_CONTACT.email}?subject=${encodeURIComponent(EMAIL_SUBJECT_UK)}`,
     responseTime: "1-2 робочі години",
   },
   {
     kind: "instagram",
     icon: Instagram,
     label: "Instagram",
-    handle: "@cyanidium",
-    href: "https://instagram.com/cyanidium",
+    handle: SITE_CONTACT.instagramHandle,
+    href: SITE_CONTACT.instagram,
     responseTime: "до 4 годин",
     external: true,
   },
@@ -98,8 +99,8 @@ const CHANNELS_UK: readonly Channel[] = [
     kind: "linkedin",
     icon: Linkedin,
     label: "LinkedIn",
-    handle: "/in/fediralpatov",
-    href: "https://linkedin.com/in/fediralpatov",
+    handle: SITE_CONTACT.linkedinHandle,
+    href: SITE_CONTACT.linkedin,
     responseTime: "1-2 дні",
     external: true,
   },
@@ -115,8 +116,8 @@ const CHANNELS_EN: readonly Channel[] = [
     kind: "telegram",
     icon: Send,
     label: "Telegram",
-    handle: "@fedirdev",
-    href: `https://t.me/fedirdev?text=${encodeURIComponent(TG_GREETING_EN)}`,
+    handle: SITE_CONTACT.telegramHandle,
+    href: `${SITE_CONTACT.telegram}?text=${encodeURIComponent(TG_GREETING_EN)}`,
     responseTime: "within 30 minutes (business hours)",
     external: true,
     featured: true,
@@ -125,8 +126,8 @@ const CHANNELS_EN: readonly Channel[] = [
     kind: "whatsapp",
     icon: MessageCircle,
     label: "WhatsApp",
-    handle: PHONE_DISPLAY,
-    href: `https://wa.me/${PHONE_RAW.replace("+", "")}?text=${encodeURIComponent(
+    handle: SITE_CONTACT.whatsappDisplay,
+    href: `https://wa.me/${SITE_CONTACT.whatsapp}?text=${encodeURIComponent(
       TG_GREETING_EN,
     )}`,
     responseTime: "within 30 minutes (business hours)",
@@ -152,16 +153,16 @@ const CHANNELS_EN: readonly Channel[] = [
     kind: "email",
     icon: Mail,
     label: "Email",
-    handle: "hi@code-site.art",
-    href: `mailto:hi@code-site.art?subject=${encodeURIComponent(EMAIL_SUBJECT_EN)}`,
+    handle: SITE_CONTACT.email,
+    href: `mailto:${SITE_CONTACT.email}?subject=${encodeURIComponent(EMAIL_SUBJECT_EN)}`,
     responseTime: "within 1-2 business hours",
   },
   {
     kind: "instagram",
     icon: Instagram,
     label: "Instagram",
-    handle: "@cyanidium",
-    href: "https://instagram.com/cyanidium",
+    handle: SITE_CONTACT.instagramHandle,
+    href: SITE_CONTACT.instagram,
     responseTime: "within 4 hours",
     external: true,
   },
@@ -169,8 +170,8 @@ const CHANNELS_EN: readonly Channel[] = [
     kind: "linkedin",
     icon: Linkedin,
     label: "LinkedIn",
-    handle: "/in/fediralpatov",
-    href: "https://linkedin.com/in/fediralpatov",
+    handle: SITE_CONTACT.linkedinHandle,
+    href: SITE_CONTACT.linkedin,
     responseTime: "within 1-2 days",
     external: true,
   },

@@ -7,6 +7,7 @@
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { PageHero } from "@/components/blocks/page-hero";
+import { SITE_CONTACT } from "@/constants/site";
 
 export function LegalStub({
   eyebrow,
@@ -43,10 +44,10 @@ export function LegalStub({
           <p className="mb-4">
             Поточну версію документа можна запросити email&apos;ом —{" "}
             <a
-              href="mailto:hi@code-site.art"
+              href={`mailto:${SITE_CONTACT.email}`}
               className="text-ink underline underline-offset-[3px]"
             >
-              hi@code-site.art
+              {SITE_CONTACT.email}
             </a>
             .
           </p>

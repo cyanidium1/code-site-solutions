@@ -8,6 +8,7 @@ import type {
 } from "@/types/pricing";
 import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur as formatEurRaw } from "@/lib/shared/format-eur";
+import { SITE_CONTACT } from "@/constants/site";
 import { PriceBreakdown } from "./PriceBreakdown";
 import { H3 } from "@/components/ui";
 
@@ -284,7 +285,7 @@ export function EstimateSummary({
       <small className="block text-center mt-[6px] text-ink-3 text-[11px]">{t("summary.ctaMeta")}</small>
 
       <a
-        href="https://calendly.com/fedirdev"
+        href={SITE_CONTACT.calendly}
         className={CALC_BTN_GHOST}
         target="_blank"
         rel="noreferrer"

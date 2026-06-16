@@ -6,6 +6,7 @@ import type * as React from "react";
 import type { LucideIcon } from "lucide-react";
 import { Briefcase, Brush, Calendar, Code2, Cpu, Crown, Database, Edit3, FileSignature, FileText, FileX, Ghost, Hourglass, Infinity as InfinityIcon, ListChecks, Mail, MessageCircle, Palette, PenLine, Scale, Server, ShieldAlert, ShieldCheck, TrendingUp, Video, Wallet, Workflow } from "lucide-react";
 import { formatPrice } from "@/lib/shared/format-price";
+import { SITE_CONTACT } from "@/constants/site";
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
 
@@ -726,7 +727,7 @@ export const VS_FREELANCERS_UK: Content = {
         title: "30-хв розбір",
         body: "Zoom з founder'ом. Покажемо реальні rescue-кейси, оцінимо ваш проєкт.",
         cta: "Записатись →",
-        href: "https://calendly.com/fedirdev",
+        href: SITE_CONTACT.calendly,
       },
       {
         icon: Mail,
@@ -1319,7 +1320,7 @@ export const VS_FREELANCERS_EN: Content = {
         title: "30-min consult",
         body: "Zoom with the founder. We'll show real rescue cases and assess your project.",
         cta: "Book now →",
-        href: "https://calendly.com/fedirdev",
+        href: SITE_CONTACT.calendly,
       },
       {
         icon: Mail,

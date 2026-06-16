@@ -9,6 +9,7 @@ import { Calendar, Gauge, Mail, MessageCircle, Palette, Plug, Server, ShieldAler
 import type { LucideIcon } from "lucide-react";
 import type { TierProps } from "@/types/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
+import { SITE_CONTACT } from "@/constants/site";
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
 
@@ -665,7 +666,7 @@ export const VS_WORDPRESS_UK: Content = {
         title: "30-хв розбір",
         body: "Zoom з founder'ом. Покажемо реальні кейси міграцій, оцінимо ваш WP, скажемо термін і ціну.",
         cta: "Записатись →",
-        href: "https://calendly.com/fedirdev",
+        href: SITE_CONTACT.calendly,
       },
       {
         icon: Mail,
@@ -1216,7 +1217,7 @@ export const VS_WORDPRESS_EN: Content = {
         title: "30-min consult",
         body: "Zoom with the founder. We'll show real migration cases, look at your WP, give you a timeline and price.",
         cta: "Book now →",
-        href: "https://calendly.com/fedirdev",
+        href: SITE_CONTACT.calendly,
       },
       {
         icon: Mail,

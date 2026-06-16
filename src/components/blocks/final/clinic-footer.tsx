@@ -28,11 +28,11 @@ const DEFAULT_FOOT_COLS: FootColumn[] = [
     h: SITE_CONTACT.phone,
     items: [
       <span key="phone-note" className="nolink">Для дзвінка</span>,
-      <span key="email" className="nolink">Hi@code-site.art</span>,
+      <span key="email" className="nolink">{SITE_CONTACT.email}</span>,
       <span key="write-note" className="nolink">Для письмового зв&#39;язку</span>,
       <a
         key="tg-link"
-        href="https://t.me/fedirdev"
+        href={SITE_CONTACT.telegram}
         target="_blank"
         rel="noreferrer"
       >
@@ -76,11 +76,11 @@ const EN_FOOT_COLS: FootColumn[] = [
     h: SITE_CONTACT.phone,
     items: [
       <span key="phone-note" className="nolink">For calls</span>,
-      <span key="email" className="nolink">Hi@code-site.art</span>,
+      <span key="email" className="nolink">{SITE_CONTACT.email}</span>,
       <span key="write-note" className="nolink">For written contact</span>,
       <a
         key="tg-link"
-        href="https://t.me/fedirdev"
+        href={SITE_CONTACT.telegram}
         target="_blank"
         rel="noreferrer"
       >
