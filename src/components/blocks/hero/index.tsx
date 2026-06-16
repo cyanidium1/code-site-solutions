@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { AppImage } from "@/lib/shared/app-image";
+import { SanityImg } from "@/lib/shared/sanity-image";
+import type { SanityImage } from "@/types/sanity";
 import { formatPrice } from "@/lib/shared/format-price";
 import { btnClass, H1, PLAY_ICON_CLASS } from "@/components/ui";
 import "./hero-effects.css";
@@ -295,14 +297,28 @@ export type Feature = { label: string; sub: string };
 
 export function DeviceMockup({
   src,
+  image,
   alt = "",
 }: {
+  /** Static /public mockup (homepage) — composed device cluster, AppImage. */
   src?: string;
+  /** Sanity-hosted mockup (industry pages) — a different image type, so it
+   *  uses the base in-flow sizing WITHOUT the homepage absolute-offset variant,
+   *  and renders via SanityImg per docs/images.md. */
+  image?: SanityImage | null;
   alt?: string;
 }) {
   return (
     <div className={MOCKUP_CLASS}>
-      {src ? (
+      {image?.asset ? (
+        <SanityImg
+          image={image}
+          alt={alt}
+          priority
+          sizes="(max-width: 640px) 100vw, 50vw"
+          className={MOCKUP_IMG_CLASS}
+        />
+      ) : src ? (
         <AppImage
           src={src}
           alt={alt}
@@ -396,6 +412,8 @@ export type HeroEditorialProps = {
   tickerItems?: string[];
   deviceTags?: { kind: "default" | "good"; primary: string; mini?: string }[];
   deviceMockupSrc?: string;
+  /** Sanity-hosted mockup (industry pages); takes precedence over deviceMockupSrc. */
+  deviceMockupImage?: SanityImage | null;
   deviceMockupAlt?: string;
   /**
    * "compare" constrains the H1/lede column to ≤50% on lg+ so the
@@ -455,6 +473,7 @@ export function HeroEditorial({
     { kind: "good", primary: "Lighthouse", mini: "98" },
   ],
   deviceMockupSrc,
+  deviceMockupImage,
   deviceMockupAlt = "Code-Site.Art — custom website mockup",
   variant = "default",
 }: HeroEditorialProps) {
@@ -545,7 +564,11 @@ export function HeroEditorial({
             <div className={DEVICE_STAGE_CLASS}>
               <div className={DEVICE_GLOW_CLASS} />
               <div className={DEVICE_GRID_CLASS} />
-              <DeviceMockup src={deviceMockupSrc} alt={deviceMockupAlt} />
+              <DeviceMockup
+                src={deviceMockupSrc}
+                image={deviceMockupImage}
+                alt={deviceMockupAlt}
+              />
               {deviceTags.map((t, i) => {
                 const pos = DEVICE_TAG_POSITIONS[i] ?? DEVICE_TAG_POSITIONS[0];
                 return (

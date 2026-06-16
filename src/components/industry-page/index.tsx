@@ -737,7 +737,12 @@ export async function IndustryPageView({
               }))
             : undefined
         }
-        deviceMockupSrc={hero?.deviceMockup?.asset?.url || undefined}
+        deviceMockupImage={hero?.deviceMockup ?? undefined}
+        deviceMockupAlt={
+          loc(hero?.deviceMockup?.alt, locale) ||
+          loc(hero?.heading, locale) ||
+          undefined
+        }
       />
 
       {page.sections?.map((section) => (
