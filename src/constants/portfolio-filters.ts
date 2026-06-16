@@ -38,12 +38,29 @@ export const FILTER_ALL_LABEL_BY_LOCALE: Record<"uk" | "en", string> = {
   en: "All",
 };
 
+/**
+ * Lowercases only the first character so the industry title reads naturally
+ * mid-sentence while any internal proper nouns keep their case.
+ */
+function lowerFirst(s: string): string {
+  return s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+}
+
+/**
+ * CTA shown when an industry filter is active, linking to that industry page.
+ *
+ * The industry `label` is the industryPage title, which already reads as a
+ * full noun phrase ("Websites for the auto industry" / "Сайти для медичних
+ * клінік"). So we embed it directly — prepending "sites for / сайти для" here
+ * would double up ("…sites for Websites for…"). Title-cased label is
+ * lower-cased at the front to sit cleanly inside the sentence.
+ */
 export const INDUSTRY_CTA_LABEL_BY_LOCALE: Record<
   "uk" | "en",
   (industryLabel: string) => string
 > = {
-  uk: (label) => `Дізнатися більше про сайти для ${label}`,
-  en: (label) => `Learn more about sites for ${label}`,
+  uk: (label) => `Дізнатися більше про ${lowerFirst(label)}`,
+  en: (label) => `Learn more about ${lowerFirst(label)}`,
 };
 
 export function localeFromLocaleType(locale: Locale): "uk" | "en" {
