@@ -1,4 +1,5 @@
 import type { EnRegistry } from "@/lib/shared/i18n-registry-types";
+import { normalizePathname } from "@/lib/shared/normalize-pathname";
 
 /**
  * Filesystem-rooted truth: which single-segment top-level routes have
@@ -101,9 +102,13 @@ export function resolveServiceHref(
  * user is currently on (the "current" side is just the pathname itself).
  */
 export function resolveLocaleAlternate(
-  pathname: string,
+  rawPathname: string,
   registry: EnRegistry,
 ): { uk: string | null; en: string | null } {
+  // Next prerenders the root route with usePathname() === "/index"; normalize
+  // it (and any nullish value) so the homepage special-case below matches.
+  const pathname = normalizePathname(rawPathname);
+
   if (pathname === "/" || pathname === "/en") {
     return { uk: "/", en: "/en" };
   }

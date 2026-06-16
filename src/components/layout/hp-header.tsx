@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
+import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import { useLeadModal } from "@/components/blocks/lead-modal";
 import { LocaleSwitcher } from "./locale-switcher";
@@ -58,7 +59,7 @@ const navDdFooterClass =
 
 export function HpHeader() {
   const ddRef = useRef<HTMLDetailsElement>(null);
-  const pathname = usePathname();
+  const pathname = normalizePathname(usePathname());
   const t = useTranslations("Nav");
   const tServices = useTranslations("ServiceNav");
   const locale = useLocale();

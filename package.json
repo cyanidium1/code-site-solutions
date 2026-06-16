@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --import tsx --test src/lib/shared/calculate-website-estimate.test.ts src/lib/shared/sanity-cdn.test.ts",
+    "test": "node --import tsx --test src/lib/shared/calculate-website-estimate.test.ts src/lib/shared/sanity-cdn.test.ts src/lib/shared/normalize-pathname.test.ts src/constants/i18n-routes.test.ts",
     "typecheck": "tsc --noEmit",
     "case:crawl": "tsx tools/case-generator/index.ts"
   },

@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 
 import { resolveLocaleAlternate } from "@/constants/i18n-routes";
+import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import { useI18nRegistry } from "./i18n-registry-provider";
 
 // Native <details> dropdown — see component-level comment for why this
@@ -48,7 +49,7 @@ const localePanelItemDisabledClass =
 export function LocaleSwitcher() {
   const ref = useRef<HTMLDetailsElement>(null);
   const locale = useLocale();
-  const pathname = usePathname() ?? "/";
+  const pathname = normalizePathname(usePathname());
   const router = useRouter();
   const t = useTranslations("LocaleSwitcher");
 
