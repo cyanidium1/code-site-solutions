@@ -103,7 +103,7 @@ export function Audit({
   };
 
   return (
-    <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-[linear-gradient(180deg,var(--color-bg)_0%,oklch(0.13_0.02_300)_100%)] overflow-hidden">
+    <section id="site-audit" className="relative scroll-mt-24 py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-[linear-gradient(180deg,var(--color-bg)_0%,oklch(0.13_0.02_300)_100%)] overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_60%_at_0%_50%,oklch(from_var(--color-accent-2)_l_c_h_/_0.18),transparent_70%),radial-gradient(ellipse_40%_50%_at_100%_100%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%)]" />
       <div className="relative z-[2] max-w-container mx-auto grid grid-cols-1 gap-9 items-center xl:grid-cols-[minmax(0,1fr)_minmax(0,460px)] xl:gap-[72px]">
         <div>

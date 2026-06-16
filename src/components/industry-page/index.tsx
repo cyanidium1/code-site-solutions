@@ -14,6 +14,7 @@ import { StatsBar } from "@/components/blocks/stats-bar";
 import { Case } from "@/components/blocks/case";
 import {
   Outcome,
+  MockImage,
   MockPages,
   MockBookingForm,
   MockAdmin,
@@ -194,6 +195,10 @@ function buildOutcomeMock(
   locale: Locale,
 ) {
   const url = row.mockUrl ?? "";
+  // A real uploaded screenshot overrides the CSS mock.
+  if (row.image?.asset) {
+    return <MockImage url={url} image={row.image} alt={loc(row.heading, locale)} />;
+  }
   if (row.mockType === "booking") return <MockBookingForm url={url} locale={locale} />;
   if (row.mockType === "admin") return <MockAdmin url={url} />;
   // Default to "pages"
@@ -356,7 +361,7 @@ function SectionBlock({
             formatLine(loc(section.footText, locale)) || undefined
           }
           footCtaLabel={loc(section.footCtaLabel, locale) || undefined}
-          footCtaSource="industry-audit"
+          footCtaHref="#site-audit"
           locale={locale === "en" ? "en" : "uk"}
         />
       );
@@ -459,6 +464,7 @@ function SectionBlock({
           testimonialEyebrow={
             loc(section.testimonialEyebrow, locale) || undefined
           }
+          testimonialVisual={section.testimonial?.visual ?? undefined}
           testimonialQuote={
             formatLine(loc(section.testimonial?.quote, locale)) || undefined
           }

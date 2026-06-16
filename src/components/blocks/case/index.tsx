@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 import { H2 } from "@/components/ui";
-import { SanityImg } from "@/lib/shared/sanity-image";
+import { ARROW_ICON, CheckIcon, CrossIcon } from "./icons";
+import { CaseShot } from "./case-shot";
 
 // Italic <em> inside the heading uses the brand vertical accent gradient
 // (accent-soft → accent), text-clipped. Same effect as the legacy `.case-h2 em`
@@ -90,51 +91,8 @@ const BADGE_DOT_CLASS =
 const CARD_NUM_CLASS =
   "font-mono text-[10px] text-ink-3 tracking-[0.08em]";
 
-// Screenshot frame (browser chrome + image / placeholder). aspect-ratio
-// preserved at 3/2 across breakpoints (legacy media queries repeated the same
-// value, so single utility suffices).
-const SHOT_CLASS =
-  "relative rounded-[14px] overflow-hidden bg-[oklch(0.18_0.005_300)] border border-line-strong mb-[18px] aspect-[3/2] " +
-  "md:mb-6";
-
-const SHOT_BAR_CLASS =
-  "absolute top-0 left-0 right-0 h-7 flex items-center gap-1.5 px-3 bg-[oklch(0.16_0.004_300)] border-b border-[oklch(1_0_0_/_0.06)] z-[2]";
-
-const SHOT_DOT_CLASS =
-  "w-2.5 h-2.5 rounded-full bg-[oklch(0.3_0.005_60)]";
-
-const SHOT_URL_CLASS =
-  "flex-1 ml-2 h-[18px] bg-[oklch(0.22_0.005_300)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-ink-3 tracking-[0.04em] max-w-[240px]";
-
-const SHOT_IMG_WRAP_CLASS =
-  "absolute inset-x-0 bottom-0 top-7 w-full h-[calc(100%-28px)] overflow-hidden";
-
-// Placeholder shown when no screenshot is uploaded — mimics a page layout with
-// the same accent-tinted radial gradient palette used by other placeholders.
-const SHOT_PLACEHOLDER_CLASS =
-  "absolute inset-0 px-[22px] py-7 flex flex-col gap-3.5 " +
-  "bg-[radial-gradient(ellipse_at_30%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.18)_0%,transparent_55%),radial-gradient(ellipse_at_78%_80%,oklch(0.5_0.18_280_/_0.16)_0%,transparent_55%),linear-gradient(160deg,oklch(0.16_0.012_240)_0%,oklch(0.11_0.006_250)_100%)]";
-
-const SHOT_PLACEHOLDER_LINE_CLASS =
-  "h-3.5 w-[70%] rounded bg-[oklch(1_0_0_/_0.10)]";
-
-const SHOT_PLACEHOLDER_LINE_SHORT_CLASS =
-  "!w-[45%] !bg-[oklch(1_0_0_/_0.06)]";
-
-const SHOT_PLACEHOLDER_GRID_CLASS =
-  "flex-1 grid grid-cols-2 gap-2.5 mt-1 [&>span]:rounded-md [&>span]:bg-[oklch(1_0_0_/_0.04)] [&>span]:border [&>span]:border-[oklch(1_0_0_/_0.05)]";
-
 const TAGLINE_CLASS =
-  "font-display font-semibold text-[14px] text-ink m-0 mb-4 tracking-[-0.01em] flex items-center gap-2.5";
-
-const TAGLINE_ICN_BASE_CLASS =
-  "w-[18px] h-[18px] rounded-[5px] inline-flex items-center justify-center shrink-0 text-[11px]";
-
-const TAGLINE_ICN_BAD_CLASS =
-  "bg-[oklch(0.65_0.18_25_/_0.15)] text-[oklch(0.75_0.16_25)]";
-
-const TAGLINE_ICN_GOOD_CLASS =
-  "bg-accent-20 text-accent-soft";
+  "font-display font-semibold text-[14px] text-ink m-0 mb-4 tracking-[-0.01em]";
 
 // Checklist <ul>: 12px-gap column. <li> rows have 14px body / 13px @700px,
 // pretty-wrap, and emphasised <em> spans use ink + medium weight.
@@ -197,90 +155,6 @@ const CTA_BTN_CLASS =
   "shadow-[0_4px_16px_oklch(from_var(--color-accent)_l_c_h_/_0.2),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
   "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.3),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
   "md:justify-normal md:px-[22px] md:py-3";
-
-const ARROW_ICON = (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-    <path
-      d="M5 12h14M13 5l7 7-7 7"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-export function CrossIcon() {
-  return (
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M6 6l12 12M18 6L6 18"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-export function CheckIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M4 12l5 5L20 6"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-export function CaseShot({
-  src,
-  url,
-  alt,
-}: {
-  src?: string;
-  url: string;
-  alt: string;
-}) {
-  return (
-    <div className={SHOT_CLASS}>
-      <div className={SHOT_BAR_CLASS}>
-        <span className={SHOT_DOT_CLASS} />
-        <span className={SHOT_DOT_CLASS} />
-        <span className={SHOT_DOT_CLASS} />
-        <span className={SHOT_URL_CLASS}>{url}</span>
-      </div>
-      <div className={SHOT_IMG_WRAP_CLASS}>
-        {src ? (
-          <SanityImg
-            image={src}
-            alt={alt}
-            fill
-            sizes="(min-width: 768px) 50vw, 92vw"
-            className="object-cover object-top"
-          />
-        ) : (
-          <div className={SHOT_PLACEHOLDER_CLASS} aria-hidden="true">
-            <div className={SHOT_PLACEHOLDER_LINE_CLASS} />
-            <div
-              className={`${SHOT_PLACEHOLDER_LINE_CLASS} ${SHOT_PLACEHOLDER_LINE_SHORT_CLASS}`}
-            />
-            <div className={SHOT_PLACEHOLDER_GRID_CLASS}>
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 
 const DEFAULT_BEFORE_LIST: React.ReactNode[] = [
   "заплутана структура сайту, користувачі не розуміли куди натискати",
@@ -437,12 +311,7 @@ export function Case({
               <span className={CARD_NUM_CLASS}>{beforeNum}</span>
             </div>
             <CaseShot src={beforeShotSrc} url={beforeShotUrl} alt={beforeShotAlt} />
-            <h3 className={TAGLINE_CLASS}>
-              <span className={`${TAGLINE_ICN_BASE_CLASS} ${TAGLINE_ICN_BAD_CLASS}`}>
-                ×
-              </span>
-              {beforeTagline}
-            </h3>
+            <h3 className={TAGLINE_CLASS}>{beforeTagline}</h3>
             <ul className={LIST_CLASS}>
               {beforeList.map((item, i) => (
                 <li key={i}>
@@ -465,12 +334,7 @@ export function Case({
               <span className={CARD_NUM_CLASS}>{afterNum}</span>
             </div>
             <CaseShot src={afterShotSrc} url={afterShotUrl} alt={afterShotAlt} />
-            <h3 className={TAGLINE_CLASS}>
-              <span className={`${TAGLINE_ICN_BASE_CLASS} ${TAGLINE_ICN_GOOD_CLASS}`}>
-                ✓
-              </span>
-              {afterTagline}
-            </h3>
+            <h3 className={TAGLINE_CLASS}>{afterTagline}</h3>
             <ul className={LIST_CLASS}>
               {afterList.map((item, i) => (
                 <li key={i}>
@@ -516,3 +380,6 @@ export function Case({
     </section>
   );
 }
+
+export { CrossIcon, CheckIcon } from "./icons";
+export { CaseShot } from "./case-shot";

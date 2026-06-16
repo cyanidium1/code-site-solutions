@@ -117,6 +117,7 @@ export function Reasons({
     </>
   ),
   footCtaLabel = "Перевірити мій сайт",
+  footCtaHref,
   footCtaSource,
   locale = "uk",
 }: {
@@ -127,7 +128,9 @@ export function Reasons({
   items?: Reason[];
   footText?: React.ReactNode;
   footCtaLabel?: string;
-  /** Lead-modal source tag. When set, the foot CTA opens the lead modal; omit and it is inert. */
+  /** Anchor/link target for the foot CTA. When set, renders a link (takes precedence over footCtaSource). */
+  footCtaHref?: string;
+  /** Lead-modal source tag. Used when footCtaHref is not set; omit both and the CTA is inert. */
   footCtaSource?: string;
   locale?: LeadFormLocale;
 }) {
@@ -243,7 +246,12 @@ export function Reasons({
             <span className="inline-block w-2 h-2 [border-right:1.5px_solid_var(--color-accent-soft)] [border-bottom:1.5px_solid_var(--color-accent-soft)] rotate-[-45deg]" />
             <span>{footText}</span>
           </div>
-          {footCtaSource ? (
+          {footCtaHref ? (
+            <a href={footCtaHref} className={`${FOOT_CTA_BTN_CLASS} no-underline`}>
+              <span>{footCtaLabel}</span>
+              {ARROW_ICON}
+            </a>
+          ) : footCtaSource ? (
             <LeadCtaButton
               source={footCtaSource}
               locale={locale}

@@ -429,6 +429,16 @@ export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
       ...,
       image ${IMAGE_WITH_ALT}
     },
+    // servicesBlock — resolve testimonial visual asset
+    testimonial{
+      ...,
+      visual ${IMAGE_WITH_ALT}
+    },
+    // outcomeBlock — resolve per-row screenshot assets
+    benefitRows[]{
+      ...,
+      image ${IMAGE_WITH_ALT}
+    },
     // caseBlock — resolve before/after nested image assets
     before{
       ...,

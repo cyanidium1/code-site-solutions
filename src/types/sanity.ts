@@ -212,6 +212,7 @@ export type ServicesSection = BlockBase<"servicesBlock"> & {
   testimonialEyebrow?: LocalizedString;
   testimonial?: {
     quote?: LocalizedText;
+    visual?: SanityImage | null;
     authorName?: string;
     authorInitials?: string;
     authorRole?: LocalizedString;
@@ -262,6 +263,7 @@ export type OutcomeSection = BlockBase<"outcomeBlock"> & {
     mockType?: "pages" | "booking" | "admin";
     mockUrl?: string;
     mockTags?: LocalizedString[];
+    image?: SanityImage | null;
   }>;
 };
 
