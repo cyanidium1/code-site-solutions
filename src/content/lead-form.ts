@@ -21,15 +21,15 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
     descriptionLabel: "Опис задачі",
     descriptionPlaceholder:
       "Розкажіть коротко: який сайт потрібен, що зараз не працює, дедлайн (необовʼязково)",
-    tierLabel: "Орієнтовний тир",
-    tierPlaceholder: "Оберіть тир",
+    tierLabel: "Орієнтовний пакет",
+    tierPlaceholder: "Оберіть пакет",
     budgetLabel: "Бюджет",
     budgetPlaceholder: "Не обовʼязково",
     timelineLabel: "Коли треба запустити",
     timelinePlaceholder: "Не обовʼязково",
     showDetails: "Додати деталі",
     hideDetails: "Приховати деталі",
-    detailsMeta: "тир, бюджет, термін",
+    detailsMeta: "пакет, бюджет, термін",
     submit: "Надіслати — відповімо за 1-2 години",
     successTitle: "Дякуємо! Заявка отримана.",
     successBody:
