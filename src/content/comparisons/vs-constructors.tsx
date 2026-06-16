@@ -7,6 +7,7 @@ import type { LucideIcon } from "lucide-react";
 import { ArrowUpRight, Calendar, CreditCard, Gauge, Globe, Layers, Lock, Mail, MessageCircle, Plug, Plus, PlusSquare, Search } from "lucide-react";
 import type { TierProps } from "@/types/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
+import { SITE_CONTACT } from "@/constants/site";
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
 
@@ -674,7 +675,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         title: "30-хв розбір",
         body: "Zoom з founder'ом. Покажемо реальні кейси міграцій з конструкторів.",
         cta: "Записатись →",
-        href: "https://calendly.com/fedirdev",
+        href: SITE_CONTACT.calendly,
       },
       {
         icon: Mail,
@@ -1228,7 +1229,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         title: "30-min consult",
         body: "Zoom with the founder. We'll show real builder migration cases.",
         cta: "Book now →",
-        href: "https://calendly.com/fedirdev",
+        href: SITE_CONTACT.calendly,
       },
       {
         icon: Mail,

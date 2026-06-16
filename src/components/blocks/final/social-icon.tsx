@@ -1,12 +1,14 @@
 import type * as React from "react";
 
+import { SITE_CONTACT } from "@/constants/site";
+
 export type SocialKind = "li" | "ig" | "tg" | "tt";
 
 export const FOOTER_SOCIAL_HREFS: Record<SocialKind, string> = {
-  li: "https://linkedin.com/in/fedirdev",
-  ig: "https://instagram.com/fedirdev",
-  tg: "https://t.me/fedirdev",
-  tt: "https://tiktok.com/@fedirdev",
+  li: SITE_CONTACT.linkedin,
+  ig: SITE_CONTACT.instagram,
+  tg: SITE_CONTACT.telegram,
+  tt: SITE_CONTACT.tiktok,
 };
 
 export function SocialIcon({ kind }: { kind: SocialKind }) {

@@ -6,6 +6,7 @@ import { Linkedin, Send, Instagram, Mail, Phone, type LucideIcon } from "lucide-
 import { useLocale, useTranslations } from "next-intl";
 
 import { hasEnIndustry } from "@/constants/i18n-routes";
+import { SITE_CONTACT } from "@/constants/site";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
@@ -36,9 +37,9 @@ function WhatsAppIcon({ size = 14, strokeWidth = 1.6, ...rest }: WireIconProps) 
 
 type SocialDef = { icon: LucideIcon; href: string; label: string };
 const DEFAULT_SOCIALS: SocialDef[] = [
-  { icon: Linkedin, href: "https://linkedin.com/in/fedirdev", label: "LinkedIn" },
-  { icon: Send, href: "https://t.me/fedirdev", label: "Telegram" },
-  { icon: Instagram, href: "https://instagram.com/fedirdev", label: "Instagram" },
+  { icon: Linkedin, href: SITE_CONTACT.linkedin, label: "LinkedIn" },
+  { icon: Send, href: SITE_CONTACT.telegram, label: "Telegram" },
+  { icon: Instagram, href: SITE_CONTACT.instagram, label: "Instagram" },
 ];
 
 // Footer contact channels. Order mirrors the design reference:
@@ -51,10 +52,10 @@ const FOOTER_CONTACTS: Array<{
   label: string;
   external?: boolean;
 }> = [
-  { Icon: WhatsAppIcon, href: "https://wa.me/355689286136", label: "+355-68-928-6136", external: true },
-  { Icon: Mail, href: "mailto:hi@code-site.art", label: "hi@code-site.art" },
-  { Icon: Send, href: "https://t.me/fedirdev", label: "@fedirdev", external: true },
-  { Icon: Phone, href: "tel:+380970068707", label: "+380-97-006-87-07" },
+  { Icon: WhatsAppIcon, href: `https://wa.me/${SITE_CONTACT.whatsapp}`, label: SITE_CONTACT.whatsappDisplay, external: true },
+  { Icon: Mail, href: `mailto:${SITE_CONTACT.email}`, label: SITE_CONTACT.email },
+  { Icon: Send, href: SITE_CONTACT.telegram, label: SITE_CONTACT.telegramHandle, external: true },
+  { Icon: Phone, href: `tel:${SITE_CONTACT.phoneRaw}`, label: SITE_CONTACT.phone },
 ];
 
 // All 8 industries have published Sanity pages and live UA links.
