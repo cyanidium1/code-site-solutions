@@ -360,8 +360,11 @@ function SectionBlock({
           footText={
             formatLine(loc(section.footText, locale)) || undefined
           }
-          footCtaLabel={loc(section.footCtaLabel, locale) || undefined}
-          footCtaHref="#site-audit"
+          footCtaLabel={
+            loc(section.footCta?.label ?? section.footCtaLabel, locale) ||
+            undefined
+          }
+          footCtaHref={section.footCta?.href || "#site-audit"}
           locale={locale === "en" ? "en" : "uk"}
         />
       );
@@ -405,11 +408,15 @@ function SectionBlock({
             tag: loc(r.tag, locale),
           }))}
           ctaText={formatLine(loc(section.ctaText, locale)) || undefined}
-          ctaLabel={loc(section.ctaLabel, locale) || undefined}
-          ctaHref={buildHrefWithParams(
-            localizePath("/portfolio", locale === "en"),
-            { industry: slug },
-          )}
+          ctaLabel={
+            loc(section.cta?.label ?? section.ctaLabel, locale) || undefined
+          }
+          ctaHref={
+            section.cta?.href ||
+            buildHrefWithParams(localizePath("/portfolio", locale === "en"), {
+              industry: slug,
+            })
+          }
           locale={locale === "en" ? "en" : "uk"}
         />
       );
@@ -520,11 +527,21 @@ function SectionBlock({
             custom: loc(r.custom, locale),
           }))}
           tableCtaPrimary={
-            loc(section.tableCtaPrimary, locale) || undefined
+            loc(section.primaryCta?.label ?? section.tableCtaPrimary, locale) ||
+            undefined
           }
-          tableCtaPrimaryHref={localizePath("/calculator", locale === "en")}
-          tableCtaGhost={loc(section.tableCtaGhost, locale) || undefined}
-          tableCtaGhostHref={localizePath("/vs-wordpress", locale === "en")}
+          tableCtaPrimaryHref={
+            section.primaryCta?.href ||
+            localizePath("/calculator", locale === "en")
+          }
+          tableCtaGhost={
+            loc(section.ghostCta?.label ?? section.tableCtaGhost, locale) ||
+            undefined
+          }
+          tableCtaGhostHref={
+            section.ghostCta?.href ||
+            localizePath("/vs-wordpress", locale === "en")
+          }
           contactHeading={loc(section.contact?.heading, locale) || undefined}
           contactSub={loc(section.contact?.sub, locale) || undefined}
           contactName={

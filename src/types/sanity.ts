@@ -181,8 +181,12 @@ export type ComparisonSection = BlockBase<"comparisonBlock"> & {
     wix?: LocalizedString;
     custom?: LocalizedString;
   }>;
+  /** @deprecated use primaryCta — kept for backward-compatible reads during migration */
   tableCtaPrimary?: LocalizedString;
+  /** @deprecated use ghostCta */
   tableCtaGhost?: LocalizedString;
+  primaryCta?: CtaAction | null;
+  ghostCta?: CtaAction | null;
   contact?: ContactForm;
   pricingHeading?: LocalizedText;
   tiers?: PricingTier[];
@@ -205,7 +209,9 @@ export type ReasonsSection = BlockBase<"reasonsBlock"> & {
     };
   }>;
   footText?: LocalizedText;
+  /** @deprecated use footCta */
   footCtaLabel?: LocalizedString;
+  footCta?: CtaAction | null;
 };
 
 export type ServicesSection = BlockBase<"servicesBlock"> & {
@@ -300,7 +306,9 @@ export type CaseSection = BlockBase<"caseBlock"> & {
     tag?: LocalizedString;
   }>;
   ctaText?: LocalizedText;
+  /** @deprecated use cta */
   ctaLabel?: LocalizedString;
+  cta?: CtaAction | null;
 };
 
 export type AuditSection = BlockBase<"auditBlock"> & {
