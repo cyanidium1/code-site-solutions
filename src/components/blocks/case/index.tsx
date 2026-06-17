@@ -156,90 +156,29 @@ const CTA_BTN_CLASS =
   "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.3),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
   "md:justify-normal md:px-[22px] md:py-3";
 
-const DEFAULT_BEFORE_LIST: React.ReactNode[] = [
-  "заплутана структура сайту, користувачі не розуміли куди натискати",
-  "застарілий дизайн, який не викликав довіри",
-  "низька швидкість завантаження",
-  "некоректна мультимовність (російська/українська)",
-  "незручна адмінка — будь-які зміни через розробника за гроші",
-  "сайт періодично падав",
-  "не було нормальної системи запису/бронювання",
-];
-
-const DEFAULT_AFTER_LIST: React.ReactNode[] = [
-  "зрозуміла структура сайту під користувача",
-  "сучасний дизайн, що підвищує довіру",
-  <>
-    швидке завантаження &lt;1.5 c
-  </>,
-  "коректна мультимовність (RU/UA)",
-  "зручна адмінка без розробника",
-  "стабільна робота без падінь",
-  "онлайн-запис та форми заявок",
-];
-
-const DEFAULT_RESULTS = [
-  { n: "×3.2", lbl: "більше заявок з сайту", tag: "CONVERSION" },
-  { n: "<1.5c", lbl: "час завантаження сторінки", tag: "PERFORMANCE" },
-  { n: "98", lbl: "Lighthouse · Performance", tag: "CORE WEB VITALS" },
-  { n: "×4", lbl: "органічного трафіку Google", tag: "SEO · 6 МІС." },
-];
-
 export function Case({
-  eyebrow = "РЕАЛЬНИЙ КЕЙС",
-  eyebrowEm = "КЛІНІКА «ЕФЕДРА», ОДЕСА",
-  heading = (
-    <>
-      До / Після на прикладі
-      <br />
-      <em>реального</em> клієнта
-    </>
-  ),
-  lede = (
-    <>
-      До нас звернулася клініка «Ефедра» з Одеси — із застарілим сайтом,
-      який не приносив заявок. Завдання було не просте: переробити структуру,
-      дизайн і логіку під два напрямки бізнесу клініки — стоматологію
-      і студію краси.
-    </>
-  ),
-  meta = [
-    { strong: "4 тижні", text: "від брифу до релізу" },
-    { strong: "2 напрямки", text: "стоматологія + естетика" },
-    { strong: "UA + RU", text: "локалізація під SEO" },
-  ],
-  beforeNum = "EFEDRA · v1 · 2022",
+  eyebrow,
+  eyebrowEm,
+  heading,
+  lede,
+  meta = [],
+  beforeNum,
   beforeShotSrc,
-  beforeShotUrl = "efedraclinic.com.ua",
-  beforeShotAlt = "Старий сайт клініки Ефедра",
-  beforeTagline = "Сайт, що не продає",
-  beforeList = DEFAULT_BEFORE_LIST,
-  beforeFoot = (
-    <>
-      <strong>Примітка:</strong> російську мову залишено як основну для SEO,
-      оскільки в Одесі значна частина пошукових запитів все ще російською мовою.
-    </>
-  ),
-  afterNum = "EFEDRA · v2 · 2025",
+  beforeShotUrl,
+  beforeShotAlt,
+  beforeTagline,
+  beforeList = [],
+  beforeFoot,
+  afterNum,
   afterShotSrc,
-  afterShotUrl = "efedra.com.ua",
-  afterShotAlt = "Новий сайт клініки Ефедра",
-  afterTagline = "Сайт, що приводить пацієнтів",
-  afterList = DEFAULT_AFTER_LIST,
-  afterFoot = (
-    <>
-      <strong>Бонус:</strong> два розділи (стоматологія і естетика) під одним
-      брендом — без втрати фокусу і з окремими лід-формами під кожен напрямок.
-    </>
-  ),
-  results = DEFAULT_RESULTS,
-  ctaText = (
-    <>
-      Хочете <strong>такий самий результат</strong>? Подивіться, як ми це
-      робимо.
-    </>
-  ),
-  ctaLabel = "Подивитися кейси клінік",
+  afterShotUrl,
+  afterShotAlt,
+  afterTagline,
+  afterList = [],
+  afterFoot,
+  results = [],
+  ctaText,
+  ctaLabel,
   ctaHref,
   locale = "uk",
 }: Partial<{
@@ -271,6 +210,31 @@ export function Case({
 }> = {}) {
   const beforeLabel = locale === "en" ? "BEFORE" : "БУЛО";
   const afterLabel = locale === "en" ? "AFTER" : "СТАЛО";
+  // Generic, locale-aware fallbacks so industry pages without their own
+  // Sanity CTA copy don't show the Ukrainian/medical defaults. The button
+  // href is already per-industry (built by the caller).
+  const resolvedCtaText = ctaText ?? (
+    locale === "en" ? (
+      <>
+        Want <strong>the same kind of result</strong>? See how we do it.
+      </>
+    ) : (
+      <>
+        Хочете <strong>такий самий результат</strong>? Подивіться, як ми це
+        робимо.
+      </>
+    )
+  );
+  const resolvedCtaLabel =
+    ctaLabel ?? (locale === "en" ? "See case studies" : "Подивитися кейси");
+  const resolvedBeforeTagline =
+    beforeTagline ??
+    (locale === "en" ? "A site that doesn't convert" : "Сайт, що не продає");
+  const resolvedAfterTagline =
+    afterTagline ??
+    (locale === "en"
+      ? "A site that brings in clients"
+      : "Сайт, що приводить клієнтів");
   return (
     <section className={SECTION_CLASS}>
       <div className={SECTION_BG_CLASS} />
@@ -278,26 +242,38 @@ export function Case({
       <div className={INNER_CLASS}>
         <header className={HEADER_CLASS}>
           <div>
-            <div className={EYEBROW_CLASS}>
-              <span className={EYEBROW_DOT_CLASS} />
-              <span>{eyebrow}</span>
-              <span className="text-ink-3">·</span>
-              <span className="text-accent-soft font-semibold">{eyebrowEm}</span>
-            </div>
-            <H2 variant="case" className={HEADING_EM_CLASS}>
-              {heading}
-            </H2>
+            {(eyebrow || eyebrowEm) && (
+              <div className={EYEBROW_CLASS}>
+                <span className={EYEBROW_DOT_CLASS} />
+                {eyebrow ? <span>{eyebrow}</span> : null}
+                {eyebrow && eyebrowEm ? (
+                  <span className="text-ink-3">·</span>
+                ) : null}
+                {eyebrowEm ? (
+                  <span className="text-accent-soft font-semibold">
+                    {eyebrowEm}
+                  </span>
+                ) : null}
+              </div>
+            )}
+            {heading ? (
+              <H2 variant="case" className={HEADING_EM_CLASS}>
+                {heading}
+              </H2>
+            ) : null}
           </div>
           <div>
-            <p className={LEDE_CLASS}>{lede}</p>
-            <div className={META_CLASS}>
-              {meta.map((m, i) => (
-                <div className={META_ITEM_CLASS} key={i}>
-                  <strong>{m.strong}</strong>
-                  {m.text}
-                </div>
-              ))}
-            </div>
+            {lede ? <p className={LEDE_CLASS}>{lede}</p> : null}
+            {meta.length > 0 ? (
+              <div className={META_CLASS}>
+                {meta.map((m, i) => (
+                  <div className={META_ITEM_CLASS} key={i}>
+                    <strong>{m.strong}</strong>
+                    {m.text}
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
         </header>
 
@@ -308,21 +284,31 @@ export function Case({
                 <span className={BADGE_DOT_CLASS} />
                 <span>{beforeLabel}</span>
               </span>
-              <span className={CARD_NUM_CLASS}>{beforeNum}</span>
+              {beforeNum ? (
+                <span className={CARD_NUM_CLASS}>{beforeNum}</span>
+              ) : null}
             </div>
-            <CaseShot src={beforeShotSrc} url={beforeShotUrl} alt={beforeShotAlt} />
-            <h3 className={TAGLINE_CLASS}>{beforeTagline}</h3>
-            <ul className={LIST_CLASS}>
-              {beforeList.map((item, i) => (
-                <li key={i}>
-                  <span className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_BAD_CLASS}`}>
-                    <CrossIcon />
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <p className={CARD_FOOT_CLASS}>{beforeFoot}</p>
+            <CaseShot
+              src={beforeShotSrc}
+              url={beforeShotUrl ?? ""}
+              alt={beforeShotAlt ?? ""}
+            />
+            <h3 className={TAGLINE_CLASS}>{resolvedBeforeTagline}</h3>
+            {beforeList.length > 0 ? (
+              <ul className={LIST_CLASS}>
+                {beforeList.map((item, i) => (
+                  <li key={i}>
+                    <span
+                      className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_BAD_CLASS}`}
+                    >
+                      <CrossIcon />
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {beforeFoot ? <p className={CARD_FOOT_CLASS}>{beforeFoot}</p> : null}
           </article>
 
           <article className={`${CARD_BASE_CLASS} ${CARD_AFTER_CLASS}`}>
@@ -331,47 +317,59 @@ export function Case({
                 <span className={BADGE_DOT_CLASS} />
                 <span>{afterLabel}</span>
               </span>
-              <span className={CARD_NUM_CLASS}>{afterNum}</span>
+              {afterNum ? (
+                <span className={CARD_NUM_CLASS}>{afterNum}</span>
+              ) : null}
             </div>
-            <CaseShot src={afterShotSrc} url={afterShotUrl} alt={afterShotAlt} />
-            <h3 className={TAGLINE_CLASS}>{afterTagline}</h3>
-            <ul className={LIST_CLASS}>
-              {afterList.map((item, i) => (
-                <li key={i}>
-                  <span className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_GOOD_CLASS}`}>
-                    <CheckIcon />
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <p className={CARD_FOOT_CLASS}>{afterFoot}</p>
+            <CaseShot
+              src={afterShotSrc}
+              url={afterShotUrl ?? ""}
+              alt={afterShotAlt ?? ""}
+            />
+            <h3 className={TAGLINE_CLASS}>{resolvedAfterTagline}</h3>
+            {afterList.length > 0 ? (
+              <ul className={LIST_CLASS}>
+                {afterList.map((item, i) => (
+                  <li key={i}>
+                    <span
+                      className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_GOOD_CLASS}`}
+                    >
+                      <CheckIcon />
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {afterFoot ? <p className={CARD_FOOT_CLASS}>{afterFoot}</p> : null}
           </article>
         </div>
 
-        <div className={RESULTS_CLASS}>
-          {results.map((r) => (
-            <div className={RESULT_CLASS} key={r.lbl}>
-              <div className={RESULT_TAG_CLASS}>{r.tag}</div>
-              <div className={RESULT_NUM_CLASS}>{r.n}</div>
-              <div className={RESULT_LBL_CLASS}>{r.lbl}</div>
-            </div>
-          ))}
-        </div>
+        {results.length > 0 ? (
+          <div className={RESULTS_CLASS}>
+            {results.map((r) => (
+              <div className={RESULT_CLASS} key={r.lbl}>
+                <div className={RESULT_TAG_CLASS}>{r.tag}</div>
+                <div className={RESULT_NUM_CLASS}>{r.n}</div>
+                <div className={RESULT_LBL_CLASS}>{r.lbl}</div>
+              </div>
+            ))}
+          </div>
+        ) : null}
 
         <div className={CTA_CLASS}>
           <div className={CTA_TEXT_CLASS}>
             <span className={CTA_ARROW_CLASS} />
-            <span>{ctaText}</span>
+            <span>{resolvedCtaText}</span>
           </div>
           {ctaHref ? (
             <Link href={ctaHref} className={`${CTA_BTN_CLASS} no-underline`}>
-              <span>{ctaLabel}</span>
+              <span>{resolvedCtaLabel}</span>
               {ARROW_ICON}
             </Link>
           ) : (
             <button type="button" className={CTA_BTN_CLASS}>
-              <span>{ctaLabel}</span>
+              <span>{resolvedCtaLabel}</span>
               {ARROW_ICON}
             </button>
           )}

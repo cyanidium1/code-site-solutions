@@ -13,45 +13,15 @@ const SVC_SUB_BASE =
 
 export function Services({
   testimonialEyebrow = "",
-  testimonialQuote = (
-    <>
-      Після запуску сайту ми почали отримувати в 3–4 рази більше
-      заявок. Особливо виріс потік з Google. І найголовніше — ми тепер
-      самі можемо змінювати все на сайті без розробників.
-    </>
-  ),
-  testimonialAuthorInitials = "АП",
-  testimonialAuthorName = "Анна П.",
-  testimonialAuthorRole = "Засновниця клініки в Одесі",
-  servicesHeading = (
-    <>
-      Що ми робимо для
-      <br />
-      <em>медичних</em> клінік
-    </>
-  ),
-  servicesSub = (
-    <>
-      Не «ще один шаблонний медичний сайт». Кожен проєкт — під
-      конкретну клініку, її спеціалізацію і регуляторні вимоги.
-    </>
-  ),
+  testimonialQuote,
+  testimonialAuthorInitials,
+  testimonialAuthorName,
+  testimonialAuthorRole,
+  servicesHeading,
+  servicesSub,
   features = [],
-  integrationsHeading = (
-    <>
-      Підключаємо всі
-      <br />
-      <em>профільні</em> системи
-    </>
-  ),
-  integrationsSub = (
-    <>
-      Заявка з сайту потрапляє одразу у вашу CRM. Адміністратор бачить
-      запис у момент кліку. Лікар отримує сповіщення в Telegram. Пацієнт —
-      SMS-підтвердження. Жодних втрачених лідів через листи у спамі або
-      дзвінки в неробочий час.
-    </>
-  ),
+  integrationsHeading,
+  integrationsSub,
   integrations = [],
   testimonialVisual,
 }: Partial<{
@@ -69,10 +39,23 @@ export function Services({
   testimonialVisual: SanityImage;
 }> = {}) {
   const hasVisual = Boolean(testimonialVisual?.asset);
+  const hasTestimonial = Boolean(testimonialQuote);
+  const authorInitials =
+    testimonialAuthorInitials ||
+    (testimonialAuthorName
+      ? testimonialAuthorName
+          .trim()
+          .split(/\s+/)
+          .slice(0, 2)
+          .map((w) => w[0] ?? "")
+          .join("")
+          .toUpperCase()
+      : "");
   return (
     <section className="relative py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_40%_at_10%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.08),transparent_70%),radial-gradient(ellipse_40%_50%_at_95%_70%,oklch(from_var(--color-accent-2)_l_c_h_/_0.07),transparent_70%)]" />
       <div className="relative z-[2] max-w-container mx-auto">
+        {hasTestimonial ? (
         <div
           className={
             hasVisual
@@ -104,7 +87,7 @@ export function Services({
             </p>
             <div className="flex items-center gap-3.5">
               <div className="w-[38px] h-[38px] rounded-full bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.95)] font-display text-[12px] font-bold tracking-[0.02em] flex items-center justify-center shadow-[0_6px_18px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] md:w-11 md:h-11 md:text-[14px]">
-                {testimonialAuthorInitials}
+                {authorInitials}
               </div>
               <div className={hasVisual ? "" : "text-left"}>
                 <div className="font-display font-bold text-[11px] tracking-[0.12em] uppercase text-ink md:text-[12px]">
@@ -117,34 +100,55 @@ export function Services({
             </div>
           </div>
         </div>
+        ) : null}
 
-        <header className={`mb-10 xl:mb-14 ${SVC_HEADER_CLASSES}`}>
-          <h2 className={SVC_H2_CLASSES}>{servicesHeading}</h2>
-          <p className={`pb-2 ${SVC_SUB_BASE}`}>{servicesSub}</p>
-        </header>
+        {servicesHeading || servicesSub ? (
+          <header className={`mb-10 xl:mb-14 ${SVC_HEADER_CLASSES}`}>
+            {servicesHeading ? (
+              <h2 className={SVC_H2_CLASSES}>{servicesHeading}</h2>
+            ) : null}
+            {servicesSub ? (
+              <p className={`pb-2 ${SVC_SUB_BASE}`}>{servicesSub}</p>
+            ) : null}
+          </header>
+        ) : null}
 
         {/* All services rendered as full cards. */}
-        <div className="grid grid-cols-1 gap-3 mb-14 md:grid-cols-2 md:gap-4 md:mb-20 xl:grid-cols-3 xl:gap-5 xl:mb-[120px]">
-          {features.map((f, i) => (
-            <FeatureCard key={`feature-${i}`} {...f} />
-          ))}
-        </div>
+        {features.length > 0 ? (
+          <div className="grid grid-cols-1 gap-3 mb-14 md:grid-cols-2 md:gap-4 md:mb-20 xl:grid-cols-3 xl:gap-5 xl:mb-[120px]">
+            {features.map((f, i) => (
+              <FeatureCard key={`feature-${i}`} {...f} />
+            ))}
+          </div>
+        ) : null}
 
-        <header className={`mb-12 ${SVC_HEADER_CLASSES}`}>
-          <h2 className={SVC_H2_CLASSES}>{integrationsHeading}</h2>
-          <p className={`max-w-[78ch] pb-0 ${SVC_SUB_BASE}`}>{integrationsSub}</p>
-        </header>
+        {integrations.length > 0 ? (
+          <>
+            {integrationsHeading || integrationsSub ? (
+              <header className={`mb-12 ${SVC_HEADER_CLASSES}`}>
+                {integrationsHeading ? (
+                  <h2 className={SVC_H2_CLASSES}>{integrationsHeading}</h2>
+                ) : null}
+                {integrationsSub ? (
+                  <p className={`max-w-[78ch] pb-0 ${SVC_SUB_BASE}`}>
+                    {integrationsSub}
+                  </p>
+                ) : null}
+              </header>
+            ) : null}
 
-        <div className="grid grid-cols-2 gap-2 md:gap-2.5 md:grid-cols-4 xl:gap-3.5">
-          {integrations.map((name, i) => (
-            <div
-              key={i}
-              className="relative h-11 border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[10px] tracking-[0.06em] uppercase text-ink-dim overflow-hidden md:h-[52px] md:text-[11px] md:tracking-[0.1em] [&>span]:relative [&>span]:z-[2]"
-            >
-              <span>{name}</span>
+            <div className="grid grid-cols-2 gap-2 md:gap-2.5 md:grid-cols-4 xl:gap-3.5">
+              {integrations.map((name, i) => (
+                <div
+                  key={i}
+                  className="relative h-11 border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[10px] tracking-[0.06em] uppercase text-ink-dim overflow-hidden md:h-[52px] md:text-[11px] md:tracking-[0.1em] [&>span]:relative [&>span]:z-[2]"
+                >
+                  <span>{name}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        ) : null}
       </div>
     </section>
   );
