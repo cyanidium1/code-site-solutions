@@ -299,6 +299,9 @@ export function DeviceMockup({
   src,
   image,
   alt = "",
+  width = 1700,
+  height = 1674,
+  variant = "homepage",
 }: {
   /** Static /public mockup (homepage) — composed device cluster, AppImage. */
   src?: string;
@@ -307,7 +310,21 @@ export function DeviceMockup({
    *  and renders via SanityImg per docs/images.md. */
   image?: SanityImage | null;
   alt?: string;
+  /** Intrinsic size of the static `src` mockup. Defaults to the homepage
+   *  composition (1700×1674); other callers (e.g. vs-* pages use a 2000×1000
+   *  device strip) MUST pass their image's real dimensions or next/image forces
+   *  the wrong aspect ratio. */
+  width?: number;
+  height?: number;
+  /** Placement of the static `src` mockup.
+   *  - "homepage": the composed 1:1 cluster with its absolute offset/scale,
+   *     tuned for /hero/hero-mockup.webp. Used ONLY by the homepage.
+   *  - "strip": a self-contained, in-flow placement (no homepage offset),
+   *     for the wide 2:1 device strip on the vs-* pages. Mirrors how Sanity
+   *     industry mockups are placed. */
+  variant?: "homepage" | "strip";
 }) {
+  const isHomepage = variant === "homepage";
   return (
     <div className={MOCKUP_CLASS}>
       {image?.asset ? (
@@ -322,18 +339,23 @@ export function DeviceMockup({
         <AppImage
           src={src}
           alt={alt}
-          width={1700}
-          height={1674}
+          width={width}
+          height={height}
           priority
           fetchPriority="high"
           quality={75}
-          // This renders at ~100vw (clamp 420px→1200px). `sizes` must say 100vw
-          // or the browser mis-picks a candidate: too small → blurry desktop
-          // (the old 50vw bug); too large → a heavy mobile LCP image (the old
-          // 480px slot fetched w=1080 at dpr2 for a ~375px display). 100vw lets
-          // it fetch ~w=828 on phones and w=1200 on desktop — both 1:1.
-          sizes="(max-width: 1200px) 100vw, 1200px"
-          className={`${MOCKUP_IMG_CLASS} ${MOCKUP_IMG_HOMEPAGE_CLASS}`}
+          // homepage: renders ~100vw (clamp 420px→1200px) so `sizes` says 100vw.
+          // strip: in-flow at ~50vw on desktop, like the Sanity industry mockup.
+          sizes={
+            isHomepage
+              ? "(max-width: 1200px) 100vw, 1200px"
+              : "(max-width: 640px) 100vw, 50vw"
+          }
+          className={
+            isHomepage
+              ? `${MOCKUP_IMG_CLASS} ${MOCKUP_IMG_HOMEPAGE_CLASS}`
+              : MOCKUP_IMG_CLASS
+          }
         />
       ) : (
         <div className={MOCKUP_PLACEHOLDER_CLASS} aria-hidden="true">
@@ -412,6 +434,14 @@ export type HeroEditorialProps = {
   tickerItems?: string[];
   deviceTags?: { kind: "default" | "good"; primary: string; mini?: string }[];
   deviceMockupSrc?: string;
+  /** Intrinsic dimensions of `deviceMockupSrc` (defaults to the homepage
+   *  1700×1674 composition). Pass the real size for other static mockups. */
+  deviceMockupWidth?: number;
+  deviceMockupHeight?: number;
+  /** Placement variant for `deviceMockupSrc`. "homepage" (default) uses the
+   *  composed-cluster offset; "strip" uses the in-flow placement for the wide
+   *  2:1 device strip (vs-* pages). */
+  deviceMockupVariant?: "homepage" | "strip";
   /** Sanity-hosted mockup (industry pages); takes precedence over deviceMockupSrc. */
   deviceMockupImage?: SanityImage | null;
   deviceMockupAlt?: string;
@@ -473,6 +503,9 @@ export function HeroEditorial({
     { kind: "good", primary: "Lighthouse", mini: "98" },
   ],
   deviceMockupSrc,
+  deviceMockupWidth,
+  deviceMockupHeight,
+  deviceMockupVariant,
   deviceMockupImage,
   deviceMockupAlt = "Code-Site.Art — custom website mockup",
   variant = "default",
@@ -568,6 +601,9 @@ export function HeroEditorial({
                 src={deviceMockupSrc}
                 image={deviceMockupImage}
                 alt={deviceMockupAlt}
+                width={deviceMockupWidth}
+                height={deviceMockupHeight}
+                variant={deviceMockupVariant}
               />
               {deviceTags.map((t, i) => {
                 const pos = DEVICE_TAG_POSITIONS[i] ?? DEVICE_TAG_POSITIONS[0];
