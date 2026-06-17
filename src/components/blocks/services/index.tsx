@@ -12,7 +12,7 @@ const SVC_SUB_BASE =
   "text-[13px] leading-[1.65] text-ink-dim text-pretty md:text-[15px] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium";
 
 export function Services({
-  testimonialEyebrow = "ВІДГУК КЛІЄНТА",
+  testimonialEyebrow = "",
   testimonialQuote = (
     <>
       Після запуску сайту ми почали отримувати в 3–4 рази більше

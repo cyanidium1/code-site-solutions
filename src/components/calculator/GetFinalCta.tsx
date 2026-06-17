@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CalendarCheck, Mail, PhoneCall } from "lucide-react";
+import { Mail, PhoneCall } from "lucide-react"; // CalendarCheck removed — see docs/calendly-disabled.md
 import { SITE_CONTACT } from "@/constants/site";
 import {
   hpEyebrowClass,
@@ -51,6 +51,7 @@ export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
           }
         >
           <span className="font-medium text-ink-dim">{t("getFinal.altReady")}</span>
+          {/* CALENDLY DISABLED — see docs/calendly-disabled.md
           <a
             href={SITE_CONTACT.calendly}
             className="inline-flex items-center gap-[6px] text-ink no-underline font-medium border-b border-transparent transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-b-accent-soft [&_svg]:text-accent-soft"
@@ -61,6 +62,7 @@ export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
             {t("getFinal.altCalendly")}
           </a>
           <span className="text-ink-3 opacity-60">{t("getFinal.altOr")}</span>
+          */}
           <a
             href={SITE_CONTACT.telegram}
             className="inline-flex items-center gap-[6px] text-ink no-underline font-medium border-b border-transparent transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-b-accent-soft [&_svg]:text-accent-soft"

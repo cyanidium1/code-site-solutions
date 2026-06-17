@@ -8,7 +8,7 @@ import type {
 } from "@/types/pricing";
 import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur as formatEurRaw } from "@/lib/shared/format-eur";
-import { SITE_CONTACT } from "@/constants/site";
+// import { SITE_CONTACT } from "@/constants/site"; // CALENDLY DISABLED — see docs/calendly-disabled.md
 import { PriceBreakdown } from "./PriceBreakdown";
 import { H3 } from "@/components/ui";
 
@@ -21,11 +21,12 @@ const CALC_BTN_PRIMARY =
   "active:[filter:brightness(0.93)] " +
   "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
 
-const CALC_BTN_GHOST =
-  "inline-flex items-center justify-center w-full min-h-11 border border-line rounded-full bg-transparent text-ink-dim " +
-  "px-[18px] py-[11px] font-sans text-[12px] uppercase tracking-[0.1em] font-semibold no-underline cursor-pointer mt-[10px] " +
-  "transition-[border-color,color] duration-200 hover:border-line-strong hover:text-ink " +
-  "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
+// CALENDLY DISABLED — see docs/calendly-disabled.md
+// const CALC_BTN_GHOST =
+//   "inline-flex items-center justify-center w-full min-h-11 border border-line rounded-full bg-transparent text-ink-dim " +
+//   "px-[18px] py-[11px] font-sans text-[12px] uppercase tracking-[0.1em] font-semibold no-underline cursor-pointer mt-[10px] " +
+//   "transition-[border-color,color] duration-200 hover:border-line-strong hover:text-ink " +
+//   "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
 
 const SUMMARY_H4 =
   "m-0 mb-2 font-sans text-[13px] font-semibold text-ink tracking-[-0.005em]";
@@ -284,6 +285,7 @@ export function EstimateSummary({
       </a>
       <small className="block text-center mt-[6px] text-ink-3 text-[11px]">{t("summary.ctaMeta")}</small>
 
+      {/* CALENDLY DISABLED — see docs/calendly-disabled.md
       <a
         href={SITE_CONTACT.calendly}
         className={CALC_BTN_GHOST}
@@ -292,6 +294,7 @@ export function EstimateSummary({
       >
         {t("summary.ghostCta")}
       </a>
+      */}
     </aside>
   );
 }

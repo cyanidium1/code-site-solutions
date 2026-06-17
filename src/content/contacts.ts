@@ -34,6 +34,7 @@ export type Channel = {
 
 const PHONE_RAW = SITE_CONTACT.phoneRaw;
 const PHONE_DISPLAY = SITE_CONTACT.phoneDisplay;
+const PHONE_DIGITS = PHONE_RAW.replace(/[^\d]/g, ""); // 380970068707 — for wa.me / viber://add
 
 /* ─── UA channels (default) ──────────────────────────────────────────────── */
 
@@ -67,7 +68,7 @@ const CHANNELS_UK: readonly Channel[] = [
     icon: MessageSquare,
     label: "Viber",
     handle: PHONE_DISPLAY,
-    href: `viber://chat?number=${encodeURIComponent(PHONE_RAW)}`,
+    href: `viber://add?number=${PHONE_DIGITS}`,
     responseTime: "до 1 години",
   },
   {
@@ -138,7 +139,7 @@ const CHANNELS_EN: readonly Channel[] = [
     icon: MessageSquare,
     label: "Viber",
     handle: PHONE_DISPLAY,
-    href: `viber://chat?number=${encodeURIComponent(PHONE_RAW)}`,
+    href: `viber://add?number=${PHONE_DIGITS}`,
     responseTime: "within 1 hour",
   },
   {

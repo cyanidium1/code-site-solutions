@@ -6,7 +6,7 @@ import type * as React from "react";
 import type { LucideIcon } from "lucide-react";
 import { Briefcase, Brush, Calendar, Code2, Cpu, Crown, Database, Edit3, FileSignature, FileText, FileX, Ghost, Hourglass, Infinity as InfinityIcon, ListChecks, Mail, MessageCircle, Palette, PenLine, Scale, Server, ShieldAlert, ShieldCheck, TrendingUp, Video, Wallet, Workflow } from "lucide-react";
 import { formatPrice } from "@/lib/shared/format-price";
-import { SITE_CONTACT } from "@/constants/site";
+// import { SITE_CONTACT } from "@/constants/site"; // CALENDLY DISABLED — see docs/calendly-disabled.md
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
 
@@ -722,6 +722,7 @@ export const VS_FREELANCERS_UK: Content = {
         href: "/calculator?source=vs-freelancers",
         featured: true,
       },
+      /* CALENDLY DISABLED — see docs/calendly-disabled.md
       {
         icon: MessageCircle,
         title: "30-хв розбір",
@@ -729,6 +730,7 @@ export const VS_FREELANCERS_UK: Content = {
         cta: "Записатись →",
         href: SITE_CONTACT.calendly,
       },
+      */
       {
         icon: Mail,
         title: "Бриф через форму",
@@ -1315,6 +1317,7 @@ export const VS_FREELANCERS_EN: Content = {
         href: "/calculator?source=vs-freelancers",
         featured: true,
       },
+      /* CALENDLY DISABLED — see docs/calendly-disabled.md
       {
         icon: MessageCircle,
         title: "30-min consult",
@@ -1322,6 +1325,7 @@ export const VS_FREELANCERS_EN: Content = {
         cta: "Book now →",
         href: SITE_CONTACT.calendly,
       },
+      */
       {
         icon: Mail,
         title: "Send a brief",

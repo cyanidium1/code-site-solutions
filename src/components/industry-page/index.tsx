@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { HpHeader } from "@/components/layout/hp-header";
+import { HpFooter } from "@/components/layout/hp-footer";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { Reasons } from "@/components/blocks/reasons";
@@ -19,7 +20,7 @@ import {
   MockBookingForm,
   MockAdmin,
 } from "@/components/blocks/outcome";
-import { FAQ, Audit, ClinicFooter } from "@/components/blocks/final";
+import { FAQ, Audit } from "@/components/blocks/final";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { INDUSTRY_PAGE_BY_SLUG_QUERY } from "@/lib/server/sanity-queries";
@@ -42,7 +43,7 @@ import {
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import { pickRichText } from "@/lib/shared/pick-rich-text";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { ORG_ID, pageUrl, SITE_CONTACT } from "@/constants/site";
 import {
   buildJsonLd,
   buildReviewNodes,
@@ -469,7 +470,8 @@ function SectionBlock({
       return (
         <Services
           testimonialEyebrow={
-            loc(section.testimonialEyebrow, locale) || undefined
+            loc(section.testimonialEyebrow, locale) ||
+            (locale === "en" ? "CLIENT TESTIMONIAL" : "ВІДГУК КЛІЄНТА")
           }
           testimonialVisual={section.testimonial?.visual ?? undefined}
           testimonialQuote={
@@ -509,6 +511,7 @@ function SectionBlock({
     case "comparisonBlock":
       return (
         <Comparison
+          locale={locale === "en" ? "en" : "uk"}
           tableHeading={formatLine(loc(section.heading, locale)) || undefined}
           tableLabels={
             section.columns
@@ -556,9 +559,46 @@ function SectionBlock({
           contactSubmit={
             loc(section.contact?.submitLabel, locale) || undefined
           }
-          contactFoot={
-            formatLine(loc(section.contact?.foot, locale)) || undefined
-          }
+          contactFoot={(() => {
+            const phoneDigits = SITE_CONTACT.phoneRaw.replace(/[^\d]/g, "");
+            const viberHref = `viber://add?number=${phoneDigits}`;
+            const linkCls =
+              "text-accent-soft no-underline font-semibold hover:underline";
+            return locale === "en" ? (
+              <>
+                Or message us on WhatsApp —{" "}
+                <a
+                  href={`https://wa.me/${SITE_CONTACT.whatsapp}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={linkCls}
+                >
+                  {SITE_CONTACT.whatsappDisplay}
+                </a>
+              </>
+            ) : (
+              <>
+                Або одразу пишіть у Telegram —{" "}
+                <a
+                  href={SITE_CONTACT.telegram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={linkCls}
+                >
+                  {SITE_CONTACT.telegramHandle}
+                </a>{" "}
+                або у Viber{" "}
+                <a
+                  href={viberHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={linkCls}
+                >
+                  {SITE_CONTACT.phoneDisplay}
+                </a>
+              </>
+            );
+          })()}
           pricingHeading={
             formatLine(loc(section.pricingHeading, locale)) || undefined
           }
@@ -755,7 +795,7 @@ export async function IndustryPageView({
       ))}
       </main>
 
-      <ClinicFooter locale={locale === "en" ? "en" : "uk"} />
+      <HpFooter />
     </>
   );
 }

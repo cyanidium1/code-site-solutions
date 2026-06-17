@@ -231,12 +231,18 @@ function LeadFormInner({
         <p className="text-[14px] leading-[1.6] text-ink-dim m-0">
           {strings.successOrTg}{" "}
           <a
-            href={SITE_CONTACT.telegram}
+            href={
+              locale === "en"
+                ? `https://wa.me/${SITE_CONTACT.whatsapp}`
+                : SITE_CONTACT.telegram
+            }
             target="_blank"
             rel="noreferrer"
             className="text-accent-soft no-underline font-semibold hover:underline"
           >
-            {SITE_CONTACT.telegramHandle}
+            {locale === "en"
+              ? SITE_CONTACT.whatsappDisplay
+              : SITE_CONTACT.telegramHandle}
           </a>
         </p>
       </div>
@@ -487,12 +493,18 @@ function LeadFormInner({
             >
               {strings.errorBody}{" "}
               <a
-                href={SITE_CONTACT.telegram}
+                href={
+                  locale === "en"
+                    ? `https://wa.me/${SITE_CONTACT.whatsapp}`
+                    : SITE_CONTACT.telegram
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="text-accent-soft no-underline font-semibold hover:underline"
               >
-                {SITE_CONTACT.telegramHandle}
+                {locale === "en"
+                  ? SITE_CONTACT.whatsappDisplay
+                  : SITE_CONTACT.telegramHandle}
               </a>
             </div>
           )}

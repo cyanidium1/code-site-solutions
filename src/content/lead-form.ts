@@ -66,9 +66,9 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
     successTitle: "Thanks! Your message was received.",
     successBody:
       "We'll get back within 1-2 business hours via the Telegram or email you provided.",
-    successOrTg: "Or message Telegram directly →",
+    successOrTg: "Or message us on WhatsApp →",
     errorBody:
-      "Something went wrong. Try again or message Telegram",
+      "Something went wrong. Try again or message WhatsApp",
     privacy:
       "We don't share your data with third parties. We only store it to reply to your inquiry.",
   },

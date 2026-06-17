@@ -9,7 +9,7 @@ import { Calendar, Gauge, Mail, MessageCircle, Palette, Plug, Server, ShieldAler
 import type { LucideIcon } from "lucide-react";
 import type { TierProps } from "@/types/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
-import { SITE_CONTACT } from "@/constants/site";
+// import { SITE_CONTACT } from "@/constants/site"; // CALENDLY DISABLED — see docs/calendly-disabled.md
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
 
@@ -661,6 +661,7 @@ export const VS_WORDPRESS_UK: Content = {
         href: "/calculator?source=vs-wordpress",
         featured: true,
       },
+      /* CALENDLY DISABLED — see docs/calendly-disabled.md
       {
         icon: MessageCircle,
         title: "30-хв розбір",
@@ -668,6 +669,7 @@ export const VS_WORDPRESS_UK: Content = {
         cta: "Записатись →",
         href: SITE_CONTACT.calendly,
       },
+      */
       {
         icon: Mail,
         title: "Бриф через форму",
@@ -1212,6 +1214,7 @@ export const VS_WORDPRESS_EN: Content = {
         href: "/calculator?source=vs-wordpress",
         featured: true,
       },
+      /* CALENDLY DISABLED — see docs/calendly-disabled.md
       {
         icon: MessageCircle,
         title: "30-min consult",
@@ -1219,6 +1222,7 @@ export const VS_WORDPRESS_EN: Content = {
         cta: "Book now →",
         href: SITE_CONTACT.calendly,
       },
+      */
       {
         icon: Mail,
         title: "Send a brief",

@@ -164,6 +164,7 @@ export function Comparison({
   pricingHeading = "Скільки коштує сайт для клініки",
   tiers = DEFAULT_TIERS,
   contactSource = "comparison-contact",
+  locale = "uk",
 }: Partial<{
   tableHeading: React.ReactNode;
   tableLabels: string[];
@@ -184,6 +185,7 @@ export function Comparison({
   pricingHeading: React.ReactNode;
   tiers: TierProps[];
   contactSource: string;
+  locale: "uk" | "en";
 }> = {}) {
   const [form, setForm] = useState({ name: "", channel: "", brief: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -310,12 +312,16 @@ export function Comparison({
                 {status === "submitting"
                   ? "…"
                   : status === "success"
-                    ? "Дякуємо! Відповімо найближчим часом"
+                    ? locale === "en"
+                      ? "Thanks! We'll reply shortly"
+                      : "Дякуємо! Відповімо найближчим часом"
                     : contactSubmit}
               </button>
               {status === "error" ? (
                 <div role="alert" className="text-[12px] text-[oklch(0.78_0.16_25)]">
-                  Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram.
+                  {locale === "en"
+                    ? "Couldn't send. Try again or message us on WhatsApp."
+                    : "Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram."}
                 </div>
               ) : null}
             </form>

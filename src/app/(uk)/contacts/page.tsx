@@ -47,7 +47,7 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Telegram (",
       { em: "@fedirdev" },
-      "): 30 хв в робочий час, до 2-4 годин у вихідні. Email (hi@code-site.art): 1-2 робочі години. Calendly: бронюєте слот напряму.",
+      "): 30 хв в робочий час, до 2-4 годин у вихідні. Email (hi@code-site.art): 1-2 робочі години.",
     ],
   },
   {

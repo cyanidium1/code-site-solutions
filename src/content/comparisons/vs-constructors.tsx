@@ -7,7 +7,7 @@ import type { LucideIcon } from "lucide-react";
 import { ArrowUpRight, Calendar, CreditCard, Gauge, Globe, Layers, Lock, Mail, MessageCircle, Plug, Plus, PlusSquare, Search } from "lucide-react";
 import type { TierProps } from "@/types/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
-import { SITE_CONTACT } from "@/constants/site";
+// import { SITE_CONTACT } from "@/constants/site"; // CALENDLY DISABLED — see docs/calendly-disabled.md
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
 
@@ -670,6 +670,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         href: "/calculator?source=vs-constructors",
         featured: true,
       },
+      /* CALENDLY DISABLED — see docs/calendly-disabled.md
       {
         icon: MessageCircle,
         title: "30-хв розбір",
@@ -677,6 +678,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         cta: "Записатись →",
         href: SITE_CONTACT.calendly,
       },
+      */
       {
         icon: Mail,
         title: "Бриф через форму",
@@ -1224,6 +1226,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         href: "/calculator?source=vs-constructors",
         featured: true,
       },
+      /* CALENDLY DISABLED — see docs/calendly-disabled.md
       {
         icon: MessageCircle,
         title: "30-min consult",
@@ -1231,6 +1234,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         cta: "Book now →",
         href: SITE_CONTACT.calendly,
       },
+      */
       {
         icon: Mail,
         title: "Send a brief",
