@@ -124,7 +124,7 @@ export default async function HomePageEn() {
           </>
         }
         features={[
-          { label: "Leads 24/7", sub: "Web form + Telegram bridge" },
+          { label: "Leads 24/7", sub: "Web form + WhatsApp bridge" },
           { label: "4–10 weeks", sub: "Brief to launch" },
           { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
           { label: "End-to-end", sub: "Copy + design + code + hosting" },

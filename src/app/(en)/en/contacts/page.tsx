@@ -16,7 +16,7 @@ import { plainRich, type RichText } from "@/lib/shared/rich-text";
 export const metadata: Metadata = {
   title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
   description:
-    "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
+    "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
   alternates: {
     canonical: "/en/contacts",
     languages: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
-      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
+      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
     type: "website",
     locale: "en_US",
     url: "/en/contacts",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
-      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
+      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
   },
 };
 
@@ -45,9 +45,7 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
   {
     q: "How fast do you reply?",
     a: [
-      "Telegram (",
-      { em: "@fedirdev" },
-      "): within 30 minutes (business hours). Email: 1-2 business hours. Brief form: 4 business hours.",
+      "WhatsApp: within 30 minutes (business hours). Email: 1-2 business hours. Brief form: 4 business hours.",
     ],
   },
   {
@@ -90,7 +88,7 @@ const jsonLd = buildJsonLd([
     locale: "en",
     title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
-      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, Telegram or book a call — we reply fast.",
+      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
     type: "ContactPage",
     extra: { about: { "@id": ORG_ID } },
   }),
@@ -128,7 +126,7 @@ export default function EnContactsPage() {
             Want to discuss your <em>project</em>?
           </>
         }
-        sub="Telegram chat within 30 minutes, or send a detailed brief, whichever suits you."
+        sub="WhatsApp chat within 30 minutes, or send a detailed brief, whichever suits you."
       />
 
       <ContactSplit source="contacts" variant="compact" locale="en" />

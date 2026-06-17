@@ -8,7 +8,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
     n: "01",
     title: "Brief",
     duration: "1 day · free",
-    body: "30-min call or Telegram chat. We dig into the task, goals, audience, budget, timeline, references. By the end, an exact price range and tier recommendation.",
+    body: "30-min call or WhatsApp chat. We dig into the task, goals, audience, budget, timeline, references. By the end, an exact price range and tier recommendation.",
     weDo: {
       heading: "What we do",
       items: [
@@ -101,7 +101,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
     n: "04",
     title: "Development",
     duration: "2-6 weeks",
-    body: "We write code on Next.js + Sanity. Commits in GitHub daily. A weekly screencast of progress (3-5 min). Telegram chat every day.",
+    body: "We write code on Next.js + Sanity. Commits in GitHub daily. A weekly screencast of progress (3-5 min). WhatsApp chat every day.",
     weDo: {
       heading: "What we do",
       items: [
@@ -117,7 +117,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
       items: [
         "Fill in content in the admin",
         "Watch the weekly screencasts",
-        "Ask in Telegram if anything's unclear",
+        "Ask on WhatsApp if anything's unclear",
       ],
     },
     deliverable: {
@@ -213,7 +213,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
     youDo: {
       heading: "What you do",
       items: [
-        "Write to Telegram or email when something's off",
+        "Write on WhatsApp or email when something's off",
         "Back up your Sanity content (optional)",
       ],
     },
@@ -276,7 +276,7 @@ export const PROCESS_FAQ: { q: string; a: RichText }[] = [
   {
     q: "What if a new project comes up in 6 months?",
     a: [
-      "We hold a quarterly slot for repeat clients. Telegram us when it's time and we'll schedule it.",
+      "We hold a quarterly slot for repeat clients. Message us on WhatsApp when it's time and we'll schedule it.",
     ],
   },
   {

@@ -117,7 +117,7 @@ export default function EnProcessPage() {
         }
         body="You don't disappear for 6 weeks and get the site &ldquo;out of nowhere.&rdquo; Every step is a checkpoint where you see and approve."
         bulletList={[
-          "Telegram chat daily — replies within 30 minutes in business hours",
+          "WhatsApp chat daily — replies within 30 minutes in business hours",
           "Weekly screencast (3-5 minutes)",
           "Email status report every week with milestone status",
           "Zoom call once per sprint (optional, on your request)",

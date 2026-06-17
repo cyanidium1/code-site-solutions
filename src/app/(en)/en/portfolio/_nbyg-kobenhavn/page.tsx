@@ -228,7 +228,7 @@ export default function NbygKobenhavnEnCasePage() {
             What we <em>did</em>
           </>
         }
-        body="We rebuilt the site from scratch as a custom-coded Next.js + Sanity CMS project. The architecture has two geo-targeted landings (Copenhagen and Bornholm), a deep service structure with sub-pages, integrated Telegram for instant lead notifications, and full schema.org for LocalBusiness."
+        body="We rebuilt the site from scratch as a custom-coded Next.js + Sanity CMS project. The architecture has two geo-targeted landings (Copenhagen and Bornholm), a deep service structure with sub-pages, integrated WhatsApp for instant lead notifications, and full schema.org for LocalBusiness."
         bulletList={[
           "Custom code on Next.js — zero plugins, zero subscriptions",
           "Sanity CMS with drag-and-drop blocks for self-editing",

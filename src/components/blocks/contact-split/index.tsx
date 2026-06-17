@@ -71,7 +71,7 @@ const CHROME = {
       </>
     ),
     channelsSub:
-      "Telegram is fastest. The rest are fallback. No bots — Fedir replies personally.",
+      "WhatsApp is fastest. The rest are fallback. No bots — Fedir replies personally.",
     briefEyebrow: "/ BRIEF",
     briefHeading: (
       <>

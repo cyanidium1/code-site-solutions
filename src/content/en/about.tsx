@@ -243,7 +243,7 @@ export const ABOUT_EN: AboutContent = {
       {
         icon: Workflow,
         title: "Integrations",
-        body: "Forms, Telegram, CRM, payments, bookings: we wire up whatever your process needs.",
+        body: "Forms, WhatsApp, CRM, payments, bookings: we wire up whatever your process needs.",
       },
       {
         icon: BarChart3,

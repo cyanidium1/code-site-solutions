@@ -773,7 +773,7 @@ export const VS_FREELANCERS_EN: Content = {
         label: "0 account managers",
         sub: "you talk to the people writing the code",
       },
-      { label: "Contract with a legal entity", sub: "not a person on Telegram" },
+      { label: "Contract with a legal entity", sub: "not a person on WhatsApp" },
     ],
     ctaPrimary: "Get an estimate",
     ctaSecondary: "See how we work",
@@ -791,7 +791,7 @@ export const VS_FREELANCERS_EN: Content = {
         num: "01",
         icon: Ghost,
         title: "Vanished with the deposit",
-        body: "Paid 30% upfront. Week one — responsive. Week two — silence. Week three — blocked on Telegram. Legally getting your money back is unrealistic, because the contract was “verbal.”",
+        body: "Paid 30% upfront. Week one — responsive. Week two — silence. Week three — blocked on WhatsApp. Legally getting your money back is unrealistic, because the contract was “verbal.”",
       },
       {
         num: "02",
@@ -904,7 +904,7 @@ export const VS_FREELANCERS_EN: Content = {
       },
       {
         criterion: "Contract",
-        freelancer: "verbal / on Telegram",
+        freelancer: "verbal / on WhatsApp",
         us: "legal entity, contract, rebate clause",
       },
       {

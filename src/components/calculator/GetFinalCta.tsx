@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Mail, PhoneCall } from "lucide-react"; // CalendarCheck removed — see docs/calendly-disabled.md
 import { SITE_CONTACT } from "@/constants/site";
 import {
@@ -28,6 +28,7 @@ type GetFinalCtaProps = {
 
 export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
   const t = useTranslations("Calculator");
+  const locale = useLocale();
   return (
     <section
       className={`${hpSectionClass} pt-16 pb-20 md-wide:pt-20 md-wide:pb-30`}
@@ -64,7 +65,11 @@ export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
           <span className="text-ink-3 opacity-60">{t("getFinal.altOr")}</span>
           */}
           <a
-            href={SITE_CONTACT.telegram}
+            href={
+              locale === "en"
+                ? `https://wa.me/${SITE_CONTACT.whatsapp}`
+                : SITE_CONTACT.telegram
+            }
             className="inline-flex items-center gap-[6px] text-ink no-underline font-medium border-b border-transparent transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-b-accent-soft [&_svg]:text-accent-soft"
             target="_blank"
             rel="noreferrer"
