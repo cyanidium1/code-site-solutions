@@ -132,7 +132,7 @@ export default async function HomePageEn() {
         ctaPrimaryLabel="Get an estimate"
         ctaPrimaryHref="/en/calculator"
         ctaSecondaryLabel="Free site audit within 24 hours"
-        ctaSecondaryHref="/contacts?source=hero-audit"
+        ctaSecondaryHref="/en/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
         ctaSecondaryVariant="primary"
         ctaFootnote="No sales call. No email list. An audit."
@@ -193,7 +193,7 @@ export default async function HomePageEn() {
           { n: "05", name: "Launch & Support", duration: "1 year support", items: ["Monitoring", "Warranty", "Growth"] },
         ]}
         ctaLabel="Full process"
-        ctaHref="/process"
+        ctaHref="/en/process"
       />
 
       <Cases
@@ -205,7 +205,7 @@ export default async function HomePageEn() {
         }
         locale="en"
         ctaLabel="See all work"
-        ctaHref="/portfolio"
+        ctaHref="/en/portfolio"
       />
 
       <PullQuoteSwiper slides={testimonialSlides} />

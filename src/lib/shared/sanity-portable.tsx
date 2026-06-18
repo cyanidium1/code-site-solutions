@@ -244,8 +244,8 @@ function renderCtaCallout(
   block: Extract<BlogBodyBlock, { _type: "ctaCallout" }>,
   key: string,
 ): ReactNode {
-  const primaryHref = block.ctaHref ?? "#";
-  const isInternal = primaryHref.startsWith("/");
+  const primaryHref = block.ctaHref;
+  const isInternal = primaryHref?.startsWith("/") ?? false;
   return (
     <aside key={key} className="blog-cta">
       {block.eyebrow ? (
@@ -258,7 +258,7 @@ function renderCtaCallout(
         <p className="blog-cta-sub">{formatLine(block.sub)}</p>
       ) : null}
       <div className="blog-cta-actions">
-        {block.ctaLabel ? (
+        {block.ctaLabel && primaryHref ? (
           isInternal ? (
             <Link href={primaryHref} className="blog-cta-btn primary">
               {block.ctaLabel} →

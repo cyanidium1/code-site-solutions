@@ -43,17 +43,13 @@ components/
 - Component files: `kebab-case.tsx`. The exported component is the
   PascalCase form of the filename (`tier.tsx` → `Tier`).
 - Subcomponent files split out of a parent get a descriptive name
-  (`bento.tsx` for the Bento section; `social-icon.tsx` next to the
-  ClinicFooter that uses it).
+  (`bento.tsx` for the Bento section in `homepage/`).
 
 ## Example: a multi-component block
 
 ```
 blocks/final/
-├── index.tsx          # barrel: re-exports FAQ, Audit, ClinicFooter, SocialIcon
-├── faq.tsx            # FAQ accordion (one component)
-├── audit.tsx          # Audit lead form (one component)
-├── clinic-footer.tsx  # ClinicFooter (one component)
-├── social-icon.tsx    # SocialIcon helper + FOOTER_SOCIAL_HREFS const
-└── final.css
+├── index.tsx   # barrel: re-exports FAQ, Audit
+├── faq.tsx     # FAQ accordion (one component)
+└── audit.tsx   # Audit lead form (one component)
 ```

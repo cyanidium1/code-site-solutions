@@ -22,8 +22,8 @@ const DEFAULT_GRADIENT =
   "linear-gradient(135deg, oklch(0.30 0.10 290), oklch(0.22 0.06 250))";
 
 // Shared class strings exported for other portfolio/case consumers
-// (case-page/index.tsx, portfolio/nbyg-shared.tsx) that compose their own
-// JSX out of the same hp-case-* visual primitives.
+// (e.g. case-page/index.tsx) that compose their own JSX out of the same
+// hp-case-* visual primitives.
 export const caseLinkClass =
   "group/case block overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] text-inherit no-underline transition-[transform,border-color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:border-line-strong";
 export const caseCoverClass = "relative aspect-[4/3] overflow-hidden";

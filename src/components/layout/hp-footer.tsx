@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Linkedin, Send, Instagram, Mail, Phone, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { hasEnIndustry } from "@/constants/i18n-routes";
+import { hasEnIndustry, localizePath } from "@/constants/i18n-routes";
 import { SITE_CONTACT } from "@/constants/site";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
@@ -147,16 +147,17 @@ export function HpFooter({
     return <span className={footerDisabledClass}>{tSol(key)}</span>;
   };
 
-  // Company column: Process and Contact resolve to anchors on the EN
-  // homepage instead of standalone UA pages.
+  // Company column: every link is locale-aware via localizePath. Process
+  // is the one exception — it scrolls to the homepage #process section on
+  // both locales rather than the standalone page.
   const companyLinks = [
-    { key: "about", href: "/about" },
+    { key: "about", href: localizePath("/about", isEn) },
     { key: "process", href: isEn ? "/en#process" : "/#process" },
-    { key: "pricing", href: "/pricing" },
-    { key: "calculator", href: "/calculator" },
-    { key: "portfolio", href: "/portfolio" },
-    { key: "blog", href: "/blog" },
-    { key: "contacts", href: isEn ? "/en#contact" : "/#contact" },
+    { key: "pricing", href: localizePath("/pricing", isEn) },
+    { key: "calculator", href: localizePath("/calculator", isEn) },
+    { key: "portfolio", href: localizePath("/portfolio", isEn) },
+    { key: "blog", href: localizePath("/blog", isEn) },
+    { key: "contacts", href: localizePath("/contacts", isEn) },
   ];
 
   return (

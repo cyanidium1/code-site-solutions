@@ -316,10 +316,10 @@ function SectionBlock({
             ) : null
           }
           cta={
-            section.cta?.label
+            section.cta?.label && section.cta?.href
               ? {
                   label: loc(section.cta.label, locale),
-                  href: section.cta.href ?? "#",
+                  href: section.cta.href,
                 }
               : undefined
           }
