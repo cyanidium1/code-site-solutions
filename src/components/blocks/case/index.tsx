@@ -3,6 +3,7 @@ import Link from "next/link";
 import { H2 } from "@/components/ui";
 import { ARROW_ICON, CheckIcon, CrossIcon } from "./icons";
 import { CaseShot } from "./case-shot";
+import { resolveCaseLayout, type CaseLayout } from "./resolve-layout";
 
 // Italic <em> inside the heading uses the brand vertical accent gradient
 // (accent-soft → accent), text-clipped. Same effect as the legacy `.case-h2 em`
@@ -181,6 +182,7 @@ export function Case({
   ctaLabel,
   ctaHref,
   locale = "uk",
+  layout,
 }: Partial<{
   eyebrow: string;
   eyebrowEm: string;
@@ -207,6 +209,8 @@ export function Case({
   /** Destination for the CTA button. When set, renders a link; omit and the CTA is inert. */
   ctaHref: string;
   locale: "uk" | "en";
+  /** Layout mode. "auto" (default) shows comparison only when a before image exists. */
+  layout: CaseLayout;
 }> = {}) {
   const beforeLabel = locale === "en" ? "BEFORE" : "БУЛО";
   const afterLabel = locale === "en" ? "AFTER" : "СТАЛО";
@@ -235,6 +239,7 @@ export function Case({
     (locale === "en"
       ? "A site that brings in clients"
       : "Сайт, що приводить клієнтів");
+  const mode = resolveCaseLayout(layout, Boolean(beforeShotSrc));
   return (
     <section className={SECTION_CLASS}>
       <div className={SECTION_BG_CLASS} />
@@ -277,73 +282,117 @@ export function Case({
           </div>
         </header>
 
-        <div className={GRID_CLASS}>
-          <article className={CARD_BASE_CLASS}>
-            <div className={CARD_HEAD_CLASS}>
-              <span className={`${BADGE_BASE_CLASS} ${BADGE_BEFORE_CLASS}`}>
-                <span className={BADGE_DOT_CLASS} />
-                <span>{beforeLabel}</span>
-              </span>
-              {beforeNum ? (
-                <span className={CARD_NUM_CLASS}>{beforeNum}</span>
+        {mode === "comparison" ? (
+          <div className={GRID_CLASS}>
+            <article className={CARD_BASE_CLASS}>
+              <div className={CARD_HEAD_CLASS}>
+                <span className={`${BADGE_BASE_CLASS} ${BADGE_BEFORE_CLASS}`}>
+                  <span className={BADGE_DOT_CLASS} />
+                  <span>{beforeLabel}</span>
+                </span>
+                {beforeNum ? (
+                  <span className={CARD_NUM_CLASS}>{beforeNum}</span>
+                ) : null}
+              </div>
+              <CaseShot
+                src={beforeShotSrc}
+                url={beforeShotUrl ?? ""}
+                alt={beforeShotAlt ?? ""}
+              />
+              <h3 className={TAGLINE_CLASS}>{resolvedBeforeTagline}</h3>
+              {beforeList.length > 0 ? (
+                <ul className={LIST_CLASS}>
+                  {beforeList.map((item, i) => (
+                    <li key={i}>
+                      <span
+                        className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_BAD_CLASS}`}
+                      >
+                        <CrossIcon />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               ) : null}
-            </div>
-            <CaseShot
-              src={beforeShotSrc}
-              url={beforeShotUrl ?? ""}
-              alt={beforeShotAlt ?? ""}
-            />
-            <h3 className={TAGLINE_CLASS}>{resolvedBeforeTagline}</h3>
-            {beforeList.length > 0 ? (
-              <ul className={LIST_CLASS}>
-                {beforeList.map((item, i) => (
-                  <li key={i}>
-                    <span
-                      className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_BAD_CLASS}`}
-                    >
-                      <CrossIcon />
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            {beforeFoot ? <p className={CARD_FOOT_CLASS}>{beforeFoot}</p> : null}
-          </article>
+              {beforeFoot ? (
+                <p className={CARD_FOOT_CLASS}>{beforeFoot}</p>
+              ) : null}
+            </article>
 
-          <article className={`${CARD_BASE_CLASS} ${CARD_AFTER_CLASS}`}>
-            <div className={CARD_HEAD_CLASS}>
-              <span className={`${BADGE_BASE_CLASS} ${BADGE_AFTER_CLASS}`}>
-                <span className={BADGE_DOT_CLASS} />
-                <span>{afterLabel}</span>
-              </span>
-              {afterNum ? (
-                <span className={CARD_NUM_CLASS}>{afterNum}</span>
+            <article className={`${CARD_BASE_CLASS} ${CARD_AFTER_CLASS}`}>
+              <div className={CARD_HEAD_CLASS}>
+                <span className={`${BADGE_BASE_CLASS} ${BADGE_AFTER_CLASS}`}>
+                  <span className={BADGE_DOT_CLASS} />
+                  <span>{afterLabel}</span>
+                </span>
+                {afterNum ? (
+                  <span className={CARD_NUM_CLASS}>{afterNum}</span>
+                ) : null}
+              </div>
+              <CaseShot
+                src={afterShotSrc}
+                url={afterShotUrl ?? ""}
+                alt={afterShotAlt ?? ""}
+              />
+              <h3 className={TAGLINE_CLASS}>{resolvedAfterTagline}</h3>
+              {afterList.length > 0 ? (
+                <ul className={LIST_CLASS}>
+                  {afterList.map((item, i) => (
+                    <li key={i}>
+                      <span
+                        className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_GOOD_CLASS}`}
+                      >
+                        <CheckIcon />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {afterFoot ? (
+                <p className={CARD_FOOT_CLASS}>{afterFoot}</p>
+              ) : null}
+            </article>
+          </div>
+        ) : (
+          <div
+            className={
+              afterShotSrc
+                ? "grid grid-cols-1 gap-7 items-center md:grid-cols-2 md:gap-10"
+                : "max-w-[680px]"
+            }
+          >
+            {afterShotSrc ? (
+              <CaseShot
+                src={afterShotSrc}
+                url={afterShotUrl ?? ""}
+                alt={afterShotAlt ?? ""}
+              />
+            ) : null}
+            <div className="flex flex-col">
+              {afterTagline ? (
+                <h3 className={TAGLINE_CLASS}>{afterTagline}</h3>
+              ) : null}
+              {afterList.length > 0 ? (
+                <ul className={LIST_CLASS}>
+                  {afterList.map((item, i) => (
+                    <li key={i}>
+                      <span
+                        className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_GOOD_CLASS}`}
+                      >
+                        <CheckIcon />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {afterFoot ? (
+                <p className={CARD_FOOT_CLASS}>{afterFoot}</p>
               ) : null}
             </div>
-            <CaseShot
-              src={afterShotSrc}
-              url={afterShotUrl ?? ""}
-              alt={afterShotAlt ?? ""}
-            />
-            <h3 className={TAGLINE_CLASS}>{resolvedAfterTagline}</h3>
-            {afterList.length > 0 ? (
-              <ul className={LIST_CLASS}>
-                {afterList.map((item, i) => (
-                  <li key={i}>
-                    <span
-                      className={`${LIST_ICN_BASE_CLASS} ${LIST_ICN_GOOD_CLASS}`}
-                    >
-                      <CheckIcon />
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            {afterFoot ? <p className={CARD_FOOT_CLASS}>{afterFoot}</p> : null}
-          </article>
-        </div>
+          </div>
+        )}
 
         {results.length > 0 ? (
           <div className={RESULTS_CLASS}>
