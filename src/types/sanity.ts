@@ -274,6 +274,7 @@ export type OutcomeSection = BlockBase<"outcomeBlock"> & {
 };
 
 export type CaseSection = BlockBase<"caseBlock"> & {
+  layout?: "auto" | "comparison" | "afterOnly";
   eyebrowEm?: LocalizedString;
   lede?: LocalizedText;
   meta?: Array<{
