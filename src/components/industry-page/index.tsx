@@ -419,6 +419,7 @@ function SectionBlock({
             })
           }
           locale={locale === "en" ? "en" : "uk"}
+          layout={section.layout}
         />
       );
 
