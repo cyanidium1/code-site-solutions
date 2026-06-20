@@ -562,7 +562,6 @@ function SectionBlock({
           }
           contactFoot={(() => {
             const phoneDigits = SITE_CONTACT.phoneRaw.replace(/[^\d]/g, "");
-            const viberHref = `viber://add?number=${phoneDigits}`;
             const linkCls =
               "text-accent-soft no-underline font-semibold hover:underline";
             return locale === "en" ? (
@@ -588,9 +587,9 @@ function SectionBlock({
                 >
                   {SITE_CONTACT.telegramHandle}
                 </a>{" "}
-                або у Viber{" "}
+                або у WhatsApp{" "}
                 <a
-                  href={viberHref}
+                  href={`https://wa.me/${phoneDigits}`}
                   target="_blank"
                   rel="noreferrer"
                   className={linkCls}
