@@ -243,6 +243,29 @@ const MOCKUP_IMG_HOMEPAGE_CLASS =
   "relative w-full max-w-none max-h-none !translate-x-[10%] top-[unset] left-[unset] " +
   "sm:absolute sm:w-[clamp(420px,100vw,1200px)] sm:-top-[136px] sm:-left-[272px] sm:!-translate-x-[10%]";
 
+// U — industry/CMS mockup wrapper. Unlike the homepage composed device
+// cluster — which is meant to bleed via MOCKUP_CLASS's w-[134%]/negative
+// top/left offsets — a Sanity industry screenshot is a standalone image
+// that must sit fully visible inside the device stage at mobile/tablet.
+// The homepage wrapper only resets to inset-0 at lg, so below lg the
+// industry image inherited the cluster offsets and was blown up + cropped.
+// Use inset-0 at every breakpoint; lg:w-[134%] re-creates the homepage
+// wrapper's exact lg geometry (its w-[134%] wins over lg:inset-0's right:0,
+// so the wrapper is 134%-wide left-anchored at lg) so the verified desktop
+// placement is preserved byte-for-byte.
+const MOCKUP_WRAP_CONTAINED =
+  "absolute inset-0 lg:w-[134%] flex items-center justify-center z-[2] pointer-events-none overflow-visible";
+
+// U — industry/CMS mockup <img>. Below lg: contained to the stage (fits
+// within the band, centered by the wrapper, no homepage -translate nudge).
+// At lg+: restores the exact desktop placement from MOCKUP_IMG_CLASS
+// (clamp width + max-w/h-none + 10%-left nudge) so the desktop backdrop-
+// device look the desktop fix restored stays byte-for-byte the same.
+const MOCKUP_IMG_CONTAINED =
+  "max-w-full max-h-full w-auto h-auto " +
+  "[filter:drop-shadow(0_50px_60px_oklch(0_0_0_/_0.55))_drop-shadow(0_20px_30px_oklch(0_0_0_/_0.35))] " +
+  "lg:w-[clamp(420px,50vw,1000px)] lg:max-w-none lg:max-h-none lg:-translate-x-[10%]";
+
 // U — placeholder used when no mockup src is provided. 3-layer radial
 // + linear-gradient background mimics a device screen; drop-shadow
 // matches the real .mockup img so layout stays balanced.
@@ -325,15 +348,19 @@ export function DeviceMockup({
   variant?: "homepage" | "strip";
 }) {
   const isHomepage = variant === "homepage";
+  // A Sanity-hosted industry screenshot uses the contained placement at every
+  // breakpoint below lg (so it isn't blown up + cropped by the homepage cluster
+  // offsets); the static homepage/strip mockups keep MOCKUP_CLASS.
+  const isContained = Boolean(image?.asset);
   return (
-    <div className={MOCKUP_CLASS}>
+    <div className={isContained ? MOCKUP_WRAP_CONTAINED : MOCKUP_CLASS}>
       {image?.asset ? (
         <SanityImg
           image={image}
           alt={alt}
           priority
           sizes="(max-width: 640px) 100vw, 50vw"
-          className={MOCKUP_IMG_CLASS}
+          className={MOCKUP_IMG_CONTAINED}
         />
       ) : src ? (
         <AppImage
