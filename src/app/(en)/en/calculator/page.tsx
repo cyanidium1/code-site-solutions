@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     canonical: "/en/calculator",
     languages: {
       uk: "/calculator",
-      en: "/en/calculator",
+      "en-GB": "/en/calculator",
       "x-default": "/calculator",
     },
   },
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     title: T.meta.title,
     description: T.meta.description,
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: "/en/calculator",
   },
   twitter: {

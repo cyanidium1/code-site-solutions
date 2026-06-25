@@ -73,7 +73,7 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
       continue;
     }
     const enUrl = `${SITE_ORIGIN}/en${path === "/" ? "" : path}`;
-    const languages = { uk: url, en: enUrl, "x-default": url };
+    const languages = { uk: url, "en-GB": enUrl, "x-default": url };
     uk.push({
       url,
       lastModified: now,
@@ -102,7 +102,7 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
       continue;
     }
     const enUrl = `${SITE_ORIGIN}/en/sites-for/${p.slug}`;
-    const languages = { uk: ukUrl, en: enUrl, "x-default": ukUrl };
+    const languages = { uk: ukUrl, "en-GB": enUrl, "x-default": ukUrl };
     uk.push({
       url: ukUrl,
       lastModified: now,
@@ -131,7 +131,7 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
       continue;
     }
     const enUrl = `${SITE_ORIGIN}/en/portfolio/${c.slug}`;
-    const languages = { uk: ukUrl, en: enUrl, "x-default": ukUrl };
+    const languages = { uk: ukUrl, "en-GB": enUrl, "x-default": ukUrl };
     uk.push({
       url: ukUrl,
       lastModified: now,
@@ -161,7 +161,7 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
       continue;
     }
     const enUrl = `${SITE_ORIGIN}/en/blog/${p.slugEn}`;
-    const languages = { uk: ukUrl, en: enUrl, "x-default": ukUrl };
+    const languages = { uk: ukUrl, "en-GB": enUrl, "x-default": ukUrl };
     uk.push({
       url: ukUrl,
       lastModified: modified,

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     canonical: "/en/about",
     languages: {
       uk: "/about",
-      en: "/en/about",
+      "en-GB": "/en/about",
       "x-default": "/about",
     },
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: C.meta.title,
     description: C.meta.description,
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: "/en/about",
   },
   twitter: {

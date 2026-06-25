@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: "/en/contacts",
     languages: {
       uk: "/contacts",
-      en: "/en/contacts",
+      "en-GB": "/en/contacts",
       "x-default": "/contacts",
     },
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description:
       "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: "/en/contacts",
   },
   twitter: {

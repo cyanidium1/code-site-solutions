@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_ORIGIN}/en`,
     languages: {
       uk: SITE_ORIGIN,
-      en: `${SITE_ORIGIN}/en`,
+      "en-GB": `${SITE_ORIGIN}/en`,
       "x-default": SITE_ORIGIN,
     },
   },
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     description:
       "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: `${SITE_ORIGIN}/en`,
   },
   twitter: {

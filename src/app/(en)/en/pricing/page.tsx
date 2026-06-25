@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     canonical: "/en/pricing",
     languages: {
       uk: "/pricing",
-      en: "/en/pricing",
+      "en-GB": "/en/pricing",
       "x-default": "/pricing",
     },
   },
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     description:
       "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: "/en/pricing",
   },
   twitter: {

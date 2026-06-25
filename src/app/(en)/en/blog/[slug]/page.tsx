@@ -80,7 +80,7 @@ export async function generateMetadata({
       canonical: path,
       languages: {
         uk: `/blog/${post.slug}`,
-        en: path,
+        "en-GB": path,
         "x-default": `/blog/${post.slug}`,
       },
     },
@@ -88,7 +88,7 @@ export async function generateMetadata({
       title,
       description,
       type: "article",
-      locale: "en_US",
+      locale: "en_GB",
       url: path,
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt ?? post.publishedAt,

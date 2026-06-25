@@ -247,7 +247,7 @@ export async function buildIndustryMetadata(
     uk: `/sites-for/${slug}`,
   };
   if (enAvailable) {
-    languages.en = `/en/sites-for/${slug}`;
+    languages["en-GB"] = `/en/sites-for/${slug}`;
     languages["x-default"] = `/sites-for/${slug}`;
   }
 
@@ -268,7 +268,7 @@ export async function buildIndustryMetadata(
       description,
       url: path,
       type: "website",
-      locale: locale === "en" ? "en_US" : "uk_UA",
+      locale: locale === "en" ? "en_GB" : "uk_UA",
       ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
     },
     twitter: {

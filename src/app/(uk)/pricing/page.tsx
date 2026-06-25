@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендинг від $1 000 ✔️ Корпоративний сайт від $3 000 ✔️ E-commerce від $5 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
   alternates: {
     canonical: "/pricing",
-    languages: { uk: "/pricing", en: "/en/pricing", "x-default": "/pricing" },
+    languages: { uk: "/pricing", "en-GB": "/en/pricing", "x-default": "/pricing" },
   },
   openGraph: {
     title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",

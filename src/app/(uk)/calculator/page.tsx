@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: "/calculator",
       languages: {
         uk: "/calculator",
-        en: "/en/calculator",
+        "en-GB": "/en/calculator",
         "x-default": "/calculator",
       },
     },

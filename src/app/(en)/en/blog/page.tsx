@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     canonical: "/en/blog",
     languages: {
       uk: "/blog",
-      en: "/en/blog",
+      "en-GB": "/en/blog",
       "x-default": "/blog",
     },
   },
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     description:
       "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: "/en/blog",
   },
   twitter: {

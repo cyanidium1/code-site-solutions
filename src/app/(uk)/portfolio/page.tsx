@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     canonical: "/portfolio",
     languages: {
       uk: "/portfolio",
-      en: "/en/portfolio",
+      "en-GB": "/en/portfolio",
       "x-default": "/portfolio",
     },
   },

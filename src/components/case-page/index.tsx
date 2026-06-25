@@ -119,7 +119,7 @@ export async function buildCaseStudyMetadata(
     uk: `/portfolio/${slug}`,
   };
   if (enAvailable) {
-    languages.en = `/en/portfolio/${slug}`;
+    languages["en-GB"] = `/en/portfolio/${slug}`;
     languages["x-default"] = `/portfolio/${slug}`;
   }
 
@@ -141,7 +141,7 @@ export async function buildCaseStudyMetadata(
       description,
       url: path,
       type: "article",
-      locale: locale === "en" ? "en_US" : "uk_UA",
+      locale: locale === "en" ? "en_GB" : "uk_UA",
       ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
     },
     twitter: {

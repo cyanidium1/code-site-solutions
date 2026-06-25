@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: PATH,
     languages: {
       uk: UK_PATH,
-      en: PATH,
+      "en-GB": PATH,
       "x-default": UK_PATH,
     },
   },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
       "Site builders are great. Until your business outgrows them. — Code-Site.Art",
     description: CONTENT.metaDescription,
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     alternateLocale: ["uk_UA"],
     url: URL,
   },

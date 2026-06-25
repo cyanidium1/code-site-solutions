@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: PATH,
     languages: {
       uk: UK_PATH,
-      en: PATH,
+      "en-GB": PATH,
       "x-default": UK_PATH,
     },
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "WordPress was right in 2015. Not in 2026. — Code-Site.Art",
     description: CONTENT.metaDescription,
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     alternateLocale: ["uk_UA"],
     url: URL,
   },

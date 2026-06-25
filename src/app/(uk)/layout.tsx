@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     canonical: SITE_ORIGIN,
     languages: {
       uk: SITE_ORIGIN,
-      en: `${SITE_ORIGIN}/en`,
+      "en-GB": `${SITE_ORIGIN}/en`,
       "x-default": SITE_ORIGIN,
     },
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
       "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $1 000 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.",
     type: "website",
     locale: "uk_UA",
-    alternateLocale: ["en_US"],
+    alternateLocale: ["en_GB"],
   },
   twitter: {
     card: "summary_large_image",

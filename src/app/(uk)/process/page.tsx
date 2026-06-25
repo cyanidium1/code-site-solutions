@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "Як ми робимо сайти за 4-10 тижнів. Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив. Без сюрпризів.",
   alternates: {
     canonical: "/process",
-    languages: { uk: "/process", en: "/en/process", "x-default": "/process" },
+    languages: { uk: "/process", "en-GB": "/en/process", "x-default": "/process" },
   },
   openGraph: {
     title:

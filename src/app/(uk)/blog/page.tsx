@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
   alternates: {
     canonical: "/blog",
-    languages: { uk: "/blog", en: "/en/blog", "x-default": "/blog" },
+    languages: { uk: "/blog", "en-GB": "/en/blog", "x-default": "/blog" },
   },
   openGraph: {
     title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",

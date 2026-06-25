@@ -25,7 +25,7 @@ test("renderUrlset emits loc/lastmod/changefreq/priority and alternates", () => 
     alternates: {
       languages: {
         uk: "https://www.code-site.art/blog/x",
-        en: "https://www.code-site.art/en/blog/x-en",
+        "en-GB": "https://www.code-site.art/en/blog/x-en",
         "x-default": "https://www.code-site.art/blog/x",
       },
     },
@@ -37,7 +37,7 @@ test("renderUrlset emits loc/lastmod/changefreq/priority and alternates", () => 
   assert.ok(xml.includes("<priority>0.6</priority>"));
   assert.ok(
     xml.includes(
-      '<xhtml:link rel="alternate" hreflang="en" href="https://www.code-site.art/en/blog/x-en"/>',
+      '<xhtml:link rel="alternate" hreflang="en-GB" href="https://www.code-site.art/en/blog/x-en"/>',
     ),
   );
 });

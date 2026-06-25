@@ -79,7 +79,7 @@ export async function generateMetadata({
   const languages = hasEn
     ? {
         uk: path,
-        en: `/en/blog/${post.slugEn}`,
+        "en-GB": `/en/blog/${post.slugEn}`,
         "x-default": path,
       }
     : undefined;

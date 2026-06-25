@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     canonical: "/about",
     languages: {
       uk: "/about",
-      en: "/en/about",
+      "en-GB": "/en/about",
       "x-default": "/about",
     },
   },

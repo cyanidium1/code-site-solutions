@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     canonical: "/en/portfolio",
     languages: {
       uk: "/portfolio",
-      en: "/en/portfolio",
+      "en-GB": "/en/portfolio",
       "x-default": "/portfolio",
     },
   },
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     description:
       "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: "/en/portfolio",
   },
   twitter: {

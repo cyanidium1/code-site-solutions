@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: "/contacts",
     languages: {
       uk: "/contacts",
-      en: "/en/contacts",
+      "en-GB": "/en/contacts",
       "x-default": "/contacts",
     },
   },

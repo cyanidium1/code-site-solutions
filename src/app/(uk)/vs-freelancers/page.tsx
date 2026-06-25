@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     canonical: PATH,
     languages: {
       uk: PATH,
-      en: `/en${PATH}`,
+      "en-GB": `/en${PATH}`,
       "x-default": PATH,
     },
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description: CONTENT.metaDescription,
     type: "website",
     locale: "uk_UA",
-    alternateLocale: ["en_US"],
+    alternateLocale: ["en_GB"],
     url: URL,
   },
   twitter: {

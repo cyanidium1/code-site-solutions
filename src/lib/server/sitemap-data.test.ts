@@ -44,7 +44,7 @@ test("industry page with EN twin appears in both with matching alternates", () =
   const ukEntry = uk.find((e) => e.url.endsWith("/sites-for/medicine"));
   const enEntry = en.find((e) => e.url.endsWith("/en/sites-for/medicine"));
   assert.ok(ukEntry?.alternates && enEntry?.alternates);
-  assert.equal(ukEntry!.alternates!.languages.en, enEntry!.url);
+  assert.equal(ukEntry!.alternates!.languages["en-GB"], enEntry!.url);
 });
 
 test("case study EN entry only when title.en is set", () => {

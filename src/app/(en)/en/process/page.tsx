@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     canonical: "/en/process",
     languages: {
       uk: "/process",
-      en: "/en/process",
+      "en-GB": "/en/process",
       "x-default": "/process",
     },
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description:
       "4-10 weeks end-to-end. Your time: 5 hours. Fixed price, 30% rebate for delays.",
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: "/en/process",
   },
   twitter: {
