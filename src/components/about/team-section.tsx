@@ -52,7 +52,7 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     },
     {
       id: "diana",
-      name: "Діана Меркатун",
+      name: "Діана Меркотун",
       role: "Lead Designer",
       image: "/team/diana.jpg",
       shortDescription:
@@ -114,7 +114,7 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     },
     {
       id: "diana",
-      name: "Diana Merkatun",
+      name: "Diana Merkotun",
       role: "Lead Designer",
       image: "/team/diana.jpg",
       shortDescription:
