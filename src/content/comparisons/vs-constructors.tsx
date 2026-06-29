@@ -753,7 +753,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         num: "04",
         icon: Search,
         title: "SEO is stuck on a plateau",
-        body: "Schema.org is limited, sitemap is locked, Core Web Vitals are mediocre. You've maxed what the platform offers — and you're stuck at position 5–10. Without custom optimization, you can't move up.",
+        body: "Schema.org is limited, sitemap is locked, Core Web Vitals are mediocre. You've maxed what the platform offers — and you're stuck at position 5–10. Without custom optimisation, you can't move up.",
       },
       {
         num: "05",

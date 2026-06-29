@@ -198,7 +198,7 @@ export const ADDONS_CELLS: BentoCell[] = [
   {
     icon: Search,
     title: "SEO audit",
-    body: "Technical + content audit of your current site. Prioritized list of fixes.",
+    body: "Technical + content audit of your current site. Prioritised list of fixes.",
     stat: formatPrice(300, { locale: "en" }),
     span: "1x1",
   },

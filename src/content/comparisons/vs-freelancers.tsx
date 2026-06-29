@@ -828,7 +828,7 @@ export const VS_FREELANCERS_EN: Content = {
       <>
         Each of these 6 isn&apos;t an exceptional story. It&apos;s a{" "}
         <strong>typical pattern</strong>. 12 of our 47 projects are rescues
-        after a freelancer or another agency. If you recognize yourself — talk
+        after a freelancer or another agency. If you recognise yourself — talk
         to us. The free 30-minute consult will tell you straight what&apos;s
         salvageable.
       </>
@@ -857,7 +857,7 @@ export const VS_FREELANCERS_EN: Content = {
       },
       {
         title: "Experimental project with an uncertain future",
-        body: "If you don't know whether v2 will happen, investing in a studio is premature optimization.",
+        body: "If you don't know whether v2 will happen, investing in a studio is premature optimisation.",
       },
     ],
     foot: "If your project is on this list — go hire on Upwork. We have a list of vetted freelancers we can refer you to. No jokes — we're for honest fit.",
@@ -883,7 +883,7 @@ export const VS_FREELANCERS_EN: Content = {
         us: "4 in-house + 8 partners",
       },
       {
-        criterion: "Specializations",
+        criterion: "Specialisations",
         freelancer: "1–2 (usually “just code” or “just design”)",
         us: "6+ (design, frontend, backend, copy, SEO, QA, PM)",
       },
@@ -962,7 +962,7 @@ export const VS_FREELANCERS_EN: Content = {
       {
         icon: TrendingUp,
         role: "SEO / B2B Marketing Strategist",
-        body: "SEO structure, technical optimization, content strategy.",
+        body: "SEO structure, technical optimisation, content strategy.",
       },
     ],
     partnersHeading: "Vetted partner network (brought in as needed)",
@@ -985,7 +985,7 @@ export const VS_FREELANCERS_EN: Content = {
       {
         icon: PenLine,
         role: "Copywriter (EN)",
-        body: "EN localization, English landings.",
+        body: "EN localisation, English landings.",
       },
       {
         icon: ShieldCheck,

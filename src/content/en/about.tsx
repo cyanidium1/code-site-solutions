@@ -177,7 +177,7 @@ export const ABOUT_EN: AboutContent = {
         name: "Kondor Device",
         meta: "E-commerce · Ukraine",
         blurb:
-          "Online store and custom builds. Bespoke catalog (8 categories), order in 2 clicks, and content management without a developer.",
+          "Online store and custom builds. Bespoke catalogue (8 categories), order in 2 clicks, and content management without a developer.",
         tags: ["Next.js", "E-commerce"],
         href: "/en/portfolio/kondor-device",
         accent: "oklch(0.62 0.16 295)",
@@ -196,7 +196,7 @@ export const ABOUT_EN: AboutContent = {
         meta: "Automotive · South Africa",
         blurb:
           "A large vehicle marketplace: 1,000+ cars, 20+ search filters, a dedicated auction section and user accounts.",
-        tags: ["Catalog", "Marketplace"],
+        tags: ["Catalogue", "Marketplace"],
         href: "/en/portfolio/right-cars",
         accent: "oklch(0.7 0.12 200)",
       },
@@ -204,7 +204,7 @@ export const ABOUT_EN: AboutContent = {
         name: "Glimmer",
         meta: "E-commerce · books",
         blurb:
-          "An online bookstore with bestsellers, deals and new-release blocks, 4+ catalog categories and zero extra steps from banner to purchase.",
+          "An online bookstore with bestsellers, deals and new-release blocks, 4+ catalogue categories and zero extra steps from banner to purchase.",
         tags: ["Next.js", "E-commerce"],
         href: "/en/portfolio/glimmer",
         accent: "oklch(0.72 0.14 70)",
@@ -213,7 +213,7 @@ export const ABOUT_EN: AboutContent = {
         name: "Code Site Art",
         meta: "Studio · this site",
         blurb:
-          "The site you're reading now. Next.js + Sanity, Lighthouse-optimized, fully custom code.",
+          "The site you're reading now. Next.js + Sanity, Lighthouse-optimised, fully custom code.",
         tags: ["Next.js", "Sanity"],
         href: "/en",
         accent: "oklch(0.55 0.18 295)",
