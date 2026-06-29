@@ -104,11 +104,11 @@ export const TIERS: TierProps[] = [
     includes: {
       heading: "Includes",
       items: [
-        "Industry compliance (GDPR / HIPAA-aware)",
-        "5+ industry integrations (Helsi/Clio/MEDoc and others)",
+        "Industry compliance (UK GDPR / DPA 2018-aware)",
+        "5+ industry integrations (Clio / Xero / SystmOne and others)",
         "Local SEO targeting your area",
         "Client account area",
-        "E-signature (Diia.Sign / DocuSign)",
+        "E-signature (DocuSign / Adobe Sign)",
         "Multilingual (2+ languages)",
         "Cost calculators (1–3)",
         "Up to 30 pages",
@@ -169,11 +169,11 @@ export const TIERS: TierProps[] = [
       items: [
         "Architecture session before kickoff",
         "Dedicated team (5-7 people on your project)",
-        "UA + RU + EN + other languages on request",
+        "English + other languages on request",
         "Complex payment flows",
         "APIs for external integrations",
         "24/7 SLA with 4-hour response",
-        "SOC 2-ready architecture (for B2B SaaS)",
+        "ISO 27001 / SOC 2-ready architecture (for B2B SaaS)",
         "Custom modules",
         "Post-warranty support under SLA",
       ],
@@ -270,9 +270,12 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
     ],
   },
   {
-    q: "Can I pay in crypto?",
+    q: "How can I pay?",
     a: [
-      { em: "USDT TRC20" },
+      "Bank transfer (Faster Payments or BACS), card via ",
+      { em: "Stripe" },
+      ", or Direct Debit via ",
+      { em: "GoCardless" },
       ". We confirm receipt within hours and treat it like any other invoice.",
     ],
   },
@@ -287,7 +290,7 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
   {
     q: "How do integrations get counted?",
     a: [
-      "Base CRM/email integration is £150. CRM systems (HubSpot, Pipedrive, KeyCRM): £500. Industry integrations (Clio, MEDoc, etc.): £500–£1,200 depending on API. Payment gateways: £900. All transparent in the calculator.",
+      "Base CRM/email integration is £150. CRM systems (HubSpot, Pipedrive, Salesforce): £500. Industry integrations (Clio, Xero, etc.): £500–£1,200 depending on API. Payment gateways: £900. All transparent in the calculator.",
     ],
   },
   {

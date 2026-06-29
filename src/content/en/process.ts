@@ -39,7 +39,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
     n: "02",
     title: "Contract & deposit",
     duration: "1-3 days",
-    body: "We sign the contract via Diia.Sign (Ukraine's e-signature standard) or a PDF with signature. You pay 50% upfront. The contract locks the price, the deadline, and the 30% rebate for delays.",
+    body: "We sign the contract via DocuSign or a PDF with signature. You pay 50% upfront. The contract locks the price, the deadline, and the 30% rebate for delays.",
     weDo: {
       heading: "What we do",
       items: [
@@ -53,8 +53,8 @@ export const PROCESS_STEPS: TimelineStep[] = [
       heading: "What you do",
       items: [
         "Review the contract, ask questions",
-        "Sign via Diia.Sign or PDF",
-        "Pay the 50% deposit (UAH bank transfer, Stripe, USDT, Mono)",
+        "Sign via DocuSign or PDF",
+        "Pay the 50% deposit (bank transfer, card via Stripe, or Direct Debit)",
       ],
     },
     deliverable: {

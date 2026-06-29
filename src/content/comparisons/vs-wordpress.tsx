@@ -1012,7 +1012,7 @@ export const VS_WORDPRESS_EN: Content = {
       {
         num: "06",
         title: "Free for teams up to 5",
-        body: "Your marketer + assistant + copywriter + editor + you — zero dollars per month. Paid tier kicks in at editor #6.",
+        body: "Your marketer + assistant + copywriter + editor + you — £0 per month. Paid tier kicks in at editor #6.",
       },
     ],
     foot: (
@@ -1185,7 +1185,7 @@ export const VS_WORDPRESS_EN: Content = {
       },
       {
         q: "What about WooCommerce?",
-        a: "Depends on scale. Under 100 SKUs — we move to Stripe/LiqPay direct, no plugins. Over 5,000 SKUs — we'll recommend Shopify or another specialist.",
+        a: "Depends on scale. Under 100 SKUs — we move to Stripe/GoCardless direct, no plugins. Over 5,000 SKUs — we'll recommend Shopify or another specialist.",
       },
       {
         q: "How long does migration take?",

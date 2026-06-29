@@ -979,13 +979,13 @@ export const VS_FREELANCERS_EN: Content = {
       },
       {
         icon: PenLine,
-        role: "Copywriter (UA)",
+        role: "Copywriter",
         body: "Homepage copy, service descriptions, SEO articles.",
       },
       {
         icon: PenLine,
-        role: "Copywriter (EN)",
-        body: "EN localisation, English landings.",
+        role: "Localisation",
+        body: "Additional-language versions and landing pages.",
       },
       {
         icon: ShieldCheck,
@@ -1114,7 +1114,7 @@ export const VS_FREELANCERS_EN: Content = {
       {
         num: "06",
         title: "Free for teams up to 5",
-        body: "Your marketer + assistant + copywriter + editor + you — zero dollars per month. Paid tier starts at editor #6.",
+        body: "Your marketer + assistant + copywriter + editor + you — £0 per month. Paid tier starts at editor #6.",
       },
     ],
     foot: (
