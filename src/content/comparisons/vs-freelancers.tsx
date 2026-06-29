@@ -1047,7 +1047,7 @@ export const VS_FREELANCERS_EN: Content = {
         num: "05",
         icon: FileSignature,
         title: "Contract with a legal entity",
-        body: "Sole proprietor or LLC contract. Closing acts. Tax-deductible. Disputes resolved in court, not via “please don't block me.”",
+        body: "A sole trader or limited company contract. Proper invoices. Tax-deductible. Disputes resolved in court, not via “please don't block me.”",
       },
       {
         num: "06",
@@ -1239,7 +1239,7 @@ export const VS_FREELANCERS_EN: Content = {
       { item: "Development", freelancer: "£4,000", us: "£5,500" },
       { item: "Support", freelancer: "£80/mo × 12 = £960", us: "£0" },
       {
-        item: "Integrations (CRM, payment, shipping)",
+        item: "Integrations (CRM, payment, delivery)",
         freelancer: "£1,200",
         us: "£0 (included)",
       },

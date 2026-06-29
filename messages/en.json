@@ -19,11 +19,11 @@
   "ServiceNav": {
     "medicine": "Healthcare",
     "renovation": "Construction / Renovation",
-    "legal": "Legal & Attorneys",
+    "legal": "Legal & Solicitors",
     "finance": "Finance & Accounting",
     "ecommerce": "E-commerce",
-    "auto": "Auto industry",
-    "realEstate": "Real Estate",
+    "auto": "Motor industry",
+    "realEstate": "Property",
     "courses": "Courses & Landings"
   },
   "Footer": {
@@ -35,11 +35,11 @@
     "solutions": {
       "healthcare": "Healthcare",
       "renovation": "Construction / Renovation",
-      "legal": "Legal & Attorneys",
+      "legal": "Legal & Solicitors",
       "finance": "Finance & Accounting",
       "ecommerce": "E-commerce",
-      "auto": "Auto industry",
-      "realEstate": "Real Estate",
+      "auto": "Motor industry",
+      "realEstate": "Property",
       "courses": "Courses & Landings"
     },
     "company": {

@@ -177,7 +177,7 @@ export const ABOUT_EN: AboutContent = {
         name: "Kondor Device",
         meta: "E-commerce · Ukraine",
         blurb:
-          "Online store and custom builds. Bespoke catalogue (8 categories), order in 2 clicks, and content management without a developer.",
+          "Online shop and custom builds. Bespoke catalogue (8 categories), order in 2 clicks, and content management without a developer.",
         tags: ["Next.js", "E-commerce"],
         href: "/en/portfolio/kondor-device",
         accent: "oklch(0.62 0.16 295)",
