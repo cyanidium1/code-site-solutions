@@ -17,10 +17,7 @@ export type ContentOption =
   | "lightPolishing"
   | "fullCopywriting"
   | "seoCopywriting";
-export type MaintenancePlan = "none" | "basic" | "growth" | "dedicated";
-export type SeoGrowthPlan = "none" | "basicSeo" | "growthSeo" | "contentEngine";
 export type ProductComplexity = "simple" | "medium" | "advanced";
-export type DesignPreviewItem = { src: string; caption: string };
 
 export type CheckboxOption = {
   id: string;
@@ -28,15 +25,6 @@ export type CheckboxOption = {
   price: number;
   hint?: string;
   included?: boolean;
-};
-
-export type PackagePreset = {
-  id: "starterLanding" | "growthWebsite" | "ecommerceStarter";
-  title: string;
-  badge: string;
-  bestFor: string;
-  includes: string[];
-  estimatedRange: string;
 };
 
 export type CalculatorInput = {
@@ -50,8 +38,6 @@ export type CalculatorInput = {
   featureIds: string[];
   contentOption: ContentOption;
   timeline: TimelineOption;
-  maintenancePlan: MaintenancePlan;
-  seoGrowthPlan: SeoGrowthPlan;
 };
 
 export type CalculatorEstimate = {
@@ -63,16 +49,15 @@ export type CalculatorEstimate = {
     seoCost: number;
     featureCost: number;
     contentCost: number;
+    /** Flat additive timeline fee (faster/urgent). Standard = 0. */
+    timelineCost: number;
     subtotal: number;
     multiplier: number;
     designPercent: number;
     languagePercent: number;
-    timelinePercent: number;
   };
+  /** Single headline estimate (range removed). */
   oneTimeEstimate: number;
-  lowEstimate: number;
-  highEstimate: number;
-  monthlyMaintenance: number;
 };
 
 export type TableRowData = {

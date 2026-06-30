@@ -697,7 +697,7 @@ export type CaseStudyDoc = {
   featured?: boolean;
 };
 
-/* ─── Calculator config (v2: singleton-per-group) ───────────────────────── */
+/* ─── Calculator config (v3: single consolidated `calculatorConfig` doc) ──── */
 
 export type CalculatorProjectTypeItem = {
   _key: string;
@@ -714,36 +714,6 @@ export type CalculatorProjectTypeItem = {
     defaultValue: number;
     included: number;
     extraPrice: number;
-  };
-};
-
-export type CalculatorPresetItem = {
-  _key: string;
-  presetKey: string;
-  title?: LocalizedString;
-  badge?: LocalizedString;
-  bestFor?: LocalizedText;
-  includes?: LocalizedString[];
-  estimatedRange?: LocalizedString;
-  compareAnchor?: LocalizedText;
-  appliedInput?: {
-    /** Matches a `projectKey` from `calculatorProjectTypes`. Free-form string per L0. */
-    projectType: string;
-    pages: number;
-    productComplexity: "simple" | "medium" | "advanced";
-    designComplexity: "simple" | "custom" | "advanced";
-    languages: "one" | "two" | "three" | "fourPlus";
-    cmsUpgradeIds?: string[];
-    seoOptionIds?: string[];
-    featureIds?: string[];
-    contentOption:
-      | "clientProvided"
-      | "lightPolishing"
-      | "fullCopywriting"
-      | "seoCopywriting";
-    timeline: "standard" | "faster" | "urgent";
-    maintenancePlan: "none" | "basic" | "growth" | "dedicated";
-    seoGrowthPlan: "none" | "basicSeo" | "growthSeo" | "contentEngine";
   };
 };
 
@@ -768,26 +738,15 @@ export type CalculatorPercentOptionItem = {
   percent?: number;
 };
 
-export type CalculatorDesignOptionItem = CalculatorPercentOptionItem & {
-  previews?: { _key: string; src: string; caption?: LocalizedString }[];
-};
+export type CalculatorDesignOptionItem = CalculatorPercentOptionItem;
 
-export type CalculatorMaintenanceOptionItem = {
+/** Timeline is now a flat additive USD fee (`price`), not a percent multiplier. */
+export type CalculatorTimelineOptionItem = {
   _key: string;
   optionKey: string;
   label?: LocalizedString;
-  monthlyPrice?: number;
-};
-
-export type CalculatorSeoGrowthOptionItem = {
-  _key: string;
-  optionKey: string;
-  label?: LocalizedString;
-  bestFor?: LocalizedText;
-  includes?: LocalizedString[];
-  badge?: LocalizedString;
-  monthlyPrice?: number;
-  priceLabel?: LocalizedString;
+  hint?: LocalizedText;
+  price?: number;
 };
 
 export type CalculatorPriceOptionItem = {
@@ -800,20 +759,16 @@ export type CalculatorPriceOptionItem = {
 
 export type CalculatorConfigQueryResult = {
   projectTypes: CalculatorProjectTypeItem[] | null;
-  presets: CalculatorPresetItem[] | null;
   cmsOptions: CalculatorCheckboxOptionItem[] | null;
   seoOptions: CalculatorCheckboxOptionItem[] | null;
   featureOptions: CalculatorFeatureOptionItem[] | null;
   languageOptions: CalculatorPercentOptionItem[] | null;
   designOptions: CalculatorDesignOptionItem[] | null;
-  timelineOptions: CalculatorPercentOptionItem[] | null;
-  maintenanceOptions: CalculatorMaintenanceOptionItem[] | null;
-  seoGrowthOptions: CalculatorSeoGrowthOptionItem[] | null;
+  timelineOptions: CalculatorTimelineOptionItem[] | null;
   contentOptions: CalculatorPriceOptionItem[] | null;
   productComplexityOptions: CalculatorPriceOptionItem[] | null;
   settings: {
     defaultProjectType?: "landing" | "multiPage" | "ecommerce";
     roundStep?: number;
-    highEstimateFactor?: number;
   } | null;
 };

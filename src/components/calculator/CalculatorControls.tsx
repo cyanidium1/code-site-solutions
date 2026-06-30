@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import {
   Code2,
@@ -9,9 +9,6 @@ import {
   ShoppingCart,
   Search,
   Database,
-  Rocket,
-  Zap,
-  Store,
 } from "lucide-react";
 import type {
   CalculatorInput,
@@ -25,8 +22,7 @@ import type {
 import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur as formatEurRaw, formatPercent } from "@/lib/shared/format-eur";
 import { OptionCard } from "./OptionCard";
-import { basicSetupInput, inputForPreset } from "./presets";
-import { H3 } from "@/components/ui";
+import { H3, InfoHint } from "@/components/ui";
 
 const GROUP_CLASS =
   "border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] overflow-hidden " +
@@ -51,19 +47,18 @@ const SEG_BTN_CLASS =
   "px-[14px] py-[11px] text-[13px] cursor-pointer min-h-[50px] " +
   "transition-[border-color,color,background] duration-200 " +
   "hover:border-line-strong hover:text-ink " +
-  "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
+  "[&_small]:block [&_small]:text-accent-soft [&_small]:mt-1 [&_small]:text-[11px]";
 
 const SEG_BTN_ACTIVE_CLASS =
   "border-accent-55 bg-accent-18 !text-ink " +
   "shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]";
 
 const CHECKBOX_CLASS =
-  "flex gap-[10px] items-start border border-line rounded-[12px] px-3 py-[10px] min-h-[88px] " +
+  "flex gap-[10px] items-start border border-line rounded-[12px] px-3 py-[10px] " +
   "transition-[border-color] duration-200 hover:border-line-strong " +
   "[&>input]:mt-[3px] [&>input]:accent-[var(--color-accent)] " +
   "[&>span]:grid [&>span]:gap-1 [&>span]:text-[13px] " +
-  "[&_strong]:inline-block [&_strong]:text-accent-soft [&_strong]:text-[12px] " +
-  "[&_small]:block [&_small]:mt-[3px] [&_small]:text-ink-3 [&_small]:text-[11px]";
+  "[&_strong]:inline-block [&_strong]:text-accent-soft [&_strong]:text-[12px]";
 
 const RANGE_INPUT_CLASS =
   "appearance-none w-full h-[6px] rounded-full bg-[linear-gradient(90deg,var(--color-accent-soft),var(--color-accent))] outline-none cursor-pointer " +
@@ -88,8 +83,6 @@ type CalculatorControlsProps = {
 
 export function CalculatorControls({ config, value, onChange }: CalculatorControlsProps) {
   const projectConfig = config.projectTypes.find((p) => p.key === value.projectType);
-  const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
-  const [previewDesign, setPreviewDesign] = useState<DesignComplexity | null>(null);
   const t = useTranslations("Calculator");
   const locale = useLocale() as "uk" | "en";
   const formatEur = (n: number) => formatEurRaw(n, locale);
@@ -121,12 +114,19 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
   const toggle = (source: string[], id: string) =>
     source.includes(id) ? source.filter((v) => v !== id) : [...source, id];
 
-  const resetToBasicSetup = () => onChange(basicSetupInput(value, config));
-  const applyPreset = (presetId: string) => {
-    setSelectedPreset(presetId);
-    const next = inputForPreset(value, presetId, config);
-    if (next) onChange(next);
-  };
+  const resetToBasicSetup = () =>
+    onChange({
+      ...value,
+      pages: projectConfig?.pages.min ?? value.pages,
+      productComplexity: "simple",
+      designComplexity: "simple",
+      languages: "one",
+      cmsUpgradeIds: [],
+      seoOptionIds: [],
+      featureIds: [],
+      contentOption: "clientProvided",
+      timeline: "standard",
+    });
 
   const renderFeatureGroup = (title: string, items: typeof config.features) => (
     <>
@@ -143,9 +143,11 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
               }
             />
             <span>
-              {option.label}
+              <span className="inline-flex items-center gap-[5px]">
+                {option.label}
+                <InfoHint text={option.hint} />
+              </span>
               <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
-              {option.hint ? <small>{option.hint}</small> : null}
             </span>
           </label>
         ))}
@@ -180,86 +182,8 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           extra: formatEur(projectConfig.pages.extraPrice),
         });
 
-  const designSelected = config.design.find((d) => d.key === value.designComplexity);
-  const productSelected = config.productComplexity.find(
-    (p) => p.key === value.productComplexity,
-  );
-
   return (
     <div className="flex flex-col gap-[14px]">
-      <section className={`${GROUP_CLASS} overflow-hidden`}>
-        <h3 className="font-display">{t("controls.presetTitle")}</h3>
-        <div className={GROUP_CONTENT_CLASS}>
-          <p className={NOTE_CLASS}>{t("controls.presetNote")}</p>
-          <div className="grid grid-cols-1 gap-[14px] xl:grid-cols-3">
-            {config.presets.map((preset) => {
-              const isActive = selectedPreset === preset.key;
-              const isRecommended = preset.key === "growthWebsite";
-              return (
-                <button
-                  key={preset.key}
-                  type="button"
-                  className={
-                    "border rounded-[18px] p-[22px_22px_20px] text-left text-ink-dim cursor-pointer flex flex-col gap-3 min-h-[360px] " +
-                    "transition-[border-color,transform,box-shadow] duration-[250ms] hover:border-line-strong hover:-translate-y-[2px] " +
-                    "[&>strong]:text-ink [&>strong]:font-actay [&>strong]:text-[18px] [&>strong]:font-bold [&>strong]:tracking-[-0.01em] " +
-                    "[&>small]:text-ink-3 [&>small]:text-[12.5px] [&>small]:leading-[1.5] " +
-                    "[&>ul]:list-none [&>ul]:m-0 [&>ul]:p-0 [&>ul]:grid [&>ul]:gap-[6px] [&>ul]:text-[12.5px] [&>ul]:text-ink-dim " +
-                    "[&>ul>li]:relative [&>ul>li]:pl-4 [&>ul>li]:leading-[1.45] " +
-                    "[&>ul>li]:before:content-[''] [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-[7px] " +
-                    "[&>ul>li]:before:w-[6px] [&>ul>li]:before:h-[6px] [&>ul>li]:before:rounded-full [&>ul>li]:before:bg-accent-soft " +
-                    "[&>b]:mt-1 [&>b]:border [&>b]:border-line [&>b]:rounded-full [&>b]:px-3 [&>b]:py-2 [&>b]:w-fit " +
-                    "[&>b]:text-[10px] [&>b]:tracking-[0.1em] [&>b]:uppercase [&>b]:text-ink [&>b]:font-semibold " +
-                    (isRecommended
-                      ? "border-accent-40 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-[2px] xl:-translate-y-[6px] xl:hover:-translate-y-[8px] [&>b]:bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] [&>b]:border-transparent [&>b]:text-[oklch(1_0_0_/_0.98)] "
-                      : "bg-[oklch(0.16_0.005_300)] ") +
-                    (isActive
-                      ? "border-accent-55 shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.22)]"
-                      : isRecommended
-                        ? ""
-                        : "border-line")
-                  }
-                  onClick={() => applyPreset(preset.key)}
-                >
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-[10px] bg-accent-12 text-accent-soft">
-                      {preset.key === "starterLanding" ? (
-                        <Zap size={15} />
-                      ) : preset.key === "growthWebsite" ? (
-                        <Rocket size={15} />
-                      ) : (
-                        <Store size={15} />
-                      )}
-                    </span>
-                    <em className="not-italic text-[10px] tracking-[0.1em] uppercase border border-line rounded-full px-[9px] py-1 text-ink-dim">
-                      {preset.badge}
-                    </em>
-                  </div>
-                  <strong>{preset.title}</strong>
-                  <small>
-                    {t("controls.presetBestForLabel")} {preset.bestFor}
-                  </small>
-                  <ul>
-                    {preset.includes.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                  <span className="font-actay text-[22px] font-bold tracking-[-0.02em] bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] bg-clip-text text-transparent mt-auto">
-                    {preset.estimatedRange}
-                  </span>
-                  {preset.compareAnchor ? (
-                    <p className="m-0 px-3 py-[10px] border border-dashed border-line-strong rounded-[10px] bg-[oklch(0.14_0.005_300_/_0.6)] text-ink-3 text-[11.5px] leading-[1.45] italic">
-                      {preset.compareAnchor}
-                    </p>
-                  ) : null}
-                  <b>{t("controls.presetUse")}</b>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       <div className="mt-2 mb-1">
         <div className="flex flex-wrap items-center justify-between gap-2 md-wide:flex-nowrap md-wide:gap-3">
           <H3 variant="calc-intro">{t("controls.customizeTitle")}</H3>
@@ -329,18 +253,27 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
               <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.productStructLabel")}</label>
               <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
                 {config.productComplexity.map((option) => (
-                  <button
+                  <div
                     key={option.key}
-                    type="button"
+                    role="button"
+                    tabIndex={0}
                     className={`${SEG_BTN_CLASS} ${value.productComplexity === option.key ? SEG_BTN_ACTIVE_CLASS : ""}`}
                     onClick={() => onChange({ ...value, productComplexity: option.key as ProductComplexity })}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onChange({ ...value, productComplexity: option.key as ProductComplexity });
+                      }
+                    }}
                   >
-                    {option.label}
+                    <span className="inline-flex items-center gap-[5px]">
+                      {option.label}
+                      <InfoHint text={option.hint} />
+                    </span>
                     <small>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.includedLower")}</small>
-                  </button>
+                  </div>
                 ))}
               </div>
-              {productSelected?.hint ? <p className={NOTE_CLASS}>{productSelected.hint}</p> : null}
             </>
           ) : null}
         </div>
@@ -353,17 +286,15 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2 xl:grid-cols-3">
             {config.design.map((option) => {
               const isActive = value.designComplexity === option.key;
-              const firstPreview = option.previews[0];
               return (
                 <div
                   key={option.key}
                   className={
-                    "group relative border rounded-[12px] bg-[oklch(0.18_0.008_300)] px-3 py-[11px] grid gap-[7px] cursor-pointer " +
-                    "transition-[border-color,background,box-shadow] duration-200 overflow-hidden " +
-                    "hover:border-line-strong hover:bg-[oklch(0.19_0.01_300)] " +
+                    "relative border rounded-[12px] px-3 py-[11px] grid gap-[7px] cursor-pointer " +
+                    "transition-[border-color,background,box-shadow] duration-200 " +
                     (isActive
-                      ? "border-accent-55 shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]"
-                      : "border-line")
+                      ? "border-accent-55 !bg-accent-12 shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]"
+                      : "border-line bg-[oklch(0.18_0.008_300)] hover:border-line-strong hover:bg-[oklch(0.19_0.01_300)]")
                   }
                   role="button"
                   tabIndex={0}
@@ -375,41 +306,17 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                     }
                   }}
                 >
-                  {firstPreview ? (
-                    <span
-                      className="absolute -right-2 -bottom-2 w-[82px] h-[56px] opacity-[0.16] [filter:blur(0.2px)_saturate(0.8)] transition-[opacity,transform] duration-200 group-hover:opacity-[0.28] group-hover:-translate-y-[2px]"
-                      aria-hidden="true"
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element -- exception per docs/images.md: SVG preview, default loader doesn't optimize SVG */}
-                      <img
-                        src={firstPreview.src}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover rounded-lg"
-                      />
+                  <span className="flex justify-between gap-2 items-center">
+                    <span className="inline-flex items-center gap-[5px] text-ink text-[13px] font-semibold">
+                      {option.label}
+                      <InfoHint text={option.hint} />
                     </span>
-                  ) : null}
-                  <span className="relative z-10 flex justify-between gap-2 items-center">
-                    <span className="text-ink text-[13px] font-semibold">{option.label}</span>
                     <small className="text-accent-soft text-[11px]">{formatPercent(option.percent)}</small>
                   </span>
-                  <span className="relative z-10 text-ink-3 text-[11px] leading-[1.4]">{option.hint}</span>
-                  <button
-                    type="button"
-                    className="inline-flex items-center min-h-11 border-none bg-transparent text-ink-3 p-0 text-[11px] text-left underline underline-offset-2 cursor-pointer w-fit relative z-10 hover:text-ink"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setPreviewDesign(option.key as DesignComplexity);
-                    }}
-                  >
-                    {t("controls.viewExamples")}
-                  </button>
                 </div>
               );
             })}
           </div>
-          {designSelected?.hint ? <p className={NOTE_CLASS}>{designSelected.hint}</p> : null}
 
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.langLabel")}</label>
           <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
@@ -451,9 +358,11 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                   }
                 />
                 <span>
-                  {option.label}
+                  <span className="inline-flex items-center gap-[5px]">
+                    {option.label}
+                    <InfoHint text={option.hint} />
+                  </span>
                   <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
-                  {option.hint ? <small>{option.hint}</small> : null}
                 </span>
               </label>
             ))}
@@ -477,9 +386,11 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                   }
                 />
                 <span>
-                  {option.label}
+                  <span className="inline-flex items-center gap-[5px]">
+                    {option.label}
+                    <InfoHint text={option.hint} />
+                  </span>
                   <strong>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.included")}</strong>
-                  {option.hint ? <small>{option.hint}</small> : null}
                 </span>
               </label>
             ))}
@@ -517,67 +428,30 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.timelineLabel")}</label>
           <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
             {config.timeline.map((option) => (
-              <button
+              <div
                 key={option.key}
-                type="button"
+                role="button"
+                tabIndex={0}
                 className={`${SEG_BTN_CLASS} ${value.timeline === option.key ? SEG_BTN_ACTIVE_CLASS : ""}`}
                 onClick={() => onChange({ ...value, timeline: option.key as TimelineOption })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onChange({ ...value, timeline: option.key as TimelineOption });
+                  }
+                }}
               >
-                {option.label}
-                <small>{formatPercent(option.percent)}</small>
-              </button>
+                <span className="inline-flex items-center gap-[5px]">
+                  {option.label}
+                  <InfoHint text={option.hint} />
+                </span>
+                <small>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.includedLower")}</small>
+              </div>
             ))}
           </div>
           <p className={NOTE_CLASS}>{t("controls.timelineHint")}</p>
         </div>
       </details>
-
-      {previewDesign ? (
-        <div
-          className="fixed inset-0 z-[120] bg-[oklch(0_0_0_/_0.58)] backdrop-blur-[3px] flex items-center justify-center p-[18px]"
-          role="dialog"
-          aria-modal="true"
-          aria-label={t("controls.designExamplesTitle")}
-          onClick={() => setPreviewDesign(null)}
-        >
-          <div
-            className="w-[min(980px,100%)] border border-line rounded-2xl bg-[oklch(0.15_0.005_300)] p-[14px]"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="flex items-center justify-between gap-3 mb-[10px]">
-              <h4 className="m-0 text-[14px]">
-                {config.design.find((d) => d.key === previewDesign)?.label}
-              </h4>
-              <button
-                type="button"
-                className="inline-flex items-center min-h-11 border border-line rounded-full bg-transparent text-ink-dim px-3 py-[7px] cursor-pointer"
-                onClick={() => setPreviewDesign(null)}
-                aria-label={t("controls.modalClose")}
-              >
-                {t("controls.modalClose")}
-              </button>
-            </div>
-            <div className="grid grid-cols-1 gap-[10px] md-wide:grid-cols-3">
-              {(config.design.find((d) => d.key === previewDesign)?.previews ?? []).map((item) => (
-                <figure
-                  key={item.src + item.caption}
-                  className="m-0 border border-line rounded-[12px] overflow-hidden bg-[oklch(0.18_0.008_300)]"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element -- exception per docs/images.md: SVG preview, default loader doesn't optimize SVG */}
-                  <img
-                    src={item.src}
-                    alt={item.caption}
-                    loading="lazy"
-                    decoding="async"
-                    className="block w-full h-auto"
-                  />
-                  <figcaption className="px-[10px] py-2 text-[12px] text-ink-3">{item.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }

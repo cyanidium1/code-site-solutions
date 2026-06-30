@@ -2,10 +2,8 @@ import type {
   ContentOption,
   DesignComplexity,
   LanguageOption,
-  MaintenancePlan,
   ProductComplexity,
   ProjectType,
-  SeoGrowthPlan,
   TimelineOption,
 } from "@/types/pricing";
 
@@ -64,53 +62,19 @@ export type ConfigProductComplexity = {
   price: number;
 };
 
+/** Timeline is a flat additive USD fee (not a percent multiplier). */
+export type ConfigTimelineOption = {
+  key: TimelineOption;
+  label: string;
+  hint?: string;
+  price: number;
+};
+
 export type ConfigDesign = {
   key: DesignComplexity;
   label: string;
   hint: string;
   percent: number;
-  previews: { src: string; caption: string }[];
-};
-
-export type ConfigMaintenance = {
-  key: MaintenancePlan;
-  label: string;
-  monthlyPrice: number;
-};
-
-export type ConfigSeoGrowth = {
-  key: SeoGrowthPlan;
-  label: string;
-  bestFor: string;
-  includes: string[];
-  badge?: string;
-  monthlyPrice: number;
-  priceLabel?: string;
-};
-
-export type ConfigPreset = {
-  key: string;
-  title: string;
-  badge: string;
-  bestFor: string;
-  includes: string[];
-  estimatedRange: string;
-  compareAnchor: string;
-  /** Snapshot applied when the user clicks this preset. */
-  appliedInput: {
-    projectType: ProjectType;
-    pages: number;
-    productComplexity: ProductComplexity;
-    designComplexity: DesignComplexity;
-    languages: LanguageOption;
-    cmsUpgradeIds: string[];
-    seoOptionIds: string[];
-    featureIds: string[];
-    contentOption: ContentOption;
-    timeline: TimelineOption;
-    maintenancePlan: MaintenancePlan;
-    seoGrowthPlan: SeoGrowthPlan;
-  };
 };
 
 export type CalculatorConfig = {
@@ -122,14 +86,9 @@ export type CalculatorConfig = {
   seoOptions: ConfigCheckboxOption[];
   features: ConfigFeatureOption[];
   contentOptions: ConfigPriceOption<ContentOption>[];
-  timeline: ConfigPercentOption<TimelineOption>[];
-  maintenance: ConfigMaintenance[];
-  seoGrowth: ConfigSeoGrowth[];
-  presets: ConfigPreset[];
+  timeline: ConfigTimelineOption[];
   settings: {
     defaultProjectType: ProjectType;
     roundStep: number;
-    highEstimateFactor: number;
-    seoGrowthRecommendedBadge: string;
   };
 };

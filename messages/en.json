@@ -120,67 +120,18 @@
         }
       }
     },
-    "whyPackages": {
-      "eyebrow": "/ 02 WHY THESE PACKAGES",
-      "title": "Three packages cover <em>80% of requests</em>. Here's why.",
-      "sub": "Each one solves a different business question. Pick the one that matches where you are now, not where you might be in 3 years.",
-      "cards": {
-        "starter": {
-          "title": "Starter",
-          "body": "For people launching one service or testing a hypothesis. No CMS, no 20 pages. You need to validate demand fast."
-        },
-        "growth": {
-          "title": "Growth",
-          "body": "For people with paying clients but no website that sells. Cases, blog, SEO, lead form: everything that brings traffic and converts it into calls."
-        },
-        "ecommerce": {
-          "title": "E-commerce",
-          "body": "For people selling products. A real store: cart, payments, and a CMS to manage stock."
-        }
-      }
-    },
     "customizer": {
-      "eyebrow": "/ 03 CUSTOMIZER",
+      "eyebrow": "/ 03 CUSTOMISER",
       "title": "Configure your <em>scope</em>",
-      "sub": "Start with a recommended package or build it manually below. Numbers update live."
-    },
-    "afterLaunch": {
-      "eyebrow": "/ 04 AFTER LAUNCH",
-      "title": "Optional <em>monthly</em> support",
-      "sub": "Maintenance keeps the site stable. SEO & Growth grows traffic and leads. Both are optional and separate from the project price.",
-      "maintenance": {
-        "title": "Maintenance / after-launch",
-        "note": "Monthly technical support — separate from the one-time project estimate.",
-        "monthSuffix": " / mo"
-      },
-      "growth": {
-        "title": "SEO & Growth monthly",
-        "note": "Ongoing SEO, content, analytics, and conversion work to grow qualified leads after launch.",
-        "monthSuffix": "/mo"
-      }
-    },
-    "underHood": {
-      "eyebrow": "/ 05 UNDER THE HOOD",
-      "title": "Why we estimate websites <em>this way</em>",
-      "sub": "Behind every visible design are page structure, SEO metadata, performance, CMS modeling, responsive layouts, forms, analytics, integrations, and launch prep. The calculator separates those layers.",
-      "cards": {
-        "seo": {
-          "title": "SEO structure",
-          "body": "Pages, metadata, headings, internal linking, and scalable landing architecture."
-        },
-        "cms": {
-          "title": "CMS architecture",
-          "body": "CMS setup for editing pages, posts, cases, services, products, and multilingual content."
-        },
-        "conversion": {
-          "title": "Conversion logic",
-          "body": "Forms, CTAs, tracking, integrations, and UX decisions that turn visits into leads."
-        }
-      }
+      "sub": "Set your scope below — every choice updates the estimate live."
     },
     "social": {
       "line": "<strong>50+ companies</strong> ran this calculator and launched with us. Some of them:",
-      "logos": ["NBYG København", "Efedra Clinic", "Tatarka"],
+      "logos": [
+        "NBYG København",
+        "Efedra Clinic",
+        "Tatarka"
+      ],
       "testimonialQuote": "Before the new site we got 3 enquiries a month. Now we get <strong>24</strong>.",
       "testimonialName": "Søren Hansen",
       "testimonialRole": "Owner, NBYG København Aps"
@@ -234,12 +185,8 @@
       "altEmail": "hi@code-site.art"
     },
     "controls": {
-      "presetTitle": "Start with a recommended package",
-      "presetNote": "Not sure what you need? Choose a preset and adjust it below.",
-      "presetUse": "Use this package",
-      "presetBestForLabel": "Best for:",
-      "customizeTitle": "Customize your estimate",
-      "customizeNote": "Use the recommended package as a starting point, or adjust the scope manually below.",
+      "customizeTitle": "Customise your estimate",
+      "customizeNote": "Adjust each option to match your project. The estimate updates as you go.",
       "resetBtn": "Reset to basic setup",
       "section01": "/ 01 Project basics",
       "section02": "/ 02 Design & languages",
@@ -256,9 +203,6 @@
       "sectionsIncludedTpl": "Included sections: {included}. Each extra section adds {extra}.",
       "productStructLabel": "Product structure complexity",
       "designLabel": "Design complexity",
-      "viewExamples": "View examples →",
-      "designExamplesTitle": "Design examples",
-      "modalClose": "Close",
       "langLabel": "Multilingual support",
       "langNoteSeo": "Each language requires its own SEO structure, content, and CMS setup.",
       "langNoteTranslations": "Translations themselves can be handled separately if the client provides content.",
@@ -285,34 +229,11 @@
       "pageLabelPages": "Pages",
       "pageLabelSections": "Sections",
       "pageLabelContentPages": "Content pages",
-      "rangeLabel": "Estimated project range",
-      "rangeNote": "Final price after scope review.",
-      "whatYouGet": "What you get at this price",
-      "whatYouGetItems": [
-        "Custom website (no templates, no builders)",
-        "Fast loading under 1 second",
-        "SEO-ready structure from day one",
-        "Scalable CMS admin panel",
-        "Mobile-friendly content management",
-        "Clean, maintainable codebase"
-      ],
+      "rangeLabel": "Estimated project cost",
       "willInclude": "Your website will include",
-      "whyChanges": "Why the price changes",
-      "whyChangesItems": [
-        "More pages = more design and development work",
-        "More languages = separate SEO and CMS structure",
-        "Advanced design = custom UI and interactions",
-        "Integrations = additional development and testing"
-      ],
-      "maintenanceMonth": "Maintenance / month",
-      "seoGrowthMonth": "SEO & Growth / month",
-      "roiTitle": "What this means for you",
-      "roiBody": "At a 3% conversion rate and a £1,000 average order, the site pays for itself in <strong>12–15 enquiries</strong>. Roughly 3–6 months of work. After that, it earns for years.",
-      "scarcity": "Next available start: <strong>in 2 weeks</strong>. <strong>2 slots</strong> left this quarter.",
       "disclaimer": "This is an estimate, not an invoice. Final price depends on exact requirements, integrations, design references, and content volume.",
       "primaryCta": "Get exact price & project plan",
-      "ctaMeta": "Takes less than 1 minute.",
-      "ghostCta": "Or book a 30-min call"
+      "ctaMeta": "Takes less than 1 minute."
     },
     "breakdown": {
       "show": "Show price breakdown",
@@ -325,9 +246,9 @@
       "subtotal": "Subtotal",
       "designMultiplier": "Design multiplier",
       "languageMultiplier": "Language multiplier",
-      "timelineMultiplier": "Timeline multiplier",
+      "timelineMultiplier": "Timeline surcharge",
       "selectedAddons": "Selected add-ons",
-      "estimatedRange": "Estimated range",
+      "estimatedRange": "Estimated cost",
       "cmsSetupIncluded": "CMS setup - included",
       "basicSeoIncluded": "Basic technical SEO - included",
       "coreFormsIncluded": "Core forms included",
