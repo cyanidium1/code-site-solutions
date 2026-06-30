@@ -76,8 +76,7 @@ export function LeadForm({ config, input, estimate }: LeadFormProps) {
 
   const summary = useMemo(
     () => ({
-      range: `${formatEurRaw(estimate.lowEstimate, locale)} - ${formatEurRaw(estimate.highEstimate, locale)}`,
-      maintenanceMonthly: formatEurRaw(estimate.monthlyMaintenance, locale),
+      estimate: formatEurRaw(estimate.oneTimeEstimate, locale),
     }),
     [estimate, locale],
   );
@@ -103,8 +102,7 @@ export function LeadForm({ config, input, estimate }: LeadFormProps) {
       ? `Бриф: ${form.projectBrief.trim()}`
       : "";
     const reachOut = `Бажаний канал: ${form.preferredMethod}`;
-    const estimateLine = `Оцінка: ${summary.range}`;
-    const maintenanceLine = `Підтримка: ${summary.maintenanceMonthly} / міс`;
+    const estimateLine = `Оцінка: ${summary.estimate}`;
     const selections = formatCalculatorSelections(input, config);
     const selectionsBlock = selections
       ? `Конфігурація з калькулятора:\n${selections}`
@@ -113,7 +111,6 @@ export function LeadForm({ config, input, estimate }: LeadFormProps) {
       briefLine,
       reachOut,
       estimateLine,
-      maintenanceLine,
       selectionsBlock,
     ]
       .filter(Boolean)

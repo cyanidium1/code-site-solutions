@@ -70,18 +70,5 @@ export function formatCalculatorSelections(
     config.timeline.find((t) => t.key === input.timeline)?.label,
   );
 
-  if (input.maintenancePlan !== "none") {
-    push(
-      "Підтримка",
-      config.maintenance.find((m) => m.key === input.maintenancePlan)?.label,
-    );
-  }
-  if (input.seoGrowthPlan !== "none") {
-    push(
-      "SEO-просування",
-      config.seoGrowth.find((s) => s.key === input.seoGrowthPlan)?.label,
-    );
-  }
-
   return lines.join("\n");
 }

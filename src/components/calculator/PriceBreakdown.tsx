@@ -12,13 +12,12 @@ type PriceBreakdownProps = {
   seoCost: number;
   featureCost: number;
   contentCost: number;
+  timelineCost: number;
   selectedAddonLabels: string[];
   subtotal: number;
   designPercent: number;
   languagePercent: number;
-  timelinePercent: number;
-  lowEstimate: number;
-  highEstimate: number;
+  oneTimeEstimate: number;
 };
 
 const BREAKDOWN_CLASS =
@@ -72,6 +71,12 @@ export function PriceBreakdown(props: PriceBreakdownProps) {
             <span>{t("content")}</span>
             <strong>{props.contentCost > 0 ? formatEur(props.contentCost) : t("clientContentIncluded")}</strong>
           </li>
+          {props.timelineCost > 0 ? (
+            <li>
+              <span>{t("timelineMultiplier")}</span>
+              <strong>{formatEur(props.timelineCost)}</strong>
+            </li>
+          ) : null}
           <li className="total">
             <span>{t("subtotal")}</span>
             <strong>{formatEur(props.subtotal)}</strong>
@@ -84,10 +89,6 @@ export function PriceBreakdown(props: PriceBreakdownProps) {
             <span>{t("languageMultiplier")}</span>
             <strong>{formatPercent(props.languagePercent)}</strong>
           </li>
-          <li>
-            <span>{t("timelineMultiplier")}</span>
-            <strong>{formatPercent(props.timelinePercent)}</strong>
-          </li>
           {props.selectedAddonLabels.length > 0 ? (
             <li className="total">
               <span>{t("selectedAddons")}</span>
@@ -96,9 +97,7 @@ export function PriceBreakdown(props: PriceBreakdownProps) {
           ) : null}
           <li className="total">
             <span>{t("estimatedRange")}</span>
-            <strong>
-              {formatEur(props.lowEstimate)} - {formatEur(props.highEstimate)}
-            </strong>
+            <strong>{formatEur(props.oneTimeEstimate)}</strong>
           </li>
         </ul>
       </div>

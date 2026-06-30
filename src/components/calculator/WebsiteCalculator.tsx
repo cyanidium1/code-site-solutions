@@ -2,20 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import {
-  Database,
-  SearchCheck,
-  Layers3,
-  SlidersHorizontal,
-  ClipboardCheck,
-  Rocket,
-} from "lucide-react";
+import { Layers3, SlidersHorizontal, ClipboardCheck } from "lucide-react";
 import { calculateWebsiteEstimate } from "@/lib/shared/calculate-website-estimate";
 import { CalculatorControls } from "./CalculatorControls";
 import { EstimateSummary } from "./EstimateSummary";
 import { InfoSection } from "./InfoSection";
-import { MaintenanceTiles } from "./MaintenanceTiles";
-import { SeoGrowthTiles } from "./SeoGrowthTiles";
 import { SocialProof } from "./SocialProof";
 import { GetFinalCta } from "./GetFinalCta";
 import { FAQ } from "@/components/blocks/final";
@@ -70,8 +61,6 @@ function defaultInput(config: CalculatorConfig): CalculatorInput {
     featureIds: [],
     contentOption: "clientProvided",
     timeline: "standard",
-    maintenancePlan: "none",
-    seoGrowthPlan: "none",
   };
 }
 
@@ -86,9 +75,6 @@ export function WebsiteCalculator({ config }: WebsiteCalculatorProps) {
     [input, config],
   );
   const t = useTranslations("Calculator");
-
-  const seoGrowthMonthly =
-    config.seoGrowth.find((p) => p.key === input.seoGrowthPlan)?.monthlyPrice ?? 0;
 
   const howItWorks: InfoCard[] = [
     {
@@ -107,40 +93,6 @@ export function WebsiteCalculator({ config }: WebsiteCalculatorProps) {
       body: t("howItWorks.cards.final.body"),
     },
   ];
-  const whyPackages: InfoCard[] = [
-    {
-      icon: Rocket,
-      title: t("whyPackages.cards.starter.title"),
-      body: t("whyPackages.cards.starter.body"),
-    },
-    {
-      icon: SearchCheck,
-      title: t("whyPackages.cards.growth.title"),
-      body: t("whyPackages.cards.growth.body"),
-    },
-    {
-      icon: Database,
-      title: t("whyPackages.cards.ecommerce.title"),
-      body: t("whyPackages.cards.ecommerce.body"),
-    },
-  ];
-  const whyEstimate: InfoCard[] = [
-    {
-      icon: SearchCheck,
-      title: t("underHood.cards.seo.title"),
-      body: t("underHood.cards.seo.body"),
-    },
-    {
-      icon: Database,
-      title: t("underHood.cards.cms.title"),
-      body: t("underHood.cards.cms.body"),
-    },
-    {
-      icon: Rocket,
-      title: t("underHood.cards.conversion.title"),
-      body: t("underHood.cards.conversion.body"),
-    },
-  ];
   const faqItems: FAQItem[] = (t.raw("faq.items") as { q: string; a: string }[]).map(
     (it) => ({ q: it.q, a: [it.a] }),
   );
@@ -156,14 +108,6 @@ export function WebsiteCalculator({ config }: WebsiteCalculatorProps) {
       </InfoSection>
 
       <InfoSection
-        eyebrow={t("whyPackages.eyebrow")}
-        title={t.rich("whyPackages.title", { em: emChunk })}
-        sub={t("whyPackages.sub")}
-      >
-        <InfoCardGrid cards={whyPackages} />
-      </InfoSection>
-
-      <InfoSection
         eyebrow={t("customizer.eyebrow")}
         title={t.rich("customizer.title", { em: emChunk })}
         sub={t("customizer.sub")}
@@ -171,32 +115,8 @@ export function WebsiteCalculator({ config }: WebsiteCalculatorProps) {
       >
         <div className="grid grid-cols-[1fr] gap-6 items-start xl:grid-cols-[minmax(0,1fr)_360px]">
           <CalculatorControls config={config} value={input} onChange={setInput} />
-          <EstimateSummary
-            config={config}
-            input={input}
-            estimate={estimate}
-            seoGrowthMonthly={seoGrowthMonthly}
-          />
+          <EstimateSummary config={config} input={input} estimate={estimate} />
         </div>
-      </InfoSection>
-
-      <InfoSection
-        eyebrow={t("afterLaunch.eyebrow")}
-        title={t.rich("afterLaunch.title", { em: emChunk })}
-        sub={t("afterLaunch.sub")}
-      >
-        <div className="grid grid-cols-1 gap-[18px] xl:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-          <MaintenanceTiles config={config} input={input} onChange={setInput} />
-          <SeoGrowthTiles config={config} input={input} onChange={setInput} />
-        </div>
-      </InfoSection>
-
-      <InfoSection
-        eyebrow={t("underHood.eyebrow")}
-        title={t.rich("underHood.title", { em: emChunk })}
-        sub={t("underHood.sub")}
-      >
-        <InfoCardGrid cards={whyEstimate} />
       </InfoSection>
 
       <SocialProof />

@@ -1,14 +1,12 @@
 "use client";
 
 import { useTranslations, useLocale } from "next-intl";
-import { CalendarClock, Sparkles } from "lucide-react";
 import type {
   CalculatorEstimate,
   CalculatorInput,
 } from "@/types/pricing";
 import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur as formatEurRaw } from "@/lib/shared/format-eur";
-// import { SITE_CONTACT } from "@/constants/site"; // CALENDLY DISABLED — see docs/calendly-disabled.md
 import { PriceBreakdown } from "./PriceBreakdown";
 import { H3 } from "@/components/ui";
 
@@ -21,13 +19,6 @@ const CALC_BTN_PRIMARY =
   "active:[filter:brightness(0.93)] " +
   "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
 
-// CALENDLY DISABLED — see docs/calendly-disabled.md
-// const CALC_BTN_GHOST =
-//   "inline-flex items-center justify-center w-full min-h-11 border border-line rounded-full bg-transparent text-ink-dim " +
-//   "px-[18px] py-[11px] font-sans text-[12px] uppercase tracking-[0.1em] font-semibold no-underline cursor-pointer mt-[10px] " +
-//   "transition-[border-color,color] duration-200 hover:border-line-strong hover:text-ink " +
-//   "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
-
 const SUMMARY_H4 =
   "m-0 mb-2 font-sans text-[13px] font-semibold text-ink tracking-[-0.005em]";
 
@@ -35,14 +26,12 @@ type EstimateSummaryProps = {
   config: CalculatorConfig;
   input: CalculatorInput;
   estimate: CalculatorEstimate;
-  seoGrowthMonthly: number;
 };
 
 export function EstimateSummary({
   config,
   input,
   estimate,
-  seoGrowthMonthly,
 }: EstimateSummaryProps) {
   const t = useTranslations("Calculator");
   const locale = useLocale() as "uk" | "en";
@@ -54,7 +43,6 @@ export function EstimateSummary({
   const contentMeta = config.contentOptions.find((c) => c.key === input.contentOption);
   const designMeta = config.design.find((d) => d.key === input.designComplexity);
   const productMeta = config.productComplexity.find((p) => p.key === input.productComplexity);
-  const maintenanceMeta = config.maintenance.find((m) => m.key === input.maintenancePlan);
 
   const selectedFeatureOptions = config.features.filter(
     (feature) => !feature.included && input.featureIds.includes(feature.key),
@@ -95,9 +83,6 @@ export function EstimateSummary({
   ]
     .filter(Boolean)
     .slice(0, 8);
-
-  const whatYouGet = t.raw("summary.whatYouGetItems") as string[];
-  const whyChanges = t.raw("summary.whyChangesItems") as string[];
 
   const SECTION = "flex flex-col [&+&]:mt-[14px]";
   const DIVIDER = "h-px bg-line my-4";
@@ -160,20 +145,8 @@ export function EstimateSummary({
           {t("summary.rangeLabel")}
         </p>
         <h4 className="m-0 font-sans text-[28px] tracking-[-0.02em] font-bold bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] bg-clip-text text-transparent">
-          {formatEur(estimate.lowEstimate)} – {formatEur(estimate.highEstimate)}
+          {formatEur(estimate.oneTimeEstimate)}
         </h4>
-        <small className="block mt-[6px] text-ink-3 text-[11px]">{t("summary.rangeNote")}</small>
-      </div>
-
-      <div className={DIVIDER} />
-
-      <div className={SECTION}>
-        <h4 className={SUMMARY_H4}>{t("summary.whatYouGet")}</h4>
-        <ul className={BULLETS}>
-          {whatYouGet.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
       </div>
 
       <div className={DIVIDER} />
@@ -193,90 +166,13 @@ export function EstimateSummary({
 
       <div className={DIVIDER} />
 
-      <details
-        className={
-          "text-[13px] " +
-          "[&>summary]:cursor-pointer [&>summary]:list-none [&>summary]:min-h-11 [&>summary]:text-[13px] " +
-          "[&>summary]:text-ink [&>summary]:font-medium [&>summary]:flex [&>summary]:items-center [&>summary]:justify-between " +
-          "[&>summary::-webkit-details-marker]:hidden " +
-          "[&>summary]:after:content-['+'] [&>summary]:after:text-accent-soft [&>summary]:after:text-[13px] " +
-          "[&[open]>summary]:after:content-['−']"
-        }
-      >
-        <summary>{t("summary.whyChanges")}</summary>
-        <ul className={`${BULLETS} mt-[10px]`}>
-          {whyChanges.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </details>
-
-      <div className={DIVIDER} />
-
-      <div className={`${SECTION} gap-[6px]`}>
-        <div className="flex items-baseline justify-between gap-[10px]">
-          <span className="text-[12.5px] text-ink-3">{t("summary.maintenanceMonth")}</span>
-          <strong className="font-sans text-[16px] font-bold text-ink">
-            {formatEur(estimate.monthlyMaintenance)}
-          </strong>
-        </div>
-        <small className="text-[11px] text-ink-3">{maintenanceMeta?.label}</small>
-        {seoGrowthMonthly > 0 ? (
-          <div className="flex items-baseline justify-between gap-[10px] mt-2 pt-2 border-t border-dashed border-line">
-            <span className="text-[12.5px] text-ink-3">{t.rich("summary.seoGrowthMonth")}</span>
-            <strong className="font-sans text-[16px] font-bold text-ink">
-              {formatEur(seoGrowthMonthly)}
-            </strong>
-          </div>
-        ) : null}
-      </div>
-
-      <div className={DIVIDER} />
-
       <div className={SECTION}>
         <PriceBreakdown
           {...estimate.breakdown}
           pageLabel={pageLabel}
           selectedAddonLabels={selectedAddonsForBreakdown}
-          lowEstimate={estimate.lowEstimate}
-          highEstimate={estimate.highEstimate}
+          oneTimeEstimate={estimate.oneTimeEstimate}
         />
-      </div>
-
-      <div className={DIVIDER} />
-
-      <div
-        className={
-          `${SECTION} gap-2 relative p-[14px] rounded-[14px] ` +
-          "bg-accent-8 border border-accent-22"
-        }
-      >
-        <span className="inline-flex items-center justify-center w-[26px] h-[26px] rounded-lg bg-accent-18 text-accent-soft">
-          <Sparkles size={14} strokeWidth={1.7} />
-        </span>
-        <h4 className={SUMMARY_H4}>{t("summary.roiTitle")}</h4>
-        <p className="m-0 text-ink-dim text-[12.5px] leading-[1.55] [&>strong]:text-accent-soft [&>strong]:font-bold">
-          {t.rich("summary.roiBody", {
-            strong: (chunks) => <strong>{chunks}</strong>,
-          })}
-        </p>
-      </div>
-
-      <div className={DIVIDER} />
-
-      <div
-        className={
-          `${SECTION} flex-row items-center gap-2 px-3 py-[10px] rounded-[12px] ` +
-          "border border-dashed border-line-strong bg-[oklch(0.18_0.008_300)] text-ink-dim text-[12px] leading-[1.4] " +
-          "[&_svg]:text-accent-soft [&_svg]:shrink-0 [&_strong]:text-ink [&_strong]:font-semibold"
-        }
-      >
-        <CalendarClock size={13} strokeWidth={1.7} />
-        <span>
-          {t.rich("summary.scarcity", {
-            strong: (chunks) => <strong>{chunks}</strong>,
-          })}
-        </span>
       </div>
 
       <p className="text-[12px] text-ink-3 leading-[1.45] my-[14px] mb-[10px]">{t("summary.disclaimer")}</p>
@@ -284,17 +180,6 @@ export function EstimateSummary({
         {t("summary.primaryCta")}
       </a>
       <small className="block text-center mt-[6px] text-ink-3 text-[11px]">{t("summary.ctaMeta")}</small>
-
-      {/* CALENDLY DISABLED — see docs/calendly-disabled.md
-      <a
-        href={SITE_CONTACT.calendly}
-        className={CALC_BTN_GHOST}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {t("summary.ghostCta")}
-      </a>
-      */}
     </aside>
   );
 }
