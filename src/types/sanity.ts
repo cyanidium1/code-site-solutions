@@ -738,9 +738,7 @@ export type CalculatorPercentOptionItem = {
   percent?: number;
 };
 
-export type CalculatorDesignOptionItem = CalculatorPercentOptionItem & {
-  previews?: { _key: string; src: string; caption?: LocalizedString }[];
-};
+export type CalculatorDesignOptionItem = CalculatorPercentOptionItem;
 
 /** Timeline is now a flat additive USD fee (`price`), not a percent multiplier. */
 export type CalculatorTimelineOptionItem = {

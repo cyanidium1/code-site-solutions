@@ -98,10 +98,6 @@ function shapeConfig(
       label: loc(o.label, locale),
       hint: loc(o.hint, locale),
       percent: o.percent ?? 0,
-      previews: (o.previews ?? []).map((p) => ({
-        src: p.src,
-        caption: loc(p.caption, locale),
-      })),
     }),
   );
 

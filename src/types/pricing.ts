@@ -18,7 +18,6 @@ export type ContentOption =
   | "fullCopywriting"
   | "seoCopywriting";
 export type ProductComplexity = "simple" | "medium" | "advanced";
-export type DesignPreviewItem = { src: string; caption: string };
 
 export type CheckboxOption = {
   id: string;

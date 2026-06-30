@@ -11,7 +11,6 @@ import {
   CMS_UPGRADES,
   CONTENT_OPTIONS,
   DESIGN_COMPLEXITY_OPTIONS,
-  DESIGN_PREVIEW_CONFIG,
   FEATURE_OPTIONS,
   LANGUAGE_OPTIONS,
   PRODUCT_COMPLEXITY_OPTIONS,
@@ -94,7 +93,6 @@ export function buildConfigFromConstants(
       label: t(`options.design.${key}.label`, v.label),
       hint: t(`options.design.${key}.hint`, v.hint),
       percent: v.percent,
-      previews: DESIGN_PREVIEW_CONFIG[key],
     })),
     languages: (
       Object.entries(LANGUAGE_OPTIONS) as [

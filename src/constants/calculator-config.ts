@@ -3,7 +3,6 @@ import type {
   CheckboxOption,
   ContentOption,
   DesignComplexity,
-  DesignPreviewItem,
   LanguageOption,
   ProductComplexity,
   ProjectType,
@@ -75,24 +74,6 @@ export const DESIGN_COMPLEXITY_OPTIONS: Record<
     percent: 0.4,
     hint: "Complex layouts, animations, and premium UI interactions.",
   },
-};
-
-export const DESIGN_PREVIEW_CONFIG: Record<DesignComplexity, DesignPreviewItem[]> = {
-  simple: [
-    { src: "/calculator/design/preview-1.svg", caption: "Clean hero and clear CTA-focused layout." },
-    { src: "/calculator/design/preview-2.svg", caption: "Lightweight sections focused on speed and readability." },
-    { src: "/calculator/design/preview-3.svg", caption: "Simple blocks designed for fast launch and trust." },
-  ],
-  custom: [
-    { src: "/calculator/design/preview-1.svg", caption: "Stronger branded style with custom section rhythm." },
-    { src: "/calculator/design/preview-2.svg", caption: "Distinctive visual identity across core pages." },
-    { src: "/calculator/design/preview-3.svg", caption: "Branded UI details tuned for conversion." },
-  ],
-  advanced: [
-    { src: "/calculator/design/preview-1.svg", caption: "Premium editorial layout with advanced storytelling." },
-    { src: "/calculator/design/preview-2.svg", caption: "High-end interactions and custom content modules." },
-    { src: "/calculator/design/preview-3.svg", caption: "Complex experience built for competitive markets." },
-  ],
 };
 
 export const LANGUAGE_OPTIONS: Record<LanguageOption, { label: string; percent: number }> = {

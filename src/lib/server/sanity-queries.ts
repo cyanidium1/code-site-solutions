@@ -536,8 +536,7 @@ export const CALCULATOR_CONFIG_QUERY = /* groq */ `*[_id == "calculatorConfig"][
     _key, optionKey,
     label { uk, ru, en },
     hint { uk, ru, en },
-    percent,
-    "previews": previews[]{ _key, src, caption { uk, ru, en } }
+    percent
   },
   "languageOptions": languages[]{ _key, optionKey, label { uk, ru, en }, percent },
   "timelineOptions": timeline[]{ _key, optionKey, label { uk, ru, en }, hint { uk, ru, en }, price },

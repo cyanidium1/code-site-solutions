@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { createPortal } from "react-dom";
+import { useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import {
   Code2,
@@ -84,25 +83,9 @@ type CalculatorControlsProps = {
 
 export function CalculatorControls({ config, value, onChange }: CalculatorControlsProps) {
   const projectConfig = config.projectTypes.find((p) => p.key === value.projectType);
-  const [previewDesign, setPreviewDesign] = useState<DesignComplexity | null>(null);
   const t = useTranslations("Calculator");
   const locale = useLocale() as "uk" | "en";
   const formatEur = (n: number) => formatEurRaw(n, locale);
-
-  // Lock body scroll + close on Escape while the design-examples modal is open.
-  useEffect(() => {
-    if (!previewDesign) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setPreviewDesign(null);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [previewDesign]);
 
   const leadCaptureFeatures = useMemo(
     () => config.features.filter((f) => f.group === "leadCapture"),
@@ -270,18 +253,25 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
               <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.productStructLabel")}</label>
               <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
                 {config.productComplexity.map((option) => (
-                  <button
+                  <div
                     key={option.key}
-                    type="button"
+                    role="button"
+                    tabIndex={0}
                     className={`${SEG_BTN_CLASS} ${value.productComplexity === option.key ? SEG_BTN_ACTIVE_CLASS : ""}`}
                     onClick={() => onChange({ ...value, productComplexity: option.key as ProductComplexity })}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onChange({ ...value, productComplexity: option.key as ProductComplexity });
+                      }
+                    }}
                   >
                     <span className="inline-flex items-center gap-[5px]">
                       {option.label}
                       <InfoHint text={option.hint} />
                     </span>
                     <small>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.includedLower")}</small>
-                  </button>
+                  </div>
                 ))}
               </div>
             </>
@@ -323,16 +313,6 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                     </span>
                     <small className="text-accent-soft text-[11px]">{formatPercent(option.percent)}</small>
                   </span>
-                  <button
-                    type="button"
-                    className="inline-flex items-center min-h-11 border-none bg-transparent text-ink-3 p-0 text-[11px] text-left underline underline-offset-2 cursor-pointer w-fit hover:text-ink"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setPreviewDesign(option.key as DesignComplexity);
-                    }}
-                  >
-                    {t("controls.viewExamples")}
-                  </button>
                 </div>
               );
             })}
@@ -448,73 +428,30 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           <label className="flex flex-col gap-[6px] text-[13px] text-ink">{t("controls.timelineLabel")}</label>
           <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2">
             {config.timeline.map((option) => (
-              <button
+              <div
                 key={option.key}
-                type="button"
+                role="button"
+                tabIndex={0}
                 className={`${SEG_BTN_CLASS} ${value.timeline === option.key ? SEG_BTN_ACTIVE_CLASS : ""}`}
                 onClick={() => onChange({ ...value, timeline: option.key as TimelineOption })}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onChange({ ...value, timeline: option.key as TimelineOption });
+                  }
+                }}
               >
                 <span className="inline-flex items-center gap-[5px]">
                   {option.label}
                   <InfoHint text={option.hint} />
                 </span>
                 <small>{option.price > 0 ? `+${formatEur(option.price)}` : t("controls.includedLower")}</small>
-              </button>
+              </div>
             ))}
           </div>
           <p className={NOTE_CLASS}>{t("controls.timelineHint")}</p>
         </div>
       </details>
-
-      {previewDesign && typeof document !== "undefined"
-        ? createPortal(
-        <div
-          className="fixed inset-0 z-[200] bg-[oklch(0_0_0_/_0.58)] backdrop-blur-[3px] flex items-center justify-center p-[18px]"
-          role="dialog"
-          aria-modal="true"
-          aria-label={t("controls.designExamplesTitle")}
-          onClick={() => setPreviewDesign(null)}
-        >
-          <div
-            className="w-[min(980px,100%)] max-h-[calc(100dvh-36px)] overflow-y-auto border border-line rounded-2xl bg-[oklch(0.15_0.005_300)] p-[14px]"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="flex items-center justify-between gap-3 mb-[10px]">
-              <h4 className="m-0 text-[14px]">
-                {config.design.find((d) => d.key === previewDesign)?.label}
-              </h4>
-              <button
-                type="button"
-                className="inline-flex items-center min-h-11 border border-line rounded-full bg-transparent text-ink-dim px-3 py-[7px] cursor-pointer"
-                onClick={() => setPreviewDesign(null)}
-                aria-label={t("controls.modalClose")}
-              >
-                {t("controls.modalClose")}
-              </button>
-            </div>
-            <div className="grid grid-cols-1 gap-[10px] md-wide:grid-cols-3">
-              {(config.design.find((d) => d.key === previewDesign)?.previews ?? []).map((item) => (
-                <figure
-                  key={item.src + item.caption}
-                  className="m-0 border border-line rounded-[12px] overflow-hidden bg-[oklch(0.18_0.008_300)]"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element -- exception per docs/images.md: SVG preview, default loader doesn't optimize SVG */}
-                  <img
-                    src={item.src}
-                    alt={item.caption}
-                    loading="lazy"
-                    decoding="async"
-                    className="block w-full h-auto"
-                  />
-                  <figcaption className="px-[10px] py-2 text-[12px] text-ink-3">{item.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </div>,
-            document.body,
-          )
-        : null}
     </div>
   );
 }

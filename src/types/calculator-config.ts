@@ -75,7 +75,6 @@ export type ConfigDesign = {
   label: string;
   hint: string;
   percent: number;
-  previews: { src: string; caption: string }[];
 };
 
 export type CalculatorConfig = {
