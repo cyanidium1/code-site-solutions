@@ -14,11 +14,8 @@ import {
   DESIGN_PREVIEW_CONFIG,
   FEATURE_OPTIONS,
   LANGUAGE_OPTIONS,
-  MAINTENANCE_OPTIONS,
-  PACKAGE_PRESETS,
   PRODUCT_COMPLEXITY_OPTIONS,
   PROJECT_TYPE_CONFIG,
-  SEO_GROWTH_OPTIONS,
   SEO_OPTIONS,
   TIMELINE_OPTIONS,
 } from "@/constants/calculator-config";
@@ -30,10 +27,8 @@ import type {
   ContentOption,
   DesignComplexity,
   LanguageOption,
-  MaintenancePlan,
   ProductComplexity,
   ProjectType,
-  SeoGrowthPlan,
   TimelineOption,
 } from "@/types/pricing";
 
@@ -152,97 +147,11 @@ export function buildConfigFromConstants(
       key,
       label: t(`options.timeline.${key}.label`, v.label),
       hint: t(`options.timeline.${key}.hint`, v.hint),
-      percent: v.percent,
-    })),
-    maintenance: (
-      Object.entries(MAINTENANCE_OPTIONS) as [
-        MaintenancePlan,
-        (typeof MAINTENANCE_OPTIONS)[MaintenancePlan],
-      ][]
-    ).map(([key, v]) => ({
-      key,
-      label: t(`options.maintenance.${key}`, v.label),
-      monthlyPrice: v.monthlyPrice,
-    })),
-    seoGrowth: (
-      Object.entries(SEO_GROWTH_OPTIONS) as [
-        SeoGrowthPlan,
-        (typeof SEO_GROWTH_OPTIONS)[SeoGrowthPlan],
-      ][]
-    ).map(([key, v]) => ({
-      key,
-      label: t(`options.seoGrowth.${key}.label`, v.label),
-      bestFor: t(`options.seoGrowth.${key}.bestFor`, v.bestFor),
-      includes: v.includes,
-      badge: v.badge,
-      monthlyPrice: v.monthlyPrice,
-      priceLabel: v.priceLabel,
-    })),
-    presets: PACKAGE_PRESETS.map((p) => ({
-      key: p.id,
-      title: t(`options.presets.${p.id}.title`, p.title),
-      badge: t(`options.presets.${p.id}.badge`, p.badge),
-      bestFor: t(`options.presets.${p.id}.bestFor`, p.bestFor),
-      includes: p.includes,
-      estimatedRange: t(
-        `options.presets.${p.id}.estimatedRange`,
-        p.estimatedRange,
-      ),
-      compareAnchor: t(`controls.compareAnchors.${p.id}`, ""),
-      appliedInput:
-        p.id === "starterLanding"
-          ? {
-              projectType: "landing",
-              pages: 7,
-              productComplexity: "simple",
-              designComplexity: "simple",
-              languages: "one",
-              cmsUpgradeIds: [],
-              seoOptionIds: [],
-              featureIds: [],
-              contentOption: "clientProvided",
-              timeline: "standard",
-              maintenancePlan: "none",
-              seoGrowthPlan: "none",
-            }
-          : p.id === "growthWebsite"
-            ? {
-                projectType: "multiPage",
-                pages: 6,
-                productComplexity: "simple",
-                designComplexity: "custom",
-                languages: "two",
-                cmsUpgradeIds: [],
-                seoOptionIds: [],
-                featureIds: ["leadForm", "analytics"],
-                contentOption: "clientProvided",
-                timeline: "standard",
-                maintenancePlan: "none",
-                seoGrowthPlan: "none",
-              }
-            : {
-                projectType: "ecommerce",
-                pages: 5,
-                productComplexity: "medium",
-                designComplexity: "custom",
-                languages: "one",
-                cmsUpgradeIds: [],
-                seoOptionIds: [],
-                featureIds: ["search", "payments", "analytics"],
-                contentOption: "clientProvided",
-                timeline: "standard",
-                maintenancePlan: "none",
-                seoGrowthPlan: "none",
-              },
+      price: v.price,
     })),
     settings: {
       defaultProjectType: "multiPage",
       roundStep: 50,
-      highEstimateFactor: 1.25,
-      seoGrowthRecommendedBadge: t(
-        "options.seoGrowth.badgeRecommended",
-        "Recommended",
-      ),
     },
   };
 }

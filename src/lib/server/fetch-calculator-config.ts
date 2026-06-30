@@ -9,13 +9,11 @@ import type {
   ConfigCheckboxOption,
   ConfigDesign,
   ConfigFeatureOption,
-  ConfigMaintenance,
   ConfigPercentOption,
-  ConfigPreset,
   ConfigPriceOption,
   ConfigProductComplexity,
   ConfigProjectType,
-  ConfigSeoGrowth,
+  ConfigTimelineOption,
   FeatureGroup,
 } from "@/types/calculator-config";
 import type {
@@ -23,22 +21,18 @@ import type {
   CalculatorConfigQueryResult,
   CalculatorDesignOptionItem,
   CalculatorFeatureOptionItem,
-  CalculatorMaintenanceOptionItem,
   CalculatorPercentOptionItem,
-  CalculatorPresetItem,
   CalculatorPriceOptionItem,
   CalculatorProjectTypeItem,
-  CalculatorSeoGrowthOptionItem,
+  CalculatorTimelineOptionItem,
   Locale,
 } from "@/types/sanity";
 import type {
   ContentOption,
   DesignComplexity,
   LanguageOption,
-  MaintenancePlan,
   ProductComplexity,
   ProjectType,
-  SeoGrowthPlan,
   TimelineOption,
 } from "@/types/pricing";
 
@@ -60,7 +54,6 @@ export async function fetchCalculatorConfig(locale: Locale): Promise<CalculatorC
     if (
       !result ||
       !result.projectTypes?.length ||
-      !result.presets?.length ||
       !result.featureOptions?.length
     ) {
       return fallback;
@@ -159,55 +152,14 @@ function shapeConfig(
     price: o.price ?? 0,
   }));
 
-  const timeline: ConfigPercentOption<TimelineOption>[] = (
+  const timeline: ConfigTimelineOption[] = (
     result.timelineOptions ?? []
-  ).map((o: CalculatorPercentOptionItem) => ({
+  ).map((o: CalculatorTimelineOptionItem) => ({
     key: o.optionKey as TimelineOption,
     label: loc(o.label, locale),
     hint: o.hint ? loc(o.hint, locale) : undefined,
-    percent: o.percent ?? 0,
+    price: o.price ?? 0,
   }));
-
-  const maintenance: ConfigMaintenance[] = (result.maintenanceOptions ?? []).map(
-    (o: CalculatorMaintenanceOptionItem) => ({
-      key: o.optionKey as MaintenancePlan,
-      label: loc(o.label, locale),
-      monthlyPrice: o.monthlyPrice ?? 0,
-    }),
-  );
-
-  const seoGrowth: ConfigSeoGrowth[] = (result.seoGrowthOptions ?? []).map(
-    (o: CalculatorSeoGrowthOptionItem) => ({
-      key: o.optionKey as SeoGrowthPlan,
-      label: loc(o.label, locale),
-      bestFor: loc(o.bestFor, locale),
-      includes: (o.includes ?? []).map((s) => loc(s, locale)).filter(Boolean),
-      badge: loc(o.badge, locale) || undefined,
-      monthlyPrice: o.monthlyPrice ?? 0,
-      priceLabel: loc(o.priceLabel, locale) || undefined,
-    }),
-  );
-
-  const presets: ConfigPreset[] = (result.presets ?? []).map(
-    (p: CalculatorPresetItem) => ({
-      key: p.presetKey,
-      title: loc(p.title, locale),
-      badge: loc(p.badge, locale),
-      bestFor: loc(p.bestFor, locale),
-      includes: (p.includes ?? []).map((s) => loc(s, locale)).filter(Boolean),
-      estimatedRange: loc(p.estimatedRange, locale),
-      compareAnchor: loc(p.compareAnchor, locale),
-      appliedInput: p.appliedInput
-        ? {
-            ...p.appliedInput,
-            cmsUpgradeIds: p.appliedInput.cmsUpgradeIds ?? [],
-            seoOptionIds: p.appliedInput.seoOptionIds ?? [],
-            featureIds: p.appliedInput.featureIds ?? [],
-          }
-        : fallback.presets.find((f) => f.key === p.presetKey)?.appliedInput ??
-          fallback.presets[0].appliedInput,
-    }),
-  );
 
   return {
     projectTypes,
@@ -219,14 +171,9 @@ function shapeConfig(
     features,
     contentOptions,
     timeline,
-    maintenance,
-    seoGrowth,
-    presets,
     settings: {
       defaultProjectType: (result.settings?.defaultProjectType ?? "multiPage") as ProjectType,
       roundStep: result.settings?.roundStep ?? 50,
-      highEstimateFactor: result.settings?.highEstimateFactor ?? 1.25,
-      seoGrowthRecommendedBadge: seoGrowth.find((p) => p.badge)?.badge ?? "Recommended",
     },
   };
 }

@@ -5,11 +5,8 @@ import type {
   DesignComplexity,
   DesignPreviewItem,
   LanguageOption,
-  MaintenancePlan,
-  PackagePreset,
   ProductComplexity,
   ProjectType,
-  SeoGrowthPlan,
   TimelineOption,
 } from "@/types/pricing";
 
@@ -180,107 +177,12 @@ export const CONTENT_OPTIONS: Record<ContentOption, { label: string; price: numb
   seoCopywriting: { label: "SEO copywriting package", price: 2000 },
 };
 
-export const PACKAGE_PRESETS: PackagePreset[] = [
-  {
-    id: "starterLanding",
-    title: "Starter Landing",
-    badge: "Fast launch",
-    bestFor: "Campaigns, MVPs, one-service offers.",
-    includes: ["Landing page", "6-8 sections", "One language", "Simple / clean design", "Contact form", "Basic technical SEO"],
-    estimatedRange: "$1,500 - $2,500",
-  },
-  {
-    id: "growthWebsite",
-    title: "Growth Website",
-    badge: "Recommended",
-    bestFor: "Service businesses that need trust, SEO, and lead generation.",
-    includes: [
-      "Multi-page website",
-      "5-8 pages",
-      "Two languages",
-      "Custom branded design",
-      "CMS",
-      "Basic SEO",
-      "Lead form",
-      "Analytics/events setup",
-    ],
-    estimatedRange: "$4,500 - $7,000",
-  },
-  {
-    id: "ecommerceStarter",
-    title: "E-commerce Starter",
-    badge: "Scalable store",
-    bestFor: "Product businesses that need catalog, checkout, and growth structure.",
-    includes: [
-      "E-commerce",
-      "Small or growing store structure",
-      "Product pages",
-      "Basic filters/search",
-      "Payment integration",
-      "Analytics/events setup",
-      "CMS",
-    ],
-    estimatedRange: "$7,000 - $10,000",
-  },
-];
-
-export const TIMELINE_OPTIONS: Record<TimelineOption, { label: string; percent: number; hint: string }> = {
-  standard: { label: "Standard timeline", percent: 0, hint: "Regular delivery schedule." },
-  faster: { label: "Faster delivery", percent: 0.2, hint: "We allocate more parallel capacity to launch sooner." },
-  urgent: { label: "Urgent launch", percent: 0.35, hint: "Priority execution with increased team load and coordination." },
-};
-
-export const MAINTENANCE_OPTIONS: Record<MaintenancePlan, { label: string; monthlyPrice: number }> = {
-  none: { label: "No maintenance", monthlyPrice: 0 },
-  basic: { label: "Basic care", monthlyPrice: 150 },
-  growth: { label: "Growth support", monthlyPrice: 400 },
-  dedicated: { label: "Dedicated improvement plan", monthlyPrice: 800 },
-};
-
-export const SEO_GROWTH_OPTIONS: Record<
-  SeoGrowthPlan,
-  { label: string; monthlyPrice: number; priceLabel?: string; badge?: string; bestFor: string; includes: string[] }
-> = {
-  none: {
-    label: "No SEO / Growth",
-    monthlyPrice: 0,
-    bestFor: "No ongoing SEO or content support.",
-    includes: ["No monthly SEO work"],
-  },
-  basicSeo: {
-    label: "Basic SEO",
-    monthlyPrice: 300,
-    bestFor: "Small websites starting organic visibility.",
-    includes: ["1-2 blog posts/month", "Basic keyword targeting", "On-page SEO updates", "Monthly report"],
-  },
-  growthSeo: {
-    label: "Growth SEO",
-    monthlyPrice: 700,
-    badge: "Recommended",
-    bestFor: "Service businesses that want consistent traffic growth.",
-    includes: [
-      "4 blog posts/month",
-      "SEO landing pages",
-      "Keyword research",
-      "Internal linking",
-      "Analytics tracking",
-      "Monthly strategy updates",
-    ],
-  },
-  contentEngine: {
-    label: "Content Engine",
-    monthlyPrice: 1500,
-    priceLabel: "$1,200-$1,500 /mo",
-    bestFor: "Businesses that use SEO as a serious acquisition channel.",
-    includes: [
-      "8+ articles/month",
-      "Landing page expansion",
-      "Programmatic SEO planning",
-      "CRO ideas",
-      "Analytics review",
-      "Growth roadmap",
-    ],
-  },
+// Timeline is a flat additive USD surcharge (not a percent multiplier).
+// faster/urgent values are editable in the calculatorConfig singleton.
+export const TIMELINE_OPTIONS: Record<TimelineOption, { label: string; price: number; hint: string }> = {
+  standard: { label: "Standard timeline", price: 0, hint: "Regular delivery schedule." },
+  faster: { label: "Faster delivery", price: 600, hint: "We allocate more parallel capacity to launch sooner." },
+  urgent: { label: "Urgent launch", price: 1200, hint: "Priority execution with increased team load and coordination." },
 };
 
 export const DEFAULT_CALCULATOR_INPUT: CalculatorInput = {
@@ -294,6 +196,4 @@ export const DEFAULT_CALCULATOR_INPUT: CalculatorInput = {
   featureIds: [],
   contentOption: "clientProvided",
   timeline: "standard",
-  maintenancePlan: "none",
-  seoGrowthPlan: "none",
 };

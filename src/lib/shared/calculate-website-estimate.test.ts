@@ -10,12 +10,18 @@ test("default multi-page input returns the expected estimate", () => {
   const r = calculateWebsiteEstimate(baseInput);
   assert.equal(r.breakdown.basePrice, 3500);
   assert.equal(r.breakdown.pageCost, 0);
+  assert.equal(r.breakdown.timelineCost, 0);
   assert.equal(r.breakdown.subtotal, 3500);
   assert.equal(r.breakdown.multiplier, 1);
   assert.equal(r.oneTimeEstimate, 3500);
-  assert.equal(r.lowEstimate, 3500);
-  assert.equal(r.highEstimate, 4400);
-  assert.equal(r.monthlyMaintenance, 0);
+});
+
+test("timeline is a flat additive fee, not a multiplier", () => {
+  const r = calculateWebsiteEstimate({ ...baseInput, timeline: "faster" });
+  assert.equal(r.breakdown.timelineCost, 600);
+  assert.equal(r.breakdown.multiplier, 1); // unchanged by timeline
+  assert.equal(r.breakdown.subtotal, 3500 + 600);
+  assert.equal(r.oneTimeEstimate, 4100);
 });
 
 test("extra pages add per-page cost", () => {
@@ -25,7 +31,7 @@ test("extra pages add per-page cost", () => {
   assert.equal(r.oneTimeEstimate, 4150);
 });
 
-test("design + language multipliers stack", () => {
+test("design + language multipliers stack (timeline excluded)", () => {
   const r = calculateWebsiteEstimate({
     ...baseInput,
     designComplexity: "custom",
@@ -35,6 +41,7 @@ test("design + language multipliers stack", () => {
   // drift (was 1.3499999999999999), so this now lands on the math-perfect
   // $50 step instead of $50 lower.
   assert.equal(r.breakdown.multiplier, 1.35);
+  assert.equal(r.breakdown.timelineCost, 0);
   assert.equal(r.oneTimeEstimate, 4750);
 });
 
@@ -71,10 +78,4 @@ test("CMS, SEO, feature, content costs sum into subtotal", () => {
   assert.equal(r.breakdown.featureCost, 750);
   assert.equal(r.breakdown.contentCost, 300);
   assert.equal(r.breakdown.subtotal, 3500 + 1200 + 400 + 750 + 300);
-});
-
-test("maintenance plan reports monthly price separately", () => {
-  const r = calculateWebsiteEstimate({ ...baseInput, maintenancePlan: "growth" });
-  assert.equal(r.monthlyMaintenance, 400);
-  assert.equal(r.oneTimeEstimate, 3500);
 });

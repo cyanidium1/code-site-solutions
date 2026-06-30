@@ -46,9 +46,6 @@ export function calculateWebsiteEstimate(
   const contentOpt = config.contentOptions.find(
     (c) => c.key === input.contentOption,
   )!;
-  const maintenance = config.maintenance.find(
-    (m) => m.key === input.maintenancePlan,
-  )!;
 
   const roundStep = config.settings.roundStep || 50;
   const round = (n: number) => Math.round(n / roundStep) * roundStep;
@@ -63,6 +60,9 @@ export function calculateWebsiteEstimate(
   const seoCost = sumSelected(input.seoOptionIds, config.seoOptions);
   const featureCost = sumSelected(input.featureIds, config.features);
   const contentCost = contentOpt.price;
+  // Timeline is a flat additive surcharge (rush premium), NOT a workload
+  // multiplier — it adds to the subtotal and is excluded from the multiplier.
+  const timelineCost = timeline.price;
 
   const subtotal =
     project.basePrice +
@@ -71,22 +71,19 @@ export function calculateWebsiteEstimate(
     cmsCost +
     seoCost +
     featureCost +
-    contentCost;
+    contentCost +
+    timelineCost;
 
   const designPercent = design.percent;
   const languagePercent = language.percent;
-  const timelinePercent = timeline.percent;
   // Round to 4 decimal places to absorb IEEE-754 drift (e.g. 0.2 + 0.15
   // produces 0.35000000000000003). Prevents downstream round-to-50 from
-  // landing on the wrong $50 step.
+  // landing on the wrong $50 step. Multipliers apply only to workload that
+  // scales with scope: design + languages.
   const multiplier =
-    Math.round((1 + designPercent + languagePercent + timelinePercent) * 10000) /
-    10000;
+    Math.round((1 + designPercent + languagePercent) * 10000) / 10000;
 
   const oneTimeEstimate = round(subtotal * multiplier);
-  const lowEstimate = oneTimeEstimate;
-  const highEstimate = round(oneTimeEstimate * config.settings.highEstimateFactor);
-  const monthlyMaintenance = maintenance.monthlyPrice;
 
   return {
     breakdown: {
@@ -97,15 +94,12 @@ export function calculateWebsiteEstimate(
       seoCost,
       featureCost,
       contentCost,
+      timelineCost,
       subtotal,
       multiplier,
       designPercent,
       languagePercent,
-      timelinePercent,
     },
     oneTimeEstimate,
-    lowEstimate,
-    highEstimate,
-    monthlyMaintenance,
   };
 }
