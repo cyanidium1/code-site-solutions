@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslations, useLocale } from "next-intl";
 import {
   Code2,
@@ -47,7 +48,7 @@ const SEG_BTN_CLASS =
   "px-[14px] py-[11px] text-[13px] cursor-pointer min-h-[50px] " +
   "transition-[border-color,color,background] duration-200 " +
   "hover:border-line-strong hover:text-ink " +
-  "[&_small]:block [&_small]:text-ink-3 [&_small]:mt-1 [&_small]:text-[11px]";
+  "[&_small]:block [&_small]:text-accent-soft [&_small]:mt-1 [&_small]:text-[11px]";
 
 const SEG_BTN_ACTIVE_CLASS =
   "border-accent-55 bg-accent-18 !text-ink " +
@@ -87,6 +88,21 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
   const t = useTranslations("Calculator");
   const locale = useLocale() as "uk" | "en";
   const formatEur = (n: number) => formatEurRaw(n, locale);
+
+  // Lock body scroll + close on Escape while the design-examples modal is open.
+  useEffect(() => {
+    if (!previewDesign) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPreviewDesign(null);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [previewDesign]);
 
   const leadCaptureFeatures = useMemo(
     () => config.features.filter((f) => f.group === "leadCapture"),
@@ -280,17 +296,15 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
           <div className="grid grid-cols-1 gap-2 md-wide:grid-cols-2 xl:grid-cols-3">
             {config.design.map((option) => {
               const isActive = value.designComplexity === option.key;
-              const firstPreview = option.previews[0];
               return (
                 <div
                   key={option.key}
                   className={
-                    "group relative border rounded-[12px] bg-[oklch(0.18_0.008_300)] px-3 py-[11px] grid gap-[7px] cursor-pointer " +
-                    "transition-[border-color,background,box-shadow] duration-200 overflow-hidden " +
-                    "hover:border-line-strong hover:bg-[oklch(0.19_0.01_300)] " +
+                    "relative border rounded-[12px] px-3 py-[11px] grid gap-[7px] cursor-pointer " +
+                    "transition-[border-color,background,box-shadow] duration-200 " +
                     (isActive
-                      ? "border-accent-55 shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]"
-                      : "border-line")
+                      ? "border-accent-55 !bg-accent-12 shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]"
+                      : "border-line bg-[oklch(0.18_0.008_300)] hover:border-line-strong hover:bg-[oklch(0.19_0.01_300)]")
                   }
                   role="button"
                   tabIndex={0}
@@ -302,22 +316,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                     }
                   }}
                 >
-                  {firstPreview ? (
-                    <span
-                      className="absolute -right-2 -bottom-2 w-[82px] h-[56px] opacity-[0.16] [filter:blur(0.2px)_saturate(0.8)] transition-[opacity,transform] duration-200 group-hover:opacity-[0.28] group-hover:-translate-y-[2px]"
-                      aria-hidden="true"
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element -- exception per docs/images.md: SVG preview, default loader doesn't optimize SVG */}
-                      <img
-                        src={firstPreview.src}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                    </span>
-                  ) : null}
-                  <span className="relative z-10 flex justify-between gap-2 items-center">
+                  <span className="flex justify-between gap-2 items-center">
                     <span className="inline-flex items-center gap-[5px] text-ink text-[13px] font-semibold">
                       {option.label}
                       <InfoHint text={option.hint} />
@@ -326,7 +325,7 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
                   </span>
                   <button
                     type="button"
-                    className="inline-flex items-center min-h-11 border-none bg-transparent text-ink-3 p-0 text-[11px] text-left underline underline-offset-2 cursor-pointer w-fit relative z-10 hover:text-ink"
+                    className="inline-flex items-center min-h-11 border-none bg-transparent text-ink-3 p-0 text-[11px] text-left underline underline-offset-2 cursor-pointer w-fit hover:text-ink"
                     onClick={(event) => {
                       event.stopPropagation();
                       setPreviewDesign(option.key as DesignComplexity);
@@ -467,16 +466,17 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
         </div>
       </details>
 
-      {previewDesign ? (
+      {previewDesign && typeof document !== "undefined"
+        ? createPortal(
         <div
-          className="fixed inset-0 z-[120] bg-[oklch(0_0_0_/_0.58)] backdrop-blur-[3px] flex items-center justify-center p-[18px]"
+          className="fixed inset-0 z-[200] bg-[oklch(0_0_0_/_0.58)] backdrop-blur-[3px] flex items-center justify-center p-[18px]"
           role="dialog"
           aria-modal="true"
           aria-label={t("controls.designExamplesTitle")}
           onClick={() => setPreviewDesign(null)}
         >
           <div
-            className="w-[min(980px,100%)] border border-line rounded-2xl bg-[oklch(0.15_0.005_300)] p-[14px]"
+            className="w-[min(980px,100%)] max-h-[calc(100dvh-36px)] overflow-y-auto border border-line rounded-2xl bg-[oklch(0.15_0.005_300)] p-[14px]"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-3 mb-[10px]">
@@ -511,8 +511,10 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
               ))}
             </div>
           </div>
-        </div>
-      ) : null}
+        </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }
