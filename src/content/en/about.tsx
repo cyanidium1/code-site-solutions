@@ -151,7 +151,7 @@ export const ABOUT_EN: AboutContent = {
     ],
     warning: {
       title: "Why depending on an agency or a builder is a risk",
-      body: "When the code, hosting and domain stay with a contractor or get locked into a builder (Tilda, Wix, WordPress on someone else's plugins), you're effectively renting your own business. They raise prices, disappear, or shut down, and you can't move the site or hire a different developer. We build so you can leave us at any time. That's why clients stay.",
+      body: "When the code, hosting and domain stay with a contractor or get locked into a builder (Wix, Squarespace, WordPress on someone else's plugins), you're effectively renting your own business. They raise prices, disappear, or shut down, and you can't move the site or hire a different developer. We build so you can leave us at any time. That's why clients stay.",
     },
   },
 
