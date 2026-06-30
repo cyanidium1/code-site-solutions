@@ -1,0 +1,22 @@
+# Code-Site.Art
+
+> Code-Site.Art is a custom web design and development studio that builds fast, SEO-first websites for UK businesses — from landing pages to bespoke platforms. Built on Next.js and Sanity, fixed-price contracts, with a 1-year warranty.
+
+The site has a Ukrainian version at `/` and an English (en-GB) version at `/en`. Prices are in GBP.
+
+## Key pages
+- [Homepage](https://www.code-site.art/en): services, industries, and a pricing overview
+- [Pricing](https://www.code-site.art/en/pricing): plans and add-ons in GBP
+- [Pricing data (machine-readable)](https://www.code-site.art/pricing.md): plan names, starting prices, timelines
+- [Calculator](https://www.code-site.art/en/calculator): an instant project estimate
+- [Process](https://www.code-site.art/en/process): how a project runs from brief to launch
+- [Portfolio](https://www.code-site.art/en/portfolio): case studies
+- [About](https://www.code-site.art/en/about): the studio and team
+- [Contact](https://www.code-site.art/en/contacts)
+
+## Industries served
+Healthcare, construction & renovation, legal, finance & accountancy, e-commerce, motor trade, property, and courses & creators.
+
+## Contact
+- Email: hi@code-site.art
+- Book a 30-minute call: https://calendly.com/fedirdev

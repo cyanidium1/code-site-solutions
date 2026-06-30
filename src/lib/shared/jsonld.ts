@@ -7,7 +7,7 @@
  * a single node from Google's perspective, while per-page nodes (WebPage,
  * BreadcrumbList, Article, Service, FAQPage…) live on the pages that emit them.
  *
- * Locale rule: `inLanguage` uses BCP-47 (`uk-UA` / `en-US`). The legacy `ru`
+ * Locale rule: `inLanguage` uses BCP-47 (`uk-UA` / `en-GB`). The legacy `ru`
  * Locale value falls back to `uk-UA` since RU content isn't actively published.
  */
 
@@ -26,7 +26,7 @@ export type JsonLdNode = Record<string, unknown>;
 export type BreadcrumbItem = { name: string; path: string };
 
 function langTag(locale: Locale): string {
-  return locale === "en" ? "en-US" : "uk-UA";
+  return locale === "en" ? "en-GB" : "uk-UA";
 }
 
 function homeUrlFor(locale: Locale): string {

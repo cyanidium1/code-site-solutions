@@ -109,7 +109,7 @@ function formatEnDate(iso?: string): string | undefined {
   if (!iso) return undefined;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return undefined;
-  return d.toLocaleDateString("en-US", {
+  return d.toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -160,7 +160,7 @@ function buildBlogJsonLd(post: BlogPostDoc, enSlug: string) {
       mainEntityOfPage: url,
       headline: title,
       description: post.metaDescriptionEn ?? post.ledeEn,
-      inLanguage: "en-US",
+      inLanguage: "en-GB",
       datePublished: post.publishedAt,
       dateModified: post.updatedAt ?? post.publishedAt,
       image: imageUrl ? [imageUrl] : undefined,

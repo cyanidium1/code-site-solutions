@@ -40,7 +40,7 @@ const jsonLd = buildJsonLd([
     name: "Code-Site.Art Blog — UK web design & development",
     description: BLOG_DESCRIPTION,
     url: pageUrl("/en/blog"),
-    inLanguage: "en-US",
+    inLanguage: "en-GB",
     publisher: {
       "@type": "Organization",
       "@id": ORG_ID,
@@ -85,7 +85,7 @@ function formatEnDate(iso?: string): string | undefined {
   if (!iso) return undefined;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return undefined;
-  return d.toLocaleDateString("en-US", {
+  return d.toLocaleDateString("en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
