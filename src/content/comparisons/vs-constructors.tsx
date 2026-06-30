@@ -695,9 +695,9 @@ export const VS_CONSTRUCTORS_UK: Content = {
 
 export const VS_CONSTRUCTORS_EN: Content = {
   metaTitle:
-    "Migrate from Tilda, Webflow, Wix to custom code · 0 SEO drops | Code-Site.Art",
+    "Migrate from GoDaddy, Webflow, Wix to custom code · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate sites from Tilda, Webflow, Wix, Squarespace, Weblium to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £1,000. No subscriptions after launch.",
+    "We migrate sites from GoDaddy, Webflow, Wix, Squarespace, Shopify to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £1,000. No subscriptions after launch.",
   hero: {
     eyebrowLabel: "/ COMPARE · SITE BUILDERS",
     h1Lines: [
@@ -706,7 +706,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ],
     lede: (
       <>
-        Tilda, Webflow, Wix, Squarespace, Weblium — each made sense at the
+        GoDaddy, Webflow, Wix, Squarespace, Shopify — each made sense at the
         start. As your traffic grows, the builder starts pushing back: slow
         loads, vendor lock-in, monthly subscriptions, integration ceiling. We
         migrate you to custom code in 4 weeks. Everything carries
@@ -735,7 +735,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         num: "01",
         icon: Gauge,
         title: "Your site takes more than 2 seconds to load",
-        body: "Builders bolt their CSS and JS onto every page. On mobile 3G your Tilda/Wix loads in 4–6 seconds. Users bounce, Google drops you in rankings.",
+        body: "Builders bolt their CSS and JS onto every page. On mobile 3G your GoDaddy/Wix loads in 4–6 seconds. Users bounce, Google drops you in rankings.",
       },
       {
         num: "02",
@@ -777,7 +777,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         num: "01",
         icon: Layers,
         title: "Base subscription",
-        body: "Tilda Personal, Webflow CMS, Wix Premium, Squarespace Business, Weblium Pro — minimum for a real business site.",
+        body: "GoDaddy Personal, Webflow CMS, Wix Premium, Squarespace Business, Shopify Pro — minimum for a real business site.",
         metric: "£15–49/mo",
       },
       {
@@ -798,14 +798,14 @@ export const VS_CONSTRUCTORS_EN: Content = {
         num: "04",
         icon: ArrowUpRight,
         title: "Page / traffic limit",
-        body: "Outgrew it? Move to a pricier tier. Tilda Business — £25/mo, Webflow CMS Plus — £39/mo.",
+        body: "Outgrew it? Move to a pricier tier. GoDaddy Business — £25/mo, Webflow CMS Plus — £39/mo.",
         metric: "+£20–40/mo",
       },
       {
         num: "05",
         icon: Globe,
         title: "Custom domain on higher tiers",
-        body: "Wix and Weblium free tiers don't even support custom domains.",
+        body: "Wix and Shopify free tiers don't even support custom domains.",
         metric: "£10–15/yr + tier",
       },
       {
@@ -833,7 +833,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ),
     sub: "Honest, fact-based. Pulled from 47 projects and 3 years working with each of these.",
     criterionHeader: "Criterion",
-    builderHeaders: ["Tilda", "Webflow", "Wix", "Squarespace", "Weblium"],
+    builderHeaders: ["GoDaddy", "Webflow", "Wix", "Squarespace", "Shopify"],
     usHeader: "Code-Site",
     rows: [
       {
@@ -909,11 +909,11 @@ export const VS_CONSTRUCTORS_EN: Content = {
       {
         criterion: "Jurisdiction",
         values: [
-          "Russia (St. Petersburg)",
+          "USA (Arizona)",
           "USA",
           "Israel",
           "USA",
-          "Ukraine",
+          "Canada",
         ],
         us: "—",
       },
@@ -933,11 +933,11 @@ export const VS_CONSTRUCTORS_EN: Content = {
     whenLabel: "When to migrate",
     items: [
       {
-        name: "Tilda",
+        name: "GoDaddy",
         good: "Fast launch, large block library, intuitive editor. Ideal for landings and info sites up to 10 pages.",
         cap: "Slow on mobile, limited export, monthly subscription. Custom integrations only via workaround.",
-        note: "The company is registered in Russia. For some businesses, that's a separate reason to look elsewhere.",
-        when: "Your site is past 15 pages, you're paying £25+/mo, and you need a custom feature Tilda doesn't have.",
+        note: "Aggressive upsells, and you never own the code — leaving later means a rebuild.",
+        when: "Your site is past 15 pages, you're paying £25+/mo, and you need a custom feature GoDaddy doesn't have.",
       },
       {
         name: "Webflow",
@@ -958,7 +958,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         when: "You need real multi-language, complex e-commerce logic, or performance becomes a priority.",
       },
       {
-        name: "Weblium",
+        name: "Shopify",
         good: "Ukrainian-built product, AI-driven setup, real free tier. Simple for very small businesses.",
         cap: "Small ecosystem, limited integrations, basic SEO, no code export.",
         when: "Business grew from “online business card” to “site as a customer-acquisition tool.”",
@@ -980,23 +980,23 @@ export const VS_CONSTRUCTORS_EN: Content = {
     mobileAlt:
       "Sanity Studio admin interface on mobile phone — full editing capability",
     mobileCaption:
-      "Same admin on your phone — like Tilda/Webflow, just without the subscription",
+      "Same admin on your phone — like GoDaddy/Webflow, just without the subscription",
     capabilitiesHeading: "6 things you gain",
     capabilities: [
       {
         num: "01",
         title: "Drag-and-drop that can't break",
-        body: "Like Tilda Zero Block, but blocks are typed — you can't break the layout even by accident.",
+        body: "Like GoDaddy Zero Block, but blocks are typed — you can't break the layout even by accident.",
       },
       {
         num: "02",
         title: "Full mobile editing",
-        body: "Not “responsive admin for emergencies” — full editing on mobile. Wix mobile admin is limited, Tilda's too. Sanity is the same on phone as on desktop.",
+        body: "Not “responsive admin for emergencies” — full editing on mobile. Wix mobile admin is limited, GoDaddy's too. Sanity is the same on phone as on desktop.",
       },
       {
         num: "03",
         title: "Multi-language at no extra tier",
-        body: "Tilda charges for a separate tier. Webflow uses workarounds. Wix wants the higher plan. Sanity has it built in, free.",
+        body: "GoDaddy charges for a separate tier. Webflow uses workarounds. Wix wants the higher plan. Sanity has it built in, free.",
       },
       {
         num: "04",
@@ -1006,7 +1006,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       {
         num: "05",
         title: "Free for teams up to 5",
-        body: "Tilda Business for a team — from £25/mo. Webflow for a team — from £39/mo. Sanity for up to 5 editors — £0.",
+        body: "GoDaddy Business for a team — from £25/mo. Webflow for a team — from £39/mo. Sanity for up to 5 editors — £0.",
       },
       {
         num: "06",
@@ -1029,7 +1029,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         What we see <em>on a typical builder migration.</em>
       </>
     ),
-    sub: "12 of our 47 projects were from Tilda, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
+    sub: "12 of our 47 projects were from GoDaddy, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
     headers: {
       metric: "Metric",
       before: "Before (on builder)",
@@ -1110,7 +1110,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         includes: {
           heading: "Who it's for",
           items: [
-            "Tilda / Wix / Webflow one-pager",
+            "GoDaddy / Wix / Webflow one-pager",
             "Up to 5 pages",
             "301 redirects from old URLs",
             "Media transfer",
@@ -1192,8 +1192,8 @@ export const VS_CONSTRUCTORS_EN: Content = {
         a: "Yes. Sanity Studio works on mobile, the interface is simpler than Webflow and more reliable than Wix. Free for teams up to 5 editors.",
       },
       {
-        q: "I have Mailchimp connected to Tilda — will it still work?",
-        a: "Yes. We reconnect to Mailchimp directly via the API — usually faster than through Tilda's wrapper.",
+        q: "I have Mailchimp connected to GoDaddy — will it still work?",
+        a: "Yes. We reconnect to Mailchimp directly via the API — usually faster than through GoDaddy's wrapper.",
       },
       {
         q: "I'm using Wix Stores with checkout — how does that move?",
@@ -1201,7 +1201,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       },
       {
         q: "How do I export my data from the builder?",
-        a: "We do it for you. Tilda — via Zero Block + content parsing. Webflow — via CMS API. Wix/Squarespace — scraping and manual transfer.",
+        a: "We do it for you. GoDaddy — via Zero Block + content parsing. Webflow — via CMS API. Wix/Squarespace — scraping and manual transfer.",
       },
       {
         q: "What about the SEO settings I configured in Yoast / the builder's SEO plugin?",
