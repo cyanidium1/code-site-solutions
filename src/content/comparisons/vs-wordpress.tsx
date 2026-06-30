@@ -731,7 +731,7 @@ export const VS_WORDPRESS_EN: Content = {
         num: "02",
         icon: Server,
         title: "Hosting + CDN",
-        body: "WP-optimized hosting (Kinsta, WP Engine) starts at £30/mo. Cheap hosting = slow site. Either way, you pay.",
+        body: "WP-optimised hosting (Kinsta, WP Engine) starts at £30/mo. Cheap hosting = slow site. Either way, you pay.",
         metric: "£30–200/mo",
       },
       {
@@ -745,7 +745,7 @@ export const VS_WORDPRESS_EN: Content = {
         num: "04",
         icon: Gauge,
         title: "Speed",
-        body: "Typical WP site: LCP of 3–5 seconds. Google penalizes you in rankings, users bounce.",
+        body: "Typical WP site: LCP of 3–5 seconds. Google penalises you in rankings, users bounce.",
         metric: "−20% conversion",
       },
       {

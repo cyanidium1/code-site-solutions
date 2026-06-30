@@ -13,7 +13,7 @@ export const PROCESS_STEPS: TimelineStep[] = [
       heading: "What we do",
       items: [
         "Listen to the task and ask follow-up questions",
-        "Analyze 2-3 of your competitors",
+        "Analyse 2-3 of your competitors",
         "Recommend a tier and timeline",
         "Give you the exact price range",
       ],

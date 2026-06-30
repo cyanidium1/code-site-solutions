@@ -25,7 +25,7 @@ export const EN_INDUSTRIES: Industry[] = [
   {
     icon: Stethoscope,
     title: "Healthcare",
-    description: "Sites for clinics, dental practices, diagnostic centers",
+    description: "Sites for clinics, dental practices, diagnostic centres",
     tags: ["EHR", "HIPAA", "Online booking"],
     price: "From £3,500 · 4–10 weeks",
     href: "/en/sites-for/medicine",
@@ -58,7 +58,7 @@ export const EN_INDUSTRIES: Industry[] = [
   {
     icon: ShoppingCart,
     title: "E-commerce",
-    description: "Online stores, marketplaces, B2B catalogs",
+    description: "Online stores, marketplaces, B2B catalogues",
     tags: ["Stripe", "LiqPay", "Nova Poshta"],
     price: "From £3,000 · 6–10 weeks",
     href: "/en/sites-for/ecommerce",
