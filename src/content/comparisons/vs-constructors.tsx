@@ -953,7 +953,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       },
       {
         name: "Squarespace",
-        good: "Best out-of-the-box templates. Strong for creative businesses — photographers, designers, boutiques, restaurants in US/EU.",
+        good: "Best out-of-the-box templates. Strong for creative businesses — photographers, designers, boutiques, restaurants in the UK and EU.",
         cap: "£23–49/mo. Multi-language is limited. Custom integrations are hard. SEO is decent but capped.",
         when: "You need real multi-language, complex e-commerce logic, or performance becomes a priority.",
       },
@@ -1131,7 +1131,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
           items: [
             "Up to 30 pages",
             "CMS, blog, forms",
-            "Integrations (Mailchimp / Stripe / LiqPay) reconnected",
+            "Integrations (Mailchimp / Stripe / GoCardless) reconnected",
             "Schema.org + Open Graph upgrade",
             "Where most clients land",
           ],
@@ -1197,7 +1197,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       },
       {
         q: "I'm using Wix Stores with checkout — how does that move?",
-        a: "We connect Stripe (for EU/US) or LiqPay (for UA) directly. Faster checkout, lower fees, no extra subscription.",
+        a: "We connect Stripe or GoCardless directly. Faster checkout, lower fees, no extra subscription.",
       },
       {
         q: "How do I export my data from the builder?",

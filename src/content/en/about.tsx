@@ -357,7 +357,7 @@ export const ABOUT_EN: AboutContent = {
       q: "What's the project budget?",
       a: [
         "Projects are typically in the ",
-        { em: "€3,000–15,000" },
+        { em: "£3,000–15,000" },
         " range depending on scope. The exact sum is fixed in the contract before we start.",
       ],
     },
