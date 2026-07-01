@@ -47,6 +47,8 @@ type LeadFormProps = {
   config: CalculatorConfig;
   input: CalculatorInput;
   estimate: CalculatorEstimate;
+  /** Called once the lead is accepted (clears persisted calculator state). */
+  onSubmitted?: () => void;
 };
 
 type FormState = {
@@ -67,7 +69,7 @@ const INITIAL_FORM: FormState = {
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
-export function LeadForm({ config, input, estimate }: LeadFormProps) {
+export function LeadForm({ config, input, estimate, onSubmitted }: LeadFormProps) {
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [hp, setHp] = useState("");
   const [status, setStatus] = useState<SubmitStatus>("idle");
@@ -138,6 +140,7 @@ export function LeadForm({ config, input, estimate }: LeadFormProps) {
       });
       if (!res.ok) throw new Error("Lead endpoint returned non-OK");
       setStatus("success");
+      onSubmitted?.();
     } catch {
       setStatus("error");
     }

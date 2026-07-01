@@ -79,9 +79,11 @@ type CalculatorControlsProps = {
   config: CalculatorConfig;
   value: CalculatorInput;
   onChange: (next: CalculatorInput) => void;
+  /** Restores the basic setup and clears the persisted state. */
+  onReset: () => void;
 };
 
-export function CalculatorControls({ config, value, onChange }: CalculatorControlsProps) {
+export function CalculatorControls({ config, value, onChange, onReset }: CalculatorControlsProps) {
   const projectConfig = config.projectTypes.find((p) => p.key === value.projectType);
   const t = useTranslations("Calculator");
   const locale = useLocale() as "uk" | "en";
@@ -113,20 +115,6 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
 
   const toggle = (source: string[], id: string) =>
     source.includes(id) ? source.filter((v) => v !== id) : [...source, id];
-
-  const resetToBasicSetup = () =>
-    onChange({
-      ...value,
-      pages: projectConfig?.pages.min ?? value.pages,
-      productComplexity: "simple",
-      designComplexity: "simple",
-      languages: "one",
-      cmsUpgradeIds: [],
-      seoOptionIds: [],
-      featureIds: [],
-      contentOption: "clientProvided",
-      timeline: "standard",
-    });
 
   const renderFeatureGroup = (title: string, items: typeof config.features) => (
     <>
@@ -183,14 +171,14 @@ export function CalculatorControls({ config, value, onChange }: CalculatorContro
         });
 
   return (
-    <div className="flex flex-col gap-[14px]">
+    <div id="calc-controls" className="flex flex-col gap-[14px]">
       <div className="mt-2 mb-1">
         <div className="flex flex-wrap items-center justify-between gap-2 md-wide:flex-nowrap md-wide:gap-3">
           <H3 variant="calc-intro">{t("controls.customizeTitle")}</H3>
           <button
             type="button"
             className="inline-flex items-center min-h-11 border border-line bg-transparent text-ink-dim rounded-full px-3 py-[7px] text-[11px] tracking-[0.08em] uppercase cursor-pointer font-mono transition-[border-color,color,background] duration-200 hover:border-line-strong hover:text-ink"
-            onClick={resetToBasicSetup}
+            onClick={onReset}
           >
             {t("controls.resetBtn")}
           </button>
