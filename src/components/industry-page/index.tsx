@@ -566,7 +566,7 @@ function SectionBlock({
               "text-accent-soft no-underline font-semibold hover:underline";
             return locale === "en" ? (
               <>
-                Or message us on WhatsApp —{" "}
+                Or message us on WhatsApp:{" "}
                 <a
                   href={`https://wa.me/${SITE_CONTACT.whatsapp}`}
                   target="_blank"
@@ -578,7 +578,7 @@ function SectionBlock({
               </>
             ) : (
               <>
-                Або одразу пишіть у Telegram —{" "}
+                Або одразу пишіть у Telegram:{" "}
                 <a
                   href={SITE_CONTACT.telegram}
                   target="_blank"

@@ -161,7 +161,7 @@ export function Reasons({
                 )}
                 key={i}
               >
-                <span className="text-accent-soft">—</span>
+                <span className="text-accent-soft">·</span>
                 <span>{row}</span>
               </div>
             ))}
