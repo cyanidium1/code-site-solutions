@@ -99,6 +99,7 @@ export function EstimateSummary({
 
   return (
     <aside
+      id="calc-summary"
       className={
         "static self-start border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] " +
         "p-[18px] pb-6 max-h-none overflow-y-auto [scrollbar-width:thin] " +

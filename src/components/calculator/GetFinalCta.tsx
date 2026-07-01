@@ -24,9 +24,11 @@ type GetFinalCtaProps = {
   config: CalculatorConfig;
   input: CalculatorInput;
   estimate: CalculatorEstimate;
+  /** Called after a successful lead submit (clears persisted selections). */
+  onSubmitted?: () => void;
 };
 
-export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
+export function GetFinalCta({ config, input, estimate, onSubmitted }: GetFinalCtaProps) {
   const t = useTranslations("Calculator");
   const locale = useLocale();
   return (
@@ -43,7 +45,12 @@ export function GetFinalCta({ config, input, estimate }: GetFinalCtaProps) {
           <h2 className={hpH2Class}>{t.rich("getFinal.title", { em: emChunk })}</h2>
           <p className={hpSubClass}>{t("getFinal.sub")}</p>
         </div>
-        <LeadForm config={config} input={input} estimate={estimate} />
+        <LeadForm
+          config={config}
+          input={input}
+          estimate={estimate}
+          onSubmitted={onSubmitted}
+        />
         <div
           className={
             "mt-[22px] flex flex-wrap gap-y-[10px] gap-x-[14px] items-center justify-center " +
