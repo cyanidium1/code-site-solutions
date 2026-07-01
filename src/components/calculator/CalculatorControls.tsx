@@ -50,7 +50,7 @@ const SEG_BTN_CLASS =
   "[&_small]:block [&_small]:text-accent-soft [&_small]:mt-1 [&_small]:text-[11px]";
 
 const SEG_BTN_ACTIVE_CLASS =
-  "border-accent-55 bg-accent-18 !text-ink " +
+  "border-accent-55 !bg-accent-12 !text-ink " +
   "shadow-[inset_0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.25)]";
 
 const CHECKBOX_CLASS =
