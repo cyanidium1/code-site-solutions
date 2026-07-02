@@ -10,7 +10,7 @@ export function CookiePolicy({ copy }: { copy: CookiePolicyCopy }) {
   return (
     <>
       <HpHeader />
-      <PageHero eyebrow={copy.eyebrow} title={copy.title} sub={copy.sub} />
+      <PageHero eyebrow={copy.eyebrow} headline={copy.title} sub={copy.sub} />
       <section className="px-6 sm:px-8 lg:px-12 pb-16">
         <div className="mx-auto max-w-container-narrow">
           <p className="text-[14.5px] leading-[1.65] text-ink-dim">{copy.intro}</p>
