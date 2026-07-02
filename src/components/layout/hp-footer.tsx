@@ -6,6 +6,7 @@ import { Linkedin, Send, Instagram, Mail, Phone, type LucideIcon } from "lucide-
 import { useLocale, useTranslations } from "next-intl";
 
 import { hasEnIndustry, localizePath } from "@/constants/i18n-routes";
+import { CookieSettingsLink } from "@/lib/cookie-consent";
 import { SITE_CONTACT } from "@/constants/site";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
@@ -82,6 +83,7 @@ const COMPARE_HREFS: Array<{ key: string; href: string }> = [
 
 const LEGAL_HREFS: Array<{ key: string; href: string }> = [
   { key: "privacy", href: "/policy" },
+  { key: "cookies", href: "/cookies" },
   { key: "terms", href: "/offer" },
   { key: "publicContract", href: "/public-contract" },
   { key: "legalData", href: "/legal" },
@@ -221,6 +223,9 @@ export function HpFooter({
                 <Link href={href}>{tLeg(key)}</Link>
               </li>
             ))}
+            <li>
+              <CookieSettingsLink />
+            </li>
           </ul>
         </div>
       </div>
