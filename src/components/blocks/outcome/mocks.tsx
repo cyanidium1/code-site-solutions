@@ -19,14 +19,8 @@ export function CheckIcon() {
 export const VISUAL_SHELL =
   "relative rounded-[14px] border border-line-strong bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.14_0.006_300))] aspect-[16/11] overflow-hidden flex items-center justify-center shadow-[0_30px_60px_oklch(0_0_0_/_0.4)] md:aspect-[4/3] md:rounded-[18px] before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:20px_20px]";
 
-export const VISUAL_BAR =
-  "absolute top-0 left-0 right-0 h-[30px] flex items-center gap-1.5 px-3.5 bg-[oklch(0.16_0.004_300)] border-b border-[oklch(1_0_0_/_0.06)] [&>span:not(.url)]:w-[9px] [&>span:not(.url)]:h-[9px] [&>span:not(.url)]:rounded-full [&>span:not(.url)]:bg-[oklch(0.3_0.005_60)]";
-
-export const VISUAL_URL =
-  "url flex-1 ml-2 h-4 bg-[oklch(0.22_0.005_300)] rounded font-mono text-[9px] text-ink-3 inline-flex items-center px-2.5 max-w-[200px]";
-
 export const VISUAL_CONTENT =
-  "absolute inset-x-0 bottom-0 top-[30px] p-6 flex flex-col gap-3.5";
+  "absolute inset-0 p-6 flex flex-col gap-3.5";
 
 export const CHECK_PILL =
   "w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center bg-accent-18 text-accent-soft border border-accent-30";
@@ -34,20 +28,15 @@ export const CHECK_PILL =
 export const BENEFIT_LIST =
   "flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium [&>li_mark]:bg-accent-18 [&>li_mark]:text-accent-soft [&>li_mark]:px-1.5 [&>li_mark]:py-px [&>li_mark]:rounded [&>li_mark]:font-medium md:[&>li]:text-[14px]";
 
-// Real uploaded screenshot inside the same browser-chrome frame as the mocks.
+// Real uploaded screenshot inside the same shell as the mocks.
 // Used when a benefit row has an image; otherwise one of the CSS mocks renders.
 export function MockImage({
-  url,
   image,
   alt,
-}: { url: string; image: SanityImage; alt: string }) {
+}: { image: SanityImage; alt: string }) {
   return (
     <div className={VISUAL_SHELL}>
-      <div className={VISUAL_BAR}>
-        <span /><span /><span />
-        <span className={VISUAL_URL}>{url}</span>
-      </div>
-      <div className="absolute inset-x-0 bottom-0 top-[30px] overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden">
         <SanityImg
           image={image}
           alt={alt}
@@ -60,16 +49,9 @@ export function MockImage({
   );
 }
 
-export function MockPages({
-  url,
-  tags,
-}: { url: string; tags: React.ReactNode[] }) {
+export function MockPages({ tags }: { tags: React.ReactNode[] }) {
   return (
     <div className={VISUAL_SHELL}>
-      <div className={VISUAL_BAR}>
-        <span /><span /><span />
-        <span className={VISUAL_URL}>{url}</span>
-      </div>
       <div className={VISUAL_CONTENT}>
         <div className="grid grid-cols-3 gap-2 h-full md:gap-3">
           {tags.map((t, i) => (
@@ -109,20 +91,14 @@ const MOCK_FORM_STRINGS = {
 } as const;
 
 export function MockBookingForm({
-  url,
   locale = "uk",
 }: {
-  url: string;
   locale?: string;
 }) {
   const s =
     locale === "en" ? MOCK_FORM_STRINGS.en : MOCK_FORM_STRINGS.uk;
   return (
     <div className={VISUAL_SHELL}>
-      <div className={VISUAL_BAR}>
-        <span /><span /><span />
-        <span className={VISUAL_URL}>{url}</span>
-      </div>
       <div className={VISUAL_CONTENT}>
         <div className="bg-[oklch(0.16_0.005_300)] border border-[oklch(1_0_0_/_0.08)] rounded-[10px] p-3.5 m-auto w-[86%] flex flex-col gap-2.5 shadow-[0_20px_40px_oklch(0_0_0_/_0.4)] md:w-[70%] md:p-[18px]">
           <div className="font-display text-[11px] font-semibold text-ink mb-1 tracking-[-0.01em]">
@@ -151,13 +127,9 @@ export function MockBookingForm({
   );
 }
 
-export function MockAdmin({ url }: { url: string }) {
+export function MockAdmin() {
   return (
     <div className={VISUAL_SHELL}>
-      <div className={VISUAL_BAR}>
-        <span /><span /><span />
-        <span className={VISUAL_URL}>{url}</span>
-      </div>
       <div className={VISUAL_CONTENT}>
         <div className="grid grid-cols-[110px_1fr] gap-3 h-full">
           <div className="bg-[oklch(0.16_0.005_300)] border border-[oklch(1_0_0_/_0.06)] rounded-lg pt-3.5 px-2.5 pb-3.5 flex flex-col gap-2">

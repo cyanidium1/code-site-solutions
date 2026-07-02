@@ -36,7 +36,7 @@ export const hpEyebrowDotClass =
 // primitive when the consumer wants only the typography; use this class
 // when migrating away from `className="hp-h2"` so the visual is identical.
 export const hpH2Class =
-  "font-actay font-bold uppercase text-[clamp(28px,7vw,40px)] leading-[1.05] " +
+  "font-actay font-bold uppercase text-[clamp(24px,6vw,32px)] leading-[1.05] " +
   "mt-6 max-w-container-narrow text-ink md:text-[clamp(34px,4vw,56px)] " +
   "[&_em]:not-italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent";
 

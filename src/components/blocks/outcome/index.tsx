@@ -141,7 +141,7 @@ export function Outcome({
         <header
           className={`mb-10 pb-[22px] ${hasHero ? "border-b border-line" : ""} grid grid-cols-1 gap-6 items-start xl:mb-14 xl:pb-7 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-14 xl:items-end`}
         >
-          <h2 className="font-display font-bold text-[clamp(28px,9vw,38px)] leading-none tracking-[-0.035em] text-ink text-balance max-w-full md:text-[clamp(34px,4.6vw,60px)] xl:max-w-[16ch] [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+          <h2 className="font-display font-bold text-[clamp(24px,6vw,32px)] leading-none tracking-[-0.035em] text-ink text-balance max-w-full md:text-[clamp(34px,4.6vw,60px)] xl:max-w-[16ch] [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
             {benefitsHeading}
           </h2>
           {benefitsSub ? (
@@ -157,7 +157,7 @@ export function Outcome({
         {hasHero ? (
           <div className="grid grid-cols-1 gap-[22px] items-center px-[22px] py-6 mb-8 border border-accent-35 rounded-[18px] bg-[linear-gradient(135deg,oklch(from_var(--color-accent)_l_c_h_/_0.10),oklch(from_var(--color-accent-2)_l_c_h_/_0.06)_60%,transparent)] relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] md:gap-7 md:p-8 md:rounded-3xl xl:grid-cols-2 xl:gap-12 xl:py-11 xl:px-12 before:content-[''] before:absolute before:top-[-40%] before:right-[-20%] before:w-[60%] before:h-[180%] before:pointer-events-none before:bg-[radial-gradient(ellipse_at_center,oklch(from_var(--color-accent)_l_c_h_/_0.18),transparent_70%)]">
             <div className="relative z-[2]">
-              <div className="font-display font-bold text-[64px] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 md:text-[clamp(52px,7vw,80px)] min-[1080px]:text-[clamp(56px,8vw,96px)]">
+              <div className="font-display font-bold text-[48px] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 md:text-[clamp(52px,7vw,80px)] min-[1080px]:text-[clamp(56px,8vw,96px)]">
                 {benefitHeroValue}
               </div>
               <div className="text-[14px] leading-[1.5] text-ink font-medium mb-2 md:text-[15px]">

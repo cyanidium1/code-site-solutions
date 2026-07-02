@@ -24,10 +24,6 @@ const CARD_BG =
 const TOP_ACCENT =
   "before:content-[''] before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.5),transparent)] before:pointer-events-none lg:before:inset-x-6";
 
-// Subtle grid background overlay (legacy .cta-banner-card::after).
-const GRID_OVERLAY =
-  "after:content-[''] after:absolute after:inset-0 after:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.022)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.022)_1px,transparent_1px)] after:[background-size:48px_48px] after:[mask:radial-gradient(ellipse_70%_70%_at_50%_50%,black,transparent_80%)] after:pointer-events-none";
-
 // Eyebrow dot pseudo-element (legacy .cta-banner-eyebrow::before).
 const EYEBROW_DOT =
   "before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]";
@@ -49,7 +45,7 @@ export function CtaBanner({
     <section className="relative bg-bg px-6 py-14 lg:px-12 lg:py-[100px]">
       <div className="mx-auto max-w-container">
         <div
-          className={`relative flex flex-col items-center overflow-hidden rounded-[22px] border border-line px-6 py-11 text-center lg:rounded-[28px] lg:px-12 lg:py-16 ${CARD_BG} ${TOP_ACCENT} ${GRID_OVERLAY}`}
+          className={`relative flex flex-col items-center overflow-hidden rounded-[22px] border border-line px-6 py-11 text-center lg:rounded-[28px] lg:px-12 lg:py-16 ${CARD_BG} ${TOP_ACCENT}`}
         >
           {eyebrow ? (
             <span

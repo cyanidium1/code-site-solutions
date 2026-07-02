@@ -195,16 +195,15 @@ function buildOutcomeMock(
   row: NonNullable<OutcomeSection["benefitRows"]>[number],
   locale: Locale,
 ) {
-  const url = row.mockUrl ?? "";
   // A real uploaded screenshot overrides the CSS mock.
   if (row.image?.asset) {
-    return <MockImage url={url} image={row.image} alt={loc(row.heading, locale)} />;
+    return <MockImage image={row.image} alt={loc(row.heading, locale)} />;
   }
-  if (row.mockType === "booking") return <MockBookingForm url={url} locale={locale} />;
-  if (row.mockType === "admin") return <MockAdmin url={url} />;
+  if (row.mockType === "booking") return <MockBookingForm locale={locale} />;
+  if (row.mockType === "admin") return <MockAdmin />;
   // Default to "pages"
   const tags = row.mockTags?.map((t) => loc(t, locale)) ?? [];
-  return <MockPages url={url} tags={tags} />;
+  return <MockPages tags={tags} />;
 }
 
 /**
@@ -383,7 +382,6 @@ function SectionBlock({
           }))}
           beforeNum={section.before?.num}
           beforeShotSrc={section.before?.image?.asset?.url}
-          beforeShotUrl={section.before?.url}
           beforeShotAlt={loc(section.before?.alt, locale)}
           beforeTagline={loc(section.before?.tagline, locale)}
           beforeList={section.before?.items?.map((it) =>
@@ -394,7 +392,6 @@ function SectionBlock({
           }
           afterNum={section.after?.num}
           afterShotSrc={section.after?.image?.asset?.url}
-          afterShotUrl={section.after?.url}
           afterShotAlt={loc(section.after?.alt, locale)}
           afterTagline={loc(section.after?.tagline, locale)}
           afterList={section.after?.items?.map((it) =>

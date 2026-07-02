@@ -148,7 +148,7 @@ export function Reasons({
                 {eyebrowNum}
               </span>
             </div>
-            <h2 className="font-display font-bold text-[clamp(28px,9vw,38px)] leading-none tracking-[-0.035em] text-ink max-w-full text-balance sm:text-[clamp(30px,4.2vw,44px)] sm:max-w-[24ch] xl:text-[clamp(34px,4.6vw,60px)] [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+            <h2 className="font-display font-bold text-[clamp(24px,6vw,32px)] leading-none tracking-[-0.035em] text-ink max-w-full text-balance sm:text-[clamp(30px,4.2vw,44px)] sm:max-w-[24ch] xl:text-[clamp(34px,4.6vw,60px)] [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
               {heading}
             </h2>
           </div>
@@ -189,8 +189,8 @@ export function Reasons({
                   <div
                     className={`font-display font-bold leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums ${
                       isPrimary
-                        ? "text-[64px] sm:text-[clamp(64px,8vw,96px)] xl:text-[clamp(72px,9vw,128px)]"
-                        : "text-[48px] sm:text-[clamp(48px,5vw,72px)]"
+                        ? "text-[40px] sm:text-[clamp(64px,8vw,96px)] xl:text-[clamp(72px,9vw,128px)]"
+                        : "text-[32px] sm:text-[clamp(48px,5vw,72px)]"
                     }`}
                   >
                     {r.n}

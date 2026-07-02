@@ -96,7 +96,7 @@ export function Tier({
         <div className="font-display font-bold text-[12px] tracking-[0.14em] uppercase text-ink leading-[1.2] md:text-[13px]">
           {name}
         </div>
-        <h3 className="font-display font-bold text-[32px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-ink-3 [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 md:text-[38px]">
+        <h3 className="font-display font-bold text-[28px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-ink-3 [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 md:text-[38px]">
           <em>{priceLabel}</em>
           {price}
         </h3>

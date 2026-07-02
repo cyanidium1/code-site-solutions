@@ -267,7 +267,6 @@ export type OutcomeSection = BlockBase<"outcomeBlock"> & {
     heading?: LocalizedText;
     items?: LocalizedString[];
     mockType?: "pages" | "booking" | "admin";
-    mockUrl?: string;
     mockTags?: LocalizedString[];
     image?: SanityImage | null;
   }>;
@@ -285,7 +284,6 @@ export type CaseSection = BlockBase<"caseBlock"> & {
   before?: {
     num?: string;
     image?: SanityImage | null;
-    url?: string;
     alt?: LocalizedString;
     tagline?: LocalizedString;
     items?: LocalizedString[];
@@ -294,7 +292,6 @@ export type CaseSection = BlockBase<"caseBlock"> & {
   after?: {
     num?: string;
     image?: SanityImage | null;
-    url?: string;
     alt?: LocalizedString;
     tagline?: LocalizedString;
     items?: LocalizedString[];

@@ -3,7 +3,7 @@ import type { SanityImage } from "@/types/sanity";
 import { type Feature, FeatureCard } from "./feature-card";
 
 const SVC_H2_CLASSES =
-  "font-display font-bold text-[clamp(26px,9vw,38px)] leading-none tracking-[-0.035em] text-ink text-balance max-w-full uppercase md:text-[clamp(34px,4.6vw,60px)] xl:max-w-[16ch] [&_em]:italic [&_em]:font-light [&_em]:normal-case [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:inline-block [&_em]:pr-[0.12em] [&_em]:[margin-right:-0.04em]";
+  "font-display font-bold text-[clamp(24px,6vw,32px)] leading-none tracking-[-0.035em] text-ink text-balance max-w-full uppercase md:text-[clamp(34px,4.6vw,60px)] xl:max-w-[16ch] [&_em]:italic [&_em]:font-light [&_em]:normal-case [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:inline-block [&_em]:pr-[0.12em] [&_em]:[margin-right:-0.04em]";
 
 const SVC_HEADER_CLASSES =
   "grid grid-cols-1 gap-[22px] items-start pb-[22px] border-b border-line xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-14 xl:items-end xl:pb-7";

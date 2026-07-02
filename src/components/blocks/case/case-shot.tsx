@@ -1,23 +1,13 @@
 import { SanityImg } from "@/lib/shared/sanity-image";
 
-// Screenshot frame (browser chrome + image / placeholder). aspect-ratio
+// Screenshot card (plain image / placeholder — no browser chrome). aspect-ratio
 // preserved at 3/2 across breakpoints (legacy media queries repeated the same
 // value, so single utility suffices).
 const SHOT_CLASS =
   "relative rounded-[14px] overflow-hidden bg-[oklch(0.18_0.005_300)] border border-line-strong mb-[18px] aspect-[3/2] " +
   "md:mb-6";
 
-const SHOT_BAR_CLASS =
-  "absolute top-0 left-0 right-0 h-7 flex items-center gap-1.5 px-3 bg-[oklch(0.16_0.004_300)] border-b border-[oklch(1_0_0_/_0.06)] z-[2]";
-
-const SHOT_DOT_CLASS =
-  "w-2.5 h-2.5 rounded-full bg-[oklch(0.3_0.005_60)]";
-
-const SHOT_URL_CLASS =
-  "flex-1 ml-2 h-[18px] bg-[oklch(0.22_0.005_300)] rounded-md flex items-center px-2.5 font-mono text-[9px] text-ink-3 tracking-[0.04em] max-w-[240px]";
-
-const SHOT_IMG_WRAP_CLASS =
-  "absolute inset-x-0 bottom-0 top-7 w-full h-[calc(100%-28px)] overflow-hidden";
+const SHOT_IMG_WRAP_CLASS = "absolute inset-0 overflow-hidden";
 
 // Placeholder shown when no screenshot is uploaded — mimics a page layout with
 // the same accent-tinted radial gradient palette used by other placeholders.
@@ -36,21 +26,13 @@ const SHOT_PLACEHOLDER_GRID_CLASS =
 
 export function CaseShot({
   src,
-  url,
   alt,
 }: {
   src?: string;
-  url: string;
   alt: string;
 }) {
   return (
     <div className={SHOT_CLASS}>
-      <div className={SHOT_BAR_CLASS}>
-        <span className={SHOT_DOT_CLASS} />
-        <span className={SHOT_DOT_CLASS} />
-        <span className={SHOT_DOT_CLASS} />
-        <span className={SHOT_URL_CLASS}>{url}</span>
-      </div>
       <div className={SHOT_IMG_WRAP_CLASS}>
         {src ? (
           <SanityImg

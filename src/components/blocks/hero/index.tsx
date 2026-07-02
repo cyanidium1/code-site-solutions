@@ -14,18 +14,12 @@ import "./hero-effects.css";
      E = lives in ./hero-effects.css (data-URI noise + 2 @keyframes)
    ─────────────────────────────────────────────────────────────────── */
 
-// U — fixed background with dual accent radials + linear base; ::before
-// paints an 80px grid clipped by a radial mask. Both gradient layers and
-// the mask use raw OKLCH because they are oklch(from var(--color-accent) ...)
+// U — fixed background with dual accent radials + linear base. The gradient
+// layers use raw OKLCH because they are oklch(from var(--color-accent) ...)
 // relative-color functions that no @theme token captures.
 const HERO_BG_CLASS =
   "fixed inset-0 z-0 pointer-events-none " +
-  "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg)_100%)] " +
-  "before:content-[''] before:absolute before:inset-0 " +
-  "before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.025)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.025)_1px,transparent_1px)] " +
-  "before:bg-[size:80px_80px] " +
-  "before:[mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)] " +
-  "before:[-webkit-mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]";
+  "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg)_100%)]";
 
 // U — hero shell: pt/pb grow with viewport (mobile zero/9 → sm 8/14 →
 // 2xl 6/[60px]). Horizontal padding is the canonical mobile-first
@@ -149,9 +143,12 @@ const STATS_CLASS =
   "2xl:gap-6 2xl:px-7 2xl:py-5 2xl:rounded-[18px]";
 
 const STAT_CLASS = "flex-1 flex flex-col gap-1.5";
+// Values are CMS strings and can be full phrases ("Service calculators"),
+// not just numerals — 16px at base keeps three cells from wrapping/overflowing
+// on ~390px viewports.
 const STAT_NUM_CLASS =
-  "font-sans font-bold text-[22px] tracking-[-0.03em] leading-none text-ink " +
-  "min-[1081px]:text-2xl 2xl:text-[28px]";
+  "font-sans font-bold text-[16px] tracking-[-0.03em] leading-none text-ink " +
+  "sm:text-[22px] min-[1081px]:text-2xl 2xl:text-[28px]";
 const STAT_LBL_CLASS =
   "text-[9px] text-ink-3 uppercase tracking-[0.08em] leading-[1.3] sm:text-[10px]";
 const STAT_DIV_CLASS =

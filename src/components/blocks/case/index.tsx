@@ -165,14 +165,12 @@ export function Case({
   meta = [],
   beforeNum,
   beforeShotSrc,
-  beforeShotUrl,
   beforeShotAlt,
   beforeTagline,
   beforeList = [],
   beforeFoot,
   afterNum,
   afterShotSrc,
-  afterShotUrl,
   afterShotAlt,
   afterTagline,
   afterList = [],
@@ -191,14 +189,12 @@ export function Case({
   meta: { strong: string; text: string }[];
   beforeNum: string;
   beforeShotSrc?: string;
-  beforeShotUrl: string;
   beforeShotAlt: string;
   beforeTagline: string;
   beforeList: React.ReactNode[];
   beforeFoot: React.ReactNode;
   afterNum: string;
   afterShotSrc?: string;
-  afterShotUrl: string;
   afterShotAlt: string;
   afterTagline: string;
   afterList: React.ReactNode[];
@@ -294,11 +290,7 @@ export function Case({
                   <span className={CARD_NUM_CLASS}>{beforeNum}</span>
                 ) : null}
               </div>
-              <CaseShot
-                src={beforeShotSrc}
-                url={beforeShotUrl ?? ""}
-                alt={beforeShotAlt ?? ""}
-              />
+              <CaseShot src={beforeShotSrc} alt={beforeShotAlt ?? ""} />
               <h3 className={TAGLINE_CLASS}>{resolvedBeforeTagline}</h3>
               {beforeList.length > 0 ? (
                 <ul className={LIST_CLASS}>
@@ -329,11 +321,7 @@ export function Case({
                   <span className={CARD_NUM_CLASS}>{afterNum}</span>
                 ) : null}
               </div>
-              <CaseShot
-                src={afterShotSrc}
-                url={afterShotUrl ?? ""}
-                alt={afterShotAlt ?? ""}
-              />
+              <CaseShot src={afterShotSrc} alt={afterShotAlt ?? ""} />
               <h3 className={TAGLINE_CLASS}>{resolvedAfterTagline}</h3>
               {afterList.length > 0 ? (
                 <ul className={LIST_CLASS}>
@@ -363,11 +351,7 @@ export function Case({
             }
           >
             {afterShotSrc ? (
-              <CaseShot
-                src={afterShotSrc}
-                url={afterShotUrl ?? ""}
-                alt={afterShotAlt ?? ""}
-              />
+              <CaseShot src={afterShotSrc} alt={afterShotAlt ?? ""} />
             ) : null}
             <div className="flex flex-col">
               {afterTagline ? (
