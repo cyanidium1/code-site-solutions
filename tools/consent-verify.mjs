@@ -19,7 +19,7 @@ const consentEntries = () =>
     .map((e) => ({ type: `${e[0]}:${e[1]}`, state: e[2] }));
 
 const trackingCookies = () =>
-  document.cookie.split(";").map((c) => c.trim()).filter((c) => /^(_ga|_gid|_gcl|_fbp)/.test(c));
+  document.cookie.split(";").map((c) => c.trim()).filter((c) => /^(_ga|_gid|_gcl|_fbp|_clck|_clsk)/.test(c));
 
 const browser = await chromium.launch();
 
