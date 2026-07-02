@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --import tsx --test src/lib/shared/calculate-website-estimate.test.ts src/lib/shared/sanity-cdn.test.ts src/lib/shared/normalize-pathname.test.ts src/constants/i18n-routes.test.ts src/lib/server/sitemap-data.test.ts src/lib/server/sitemap-xml.test.ts src/components/blocks/case/resolve-layout.test.ts",
+    "test": "node --import tsx --test src/lib/shared/calculate-website-estimate.test.ts src/lib/shared/sanity-cdn.test.ts src/lib/shared/normalize-pathname.test.ts src/constants/i18n-routes.test.ts src/lib/server/sitemap-data.test.ts src/lib/server/sitemap-xml.test.ts src/components/blocks/case/resolve-layout.test.ts src/lib/cookie-consent/core/consent-storage.test.ts src/lib/cookie-consent/core/consent-mode.test.ts src/lib/cookie-consent/core/bootstrap-script.test.ts",
     "typecheck": "tsc --noEmit",
+    "consent:verify": "node tools/consent-verify.mjs",
     "case:crawl": "tsx tools/case-generator/index.ts"
   },
   "dependencies": {
