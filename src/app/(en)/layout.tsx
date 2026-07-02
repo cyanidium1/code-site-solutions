@@ -12,6 +12,7 @@ import { fetchCaseStudyCount } from "@/lib/server/fetch-case-study-count";
 import { CaseCountProvider } from "@/components/layout/case-count-provider";
 import { I18nRegistryProvider } from "@/components/layout/i18n-registry-provider";
 import { GoogleTagManager } from "@/components/analytics/google-tag-manager";
+import { CookieYes } from "@/components/analytics/cookie-yes";
 
 import "../globals.css";
 import "../keyframes.css";
@@ -105,6 +106,7 @@ export default async function EnRootLayout({
       className={`${manrope.variable} ${jetbrains.variable} ${actay.variable}`}
     >
       <body className="font-sans bg-bg text-ink antialiased overflow-x-clip">
+        <CookieYes />
         <GoogleTagManager />
         <NextIntlClientProvider locale="en" messages={enMessages}>
           <Providers>
