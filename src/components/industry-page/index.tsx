@@ -197,7 +197,12 @@ function buildOutcomeMock(
 ) {
   // A real uploaded screenshot overrides the CSS mock.
   if (row.image?.asset) {
-    return <MockImage image={row.image} alt={loc(row.heading, locale)} />;
+    return (
+      <MockImage
+        image={row.image}
+        alt={loc(row.image.alt, locale) || loc(row.heading, locale)}
+      />
+    );
   }
   if (row.mockType === "booking") return <MockBookingForm locale={locale} />;
   if (row.mockType === "admin") return <MockAdmin />;
@@ -307,7 +312,10 @@ function SectionBlock({
             section.image?.asset ? (
               <SanityImg
                 image={section.image}
-                alt={loc(section.heading, locale)}
+                alt={
+                  loc(section.image?.alt, locale) ||
+                  loc(section.heading, locale)
+                }
                 fill
                 sizes={IMG_SIZES.half}
                 className="object-cover"
