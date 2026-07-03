@@ -284,7 +284,6 @@ export type CaseSection = BlockBase<"caseBlock"> & {
   before?: {
     num?: string;
     image?: SanityImage | null;
-    alt?: LocalizedString;
     tagline?: LocalizedString;
     items?: LocalizedString[];
     foot?: LocalizedText;
@@ -292,7 +291,6 @@ export type CaseSection = BlockBase<"caseBlock"> & {
   after?: {
     num?: string;
     image?: SanityImage | null;
-    alt?: LocalizedString;
     tagline?: LocalizedString;
     items?: LocalizedString[];
     foot?: LocalizedText;
