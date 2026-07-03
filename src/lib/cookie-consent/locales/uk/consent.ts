@@ -3,7 +3,8 @@ import type { ConsentCopy } from "../en/consent";
 export const consentCopyUk: ConsentCopy = {
   banner: {
     title: "Ми поважаємо вашу приватність",
-    body: "Використовуємо cookies для аналітики та маркетингу, щоб покращувати сайт. Необхідні cookies працюють завжди. Деталі — у",
+    body: "Використовуємо cookies для аналітики та маркетингу, щоб покращувати сайт. Необхідні cookies працюють завжди.",
+    policyLead: "Деталі — у",
     policyLinkLabel: "Політиці cookies",
     accept: "Прийняти всі",
     reject: "Відхилити всі",

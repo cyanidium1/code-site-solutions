@@ -1,7 +1,8 @@
 export const consentCopyEn = {
   banner: {
     title: "We value your privacy",
-    body: "We use cookies for analytics and marketing to improve the site. Necessary cookies are always on. See our",
+    body: "We use cookies for analytics and marketing to improve the site. Necessary cookies are always on.",
+    policyLead: "See our",
     policyLinkLabel: "Cookie Policy",
     accept: "Accept all",
     reject: "Reject all",
@@ -44,6 +45,8 @@ export type ConsentCopy = {
   banner: {
     title: string;
     body: string;
+    /** Lead-in of the policy sentence ("See our") — rendered on its own line on desktop. */
+    policyLead: string;
     policyLinkLabel: string;
     accept: string;
     reject: string;

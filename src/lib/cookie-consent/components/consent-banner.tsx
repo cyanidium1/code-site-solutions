@@ -34,7 +34,11 @@ export function ConsentBanner({ copy, locale, onAcceptAll, onRejectAll, onCustom
           <p className={bannerTitleClass}>{copy.banner.title}</p>
           <p className={bannerBodyClass}>
             {copy.banner.body}{" "}
-            <Link href={consentPolicyPath(locale)}>{copy.banner.policyLinkLabel}</Link>.
+            {/* Policy sentence: inline continuation on mobile, own line on desktop. */}
+            <span className="lg:block">
+              {copy.banner.policyLead}{" "}
+              <Link href={consentPolicyPath(locale)}>{copy.banner.policyLinkLabel}</Link>.
+            </span>
           </p>
         </div>
         <div className={bannerActionsClass}>
