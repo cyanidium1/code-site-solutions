@@ -194,7 +194,7 @@ export default async function PricingPage() {
         image={
           <AppImage
             src="/included.webp"
-            alt="Що входить у всі пакети Code-Site.Art"
+            alt="Сайт дитячого простору «Безлад» на ноутбуці — приклад проєкту Code-Site.Art"
             width={1600}
             height={1124}
             sizes={IMG_SIZES.half}
@@ -226,7 +226,7 @@ export default async function PricingPage() {
         image={
           <AppImage
             src="/not-included.webp"
-            alt="Що не входить у вартість сайту"
+            alt="Подарункові сертифікати видавництва Glimmer — приклад дизайну від Code-Site.Art"
             width={1600}
             height={1200}
             sizes={IMG_SIZES.half}
@@ -269,7 +269,7 @@ export default async function PricingPage() {
         image={
           <AppImage
             src="/payment.webp"
-            alt="Як влаштована оплата за сайт"
+            alt="Комерційна пропозиція Code-Site.Art на розробку нового сайту"
             width={1600}
             height={1200}
             sizes={IMG_SIZES.half}

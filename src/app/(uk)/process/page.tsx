@@ -152,7 +152,7 @@ export default function ProcessPage() {
         image={
           <AppImage
             src="/communication.webp"
-            alt="Як ми спілкуємось протягом проекту"
+            alt="Сайт Mono Pools на ноутбуці й телефоні — реалізовані проєкти та відгуки клієнтів"
             width={1600}
             height={1289}
             sizes={IMG_SIZES.half}

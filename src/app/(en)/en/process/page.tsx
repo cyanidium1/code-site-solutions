@@ -128,7 +128,7 @@ export default function EnProcessPage() {
         image={
           <AppImage
             src="/communication.webp"
-            alt="How we communicate during the project"
+            alt="Mono Pools website on laptop and phone with completed projects and client reviews"
             width={1600}
             height={1289}
             sizes={IMG_SIZES.half}
