@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CATEGORY_GCM_SIGNALS } from "../config";
 import type { ConsentCopy } from "../locales";
 import type { ConsentChoices, TogglableCategory } from "../types";
 import {
@@ -16,7 +17,8 @@ import { ConsentButton } from "./primitives/consent-button";
 import { ConsentDialog } from "./primitives/consent-dialog";
 import { ConsentSwitch } from "./primitives/consent-switch";
 
-const TOGGLABLE: TogglableCategory[] = ["functional", "analytics", "marketing"];
+// Derived from config so a new category automatically appears in the UI.
+const TOGGLABLE = Object.keys(CATEGORY_GCM_SIGNALS) as TogglableCategory[];
 
 type Props = {
   open: boolean;
