@@ -6,6 +6,7 @@ import type { ConsentCopy } from "../locales";
 import {
   bannerActionsClass,
   bannerBodyClass,
+  bannerChoiceRowClass,
   bannerClass,
   bannerInnerClass,
   bannerTitleClass,
@@ -37,15 +38,17 @@ export function ConsentBanner({ copy, locale, onAcceptAll, onRejectAll, onCustom
           </p>
         </div>
         <div className={bannerActionsClass}>
-          <ConsentButton variant="ghost" onClick={onCustomise}>
+          <ConsentButton variant="ghost" onClick={onCustomise} className="self-start lg:self-auto">
             {copy.banner.customise}
           </ConsentButton>
-          <ConsentButton variant="secondary" onClick={onRejectAll}>
-            {copy.banner.reject}
-          </ConsentButton>
-          <ConsentButton variant="primary" onClick={onAcceptAll}>
-            {copy.banner.accept}
-          </ConsentButton>
+          <div className={bannerChoiceRowClass}>
+            <ConsentButton variant="secondary" onClick={onRejectAll}>
+              {copy.banner.reject}
+            </ConsentButton>
+            <ConsentButton variant="primary" onClick={onAcceptAll}>
+              {copy.banner.accept}
+            </ConsentButton>
+          </div>
         </div>
       </div>
     </section>

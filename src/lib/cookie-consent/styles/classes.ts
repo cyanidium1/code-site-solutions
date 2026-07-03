@@ -15,7 +15,13 @@ export const bannerTitleClass = "font-sans text-[15px] font-bold text-ink";
 export const bannerBodyClass =
   "mt-1 font-sans text-[13.5px] leading-[1.55] text-ink-dim max-w-[720px] [&_a]:text-accent-soft [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-ink";
 
-export const bannerActionsClass = "flex flex-wrap items-center gap-3 shrink-0";
+/* Mobile: two stacked rows — Customise on its own row, then Reject+Accept
+   sharing one full-width row (equal halves). Desktop (lg+): one inline line. */
+export const bannerActionsClass =
+  "flex flex-col gap-3 shrink-0 lg:flex-row lg:items-center";
+
+export const bannerChoiceRowClass =
+  "flex gap-3 w-full lg:w-auto [&>button]:flex-1 lg:[&>button]:flex-none";
 
 /* Buttons: Accept and Reject share size and weight — GDPR requires rejecting
    to be as easy and as prominent as accepting. */
