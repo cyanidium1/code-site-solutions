@@ -7,10 +7,13 @@ code is allowed to run.
 
 ```
 lib/
-├── server/      # MUST NOT bundle into the client (touches env / fetch / db)
-├── shared/      # safe to import from server OR client code
-└── client/      # only usable inside "use client" components
-                 # (currently empty — no qualifying helpers exist)
+├── server/          # MUST NOT bundle into the client (touches env / fetch / db)
+├── shared/          # safe to import from server OR client code
+├── client/          # only usable inside "use client" components
+│                    # (currently empty — no qualifying helpers exist)
+└── cookie-consent/  # self-contained consent module (components + hooks +
+                     # locales + styles) — exception to the "pure logic" rule
+                     # so the whole folder is copy-paste reusable; see its README
 ```
 
 ## Where things go
