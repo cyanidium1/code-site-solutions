@@ -197,7 +197,12 @@ function buildOutcomeMock(
 ) {
   // A real uploaded screenshot overrides the CSS mock.
   if (row.image?.asset) {
-    return <MockImage image={row.image} alt={loc(row.heading, locale)} />;
+    return (
+      <MockImage
+        image={row.image}
+        alt={loc(row.image.alt, locale) || loc(row.heading, locale)}
+      />
+    );
   }
   if (row.mockType === "booking") return <MockBookingForm locale={locale} />;
   if (row.mockType === "admin") return <MockAdmin />;
@@ -307,7 +312,10 @@ function SectionBlock({
             section.image?.asset ? (
               <SanityImg
                 image={section.image}
-                alt={loc(section.heading, locale)}
+                alt={
+                  loc(section.image?.alt, locale) ||
+                  loc(section.heading, locale)
+                }
                 fill
                 sizes={IMG_SIZES.half}
                 className="object-cover"
@@ -382,7 +390,7 @@ function SectionBlock({
           }))}
           beforeNum={section.before?.num}
           beforeShotSrc={section.before?.image?.asset?.url}
-          beforeShotAlt={loc(section.before?.alt, locale)}
+          beforeShotAlt={loc(section.before?.image?.alt, locale)}
           beforeTagline={loc(section.before?.tagline, locale)}
           beforeList={section.before?.items?.map((it) =>
             formatLine(loc(it, locale)),
@@ -392,7 +400,7 @@ function SectionBlock({
           }
           afterNum={section.after?.num}
           afterShotSrc={section.after?.image?.asset?.url}
-          afterShotAlt={loc(section.after?.alt, locale)}
+          afterShotAlt={loc(section.after?.image?.alt, locale)}
           afterTagline={loc(section.after?.tagline, locale)}
           afterList={section.after?.items?.map((it) =>
             formatLine(loc(it, locale)),

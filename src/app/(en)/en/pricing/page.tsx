@@ -207,7 +207,7 @@ export default async function EnPricingPage() {
         image={
           <AppImage
             src="/included.webp"
-            alt="What is included in all Code-Site.Art packages"
+            alt="Bezlad children's play-space website on a laptop — an example Code-Site.Art project"
             width={1600}
             height={1124}
             sizes={IMG_SIZES.half}
@@ -240,7 +240,7 @@ export default async function EnPricingPage() {
         image={
           <AppImage
             src="/not-included.webp"
-            alt="What is not included in website pricing"
+            alt="Glimmer publisher gift certificates — a Code-Site.Art design example"
             width={1600}
             height={1200}
             sizes={IMG_SIZES.half}
@@ -283,7 +283,7 @@ export default async function EnPricingPage() {
         image={
           <AppImage
             src="/payment.webp"
-            alt="How website project payments are structured"
+            alt="Code-Site.Art commercial proposal document for a new website build"
             width={1600}
             height={1200}
             sizes={IMG_SIZES.half}
