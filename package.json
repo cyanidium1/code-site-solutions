@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node tools/sync-heroui-tw-sources.mjs",
     "dev": "next dev",
+    "prebuild": "node tools/sync-heroui-tw-sources.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

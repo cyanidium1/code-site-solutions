@@ -43,3 +43,6 @@ debug.log
 
 # lighthouse reports
 /.lighthouse/
+
+# HeroUI theme sources copied for Tailwind scanning (tools/sync-heroui-tw-sources.mjs)
+/.heroui-tw/

@@ -14,7 +14,15 @@ import { heroui } from "@heroui/theme";
 const config: Config = {
   content: [
     "./src/**/*.{ts,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
+    // Only the HeroUI components the app actually renders (plus their
+    // internal HeroUI deps) — copied here from @heroui/theme by
+    // tools/sync-heroui-tw-sources.mjs (prebuild/predev hook). Scanning
+    // @heroui/theme/dist directly generated ~110 KB of extra CSS for unused
+    // components: Tailwind v4's Oxide scanner widens any file/glob source to
+    // its whole parent directory, which drags in components/index.js (a
+    // bundle of every component's classes). See the sync script header and
+    // docs/perf-log.md (2026-07-04) for details and measurements.
+    "./.heroui-tw/*.js",
   ],
   darkMode: "class",
   plugins: [
