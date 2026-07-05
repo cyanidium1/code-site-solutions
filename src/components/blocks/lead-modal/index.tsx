@@ -8,15 +8,16 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-} from "@heroui/react";
-import { useDisclosure } from "@heroui/use-disclosure";
-import { LeadForm } from "@/components/blocks/lead-form";
+import dynamic from "next/dynamic";
 import type { LeadFormLocale } from "@/constants/form-options";
+
+// Modal UI + LeadForm (formik/yup/HeroUI inputs) load only on first open —
+// none of it is needed for first paint on any page. ssr:false is safe:
+// the modal renders nothing until opened.
+const LeadModalDialog = dynamic(
+  () => import("./dialog").then((m) => m.LeadModalDialog),
+  { ssr: false },
+);
 
 export type OpenLeadModalOptions = {
   /** Recorded as the lead source so the owner sees which CTA was clicked. */
@@ -37,79 +38,30 @@ type LeadModalContextValue = {
 
 const LeadModalContext = createContext<LeadModalContextValue | null>(null);
 
-const COPY: Record<LeadFormLocale, { title: string; sub: string }> = {
-  uk: {
-    title: "Залиште заявку",
-    sub: "Відповідаємо протягом 1–2 годин у робочий час.",
-  },
-  en: {
-    title: "Request an estimate",
-    sub: "We reply within 1–2 hours during business hours.",
-  },
-};
-
-const MODAL_CLASSNAMES = {
-  base: "!bg-[oklch(0.13_0.005_300)] !border !border-line text-ink !rounded-[22px]",
-  backdrop: "!bg-[oklch(0.06_0.005_300/0.6)] !backdrop-blur-[6px]",
-  header: "flex flex-col gap-1 px-6 pt-6 pb-2",
-  body: "px-6 pb-7 pt-2",
-  closeButton:
-    "text-ink-3 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink transition-colors",
-};
-
 export function LeadModalProvider({ children }: { children: ReactNode }) {
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
+  // Once true, the dialog chunk stays mounted so close animations work.
+  const [hasOpened, setHasOpened] = useState(false);
   const [opts, setOpts] = useState<OpenLeadModalOptions>({});
 
-  const open = useCallback(
-    (next?: OpenLeadModalOptions) => {
-      setOpts(next ?? {});
-      onOpen();
-    },
-    [onOpen],
-  );
+  const open = useCallback((next?: OpenLeadModalOptions) => {
+    setOpts(next ?? {});
+    setHasOpened(true);
+    setIsOpen(true);
+  }, []);
+  const close = useCallback(() => setIsOpen(false), []);
 
   const value = useMemo<LeadModalContextValue>(
-    () => ({ open, close: onClose }),
-    [open, onClose],
+    () => ({ open, close }),
+    [open, close],
   );
-
-  const locale = opts.locale ?? "uk";
-  const copy = COPY[locale];
 
   return (
     <LeadModalContext.Provider value={value}>
       {children}
-      <Modal
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        size="lg"
-        scrollBehavior="inside"
-        backdrop="blur"
-        placement="center"
-        classNames={MODAL_CLASSNAMES}
-      >
-        <ModalContent>
-          <ModalHeader>
-            <span className="font-sans text-[22px] font-bold tracking-[-0.01em] text-ink">
-              {opts.title ?? copy.title}
-            </span>
-            <span className="text-[13.5px] leading-[1.5] text-ink-dim font-normal">
-              {opts.sub ?? copy.sub}
-            </span>
-          </ModalHeader>
-          <ModalBody>
-            {/* Remount per open so the form resets between sessions. */}
-            <LeadForm
-              key={`${opts.source ?? "modal"}-${isOpen}`}
-              variant="compact"
-              source={opts.source ?? "modal"}
-              locale={locale}
-              tier={opts.tier}
-            />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      {hasOpened ? (
+        <LeadModalDialog isOpen={isOpen} onOpenChange={setIsOpen} opts={opts} />
+      ) : null}
     </LeadModalContext.Provider>
   );
 }
