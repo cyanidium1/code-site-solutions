@@ -9,4 +9,4 @@ Accept-Language redirect is intentionally excluded from benchmarks
 |---|---|---|---|---|---|---|---|
 | 2026-07-04 | prod | baseline (pre-refactor, ad-hoc audit run) | 46 | 6.7s | 1610ms | 2.2s | 0 |
 | 2026-07-04 | prod | baseline via npm run perf:prod | 43 | 10.2s | 1013ms | 3.2s | 0 |
-| 2026-07-04 | local | narrow HeroUI content glob | 53 | 5.6s | 978ms | 2.6s | 0.000 |
+| 2026-07-04 | local | narrow HeroUI content glob (CSS 447→344 KB) | 53 | 5.6s | 978ms | 2.6s | 0.000 |

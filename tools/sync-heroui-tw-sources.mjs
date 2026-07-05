@@ -44,6 +44,13 @@ const COMPONENTS = [
   "spinner",
 ];
 
+if (!existsSync(srcDir)) {
+  console.error(
+    `[sync-heroui-tw-sources] ${srcDir} not found — is @heroui/theme installed? Run \`npm install\` first.`
+  );
+  process.exit(1);
+}
+
 const missing = COMPONENTS.filter((c) => !existsSync(join(srcDir, `${c}.js`)));
 if (missing.length > 0) {
   console.error(
@@ -56,10 +63,11 @@ if (missing.length > 0) {
 
 mkdirSync(destDir, { recursive: true });
 
-// Remove stale files (e.g. a component that is no longer in the list).
+// Remove stale entries (e.g. a component that is no longer in the list, or
+// anything that isn't a <component>.js file at all).
 for (const f of readdirSync(destDir)) {
-  if (!COMPONENTS.includes(f.replace(/\.js$/, ""))) {
-    rmSync(join(destDir, f));
+  if (!(f.endsWith(".js") && COMPONENTS.includes(f.slice(0, -3)))) {
+    rmSync(join(destDir, f), { recursive: true, force: true });
   }
 }
 
