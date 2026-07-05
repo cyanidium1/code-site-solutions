@@ -607,7 +607,7 @@ gh pr create --title "PageSpeed refactor: cut CSS triplication, add local Lighth
 - HeroUI CSS now generated only for components actually used (was ~125 KB of unused component styles, shipped 3x per page via inlineCss + RSC flight duplication).
 - Lighthouse runner + `npm run perf:prod` / `perf:local` for repeatable measurement (3-run medians, mobile emulation, /en target).
 - inlineCss kept/dropped per measured A/B (see perf-log).
-- GTM deferred to idle (kept only because it bought >=100ms TBT — see perf-log).
+- GTM lazyOnload measured and REVERTED — TBT was 153 ms worse than afterInteractive (see perf-log). <!-- outcome amended 2026-07-05; the actual PR body is correct -->
 - Dead OTF fonts removed; optimizePackageImports enabled; consent banner no longer prefetches /cookies.
 
 ## Decisions
