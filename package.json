@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node tools/sync-heroui-tw-sources.mjs",
     "dev": "next dev",
+    "prebuild": "node tools/sync-heroui-tw-sources.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "node --import tsx --test src/lib/shared/calculate-website-estimate.test.ts src/lib/shared/sanity-cdn.test.ts src/lib/shared/normalize-pathname.test.ts src/constants/i18n-routes.test.ts src/lib/server/sitemap-data.test.ts src/lib/server/sitemap-xml.test.ts src/components/blocks/case/resolve-layout.test.ts src/lib/cookie-consent/core/consent-storage.test.ts src/lib/cookie-consent/core/consent-mode.test.ts src/lib/cookie-consent/core/bootstrap-script.test.ts",
     "typecheck": "tsc --noEmit",
     "consent:verify": "node tools/consent-verify.mjs",
-    "case:crawl": "tsx tools/case-generator/index.ts"
+    "case:crawl": "tsx tools/case-generator/index.ts",
+    "perf:prod": "node tools/perf/run-lighthouse.mjs --url https://www.code-site.art/en --label prod --runs 3",
+    "perf:local": "node tools/perf/run-lighthouse.mjs --url http://localhost:3000/en --label local --runs 3"
   },
   "dependencies": {
     "@heroui/react": "^2.8.10",
@@ -21,7 +25,7 @@
     "formik": "^2.4.9",
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.469.0",
-    "next": "^15.5.15",
+    "next": "^15.5.20",
     "next-intl": "^4.11.0",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
@@ -40,7 +44,8 @@
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.5.0",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^15.5.15",
+    "eslint-config-next": "^15.5.20",
+    "lighthouse": "^13.4.0",
     "playwright": "^1.49.1",
     "postcss": "^8.5.12",
     "tailwindcss": "^4.2.4",
