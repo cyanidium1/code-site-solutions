@@ -19,3 +19,15 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-05 | local | islands baseline (pre-changes): homepage /en loads 19 scripts incl 5400-87f2f00eabf83f43.js (519 KB); First Load JS / 354 KB, /en 354 KB, /contacts 349 KB, /en/contacts 349 KB, shared 103 KB | — | — | — | — | — |
 | 2026-07-05 | local | islands: FAQ native + lazy drawer/modal (First Load JS /en 354→171 kB, homepage scripts 19→17, vendor chunk out of homepage graph: yes) | 51 | 4.5s | 882ms | 2.5s | 0.000 |
 | 2026-07-05 | local | variable fonts + drop Actay italic (font preloads 6→5) | 60 | 4.9s | 714ms | 2.7s | 0.000 |
+
+## CSS weight investigation (2026-07-05)
+
+Main chunk composition at 306 KB raw / ~44 KB transfer: 192 KB app Tailwind
+utilities, 60 KB HeroUI (13 scoped components), 44 KB theme vars, 6 KB
+property registrations. Parked conclusions:
+- No unused HeroUI light theme in the build (verified — only `.dark` vars).
+- Per-route CSS splitting impossible: Tailwind v4 emits one stylesheet, imported at root.
+- Remaining micro-cleanups from the 2026-05-25 CSS audit ≈ 3–6 KB raw — skipped (YAGNI).
+- The one big lever left is removing HeroUI entirely (~60 KB CSS + provider JS):
+  after the islands work it survives only in LeadForm/Drawer/Modal/Selects —
+  all off the homepage critical path. Future project.
