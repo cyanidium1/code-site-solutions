@@ -14,3 +14,4 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-05 | local | inlineCss ON (post Tasks 3-7) | 49 | 5.9s | 1156ms | 2.6s | 0.000 |
 | 2026-07-05 | local | inlineCss OFF | 54 | 5.8s | 906ms | 2.4s | 0.000 |
 | 2026-07-05 | local | GTM lazyOnload — reverted, TBT gain -153ms < 100ms threshold | 52 | 6.1s | 1059ms | 2.5s | 0.000 |
+| 2026-07-05 | local | final (all tasks; two 3-run sets medianed 48 then 53 — first set skewed by a 10.3s cold-LCP outlier, logging the 2nd) | 53 | 6.1s | 917ms | 2.5s | 0.000 |

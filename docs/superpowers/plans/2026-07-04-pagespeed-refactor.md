@@ -226,6 +226,13 @@ git commit -m "perf: record Lighthouse baseline in perf log"
 
 ### Task 3: Narrow the HeroUI Tailwind content glob (biggest CSS win)
 
+> **Amended during execution (2026-07-05):** the alternation glob below does not work —
+> Tailwind v4's Oxide scanner doesn't support `(a|b)` patterns (matches nothing) and widens
+> file sources to their parent directory (pulling in the all-components `index.js`). The
+> implemented design instead copies the 13 needed theme files into gitignored `.heroui-tw/`
+> via `tools/sync-heroui-tw-sources.mjs` (predev/prebuild hooks) and scans that directory;
+> a guard in `tailwind.config.ts` fails any build where the hook didn't run.
+
 CSS is generated for **every** HeroUI component because the content glob scans the whole theme dist. The app imports only: `HeroUIProvider`, `Select`/`SelectItem`, `Input`, `Textarea`, `Button`, `Modal(+Content/Header/Body/Footer)`, `Drawer(+Content/Body)`, `Accordion`/`AccordionItem`, `useDisclosure` (verified by grep of `from "@heroui/react"` across `src/`). Internal dependencies that also need theme styles: `listbox`, `popover`, `scroll-shadow`, `spinner` (used inside Select), `menu`, `divider`, `form` (form/field wiring for Input/Select). All these files exist in `node_modules/@heroui/theme/dist/components/`.
 
 **Files:**
