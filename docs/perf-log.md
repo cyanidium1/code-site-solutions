@@ -15,3 +15,4 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-05 | local | inlineCss OFF | 54 | 5.8s | 906ms | 2.4s | 0.000 |
 | 2026-07-05 | local | GTM lazyOnload — reverted, TBT gain -153ms < 100ms threshold | 52 | 6.1s | 1059ms | 2.5s | 0.000 |
 | 2026-07-05 | local | final (all tasks; two 3-run sets medianed 48 then 53 — first set skewed by a 10.3s cold-LCP outlier, logging the 2nd) | 53 | 6.1s | 917ms | 2.5s | 0.000 |
+| 2026-07-05 | prod | post-deploy (PR #23 merged; /en doc 1.15 MB→485 KB; runs 59/4.8s, 44/8.9s, 49/9.3s — LCP network-variance dominated) | 49 | 8.9s | 869ms | 1.9s | 0.000 |
