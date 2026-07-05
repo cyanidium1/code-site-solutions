@@ -19,6 +19,7 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-05 | local | islands baseline (pre-changes): homepage /en loads 19 scripts incl 5400-87f2f00eabf83f43.js (519 KB); First Load JS / 354 KB, /en 354 KB, /contacts 349 KB, /en/contacts 349 KB, shared 103 KB | — | — | — | — | — |
 | 2026-07-05 | local | islands: FAQ native + lazy drawer/modal (First Load JS /en 354→171 kB, homepage scripts 19→17, vendor chunk out of homepage graph: yes) | 51 | 4.5s | 882ms | 2.5s | 0.000 |
 | 2026-07-05 | local | variable fonts + drop Actay italic (font preloads 6→5) | 60 | 4.9s | 714ms | 2.7s | 0.000 |
+| 2026-07-05 | local | islands+fonts final | 59 | 4.9s | 765ms | 2.7s | 0.000 |
 
 ## CSS weight investigation (2026-07-05)
 
