@@ -37,7 +37,7 @@ export function ConsentBanner({ copy, locale, onAcceptAll, onRejectAll, onCustom
             {/* Policy sentence: inline continuation on mobile, own line on desktop. */}
             <span className="lg:block">
               {copy.banner.policyLead}{" "}
-              <Link href={consentPolicyPath(locale)}>{copy.banner.policyLinkLabel}</Link>.
+              <Link href={consentPolicyPath(locale)} prefetch={false}>{copy.banner.policyLinkLabel}</Link>.
             </span>
           </p>
         </div>
