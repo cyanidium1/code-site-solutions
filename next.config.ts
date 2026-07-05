@@ -43,11 +43,10 @@ const nextConfig: NextConfig = {
     ];
   },
   experimental: {
-    // Inline CSS into the HTML <style> at render time, eliminating the
-    // render-blocking <link rel=stylesheet> requests that were gating LCP.
-    // Only kicks in for statically-rendered pages — the app/(uk)/ and
-    // app/(en)/ route groups own their <html lang> so pages stay static.
-    inlineCss: true,
+    // inlineCss measured 2026-07 (docs/perf-log.md): ON scored 49 / OFF scored 54
+    // on /en mobile — keeping OFF. (ON inlines ~344 KB CSS 3x per page via
+    // the RSC flight duplication; OFF restores a render-blocking but cacheable <link>.)
+    inlineCss: false,
     // Rewrite barrel imports (@heroui/react re-exports everything) to
     // direct module imports so unused components never enter the bundle.
     optimizePackageImports: ["@heroui/react", "lucide-react"],
