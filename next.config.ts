@@ -48,6 +48,9 @@ const nextConfig: NextConfig = {
     // Only kicks in for statically-rendered pages — the app/(uk)/ and
     // app/(en)/ route groups own their <html lang> so pages stay static.
     inlineCss: true,
+    // Rewrite barrel imports (@heroui/react re-exports everything) to
+    // direct module imports so unused components never enter the bundle.
+    optimizePackageImports: ["@heroui/react", "lucide-react"],
   },
   images: {
     // Prefer AVIF (≈20-30% smaller than WebP) then fall back to WebP — shrinks
