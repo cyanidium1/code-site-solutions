@@ -90,7 +90,11 @@ const FAQ_BG =
 const FAQ_ITEM =
   "group/faq border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] overflow-hidden transition-[border-color] duration-200 open:border-line-strong " +
   "[interpolate-size:allow-keywords] " +
-  "[&::details-content]:[transition:height_250ms_ease,content-visibility_250ms_allow-discrete] [&::details-content]:overflow-hidden [&::details-content]:h-0 open:[&::details-content]:h-auto";
+  "[&::details-content]:[transition:height_250ms_ease,content-visibility_250ms_allow-discrete] [&::details-content]:overflow-hidden [&::details-content]:h-0 open:[&::details-content]:h-auto " +
+  // Respect prefers-reduced-motion: collapse the expand/collapse to an
+  // instant toggle (HeroUI's framer-motion Accordion honored this; the
+  // native rewrite must too).
+  "motion-reduce:[&::details-content]:[transition:none]";
 
 const FAQ_ITEM_TRIGGER =
   "flex items-center justify-between gap-3 p-[18px] cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden md:py-[22px] md:px-6 md:gap-4";
@@ -178,7 +182,7 @@ export function FAQ({
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
-              className="inline-flex items-center gap-2.5 min-h-11 px-6 py-3 border border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim hover:border-accent-soft hover:text-ink transition-colors duration-200"
+              className="inline-flex items-center gap-2.5 min-h-11 px-6 py-3 border border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim cursor-pointer hover:border-accent-soft hover:text-ink transition-colors duration-200"
               aria-expanded={expanded}
             >
               {toggleLabel}

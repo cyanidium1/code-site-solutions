@@ -141,6 +141,23 @@ body {
   overflow-x: clip;
 }
 
+/* ─── Interactive cursor restore ──────────────────────────────────────────
+   Tailwind v4 dropped the Preflight rule that v3 shipped
+   (`button, [role=button] { cursor: pointer }`), so every native button,
+   role=button, and <summary> reverted to the default arrow cursor sitewide.
+   Restore it here — in `@layer base`, mirroring where v3's preflight lived —
+   so any per-element `cursor-*` utility (which sits in the higher utilities
+   layer) can still override it. `:not(:disabled)` leaves disabled controls
+   with their default cursor.
+   ─────────────────────────────────────────────────────────────────────── */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+}
+
 /* ─── Italic-em padding fix for heading gradients ─────────────────────────
    Brand-gradient italic <em> glyphs slant past the inline-box edge; without
    trailing padding, background-clip:text clips the descender/tail.
