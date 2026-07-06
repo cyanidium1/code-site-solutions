@@ -227,7 +227,7 @@ const MOCKUP_CLASS =
 // text column; drop-shadow stack mirrors the design's 50/20px shadows.
 const MOCKUP_IMG_CLASS =
   "w-full max-w-full max-h-full h-auto -translate-x-[10%] " +
-  "[filter:drop-shadow(0_50px_60px_oklch(0_0_0_/_0.55))_drop-shadow(0_20px_30px_oklch(0_0_0_/_0.35))] " +
+  "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))] " +
   "sm:w-[clamp(420px,50vw,1000px)] sm:max-w-none sm:max-h-none";
 
 // U — homepage mockup variant: on mobile the image is relative and
@@ -259,7 +259,7 @@ const MOCKUP_WRAP_CONTAINED =
 // device look the desktop fix restored stays byte-for-byte the same.
 const MOCKUP_IMG_CONTAINED =
   "max-w-full max-h-full w-auto h-auto " +
-  "[filter:drop-shadow(0_50px_60px_oklch(0_0_0_/_0.55))_drop-shadow(0_20px_30px_oklch(0_0_0_/_0.35))] " +
+  "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))] " +
   "lg:w-[clamp(420px,50vw,1000px)] lg:max-w-none lg:max-h-none lg:-translate-x-[10%]";
 
 // U — placeholder used when no mockup src is provided. 3-layer radial
@@ -268,7 +268,7 @@ const MOCKUP_IMG_CONTAINED =
 const MOCKUP_PLACEHOLDER_CLASS =
   "w-[110%] [aspect-ratio:16/10] translate-x-[2%] rounded-[14px] border border-[oklch(1_0_0_/_0.06)] relative overflow-hidden " +
   "bg-[radial-gradient(ellipse_at_28%_24%,oklch(from_var(--color-accent)_l_c_h_/_0.22)_0%,transparent_55%),radial-gradient(ellipse_at_78%_78%,oklch(0.5_0.18_280_/_0.18)_0%,transparent_55%),linear-gradient(160deg,oklch(0.18_0.012_240)_0%,oklch(0.12_0.006_250)_100%)] " +
-  "[filter:drop-shadow(0_50px_60px_oklch(0_0_0_/_0.55))_drop-shadow(0_20px_30px_oklch(0_0_0_/_0.35))]";
+  "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))]";
 
 const MOCKUP_PLACEHOLDER_BAR_CLASS =
   "absolute top-3.5 left-[18px] flex gap-1.5 [&_span]:w-[9px] [&_span]:h-[9px] [&_span]:rounded-full [&_span]:bg-[oklch(1_0_0_/_0.12)]";
@@ -367,11 +367,14 @@ export function DeviceMockup({
           priority
           fetchPriority="high"
           quality={75}
-          // homepage: renders ~100vw (clamp 420px→1200px) so `sizes` says 100vw.
-          // strip: in-flow at ~50vw on desktop, like the Sanity industry mockup.
+          // homepage: renders ~100vw (clamp 420px→1200px). On phones (≤640px)
+          // we under-declare to 64vw so the optimizer serves a smaller source
+          // for this decorative mockup — the rendered box is unchanged, only
+          // fewer image pixels (mild softness, acceptable on mobile; desktop
+          // stays full-res). strip: in-flow at ~50vw on desktop.
           sizes={
             isHomepage
-              ? "(max-width: 1200px) 100vw, 1200px"
+              ? "(max-width: 640px) 64vw, (max-width: 1200px) 100vw, 1200px"
               : "(max-width: 640px) 100vw, 50vw"
           }
           className={

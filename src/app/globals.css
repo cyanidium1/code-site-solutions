@@ -118,9 +118,7 @@
      alongside the only block that uses them. */
   --animate-marquee: marquee 30s linear infinite;
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  --animate-svg-glow-blue: svg-glow-blue 4s ease-in-out infinite;
-  --animate-svg-glow-pink: svg-glow-pink 4s ease-in-out infinite;
-  --animate-svg-glow-dark: svg-glow-dark 4s ease-in-out infinite;
+  --animate-logo-glow: logo-glow 4s ease-in-out infinite;
   --animate-hero-pulse: hero-pulse 2s infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-hp-drawer-in: hp-drawer-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;

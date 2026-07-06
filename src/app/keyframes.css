@@ -11,19 +11,12 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes svg-glow-blue {
-  0%, 100% { filter: drop-shadow(0 0 0 oklch(0.55 0.18 295 / 0)); }
-  50%      { filter: drop-shadow(0 0 8px oklch(0.70 0.14 295 / 0.45)); }
-}
-
-@keyframes svg-glow-pink {
-  0%, 100% { filter: drop-shadow(0 0 0 oklch(0.70 0.18 350 / 0)); }
-  50%      { filter: drop-shadow(0 0 8px oklch(0.78 0.16 350 / 0.45)); }
-}
-
-@keyframes svg-glow-dark {
-  0%, 100% { filter: drop-shadow(0 0 0 oklch(0 0 0 / 0)); }
-  50%      { filter: drop-shadow(0 0 6px oklch(0.55 0.18 295 / 0.35)); }
+/* Logo glow pulse — opacity (GPU-compositable) on the logo's glow layer,
+   replacing the old per-variant `filter` keyframes (non-composited, repainted
+   every frame). The glow color/shape lives on the layer; this only breathes it. */
+@keyframes logo-glow {
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 1; }
 }
 
 /* Mobile drawer item stagger — used by `mobile-menu.tsx`. Each item sets
