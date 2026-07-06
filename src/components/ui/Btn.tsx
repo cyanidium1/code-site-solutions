@@ -1,14 +1,23 @@
 import { type ButtonHTMLAttributes, type AnchorHTMLAttributes } from "react";
 import { cn } from "./cn";
 
-export type BtnVariant = "primary" | "ghost";
+export type BtnVariant = "primary" | "ghost" | "gradient";
+export type BtnSize = "sm" | "md";
 
 // `min-h-11` enforces the WCAG 2.5.5 (AAA) 44px touch-target floor on every
 // `<Btn>` instance regardless of the variant's per-breakpoint padding ladder.
 // The variants below already meet 44px at every breakpoint, but the floor
 // guards against future font/padding tweaks accidentally regressing it.
+//
+// `cursor-pointer` is baked in here (not merely inherited from the global
+// `@layer base` rule in globals.css) so the primitive stays correct in
+// isolation. `focus-visible:` gives keyboard users a ring (mirrors the ring in
+// filters/pill-classes.ts); `disabled:` makes disabled submit buttons visibly
+// inert — both were absent from every hand-rolled button this primitive replaces.
 const base =
-  "inline-flex items-center gap-2.5 rounded-full font-sans text-sm transition cursor-pointer no-underline min-h-11";
+  "inline-flex items-center gap-2.5 rounded-full font-sans text-sm transition cursor-pointer no-underline min-h-11 " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft " +
+  "disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none";
 
 // Mobile-first padding/sizing mirrors the legacy .btn-primary / .btn-ghost
 // rules from buttons.css (now deleted). Mobile is a full-width stacked
@@ -26,6 +35,26 @@ const variantClass: Record<BtnVariant, string> = {
     "bg-transparent text-ink border border-line-strong font-medium w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-[22px] 2xl:py-[15px] 2xl:text-sm",
     "hover:border-ink-dim hover:bg-[oklch(1_0_0/0.04)]",
   ),
+  // Brand-gradient filled pill. Consolidates the near-identical gradient CTAs
+  // hand-rolled in blocks/final/audit, blocks/comparison, blocks/lead-form and
+  // homepage/newsletter. Shares the primary/ghost padding ladder so migrations
+  // are a visual no-op; call sites that need uppercase / font-display / a
+  // different text size layer those on via `className`.
+  gradient: cn(
+    "bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0/0.95)] font-semibold w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-6 2xl:py-4 2xl:text-sm",
+    "shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h/0.3)]",
+    "hover:-translate-y-0.5 hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h/0.42)]",
+  ),
+};
+
+// Size axis. `md` (default) is a no-op so every existing variant keeps its
+// current padding — zero visual change for current call sites. `sm` is the
+// compact ladder used by the header nav CTA (layout/hp-header); it overrides
+// the variant's px/py/text via tailwind-merge, so it must be applied AFTER the
+// variant class and BEFORE any caller `extra`.
+const sizeClass: Record<BtnSize, string> = {
+  md: "",
+  sm: "px-3.5 py-2 text-[10.5px] xl:px-4 xl:py-[9px] xl:text-[11px] 2xl:px-[18px] 2xl:py-2.5 2xl:text-[12px]",
 };
 
 /**
@@ -47,22 +76,25 @@ export const PLAY_ICON_CLASS =
  * For `variant="primary"`, the caller MUST wrap the label in `<span>` so the
  * `::before` shimmer paints behind the text (the `<Btn>` component does this
  * automatically; the helper cannot).
+ *
+ * `size` is the last, optional arg so the existing `btnClass(variant, extra)`
+ * call sites keep working unchanged.
  */
-export function btnClass(variant: BtnVariant = "primary", extra?: string): string {
-  return cn(base, variantClass[variant], extra);
+export function btnClass(variant: BtnVariant = "primary", extra?: string, size: BtnSize = "md"): string {
+  return cn(base, variantClass[variant], sizeClass[size], extra);
 }
 
-type CommonProps = { variant?: BtnVariant; className?: string };
+type CommonProps = { variant?: BtnVariant; size?: BtnSize; className?: string };
 type ButtonProps = { as?: "button" } & CommonProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className">;
 type AnchorProps = { as: "a" } & CommonProps & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "className">;
 type BtnProps = ButtonProps | AnchorProps;
 
 export function Btn(props: BtnProps) {
-  const { variant = "primary", className, children, as, ...rest } = props as BtnProps & {
+  const { variant = "primary", size = "md", className, children, as, ...rest } = props as BtnProps & {
     children?: React.ReactNode;
     as?: "button" | "a";
   };
-  const classes = btnClass(variant, className);
+  const classes = btnClass(variant, className, size);
   const label = variant === "primary" ? <span className="relative z-10 flex items-center gap-2.5 justify-center">{children}</span> : children;
 
   if (as === "a") {
