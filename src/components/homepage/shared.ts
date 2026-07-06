@@ -29,12 +29,20 @@ export const hpEyebrowClass =
 export const hpEyebrowDotClass =
   "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h/0.6)]";
 
-// Section-level H2 — typography matches the existing `H2 variant="hp"`
-// from `@/components/ui` but also includes the layout properties
-// (mt-6, max-width, default ink color, italic `<em>` text-gradient) that
-// the legacy `.hp-h2` selector applied. Use the `<H2 variant="hp">`
-// primitive when the consumer wants only the typography; use this class
-// when migrating away from `className="hp-h2"` so the visual is identical.
+// Section-level H2. Mirrors the FONT / SIZE / LEADING of `H2 variant="hp"` in
+// `@/components/ui` (Heading.tsx → `sizes[2].hp`) and adds the layout properties
+// the legacy `.hp-h2` selector carried (mt-6, max-width, default ink colour,
+// `<em>` text-gradient). Use `<H2 variant="hp">` when you want ONLY the
+// typography; use this constant when you also need the `.hp-h2` layout.
+//
+// SINGLE SOURCE OF TRUTH — keep the clamp sizes here in sync with
+// Heading.tsx `sizes[2].hp`; if you change one, change the other.
+// Two DELIBERATE divergences from the `hp` variant, preserved for 1:1 parity
+// with the deleted `.hp-h2` CSS (do not "fix" without a design decision):
+//   • this constant OMITS the variant's `tracking-[-0.02em]` (legacy `.hp-h2`
+//     used default letter-spacing);
+//   • `uppercase` is written explicitly here (the `Heading` primitive injects
+//     it via GLOBAL_HEADING_STYLE, and globals.css uppercases raw headings).
 export const hpH2Class =
   "font-actay font-bold uppercase text-[clamp(24px,6vw,32px)] leading-[1.05] " +
   "mt-6 max-w-container-narrow text-ink md:text-[clamp(34px,4vw,56px)] " +
