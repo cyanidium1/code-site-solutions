@@ -70,6 +70,10 @@ const sizes: Record<Level, Record<Variant, string>> = {
   },
   2: {
     default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
+    // Keep the clamp sizes in sync with `hpH2Class` in
+    // `@/components/homepage/shared` (the class-constant twin used when the
+    // legacy `.hp-h2` layout props are also needed); that constant deliberately
+    // omits this variant's `tracking-[-0.02em]`.
     hp: "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-[1.05] tracking-[-0.02em] md:text-[clamp(34px,4vw,56px)]",
     case: "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-none tracking-[-0.035em] max-w-full text-balance md:text-[clamp(30px,5vw,44px)] md:max-w-[14ch] xl:text-[clamp(34px,4.6vw,60px)]",
     "page-hero": "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",

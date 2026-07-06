@@ -9,6 +9,7 @@ import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import { useLeadModal } from "@/components/blocks/lead-modal";
+import { btnClass } from "@/components/ui";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
 import Logo from "./logo/logo";
@@ -37,8 +38,18 @@ const navLinkBaseClass =
   "flex items-center font-mono text-[10px] tracking-[0.1em] uppercase text-ink-dim no-underline transition-colors duration-200 hover:text-ink xl:text-[10.5px] xl:tracking-[0.12em] 2xl:text-[11px]";
 const navLinkActiveClass =
   "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
-const headerCtaClass =
-  "hidden items-center min-h-11 px-3.5 py-2 rounded-full border-0 bg-ink text-bg font-sans font-semibold text-[10.5px] tracking-[0.04em] uppercase no-underline transition-transform duration-200 hover:-translate-y-px lg:inline-flex xl:px-4 xl:py-[9px] xl:text-[11px] 2xl:px-[18px] 2xl:py-2.5 2xl:text-[12px] shrink-0";
+// Header nav CTA — the FLAT, compact member of the `solid` bg-ink family.
+// Routes through `btnClass` for the shared pill structure + cursor/focus/
+// disabled/min-h-11 base; the `sm` size supplies the compact px/py/text
+// ladder. Overrides restore the header's own look: hidden below `lg` (the nav
+// collapses to the burger there), shadow-less (solid carries an inset glow the
+// header intentionally doesn't), and a subtler 1px hover lift — so the visual
+// is unchanged from the prior hand-rolled string.
+const headerCtaClass = btnClass(
+  "solid",
+  "hidden lg:inline-flex shrink-0 uppercase tracking-[0.04em] shadow-none hover:shadow-none hover:-translate-y-px",
+  "sm",
+);
 
 // <details>-based hover/click dropdown. `cursor-pointer + select-none` on
 // summary + hiding the marker. Chevron rotates 180° when [open].

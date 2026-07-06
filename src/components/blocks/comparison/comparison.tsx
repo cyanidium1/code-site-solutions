@@ -8,7 +8,7 @@ import { getAttribution } from "@/lib/client/attribution";
 import { SITE_CONTACT } from "@/constants/site";
 import { formatPrice } from "@/lib/shared/format-price";
 import type { TableRowData, TierProps } from "@/types/pricing";
-import { H2 } from "@/components/ui";
+import { H2, btnClass } from "@/components/ui";
 import { Tier } from "./tier";
 import { TableRow } from "./table-row";
 import { CmpTable, CmpThead, CmpTh, CmpPricingGrid } from "./cmp-table";
@@ -127,8 +127,9 @@ const CMP_CTA_PRIMARY_CLASS =
 const CMP_CTA_GHOST_CLASS =
   "inline-flex items-center justify-center min-h-11 bg-transparent text-ink border border-line-strong w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-semibold tracking-[0.1em] uppercase cursor-pointer transition-all duration-200 hover:border-ink-dim hover:bg-[oklch(1_0_0_/_0.04)] md:w-auto md:px-5 md:py-3 md:text-[11px]";
 
-const CMP_CONTACT_SUBMIT_CLASS =
-  "inline-flex items-center justify-center min-h-11 w-full px-[18px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[11px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 hover:-translate-y-0.5 md:px-[22px] md:py-4 md:text-[12px]";
+// Gradient submit pill via the `gradient` Btn variant; overrides are this
+// button's base size + its md: tightening ladder (see Btn.tsx `gradient` note).
+const CMP_CONTACT_SUBMIT_CLASS = btnClass("gradient", "mt-1.5 px-[18px] text-[11px] md:px-[22px] md:py-4 md:text-[12px]");
 
 export function Comparison({
   tableHeading = (

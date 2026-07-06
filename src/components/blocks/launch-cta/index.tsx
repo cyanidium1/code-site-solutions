@@ -2,7 +2,8 @@ import type * as React from "react";
 import { AppImage } from "@/lib/shared/app-image";
 import { useTranslations } from "next-intl";
 
-import { H2 } from "@/components/ui";
+import { H2, cn } from "@/components/ui";
+import { hpSectionClass } from "@/components/homepage/shared";
 import { LeadCtaButton } from "@/components/blocks/lead-modal/lead-cta-button";
 
 /**
@@ -27,7 +28,7 @@ export function LaunchCta({
 
   return (
     <section
-      className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden"
+      className={cn(hpSectionClass, "overflow-hidden")}
       aria-labelledby="launch-cta-heading"
     >
       <div className="relative mx-auto max-w-container grid grid-cols-[minmax(0,1fr)] items-center gap-10 min-h-0 lg:min-h-[420px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-0 xl:min-h-[480px]">

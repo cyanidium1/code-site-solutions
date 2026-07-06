@@ -4,6 +4,7 @@ import type * as React from "react";
 import { useState } from "react";
 import { getAttribution } from "@/lib/client/attribution";
 import { HoneypotField } from "@/components/blocks/honeypot-field";
+import { btnClass } from "@/components/ui";
 
 // Hoisted module-level class strings. The four <input>s share the same
 // 250+ char Tailwind string; extracting prevents the React reconciler
@@ -11,8 +12,9 @@ import { HoneypotField } from "@/components/blocks/honeypot-field";
 const AUDIT_INPUT_CLASS =
   "w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-line-strong rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]";
 
-const AUDIT_SUBMIT_CLASS =
-  "w-full px-[22px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[12px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 uppercase hover:-translate-y-0.5";
+// Gradient submit pill via the `gradient` Btn variant; overrides are this
+// button's own padding/size + always-uppercase (see Btn.tsx `gradient` note).
+const AUDIT_SUBMIT_CLASS = btnClass("gradient", "mt-1.5 px-[22px] text-[12px] uppercase");
 
 function CheckIcon() {
   return (
@@ -103,6 +105,10 @@ export function Audit({
   };
 
   return (
+    // Section wrapper intentionally NOT hpSectionClass: this block overrides the
+    // flat `bg-bg` with a vertical gradient (+ scroll-mt-24), so it keeps its own
+    // inline utilities rather than layering a background override onto the shared
+    // constant.
     <section id="site-audit" className="relative scroll-mt-24 py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-[linear-gradient(180deg,var(--color-bg)_0%,oklch(0.13_0.02_300)_100%)] overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_60%_at_0%_50%,oklch(from_var(--color-accent-2)_l_c_h_/_0.18),transparent_70%),radial-gradient(ellipse_40%_50%_at_100%_100%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%)]" />
       <div className="relative z-[2] max-w-container mx-auto grid grid-cols-1 gap-9 items-center xl:grid-cols-[minmax(0,1fr)_minmax(0,460px)] xl:gap-[72px]">

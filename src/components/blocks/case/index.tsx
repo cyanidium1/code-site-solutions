@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { H2 } from "@/components/ui";
+import { H2, btnClass } from "@/components/ui";
 import { ARROW_ICON, CheckIcon, CrossIcon } from "./icons";
 import { CaseShot } from "./case-shot";
 import { resolveCaseLayout, type CaseLayout } from "./resolve-layout";
@@ -151,11 +151,9 @@ const CTA_TEXT_CLASS =
 const CTA_ARROW_CLASS =
   "w-2 h-2 border-r-[1.5px] border-b-[1.5px] border-accent-soft -rotate-45 inline-block";
 
-const CTA_BTN_CLASS =
-  "bg-ink text-bg border-0 justify-center min-h-11 px-[18px] py-3.5 rounded-full font-display text-[13px] font-semibold inline-flex items-center gap-2.5 cursor-pointer transition-[transform,box-shadow] duration-200 " +
-  "shadow-[0_4px_16px_oklch(from_var(--color-accent)_l_c_h_/_0.2),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
-  "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.3),inset_0_0_0_1px_oklch(1_0_0_/_0.1)] " +
-  "md:justify-normal md:px-[22px] md:py-3";
+// Solid-ink pill via the `solid` Btn variant. Overrides: `font-display` (this
+// block's heading face) + its own `md:` auto-width breakpoint.
+const CTA_BTN_CLASS = btnClass("solid", "font-display md:justify-normal md:px-[22px] md:py-3");
 
 export function Case({
   eyebrow,

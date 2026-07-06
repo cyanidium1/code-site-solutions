@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Accordion, AccordionItem } from "@heroui/react";
 import { Plus } from "lucide-react";
 import { useLocale } from "next-intl";
 
 import { renderRich } from "@/lib/shared/rich-text";
 import type { FAQItem } from "@/types/faq";
 import { H2 } from "@/components/ui";
+import { hpSectionClass } from "@/components/homepage/shared";
 
 const FAQ_INITIAL_VISIBLE = 5;
 
@@ -77,31 +77,6 @@ const DEFAULT_FAQ_UK: FAQItem[] = [
   },
 ];
 
-const FAQ_MOTION_PROPS = {
-  variants: {
-    enter: {
-      y: 0,
-      opacity: 1,
-      height: "auto",
-      overflowY: "hidden" as const,
-      transition: {
-        height: { type: "spring" as const, stiffness: 500, damping: 30, duration: 0.3 },
-        opacity: { easings: "ease", duration: 0.25 },
-      },
-    },
-    exit: {
-      y: -6,
-      opacity: 0,
-      height: 0,
-      overflowY: "hidden" as const,
-      transition: {
-        height: { easings: "ease", duration: 0.25 },
-        opacity: { easings: "ease", duration: 0.2 },
-      },
-    },
-  },
-};
-
 // FAQ section backdrop — layered relative-color OKLCH radial gradients.
 // Same `oklch(from var(--color-accent) l c h / 0.06)` pattern as the
 // rest of the refactor; uses `--color-*` (the `@theme` tokens), not
@@ -109,49 +84,41 @@ const FAQ_MOTION_PROPS = {
 const FAQ_BG =
   "bg-[radial-gradient(ellipse_40%_50%_at_5%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_40%_60%_at_95%_80%,oklch(from_var(--color-accent-2)_l_c_h_/_0.05),transparent_70%)]";
 
-// HeroUI itemClasses — utility strings that merge with HeroUI's internal
-// class on the same element. We rely on Tailwind's data-attribute variant
-// (`data-[open=true]:`) for the open-state border, and `group/trigger` +
-// `group-hover/trigger:` on the indicator for the +/× hover hand-off (the
-// trigger is a HeroUI <button> that hosts the indicator slot as a child;
-// we add `group/trigger` to the trigger via itemClasses so descendant
-// utilities can react).
+// Native <details> accordion. Open-state styling uses Tailwind's `open:`
+// variant (matches details[open]) and `group-open/faq:` on descendants.
+// Animation: `interpolate-size` + ::details-content transition — Chromium
+// 131+/Safari 18.2+ animate the expand; older browsers toggle instantly.
 const FAQ_ITEM =
-  "border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] !shadow-none overflow-hidden transition-[border-color] duration-200 !m-0 data-[open=true]:border-line-strong";
+  "group/faq border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] overflow-hidden transition-[border-color] duration-200 open:border-line-strong " +
+  "[interpolate-size:allow-keywords] " +
+  "[&::details-content]:[transition:height_250ms_ease,content-visibility_250ms_allow-discrete] [&::details-content]:overflow-hidden [&::details-content]:h-0 open:[&::details-content]:h-auto " +
+  // Respect prefers-reduced-motion: collapse the expand/collapse to an
+  // instant toggle (HeroUI's framer-motion Accordion honored this; the
+  // native rewrite must too).
+  "motion-reduce:[&::details-content]:[transition:none]";
 
 const FAQ_ITEM_TRIGGER =
-  "group/trigger p-[18px] gap-3 cursor-pointer md:py-[22px] md:px-6 md:gap-4";
+  "flex items-center justify-between gap-3 p-[18px] cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden md:py-[22px] md:px-6 md:gap-4";
 
 const FAQ_ITEM_TITLE =
-  "font-sans !text-[13px] font-semibold !text-ink leading-[1.35] md:!text-[15px]";
+  "font-sans text-[13px] font-semibold text-ink leading-[1.35] md:text-[15px]";
 
-// HeroUI puts content padding via internal class; we override with !important
-// (px-6 pt-0 pb-[22px]) because the data-* slot specificity is identical to
-// HeroUI's. Same caveat as the legacy CSS file noted (`!important` retained
-// for content padding because data-attribute selectors collide).
 const FAQ_ITEM_CONTENT =
-  "!px-[18px] !pt-0 !pb-[18px] text-[13px] leading-[1.65] text-ink-dim text-pretty " +
+  "px-[18px] pt-0 pb-[18px] text-[13px] leading-[1.65] text-ink-dim text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "[&_.rich-link]:text-accent-soft [&_.rich-link]:font-medium [&_.rich-link]:underline [&_.rich-link]:decoration-[oklch(0.7_0.14_295_/_0.4)] [&_.rich-link]:underline-offset-[3px] [&_.rich-link]:transition-[color,text-decoration-color] [&_.rich-link]:duration-200 [&_.rich-link:hover]:text-ink [&_.rich-link:hover]:decoration-ink " +
-  "md:!px-6 md:!pb-[22px] md:text-[14px]";
+  "md:px-6 md:pb-[22px] md:text-[14px]";
 
-// HeroUI's default indicator slot animates rotation; we render our own
-// indicator via render-prop, so disable any built-in motion.
-const FAQ_ITEM_INDICATOR = "!rotate-0 !transition-none";
-
-// The +/× indicator pill. Adjacent to the trigger button (HeroUI renders the
-// indicator slot inside the trigger), so we can use `group-hover/trigger:`
-// for the hover colour swap.
-const FAQ_PLUS_BASE =
+// The +/× indicator pill. Sits inside <summary>; hover via the summary's
+// group/trigger, open-state via the parent <details>' group/faq.
+const FAQ_PLUS =
   "w-[26px] h-[26px] rounded-full border border-line-strong bg-transparent text-ink-dim " +
   "inline-flex items-center justify-center shrink-0 " +
   "transition-[background-color,color,border-color,transform] duration-[250ms] " +
   "group-hover/trigger:text-accent-soft group-hover/trigger:border-accent-40 " +
-  "[&_svg]:w-[11px] [&_svg]:h-[11px] [&_svg]:transition-transform [&_svg]:duration-[250ms] " +
+  "group-open/faq:bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] group-open/faq:border-transparent group-open/faq:text-[oklch(1_0_0_/_0.98)] " +
+  "[&_svg]:w-[11px] [&_svg]:h-[11px] [&_svg]:transition-transform [&_svg]:duration-[250ms] group-open/faq:[&_svg]:rotate-45 " +
   "md:w-8 md:h-8 md:[&_svg]:w-[13px] md:[&_svg]:h-[13px]";
-
-const FAQ_PLUS_OPEN =
-  "!bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] !border-transparent !text-[oklch(1_0_0_/_0.98)] [&_svg]:rotate-45";
 
 export function FAQ({
   heading,
@@ -192,49 +159,31 @@ export function FAQ({
       : resolvedShowAllLabel;
 
   return (
-    <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
+    <section className={hpSectionClass}>
       <div className={`absolute inset-0 z-0 pointer-events-none ${FAQ_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className="mb-7 text-ink uppercase md:mb-12">
           {resolvedHeading}
         </H2>
-        <Accordion
-          variant="splitted"
-          selectionMode="multiple"
-          className="flex flex-col !px-0 gap-3"
-          itemClasses={{
-            base: FAQ_ITEM,
-            trigger: FAQ_ITEM_TRIGGER,
-            title: FAQ_ITEM_TITLE,
-            content: FAQ_ITEM_CONTENT,
-            indicator: FAQ_ITEM_INDICATOR,
-          }}
-        >
+        <div className="flex flex-col gap-3">
           {visible.map((it, i) => (
-            <AccordionItem
-              key={i}
-              aria-label={it.q}
-              title={it.q}
-              indicator={({ isOpen }) => (
-                <span
-                  className={`${FAQ_PLUS_BASE}${isOpen ? ` ${FAQ_PLUS_OPEN}` : ""}`}
-                  aria-hidden="true"
-                >
+            <details key={i} className={FAQ_ITEM}>
+              <summary className={`group/trigger ${FAQ_ITEM_TRIGGER}`}>
+                <span className={FAQ_ITEM_TITLE}>{it.q}</span>
+                <span className={FAQ_PLUS} aria-hidden="true">
                   <Plus size={13} strokeWidth={2.2} />
                 </span>
-              )}
-              motionProps={FAQ_MOTION_PROPS}
-            >
-              {renderRich(it.a)}
-            </AccordionItem>
+              </summary>
+              <div className={FAQ_ITEM_CONTENT}>{renderRich(it.a)}</div>
+            </details>
           ))}
-        </Accordion>
+        </div>
         {hasOverflow ? (
           <div className="mt-8 flex justify-center">
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
-              className="inline-flex items-center gap-2.5 min-h-11 px-6 py-3 border border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim hover:border-accent-soft hover:text-ink transition-colors duration-200"
+              className="inline-flex items-center gap-2.5 min-h-11 px-6 py-3 border border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim cursor-pointer hover:border-accent-soft hover:text-ink transition-colors duration-200"
               aria-expanded={expanded}
             >
               {toggleLabel}

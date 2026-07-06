@@ -22,20 +22,17 @@ const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
   variable: "--font-manrope",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
 });
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin", "cyrillic"],
   variable: "--font-jetbrains",
   display: "swap",
-  weight: ["400", "500"],
 });
 
 const actay = localFont({
   src: [
     { path: "../../../public/fonts/ActayWide-Bold.woff2", weight: "700", style: "normal" },
-    { path: "../../../public/fonts/ActayWide-BoldItalic.woff2", weight: "700", style: "italic" },
   ],
   variable: "--font-actay",
   display: "swap",
