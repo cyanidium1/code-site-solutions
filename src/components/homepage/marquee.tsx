@@ -1,5 +1,26 @@
 import type { MarqueeLogo } from "@/types/homepage";
 
+// Intrinsic pixel dimensions of the bundled partner logos, so each <img> gets
+// correct width/height attributes (aspect-ratio reservation → no CLS, and the
+// browser knows the real size). Source files are left untouched. Keyed by src.
+const LOGO_DIMS: Record<string, { w: number; h: number }> = {
+  "/partners/efedra.webp": { w: 242, h: 100 },
+  "/partners/aleko.webp": { w: 1014, h: 69 },
+  "/partners/solid-renovation.webp": { w: 611, h: 78 },
+  "/partners/art-lover.webp": { w: 465, h: 85 },
+  "/partners/bravo.webp": { w: 317, h: 69 },
+  "/partners/clarion.webp": { w: 615, h: 80 },
+  "/partners/finance-league.webp": { w: 490, h: 85 },
+  "/partners/glimmer.webp": { w: 300, h: 86 },
+  "/partners/grinchenko.webp": { w: 514, h: 101 },
+  "/partners/kondor.webp": { w: 683, h: 58 },
+  "/partners/raul-auto.webp": { w: 341, h: 241 },
+  "/partners/sytnykov.webp": { w: 343, h: 85 },
+  "/partners/uneed.webp": { w: 342, h: 92 },
+  "/partners/way-to-ireland.webp": { w: 704, h: 84 },
+  "/partners/yangoly.webp": { w: 259, h: 112 },
+};
+
 const DEFAULT_MARQUEE: MarqueeLogo[] = [
   { src: "/partners/efedra.webp", alt: "Efedra Clinic" },
   { src: "/partners/tatarka.svg", alt: "Tatarka" },
@@ -44,9 +65,11 @@ export function Marquee({
               <img
                 src={it.src}
                 alt={it.alt}
+                width={LOGO_DIMS[it.src]?.w}
+                height={LOGO_DIMS[it.src]?.h}
                 loading="lazy"
                 decoding="async"
-                className="h-full w-auto max-w-[160px] object-contain opacity-55 [filter:brightness(0)_invert(1)] transition-opacity duration-300"
+                className="h-11 w-auto max-w-[160px] object-contain opacity-55 [filter:brightness(0)_invert(1)] transition-opacity duration-300"
               />
             </span>
           ))}
