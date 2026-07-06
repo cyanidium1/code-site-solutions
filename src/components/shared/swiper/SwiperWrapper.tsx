@@ -18,6 +18,10 @@
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
+// Custom swiper nav + pull-quote (.swiper-nav-btn / .hp-pqs-*) styles. Imported
+// here — inside the lazy swiper chunk — rather than the root layout, so it no
+// longer render-blocks every route (the swiper is ssr:false + below the fold).
+import "../../../app/vendor.css";
 
 import {
   type ReactNode,

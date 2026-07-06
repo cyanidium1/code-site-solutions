@@ -16,7 +16,6 @@ import { ConsentBootstrap } from "@/lib/cookie-consent";
 
 import "../globals.css";
 import "../keyframes.css";
-import "../vendor.css";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
