@@ -43,10 +43,17 @@ const nextConfig: NextConfig = {
     ];
   },
   experimental: {
-    // inlineCss measured 2026-07 (docs/perf-log.md): ON scored 49 / OFF scored 54
-    // on /en mobile — keeping OFF. (ON inlines ~344 KB CSS 3x per page via
-    // the RSC flight duplication; OFF restores a render-blocking but cacheable <link>.)
-    inlineCss: false,
+    // inlineCss RE-A/B'd 2026-07-06 post-islands (docs/perf-log.md). The earlier
+    // 2026-07-05 A/B favored OFF (ON 49 / OFF 54) when the page was JS-heavy
+    // (TBT ~900ms) and ON's larger document was costly. The islands work then
+    // cut TBT to ~60-150ms and shrank the doc, flipping the balance: with ON,
+    // FCP 2.7→2.3s, LCP 4.9→4.2s, and — crucially — the score stops swinging
+    // (ON 54/54/55 vs OFF 38/58/53), because inlining removes ALL render-blocking
+    // CSS <link>s (0 vs 3) and their request-waterfall variance. Total compressed
+    // wire bytes are ~equal (bigger doc, but no separate CSS requests). Keeping ON.
+    // Tradeoff: inlined CSS isn't cached cross-page — fine for a mostly-first-visit
+    // marketing site (matches Next's own inlineCss guidance for atomic/Tailwind CSS).
+    inlineCss: true,
     // Rewrite barrel imports (@heroui/react re-exports everything) to
     // direct module imports so unused components never enter the bundle.
     optimizePackageImports: ["@heroui/react", "lucide-react"],
