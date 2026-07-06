@@ -20,6 +20,8 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-05 | local | islands: FAQ native + lazy drawer/modal (First Load JS /en 354→171 kB, homepage scripts 19→17, vendor chunk out of homepage graph: yes) | 51 | 4.5s | 882ms | 2.5s | 0.000 |
 | 2026-07-05 | local | variable fonts + drop Actay italic (font preloads 6→5) | 60 | 4.9s | 714ms | 2.7s | 0.000 |
 | 2026-07-05 | local | islands+fonts final | 59 | 4.9s | 765ms | 2.7s | 0.000 |
+| 2026-07-06 | prod | post-deploy PR #24 (islands+fonts+primitives); PSI mobile LCP 3.2–3.4s, TBT 60–150ms, render-block ~900ms from 7 blocking CSS links | — | — | — | — | — |
+| 2026-07-06 | local | render-blocking baseline: homepage /en has 7 blocking CSS links | — | — | — | — | — |
 
 ## CSS weight investigation (2026-07-05)
 
