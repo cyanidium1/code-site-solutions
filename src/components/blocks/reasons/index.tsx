@@ -1,4 +1,4 @@
-import { cn } from "@/components/ui";
+import { cn, btnClass } from "@/components/ui";
 import { LeadCtaButton } from "@/components/blocks/lead-modal/lead-cta-button";
 import type { LeadFormLocale } from "@/constants/form-options";
 
@@ -10,8 +10,9 @@ const REASONS_BG_CLASS = [
   "before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.02)_1px,transparent_1px)] before:[background-size:80px_80px] before:[mask:radial-gradient(ellipse_70%_80%_at_50%_50%,black,transparent)] before:[-webkit-mask:radial-gradient(ellipse_70%_80%_at_50%_50%,black,transparent)]",
 ].join(" ");
 
-const FOOT_CTA_BTN_CLASS =
-  "bg-ink text-bg border-0 justify-center min-h-11 px-[18px] py-3.5 rounded-full text-[13px] font-semibold inline-flex items-center gap-2.5 cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_4px_16px_oklch(from_var(--color-accent)_l_c_h_/_0.2),0_0_0_1px_oklch(1_0_0_/_0.1)_inset] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.3),0_0_0_1px_oklch(1_0_0_/_0.1)_inset] sm:justify-normal sm:px-[22px] sm:py-3";
+// Solid-ink pill via the `solid` Btn variant; `sm:` ladder is this block's
+// own auto-width breakpoint (see Btn.tsx `solid` note).
+const FOOT_CTA_BTN_CLASS = btnClass("solid", "sm:justify-normal sm:px-[22px] sm:py-3");
 
 export type Reason = {
   n: string;

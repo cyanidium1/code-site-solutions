@@ -1,7 +1,7 @@
 import { type ButtonHTMLAttributes, type AnchorHTMLAttributes } from "react";
 import { cn } from "./cn";
 
-export type BtnVariant = "primary" | "ghost" | "gradient";
+export type BtnVariant = "primary" | "ghost" | "gradient" | "solid";
 export type BtnSize = "sm" | "md";
 
 // `min-h-11` enforces the WCAG 2.5.5 (AAA) 44px touch-target floor on every
@@ -44,6 +44,17 @@ const variantClass: Record<BtnVariant, string> = {
     "bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0/0.95)] font-semibold w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-6 2xl:py-4 2xl:text-sm",
     "shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h/0.3)]",
     "hover:-translate-y-0.5 hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h/0.42)]",
+  ),
+  // Solid-ink pill WITHOUT the shimmer/full-width of `primary` — an inline,
+  // auto-width CTA with an inset-glow shadow. Consolidates the hand-rolled
+  // pills in blocks/reasons and blocks/case. The responsive auto-width ladder
+  // is intentionally NOT baked in: reasons switches at `sm:`, case at `md:`, so
+  // each call site supplies its own `{sm|md}:justify-normal …px …py` override.
+  solid: cn(
+    "bg-ink text-bg font-semibold justify-center text-[13px] px-[18px] py-3.5",
+    "transition-[transform,box-shadow] duration-200",
+    "shadow-[0_4px_16px_oklch(from_var(--color-accent)_l_c_h/0.2),inset_0_0_0_1px_oklch(1_0_0/0.1)]",
+    "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h/0.3),inset_0_0_0_1px_oklch(1_0_0/0.1)]",
   ),
 };
 
