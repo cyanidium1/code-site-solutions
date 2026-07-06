@@ -4,7 +4,6 @@ import { SanityImg } from "@/lib/shared/sanity-image";
 import type { SanityImage } from "@/types/sanity";
 import { formatPrice } from "@/lib/shared/format-price";
 import { btnClass, H1, PLAY_ICON_CLASS } from "@/components/ui";
-import "./hero-effects.css";
 
 /* ───────────────────────────────────────────────────────────────────────
    HERO — utility classes per former hero.css block.

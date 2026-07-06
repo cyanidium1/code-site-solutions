@@ -3,13 +3,14 @@
 import type { KeyboardEvent } from "react";
 import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
-import "yet-another-react-lightbox/styles.css";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { SanityImg } from "@/lib/shared/sanity-image";
 
-// Defer the lightbox JS until a tile is actually opened — it's a heavy
-// dependency that most visitors never trigger.
-const Lightbox = dynamic(() => import("yet-another-react-lightbox"), {
+// Defer the lightbox JS AND its stylesheet until a tile is actually opened —
+// via ./lightbox-lazy, which owns the CSS side-effect inside the dynamic
+// boundary so ~5.6 KB of lightbox CSS no longer render-blocks pages with a
+// gallery (and no longer leaks onto the homepage). Most visitors never trigger it.
+const Lightbox = dynamic(() => import("./lightbox-lazy"), {
   ssr: false,
 });
 

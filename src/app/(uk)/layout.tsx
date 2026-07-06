@@ -15,8 +15,6 @@ import { GoogleTagManager } from "@/components/analytics/google-tag-manager";
 import { ConsentBootstrap } from "@/lib/cookie-consent";
 
 import "../globals.css";
-import "../keyframes.css";
-import "../vendor.css";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],

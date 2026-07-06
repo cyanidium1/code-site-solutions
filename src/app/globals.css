@@ -1,4 +1,11 @@
 @import "tailwindcss";
+/* Folded in from standalone files so they ship inside this single main CSS
+   chunk instead of two extra render-blocking <link>s. keyframes = global
+   marquee/fade-up/etc.; hero-effects = the .hero-grain overlay + hero @keyframes.
+   Grouped with the tailwindcss import to satisfy the CSS "@import first" rule;
+   postcss-import inlines them into this chunk at build time. */
+@import "./keyframes.css";
+@import "../components/blocks/hero/hero-effects.css";
 @config "../../tailwind.config.ts";
 
 /* @heroui/shared-icons' CloseIcon (rendered by Modal/Drawer close buttons)
