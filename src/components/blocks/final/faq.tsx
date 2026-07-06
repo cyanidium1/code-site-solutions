@@ -7,6 +7,7 @@ import { useLocale } from "next-intl";
 import { renderRich } from "@/lib/shared/rich-text";
 import type { FAQItem } from "@/types/faq";
 import { H2 } from "@/components/ui";
+import { hpSectionClass } from "@/components/homepage/shared";
 
 const FAQ_INITIAL_VISIBLE = 5;
 
@@ -158,7 +159,7 @@ export function FAQ({
       : resolvedShowAllLabel;
 
   return (
-    <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
+    <section className={hpSectionClass}>
       <div className={`absolute inset-0 z-0 pointer-events-none ${FAQ_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className="mb-7 text-ink uppercase md:mb-12">
