@@ -35,15 +35,19 @@ const variantClass: Record<BtnVariant, string> = {
     "bg-transparent text-ink border border-line-strong font-medium w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-[22px] 2xl:py-[15px] 2xl:text-sm",
     "hover:border-ink-dim hover:bg-[oklch(1_0_0/0.04)]",
   ),
-  // Brand-gradient filled pill. Consolidates the near-identical gradient CTAs
-  // hand-rolled in blocks/final/audit, blocks/comparison, blocks/lead-form and
-  // homepage/newsletter. Shares the primary/ghost padding ladder so migrations
-  // are a visual no-op; call sites that need uppercase / font-display / a
-  // different text size layer those on via `className`.
+  // Brand-gradient full-width submit pill. Modeled on the ACTUAL gradient form
+  // submits in blocks/final/audit (AUDIT_SUBMIT_CLASS) and blocks/comparison
+  // (CMP_CONTACT_SUBMIT_CLASS): 90deg 3-stop gradient, text at oklch .85,
+  // font-display, tracking, glow shadow, lift on hover. Base px/text-size and
+  // the responsive ladder are left to the call site (audit is always full-width
+  // + uppercase; comparison tightens at md:). Intentionally NOT used for the
+  // HeroUI lead-form button (needs !important overrides), the newsletter button
+  // (bg-brand-gradient token), or the comparison table CTA (135deg accent) —
+  // those are different gradients, left as documented exceptions.
   gradient: cn(
-    "bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0/0.95)] font-semibold w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-6 2xl:py-4 2xl:text-sm",
-    "shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h/0.3)]",
-    "hover:-translate-y-0.5 hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h/0.42)]",
+    "bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0/0.85)] font-display font-semibold tracking-[0.04em] w-full justify-center py-3.5",
+    "transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h/0.3)]",
+    "hover:-translate-y-0.5",
   ),
   // Solid-ink pill WITHOUT the shimmer/full-width of `primary` — an inline,
   // auto-width CTA with an inset-glow shadow. Consolidates the hand-rolled

@@ -4,6 +4,7 @@ import type * as React from "react";
 import { useState } from "react";
 import { getAttribution } from "@/lib/client/attribution";
 import { HoneypotField } from "@/components/blocks/honeypot-field";
+import { btnClass } from "@/components/ui";
 
 // Hoisted module-level class strings. The four <input>s share the same
 // 250+ char Tailwind string; extracting prevents the React reconciler
@@ -11,8 +12,9 @@ import { HoneypotField } from "@/components/blocks/honeypot-field";
 const AUDIT_INPUT_CLASS =
   "w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-line-strong rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]";
 
-const AUDIT_SUBMIT_CLASS =
-  "w-full px-[22px] py-3.5 bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0_/_0.85)] border-0 rounded-full font-display text-[12px] font-semibold tracking-[0.04em] cursor-pointer transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] mt-1.5 uppercase hover:-translate-y-0.5";
+// Gradient submit pill via the `gradient` Btn variant; overrides are this
+// button's own padding/size + always-uppercase (see Btn.tsx `gradient` note).
+const AUDIT_SUBMIT_CLASS = btnClass("gradient", "mt-1.5 px-[22px] text-[12px] uppercase");
 
 function CheckIcon() {
   return (
