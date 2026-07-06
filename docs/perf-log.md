@@ -22,6 +22,7 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-05 | local | islands+fonts final | 59 | 4.9s | 765ms | 2.7s | 0.000 |
 | 2026-07-06 | prod | post-deploy PR #24 (islands+fonts+primitives); PSI mobile LCP 3.2–3.4s, TBT 60–150ms, render-block ~900ms from 7 blocking CSS links | — | — | — | — | — |
 | 2026-07-06 | local | render-blocking baseline: homepage /en has 7 blocking CSS links | — | — | — | — | — |
+| 2026-07-06 | local | phase A: blocking CSS links **7→3** (vendor+lightbox → lazy chunks, keyframes+hero-effects folded into main); LCP/score in noise, TBT inflated by concurrent machine load (run1 cold outlier) — link-count is the structural win | 56 | 4.0s | 2016ms | 2.3s | 0.000 |
 
 ## CSS weight investigation (2026-07-05)
 
