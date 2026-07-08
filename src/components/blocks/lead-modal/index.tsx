@@ -11,7 +11,7 @@ import {
 import dynamic from "next/dynamic";
 import type { LeadFormLocale } from "@/constants/form-options";
 
-// Modal UI + LeadForm (formik/yup/HeroUI inputs) load only on first open —
+// Modal UI + LeadForm (formik/yup + ui primitives) load only on first open —
 // none of it is needed for first paint on any page. ssr:false is safe:
 // the modal renders nothing until opened.
 const LeadModalDialog = dynamic(

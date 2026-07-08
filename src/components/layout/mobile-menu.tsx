@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 import { useTranslations } from "next-intl";
 
-// Drawer JS (HeroUI modal machinery) loads only after the first tap —
+// Drawer JS loads only after the first tap —
 // it's never needed for first paint. ssr:false is safe: the drawer is
 // closed (renders nothing user-visible) until opened.
 const MobileMenuDrawer = dynamic(

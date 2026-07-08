@@ -6,13 +6,6 @@
    postcss-import inlines them into this chunk at build time. */
 @import "./keyframes.css";
 @import "../components/blocks/hero/hero-effects.css";
-@config "../../tailwind.config.ts";
-
-/* @heroui/shared-icons' CloseIcon (rendered by Modal/Drawer close buttons)
-   hardcodes className="fill-current" at runtime. That string lives only in
-   @heroui/shared-icons (not scanned — see tools/sync-heroui-tw-sources.mjs),
-   so force-generate the utility here. */
-@source inline("fill-current");
 
 @theme {
   /* ─────────────────────────────────────────────────────────────────────

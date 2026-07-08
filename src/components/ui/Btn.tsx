@@ -40,10 +40,10 @@ const variantClass: Record<BtnVariant, string> = {
   // (CMP_CONTACT_SUBMIT_CLASS): 90deg 3-stop gradient, text at oklch .85,
   // font-display, tracking, glow shadow, lift on hover. Base px/text-size and
   // the responsive ladder are left to the call site (audit is always full-width
-  // + uppercase; comparison tightens at md:). Intentionally NOT used for the
-  // HeroUI lead-form button (needs !important overrides), the newsletter button
-  // (bg-brand-gradient token), or the comparison table CTA (135deg accent) —
-  // those are different gradients, left as documented exceptions.
+  // + uppercase; comparison tightens at md:). The lead-form submit uses this
+  // variant with its own overrides; the newsletter button (bg-brand-gradient
+  // token) and the comparison table CTA (135deg accent) are different
+  // gradients, left as documented exceptions.
   gradient: cn(
     "bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.45_0.20_320))] text-[oklch(1_0_0/0.85)] font-display font-semibold tracking-[0.04em] w-full justify-center py-3.5",
     "transition-all duration-[250ms] shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h/0.3)]",

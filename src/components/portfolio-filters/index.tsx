@@ -3,10 +3,9 @@
 import { useCallback, useTransition } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Select, SelectItem } from "@heroui/react";
 import { ArrowUpRight } from "lucide-react";
 
-import { btnClass } from "@/components/ui";
+import { btnClass, Select } from "@/components/ui";
 import {
   FILTER_ALL_KEY,
   FILTER_ALL_LABEL_BY_LOCALE,
@@ -37,39 +36,6 @@ export type PortfolioFiltersProps = {
   industryCtaHrefBySlug: Record<string, string>;
 };
 
-// Reuse the slot classes used by the lead-form Select so dropdowns look
-// consistent across the site. Kept inline (not extracted) because no other
-// surface uses them yet — DRY would be premature.
-const LABEL_CLASS =
-  "!text-ink-dim font-medium !text-[13px] tracking-[0.005em]";
-
-const SELECT_TRIGGER_CLASS =
-  "border border-line-strong !bg-[oklch(0.16_0.005_300_/_0.7)] !shadow-none transition-[border-color,background-color] duration-200 " +
-  "hover:!border-ink-3 hover:!bg-[oklch(0.16_0.005_300_/_0.9)] " +
-  "data-[focus=true]:!border-accent-soft data-[focus=true]:!bg-[oklch(0.18_0.01_300_/_0.95)] " +
-  "data-[open=true]:!border-accent-soft data-[open=true]:!bg-[oklch(0.18_0.01_300_/_0.95)]";
-
-const SELECT_VALUE_CLASS =
-  "!text-ink !font-sans !text-[14px] tracking-[0.005em]";
-
-const SELECT_POPOVER_CLASS =
-  "!bg-[oklch(0.13_0.005_300_/_0.98)] border border-line-strong " +
-  "!shadow-[0_18px_48px_oklch(0_0_0_/_0.5),0_0_0_1px_oklch(1_0_0_/_0.04)_inset] " +
-  "backdrop-blur-[16px]";
-
-const SELECT_ITEM_CLASS =
-  "!text-ink-dim rounded-lg transition-[background-color,color] duration-150 " +
-  "data-[hover=true]:!bg-[rgba(255,255,255,0.06)] data-[hover=true]:!text-ink " +
-  "data-[focus=true]:!bg-[rgba(255,255,255,0.06)] data-[focus=true]:!text-ink " +
-  "data-[selected=true]:!bg-accent-20 data-[selected=true]:!text-ink";
-
-const SELECT_CLASSNAMES = {
-  label: LABEL_CLASS,
-  trigger: SELECT_TRIGGER_CLASS,
-  value: SELECT_VALUE_CLASS,
-  popoverContent: SELECT_POPOVER_CLASS,
-} as const;
-
 function FilterSelect({
   label,
   placeholder,
@@ -86,7 +52,8 @@ function FilterSelect({
   onSelect: (value: string) => void;
 }) {
   // Prepend an explicit "All" reset row. The empty-string param removal happens
-  // in onSelect when the sentinel key is picked.
+  // in onSelect when the sentinel key is picked. Trigger/listbox styling is
+  // the ui/Select default (same treatment the lead-form uses).
   const items: FilterOption[] = [
     { key: FILTER_ALL_KEY, label: allLabel },
     ...options,
@@ -94,24 +61,13 @@ function FilterSelect({
   return (
     <Select
       label={label}
-      labelPlacement="outside"
       placeholder={placeholder}
-      selectedKeys={currentValue ? [currentValue] : []}
-      onSelectionChange={(keys) => {
-        const k = Array.from(keys)[0];
-        const next = !k || String(k) === FILTER_ALL_KEY ? "" : String(k);
-        onSelect(next);
+      options={items}
+      value={currentValue}
+      onChange={(v) => {
+        onSelect(!v || v === FILTER_ALL_KEY ? "" : v);
       }}
-      variant="bordered"
-      radius="lg"
-      classNames={SELECT_CLASSNAMES}
-    >
-      {items.map((o) => (
-        <SelectItem key={o.key} className={SELECT_ITEM_CLASS}>
-          {o.label}
-        </SelectItem>
-      ))}
-    </Select>
+    />
   );
 }
 
