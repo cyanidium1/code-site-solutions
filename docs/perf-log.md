@@ -61,3 +61,31 @@ The 9s tail is eliminated (worst 6.6s); median score +11, median LCP −2.1s.
 Kept OFF. NOTE: this supersedes the 2026-07-06 "keep ON" decision — the earlier
 A/Bs measured CSS delivery, not the flight-payload script-eval cost (fast local
 CPUs hide it; only real slow-4G + Lantern surface it).
+
+## HeroUI removal (2026-07-08, branch perf/drop-heroui)
+
+Replaced HeroUI with in-house primitives (`src/components/ui/`: Field =
+Input/Textarea, Select = APG select-only combobox, Dialog = Modal/Drawer on
+native `<dialog>`, Btn gained `isLoading`). Deleted `tailwind.config.ts`
+(Tailwind v4 Oxide auto-detection now scans content — the config only held the
+heroui plugin + `.heroui-tw` glob; zero `dark:` variants existed in src),
+`tools/sync-heroui-tw-sources.mjs` + predev/prebuild hooks, and deps
+`@heroui/react`/`system`/`theme` + `framer-motion` (was only a HeroUI peer dep).
+
+Main CSS chunk (build-measured):
+
+| | raw | gzip |
+|---|---|---|
+| before (master b5ec369) | 307,412 B | 44,704 B |
+| after Lever A | 216,454 B | 33,523 B |
+| delta | **−90,958 B (−29.6%)** | **−11,181 B (−25.0%)** |
+
+Homepage `/en` coverage (postcss selector-match vs SSR HTML): page-needed CSS
+~12.0 KB gzip (was ~13.3); unused-by-homepage tail 227.6 → 146.1 KB raw — the
+remainder is the route-specific arbitrary-value gradient tail (Lever B).
+First Load JS unchanged (HeroUI was already behind lazy boundaries; the win in
+those lazy chunks is HeroUI+framer-motion JS no longer downloaded on first
+modal/drawer open). A11y parity verified in preview: combobox keyboard nav
+(arrows/Home/End/Enter/Esc/typeahead, aria-activedescendant), dialog focus
+trap + focus return + Esc + backdrop dismiss + scroll lock, drawer
+route-change close; console clean.
