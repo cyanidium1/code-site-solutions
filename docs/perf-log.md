@@ -39,3 +39,25 @@ property registrations. Parked conclusions:
 - The one big lever left is removing HeroUI entirely (~60 KB CSS + provider JS):
   after the islands work it survives only in LeadForm/Drawer/Modal/Selects —
   all off the homepage critical path. Future project.
+
+## LCP flakiness fix — inlineCss OFF + defer GTM/Clarity (2026-07-08, PR #27)
+
+Root cause of the bimodal prod LCP (5s good / 9s bad) — found via bootup-time
+attribution, NOT the earlier CSS-delivery A/Bs: inlineCss ON duplicated the CSS
+into the RSC flight payload (doc 1.13 MB, 549 KB of inline __next_f scripts,
+CSS marker 470×). Evaluating that inline script = ~1,632 ms, the biggest single
+contributor to the ~2s main-thread work that made the hero LCP paint collide on
+real slow-4G. Fix: inlineCss OFF (doc → 484 KB, ~half the flight eval) + GTM &
+Clarity → lazyOnload (defer ~457 ms past LCP). Prod A/B, 5 passes each:
+
+| | ON (before) | OFF+defer (after) |
+|---|---|---|
+| scores | 45/46/46/48/56 | 50/54/57/70/72 |
+| LCP | 5.2/5.3/8.6/9.5/9.6s | 4.0/4.9/6.5/6.5/6.6s |
+| worst LCP | 9.6s | 6.6s |
+| median score/LCP | 46 / 8.6s | 57 / 6.5s |
+
+The 9s tail is eliminated (worst 6.6s); median score +11, median LCP −2.1s.
+Kept OFF. NOTE: this supersedes the 2026-07-06 "keep ON" decision — the earlier
+A/Bs measured CSS delivery, not the flight-payload script-eval cost (fast local
+CPUs hide it; only real slow-4G + Lantern surface it).
