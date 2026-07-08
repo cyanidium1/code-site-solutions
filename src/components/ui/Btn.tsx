@@ -99,18 +99,28 @@ export function btnClass(variant: BtnVariant = "primary", extra?: string, size: 
   return cn(base, variantClass[variant], sizeClass[size], extra);
 }
 
-type CommonProps = { variant?: BtnVariant; size?: BtnSize; className?: string };
+/** Border-circle spinner shown by `isLoading`; inherits currentColor. */
+const SPINNER_CLASS =
+  "inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent";
+
+type CommonProps = { variant?: BtnVariant; size?: BtnSize; className?: string; isLoading?: boolean };
 type ButtonProps = { as?: "button" } & CommonProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className">;
 type AnchorProps = { as: "a" } & CommonProps & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "className">;
 type BtnProps = ButtonProps | AnchorProps;
 
 export function Btn(props: BtnProps) {
-  const { variant = "primary", size = "md", className, children, as, ...rest } = props as BtnProps & {
+  const { variant = "primary", size = "md", className, children, as, isLoading, ...rest } = props as BtnProps & {
     children?: React.ReactNode;
     as?: "button" | "a";
   };
   const classes = btnClass(variant, className, size);
-  const label = variant === "primary" ? <span className="relative z-10 flex items-center gap-2.5 justify-center">{children}</span> : children;
+  const content = (
+    <>
+      {isLoading ? <span className={SPINNER_CLASS} aria-hidden="true" /> : null}
+      {children}
+    </>
+  );
+  const label = variant === "primary" ? <span className="relative z-10 flex items-center gap-2.5 justify-center">{content}</span> : content;
 
   if (as === "a") {
     return (
@@ -119,8 +129,15 @@ export function Btn(props: BtnProps) {
       </a>
     );
   }
+  const buttonRest = rest as ButtonHTMLAttributes<HTMLButtonElement>;
   return (
-    <button type="button" className={classes} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
+    <button
+      type="button"
+      className={classes}
+      aria-busy={isLoading || undefined}
+      {...buttonRest}
+      disabled={isLoading || buttonRest.disabled}
+    >
       {label}
     </button>
   );
