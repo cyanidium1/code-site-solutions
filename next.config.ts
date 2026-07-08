@@ -43,17 +43,18 @@ const nextConfig: NextConfig = {
     ];
   },
   experimental: {
-    // inlineCss RE-A/B'd 2026-07-06 post-islands (docs/perf-log.md). The earlier
-    // 2026-07-05 A/B favored OFF (ON 49 / OFF 54) when the page was JS-heavy
-    // (TBT ~900ms) and ON's larger document was costly. The islands work then
-    // cut TBT to ~60-150ms and shrank the doc, flipping the balance: with ON,
-    // FCP 2.7→2.3s, LCP 4.9→4.2s, and — crucially — the score stops swinging
-    // (ON 54/54/55 vs OFF 38/58/53), because inlining removes ALL render-blocking
-    // CSS <link>s (0 vs 3) and their request-waterfall variance. Total compressed
-    // wire bytes are ~equal (bigger doc, but no separate CSS requests). Keeping ON.
-    // Tradeoff: inlined CSS isn't cached cross-page — fine for a mostly-first-visit
-    // marketing site (matches Next's own inlineCss guidance for atomic/Tailwind CSS).
-    inlineCss: true,
+    // inlineCss: OFF. Full history in docs/perf-log.md. The deciding finding
+    // (2026-07-06 bootup attribution): inlineCss ON duplicates the ~306 KB CSS
+    // into the RSC flight payload, inflating the /en document to 1.13 MB (549 KB
+    // of inline __next_f script strings, CSS marker present 470×). Evaluating
+    // that inline script is ~1,632 ms — the single biggest contributor to the
+    // main-thread work that makes the hero LCP paint a coin-flip on real
+    // slow-4G (prod PSI bimodal 5s/9s). OFF shrinks the doc to ~484 KB (~half
+    // the inline-script eval) and delivers CSS as 3 cacheable <link>s; round-2
+    // OFF measured a stable ~3.3s on prod. The cost isn't CSS parse (1ms) or
+    // render-blocking — it's the flight-payload eval, which we hadn't measured
+    // in the earlier A/Bs (fast local CPUs hide it).
+    inlineCss: false,
     // Rewrite barrel imports (@heroui/react re-exports everything) to
     // direct module imports so unused components never enter the bundle.
     optimizePackageImports: ["@heroui/react", "lucide-react"],

@@ -12,7 +12,12 @@ import { GTM_ID } from "@/constants/site";
 export function GoogleTagManager() {
   return (
     <>
-      <Script id="gtm" strategy="afterInteractive">
+      {/* lazyOnload: defer GTM (and Clarity, which loads inside the container)
+          until after the load event — i.e. after LCP. They contribute ~457ms of
+          main-thread execution (Clarity 292ms + GTM 165ms) that otherwise lands
+          in the LCP window and delays the hero paint. The consent-mode default
+          state is still set synchronously by the inline bootstrap before this. */}
+      <Script id="gtm" strategy="lazyOnload">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
