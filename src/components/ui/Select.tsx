@@ -128,7 +128,9 @@ export function Select({
 
   const open = useCallback(
     (initialKey?: string) => {
-      setActiveKey(initialKey ?? value ?? options[0]?.key ?? null);
+      // `value` is "" when nothing is selected — fall through to the first
+      // option so the listbox always opens with a highlighted row.
+      setActiveKey(initialKey || value || options[0]?.key || null);
       setIsOpen(true);
     },
     [value, options],
