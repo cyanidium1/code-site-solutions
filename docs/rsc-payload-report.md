@@ -147,6 +147,30 @@ names, hoisted style block).
    metric this round exists for).
 4. **Own branch + PR**, no merge without approval — as before.
 
+## Results (2026-07-09, branch `perf/slim-classnames`)
+
+The §4 plan was executed same-day. All five frozen stacks converted to
+semantic classes in `src/app/homepage-cards.css` (imported by `globals.css`;
+for homepage styles the cached main sheet beats a hoisted `<style>`, which
+would itself ship twice per document):
+
+| Metric | Before | After | Δ |
+|---|---|---|---|
+| `/en` document raw | 480.3 KB | 433.0 KB | **−47.3 KB (−9.9%)** |
+| flight payload (escaped) | 216.8 KB | 195.8 KB | −21.0 KB |
+| HTML class-attr bytes | 128.5 KB | 104.0 KB | −24.5 KB |
+| flight className bytes | 65.5 KB | 55.8 KB | −9.7 KB |
+| audit candidates ≥600 B×3 | 5 | **0** | — |
+| main CSS | 206,402 / 32,551 gz | 205,581 / 32,772 gz | −821 raw / +221 gz |
+
+The main sheet *shrank* raw — the retired arbitrary-value utilities outweighed
+the added semantic classes. Local Lighthouse doc-bootup was too machine-noisy
+to adjudicate (2.3–5.1 s scatter across 6 runs, medians 56/62 with TBT
+contamination); the byte reduction is mechanical (−10% of parse/eval input),
+prod PSI post-merge is the arbiter. Visual/interaction parity verified per
+component in the preview (computed styles, reveal states, FAQ open state,
+hover bindings via `a.hp-ind-card`).
+
 ## TL;DR
 
 The `/en` document is 480 KB raw (53 KiB gzipped): ~263 KB HTML plus a
