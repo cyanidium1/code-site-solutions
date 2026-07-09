@@ -6,13 +6,6 @@
    postcss-import inlines them into this chunk at build time. */
 @import "./keyframes.css";
 @import "../components/blocks/hero/hero-effects.css";
-@config "../../tailwind.config.ts";
-
-/* @heroui/shared-icons' CloseIcon (rendered by Modal/Drawer close buttons)
-   hardcodes className="fill-current" at runtime. That string lives only in
-   @heroui/shared-icons (not scanned — see tools/sync-heroui-tw-sources.mjs),
-   so force-generate the utility here. */
-@source inline("fill-current");
 
 @theme {
   /* ─────────────────────────────────────────────────────────────────────
@@ -160,6 +153,14 @@ body {
   [role="button"]:not(:disabled),
   summary {
     cursor: pointer;
+  }
+
+  /* Background scroll lock while any native modal dialog is open
+     (src/components/ui/Dialog.tsx — Modal/Drawer). showModal() puts the
+     dialog in the top layer but does not stop the page behind it from
+     scrolling; this does. */
+  html:has(dialog:modal) {
+    overflow: hidden;
   }
 }
 

@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, type CSSProperties } from "react";
-import { Drawer, DrawerContent, DrawerBody } from "@heroui/react";
 import { ChevronRight, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
+import { Drawer } from "@/components/ui";
 import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
@@ -14,20 +14,12 @@ import { headerBrandClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
 import { NavWorkLabel } from "./nav-work-label";
 
-// HeroUI Drawer slot classes. `!`-prefixed where they override HeroUI's
-// internal class precedence (background, max-width, border).
-// The wrapper z-index is intentionally NOT overridden: HeroUI's own
-// wrapper manages click-outside delegation, and forcing a higher z-index
-// on the wrapper turned the backdrop into a sibling that swallowed
-// pointer events without firing the close handler. `base` (the panel)
-// keeps its z bump so it renders above the backdrop within HeroUI's
-// own z-50 wrapper, while page content at z:1 (.blog-prose etc.) still
-// renders below the wrapper itself.
+// ui/Drawer slot classes (native <dialog>; z-index/backdrop handled by the
+// top layer — no wrapper juggling needed).
 const drawerClassNames = {
   base:
-    "!bg-bg !bg-[linear-gradient(180deg,oklch(0.10_0.005_300)_0%,oklch(0.08_0.01_295)_100%)] " +
-    "!border-l !border-line text-ink !max-w-[420px] !w-screen !rounded-none !m-0",
-  backdrop: "!bg-[oklch(0.06_0.005_300/0.55)] !backdrop-blur-[8px]",
+    "bg-bg bg-[linear-gradient(180deg,oklch(0.10_0.005_300)_0%,oklch(0.08_0.01_295)_100%)] " +
+    "backdrop:bg-[oklch(0.06_0.005_300/0.55)] backdrop:backdrop-blur-[8px]",
 };
 
 const drawerHeadClass =
@@ -35,7 +27,7 @@ const drawerHeadClass =
 const drawerCloseClass =
   "w-11 h-11 -mr-2.5 border-0 rounded-xl bg-transparent text-ink-dim cursor-pointer inline-flex items-center justify-center transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
 const drawerBodyClass =
-  "!px-[22px] !pt-[22px] !pb-4 overflow-y-auto flex-1 flex flex-col gap-3.5";
+  "px-[22px] pt-[22px] pb-4 overflow-y-auto min-h-0 flex-1 flex flex-col gap-3.5";
 
 const drawerSectionClass = "flex flex-col gap-2";
 const drawerEyebrowClass =
@@ -126,123 +118,111 @@ export function MobileMenuDrawer({
   const ALL_SERVICES_I = SERVICES_BASE_I + SERVICE_NAV_LINKS.length;
   const NAV_BASE_I = ALL_SERVICES_I + 1;
 
+  const close = onClose;
+
   return (
-    <Drawer
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-      placement="right"
-      size="full"
-      backdrop="blur"
-      hideCloseButton
-      classNames={drawerClassNames}
-    >
-      <DrawerContent>
-        {(close) => (
-          <>
-            <div className={drawerHeadClass}>
-              <Logo
-                href={isEn ? "/en" : "/"}
-                className={headerBrandClass}
-                onClick={close}
-              />
-              <button
-                type="button"
-                className={drawerCloseClass}
-                aria-label="Close menu"
-                onClick={close}
+    <Drawer isOpen={isOpen} onOpenChange={onOpenChange} classNames={drawerClassNames}>
+      <div className={drawerHeadClass}>
+        <Logo
+          href={isEn ? "/en" : "/"}
+          className={headerBrandClass}
+          onClick={close}
+        />
+        <button
+          type="button"
+          className={drawerCloseClass}
+          aria-label="Close menu"
+          onClick={close}
+        >
+          <X size={20} strokeWidth={1.6} />
+        </button>
+      </div>
+      <div className={drawerBodyClass}>
+        <div className={drawerSectionClass}>
+          <div
+            className={`${drawerEyebrowClass} ${drawerStaggerClass}`}
+            // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+            style={{ "--i": SERVICES_EYEBROW_I } as CSSProperties}
+          >
+            {t("services")}
+          </div>
+          <ul className={drawerListClass}>
+            {SERVICE_NAV_LINKS.map((s, idx) => (
+              <li
+                key={s.href}
+                className={drawerStaggerClass}
+                // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                style={{ "--i": SERVICES_BASE_I + idx } as CSSProperties}
               >
-                <X size={20} strokeWidth={1.6} />
-              </button>
-            </div>
-            <DrawerBody className={drawerBodyClass}>
-              <div className={drawerSectionClass}>
-                <div
-                  className={`${drawerEyebrowClass} ${drawerStaggerClass}`}
-                  // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-                  style={{ "--i": SERVICES_EYEBROW_I } as CSSProperties}
-                >
-                  {t("services")}
-                </div>
-                <ul className={drawerListClass}>
-                  {SERVICE_NAV_LINKS.map((s, idx) => (
-                    <li
-                      key={s.href}
-                      className={drawerStaggerClass}
-                      // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-                      style={{ "--i": SERVICES_BASE_I + idx } as CSSProperties}
-                    >
-                      {s.published ? (
-                        <Link
-                          href={resolveServiceHref(s.href, isEn, registry)}
-                          className={drawerLinkBaseClass}
-                          onClick={close}
-                        >
-                          <span>{tServices(s.key)}</span>
-                          <ChevronRight size={14} strokeWidth={1.8} />
-                        </Link>
-                      ) : (
-                        <span
-                          className={`${drawerLinkBaseClass} ${drawerLinkDisabledClass}`}
-                          aria-disabled="true"
-                        >
-                          <span>{tServices(s.key)}</span>
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                  <li
-                    className={drawerStaggerClass}
-                    // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-                    style={{ "--i": ALL_SERVICES_I } as CSSProperties}
+                {s.published ? (
+                  <Link
+                    href={resolveServiceHref(s.href, isEn, registry)}
+                    className={drawerLinkBaseClass}
+                    onClick={close}
                   >
-                    <Link
-                      href={allServicesHref}
-                      className={`${drawerLinkBaseClass} ${drawerLinkMutedClass}`}
-                      onClick={close}
-                    >
-                      <span>{t("allServicesFooter")}</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div className={drawerDividerClass} />
-
-              <ul className={drawerListClass}>
-                {navLinks.map((l, idx) => (
-                  <li
-                    key={l.href}
-                    className={drawerStaggerClass}
-                    // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-                    style={{ "--i": NAV_BASE_I + idx } as CSSProperties}
+                    <span>{tServices(s.key)}</span>
+                    <ChevronRight size={14} strokeWidth={1.8} />
+                  </Link>
+                ) : (
+                  <span
+                    className={`${drawerLinkBaseClass} ${drawerLinkDisabledClass}`}
+                    aria-disabled="true"
                   >
-                    <Link
-                      href={l.href}
-                      className={`${drawerLinkBaseClass} ${drawerLinkPrimaryClass}`}
-                      onClick={close}
-                    >
-                      <span>
-                        <NavWorkLabel label={l.label} linkKey={l.key} />
-                      </span>
-                      <ChevronRight size={14} strokeWidth={1.8} />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </DrawerBody>
-
-            <div className={drawerFootClass}>
+                    <span>{tServices(s.key)}</span>
+                  </span>
+                )}
+              </li>
+            ))}
+            <li
+              className={drawerStaggerClass}
+              // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+              style={{ "--i": ALL_SERVICES_I } as CSSProperties}
+            >
               <Link
-                href={ctaHref}
-                className={drawerCtaClass}
+                href={allServicesHref}
+                className={`${drawerLinkBaseClass} ${drawerLinkMutedClass}`}
                 onClick={close}
               >
-                {t("cta")}
+                <span>{t("allServicesFooter")}</span>
               </Link>
-            </div>
-          </>
-        )}
-      </DrawerContent>
+            </li>
+          </ul>
+        </div>
+
+        <div className={drawerDividerClass} />
+
+        <ul className={drawerListClass}>
+          {navLinks.map((l, idx) => (
+            <li
+              key={l.href}
+              className={drawerStaggerClass}
+              // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+              style={{ "--i": NAV_BASE_I + idx } as CSSProperties}
+            >
+              <Link
+                href={l.href}
+                className={`${drawerLinkBaseClass} ${drawerLinkPrimaryClass}`}
+                onClick={close}
+              >
+                <span>
+                  <NavWorkLabel label={l.label} linkKey={l.key} />
+                </span>
+                <ChevronRight size={14} strokeWidth={1.8} />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className={drawerFootClass}>
+        <Link
+          href={ctaHref}
+          className={drawerCtaClass}
+          onClick={close}
+        >
+          {t("cta")}
+        </Link>
+      </div>
     </Drawer>
   );
 }

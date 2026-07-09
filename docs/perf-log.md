@@ -25,6 +25,7 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-06 | local | phase A: blocking CSS links **7→3** (vendor+lightbox → lazy chunks, keyframes+hero-effects folded into main); LCP/score in noise, TBT inflated by concurrent machine load (run1 cold outlier) — link-count is the structural win | 56 | 4.0s | 2016ms | 2.3s | 0.000 |
 | 2026-07-06 | local | inlineCss OFF (post phase A): doc 484 KB, **3** blocking CSS links; runs 38/58/53 — render-block waterfall makes it swing | 53 | 4.9s | 1610ms | 2.7s | 0.000 |
 | 2026-07-06 | local | inlineCss ON (post phase A): doc 1.13 MB raw / 161 KB gzip, **0** blocking CSS links; runs 54/54/55 — stable | 54 | 4.2s | 2126ms | 2.3s | 0.000 |
+| 2026-07-08 | local | HeroUI removed (perf/drop-heroui, PR #29): main CSS 44.7→33.5 KB gzip; runs 58/69/68 | 68 | 4.2s | 556ms | 2.3s | 0.000 |
 
 **inlineCss re-A/B decision (2026-07-06): ON wins, flipped from the 2026-07-05 OFF call.** Score tie (54 vs 53); ON better on LCP (4.2 vs 4.9) and FCP (2.3 vs 2.7), and — the point — ON is stable (54/54/55) while OFF swings (38/58/53) because ON removes all render-blocking CSS `<link>`s (0 vs 3) and their request-waterfall variance. TBT (~2000ms both) is machine-load noise, not signal (prod TBT is 60–150ms). Compressed wire bytes ~equal. The 2026-07-05 OFF decision was correct for a JS-heavy page; the islands work changed the conditions. Confirm on prod PSI post-deploy.
 
@@ -61,3 +62,31 @@ The 9s tail is eliminated (worst 6.6s); median score +11, median LCP −2.1s.
 Kept OFF. NOTE: this supersedes the 2026-07-06 "keep ON" decision — the earlier
 A/Bs measured CSS delivery, not the flight-payload script-eval cost (fast local
 CPUs hide it; only real slow-4G + Lantern surface it).
+
+## HeroUI removal (2026-07-08, branch perf/drop-heroui)
+
+Replaced HeroUI with in-house primitives (`src/components/ui/`: Field =
+Input/Textarea, Select = APG select-only combobox, Dialog = Modal/Drawer on
+native `<dialog>`, Btn gained `isLoading`). Deleted `tailwind.config.ts`
+(Tailwind v4 Oxide auto-detection now scans content — the config only held the
+heroui plugin + `.heroui-tw` glob; zero `dark:` variants existed in src),
+`tools/sync-heroui-tw-sources.mjs` + predev/prebuild hooks, and deps
+`@heroui/react`/`system`/`theme` + `framer-motion` (was only a HeroUI peer dep).
+
+Main CSS chunk (build-measured):
+
+| | raw | gzip |
+|---|---|---|
+| before (master b5ec369) | 307,412 B | 44,704 B |
+| after Lever A | 216,454 B | 33,523 B |
+| delta | **−90,958 B (−29.6%)** | **−11,181 B (−25.0%)** |
+
+Homepage `/en` coverage (postcss selector-match vs SSR HTML): page-needed CSS
+~12.0 KB gzip (was ~13.3); unused-by-homepage tail 227.6 → 146.1 KB raw — the
+remainder is the route-specific arbitrary-value gradient tail (Lever B).
+First Load JS unchanged (HeroUI was already behind lazy boundaries; the win in
+those lazy chunks is HeroUI+framer-motion JS no longer downloaded on first
+modal/drawer open). A11y parity verified in preview: combobox keyboard nav
+(arrows/Home/End/Enter/Esc/typeahead, aria-activedescendant), dialog focus
+trap + focus return + Esc + backdrop dismiss + scroll lock, drawer
+route-change close; console clean.

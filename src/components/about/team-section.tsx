@@ -1,16 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from "@heroui/react";
 
+import { Btn, Modal, ModalBody, ModalFooter, ModalHeader } from "@/components/ui";
 import { AppImage } from "@/lib/shared/app-image";
 
 export type TeamLocale = "uk" | "en";
@@ -242,15 +234,13 @@ function MemberCard({
         <p className="mt-3 font-sans text-[13px] leading-[1.55] text-ink-dim flex-1">
           {member.shortDescription}
         </p>
-        <Button
-          onPress={onOpen}
-          variant="bordered"
-          radius="full"
-          size="sm"
-          className="mt-5 self-start min-h-11 font-mono tracking-[0.06em] text-[11px] border-line hover:border-accent-50 text-ink-dim hover:text-ink"
+        <Btn
+          variant="ghost"
+          onClick={onOpen}
+          className="mt-5 w-auto self-start justify-center min-h-11 px-4 py-2 font-mono font-normal tracking-[0.06em] text-[11px] border-line hover:border-accent-50 hover:bg-transparent text-ink-dim hover:text-ink"
         >
           {moreLabel}
-        </Button>
+        </Btn>
       </div>
     </article>
   );
@@ -272,63 +262,54 @@ function TeamModal({
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       size="2xl"
-      backdrop="blur"
-      scrollBehavior="inside"
       classNames={{
         base: "bg-bg-raised border border-line",
-        header: "border-b border-line",
-        footer: "border-t border-line",
         closeButton: "text-ink-3 hover:text-ink",
       }}
     >
-      <ModalContent>
-        {(onClose) =>
-          member ? (
-            <>
-              <ModalHeader className="flex gap-4 items-center pr-10">
-                <MemberPhoto member={member} variant="modal" />
-                <div className="flex flex-col">
-                  <span className="font-display font-semibold text-[20px] tracking-[-0.01em] text-ink leading-tight">
-                    {member.name}
+      {member ? (
+        <>
+          <ModalHeader className="flex-row gap-4 items-center pr-10 border-b border-line pb-4">
+            <MemberPhoto member={member} variant="modal" />
+            <div className="flex flex-col">
+              <span className="font-display font-semibold text-[20px] tracking-[-0.01em] text-ink leading-tight">
+                {member.name}
+              </span>
+              <span className="mt-1 font-mono text-[10.5px] tracking-[0.12em] uppercase text-accent-soft">
+                {member.role}
+              </span>
+            </div>
+          </ModalHeader>
+          <ModalBody className="py-5">
+            <div className="flex flex-col gap-3 font-sans text-[14px] leading-[1.6] text-ink-dim">
+              {member.fullDescription.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+            {member.tags.length > 0 ? (
+              <div className="flex flex-wrap gap-2 mt-4">
+                {member.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center px-2.5 py-1 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] font-mono text-[10.5px] tracking-[0.06em] uppercase text-ink-dim"
+                  >
+                    {tag}
                   </span>
-                  <span className="mt-1 font-mono text-[10.5px] tracking-[0.12em] uppercase text-accent-soft">
-                    {member.role}
-                  </span>
-                </div>
-              </ModalHeader>
-              <ModalBody className="py-5">
-                <div className="flex flex-col gap-3 font-sans text-[14px] leading-[1.6] text-ink-dim">
-                  {member.fullDescription.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </div>
-                {member.tags.length > 0 ? (
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {member.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center px-2.5 py-1 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] font-mono text-[10.5px] tracking-[0.06em] uppercase text-ink-dim"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  onPress={onClose}
-                  variant="flat"
-                  radius="full"
-                  className="min-h-11 font-mono tracking-[0.06em] text-[11px] bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] text-ink"
-                >
-                  {closeLabel}
-                </Button>
-              </ModalFooter>
-            </>
-          ) : null
-        }
-      </ModalContent>
+                ))}
+              </div>
+            ) : null}
+          </ModalBody>
+          <ModalFooter className="border-t border-line pt-4">
+            <Btn
+              variant="ghost"
+              onClick={() => onOpenChange(false)}
+              className="w-auto justify-center min-h-11 px-5 py-2 font-mono font-normal tracking-[0.06em] text-[11px] border-transparent bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] hover:border-transparent text-ink"
+            >
+              {closeLabel}
+            </Btn>
+          </ModalFooter>
+        </>
+      ) : null}
     </Modal>
   );
 }
@@ -349,14 +330,14 @@ export function TeamSection({
   sub?: React.ReactNode;
   locale?: TeamLocale;
 } = {}) {
-  const { isOpen, onOpenChange, onOpen } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState<TeamMember | null>(null);
   const members = TEAM_BY_LOCALE[locale];
   const labels = TEAM_LABELS[locale];
 
   const handleOpen = (member: TeamMember) => {
     setActive(member);
-    onOpen();
+    setIsOpen(true);
   };
 
   return (
@@ -397,7 +378,7 @@ export function TeamSection({
       <TeamModal
         member={active}
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={setIsOpen}
         closeLabel={labels.close}
       />
     </section>

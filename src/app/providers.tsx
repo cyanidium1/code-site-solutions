@@ -1,6 +1,5 @@
 "use client";
 
-import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { useLocale } from "next-intl";
 import type { ReactNode } from "react";
@@ -12,12 +11,10 @@ export function Providers({ children }: { children: ReactNode }) {
   const locale = useLocale();
   return (
     <NextThemesProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-      <HeroUIProvider>
-        <PageViewTracker />
-        <ConsentProvider locale={locale}>
-          <LeadModalProvider>{children}</LeadModalProvider>
-        </ConsentProvider>
-      </HeroUIProvider>
+      <PageViewTracker />
+      <ConsentProvider locale={locale}>
+        <LeadModalProvider>{children}</LeadModalProvider>
+      </ConsentProvider>
     </NextThemesProvider>
   );
 }
