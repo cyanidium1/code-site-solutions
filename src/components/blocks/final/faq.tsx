@@ -110,15 +110,10 @@ const FAQ_ITEM_CONTENT =
   "md:px-6 md:pb-[22px] md:text-[14px]";
 
 // The +/× indicator pill. Sits inside <summary>; hover via the summary's
-// group/trigger, open-state via the parent <details>' group/faq.
-const FAQ_PLUS =
-  "w-[26px] h-[26px] rounded-full border border-line-strong bg-transparent text-ink-dim " +
-  "inline-flex items-center justify-center shrink-0 " +
-  "transition-[background-color,color,border-color,transform] duration-[250ms] " +
-  "group-hover/trigger:text-accent-soft group-hover/trigger:border-accent-40 " +
-  "group-open/faq:bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] group-open/faq:border-transparent group-open/faq:text-[oklch(1_0_0_/_0.98)] " +
-  "[&_svg]:w-[11px] [&_svg]:h-[11px] [&_svg]:transition-transform [&_svg]:duration-[250ms] group-open/faq:[&_svg]:rotate-45 " +
-  "md:w-8 md:h-8 md:[&_svg]:w-[13px] md:[&_svg]:h-[13px]";
+// group/trigger, open-state via the parent <details>' group/faq — all styled
+// in src/app/homepage-cards.css as `.hp-faq-plus` (this 651 B stack repeated
+// per FAQ row cost ~6.5 KB of document; see docs/rsc-payload-report.md).
+const FAQ_PLUS = "hp-faq-plus";
 
 export function FAQ({
   heading,
