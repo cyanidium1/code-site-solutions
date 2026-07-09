@@ -1,5 +1,11 @@
 import { SanityImg } from "@/lib/shared/sanity-image";
 
+// React-hoisted style (see blocks/case/index.tsx for the rationale): costs
+// bytes only on routes that render this placeholder, no extra request.
+const SHOT_CSS = `
+.csb-case-shot-ph{background-image:radial-gradient(ellipse at 30% 20%,oklch(from var(--color-accent) l c h / 0.18) 0%,transparent 55%),radial-gradient(ellipse at 78% 80%,oklch(0.5 0.18 280 / 0.16) 0%,transparent 55%),linear-gradient(160deg,oklch(0.16 0.012 240) 0%,oklch(0.11 0.006 250) 100%)}
+`;
+
 // Screenshot card (plain image / placeholder — no browser chrome). aspect-ratio
 // preserved at 3/2 across breakpoints (legacy media queries repeated the same
 // value, so single utility suffices).
@@ -12,8 +18,7 @@ const SHOT_IMG_WRAP_CLASS = "absolute inset-0 overflow-hidden";
 // Placeholder shown when no screenshot is uploaded — mimics a page layout with
 // the same accent-tinted radial gradient palette used by other placeholders.
 const SHOT_PLACEHOLDER_CLASS =
-  "absolute inset-0 px-[22px] py-7 flex flex-col gap-3.5 " +
-  "bg-[radial-gradient(ellipse_at_30%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.18)_0%,transparent_55%),radial-gradient(ellipse_at_78%_80%,oklch(0.5_0.18_280_/_0.16)_0%,transparent_55%),linear-gradient(160deg,oklch(0.16_0.012_240)_0%,oklch(0.11_0.006_250)_100%)]";
+  "absolute inset-0 px-[22px] py-7 flex flex-col gap-3.5 csb-case-shot-ph";
 
 const SHOT_PLACEHOLDER_LINE_CLASS =
   "h-3.5 w-[70%] rounded bg-[oklch(1_0_0_/_0.10)]";
@@ -44,6 +49,7 @@ export function CaseShot({
           />
         ) : (
           <div className={SHOT_PLACEHOLDER_CLASS} aria-hidden="true">
+            <style href="csb-case-shot" precedence="csb">{SHOT_CSS}</style>
             <div className={SHOT_PLACEHOLDER_LINE_CLASS} />
             <div
               className={`${SHOT_PLACEHOLDER_LINE_CLASS} ${SHOT_PLACEHOLDER_LINE_SHORT_CLASS}`}

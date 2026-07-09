@@ -1,12 +1,16 @@
 import { cn, btnClass } from "@/components/ui";
 import { LeadCtaButton } from "@/components/blocks/lead-modal/lead-cta-button";
 import type { LeadFormLocale } from "@/constants/form-options";
+// React-hoisted style (see blocks/case/index.tsx for the rationale): costs
+// bytes only on routes that render this block, no extra request.
+const REASONS_CSS = `
+.csb-reasons-bg{background-image:radial-gradient(ellipse 50% 40% at 90% 10%,oklch(from var(--color-accent-2) l c h / 0.08),transparent 70%),radial-gradient(ellipse 40% 50% at 5% 80%,oklch(from var(--color-accent) l c h / 0.06),transparent 70%)}
+`;
 
-// Background decoration: 2-layer radial gradient + masked vertical-line grid
-// overlay. Inlined as arbitrary values so no semantic .reasons-bg class needed.
+// Background decoration: 2-layer radial gradient (hoisted style above, kept
+// out of the global stylesheet) + masked vertical-line grid overlay.
 const REASONS_BG_CLASS = [
-  "absolute inset-0 z-0 pointer-events-none",
-  "bg-[radial-gradient(ellipse_50%_40%_at_90%_10%,oklch(from_var(--color-accent-2)_l_c_h_/_0.08),transparent_70%),radial-gradient(ellipse_40%_50%_at_5%_80%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%)]",
+  "absolute inset-0 z-0 pointer-events-none csb-reasons-bg",
   "before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.02)_1px,transparent_1px)] before:[background-size:80px_80px] before:[mask:radial-gradient(ellipse_70%_80%_at_50%_50%,black,transparent)] before:[-webkit-mask:radial-gradient(ellipse_70%_80%_at_50%_50%,black,transparent)]",
 ].join(" ");
 
@@ -137,6 +141,7 @@ export function Reasons({
 }) {
   return (
     <section className="relative py-[72px] lg:py-[120px] px-[18px] sm:px-8 xl:px-12 bg-bg overflow-hidden">
+      <style href="csb-reasons" precedence="csb">{REASONS_CSS}</style>
       <div className={REASONS_BG_CLASS} />
 
       <div className="relative z-[2] max-w-container mx-auto">

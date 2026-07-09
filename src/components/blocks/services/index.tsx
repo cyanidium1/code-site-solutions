@@ -2,6 +2,12 @@ import { SanityImg } from "@/lib/shared/sanity-image";
 import type { SanityImage } from "@/types/sanity";
 import { type Feature, FeatureCard } from "./feature-card";
 
+// React-hoisted style (see blocks/case/index.tsx for the rationale): costs
+// bytes only on routes that render this block, no extra request.
+const SERVICES_CSS = `
+.csb-services-bg{background-image:radial-gradient(ellipse 50% 40% at 10% 20%,oklch(from var(--color-accent) l c h / 0.08),transparent 70%),radial-gradient(ellipse 40% 50% at 95% 70%,oklch(from var(--color-accent-2) l c h / 0.07),transparent 70%)}
+`;
+
 const SVC_H2_CLASSES =
   "font-display font-bold text-[clamp(24px,6vw,32px)] leading-none tracking-[-0.035em] text-ink text-balance max-w-full uppercase md:text-[clamp(34px,4.6vw,60px)] xl:max-w-[16ch] [&_em]:italic [&_em]:font-light [&_em]:normal-case [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:inline-block [&_em]:pr-[0.12em] [&_em]:[margin-right:-0.04em]";
 
@@ -53,7 +59,8 @@ export function Services({
       : "");
   return (
     <section className="relative py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_40%_at_10%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.08),transparent_70%),radial-gradient(ellipse_40%_50%_at_95%_70%,oklch(from_var(--color-accent-2)_l_c_h_/_0.07),transparent_70%)]" />
+      <style href="csb-services" precedence="csb">{SERVICES_CSS}</style>
+      <div className="absolute inset-0 z-0 pointer-events-none csb-services-bg" />
       <div className="relative z-[2] max-w-container mx-auto">
         {hasTestimonial ? (
         <div

@@ -5,6 +5,15 @@ import { ArrowUpRight } from "lucide-react";
 import type { Crumb } from "@/components/blocks/page-hero";
 import { Btn, H1 } from "@/components/ui";
 
+// React-hoisted style (see blocks/case/index.tsx for the rationale): costs
+// bytes only on routes that render this hero, no extra request.
+// NOTE: gradient values match blocks/page-hero + about/sections (one shared
+// utility string before the 2026-07 CSS split) — tweak together.
+const HERO_CSS = `
+.csb-case-hero-bg{background-image:radial-gradient(ellipse 60% 60% at 80% 20%,oklch(from var(--color-accent) l c h / 0.06),transparent 70%),radial-gradient(ellipse 40% 50% at 10% 100%,oklch(from var(--color-accent-2) l c h / 0.04),transparent 70%)}
+.csb-case-hero-bg::before{background-image:linear-gradient(to right,oklch(1 0 0 / 0.022) 1px,transparent 1px),linear-gradient(to bottom,oklch(1 0 0 / 0.022) 1px,transparent 1px)}
+`;
+
 /**
  * Case-study hero layout preserved from PageHero before 27ba5ee (about-page
  * stats + image overlap). Two-column grid with natural-aspect image on the
@@ -79,7 +88,8 @@ export function CasePageHero({
 
   return (
     <section className="case-page-hero relative overflow-hidden bg-bg pt-[72px] lg:pt-[120px] px-6 lg:px-12">
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_60%_60%_at_80%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_40%_50%_at_10%_100%,oklch(from_var(--color-accent-2)_l_c_h_/_0.04),transparent_70%)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.022)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.022)_1px,transparent_1px)] before:bg-[length:64px_64px] before:[mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]" />
+      <style href="csb-case-hero" precedence="csb">{HERO_CSS}</style>
+      <div className="absolute inset-0 z-0 pointer-events-none csb-case-hero-bg before:content-[''] before:absolute before:inset-0 before:bg-[length:64px_64px] before:[mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]" />
       <div className="relative z-[1] max-w-container mx-auto">
         {image ? (
           <div className="grid grid-cols-1 gap-8 items-center min-[961px]:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] min-[961px]:gap-12">

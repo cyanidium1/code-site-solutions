@@ -1,6 +1,9 @@
 import "server-only";
 
-import { fetchCaseStudies } from "@/components/case-page";
+// Import from the data layer, NOT the "@/components/case-page" barrel: the
+// barrel pulls the whole case-page component tree (and its route-scoped CSS)
+// into the homepage's module graph.
+import { fetchCaseStudies } from "@/components/case-page/data";
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { HOMEPAGE_CASES_QUERY } from "@/lib/server/sanity-queries";
 import type {

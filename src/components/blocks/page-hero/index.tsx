@@ -2,6 +2,14 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn, H1 } from "@/components/ui";
 
+// React-hoisted style (see blocks/case/index.tsx for the rationale): costs
+// bytes only on routes that render this hero, no extra request.
+// NOTE: same gradient values as about/sections + case-page-hero (they were
+// one shared utility string before) — tweak together.
+const PAGE_HERO_CSS = `
+.csb-page-hero-bg{background-image:radial-gradient(ellipse 60% 60% at 80% 20%,oklch(from var(--color-accent) l c h / 0.06),transparent 70%),radial-gradient(ellipse 40% 50% at 10% 100%,oklch(from var(--color-accent-2) l c h / 0.04),transparent 70%)}
+`;
+
 export type Crumb = { label: string; href?: string };
 
 export type PageHeroStat = { value: ReactNode; label: string };
@@ -106,7 +114,8 @@ export function PageHero({
     <section
       className={`page-hero relative overflow-hidden bg-bg ${sectionPad} px-6 lg:px-12`}
     >
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_60%_60%_at_80%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_40%_50%_at_10%_100%,oklch(from_var(--color-accent-2)_l_c_h_/_0.04),transparent_70%)]" />
+      <style href="csb-page-hero" precedence="csb">{PAGE_HERO_CSS}</style>
+      <div className="absolute inset-0 z-0 pointer-events-none csb-page-hero-bg" />
       <div className="relative z-[1] max-w-container mx-auto">
         {image ? (
           /*

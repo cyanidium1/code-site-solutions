@@ -4,6 +4,12 @@ import { H2, btnClass } from "@/components/ui";
 import { ARROW_ICON, CheckIcon, CrossIcon } from "./icons";
 import { CaseShot } from "./case-shot";
 import { resolveCaseLayout, type CaseLayout } from "./resolve-layout";
+// Heavy gradient/shadow styles are delivered as a React-hoisted <style
+// href precedence> tag (see CASE_CSS below) instead of Tailwind utilities or
+// a CSS module: utilities ship in the global stylesheet on every page, and
+// module CSS from widely-shared blocks gets merged by webpack into a chunk
+// attached to the root layouts (measured 2026-07-08) — hoisted styles cost
+// bytes only on routes that actually render the block, with no extra request.
 
 // Italic <em> inside the heading uses the brand vertical accent gradient
 // (accent-soft → accent), text-clipped. Same effect as the legacy `.case-h2 em`
@@ -16,11 +22,17 @@ const HEADING_EM_CLASS =
 const SECTION_CLASS =
   "relative overflow-hidden bg-bg py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
 
+// Values byte-identical to the arbitrary-value utilities they replaced.
+const CASE_CSS = `
+.csb-case-bg{background-image:radial-gradient(ellipse 40% 50% at 90% 30%,oklch(from var(--color-accent) l c h / 0.10),transparent 70%),radial-gradient(ellipse 35% 40% at 5% 70%,oklch(from var(--color-accent-2) l c h / 0.08),transparent 70%)}
+.csb-case-card-after{background-image:linear-gradient(180deg,oklch(from var(--color-accent) l c h / 0.06),oklch(from var(--color-accent) l c h / 0.02));box-shadow:0 0 0 1px oklch(from var(--color-accent) l c h / 0.15),0 30px 60px oklch(from var(--color-accent) l c h / 0.18)}
+.csb-case-card-after::before{background-image:linear-gradient(135deg,oklch(from var(--color-accent) l c h / 0.4),transparent 50%)}
+`;
+
 // Two stacked radial gradients — accent (top-right) + accent-2 (bottom-left).
-// Preserved as raw OKLCH because no @theme token captures this dual-gradient
-// pattern; identical to legacy `.case-bg`.
+// Identical to legacy `.case-bg`.
 const SECTION_BG_CLASS =
-  "absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_40%_50%_at_90%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_35%_40%_at_5%_70%,oklch(from_var(--color-accent-2)_l_c_h_/_0.08),transparent_70%)]";
+  "absolute inset-0 z-0 pointer-events-none csb-case-bg";
 
 const INNER_CLASS = "relative z-[2] max-w-container mx-auto";
 
@@ -67,11 +79,8 @@ const CARD_BASE_CLASS =
 // plus a ::before that paints a gradient border via mask-composite (preserved
 // verbatim — Tailwind has no utility for this masked border trick).
 const CARD_AFTER_CLASS =
-  "!border-accent-35 " +
-  "bg-[linear-gradient(180deg,oklch(from_var(--color-accent)_l_c_h_/_0.06),oklch(from_var(--color-accent)_l_c_h_/_0.02))] " +
-  "shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.15),0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] " +
+  "!border-accent-35 csb-case-card-after " +
   "before:content-[''] before:absolute before:inset-[-1px] before:rounded-[inherit] " +
-  "before:bg-[linear-gradient(135deg,oklch(from_var(--color-accent)_l_c_h_/_0.4),transparent_50%)] " +
   "before:[-webkit-mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] " +
   "before:[-webkit-mask-composite:xor] before:[mask-composite:exclude] before:p-px before:pointer-events-none";
 
@@ -236,6 +245,7 @@ export function Case({
   const mode = resolveCaseLayout(layout, Boolean(beforeShotSrc));
   return (
     <section className={SECTION_CLASS}>
+      <style href="csb-case" precedence="csb">{CASE_CSS}</style>
       <div className={SECTION_BG_CLASS} />
 
       <div className={INNER_CLASS}>

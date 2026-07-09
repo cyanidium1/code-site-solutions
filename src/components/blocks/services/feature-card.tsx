@@ -1,5 +1,11 @@
 import { CheckIcon } from "./icons";
 
+// React-hoisted style (see blocks/case/index.tsx for the rationale): costs
+// bytes only on routes that render this card, no extra request.
+const CARD_WASH_CSS = `
+.csb-services-card-wash::after{background-image:linear-gradient(180deg,oklch(0.12 0.005 300 / 0.78) 0%,oklch(0.12 0.005 300 / 0.92) 60%,oklch(0.12 0.005 300 / 0.96) 100%),radial-gradient(ellipse 80% 60% at 70% 30%,oklch(from var(--color-accent) l c h / 0.18),transparent 70%)}
+`;
+
 export type Feature = {
   icon: React.ReactNode;
   bg: string;
@@ -37,7 +43,8 @@ export function SecondaryFeatureCard({ icon, title, items }: Feature) {
 
 export function FeatureCard({ icon, title, items, bg }: Feature) {
   return (
-    <div className="relative pt-[22px] px-5 pb-6 border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] flex flex-col gap-3.5 overflow-hidden isolate md:pt-7 md:px-[26px] md:pb-[30px] md:gap-[18px] after:content-[''] after:absolute after:inset-0 after:-z-[1] after:pointer-events-none after:transition-opacity after:duration-300 after:bg-[linear-gradient(180deg,oklch(0.12_0.005_300_/_0.78)_0%,oklch(0.12_0.005_300_/_0.92)_60%,oklch(0.12_0.005_300_/_0.96)_100%),radial-gradient(ellipse_80%_60%_at_70%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.18),transparent_70%)]">
+    <div className="relative pt-[22px] px-5 pb-6 border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] flex flex-col gap-3.5 overflow-hidden isolate md:pt-7 md:px-[26px] md:pb-[30px] md:gap-[18px] after:content-[''] after:absolute after:inset-0 after:-z-[1] after:pointer-events-none after:transition-opacity after:duration-300 csb-services-card-wash">
+      <style href="csb-services-card" precedence="csb">{CARD_WASH_CSS}</style>
       <div
         className="absolute inset-0 -z-[2] bg-cover bg-center [filter:saturate(0.7)]"
         // eslint-disable-next-line react/forbid-dom-props -- dynamic background-image URL
