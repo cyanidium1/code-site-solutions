@@ -25,6 +25,7 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-06 | local | phase A: blocking CSS links **7→3** (vendor+lightbox → lazy chunks, keyframes+hero-effects folded into main); LCP/score in noise, TBT inflated by concurrent machine load (run1 cold outlier) — link-count is the structural win | 56 | 4.0s | 2016ms | 2.3s | 0.000 |
 | 2026-07-06 | local | inlineCss OFF (post phase A): doc 484 KB, **3** blocking CSS links; runs 38/58/53 — render-block waterfall makes it swing | 53 | 4.9s | 1610ms | 2.7s | 0.000 |
 | 2026-07-06 | local | inlineCss ON (post phase A): doc 1.13 MB raw / 161 KB gzip, **0** blocking CSS links; runs 54/54/55 — stable | 54 | 4.2s | 2126ms | 2.3s | 0.000 |
+| 2026-07-08 | local | HeroUI removed (perf/drop-heroui, PR #29): main CSS 44.7→33.5 KB gzip; runs 58/69/68 | 68 | 4.2s | 556ms | 2.3s | 0.000 |
 
 **inlineCss re-A/B decision (2026-07-06): ON wins, flipped from the 2026-07-05 OFF call.** Score tie (54 vs 53); ON better on LCP (4.2 vs 4.9) and FCP (2.3 vs 2.7), and — the point — ON is stable (54/54/55) while OFF swings (38/58/53) because ON removes all render-blocking CSS `<link>`s (0 vs 3) and their request-waterfall variance. TBT (~2000ms both) is machine-load noise, not signal (prod TBT is 60–150ms). Compressed wire bytes ~equal. The 2026-07-05 OFF decision was correct for a JS-heavy page; the islands work changed the conditions. Confirm on prod PSI post-deploy.
 
