@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node tools/sync-heroui-tw-sources.mjs",
     "dev": "next dev",
-    "prebuild": "node tools/sync-heroui-tw-sources.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -17,13 +15,9 @@
     "perf:local": "node tools/perf/run-lighthouse.mjs --url http://localhost:3000/en --label local --runs 3"
   },
   "dependencies": {
-    "@heroui/react": "^2.8.10",
-    "@heroui/system": "^2.4.28",
-    "@heroui/theme": "^2.4.26",
     "@sanity/client": "^7.22.0",
     "clsx": "^2.1.1",
     "formik": "^2.4.9",
-    "framer-motion": "^12.38.0",
     "lucide-react": "^0.469.0",
     "next": "^15.5.20",
     "next-intl": "^4.11.0",

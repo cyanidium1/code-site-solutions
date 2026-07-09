@@ -28,8 +28,9 @@ export const FILTER_PLACEHOLDER_BY_LOCALE: Record<"uk" | "en", string> = {
 
 /**
  * Sentinel key for the explicit "All" reset option inside each dropdown.
- * Empty string isn't safe as a HeroUI SelectItem key, so we use a sentinel
- * and translate it to `""` (which clears the URL param) in the change handler.
+ * Empty string isn't safe as an option key (ui/Select uses `""` for "no
+ * selection"), so we use a sentinel and translate it to `""` (which clears
+ * the URL param) in the change handler.
  */
 export const FILTER_ALL_KEY = "__all__";
 

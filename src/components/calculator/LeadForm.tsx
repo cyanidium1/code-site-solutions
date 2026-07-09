@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { Quote, Clock, Phone, FileCheck2 } from "lucide-react";
 import type { CalculatorEstimate, CalculatorInput } from "@/types/pricing";
 import type { CalculatorConfig } from "@/types/calculator-config";
@@ -10,38 +9,43 @@ import { formatEur as formatEurRaw } from "@/lib/shared/format-eur";
 import { formatCalculatorSelections } from "@/lib/shared/format-calculator-selections";
 import { getAttribution } from "@/lib/client/attribution";
 import { HoneypotField } from "@/components/blocks/honeypot-field";
-import { H3 } from "@/components/ui";
+import { H3, Input, Select, Textarea } from "@/components/ui";
 
-// HeroUI slot classNames for Calculator inputs. We hit several Input
-// slots whose internal classes win at equal specificity, so `!` (which
-// becomes `!important`) is needed on the slot strings — same pattern as
-// the Session 3 lead-form migration. The custom min-height + focus
-// glow are inlined here so the file is self-contained when the legacy
-// .calc-ui-* CSS is removed.
+// Calculator visual identity, layered over the ui primitives' lead-form
+// defaults via `classNames` (tailwind-merge resolves the conflicts). The
+// custom bits: slightly different field bg, softer border, 52px min-height,
+// and an accent glow on focus.
+const CALC_FOCUS_GLOW =
+  "focus-within:border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
+  "focus-within:shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
+  "focus-within:bg-[oklch(0.14_0.005_300_/_0.9)]";
+
 const UI_INPUT_WRAPPER =
-  "!bg-[oklch(0.14_0.005_300_/_0.9)] !border-line !min-h-[52px] " +
+  "bg-[oklch(0.14_0.005_300_/_0.9)] border-line min-h-[52px] " +
   "transition-[border-color,box-shadow,background] duration-200 " +
-  "hover:!border-line-strong " +
-  "data-[hover=true]:!border-line-strong " +
-  "data-[focus=true]:!border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
-  "data-[focus=true]:!shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
-  "data-[focus-visible=true]:!border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
-  "data-[focus-visible=true]:!shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)]";
+  "hover:border-line-strong hover:bg-[oklch(0.14_0.005_300_/_0.9)] " +
+  CALC_FOCUS_GLOW;
 
 const UI_INPUT =
-  "!text-ink placeholder:!text-[oklch(from_var(--color-ink-3)_l_c_h_/_0.75)] " +
-  "[&_input]:!outline-none [&_input]:!shadow-none [&_textarea]:!outline-none [&_textarea]:!shadow-none";
+  "placeholder:text-[oklch(from_var(--color-ink-3)_l_c_h_/_0.75)]";
 
-const UI_LABEL = "!text-ink-dim";
+const UI_TEXTAREA_WRAPPER = UI_INPUT_WRAPPER + " min-h-[132px]";
 
-const UI_TEXTAREA_WRAPPER = UI_INPUT_WRAPPER + " !min-h-[132px]";
-const UI_TEXTAREA = UI_INPUT + " !leading-[1.5]";
+// Select trigger: same treatment; the glow also applies while the listbox is
+// open (aria-expanded) — parity with HeroUI keeping the trigger focused.
+const UI_SELECT_TRIGGER =
+  "bg-[oklch(0.14_0.005_300_/_0.9)] border-line min-h-[52px] " +
+  "transition-[border-color,box-shadow,background] duration-200 " +
+  "hover:border-line-strong hover:bg-[oklch(0.14_0.005_300_/_0.9)] " +
+  "focus-visible:border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
+  "focus-visible:shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
+  "focus-visible:bg-[oklch(0.14_0.005_300_/_0.9)] " +
+  "aria-expanded:border-[oklch(from_var(--color-accent)_l_c_h_/_0.7)] " +
+  "aria-expanded:shadow-[0_0_0_1px_oklch(from_var(--color-accent)_l_c_h_/_0.35),0_0_18px_oklch(from_var(--color-accent)_l_c_h_/_0.2)] " +
+  "aria-expanded:bg-[oklch(0.14_0.005_300_/_0.9)]";
 
-const UI_SELECT_TRIGGER = UI_INPUT_WRAPPER + " !px-3";
-const UI_SELECT_POPOVER = "!bg-[oklch(0.16_0.005_300)] !border !border-line";
-const UI_SELECT_LISTBOX =
-  "[&_[data-hover=true]]:!bg-accent-20 " +
-  "[&_[data-selected=true]]:!bg-accent-20";
+const UI_SELECT_LISTBOX = "bg-[oklch(0.16_0.005_300)] border-line";
+const UI_SELECT_OPTION = "data-[active=true]:bg-accent-20";
 
 type LeadFormProps = {
   config: CalculatorConfig;
@@ -179,100 +183,62 @@ export function LeadForm({ config, input, estimate, onSubmitted }: LeadFormProps
 
         <Input
           label={t("name")}
-          labelPlacement="outside"
           placeholder={t("namePlaceholder")}
-          variant="bordered"
-          radius="lg"
-          size="lg"
           value={form.name}
           onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
           required
           isInvalid={fieldRequired(form.name)}
-          classNames={{
-            inputWrapper: UI_INPUT_WRAPPER,
-            input: UI_INPUT,
-            label: UI_LABEL,
-          }}
+          classNames={{ wrapper: UI_INPUT_WRAPPER, input: UI_INPUT }}
         />
 
         <Input
           label={t("contact")}
-          labelPlacement="outside"
           placeholder={t("contactPlaceholder")}
-          variant="bordered"
-          radius="lg"
-          size="lg"
           value={form.contact}
           onChange={(e) => setForm((prev) => ({ ...prev, contact: e.target.value }))}
           required
           isInvalid={fieldRequired(form.contact)}
-          classNames={{
-            inputWrapper: UI_INPUT_WRAPPER,
-            input: UI_INPUT,
-            label: UI_LABEL,
-          }}
+          classNames={{ wrapper: UI_INPUT_WRAPPER, input: UI_INPUT }}
         />
 
         <Input
           label={t("company")}
-          labelPlacement="outside"
           placeholder={t("companyPlaceholder")}
-          variant="bordered"
-          radius="lg"
-          size="lg"
           value={form.company}
           onChange={(e) => setForm((prev) => ({ ...prev, company: e.target.value }))}
-          classNames={{
-            inputWrapper: UI_INPUT_WRAPPER,
-            input: UI_INPUT,
-            label: UI_LABEL,
-          }}
+          classNames={{ wrapper: UI_INPUT_WRAPPER, input: UI_INPUT }}
         />
 
         <Textarea
           label={t("brief")}
-          labelPlacement="outside"
           placeholder={t("briefPlaceholder")}
-          variant="bordered"
-          radius="lg"
-          size="lg"
           minRows={5}
           value={form.projectBrief}
           onChange={(e) => setForm((prev) => ({ ...prev, projectBrief: e.target.value }))}
-          classNames={{
-            inputWrapper: UI_TEXTAREA_WRAPPER,
-            input: UI_TEXTAREA,
-            label: UI_LABEL,
-          }}
+          classNames={{ wrapper: UI_TEXTAREA_WRAPPER, input: UI_INPUT }}
         />
 
         <Select
           label={t("methodLabel")}
-          labelPlacement="outside"
           placeholder={t("methodPlaceholder")}
-          selectedKeys={[form.preferredMethod]}
-          onSelectionChange={(keys) => {
-            const selected = Array.from(keys)[0];
-            if (selected) {
-              setForm((prev) => ({ ...prev, preferredMethod: String(selected) as FormState["preferredMethod"] }));
+          options={[
+            { key: "email", label: t("methodEmail") },
+            { key: "telegram", label: t("methodTelegram") },
+            { key: "whatsapp", label: t("methodWhatsapp") },
+          ]}
+          value={form.preferredMethod}
+          onChange={(v) => {
+            if (v) {
+              setForm((prev) => ({ ...prev, preferredMethod: v as FormState["preferredMethod"] }));
             }
           }}
-          variant="bordered"
-          radius="lg"
-          size="lg"
           disallowEmptySelection
           classNames={{
             trigger: UI_SELECT_TRIGGER,
-            value: UI_INPUT,
-            label: UI_LABEL,
-            popoverContent: UI_SELECT_POPOVER,
             listbox: UI_SELECT_LISTBOX,
+            option: UI_SELECT_OPTION,
           }}
-        >
-          <SelectItem key="email">{t("methodEmail")}</SelectItem>
-          <SelectItem key="telegram">{t("methodTelegram")}</SelectItem>
-          <SelectItem key="whatsapp">{t("methodWhatsapp")}</SelectItem>
-        </Select>
+        />
 
         <input type="hidden" name="calculatorPayload" value={payload} />
 
