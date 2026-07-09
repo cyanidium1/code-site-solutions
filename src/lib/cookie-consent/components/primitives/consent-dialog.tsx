@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { useFocusTrap } from "../../hooks/use-focus-trap";
 import { dialogClass, overlayClass } from "../../styles/classes";
-import styles from "../../styles/consent.module.css";
+import { ConsentEntryCss, consentDialogInClass } from "../../styles/entry-animations";
 
 type Props = {
   open: boolean;
@@ -29,8 +29,9 @@ export function ConsentDialog({ open, onClose, labelledBy, children }: Props) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={labelledBy}
-        className={`${dialogClass} ${styles.dialogIn}`}
+        className={`${dialogClass} ${consentDialogInClass}`}
       >
+        <ConsentEntryCss />
         {children}
       </div>
     </div>

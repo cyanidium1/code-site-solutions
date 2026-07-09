@@ -11,7 +11,7 @@ import {
   bannerInnerClass,
   bannerTitleClass,
 } from "../styles/classes";
-import styles from "../styles/consent.module.css";
+import { ConsentEntryCss, consentBannerInClass } from "../styles/entry-animations";
 import { ConsentButton } from "./primitives/consent-button";
 
 type Props = {
@@ -25,10 +25,11 @@ type Props = {
 export function ConsentBanner({ copy, locale, onAcceptAll, onRejectAll, onCustomise }: Props) {
   return (
     <section
-      className={`${bannerClass} ${styles.bannerIn}`}
+      className={`${bannerClass} ${consentBannerInClass}`}
       role="region"
       aria-label={copy.banner.title}
     >
+      <ConsentEntryCss />
       <div className={bannerInnerClass}>
         <div>
           <p className={bannerTitleClass}>{copy.banner.title}</p>
