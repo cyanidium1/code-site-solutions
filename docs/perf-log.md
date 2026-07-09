@@ -61,3 +61,26 @@ The 9s tail is eliminated (worst 6.6s); median score +11, median LCP −2.1s.
 Kept OFF. NOTE: this supersedes the 2026-07-06 "keep ON" decision — the earlier
 A/Bs measured CSS delivery, not the flight-payload script-eval cost (fast local
 CPUs hide it; only real slow-4G + Lantern surface it).
+
+## Heavy-CSS split (2026-07-08, branch perf/split-heavy-css, PR #30)
+
+Moved the giant route-specific arbitrary-value gradient/shadow utilities
+(blocks/case+outcome+reasons+services+turnkey-list+page-hero, about/sections,
+case-page-hero, calculator slider thumbs) out of the global Tailwind sheet
+into **React-hoisted `<style href precedence>` tags** rendered by the owning
+block. Main CSS: 307,412 → 297,360 B raw (−3.3%) / 44,704 → 43,845 B gzip
+(the repetitive gradients gzip extremely well, so the transfer delta is
+small); homepage-coverage unused tail 227.6 → 217.8 KB raw; homepage
+stylesheet links unchanged (3).
+
+**Why NOT `*.module.css` (do not retry):** webpack merges module CSS from
+widely-shared blocks into a chunk attached to the (uk)/(en) ROOT LAYOUTS
+(measured: it fused with the cookie-consent module CSS), so every page —
+homepage included — shipped every route's module CSS as a NEW render-blocking
+link. `experimental.cssChunking: "strict"` does not prevent it. Hoisted
+styles are immune: deduped by href, SSR-inlined per route, no requests.
+CSS modules remain fine for genuinely single-route CSS (consent survives).
+
+Related fix: `lib/server/fetch-homepage-cases.ts` imported from the
+`@/components/case-page` barrel, dragging the case-page component tree into
+the homepage graph — data layer extracted to `case-page/data.ts`.
