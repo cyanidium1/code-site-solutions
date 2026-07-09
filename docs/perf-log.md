@@ -113,3 +113,9 @@ CSS modules remain fine for genuinely single-route CSS (consent survives).
 Related fix: `lib/server/fetch-homepage-cases.ts` imported from the
 `@/components/case-page` barrel, dragging the case-page component tree into
 the homepage graph — data layer extracted to `case-page/data.ts`.
+
+**Combined (both levers merged, build-measured): main CSS 307,412 → 206,402 B
+raw (−33%) / 44,704 → 32,551 B gzip (−27%).** Stale-checkout gotcha: a
+leftover `.heroui-tw/` dir is scanned by Oxide auto-detection post-#29 and
+silently re-adds ~25 KB raw of dead HeroUI utilities — the dir stays
+gitignored as a tombstone; delete it locally.

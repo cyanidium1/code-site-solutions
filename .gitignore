@@ -44,3 +44,10 @@ debug.log
 # lighthouse reports
 /.lighthouse/
 
+# Tombstone: HeroUI was removed 2026-07 (PR #29) along with this dir's sync
+# script, but a stale .heroui-tw/ from an old checkout would be scanned by
+# Tailwind's Oxide auto-detection (no tailwind.config.ts anymore) and silently
+# re-add ~25 KB of dead HeroUI utilities to the built CSS. Keep it ignored;
+# delete the directory if you still have one.
+/.heroui-tw/
+
