@@ -28,6 +28,7 @@ Accept-Language redirect is intentionally excluded from benchmarks
 | 2026-07-08 | local | HeroUI removed (perf/drop-heroui, PR #29): main CSS 44.7→33.5 KB gzip; runs 58/69/68 | 68 | 4.2s | 556ms | 2.3s | 0.000 |
 | 2026-07-09 | prod | post-deploy PRs #29+#30 (main CSS 44.7→32.6 KB gzip, −27%); runs 69/3.6s, 51/6.1s, 52/6.2s — within known prod variance (pre-merge 5-pass median 57, range 50–72); worst LCP 6.2 vs 6.6 | 52 | 6.1s | 819ms | 2.1s | 0.000 |
 | 2026-07-09 | local | className slimming (perf/slim-classnames): /en doc 480→433 KB raw (−9.9%), flight −21 KB; two 3-run sets medians 56 and 62 — machine-load noise (TBT 649–1821ms), bytes are the signal (docs/rsc-payload-report.md) | 62 | 3.9s | 789ms | 2.1s | 0.000 |
+| 2026-07-09 | prod | post-deploy PR #32 (className slimming): **/en doc bootup 2693→1457/1553/1734ms (median −42%)** — the round's success gate cleared; FCP 2.1→1.4s; LCP still network-bimodal (3.5/6.0/6.1); runs 73/61/58 | 61 | 6.0s | 620ms | 1.4s | 0.000 |
 
 **inlineCss re-A/B decision (2026-07-06): ON wins, flipped from the 2026-07-05 OFF call.** Score tie (54 vs 53); ON better on LCP (4.2 vs 4.9) and FCP (2.3 vs 2.7), and — the point — ON is stable (54/54/55) while OFF swings (38/58/53) because ON removes all render-blocking CSS `<link>`s (0 vs 3) and their request-waterfall variance. TBT (~2000ms both) is machine-load noise, not signal (prod TBT is 60–150ms). Compressed wire bytes ~equal. The 2026-07-05 OFF decision was correct for a JS-heavy page; the islands work changed the conditions. Confirm on prod PSI post-deploy.
 

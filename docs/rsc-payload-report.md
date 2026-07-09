@@ -171,6 +171,13 @@ prod PSI post-merge is the arbiter. Visual/interaction parity verified per
 component in the preview (computed styles, reveal states, FAQ open state,
 hover bindings via `a.hp-ind-card`).
 
+**Prod verdict (post-merge, 2026-07-09):** `/en` document script-evaluation
+(bootup-time) dropped **2,693 ms → 1,457/1,553/1,734 ms across three runs
+(median −42%)** — the success gate cleared decisively; FCP improved
+2.1 → 1.4 s. LCP stays network-variance bimodal as documented. The 40%
+className finding, the "paid twice" model, and the slimming lever are all
+confirmed end-to-end.
+
 ## TL;DR
 
 The `/en` document is 480 KB raw (53 KiB gzipped): ~263 KB HTML plus a
