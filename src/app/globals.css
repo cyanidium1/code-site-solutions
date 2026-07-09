@@ -6,6 +6,10 @@
    postcss-import inlines them into this chunk at build time. */
 @import "./keyframes.css";
 @import "../components/blocks/hero/hero-effects.css";
+/* Semantic classes for the homepage's repeated card stacks (RSC-payload
+   slimming — every className byte ships twice per instance; see
+   docs/rsc-payload-report.md). Ships inside this main chunk. */
+@import "./homepage-cards.css";
 
 @theme {
   /* ─────────────────────────────────────────────────────────────────────

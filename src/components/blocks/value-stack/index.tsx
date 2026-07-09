@@ -193,26 +193,14 @@ function CardMedia({ src, sizes }: { src: string; sizes: string }) {
   );
 }
 
-const featuredBase =
-  "group/vs relative isolate flex min-h-[300px] flex-col overflow-hidden rounded-[26px] border border-line " +
-  "bg-[var(--color-bg)] p-7 lg:p-8 " +
-  "opacity-0 translate-y-6 blur-[6px] " +
-  "[transition:opacity_0.8s_var(--ease-out-soft),transform_0.8s_var(--ease-out-soft),filter_0.8s_var(--ease-out-soft),border-color_0.3s,box-shadow_0.3s] " +
-  "[transition-delay:calc(var(--i,0)*0.08s)] " +
-  "group-data-[visible=true]/vs-reveal:opacity-100 group-data-[visible=true]/vs-reveal:translate-y-0 group-data-[visible=true]/vs-reveal:blur-none " +
-  "motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:blur-none motion-reduce:transition-none " +
-  "hover:-translate-y-1 hover:border-[oklch(from_var(--card-accent)_l_c_h_/_0.4)] hover:[box-shadow:0_24px_60px_-32px_oklch(from_var(--card-accent)_l_c_h_/_0.55)] " +
-  "before:pointer-events-none before:absolute before:inset-x-7 before:top-0 before:z-[1] before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--card-accent)_l_c_h_/_0.5),transparent)] before:opacity-0 before:transition-opacity before:duration-[600ms] before:[transition-delay:calc(var(--i,0)*0.08s+0.4s)] group-data-[visible=true]/vs-reveal:before:opacity-100 motion-reduce:before:opacity-100";
+// Card shells/entrance/hover live in src/app/homepage-cards.css as
+// `.hp-vs-card` / `.hp-vs-card-sm` (these 1.2 KB ×3 + 660 B ×5 stacks cost
+// ~13 KB of document — HTML + RSC flight, see docs/rsc-payload-report.md).
+// `group/vs` stays as the marker for descendant group-hovers; the reveal
+// state comes from ScrollReveal's data-visible on the group container.
+const featuredBase = "group/vs hp-vs-card";
 
-const smallBase =
-  "group/vs relative isolate flex min-h-[170px] flex-col overflow-hidden rounded-[20px] border border-line " +
-  "bg-[var(--color-bg)] p-5 " +
-  "opacity-0 translate-y-5 " +
-  "[transition:opacity_0.7s_var(--ease-out-soft),transform_0.7s_var(--ease-out-soft),border-color_0.3s,box-shadow_0.3s] " +
-  "[transition-delay:calc(var(--i,0)*0.06s+0.2s)] " +
-  "group-data-[visible=true]/vs-reveal:opacity-100 group-data-[visible=true]/vs-reveal:translate-y-0 " +
-  "motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none " +
-  "hover:-translate-y-0.5 hover:border-[oklch(from_var(--card-accent)_l_c_h_/_0.4)] hover:[box-shadow:0_16px_40px_-28px_oklch(from_var(--card-accent)_l_c_h_/_0.55)]";
+const smallBase = "group/vs hp-vs-card-sm";
 
 const accentIconBox =
   "relative z-[1] inline-flex items-center justify-center rounded-2xl border border-[oklch(from_var(--card-accent)_l_c_h_/_0.35)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.14)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)]";

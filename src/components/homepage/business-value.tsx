@@ -343,21 +343,11 @@ function BizVisual({ kind, locale }: { kind: BizVisualKind; locale: PriceLocale 
   }
 }
 
-const cardBase =
-  "group/biz-card relative flex flex-col overflow-hidden rounded-[24px] border border-line p-7 lg:p-9 " +
-  "[background:radial-gradient(440px_240px_at_0%_0%,oklch(from_var(--card-accent)_l_c_h_/_0.10),transparent_70%),oklch(1_0_0_/_0.02)] " +
-  "z-[1] " +
-  // entrance: staggered settle once the grid reaches the viewport.
-  "opacity-0 translate-y-6 scale-[0.98] blur-[6px] " +
-  "[transition:opacity_0.8s_var(--ease-out-soft),transform_0.8s_var(--ease-out-soft),filter_0.8s_var(--ease-out-soft),border-color_0.3s,box-shadow_0.3s] " +
-  "[transition-delay:calc(var(--i,0)*0.08s)] " +
-  "group-data-[visible=true]/biz-reveal:opacity-100 group-data-[visible=true]/biz-reveal:translate-y-0 group-data-[visible=true]/biz-reveal:scale-100 group-data-[visible=true]/biz-reveal:blur-none " +
-  "motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:blur-none motion-reduce:transition-none " +
-  // restrained hover: accent border + soft lifted glow.
-  "hover:border-[oklch(from_var(--card-accent)_l_c_h_/_0.4)] hover:[box-shadow:0_0_0_1px_oklch(from_var(--card-accent)_l_c_h_/_0.15),0_24px_60px_-32px_oklch(from_var(--card-accent)_l_c_h_/_0.55)] " +
-  // top accent hairline that fades in after the entrance settles.
-  "before:pointer-events-none before:absolute before:inset-x-7 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--card-accent)_l_c_h_/_0.5),transparent)] before:opacity-0 before:transition-opacity before:duration-[600ms] before:[transition-delay:calc(var(--i,0)*0.08s+0.4s)] " +
-  "group-data-[visible=true]/biz-reveal:before:opacity-100 motion-reduce:before:opacity-100 motion-reduce:before:transition-none";
+// Card shell/entrance/hover/hairline styles live in src/app/homepage-cards.css
+// as `.hp-biz-card` — this 1.4 KB stack repeated 6× cost ~17 KB of document
+// (HTML + RSC flight, see docs/rsc-payload-report.md). `group/biz-card` stays
+// as the marker for the watermark's group-hover.
+const cardBase = "group/biz-card hp-biz-card";
 
 export function BusinessValue({
   locale = "uk",

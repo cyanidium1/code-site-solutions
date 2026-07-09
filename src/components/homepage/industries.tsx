@@ -163,21 +163,15 @@ function CardMedia({ src, imgClass, dimClass }: { src: string; imgClass?: string
   );
 }
 
-// Card visual classes shared by enabled (Link) + disabled (div) variants.
-// Uses the dynamic --accent-color CSS var (per-industry color) via arbitrary
-// oklch(from var(...) ...) for hover border + before/after pseudo-elements.
-const cardBase =
-  "group/ind relative isolate flex min-h-[300px] flex-col overflow-hidden rounded-[18px] border border-line bg-[oklch(1_0_0_/_0.02)] p-6 text-inherit no-underline transition-[translate,border-color] duration-[0.5s] ease-[cubic-bezier(0.22,1,0.36,1)] " +
-  // ::before radial overlay (hover)
-  "before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(400px_200px_at_0%_0%,oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.10),transparent_70%)] before:opacity-0 before:transition-opacity before:duration-[0.25s] " +
-  // ::after gradient line on top edge (hover)
-  "after:absolute after:inset-x-0 after:top-0 after:h-px after:bg-[linear-gradient(90deg,transparent,var(--accent-color,var(--color-accent)),transparent)] after:opacity-0 after:transition-opacity after:duration-[0.25s]";
+// Card shell + hover pseudo-elements live in src/app/homepage-cards.css as
+// `.hp-ind-card` (this 869 B stack repeated 8× cost ~14 KB of document —
+// HTML + RSC flight, see docs/rsc-payload-report.md). Hover styles bind to
+// `a.hp-ind-card`, so the enabled Link gets them and the disabled <div>
+// doesn't. `group/ind` stays as the marker for descendant group-hovers;
+// per-industry tint arrives via --accent-color.
+const cardBase = "group/ind hp-ind-card";
 
-const cardEnabledHover =
-  "hover:-translate-y-1.5 hover:border-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.5)] hover:before:opacity-100 hover:after:opacity-100";
-
-const cardDisabled =
-  "cursor-default opacity-[0.78] hover:transform-none hover:border-line hover:before:opacity-0 hover:after:opacity-0";
+const cardDisabled = "cursor-default opacity-[0.78]";
 
 export function Industries({
   eyebrow = "РІШЕННЯ",
@@ -258,7 +252,7 @@ export function Industries({
               <Link
                 key={ind.href}
                 href={ind.href}
-                className={cn(cardBase, cardEnabledHover)}
+                className={cardBase}
                 style={cardStyle}
               >
                 {body}
