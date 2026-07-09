@@ -13,6 +13,12 @@ import {
 
 import { H2 } from "@/components/ui";
 
+// React-hoisted style (see blocks/case/index.tsx for the rationale): costs
+// bytes only on routes that render this block, no extra request.
+const TURNKEY_CSS = `
+.csb-turnkey-bg{background-image:radial-gradient(ellipse 50% 40% at 80% 10%,oklch(from var(--color-accent) l c h / 0.06),transparent 70%),radial-gradient(ellipse 50% 50% at 10% 90%,oklch(from var(--color-accent-2) l c h / 0.04),transparent 70%)}
+`;
+
 export type TurnkeyItem = {
   icon: LucideIcon;
   title: string;
@@ -73,10 +79,9 @@ const DEFAULT_NOT_DOING: string[] = [
   "Підтримка стороннього коду / WordPress-сайтів",
 ];
 
-// Layered radial accent + accent-2 gradients — `oklch(from var(--color-accent) l c h / 0.06)`
-// pattern preserved as in Session 2 conversions. Uses @theme tokens.
-const TURNKEY_BG =
-  "bg-[radial-gradient(ellipse_50%_40%_at_80%_10%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_50%_50%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.04),transparent_70%)]";
+// Layered radial accent + accent-2 gradients — hoisted style above, kept out
+// of the global stylesheet.
+const TURNKEY_BG = "csb-turnkey-bg";
 
 const EYEBROW_CLASS =
   "inline-flex items-center gap-2.5 py-1.5 px-3 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-ink-3 uppercase " +
@@ -137,6 +142,7 @@ export function TurnkeyList({
       className="relative py-9 lg:py-14 px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden"
       id="turnkey"
     >
+      <style href="csb-turnkey" precedence="csb">{TURNKEY_CSS}</style>
       <div
         className={`absolute inset-0 z-0 pointer-events-none ${TURNKEY_BG}`}
       />

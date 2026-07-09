@@ -40,7 +40,10 @@ function InfoCardGrid({ cards }: { cards: InfoCard[] }) {
         return (
           <article
             key={c.title}
-            className="border border-line rounded-[22px] bg-[radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),oklch(0.16_0.005_300)] px-[22px] py-6 flex flex-col gap-3 transition-[border-color,transform] duration-200"
+            // `[background:…]` form, not `bg-[…]`: the trailing bare color layer
+            // makes Tailwind classify a `bg-[…]` value as background-color,
+            // which browsers drop as invalid.
+            className="[background:radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),oklch(0.16_0.005_300)] border border-line rounded-[22px] px-[22px] py-6 flex flex-col gap-3 transition-[border-color,transform] duration-200"
           >
             <span className="inline-flex items-center justify-center w-9 h-9 rounded-[12px] bg-accent-12 text-accent-soft">
               <Icon size={18} strokeWidth={1.6} />

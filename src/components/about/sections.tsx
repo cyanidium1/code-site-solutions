@@ -6,6 +6,22 @@ import { ArrowUpRight, ArrowRight, type LucideIcon } from "lucide-react";
 import type { RichText } from "@/lib/shared/rich-text";
 import { cn, btnClass } from "@/components/ui";
 import { SectionHead } from "@/components/shared/section-head";
+
+// React-hoisted styles (see blocks/case/index.tsx for the rationale): cost
+// bytes only on the about pages, no extra request, and — unlike CSS modules —
+// immune to webpack merging them into a layout-attached shared chunk.
+// NOTE: heroBg's gradient values match blocks/page-hero + case-page-hero
+// (one shared utility string before the 2026-07 CSS split) — tweak together.
+const SECTIONS_CSS = `
+.csb-about-hero-bg{background-image:radial-gradient(ellipse 60% 60% at 80% 20%,oklch(from var(--color-accent) l c h / 0.06),transparent 70%),radial-gradient(ellipse 40% 50% at 10% 100%,oklch(from var(--color-accent-2) l c h / 0.04),transparent 70%)}
+.csb-about-hero-bg::before{background-image:linear-gradient(to right,oklch(1 0 0 / 0.022) 1px,transparent 1px),linear-gradient(to bottom,oklch(1 0 0 / 0.022) 1px,transparent 1px)}
+.csb-about-proj-glow{background-image:radial-gradient(360px 200px at 0% 0%,oklch(from var(--card-accent) l c h / 0.12),transparent 70%)}
+.csb-about-top-wash{background-image:radial-gradient(ellipse 70% 60% at 50% 0%,oklch(from var(--color-accent) l c h / 0.07),transparent 70%)}
+`;
+
+function SectionsCss() {
+  return <style href="csb-about-sections" precedence="csb">{SECTIONS_CSS}</style>;
+}
 import {
   hpEyebrowClass,
   hpEyebrowDotClass,
@@ -145,7 +161,8 @@ const accentIconBox =
 export function AboutHero({ c }: { c: AboutContent["hero"] }) {
   return (
     <section className="page-hero relative overflow-hidden bg-bg px-6 pt-[72px] pb-12 lg:px-12 lg:pt-[120px] lg:pb-16">
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_60%_60%_at_80%_20%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_40%_50%_at_10%_100%,oklch(from_var(--color-accent-2)_l_c_h_/_0.04),transparent_70%)] before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(to_right,oklch(1_0_0_/_0.022)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0_/_0.022)_1px,transparent_1px)] before:bg-[length:64px_64px] before:[mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]" />
+      <SectionsCss />
+      <div className="absolute inset-0 z-0 pointer-events-none csb-about-hero-bg before:content-[''] before:absolute before:inset-0 before:bg-[length:64px_64px] before:[mask:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]" />
       <div className="relative z-[1] mx-auto max-w-container">
         <div className="grid grid-cols-1 items-center gap-9 min-[961px]:grid-cols-[minmax(0,1fr)_minmax(0,440px)] min-[961px]:gap-10 min-[1081px]:gap-14">
           <div className="flex flex-col">
@@ -459,11 +476,12 @@ export function RealProjects({ c }: { c: AboutContent["projects"] }) {
           {c.items.map((p) => {
             const inner = (
               <>
+                <SectionsCss />
                 <div
                   aria-hidden="true"
                   // eslint-disable-next-line react/forbid-dom-props -- per-card accent glow
                   style={{ "--card-accent": p.accent } as React.CSSProperties}
-                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(360px_200px_at_0%_0%,oklch(from_var(--card-accent)_l_c_h_/_0.12),transparent_70%)] opacity-70 transition-opacity duration-300 group-hover/proj:opacity-100"
+                  className="pointer-events-none absolute inset-0 csb-about-proj-glow opacity-70 transition-opacity duration-300 group-hover/proj:opacity-100"
                 />
                 <div className="relative z-[1] flex h-full flex-col">
                   <div className="flex items-start justify-between gap-3">
@@ -595,9 +613,10 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
 export function Guarantees({ c }: { c: AboutContent["guarantees"] }) {
   return (
     <section className={cn(hpSectionClass, "border-y border-line")} id="guarantees">
+      <SectionsCss />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.07),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 z-0 csb-about-top-wash"
       />
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />

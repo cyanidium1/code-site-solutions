@@ -3,6 +3,15 @@ import {
   CHECK_PILL,
   BENEFIT_LIST,
 } from "./mocks";
+// React-hoisted style (see blocks/case/index.tsx for the rationale): costs
+// bytes only on routes that render this block, no extra request. Values are
+// byte-identical to the arbitrary-value utilities they replaced.
+const OUTCOME_CSS = `
+.csb-outcome-bg{background-image:radial-gradient(ellipse 50% 40% at 90% 10%,oklch(from var(--color-accent) l c h / 0.10),transparent 70%),radial-gradient(ellipse 40% 50% at 5% 80%,oklch(from var(--color-accent-2) l c h / 0.08),transparent 70%)}
+.csb-outcome-quote-glow::before{background-image:radial-gradient(circle at top right,oklch(from var(--color-accent) l c h / 0.12),transparent 70%)}
+.csb-outcome-callout{background-image:linear-gradient(135deg,oklch(from var(--color-accent) l c h / 0.10),oklch(from var(--color-accent-2) l c h / 0.06) 60%,transparent)}
+.csb-outcome-callout::before{background-image:radial-gradient(ellipse at center,oklch(from var(--color-accent) l c h / 0.18),transparent 70%)}
+`;
 
 // Re-export the device-mock components so the directory's public API stays
 // identical: `industry-page` imports these from `@/components/blocks/outcome`.
@@ -71,7 +80,8 @@ export function Outcome({
   );
   return (
     <section className="relative py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_50%_40%_at_90%_10%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_40%_50%_at_5%_80%,oklch(from_var(--color-accent-2)_l_c_h_/_0.08),transparent_70%)]" />
+      <style href="csb-outcome" precedence="csb">{OUTCOME_CSS}</style>
+      <div className="absolute inset-0 z-0 pointer-events-none csb-outcome-bg" />
       <div className="relative z-[2] max-w-container mx-auto">
         {/* Recap pull-quote */}
         {recapEyebrow || recapText ? (
@@ -91,7 +101,7 @@ export function Outcome({
         ) : null}
 
         {/* Directions card */}
-        <article className="relative border border-line-strong rounded-[18px] bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] px-5 py-6 mb-14 overflow-hidden md:p-8 md:mb-20 md:rounded-3xl xl:pt-11 xl:px-12 xl:pb-11 xl:mb-[120px] before:content-[''] before:absolute before:top-0 before:right-0 before:w-[200px] before:h-[200px] before:pointer-events-none before:bg-[radial-gradient(circle_at_top_right,oklch(from_var(--color-accent)_l_c_h_/_0.12),transparent_70%)]">
+        <article className={`relative border border-line-strong rounded-[18px] bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] px-5 py-6 mb-14 overflow-hidden md:p-8 md:mb-20 md:rounded-3xl xl:pt-11 xl:px-12 xl:pb-11 xl:mb-[120px] before:content-[''] before:absolute before:top-0 before:right-0 before:w-[200px] before:h-[200px] before:pointer-events-none csb-outcome-quote-glow`}>
           {directionsEyebrow ? (
             <div className="inline-flex items-center gap-2.5 font-mono text-[10px] tracking-[0.12em] text-accent-soft uppercase mb-3.5 before:content-[''] before:w-[22px] before:h-px before:bg-accent-soft">
               {directionsEyebrow}
@@ -155,7 +165,7 @@ export function Outcome({
             rendering an empty gradient frame for industries that don't ship
             a hero metric. */}
         {hasHero ? (
-          <div className="grid grid-cols-1 gap-[22px] items-center px-[22px] py-6 mb-8 border border-accent-35 rounded-[18px] bg-[linear-gradient(135deg,oklch(from_var(--color-accent)_l_c_h_/_0.10),oklch(from_var(--color-accent-2)_l_c_h_/_0.06)_60%,transparent)] relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] md:gap-7 md:p-8 md:rounded-3xl xl:grid-cols-2 xl:gap-12 xl:py-11 xl:px-12 before:content-[''] before:absolute before:top-[-40%] before:right-[-20%] before:w-[60%] before:h-[180%] before:pointer-events-none before:bg-[radial-gradient(ellipse_at_center,oklch(from_var(--color-accent)_l_c_h_/_0.18),transparent_70%)]">
+          <div className={`grid grid-cols-1 gap-[22px] items-center px-[22px] py-6 mb-8 border border-accent-35 rounded-[18px] csb-outcome-callout relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] md:gap-7 md:p-8 md:rounded-3xl xl:grid-cols-2 xl:gap-12 xl:py-11 xl:px-12 before:content-[''] before:absolute before:top-[-40%] before:right-[-20%] before:w-[60%] before:h-[180%] before:pointer-events-none`}>
             <div className="relative z-[2]">
               <div className="font-display font-bold text-[48px] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 md:text-[clamp(52px,7vw,80px)] min-[1080px]:text-[clamp(56px,8vw,96px)]">
                 {benefitHeroValue}

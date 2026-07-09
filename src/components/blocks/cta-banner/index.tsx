@@ -15,10 +15,11 @@ const ARROW = (
 const BTN_BASE =
   "inline-flex items-center justify-center gap-2.5 px-[22px] py-[14px] rounded-full font-sans font-semibold text-[13.5px] tracking-[0.04em] no-underline cursor-pointer transition-[transform,box-shadow,background,color,border-color] duration-200 lg:justify-normal lg:px-[26px] lg:py-[13px]";
 
-// Card background: 3-layer radial gradient. Inline as arbitrary value so
-// no semantic class is needed; the long string is contained to this constant.
+// Must be the `[background:…]` arbitrary-property form, not `bg-[…]`: the
+// trailing bare color layer makes Tailwind classify a `bg-[…]` value as
+// background-color, which browsers drop as invalid.
 const CARD_BG =
-  "bg-[radial-gradient(ellipse_70%_80%_at_50%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_60%_at_100%_100%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),oklch(1_0_0_/_0.02)]";
+  "[background:radial-gradient(ellipse_70%_80%_at_50%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_60%_at_100%_100%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),oklch(1_0_0_/_0.02)]";
 
 // Top accent line pseudo-element (legacy .cta-banner-card::before).
 const TOP_ACCENT =

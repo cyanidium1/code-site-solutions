@@ -63,7 +63,7 @@ Kept OFF. NOTE: this supersedes the 2026-07-06 "keep ON" decision — the earlie
 A/Bs measured CSS delivery, not the flight-payload script-eval cost (fast local
 CPUs hide it; only real slow-4G + Lantern surface it).
 
-## HeroUI removal (2026-07-08, branch perf/drop-heroui)
+## HeroUI removal (2026-07-08, branch perf/drop-heroui, PR #29)
 
 Replaced HeroUI with in-house primitives (`src/components/ui/`: Field =
 Input/Textarea, Select = APG select-only combobox, Dialog = Modal/Drawer on
@@ -90,3 +90,32 @@ modal/drawer open). A11y parity verified in preview: combobox keyboard nav
 (arrows/Home/End/Enter/Esc/typeahead, aria-activedescendant), dialog focus
 trap + focus return + Esc + backdrop dismiss + scroll lock, drawer
 route-change close; console clean.
+
+## Heavy-CSS split (2026-07-08, branch perf/split-heavy-css, PR #30)
+
+Moved the giant route-specific arbitrary-value gradient/shadow utilities
+(blocks/case+outcome+reasons+services+turnkey-list+page-hero, about/sections,
+case-page-hero, calculator slider thumbs) out of the global Tailwind sheet
+into **React-hoisted `<style href precedence>` tags** rendered by the owning
+block. Main CSS: 307,412 → 297,360 B raw (−3.3%) / 44,704 → 43,845 B gzip
+(the repetitive gradients gzip extremely well, so the transfer delta is
+small); homepage-coverage unused tail 227.6 → 217.8 KB raw; homepage
+stylesheet links unchanged (3).
+
+**Why NOT `*.module.css` (do not retry):** webpack merges module CSS from
+widely-shared blocks into a chunk attached to the (uk)/(en) ROOT LAYOUTS
+(measured: it fused with the cookie-consent module CSS), so every page —
+homepage included — shipped every route's module CSS as a NEW render-blocking
+link. `experimental.cssChunking: "strict"` does not prevent it. Hoisted
+styles are immune: deduped by href, SSR-inlined per route, no requests.
+CSS modules remain fine for genuinely single-route CSS (consent survives).
+
+Related fix: `lib/server/fetch-homepage-cases.ts` imported from the
+`@/components/case-page` barrel, dragging the case-page component tree into
+the homepage graph — data layer extracted to `case-page/data.ts`.
+
+**Combined (both levers merged, build-measured): main CSS 307,412 → 206,402 B
+raw (−33%) / 44,704 → 32,551 B gzip (−27%).** Stale-checkout gotcha: a
+leftover `.heroui-tw/` dir is scanned by Oxide auto-detection post-#29 and
+silently re-adds ~25 KB raw of dead HeroUI utilities — the dir stays
+gitignored as a tombstone; delete it locally.

@@ -24,6 +24,16 @@ import { formatEur as formatEurRaw, formatPercent } from "@/lib/shared/format-eu
 import { OptionCard } from "./OptionCard";
 import { H3, InfoHint } from "@/components/ui";
 
+// React-hoisted style (see blocks/case/index.tsx for the rationale): the
+// slider-thumb rules compiled to ~150–500 B escaped-selector utilities each
+// in the global stylesheet; as a hoisted <style> they cost bytes only on the
+// calculator route, with no extra request.
+const RANGE_CSS = `
+.csb-calc-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:9999px;background:oklch(0.99 0.01 290);border:2px solid oklch(from var(--color-accent) l c h / 0.6);box-shadow:0 0 0 4px oklch(from var(--color-accent) l c h / 0.12),0 0 14px oklch(from var(--color-accent) l c h / 0.4);cursor:grab;transition:box-shadow 180ms,transform 180ms}
+.csb-calc-range:hover::-webkit-slider-thumb{box-shadow:0 0 0 6px oklch(from var(--color-accent) l c h / 0.18),0 0 22px oklch(from var(--color-accent) l c h / 0.55);transform:scale(1.06)}
+.csb-calc-range::-moz-range-thumb{width:20px;height:20px;border-radius:9999px;background:oklch(0.99 0.01 290);border:2px solid oklch(from var(--color-accent) l c h / 0.6);box-shadow:0 0 0 4px oklch(from var(--color-accent) l c h / 0.12),0 0 14px oklch(from var(--color-accent) l c h / 0.4);cursor:grab}
+`;
+
 const GROUP_CLASS =
   "border border-line rounded-[18px] bg-[oklch(0.16_0.005_300)] overflow-hidden " +
   "[&>summary]:list-none [&>summary]:m-0 [&>summary]:px-5 [&>summary]:py-4 " +
@@ -60,20 +70,10 @@ const CHECKBOX_CLASS =
   "[&>span]:grid [&>span]:gap-1 [&>span]:text-[13px] " +
   "[&_strong]:inline-block [&_strong]:text-accent-soft [&_strong]:text-[12px]";
 
+// Thumb styling lives in RANGE_CSS above (hoisted, off the global
+// stylesheet); only the track stays as utilities.
 const RANGE_INPUT_CLASS =
-  "appearance-none w-full h-[6px] rounded-full bg-[linear-gradient(90deg,var(--color-accent-soft),var(--color-accent))] outline-none cursor-pointer " +
-  "[&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 " +
-  "[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[oklch(0.99_0.01_290)] " +
-  "[&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[oklch(from_var(--color-accent)_l_c_h_/_0.6)] " +
-  "[&::-webkit-slider-thumb]:shadow-[0_0_0_4px_oklch(from_var(--color-accent)_l_c_h_/_0.12),0_0_14px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
-  "[&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:transition-[box-shadow,transform] [&::-webkit-slider-thumb]:duration-[180ms] " +
-  "hover:[&::-webkit-slider-thumb]:shadow-[0_0_0_6px_oklch(from_var(--color-accent)_l_c_h_/_0.18),0_0_22px_oklch(from_var(--color-accent)_l_c_h_/_0.55)] " +
-  "hover:[&::-webkit-slider-thumb]:scale-[1.06] " +
-  "[&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full " +
-  "[&::-moz-range-thumb]:bg-[oklch(0.99_0.01_290)] [&::-moz-range-thumb]:border-2 " +
-  "[&::-moz-range-thumb]:border-[oklch(from_var(--color-accent)_l_c_h_/_0.6)] " +
-  "[&::-moz-range-thumb]:shadow-[0_0_0_4px_oklch(from_var(--color-accent)_l_c_h_/_0.12),0_0_14px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
-  "[&::-moz-range-thumb]:cursor-grab";
+  "appearance-none w-full h-[6px] rounded-full bg-[linear-gradient(90deg,var(--color-accent-soft),var(--color-accent))] outline-none cursor-pointer csb-calc-range";
 
 type CalculatorControlsProps = {
   config: CalculatorConfig;
@@ -219,6 +219,7 @@ export function CalculatorControls({ config, value, onChange, onReset }: Calcula
             <span className={NOTE_CLASS}>{pageHelp}</span>
           </label>
           <div className="flex items-center gap-3">
+            <style href="csb-calc-range" precedence="csb">{RANGE_CSS}</style>
             <input
               id="calc-pages"
               className={RANGE_INPUT_CLASS}
