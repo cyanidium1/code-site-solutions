@@ -47,67 +47,68 @@ const UK_COPY: SectionCopy = {
   eyebrow: "ЧОМУ МИ",
   heading: (
     <>
-      Зробіть сайт <em>інструментом</em> бізнесу
+      Мінімум вашої участі — <em>повний контроль</em> у ваших руках
     </>
   ),
-  sub: "Кожен блок сайту має працювати на швидкість, заявки, довіру та ріст бізнесу.",
+  sub: "Працюємо офіційно, за договором. Сайт, доступи й результат — ваші.",
 };
 
 const EN_COPY: SectionCopy = {
   eyebrow: "WHY US",
   heading: (
     <>
-      Turn your site into a <em>business tool</em>
+      Minimal involvement from you — <em>full control</em> still in your hands
     </>
   ),
-  sub: "Every section of your site should work for speed, leads, trust, and business growth.",
+  sub: "We work under contract. The site, the access, and the results are yours.",
 };
 
 const UK_CARDS: BizCard[] = [
   {
     icon: Handshake,
     ghost: FileSignature,
-    title: "З нами легко",
-    body: "Брифи й технічні завдання писати не треба: ми самі ставимо правильні питання й оформлюємо все за вас. Працюємо офіційно, за договором.",
+    title: "Працюємо за договором",
+    body: "Офіційно, з фіксованим обсягом і терміном. Бриф і ТЗ пишемо самі — ставимо правильні питання й беремо папери на себе.",
     tone: PURPLE,
     visual: "deal",
   },
   {
     icon: ShieldCheck,
     label: "Власність",
-    title: "Контроль",
-    body: "Код, домен, хостинг і доступи належать вам. Повний контроль над сайтом, структурою, аналітикою та розвитком — без конструкторів і прив’язки до підрядника.",
+    title: "Все належить вам",
+    body: "Код, домен, хостинг, доступи, адмінка — ваші з першого дня. Вирішите змінити команду? Заберете все з собою.",
     tone: BLUE,
     visual: "control",
   },
   {
     icon: LayoutDashboard,
     label: "Адмінка",
-    title: "Управління",
-    body: "Зручна адмін-панель для текстів, сторінок, послуг, кейсів, блогу та SEO без технічних знань — прямо з телефону.",
+    title: "Керування з телефона",
+    body: "Керуєте сайтом самі: тексти, сторінки, послуги, кейси та блог редагуються за хвилину. Розробник не потрібен.",
     tone: PURPLE,
     visual: "cms",
   },
   {
-    icon: TrendingUp,
-    label: "SEO",
-    title: "Результат",
-    body: "Структуру, швидкість, schema.org, redirects і контент ми готуємо під пошук, щоб ви ранжувалися в Google.",
-    tone: GREEN,
-    visual: "seo",
-  },
-  {
     icon: Rocket,
-    title: "Швидкий запуск",
-    body: "Чіткий процес від брифу до запуску. Без хаосу, нескінченних правок і «давайте ще місяць подумаємо».",
+    label: "Дедлайн",
+    title: "Неустойка за зрив терміну",
+    body: "Зірвемо дедлайн — платимо ми. Тому вкластися вчасно нам важливо так само, як і вам.",
     tone: AMBER,
     visual: "launch",
   },
   {
+    icon: TrendingUp,
+    label: "SEO",
+    title: "Чесність із першого дня",
+    body: "Ніхто не може гарантувати №1 у Google — це довга робота. Ми будуємо сайт за всіма стандартами, які Google та AI-пошук винагороджують позиціями. Решта — контент і час.",
+    tone: GREEN,
+    visual: "seo",
+  },
+  {
     icon: Headset,
     label: "Гарантія",
-    title: "Підтримка",
-    body: "Після запуску ми не зникаємо. Виправляємо технічні проблеми, допомагаємо з розвитком і підтримуємо сайт.",
+    title: "Не зникаємо після запуску",
+    body: "Рік підтримки включено: виправляємо технічні проблеми, допомагаємо з розвитком і підтримуємо сайт.",
     tone: PURPLE,
     visual: "support",
   },
@@ -117,47 +118,48 @@ const EN_CARDS: BizCard[] = [
   {
     icon: Handshake,
     ghost: FileSignature,
-    title: "Easy to work with",
-    body: "No briefs or specs to write. We ask the right questions and handle the paperwork, all official, under a contract.",
+    title: "We work under contract",
+    body: "Officially, with a fixed scope and timeline. We write the brief and the spec ourselves — we ask the right questions and handle the paperwork for you.",
     tone: PURPLE,
     visual: "deal",
   },
   {
     icon: ShieldCheck,
     label: "Ownership",
-    title: "Control",
-    body: "The code, domain, hosting, and access all belong to you. Full control over the site, structure, analytics, and growth — no page builders, no vendor lock-in.",
+    title: "Everything belongs to you",
+    body: "Code, domain, hosting, access, admin panel — yours from day one. Decide to switch teams? You take it all with you.",
     tone: BLUE,
     visual: "control",
   },
   {
     icon: LayoutDashboard,
     label: "Admin",
-    title: "Management",
-    body: "A simple admin panel for text, pages, services, cases, blog, and SEO — no technical skills, right from your phone.",
+    title: "Manage it from your phone",
+    body: "You manage the site yourself: edit text, pages, services, cases, and the blog in a minute. No developer required.",
     tone: PURPLE,
     visual: "cms",
   },
   {
-    icon: TrendingUp,
-    label: "SEO",
-    title: "Results",
-    body: "We build structure, speed, schema.org, redirects, and content for search, so Google ranks you.",
-    tone: GREEN,
-    visual: "seo",
-  },
-  {
     icon: Rocket,
-    title: "Fast launch",
-    body: "A clear process from brief to launch. No chaos, no endless revisions, no “let’s think about it for another month”.",
+    label: "Deadline",
+    title: "A penalty if we miss the deadline",
+    body: "Miss the deadline, we pay. So hitting it on time matters to us just as much as it does to you.",
     tone: AMBER,
     visual: "launch",
   },
   {
+    icon: TrendingUp,
+    label: "SEO",
+    title: "Honesty from day one",
+    body: "No one can guarantee #1 on Google — that’s long-term work. We build the site to every standard Google and AI search reward with rankings. The rest comes down to content and time.",
+    tone: GREEN,
+    visual: "seo",
+  },
+  {
     icon: Headset,
     label: "Warranty",
-    title: "Support",
-    body: "We don’t disappear after launch. We fix technical issues, help you grow, and keep the site running.",
+    title: "We don’t disappear after launch",
+    body: "A year of support included: we fix technical issues, help you grow, and keep the site running.",
     tone: PURPLE,
     visual: "support",
   },
