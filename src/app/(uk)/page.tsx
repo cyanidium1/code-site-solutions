@@ -7,6 +7,8 @@ import {
   Marquee,
   Industries,
   BusinessValue,
+  PainPoints,
+  PerformanceProof,
   Process,
   Cases,
   PullQuoteSwiper,
@@ -82,15 +84,16 @@ export default async function HomePage() {
       <HeroEditorial
         eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДІЯ" }}
         h1Lines={[
+          <>Сайти будь-якої складності,</>,
           <>
-            Сайт <em>приймає заявки</em>,
+            що приводять <em>заявки 24/7.</em>
           </>,
-          <>поки ви працюєте.</>,
         ]}
         lede={
           <>
-            Готовий сайт за 4-10 тижнів. Ваша участь — 5 годин, далі сайт працює сам: пише заявки, веде клієнтів
-            і ранжується в Google.
+            За 4–10 тижнів ви отримуєте сайт, який швидко завантажується,
+            викликає довіру з першого екрана й ранжується в Google та
+            AI-пошуку. Ваша участь — 5 годин. Решту беремо на себе.
           </>
         }
         features={[
@@ -101,17 +104,17 @@ export default async function HomePage() {
         ]}
         ctaPrimaryLabel="Розрахувати вартість"
         ctaPrimaryHref="/calculator"
-        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 год"
+        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 години"
         ctaSecondaryHref="/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
         ctaSecondaryVariant="primary"
-        ctaFootnote="Без розмови з sales. Без email-розсилки. Просто аудит."
+        ctaFootnote="Протягом 24 годин надішлемо розбір: що гальмує ваш сайт, чому немає заявок і що виправити першим."
         showStats
         stats={[
           { num: "50+", lbl: <>проєктів<br/>за 5 років</> },
           { num: "7", lbl: <>країн<br/>UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>заявок<br/>у середньому</> },
-          { num: "4.9/5", lbl: <>оцінка<br/>клієнтів</> },
+          { num: "×3.2", lbl: <>більше заявок<br/>у середньому</> },
+          { num: "30%", lbl: <>неустойка<br/>за зрив терміну</> },
         ]}
         showTicker={false}
         deviceTags={[
@@ -123,12 +126,23 @@ export default async function HomePage() {
         deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
       />
 
-      <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
+      <PainPoints />
       <ValueStack />
+      <PerformanceProof />
       <Industries />
       <BusinessValue />
       <Process />
-      <Cases />
+      <Cases
+        heading={
+          <>
+            50+ клієнтів <em>готові нас рекомендувати</em>
+          </>
+        }
+      />
+
+      <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
+
+      <PullQuoteSwiper slides={testimonialSlides} />
 
       <section className={hpSectionClass} id="pricing">
         <div className={hpInnerClass}>
@@ -138,9 +152,9 @@ export default async function HomePage() {
               <span>ЦІНИ</span>
             </div>
             <h2 className={hpH2Class}>
-              Прозорий прайс — від <em>{range.min}</em> до <em>{range.max}+</em>
+              Прозорий прайс — від <em>{range.min}</em>
             </h2>
-            <p className={hpSubClass}>Без «під запит». Без прихованих платежів.</p>
+            <p className={hpSubClass}>Ви бачите ціну наперед і фіксуєте її до старту робіт.</p>
           </div>
           <CmpPricingGrid>
             {tiers.map((t, i) => (
@@ -150,8 +164,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <PullQuoteSwiper slides={testimonialSlides} />
-      <FAQ heading="Найчастіші питання перед стартом" items={faqItems} />
+      <FAQ heading="Питання, які виникають перед стартом" items={faqItems} />
       <LaunchCta locale="uk" />
       </main>
       <HpFooter />
