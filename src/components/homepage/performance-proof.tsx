@@ -1,12 +1,12 @@
 import type * as React from "react";
-import { Gauge, Zap, Check } from "lucide-react";
+import { Gauge, Zap, Check, type LucideIcon } from "lucide-react";
 
 import type { PriceLocale } from "@/lib/shared/format-price";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { ScrollReveal } from "@/components/homepage/scroll-reveal";
 
 type ProofCopy = {
-  stats: { num: string; title: string; desc: string }[];
+  stats: { icon: LucideIcon; num: string; title: string; desc: string }[];
   designHeading: React.ReactNode;
   bullets: string[];
   footnote: React.ReactNode;
@@ -15,11 +15,13 @@ type ProofCopy = {
 const EN: ProofCopy = {
   stats: [
     {
+      icon: Zap,
       num: "0.5s",
       title: "load time",
       desc: "Faster than a visitor can close the tab. Builder sites take 3–5 seconds, and some people leave before it loads.",
     },
     {
+      icon: Gauge,
       num: "95+",
       title: "PageSpeed score",
       desc: "Google ranks fast sites higher. Yours sits in the green zone, where competitors are usually in the red.",
@@ -47,11 +49,13 @@ const EN: ProofCopy = {
 const UK: ProofCopy = {
   stats: [
     {
+      icon: Zap,
       num: "0,5 с",
       title: "час завантаження",
       desc: "Швидше, ніж відвідувач встигне закрити вкладку. Сайти на конструкторах вантажаться 3–5 секунд — частина людей іде, не дочекавшись.",
     },
     {
+      icon: Gauge,
       num: "95+",
       title: "оцінка PageSpeed",
       desc: "Google ранжує швидкі сайти вище. Ваш — у зеленій зоні, де конкуренти зазвичай у червоній.",
@@ -76,8 +80,6 @@ const UK: ProofCopy = {
   ),
 };
 
-const STAT_ICONS = [Zap, Gauge];
-
 export function PerformanceProof({ locale = "uk" }: { locale?: PriceLocale } = {}) {
   const c = locale === "en" ? EN : UK;
   return (
@@ -85,8 +87,8 @@ export function PerformanceProof({ locale = "uk" }: { locale?: PriceLocale } = {
       <div className={hpInnerClass}>
         <ScrollReveal>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {c.stats.map((s, i) => {
-              const Icon = STAT_ICONS[i];
+            {c.stats.map((s) => {
+              const Icon = s.icon;
               return (
                 <div
                   key={s.num}

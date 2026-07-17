@@ -37,7 +37,7 @@ export async function Cases({
   eyebrow = "КЕЙСИ",
   heading = (
     <>
-      Проєкти, <em>підкріплені цифрами</em>
+      50+ клієнтів <em>готові нас рекомендувати</em>
     </>
   ),
   items,

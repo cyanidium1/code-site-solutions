@@ -132,13 +132,7 @@ export default async function HomePage() {
       <Industries />
       <BusinessValue />
       <Process />
-      <Cases
-        heading={
-          <>
-            50+ клієнтів <em>готові нас рекомендувати</em>
-          </>
-        }
-      />
+      <Cases />
 
       <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
 
