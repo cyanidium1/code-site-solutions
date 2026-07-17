@@ -61,47 +61,47 @@ const UK: Copy = {
   eyebrow: "ЩО ВИ ОТРИМУЄТЕ",
   heading: (
     <>
-      Створений, щоб приводити заявки.
+      Наші сайти створені, щоб приводити заявки.
       <br />
       <em>Краса — за замовчуванням.</em>
     </>
   ),
   sub: (
     <>
-      Вам не потрібні окремо дизайнери, копірайтери, SEO-фахівці, розробники, хостинг
-      і команда підтримки. Усе необхідне, щоб запустити, розвивати й підтримувати сайт,
-      уже включено.
+      Не потрібно окремо наймати дизайнера, копірайтера, SEO-фахівця,
+      розробника, хостинг і команду підтримки. Усе необхідне для запуску й
+      розвитку сайту вже включено.
     </>
   ),
   featured: [
     {
       icon: TrendingUp,
-      title: "Видимість у Google",
-      desc: "Побудований на SEO-дружній архітектурі: індексація, метадані й структура контенту, які допомагають вашому бізнесу бути знайденим.",
+      title: "Вас знаходять у Google",
+      desc: "Побудований так, як любить пошук: структура, швидкість, метадані. Щоб люди, які вже шукають вашу послугу, знаходили саме вас.",
       tone: GREEN,
       img: IMG.visibility,
     },
     {
       icon: Target,
-      title: "Більше заявок",
-      desc: "Чіткі меседжі, конверсійний дизайн і mobile-first макети, що перетворюють відвідувачів на заявки.",
+      title: "Відвідувачі стають заявками",
+      desc: "Чіткі меседжі, шлях до дії за 1–2 кроки та mobile-first верстка — бо саме звідти приходить більшість ваших клієнтів.",
       tone: PURPLE,
       img: IMG.enquiries,
     },
     {
       icon: ShieldCheck,
       title: "Сайт належить вам",
-      desc: "Ваш контент, сторінки, SEO і бізнес-дані залишаються під вашим контролем. Без прив’язки до платформи.",
+      desc: "Код, домен, хостинг, доступи, аналітика — все ваше. Вирішите змінити команду? Заберете сайт із собою.",
       tone: PURPLE,
       img: IMG.control,
     },
   ],
   small: [
-    { icon: Gauge, title: "Швидка робота", desc: "Швидке завантаження на мобільному й десктопі — відвідувачі залишаються, а не йдуть.", tone: BLUE, img: IMG.performance },
-    { icon: Network, title: "Готовність до росту", desc: "Готовий розширюватися: нові сторінки, інтеграції, локації і SEO.", tone: PURPLE, img: IMG.scalable },
-    { icon: BarChart3, title: "Звідки приходять ліди", desc: "Відстежуйте заявки, джерела трафіку й результати бізнесу — аналітика налаштована з запуску.", tone: CYAN, img: IMG.analytics },
-    { icon: Rocket, title: "Запуск беремо на себе", desc: "Хостинг, безпека, DNS, деплой і налаштування go-live — усе робимо за вас.", tone: AMBER, img: IMG.launch },
-    { icon: LifeBuoy, title: "Підтримка 1 рік", desc: "Технічна підтримка, виправлення й оновлення включені цілий рік після запуску.", tone: PURPLE, img: IMG.support },
+    { icon: Gauge, title: "Відкривається за 0,5 с", desc: "0,5 секунди проти 3–5 у типового сайту на конструкторі. Поки їхній ще вантажиться, ваш уже показав форму заявки.", tone: BLUE, img: IMG.performance },
+    { icon: Network, title: "Готовий рости разом із вами", desc: "Нові сторінки, локації та інтеграції додаються поверх наявного — без переробки з нуля.", tone: PURPLE, img: IMG.scalable },
+    { icon: BarChart3, title: "Звідки приходять гроші", desc: "Аналітика з першого дня: джерела трафіку, заявки, результати.", tone: CYAN, img: IMG.analytics },
+    { icon: Rocket, title: "Запуск — на нас", desc: "Хостинг, безпека, DNS, деплой — усю технічну частину робимо ми. Ви просто отримуєте ключі.", tone: AMBER, img: IMG.launch },
+    { icon: LifeBuoy, title: "Рік підтримки після запуску", desc: "Виправлення, оновлення й відповіді до 4 годин. Ми поруч цілий рік.", tone: PURPLE, img: IMG.support },
   ],
 };
 
@@ -109,47 +109,47 @@ const EN: Copy = {
   eyebrow: "WHAT YOU GET",
   heading: (
     <>
-      Built to generate leads.
+      Our sites are built to bring in leads.
       <br />
-      <em>Good looks come standard.</em>
+      <em>Good looks come as standard.</em>
     </>
   ),
   sub: (
     <>
-      You don&apos;t need separate designers, copywriters, SEO specialists, developers,
-      hosting providers and support teams. Everything required to launch, grow and maintain
-      your website is already included.
+      No need to separately hire a designer, copywriter, SEO specialist,
+      developer, hosting, or a support team. Everything you need to launch
+      and grow the site is already included.
     </>
   ),
   featured: [
     {
       icon: TrendingUp,
-      title: "Google visibility",
-      desc: "Built with SEO-friendly architecture, indexing, metadata and content structure that help your business get discovered.",
+      title: "You get found on Google",
+      desc: "Built the way search likes it: structure, speed, metadata. So the people already searching for your service find you right now.",
       tone: GREEN,
       img: IMG.visibility,
     },
     {
       icon: Target,
-      title: "More enquiries",
-      desc: "Clear messaging, conversion-focused design and mobile-first layouts that turn visitors into enquiries.",
+      title: "Visitors turn into leads",
+      desc: "Clear messaging, a path to action in 1–2 steps, and a mobile-first layout — because that’s where most of your clients come from.",
       tone: PURPLE,
       img: IMG.enquiries,
     },
     {
       icon: ShieldCheck,
-      title: "Own your website",
-      desc: "Your content, pages, SEO and business data remain under your control. No platform lock-in.",
+      title: "The site is yours",
+      desc: "Code, domain, hosting, access, analytics — all yours. Decide to switch teams? You take the site with you.",
       tone: PURPLE,
       img: IMG.control,
     },
   ],
   small: [
-    { icon: Gauge, title: "Fast performance", desc: "Fast loading on mobile and desktop so visitors stay engaged instead of leaving.", tone: BLUE, img: IMG.performance },
-    { icon: Network, title: "Scalable foundation", desc: "Built to grow with additional pages, integrations, locations and SEO expansion.", tone: PURPLE, img: IMG.scalable },
-    { icon: BarChart3, title: "Know where leads come from", desc: "Track enquiries, traffic sources and business performance with analytics configured from launch.", tone: CYAN, img: IMG.analytics },
-    { icon: Rocket, title: "We handle the launch", desc: "Hosting, security, DNS, deployment and go-live configuration are handled for you.", tone: AMBER, img: IMG.launch },
-    { icon: LifeBuoy, title: "1 year of support", desc: "Technical support, fixes and updates included for a full year after launch.", tone: PURPLE, img: IMG.support },
+    { icon: Gauge, title: "Opens in 0.5 seconds", desc: "0.5 seconds versus 3–5 on a typical builder-made site. While theirs is still loading, yours has already shown the contact form.", tone: BLUE, img: IMG.performance },
+    { icon: Network, title: "Ready to grow with you", desc: "New pages, locations, and integrations are added on top of what’s there — no rebuild from scratch.", tone: PURPLE, img: IMG.scalable },
+    { icon: BarChart3, title: "You see where the money comes from", desc: "Analytics set up from day one: traffic sources, leads, results.", tone: CYAN, img: IMG.analytics },
+    { icon: Rocket, title: "Launch is on us", desc: "Hosting, security, DNS, deployment — we handle all the technical side. You just pick up the keys.", tone: AMBER, img: IMG.launch },
+    { icon: LifeBuoy, title: "A year of support after launch", desc: "Fixes, updates, and replies in under 4 hours. We’re with you the whole year.", tone: PURPLE, img: IMG.support },
   ],
 };
 
