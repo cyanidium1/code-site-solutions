@@ -30,8 +30,8 @@ const DEFAULT_PROCESS: ProcessStep[] = [
   { n: "01", name: "Бриф", duration: "1 день", items: ["Бізнес-цілі", "Структура", "Аналіз конкурентів"] },
   { n: "02", name: "Архітектура", duration: "1–2 тижні", items: ["Сторінки", "Воронки", "SEO-структура"] },
   { n: "03", name: "Дизайн і розробка", duration: "2–6 тижнів", items: ["UI-дизайн", "Налаштування CMS", "Інтеграції"] },
-  { n: "04", name: "Тестування", duration: "~1 тиждень", items: ["Тестування", "Аналітика", "Redirects"] },
-  { n: "05", name: "Запуск і підтримка", duration: "Підтримка 1 рік", items: ["Моніторинг", "Гарантія", "Розвиток"] },
+  { n: "04", name: "Тестування", duration: "~1 тиждень", items: ["QA", "Аналітика", "Redirects"] },
+  { n: "05", name: "Запуск і підтримка", duration: "Підтримка 1 рік", items: ["Моніторинг", "Гарантія 1 рік", "Розвиток"] },
 ];
 
 // Progressive accent on the step circles — intensity climbs left→right so the
@@ -56,7 +56,7 @@ export function Process({
   sub = (
     <>
       Фіксований обсяг. Фіксований термін. Фіксована ціна.{" "}
-      <span className="text-ink-3">Без нескінченних дзвінків, хаосу і підрядників, що зникають.</span>
+      <span className="text-ink-3">Ви заздалегідь знаєте, що отримаєте, коли і за скільки.</span>
     </>
   ),
   steps = DEFAULT_PROCESS,
