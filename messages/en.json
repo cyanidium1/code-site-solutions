@@ -74,8 +74,8 @@
     "error": "Couldn't send. Please try again."
   },
   "LaunchCta": {
-    "heading": "Let's launch a website that works for your business",
-    "sub": "Book a consultation and we'll go through your project: structure, functionality, timeline, and budget. We'll explain what you need and where spending money won't pay off.",
+    "heading": "Let’s launch a site that works for your business.",
+    "sub": "We’ll go through your project: structure, features, timeline, and budget. We’ll tell you straight what’s worth spending on — and what isn’t.",
     "button": "Get in touch",
     "imageAlt": "Website mockup on a laptop and smartphone"
   },

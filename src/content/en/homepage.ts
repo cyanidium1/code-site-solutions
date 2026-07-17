@@ -177,23 +177,40 @@ export function buildEnHomepageFaq(
   {
     q: "How much will my site cost?",
     a: [
-      "Depends on the tier. ",
-      { em: L.name },
-      " — from ",
+      "From ",
       { em: fmt(L.priceFrom) },
-      ". ",
-      { em: C.name },
-      " (healthcare, legal, accounting, property, etc.) — from ",
-      { em: fmt(C.priceFrom) },
-      ". ",
-      { em: X.name },
-      " with bespoke architecture — from ",
-      { em: fmt(X.priceFrom) },
-      ". For an exact figure, use the ",
+      " for a landing page to ",
+      { em: `${fmt(X.priceFrom)}+` },
+      " for a platform. We’ll give you the exact figure after a short conversation and lock it into the contract before we start. For a quick estimate, use the ",
       { link: { href: "/en/calculator", text: "calculator" } },
-      " or book a 30-minute call.",
+      ".",
     ],
   },
+  {
+    q: "What if I don’t know exactly what I need?",
+    a: [
+      "That’s normal — and it’s our job. You tell us about your business; we propose the solution and explain what’s not worth spending money on.",
+    ],
+  },
+  {
+    q: "Can I see the code before I pay in full?",
+    a: [
+      "Yes. The code, access, and site are yours from the start. Look any time.",
+    ],
+  },
+  {
+    q: "What if something breaks after launch?",
+    a: [
+      "A year of support is included. Replies in under 4 hours. We fix issues and help you grow.",
+    ],
+  },
+  {
+    q: "What if you miss the deadline?",
+    a: [
+      "We pay a penalty. So hitting the deadline matters to us just as much as it does to you.",
+    ],
+  },
+  // Retained from the previous FAQ — not in the 2026-07 landing doc.
   {
     q: "How long from brief to launch?",
     a: [
@@ -215,30 +232,6 @@ export function buildEnHomepageFaq(
     q: "What if my budget is below your minimum?",
     a: [
       "We'll say up front that we can't deliver at that price, and point you toward someone who can. We don't take on projects we can't ship well at your budget.",
-    ],
-  },
-  {
-    q: "What if I don't know exactly what I need?",
-    a: [
-      "That's normal. On a free 30-minute call we'll ask ",
-      { em: "10-15 questions" },
-      " and draft the spec for you. Your job is to describe the business.",
-    ],
-  },
-  {
-    q: "Can I see the code before paying in full?",
-    a: [
-      "Yes. After the first stage (design) you get access to the ",
-      { em: "repository" },
-      ". Browse, leave comments, decide whether to continue.",
-    ],
-  },
-  {
-    q: "What happens after launch?",
-    a: [
-      "The first ",
-      { em: "2 months" },
-      " — free revisions, monitoring, and fixes. Then 1 year of warranty included (bugs fixed within 4 business hours). Ongoing support and growth run at a fixed rate, no surprises.",
     ],
   },
   {

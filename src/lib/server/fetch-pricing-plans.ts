@@ -120,20 +120,19 @@ export function toHomepagePlanOverride(
 }
 
 /**
- * Formatted "from $X to $Y" price range derived from resolved plans, with
+ * Formatted "from $X" price floor derived from resolved plans, with
  * fallback to TIER_AMOUNTS (matches the homepage constants) when CMS plans
- * are empty. Caller appends the trailing "+" in markup.
+ * are empty. (The 2026-07 landing copy dropped the "to $Y+" upper bound.)
  */
 export function pricingRange(
   plans: ResolvedPlan[],
   locale: PriceLocale,
-): { min: string; max: string } {
+): { min: string } {
   const prices = plans.length
     ? plans.map((p) => p.priceFrom)
     : [TIER_AMOUNTS.landing, TIER_AMOUNTS.corporate, TIER_AMOUNTS.custom];
   return {
     min: formatPrice(Math.min(...prices), { locale }),
-    max: formatPrice(Math.max(...prices), { locale }),
   };
 }
 

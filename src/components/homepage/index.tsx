@@ -31,6 +31,8 @@ export { Cases } from "./cases";
 export { Stack } from "./stack";
 export { PullQuote } from "./pull-quote";
 export { Process } from "./process";
+export { PainPoints } from "./pain-points";
+export { PerformanceProof } from "./performance-proof";
 export { PullQuoteSwiper } from "./pull-quote-swiper";
 export { Newsletter } from "./newsletter";
 

@@ -8,6 +8,8 @@ import {
   Marquee,
   Industries,
   BusinessValue,
+  PainPoints,
+  PerformanceProof,
   Process,
   Cases,
   Stack,
@@ -111,16 +113,15 @@ export default async function HomePageEn() {
       <HeroEditorial
         eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
         h1Lines={[
-          <>Your site books</>,
-          <>meetings</>,
-          <em key="hero-em">while you sleep.</em>,
+          <>Websites of any complexity,</>,
+          <>built to bring in</>,
+          <em key="hero-em">leads 24/7.</em>,
         ]}
         lede={
           <>
-            A custom-coded website with copy, design, and integrations,
-            shipped in 4–10 weeks. We write the content, wire up the
-            forms, and set up local SEO. You spend 5 hours, total. Within
-            a month, the first leads land in your inbox.
+            In 4–10 weeks you get a site that loads fast, earns trust from
+            the first screen, and ranks in Google and AI search. Your part:
+            5 hours. We handle the rest.
           </>
         }
         features={[
@@ -129,19 +130,19 @@ export default async function HomePageEn() {
           { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
           { label: "End-to-end", sub: "Copy + design + code + hosting" },
         ]}
-        ctaPrimaryLabel="Get an estimate"
+        ctaPrimaryLabel="Calculate the cost"
         ctaPrimaryHref="/en/calculator"
-        ctaSecondaryLabel="Free site audit within 24 hours"
+        ctaSecondaryLabel="Free site audit in 24 hours"
         ctaSecondaryHref="/en/contacts?source=hero-audit"
         ctaSecondaryShowPlay={false}
         ctaSecondaryVariant="primary"
-        ctaFootnote="No sales call. No email list. An audit."
+        ctaFootnote="Within 24 hours we’ll send you a breakdown: what’s slowing your site down, why you’re not getting leads, and what to fix first."
         showStats
         stats={[
           { num: "50+", lbl: <>projects<br />across 5 years</> },
-          { num: "7", lbl: <>regions<br />UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>avg.<br />lead lift</> },
-          { num: "4.9/5", lbl: <>client<br />rating</> },
+          { num: "7", lbl: <>countries<br />UA · EU · US · DK · ZA · UK · FR</> },
+          { num: "×3.2", lbl: <>more leads<br />on average</> },
+          { num: "30%", lbl: <>penalty if we<br />miss the deadline</> },
         ]}
         showTicker={false}
         deviceTags={[
@@ -153,9 +154,11 @@ export default async function HomePageEn() {
         deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
       />
 
-      <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
+      <PainPoints locale="en" />
 
       <ValueStack locale="en" />
+
+      <PerformanceProof locale="en" />
 
       <Industries
         eyebrow=""
@@ -182,15 +185,15 @@ export default async function HomePageEn() {
         sub={
           <>
             Fixed scope. Fixed timeline. Fixed price.{" "}
-            <span className="text-ink-3">No endless calls, no chaos, no disappearing contractors.</span>
+            <span className="text-ink-3">You know up front what you’ll get, when, and for how much.</span>
           </>
         }
         steps={[
-          { n: "01", name: "Discovery", duration: "1 day", items: ["Business goals", "Structure", "Competitor review"] },
+          { n: "01", name: "Brief", duration: "1 day", items: ["Business goals", "Structure", "Competitor analysis"] },
           { n: "02", name: "Architecture", duration: "1–2 weeks", items: ["Pages", "Funnels", "SEO structure"] },
-          { n: "03", name: "Design & Build", duration: "2–6 weeks", items: ["UI Design", "CMS Setup", "Integrations"] },
-          { n: "04", name: "QA & Migration", duration: "~1 week", items: ["Testing", "Analytics", "Redirects"] },
-          { n: "05", name: "Launch & Support", duration: "1 year support", items: ["Monitoring", "Warranty", "Growth"] },
+          { n: "03", name: "Design & development", duration: "2–6 weeks", items: ["UI", "CMS setup", "Integrations"] },
+          { n: "04", name: "Testing", duration: "~1 week", items: ["QA", "Analytics", "Redirects"] },
+          { n: "05", name: "Launch & support", duration: "1-year support", items: ["Monitoring", "1-year warranty", "Ongoing growth"] },
         ]}
         ctaLabel="Full process"
         ctaHref="/en/process"
@@ -200,13 +203,15 @@ export default async function HomePageEn() {
         eyebrow="CASES"
         heading={
           <>
-            Projects <em>backed by the numbers</em>
+            50+ clients <em>ready to recommend us</em>
           </>
         }
         locale="en"
-        ctaLabel="See all work"
+        ctaLabel="All cases"
         ctaHref="/en/portfolio"
       />
+
+      <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 
@@ -218,10 +223,10 @@ export default async function HomePageEn() {
               <span>PRICING</span>
             </div>
             <h2 className={hpH2Class}>
-              Transparent pricing, from <em>{range.min}</em> to <em>{range.max}+</em>
+              Transparent pricing — from <em>{range.min}</em>
             </h2>
             <p className={hpSubClass}>
-              No &ldquo;request a quote.&rdquo; No hidden fees.
+              You see the price up front and lock it in before we start.
             </p>
           </div>
           <CmpPricingGrid>
@@ -254,7 +259,7 @@ export default async function HomePageEn() {
         ]}
       />
 
-      <FAQ heading="Top questions before we start" items={faqItems} locale="en" />
+      <FAQ heading="Questions that come up before you start" items={faqItems} locale="en" />
       <LaunchCta locale="en" />
       </main>
       <HpFooter />
