@@ -8,6 +8,10 @@ export type ImageTextVariant = "side" | "side-with-list" | "centered";
 export type ImageTextProps = {
   variant: ImageTextVariant;
   imageVariant?: "imageLeft" | "imageRight";
+  /** "natural" shows the full image at its intrinsic aspect ratio instead of
+      cropping into the 4:3 frame — for wide screenshots (e.g. Search Console).
+      Only consumed by the side variants; centered keeps its fixed frame. */
+  imageFit?: "cover" | "natural";
   /** Only consumed when variant="centered". "horizontal" + both images
       renders text-in-middle with two absolute side mockups (OUTCOME style). */
   centeredLayout?: "vertical" | "horizontal";
@@ -63,6 +67,7 @@ const CROSS = (
 export function ImageText({
   variant,
   imageVariant = "imageRight",
+  imageFit = "cover",
   centeredLayout = "vertical",
   eyebrow,
   heading,
@@ -92,9 +97,16 @@ export function ImageText({
   const imageImgClass =
     "[&_img]:block [&_img]:h-full [&_img]:w-full [&_img]:object-cover [&_img]:object-top";
 
+  // "natural": no fixed aspect, the image keeps its intrinsic ratio (needs a
+  // non-fill <img> with width/height from the caller so height resolves).
+  const naturalImgClass = "[&_img]:block [&_img]:w-full [&_img]:h-auto";
+  const isNaturalFit = !isCentered && imageFit === "natural";
+
   const imageClass = isCentered
     ? `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[4/3] lg:aspect-[16/9] ${imageImgClass}`
-    : `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] -order-1 min-[961px]:order-none ${imageImgClass}`;
+    : isNaturalFit
+      ? `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] relative -order-1 min-[961px]:order-none ${naturalImgClass}`
+      : `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] -order-1 min-[961px]:order-none ${imageImgClass}`;
 
   const contentClass = isCentered
     ? "flex flex-col max-w-[720px] mx-auto items-center"

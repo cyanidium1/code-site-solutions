@@ -204,6 +204,7 @@ function GalleryRenderer({
           label: loc(img.caption, locale),
           src: asset.url,
           alt: loc(img.alt, locale),
+          ...(img.fit ? { fit: img.fit } : {}),
         } satisfies EfedraGalleryTile;
       })
       .filter((t): t is EfedraGalleryTile => t !== null) ?? [];
@@ -324,24 +325,36 @@ function SectionBlock({
             ? "side-with-list"
             : (section.variant ?? "side");
 
+      // "natural" fit: non-fill <img> keeps intrinsic width/height so the
+      // block renders the full screenshot instead of cropping into 4:3.
+      const isNaturalFit = section.imageFit === "natural";
+      const imageAlt =
+        loc(section.image?.alt, locale) ||
+        loc(section.heading, locale) ||
+        loc(doc.title, locale);
       const imageNode: React.ReactNode = hasImage ? (
-        <SanityImg
-          image={section.image}
-          alt={
-            loc(section.image?.alt, locale) ||
-            loc(section.heading, locale) ||
-            loc(doc.title, locale)
-          }
-          fill
-          sizes={IMG_SIZES.half}
-          className="object-cover"
-        />
+        isNaturalFit ? (
+          <SanityImg
+            image={section.image}
+            alt={imageAlt}
+            sizes={IMG_SIZES.half}
+          />
+        ) : (
+          <SanityImg
+            image={section.image}
+            alt={imageAlt}
+            fill
+            sizes={IMG_SIZES.half}
+            className="object-cover"
+          />
+        )
       ) : null;
 
       return (
         <ImageText
           variant={effectiveVariant}
           imageVariant={section.imageVariant ?? "imageRight"}
+          imageFit={section.imageFit ?? "cover"}
           bulletIcon={section.bulletIcon ?? "check"}
           eyebrow={loc(section.eyebrow, locale) || undefined}
           heading={formatLine(loc(section.heading, locale)) ?? ""}

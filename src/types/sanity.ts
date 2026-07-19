@@ -115,6 +115,8 @@ type BlockBase<T extends string> = {
 export type ImageTextSection = BlockBase<"imageTextBlock"> & {
   variant?: "side" | "side-with-list" | "centered";
   imageVariant?: "imageLeft" | "imageRight";
+  /** "natural" renders the image at its intrinsic aspect ratio (no 4:3 crop). */
+  imageFit?: "cover" | "natural";
   centeredLayout?: "vertical" | "horizontal";
   body?: RichTextSimple;
   bodyEn?: RichTextSimple;
@@ -354,6 +356,8 @@ export type MediaGallerySection = BlockBase<"mediaGalleryBlock"> & {
     crop?: SanityImage["crop"];
     alt?: LocalizedString;
     caption?: LocalizedString;
+    /** "contain" letterboxes the tile instead of cropping (wide screenshots). */
+    fit?: "cover" | "contain";
   }>;
 };
 
