@@ -18,6 +18,8 @@ export type EfedraGalleryTile = {
   label: string;
   src: string;
   alt: string;
+  /** "contain" letterboxes wide screenshots in the 16:10 tile instead of cropping. */
+  fit?: "cover" | "contain";
 };
 
 // Tailwind utility strings extracted to constants to keep the JSX readable.
@@ -66,7 +68,11 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
                   alt={t.alt}
                   fill
                   sizes="(max-width: 768px) 50vw, 600px"
-                  className="pointer-events-none object-cover object-top"
+                  className={
+                    t.fit === "contain"
+                      ? "pointer-events-none object-contain"
+                      : "pointer-events-none object-cover object-top"
+                  }
                 />
                 <figcaption className={CAPTION_CLASS}>{t.label}</figcaption>
               </figure>

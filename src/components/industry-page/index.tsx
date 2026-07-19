@@ -299,6 +299,7 @@ function SectionBlock({
         <ImageText
           variant={section.variant ?? "side"}
           imageVariant={section.imageVariant ?? "imageRight"}
+          imageFit={section.imageFit ?? "cover"}
           bulletIcon={section.bulletIcon ?? "check"}
           eyebrow={loc(section.eyebrow, locale) || undefined}
           heading={formatLine(loc(section.heading, locale)) ?? ""}
@@ -310,16 +311,27 @@ function SectionBlock({
           bulletList={section.bulletList?.map((b) => loc(b, locale))}
           image={
             section.image?.asset ? (
-              <SanityImg
-                image={section.image}
-                alt={
-                  loc(section.image?.alt, locale) ||
-                  loc(section.heading, locale)
-                }
-                fill
-                sizes={IMG_SIZES.half}
-                className="object-cover"
-              />
+              section.imageFit === "natural" ? (
+                <SanityImg
+                  image={section.image}
+                  alt={
+                    loc(section.image?.alt, locale) ||
+                    loc(section.heading, locale)
+                  }
+                  sizes={IMG_SIZES.half}
+                />
+              ) : (
+                <SanityImg
+                  image={section.image}
+                  alt={
+                    loc(section.image?.alt, locale) ||
+                    loc(section.heading, locale)
+                  }
+                  fill
+                  sizes={IMG_SIZES.half}
+                  className="object-cover"
+                />
+              )
             ) : null
           }
           cta={
