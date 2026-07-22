@@ -76,6 +76,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        // YouTube poster thumbnails for the blog video facade
+        // (src/components/blocks/blog/blog-video.tsx).
+        protocol: "https",
+        hostname: "i.ytimg.com",
+      },
     ],
   },
 };

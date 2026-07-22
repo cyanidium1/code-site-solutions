@@ -31,6 +31,7 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
     hideDetails: "Приховати деталі",
     detailsMeta: "пакет, бюджет, термін",
     submit: "Надіслати — відповімо за 1-2 години",
+    submitDemo: "Отримати тестовий доступ",
     successTitle: "Дякуємо! Заявка отримана.",
     successBody:
       "Зв'яжемось з вами протягом 1-2 робочих годин через Telegram або email який ви залишили.",
@@ -63,6 +64,7 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
     hideDetails: "Hide details",
     detailsMeta: "tier, budget, timeline",
     submit: "Send, we reply within 1-2 hours",
+    submitDemo: "Get demo access",
     successTitle: "Thanks! Your message was received.",
     successBody:
       "We'll get back within 1-2 business hours via the WhatsApp or email you provided.",

@@ -535,7 +535,12 @@ export type CtaCalloutBlock = {
   heading?: string;
   sub?: string;
   ctaLabel?: string;
+  /** 'link' (default) navigates to ctaHref; 'modal' opens the lead modal;
+   *  'modalDemo' opens the trimmed demo-access variant of the form. */
+  ctaMode?: "link" | "modal" | "modalDemo";
   ctaHref?: string;
+  /** Lead source tag recorded when ctaMode opens the modal. */
+  leadSource?: string;
   ctaSecondaryLabel?: string;
   ctaSecondaryHref?: string;
 };
@@ -557,12 +562,22 @@ export type BlogImageBlock = {
   caption?: string;
 };
 
+export type BlogVideoBlock = {
+  _type: "blogVideo";
+  _key: string;
+  /** YouTube video ID; the block is skipped while empty. */
+  youtubeId?: string;
+  title?: string;
+  caption?: string;
+};
+
 export type BlogBodyBlock =
   | PortableBlock
   | TldrBoxBlock
   | CtaCalloutBlock
   | BlogTableBlock
-  | BlogImageBlock;
+  | BlogImageBlock
+  | BlogVideoBlock;
 
 export type BlogBody = BlogBodyBlock[];
 
@@ -647,8 +662,12 @@ export type BlogPostDoc = {
   author?: BlogAuthor;
   body?: BlogBody;
   /** EN portable-text body. Same custom blocks as `body` (tldrBox,
-   *  ctaCallout, blogTable, blogImage). */
+   *  ctaCallout, blogTable, blogImage, blogVideo). */
   bodyEn?: BlogBody;
+  /** Optional FAQ section heading override (default «Часті питання»). */
+  faqHeading?: string;
+  /** Optional FAQ section heading override (default "FAQ"). */
+  faqHeadingEn?: string;
   faq?: BlogFaqItem[];
   faqEn?: BlogFaqItem[];
   relatedPostSlugs?: string[];

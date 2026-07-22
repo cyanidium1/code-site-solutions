@@ -18,7 +18,7 @@ import type {
   BlogPostDoc,
   BlogPostListItem,
 } from "@/types/sanity";
-import { BlogPortableText } from "@/lib/shared/sanity-portable";
+import { BlogPortableText } from "@/lib/shared/blog-portable";
 import { AppImage } from "@/lib/shared/app-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { sanityCdn } from "@/lib/shared/sanity-cdn";
@@ -327,7 +327,9 @@ export default async function BlogPostPage({
         </section>
 
         {/* FAQ */}
-        {faqItems.length > 0 ? <FAQ items={faqItems} /> : null}
+        {faqItems.length > 0 ? (
+          <FAQ heading={post.faqHeading ?? undefined} items={faqItems} />
+        ) : null}
 
         {/* Related articles */}
         {related.length > 0 ? (
