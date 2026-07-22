@@ -271,6 +271,8 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
   coverImage{ src, alt },
   "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
   author{ name, role, photoUrl, bio },
+  faqHeading,
+  faqHeadingEn,
   body[]{
     ...,
     // blogImage — resolve asset once
@@ -340,6 +342,8 @@ export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
   coverImage{ src, alt },
   "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
   author{ name, role, photoUrl, bio },
+  faqHeading,
+  faqHeadingEn,
   body[]{
     ...,
     _type == "blogImage" => {

@@ -68,7 +68,7 @@ function normalizeTier(raw: string | null): string {
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export type LeadFormVariant = "compact" | "full";
+export type LeadFormVariant = "compact" | "full" | "demo";
 
 type LeadFormProps = {
   source?: string;
@@ -107,8 +107,10 @@ function LeadFormInner({
   const resolvedSource = urlSource && urlSource.trim() ? urlSource : source;
 
   const isCompact = variant === "compact";
+  // "demo" — trimmed request-demo-access form: name + contact only.
+  const isDemo = variant === "demo";
   const [showDetails, setShowDetails] = useState<boolean>(
-    !isCompact || Boolean(initialValues.tier),
+    isDemo ? false : !isCompact || Boolean(initialValues.tier),
   );
 
   if (status === "success") {
@@ -182,12 +184,12 @@ function LeadFormInner({
         setFieldValue,
         isSubmitting,
       }) => (
-        <Form className={`flex flex-col ${isCompact ? "gap-[18px]" : "gap-[22px]"}`}>
+        <Form className={`flex flex-col ${isCompact || isDemo ? "gap-[18px]" : "gap-[22px]"}`}>
           <HoneypotField
             value={values.hp}
             onChange={(v) => setFieldValue("hp", v)}
           />
-          {isCompact ? (
+          {isCompact || isDemo ? (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Field name="name">
                 {({ field }: FieldProps) => (
@@ -238,24 +240,28 @@ function LeadFormInner({
             </>
           )}
 
-          <Select
-            label={strings.businessLabel}
-            placeholder={strings.businessPlaceholder}
-            options={BUSINESS_OPTS}
-            value={values.business}
-            onChange={(v) => setFieldValue("business", v)}
-          />
+          {!isDemo && (
+            <Select
+              label={strings.businessLabel}
+              placeholder={strings.businessPlaceholder}
+              options={BUSINESS_OPTS}
+              value={values.business}
+              onChange={(v) => setFieldValue("business", v)}
+            />
+          )}
 
-          <Field name="description">
-            {({ field }: FieldProps) => (
-              <Textarea
-                {...field}
-                label={strings.descriptionLabel}
-                placeholder={strings.descriptionPlaceholder}
-                minRows={isCompact ? 3 : 5}
-              />
-            )}
-          </Field>
+          {!isDemo && (
+            <Field name="description">
+              {({ field }: FieldProps) => (
+                <Textarea
+                  {...field}
+                  label={strings.descriptionLabel}
+                  placeholder={strings.descriptionPlaceholder}
+                  minRows={isCompact ? 3 : 5}
+                />
+              )}
+            </Field>
+          )}
 
           {isCompact && (
             <button
@@ -280,7 +286,7 @@ function LeadFormInner({
             </button>
           )}
 
-          {showDetails && (
+          {!isDemo && showDetails && (
             <div
               className="flex flex-col gap-[18px] p-[18px] border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)]"
               id="lead-form-details"
@@ -319,7 +325,7 @@ function LeadFormInner({
             isLoading={isSubmitting || status === "submitting"}
             className={SUBMIT_BUTTON_CLASS}
           >
-            {strings.submit}
+            {isDemo ? strings.submitDemo : strings.submit}
           </Btn>
 
           {status === "error" && (

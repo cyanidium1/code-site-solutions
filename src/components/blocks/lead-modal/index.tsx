@@ -29,6 +29,9 @@ export type OpenLeadModalOptions = {
   title?: string;
   /** Overrides the modal subheading. */
   sub?: string;
+  /** Form layout: "compact" (default) or the trimmed "demo"-access
+   *  variant (name + contact only, own default copy). */
+  formVariant?: "compact" | "demo";
 };
 
 type LeadModalContextValue = {
