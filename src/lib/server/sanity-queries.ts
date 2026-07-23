@@ -204,6 +204,14 @@ export const INDUSTRY_PAGES_QUERY = /* groq */ `
 
 /* ─── Blog post queries ───────────────────────────────────────────────────── */
 
+/** CMS-hosted cover (blogPost.cover, type imageWithLocalizedAlt). */
+const BLOG_COVER = /* groq */ `{
+  "asset": image.asset->{ _id, url, metadata { lqip, dimensions, isOpaque } },
+  "crop": image.crop,
+  "hotspot": image.hotspot,
+  alt ${LOCALIZED_STRING}
+}`;
+
 /**
  * Lightweight listing projection for /blog and related-articles cards.
  * Sprint 2BC: EN shadow fields (titleEn / eyebrowEn / ledeEn / slugEn)
@@ -224,7 +232,8 @@ const BLOG_POST_LIST_ITEM = /* groq */ `{
   "category": category->{ "slug": slug.current, name ${LOCALIZED_STRING}, color },
   publishedAt,
   readingTimeMinutes,
-  coverImage{ src, alt }
+  "cover": cover${BLOG_COVER},
+  coverImage{ src, alt, altEn }
 }`;
 
 export const BLOG_POSTS_LIST_QUERY = /* groq */ `
@@ -268,7 +277,8 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
   publishedAt,
   updatedAt,
   readingTimeMinutes,
-  coverImage{ src, alt },
+  "cover": cover${BLOG_COVER},
+  coverImage{ src, alt, altEn },
   "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
   author{ name, role, photoUrl, bio },
   faqHeading,
@@ -339,7 +349,8 @@ export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
   publishedAt,
   updatedAt,
   readingTimeMinutes,
-  coverImage{ src, alt },
+  "cover": cover${BLOG_COVER},
+  coverImage{ src, alt, altEn },
   "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
   author{ name, role, photoUrl, bio },
   faqHeading,

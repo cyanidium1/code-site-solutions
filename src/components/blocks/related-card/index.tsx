@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { cn } from "@/components/ui";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
-import { SanityImg } from "@/lib/shared/sanity-image";
+import { SanityImg, type SanityImgInput } from "@/lib/shared/sanity-image";
 
 export type RelatedCardProps = {
   eyebrow?: string;
@@ -11,7 +11,11 @@ export type RelatedCardProps = {
   title: string;
   sub?: string;
   metrics?: string[];
-  coverImage?: { src: string; alt: string };
+  /** `src` takes anything SanityImg accepts: URL/path string or image object. */
+  coverImage?: { src: SanityImgInput; alt: string };
+  /** Cover area aspect: 4/3 (portfolio cases, default) or 1.91:1 ("wide" —
+   *  blog covers, which are designed as og-card frames). */
+  coverAspect?: "album" | "wide";
   /** Fallback gradient for the mockup cover when no image is provided. */
   gradient?: string;
   /** `null` renders the card as a non-clickable "Coming soon" tile. */
@@ -66,6 +70,7 @@ export function RelatedCard({
   sub,
   metrics = [],
   coverImage,
+  coverAspect = "album",
   gradient,
   href,
 }: RelatedCardProps) {
@@ -75,7 +80,13 @@ export function RelatedCard({
   );
 
   const cover = (
-    <div className={caseCoverClass}>
+    <div
+      className={
+        coverAspect === "wide"
+          ? "relative aspect-[1.91/1] overflow-hidden"
+          : caseCoverClass
+      }
+    >
       {coverImage ? (
         <SanityImg
           image={coverImage.src}

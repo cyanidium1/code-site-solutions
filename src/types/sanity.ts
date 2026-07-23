@@ -594,10 +594,12 @@ export type BlogFaqItem = {
   answer?: string;
 };
 
-/** Static-asset cover for a blog post — file lives under /public/blog/. */
+/** Legacy static-asset cover — file lives under /public/blog/. Fallback
+ *  only; the CMS-hosted `cover` (SanityImage) wins when present. */
 export type BlogCover = {
   src?: string;
   alt?: string;
+  altEn?: string;
 };
 
 /* ─── Blog post — listing item (lightweight) ──────────────────────────────── */
@@ -623,6 +625,8 @@ export type BlogPostListItem = {
   } | null;
   publishedAt?: string;
   readingTimeMinutes?: number;
+  /** CMS-hosted cover (primary). */
+  cover?: SanityImage | null;
   coverImage?: BlogCover | null;
 };
 
@@ -657,6 +661,8 @@ export type BlogPostDoc = {
   publishedAt?: string;
   updatedAt?: string;
   readingTimeMinutes?: number;
+  /** CMS-hosted cover (primary; legacy coverImage is the fallback). */
+  cover?: SanityImage | null;
   coverImage?: BlogCover | null;
   ogImage?: SanityAsset | null;
   author?: BlogAuthor;

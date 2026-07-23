@@ -19,6 +19,7 @@ import type {
   BlogPostListItem,
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/blog-portable";
+import { resolveBlogCover } from "@/lib/shared/blog-cover";
 import { AppImage } from "@/lib/shared/app-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { sanityCdn } from "@/lib/shared/sanity-cdn";
@@ -67,10 +68,11 @@ export async function generateMetadata({
   const title = post.metaTitleEn ?? post.titleEn ?? "";
   const description = post.metaDescriptionEn ?? post.ledeEn ?? "";
   const path = `/en/blog/${slug}`;
+  const cover = resolveBlogCover(post, "en");
   const ogUrl = post.ogImage?.url
     ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
-    : post.coverImage?.src
-      ? sanityCdn(post.coverImage.src, { w: 1200, q: 70 })
+    : !cover.generic
+      ? sanityCdn(cover.url, { w: 1200, q: 70 })
       : undefined;
 
   return {
@@ -128,10 +130,11 @@ const BLOG_GLOSSARY_KEYS = [
 function buildBlogJsonLd(post: BlogPostDoc, enSlug: string) {
   const path = `/en/blog/${enSlug}`;
   const url = pageUrl(path);
-  const coverAbs = post.coverImage?.src
-    ? post.coverImage.src.startsWith("http")
-      ? post.coverImage.src
-      : `${SITE_ORIGIN}${post.coverImage.src}`
+  const cover = resolveBlogCover(post, "en");
+  const coverAbs = !cover.generic
+    ? cover.url.startsWith("http")
+      ? cover.url
+      : `${SITE_ORIGIN}${cover.url}`
     : undefined;
   const imageUrl = post.ogImage?.url
     ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
@@ -241,6 +244,7 @@ export default async function EnBlogPostPage({
       : undefined;
 
   const related = await fetchRelated(post.relatedPostSlugs);
+  const heroCover = resolveBlogCover(post, "en");
 
   const faqItems = (post.faqEn ?? []).map((item) => ({
     q: item.question ?? "",
@@ -252,12 +256,12 @@ export default async function EnBlogPostPage({
       <JsonLd data={jsonLd} />
       <HpHeader />
       <main>
-        {post.coverImage?.src ? (
+        {!heroCover.generic ? (
           <section className="bg-bg px-5 pt-6 lg:px-12 lg:pt-10">
             <div className="max-w-container mx-auto">
               <SanityImg
-                image={post.coverImage.src}
-                alt={post.coverImage.alt ?? post.titleEn ?? ""}
+                image={heroCover.image}
+                alt={heroCover.alt}
                 sizes={IMG_SIZES.container}
                 priority
                 className="w-full h-auto rounded-2xl border border-line block"
@@ -341,12 +345,7 @@ export default async function EnBlogPostPage({
                   const metrics = [reading].filter(
                     (m): m is string => Boolean(m),
                   );
-                  const cover = p.coverImage?.src
-                    ? {
-                        src: p.coverImage.src,
-                        alt: p.coverImage.alt ?? p.titleEn ?? "",
-                      }
-                    : undefined;
+                  const cover = resolveBlogCover(p, "en");
                   return (
                     <RelatedCard
                       key={p._id}
@@ -355,7 +354,8 @@ export default async function EnBlogPostPage({
                       title={p.titleEn ?? p.slugEn ?? ""}
                       eyebrow={date}
                       sub={p.ledeEn}
-                      coverImage={cover}
+                      coverImage={{ src: cover.image, alt: cover.alt }}
+                      coverAspect="wide"
                       href={`/en/blog/${p.slugEn}`}
                     />
                   );

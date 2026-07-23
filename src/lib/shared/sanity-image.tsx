@@ -22,7 +22,7 @@ import {
  */
 
 /** Structural subset of types/sanity.ts SanityImage — also fits blogImage blocks. */
-type SanityImageLike = {
+export type SanityImageLike = {
   asset?: {
     url: string;
     metadata?: {
@@ -34,8 +34,11 @@ type SanityImageLike = {
   crop?: SanityCrop | null;
 };
 
+/** Everything SanityImg accepts: full image object or bare URL / path. */
+export type SanityImgInput = SanityImageLike | string;
+
 type SanityImgProps = {
-  image: SanityImageLike | string | null | undefined;
+  image: SanityImgInput | null | undefined;
   alt: string;
   /** REQUIRED: rendered-width hints for srcset selection. Use IMG_SIZES presets. */
   sizes: string;

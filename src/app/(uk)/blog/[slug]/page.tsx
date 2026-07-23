@@ -19,6 +19,7 @@ import type {
   BlogPostListItem,
 } from "@/types/sanity";
 import { BlogPortableText } from "@/lib/shared/blog-portable";
+import { resolveBlogCover } from "@/lib/shared/blog-cover";
 import { AppImage } from "@/lib/shared/app-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { sanityCdn } from "@/lib/shared/sanity-cdn";
@@ -65,12 +66,15 @@ export async function generateMetadata({
   const title = post.metaTitle ?? post.title ?? "";
   const description = post.metaDescription ?? post.lede ?? "";
   const path = `/blog/${slug}`;
-  // OG image: prefer explicit Sanity ogImage, else the static coverImage path
-  // (relative paths are resolved against the site origin by Next).
+  // OG image: explicit Sanity ogImage → resolved cover (CMS asset or legacy
+  // path; relative paths resolve against the site origin). The generic
+  // placeholder is skipped — the opengraph-image route's branded text card
+  // is a better OG than a stock banner.
+  const cover = resolveBlogCover(post, "uk");
   const ogUrl = post.ogImage?.url
     ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
-    : post.coverImage?.src
-      ? sanityCdn(post.coverImage.src, { w: 1200, q: 70 })
+    : !cover.generic
+      ? sanityCdn(cover.url, { w: 1200, q: 70 })
       : undefined;
 
   // Mirror the EN post's hreflang only when an EN translation exists
@@ -134,12 +138,14 @@ const BLOG_GLOSSARY_KEYS = [
 function buildBlogJsonLd(post: BlogPostDoc) {
   const path = `/blog/${post.slug}`;
   const url = pageUrl(path);
-  // JSON-LD wants an absolute URL — the static cover path needs SITE_ORIGIN
-  // prepended; Sanity ogImage is already absolute.
-  const coverAbs = post.coverImage?.src
-    ? post.coverImage.src.startsWith("http")
-      ? post.coverImage.src
-      : `${SITE_ORIGIN}${post.coverImage.src}`
+  // JSON-LD wants an absolute URL — a path-based cover needs SITE_ORIGIN
+  // prepended; a Sanity CDN URL is already absolute. Generic placeholder
+  // is skipped (not real article imagery).
+  const cover = resolveBlogCover(post, "uk");
+  const coverAbs = !cover.generic
+    ? cover.url.startsWith("http")
+      ? cover.url
+      : `${SITE_ORIGIN}${cover.url}`
     : undefined;
   const imageUrl = post.ogImage?.url
     ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
@@ -246,6 +252,7 @@ export default async function BlogPostPage({
       : undefined;
 
   const related = await fetchRelated(post.relatedPostSlugs);
+  const heroCover = resolveBlogCover(post, "uk");
 
   // FAQ → existing FAQ component expects { q, a: RichText }
   const faqItems = (post.faq ?? []).map((item) => ({
@@ -259,13 +266,14 @@ export default async function BlogPostPage({
       <HpHeader />
       <main>
         {/* Hero cover — rendered above the H1. Full standard width to
-            match /sites-for/medicine and other site pages. */}
-        {post.coverImage?.src ? (
+            match /sites-for/medicine and other site pages. Skipped when
+            the post has no cover of its own (generic adds nothing here). */}
+        {!heroCover.generic ? (
           <section className="bg-bg px-5 pt-6 lg:px-12 lg:pt-10">
             <div className="max-w-container mx-auto">
               <SanityImg
-                image={post.coverImage.src}
-                alt={post.coverImage.alt ?? post.title ?? ""}
+                image={heroCover.image}
+                alt={heroCover.alt}
                 sizes={IMG_SIZES.container}
                 priority
                 className="w-full h-auto rounded-2xl border border-line block"
@@ -353,12 +361,7 @@ export default async function BlogPostPage({
                   const metrics = [reading].filter(
                     (m): m is string => Boolean(m),
                   );
-                  const cover = p.coverImage?.src
-                    ? {
-                        src: p.coverImage.src,
-                        alt: p.coverImage.alt ?? p.title ?? "",
-                      }
-                    : undefined;
+                  const cover = resolveBlogCover(p, "uk");
                   return (
                     <RelatedCard
                       key={p._id}
@@ -367,7 +370,8 @@ export default async function BlogPostPage({
                       title={p.title ?? p.slug}
                       eyebrow={date}
                       sub={p.lede}
-                      coverImage={cover}
+                      coverImage={{ src: cover.image, alt: cover.alt }}
+                      coverAspect="wide"
                       href={`/blog/${p.slug}`}
                     />
                   );

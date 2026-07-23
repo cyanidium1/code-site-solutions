@@ -8,6 +8,7 @@ import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
 import type { BlogPostListItem } from "@/types/sanity";
 import { hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
+import { resolveBlogCover } from "@/lib/shared/blog-cover";
 import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
 import { dedupeCategoryRefs } from "@/lib/shared/filters/dedupe-options";
 import { FilterPills } from "@/components/filters/filter-pills";
@@ -158,12 +159,7 @@ export default async function EnBlogPage({
                   const metrics = [reading].filter(
                     (m): m is string => Boolean(m),
                   );
-                  const cover = p.coverImage?.src
-                    ? {
-                        src: p.coverImage.src,
-                        alt: p.coverImage.alt ?? p.titleEn ?? "",
-                      }
-                    : undefined;
+                  const cover = resolveBlogCover(p, "en");
                   const categoryLabel = p.category?.name?.en ?? undefined;
                   return (
                     <RelatedCard
@@ -173,7 +169,8 @@ export default async function EnBlogPage({
                       title={p.titleEn ?? p.slugEn ?? ""}
                       eyebrow={date}
                       sub={p.ledeEn}
-                      coverImage={cover}
+                      coverImage={{ src: cover.image, alt: cover.alt }}
+                      coverAspect="wide"
                       href={`/en/blog/${p.slugEn}`}
                     />
                   );
