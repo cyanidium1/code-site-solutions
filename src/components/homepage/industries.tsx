@@ -147,12 +147,10 @@ function CardMedia({ src, imgClass, dimClass }: { src: string; imgClass?: string
       />
       {/* dark grade for readability — darker toward the bottom where price sits */}
       <div className={cn("absolute inset-0 bg-[linear-gradient(180deg,oklch(0.13_0_0_/_0.58)_0%,oklch(0.12_0_0_/_0.82)_55%,oklch(0.1_0_0_/_0.94)_100%)] transition-opacity duration-[0.55s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/ind:opacity-90", dimClass)} />
-      {/* per-industry accent wash for identity */}
-      <div className="absolute inset-0 bg-[linear-gradient(130deg,oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.20),transparent_55%)]" />
+      {/* merged static scrim: vignette (top) + per-industry accent wash — see homepage-cards.css */}
+      <div className="hp-ind-scrim" />
       {/* hover accent glow (replaces the photo-occluded ::before radial) */}
       <div className="absolute inset-0 opacity-0 transition-opacity duration-[0.55s] ease-[cubic-bezier(0.22,1,0.36,1)] bg-[radial-gradient(420px_220px_at_0%_0%,oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.30),transparent_70%)] group-hover/ind:opacity-100" />
-      {/* soft vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(120%_115%_at_50%_-10%,transparent_45%,oklch(0.07_0_0_/_0.6)_100%)]" />
       {/* grain — desktop only, mobile keeps it simpler */}
       <div
         className="absolute inset-0 opacity-[0.06] mix-blend-overlay hidden md:block"
