@@ -34,7 +34,7 @@ import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 const HOMEPAGE_DESCRIPTION =
-  "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $1 000 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.";
+  "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.";
 
 export default async function HomePage() {
   const [cmsPlans, testimonialSlides] = await Promise.all([

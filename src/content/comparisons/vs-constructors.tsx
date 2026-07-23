@@ -150,7 +150,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
   metaTitle:
     "Перейти з Tilda, Webflow, Wix на custom code · 0 SEO-падінь | Code-Site.Art",
   metaDescription:
-    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $1 000. Без підписок після запуску.",
+    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $800. Без підписок після запуску.",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · КОНСТРУКТОРИ",
     h1Lines: [
@@ -170,7 +170,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
       { label: "47 проєктів", sub: "0 SEO-падінь" },
       { label: "4 тижні", sub: "від брифу до запуску" },
       { label: "0 підписок", sub: "платите один раз" },
-      { label: "Від $1 000", sub: "за міграцію лендінга" },
+      { label: "Від $800", sub: "за міграцію лендінга" },
     ],
     ctaPrimary: "Розрахувати міграцію",
     ctaSecondary: "Дивитись таблицю порівняння",
@@ -273,7 +273,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
       <>
         За 3 роки на конструкторі ви платите{" "}
         <strong>від $1 800 до $4 500</strong> у підписках. У нас один платіж —
-        від $1 000. Через рік ви вже в плюсі.
+        від $800. Через рік ви вже в плюсі.
       </>
     ),
   },
@@ -697,7 +697,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
   metaTitle:
     "Migrate from GoDaddy, Webflow, Wix to custom code · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate sites from GoDaddy, Webflow, Wix, Squarespace, Shopify to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £1,000. No subscriptions after launch.",
+    "We migrate sites from GoDaddy, Webflow, Wix, Squarespace, Shopify to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £800. No subscriptions after launch.",
   hero: {
     eyebrowLabel: "/ COMPARE · SITE BUILDERS",
     h1Lines: [
@@ -717,7 +717,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       { label: "47 projects", sub: "0 SEO drops" },
       { label: "4 weeks", sub: "brief to launch" },
       { label: "0 subscriptions", sub: "pay once, own it" },
-      { label: "From £1,000", sub: "for a landing migration" },
+      { label: "From £800", sub: "for a landing migration" },
     ],
     ctaPrimary: "Calculate migration cost",
     ctaSecondary: "Jump to comparison table",
@@ -819,7 +819,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     foot: (
       <>
         Over 3 years on a builder, you pay <strong>£1,800 to £4,500</strong>{" "}
-        in subscriptions. We charge once — from £1,000. You break
+        in subscriptions. We charge once — from £800. You break
         even in year one.
       </>
     ),

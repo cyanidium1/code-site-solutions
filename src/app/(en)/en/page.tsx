@@ -38,7 +38,7 @@ import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionCl
 export const metadata: Metadata = {
   title: "ᐈ Custom Website Development Studio | Code-Site.Art",
   description:
-    "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+    "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
   alternates: {
     canonical: `${SITE_ORIGIN}/en`,
     languages: {
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:
-      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
     type: "website",
     locale: "en_GB",
     url: `${SITE_ORIGIN}/en`,
@@ -59,12 +59,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:
-      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
   },
 };
 
 const HOMEPAGE_EN_DESCRIPTION =
-  "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £1,000 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.";
+  "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.";
 
 export default async function HomePageEn() {
   const [cmsPlans, testimonialSlides] = await Promise.all([

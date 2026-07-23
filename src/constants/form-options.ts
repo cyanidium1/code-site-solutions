@@ -33,17 +33,15 @@ export const BUSINESS_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> =
 
 export const TIER_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
   uk: [
-    { key: "starter", label: "Starter — від $1 000" },
-    { key: "industry", label: "Industry Pro — від $3 500" },
-    { key: "proplus", label: "Pro Plus — від $7 500" },
-    { key: "enterprise", label: "Enterprise — від $14 000" },
+    { key: "landing", label: "Лендінг — від $800" },
+    { key: "corporate", label: "Корпоративний сайт — від $3 500" },
+    { key: "custom", label: "Кастомна платформа — від $6 000" },
     { key: "undecided", label: "Не визначився" },
   ],
   en: [
-    { key: "starter", label: "Starter — from £1,000" },
-    { key: "industry", label: "Industry Pro — from £3,500" },
-    { key: "proplus", label: "Pro Plus — from £7,500" },
-    { key: "enterprise", label: "Enterprise — from £14,000" },
+    { key: "landing", label: "Landing — from £800" },
+    { key: "corporate", label: "Corporate Website — from £3,500" },
+    { key: "custom", label: "Custom Platform — from £6,000" },
     { key: "undecided", label: "I don't know yet" },
   ],
 };

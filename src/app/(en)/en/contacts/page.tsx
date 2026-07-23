@@ -61,7 +61,7 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Write \"",
       { em: "I don't know yet" },
-      ".\" We'll ask the questions that matter on the call and recommend a tier. Starter / Industry Pro / Pro Plus / Enterprise is our call, not yours.",
+      ".\" We'll ask the questions that matter on the call and recommend a tier. Landing / Corporate Website / Custom Platform is our call, not yours.",
     ],
   },
   {

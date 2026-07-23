@@ -7,135 +7,9 @@ import {
   FileText,
 } from "lucide-react";
 
-import type { TierProps } from "@/types/pricing";
 import type { BentoCell } from "@/types/homepage";
 import type { RichText } from "@/lib/shared/rich-text";
 import { formatPrice } from "@/lib/shared/format-price";
-
-/* ─── Pricing tiers (4 шт) ───────────────────────────────────────────────── */
-
-export const TIERS: TierProps[] = [
-  {
-    name: "Landing",
-    price: formatPrice(1000, { locale: "uk" }),
-    weeks: "1-2 тижні",
-    bestFor:
-      "Швидкий запуск однієї пропозиції, MVP, тестування гіпотези.",
-    includes: {
-      heading: "Що входить",
-      items: [
-        "1 сторінка з адаптивом",
-        "SEO-структура (title, meta, schema)",
-        "Lighthouse 90+",
-        "1 форма заявки",
-        "Інтеграція з 1 системою (CRM або email)",
-        "Google Analytics + Tag Manager",
-        "Документація і навчання",
-        "Гарантія 1 рік",
-      ],
-    },
-    excludes: {
-      items: [
-        "Багатомовність",
-        "CMS для самостійних змін",
-        "Блог",
-        "Складні інтеграції",
-      ],
-    },
-    ctaLabel: "Choose Starter →",
-    ctaHref: "/contacts?tier=starter",
-  },
-  {
-    popular: true,
-    popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
-    name: "Industry Pro",
-    price: formatPrice(3500, { locale: "uk" }),
-    weeks: "4-8 тижнів",
-    bestFor:
-      "Бізнесу з compliance вимогами (медицина, право, бухгалтерія), що потребує галузевих інтеграцій.",
-    includes: {
-      heading: "Що входить",
-      items: [
-        "Compliance під галузь (МОЗ / RODO / HIPAA-aware)",
-        "5+ профільних інтеграцій (Helsi/Clio/MEDoc та ін.)",
-        "Локальне SEO під район",
-        "Особистий кабінет клієнта",
-        "E-sign (Diia.Sign / DocuSign)",
-        "Багатомовність",
-        "Калькулятори вартості (1-3 шт)",
-        "До 30 сторінок",
-        "Гарантія 1 рік + неустойка 30% за зрив",
-      ],
-    },
-    excludes: {
-      items: [
-        "EN-локаль (доступна в Pro Plus)",
-        "Складна SaaS-логіка",
-        "SLA 24/7",
-      ],
-    },
-    ctaLabel: "Choose Industry Pro →",
-    ctaHref: "/contacts?tier=industry",
-  },
-  {
-    name: "Pro Plus",
-    price: formatPrice(7500, { locale: "uk" }),
-    weeks: "6-10 тижнів",
-    bestFor:
-      "Бізнесу, який росте в кількох країнах і потребує EN-локаль, 30+ сторінок і одну глибоку інтеграцію (CRM / ERP / платіжна система).",
-    includes: {
-      heading: "Все з Industry Pro +",
-      items: [
-        "EN-локаль",
-        "30+ сторінок",
-        "1 кастомна інтеграція",
-        "Виділений PM з щотижневими статусами",
-        "Розширене SEO (програмні landing-pages)",
-        "Гарантія 1 рік + неустойка 30% за зрив",
-      ],
-    },
-    excludes: {
-      items: [
-        "SLA 24/7 (тільки в Custom)",
-        "Dedicated team на 5-7 людей",
-        "Складна SaaS-архітектура",
-      ],
-    },
-    ctaLabel: "Choose Pro Plus →",
-    ctaHref: "/contacts?tier=proplus",
-  },
-  {
-    name: "Custom",
-    price: formatPrice(14000, { locale: "uk" }),
-    weeks: "8-16 тижнів",
-    bestFor:
-      "Складним продуктам із власною логікою — SaaS, маркетплейс, B2B-портал.",
-    includes: {
-      heading: "Все з Pro Plus +",
-      items: [
-        "Архітектурна сесія перед стартом",
-        "Dedicated team (5-7 людей під проект)",
-        "UA + RU + EN + інші мови за запитом",
-        "Складні платіжні воронки",
-        "API для зовнішніх інтеграцій",
-        "SLA 24/7 з 4-годинним response time",
-        "SOC 2-ready architecture (для B2B-SaaS)",
-        "Custom модулі під специфіку",
-        "Підтримка за SLA після року",
-      ],
-    },
-    excludes: {
-      items: [
-        "Створення фото/відео контенту",
-        "Брендинг з нуля (логотип, фірмовий стиль)",
-        "Юридичний консалтинг",
-      ],
-    },
-    ctaLabel: "Talk to us →",
-    ctaGhost: true,
-    ctaHref: "/contacts?tier=enterprise",
-  },
-];
 
 /* ─── Add-ons (Bento × 6) ────────────────────────────────────────────────── */
 
@@ -196,13 +70,13 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
     ],
   },
   {
-    q: "Чим Pro Plus відрізняється від Industry Pro і коли вибирати який?",
+    q: "Чим Кастомна платформа відрізняється від Корпоративного сайту і коли вибирати яку?",
     a: [
-      "Industry Pro ($3 500) — для бізнесу з compliance вимогами і галузевими інтеграціями (",
-      { em: "Helsi, Clio, MEDoc" },
-      ") в одній мові. Pro Plus ($7 500) додає ",
-      { em: "EN-локаль" },
-      ", 30+ сторінок, одну глибоку інтеграцію (CRM / ERP / платіжна) і виділеного PM з щотижневими статусами. Беріть Pro Plus, якщо клієнти не лише з України, або обсяг контенту виходить за межі 30 сторінок. Деталі — на сторінках /sites-for/medicine, /sites-for/legal, /sites-for/accounting.",
+      "Корпоративний сайт ($3 500) — сайт компанії з CMS і блогом, 5+ інтеграціями, локальним SEO, багатомовністю і compliance під галузь (",
+      { em: "МОЗ / RODO / HIPAA-aware" },
+      "). Кастомна платформа ($6 000) додає ",
+      { em: "архітектурну сесію" },
+      ", виділену команду, кастомні інтеграції та SLA з підтримкою 24/7. Беріть Кастомну платформу, якщо сайт — це бізнес-система (SaaS, маркетплейс, B2B-портал), а не презентація компанії. Деталі — на сторінках /sites-for/medicine, /sites-for/legal, /sites-for/accounting.",
     ],
   },
   {
@@ -218,7 +92,7 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Розповідайте — обговоримо. Можливі варіанти: 1) трохи більше обсягу за фіксовану ціну сусіднього пакета; 2) ",
       { em: "кастомний quote" },
-      " (для проектів складніше Enterprise); 3) розбити на 2 етапи (MVP + розширення). Не змушуємо вас вписуватись у наші коробки.",
+      " (для проектів складніше Кастомної платформи); 3) розбити на 2 етапи (MVP + розширення). Не змушуємо вас вписуватись у наші коробки.",
     ],
   },
   {
@@ -234,7 +108,7 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Для проектів від $10 000 — так. Стандартна схема: ",
       { em: "30% старт + 35% після затвердження дизайну + 35% після здачі" },
-      ". Для Enterprise (від $14 000) — можемо розбити на 4 платежі під milestones. Підписання договору — обов'язкове.",
+      ". Для особливо великих проєктів можемо розбити на 4 платежі під milestones. Підписання договору — обов'язкове.",
     ],
   },
   {
