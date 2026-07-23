@@ -123,3 +123,51 @@ raw (−33%) / 44,704 → 32,551 B gzip (−27%).** Stale-checkout gotcha: a
 leftover `.heroui-tw/` dir is scanned by Oxide auto-detection post-#29 and
 silently re-adds ~25 KB raw of dead HeroUI utilities — the dir stays
 gitignored as a tombstone; delete it locally.
+
+## DOM audit + third-party gate round (2026-07-23, plan: docs/superpowers/plans/2026-07-23-perf-third-party-and-dom.md)
+
+**Chunk `1255` identified (closes the "what is that 523 ms chunk" question):**
+downloaded the prod chunk and fingerprinted it — it is the **Next App Router
+client runtime** (`hydrateRoot`, RSC flight-client promise states,
+`RSC_HEADER`, router popstate). Sibling `4bd1b696-*` is react-dom. Zero app
+code inside either; no bundle surgery possible. Their eval cost scales with
+the flight payload, so DOM/className slimming is the only lever that touches
+them.
+
+**DOM audit findings (prod, 2026-07-23):** homepage 1,585 elements (only
+page above the 1,400 advisory; portfolio 701, pricing 922, vs-wordpress 954,
+calculator 1,070, case 662), depth 12, CLS 0.000 at every viewport, hidden-UI
+waste 8 nodes (desktop) / ~150 (mobile). No mobile/desktop duplicate blocks
+exist — the "responsive DOM bloat" hypothesis is disproven. 27% of homepage
+nodes are inline SVG; class attrs 108 KB (post-slim-classnames level).
+
+**Lever 1 — GTM/Clarity interaction gate (branch `perf/gtm-interaction-gate`):**
+`lazyOnload` was already exhausted, yet GTM gtag 583 ms + gtm.js 357 ms +
+Clarity 391 ms still landed inside the Lighthouse trace, and the hero LCP
+image (loads in 0.4 s, all discovery checks green) waited ~2.9 s of element
+render delay on the contended main thread. The loader now injects gtm.js on
+first pointerdown/keydown/touchstart/scroll or an 8 s idle fallback; the
+consent bootstrap stays synchronous and queued dataLayer pushes replay on
+container load (consent:verify 10/10). **Accepted trade-off:** sessions that
+bounce <8 s with zero interaction are not recorded by GA4/Clarity.
+Pre-merge prod baseline (3 runs): **median score 70, LCP 3.4 s, TBT 859 ms**
+(bimodal: worst run 49 / 7.0 s / 1,006 ms). Post-merge success gate: TBT
+median <~700 ms, GTM/Clarity absent from lab bootup-time; rollback to
+lazyOnload if TBT does not move.
+
+**Lever 2 — merged static scrims (branch `perf/dom-overlay-merge`):**
+Industries wash+vignette → `.hp-ind-scrim`, ValueStack grade+wash+vignette →
+`.hp-vs-scrim` (homepage-cards.css). Computed backgrounds byte-identical in
+dev; hover grade/glow layers untouched; #solutions 226→217 nodes, #value
+140→123. Small, but every node is paid twice (HTML + flight).
+
+**Lever 3 — lucide icon sprite: ❌ measured dead end, do not retry.**
+Built the full infra (generator + SpriteIcon + defs in both root layouts),
+converted the repeated call sites (arrow-up-right ×8, check ×8, plus ×5 →
+21 `<use>` refs, zero missing symbols). Result: **421 → 418 SVG nodes**. The
+repeated icons are 1–2 paths each, so `<svg><use>` saves ~1 node/instance
+while the symbol defs add ~10 back; unique multi-path icons (the actual bulk
+of the 421) ship their path once either way, so spriting cannot dedupe them.
+Byte effect similarly negligible (`d` strings are 16–30 chars). Reverted,
+branch deleted. The 27% SVG share of the homepage DOM is irreducible without
+visually removing icons.
