@@ -41,24 +41,26 @@ const TOGGLE_CLASS =
   "transition-[color,border-color,background-color] duration-200 " +
   "hover:text-accent-soft hover:border-accent-40 hover:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.05)]";
 
-// `business` is the deprecated Multi-page tier (dropped Sprint 1). The alias
-// stays so old emails/sitemap URLs with ?tier=business still resolve to a
-// real form option — they now route to Industry Pro since that is the closest
-// match in the new ladder.
+// Canonical keys are the CMS pricingPlan planKeys (landing / corporate /
+// custom). Deprecated keys from the old 4-tier ladder (starter, business,
+// industry, proplus, enterprise, …) stay as aliases so old emails and URLs
+// with ?tier=<old> still resolve to the closest current form option.
 const TIER_ALIASES: Record<string, string> = {
-  basic: "starter",
-  starter: "starter",
-  business: "industry",
-  multi: "industry",
-  multipage: "industry",
-  advanced: "industry",
-  industry: "industry",
-  industrypro: "industry",
-  specialized: "industry",
-  proplus: "proplus",
-  premium: "enterprise",
-  enterprise: "enterprise",
-  custom: "enterprise",
+  basic: "landing",
+  starter: "landing",
+  landing: "landing",
+  business: "corporate",
+  multi: "corporate",
+  multipage: "corporate",
+  advanced: "corporate",
+  industry: "corporate",
+  industrypro: "corporate",
+  specialized: "corporate",
+  proplus: "corporate",
+  corporate: "corporate",
+  premium: "custom",
+  enterprise: "custom",
+  custom: "custom",
 };
 
 function normalizeTier(raw: string | null): string {

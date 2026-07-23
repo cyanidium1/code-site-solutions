@@ -136,7 +136,7 @@ export const VS_WORDPRESS_UK: Content = {
   metaTitle:
     "Перейти з WordPress на custom code за 4 тижні · 0 SEO-падінь | Code-Site.Art",
   metaDescription:
-    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $1 000 за лендінг. Гарантія 1 рік + неустойка 30%.",
+    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $800 за лендінг. Гарантія 1 рік + неустойка 30%.",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · WORDPRESS",
     h1Lines: [
@@ -154,7 +154,7 @@ export const VS_WORDPRESS_UK: Content = {
       { label: "0 SEO-падінь", sub: "на 47 проєктах" },
       { label: "4 тижні", sub: "від брифу до перенесення" },
       { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
-      { label: "Від $1 000", sub: "за міграцію лендінга" },
+      { label: "Від $800", sub: "за міграцію лендінга" },
     ],
     ctaPrimary: "Розрахувати міграцію",
     ctaSecondary: "Подивитись як ми мігруємо",
@@ -688,7 +688,7 @@ export const VS_WORDPRESS_EN: Content = {
   metaTitle:
     "Migrate off WordPress in 4 weeks · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £1,000 for a landing. 1-year warranty + 30% rebate.",
+    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £800 for a landing. 1-year warranty + 30% rebate.",
   hero: {
     eyebrowLabel: "/ COMPARE · WORDPRESS",
     h1Lines: [
@@ -706,7 +706,7 @@ export const VS_WORDPRESS_EN: Content = {
       { label: "0 SEO drops", sub: "across 47 projects" },
       { label: "4 weeks", sub: "brief to live" },
       { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
-      { label: "From £1,000", sub: "for a landing migration" },
+      { label: "From £800", sub: "for a landing migration" },
     ],
     ctaPrimary: "Calculate migration cost",
     ctaSecondary: "See how we migrate",

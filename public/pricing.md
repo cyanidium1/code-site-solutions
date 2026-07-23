@@ -1,28 +1,40 @@
-# Pricing — Code-Site.Art
+# Ціни — Code Site Art
 
-Custom-built websites for UK businesses. Prices are in GBP and fixed in the contract before work starts. For an exact figure, use the calculator: https://www.code-site.art/en/calculator
+Розробка сайтів на замовлення. Українська версія сайту — для ринку України; ціни в доларах США, фіксуються в договорі до початку робіт. Точну цифру порахує калькулятор: https://www.code-site.art/calculator
 
-## Plans (starting prices)
+## Пакети (стартові ціни)
 
-| Plan | From | Timeline |
-|------|------|----------|
-| Landing | £1,000 | 1–2 weeks |
-| Industry Pro | £3,500 | 4–8 weeks |
-| Pro Plus | £7,500 | 6–10 weeks |
-| Custom | £14,000 | 8–16 weeks |
+| Пакет | Від | Термін |
+|-------|-----|--------|
+| Лендінг | $800 | 1–2 тижні |
+| Корпоративний сайт | $3,500 | 4–8 тижнів |
+| Кастомна платформа | $6,000 | 8–16 тижнів |
 
-- **Landing** — a fast launch of a single offer, an MVP, or a hypothesis test.
-- **Industry Pro** — regulated industries (healthcare, legal, accountancy, property) needing industry integrations and UK GDPR / Data Protection Act 2018-ready compliance.
-- **Pro Plus** — larger multi-section sites with a blog, several integrations, and ongoing SEO.
-- **Custom** — complex products such as a SaaS, marketplace, or B2B portal, with a dedicated team and an SLA.
+- **Лендінг** — адаптивна верстка, SEO-структура, інтеграція форм, гарантія 1 рік.
+- **Корпоративний сайт** (найпопулярніший пакет) — усе з Лендінгу, плюс CMS і блог, 5+ інтеграцій, локальне SEO, багатомовність, compliance: МОЗ / RODO / HIPAA-aware.
+- **Кастомна платформа** — усе з Корпоративного, плюс архітектурна сесія, виділена команда, SLA і підтримка 24/7, кастомні інтеграції.
 
-Every project includes a 1-year warranty and a 30% rebate if we miss an agreed deadline.
+Кожен проєкт має гарантію 1 рік; за зрив узгодженого дедлайну передбачена знижка 30%.
 
-## Add-ons (from)
-- SEO audit — £300
-- Content, integrations, and other extras are priced in the calculator.
+## Оплата
 
-## Contact
+- 50% передоплата на старті, 50% після прийняття проєкту.
+- Способи: безнал на ФОП (UAH), Stripe (USD/EUR), USDT TRC20, Mono Pay / LiqPay.
+- Розстрочка на 3 платежі — для проєктів від $10 000.
+- Знижка 10% при оплаті 100% наперед.
+
+## Додаткові послуги
+
+- SEO-аудит — $300
+- Міграція з WordPress — $500–2 000
+- Підтримка після гарантійного року — $200/міс або $40/год
+- Швидкий лендинг (7–14 днів) — $1 500
+- Брендинг через партнерів — від $1 500
+- Контент — $200/стаття
+
+## Контакти
+
 - Email: hi@code-site.art
-- Book a 30-minute call: https://calendly.com/fedirdev
-- Full pricing page: https://www.code-site.art/en/pricing
+- Запис на 30-хвилинну розмову: https://calendly.com/fedirdev
+- Повна сторінка цін: https://www.code-site.art/pricing
+- Англійська версія цього документа (ринок Великої Британії, GBP): https://www.code-site.art/en/pricing.md

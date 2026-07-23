@@ -246,7 +246,7 @@ export const VS_FREELANCERS_UK: Content = {
     items: [
       {
         title: "Лендінг до 5 сторінок без інтеграцій",
-        body: "До бюджету $1 000 — фрілансер на тиждень. Studio-overhead тут — переплата.",
+        body: "До бюджету $800 — фрілансер на тиждень. Studio-overhead тут — переплата.",
       },
       {
         title: "MVP-лендінг «за вечір» для тесту ідеї",
@@ -276,7 +276,7 @@ export const VS_FREELANCERS_UK: Content = {
       {
         criterion: "Стартовий бюджет",
         freelancer: "$300–2 000",
-        us: "$1 000–14 000",
+        us: "$800–6 000+",
       },
       {
         criterion: "Розмір команди",
@@ -577,7 +577,7 @@ export const VS_FREELANCERS_UK: Content = {
     items: [
       {
         title: "Сайт за $300–800",
-        body: "Наш мінімум $1 000 за лендінг. Фізично не можемо вийти на меншу ціну при наших стандартах якості.",
+        body: "Наш мінімум $800 за лендінг. Фізично не можемо вийти на меншу ціну при наших стандартах якості.",
       },
       {
         title: "Запуск «до завтра»",
@@ -845,7 +845,7 @@ export const VS_FREELANCERS_EN: Content = {
     items: [
       {
         title: "A landing under 5 pages with no integrations",
-        body: "Budget under £1,000 — a freelancer for a week. Studio overhead here is overpay.",
+        body: "Budget under £800 — a freelancer for a week. Studio overhead here is overpay.",
       },
       {
         title: "An MVP landing “over a weekend” to test an idea",
@@ -875,7 +875,7 @@ export const VS_FREELANCERS_EN: Content = {
       {
         criterion: "Starting budget",
         freelancer: "£300–2,000",
-        us: "£1,000–14,000",
+        us: "£800–6,000+",
       },
       {
         criterion: "Team size",
@@ -1175,7 +1175,7 @@ export const VS_FREELANCERS_EN: Content = {
     items: [
       {
         title: "Sites under £300–800",
-        body: "Our minimum is £1,000 for a landing. Physically can't go lower at our quality standard.",
+        body: "Our minimum is £800 for a landing. Physically can't go lower at our quality standard.",
       },
       {
         title: "Launch by tomorrow",

@@ -36,7 +36,7 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 export const metadata: Metadata = {
   title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
   description:
-    "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
+    "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
   alternates: {
     canonical: "/en/pricing",
     languages: {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
     description:
-      "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
+      "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
     type: "website",
     locale: "en_GB",
     url: "/en/pricing",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
     description:
-      "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
+      "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
   },
 };
 
@@ -81,7 +81,7 @@ function buildEnPricingJsonLd(offers: EnPricingOffer[]) {
       locale: "en",
       title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
       description:
-        "➤ Transparent fixed-price web development ✔️ Landing page from £1,000 ✔️ Corporate website from £3,000 ✔️ E-commerce from £5,000 ✔️ No hidden fees ➡ Choose your plan today.",
+        "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
     }),
     breadcrumbNode([
       { name: "Home", path: "/en" },
@@ -154,7 +154,7 @@ export default async function EnPricingPage() {
             Pricing is what you get. Not <em>&ldquo;on request.&rdquo;</em>
           </>
         }
-        sub='From £1,000 to £14,000+, fixed in the contract. The price includes everything — copywriting, design, frontend, code, domain, hosting, launch, one year of support. You pay once, you get a finished product.'
+        sub='From £800, fixed in the contract. The price includes everything — copywriting, design, frontend, code, domain, hosting, launch, one year of support. You pay once, you get a finished product.'
       />
 
       {/* Section 1.5: Turnkey list */}
@@ -170,7 +170,7 @@ export default async function EnPricingPage() {
         footer={TURNKEY_FOOTER_EN}
       />
 
-      {/* Section 2: 4 tiers */}
+      {/* Section 2: pricing tiers */}
       <section className={hpSectionClass} id="tiers">
         <div className={hpInnerClass}>
           <CmpPricingGrid>

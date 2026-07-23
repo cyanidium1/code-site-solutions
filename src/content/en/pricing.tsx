@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 
 import type { TurnkeyItem } from "@/components/blocks/turnkey-list";
-import type { TierProps } from "@/types/pricing";
 import type { BentoCell } from "@/types/homepage";
 import type { RichText } from "@/lib/shared/rich-text";
 import { formatPrice } from "@/lib/shared/format-price";
@@ -54,143 +53,6 @@ export const TURNKEY_FOOTER_EN = (
     </p>
   </div>
 );
-
-/* ─── Pricing tiers (4 — EN) ─────────────────────────────────────────────── */
-
-export const TIERS: TierProps[] = [
-  {
-    name: "Landing",
-    price: formatPrice(1000, { locale: "en" }),
-    priceLabel: "from",
-    weeks: "1–2 weeks",
-    bestFor:
-      "Fast launch of one offer, MVP, hypothesis testing.",
-    bestForLabel: "Best for:",
-    includes: {
-      heading: "Includes",
-      items: [
-        "1 page with responsive layout",
-        "SEO structure (title, meta, schema)",
-        "Lighthouse 90+",
-        "1 lead form",
-        "Integration with 1 system (CRM or email)",
-        "Google Analytics + Tag Manager",
-        "Documentation and training",
-        "1-year warranty",
-      ],
-    },
-    excludes: {
-      heading: "Doesn't include",
-      items: [
-        "Multilingual support",
-        "CMS for self-editing",
-        "Blog",
-        "Complex integrations",
-      ],
-    },
-    ctaLabel: "Choose Starter →",
-    ctaHref: "/en/contacts?tier=starter",
-  },
-  {
-    popular: true,
-    popularLabel: "★ MOST POPULAR",
-    name: "Industry Pro",
-    price: formatPrice(3500, { locale: "en" }),
-    priceLabel: "from",
-    weeks: "4–8 weeks",
-    bestFor:
-      "Businesses with compliance needs (healthcare, legal, accounting) that need industry-specific integrations.",
-    bestForLabel: "Best for:",
-    includes: {
-      heading: "Includes",
-      items: [
-        "Industry compliance (UK GDPR / DPA 2018-aware)",
-        "5+ industry integrations (Clio / Xero / SystmOne and others)",
-        "Local SEO targeting your area",
-        "Client account area",
-        "E-signature (DocuSign / Adobe Sign)",
-        "Multilingual (2+ languages)",
-        "Cost calculators (1–3)",
-        "Up to 30 pages",
-        "1-year warranty + 30% rebate for delays",
-      ],
-    },
-    excludes: {
-      heading: "Doesn't include",
-      items: [
-        "EN locale (available in Pro Plus)",
-        "Complex SaaS logic",
-        "24/7 SLA",
-      ],
-    },
-    ctaLabel: "Choose Industry Pro →",
-    ctaHref: "/en/contacts?tier=industry",
-  },
-  {
-    name: "Pro Plus",
-    price: formatPrice(7500, { locale: "en" }),
-    priceLabel: "from",
-    weeks: "6–10 weeks",
-    bestFor:
-      "Businesses growing across multiple markets that need EN locale, 30+ pages, and one deep integration (CRM / ERP / payments).",
-    bestForLabel: "Best for:",
-    includes: {
-      heading: "Everything in Industry Pro, plus",
-      items: [
-        "EN locale",
-        "30+ pages",
-        "1 custom integration",
-        "Dedicated PM with weekly status updates",
-        "Advanced SEO (programmatic landing pages)",
-        "1-year warranty + 30% rebate for delays",
-      ],
-    },
-    excludes: {
-      heading: "Doesn't include",
-      items: [
-        "24/7 SLA (only in Custom)",
-        "Dedicated team of 5-7 people",
-        "Complex SaaS architecture",
-      ],
-    },
-    ctaLabel: "Choose Pro Plus →",
-    ctaHref: "/en/contacts?tier=proplus",
-  },
-  {
-    name: "Custom",
-    price: formatPrice(14000, { locale: "en" }),
-    priceLabel: "from",
-    weeks: "8–16 weeks",
-    bestFor:
-      "Complex products with bespoke logic: SaaS, marketplace, B2B portal.",
-    bestForLabel: "Best for:",
-    includes: {
-      heading: "Everything in Pro Plus, plus",
-      items: [
-        "Architecture session before kickoff",
-        "Dedicated team (5-7 people on your project)",
-        "English + other languages on request",
-        "Complex payment flows",
-        "APIs for external integrations",
-        "24/7 SLA with 4-hour response",
-        "ISO 27001 / SOC 2-ready architecture (for B2B SaaS)",
-        "Custom modules",
-        "Post-warranty support under SLA",
-      ],
-    },
-    excludes: {
-      heading: "Doesn't include",
-      items: [
-        "Photo/video content creation",
-        "Branding from scratch (logo, brand book)",
-        "Legal consulting",
-      ],
-    },
-    ctaLabel: "Talk to us →",
-    ctaGhost: true,
-    ctaHref: "/en/contacts?tier=enterprise",
-  },
-];
 
 /* ─── Add-ons (Bento × 6 — EN) ───────────────────────────────────────────── */
 
@@ -249,11 +111,13 @@ export const PRICING_FAQ: { q: string; a: RichText }[] = [
     ],
   },
   {
-    q: "Why is Pro Plus more expensive than Industry Pro?",
+    q: "What's the difference between Corporate Website and Custom Platform?",
     a: [
-      "Two reasons: ",
-      { em: "EN locale" },
-      " doubles your SEO/CMS structure, and a dedicated PM costs us money. If you don't need multi-market reach, Industry Pro is the right tier.",
+      "Corporate Website (£3,500) covers a company site with a CMS and blog, 5+ integrations, local SEO, multilingual support and industry compliance (",
+      { em: "UK GDPR / DPA 2018-ready" },
+      "). Custom Platform (£6,000) adds an ",
+      { em: "architectural session" },
+      ", a dedicated team, custom integrations and a 24/7 SLA. Pick Custom Platform when the site is a business system — a SaaS, marketplace or B2B portal — rather than a company presentation.",
     ],
   },
   {
