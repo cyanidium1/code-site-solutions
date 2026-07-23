@@ -2,61 +2,65 @@
 
 > Custom web development studio (Kyiv, Ukraine). Two locales with different markets: the Ukrainian version at / is primary (x-default, Ukrainian market, prices in USD); the English version at /en serves the UK market (prices in GBP). Base URL: https://www.code-site.art
 
-## Українська версія (/) — ринок України
-
-### Опис
-
 Code Site Art — бутик-студія кастомної веброзробки, заснована у 2023 році; базується в Києві, працює віддалено. Проєктує, розробляє та запускає сайти на замовлення — від лендінгів до складних бізнес-систем (SaaS, маркетплейс, B2B-портал) — на Next.js, React, TypeScript і Sanity CMS. Українська версія сайту — основна (x-default), для малого й середнього бізнесу в Україні; ціни в доларах США, умови фіксуються в договорі до початку робіт, кожен проєкт має гарантію 1 рік.
-
-### Основні сторінки
-
-- / — головна
-- /pricing — тарифи
-- /calculator — калькулятор вартості проєкту
-- /process — як проходить проєкт
-- /portfolio — портфоліо та кейси
-- /about — про студію та команду
-- /blog — блог
-- /contacts — контакти
-- /sites-for/{галузь} — галузеві сторінки (медицина, будівництво, юридичні послуги, нерухомість та інші)
-- /vs-wordpress, /vs-constructors, /vs-freelancers — порівняння підходів до розробки
-
-### AI ресурси
-
-- About (укр.): /about.md
-- FAQ (укр.): /faq.md
-- Pricing (укр., USD): /pricing.md
-
-## English version (/en) — UK market
-
-### Description
 
 Code Site Art is a boutique custom web development studio founded in 2023, based in Kyiv (Ukraine), working remotely. It designs, builds and launches custom websites and business systems — from landing pages to bespoke platforms (SaaS, marketplace, B2B portal) — on Next.js, React, TypeScript and Sanity CMS. The /en version serves small and medium-sized UK businesses; prices are in GBP and fixed in the contract before work starts; every project carries a 1-year warranty. For regulated industries, builds are prepared for UK GDPR / Data Protection Act 2018 compliance.
 
-### Key pages
+Файл призначений для AI-систем і пошукових асистентів. / This file is intended for AI systems and search assistants.
 
-- /en — homepage
-- /en/pricing — plans and add-ons
-- /en/calculator — instant project estimate
-- /en/process — how a project runs from brief to launch
-- /en/portfolio — case studies
-- /en/about — the studio and team
-- /en/blog — blog
-- /en/contacts — contact
-- /en/sites-for/{industry} — industry pages (healthcare, legal, property and others)
-- /en/vs-wordpress, /en/vs-constructors, /en/vs-freelancers — approach comparisons
+## Сторінки українською (/)
 
-### AI resources
+- [Головна](https://www.code-site.art/): кастомні сайти під ключ для бізнесу
+- [Тарифи](https://www.code-site.art/pricing): три пакети з фіксованими цінами в USD
+- [Калькулятор вартості](https://www.code-site.art/calculator): розрахунок вартості проєкту
+- [Процес](https://www.code-site.art/process): як проходить проєкт від брифу до запуску
+- [Портфоліо](https://www.code-site.art/portfolio): кейси з результатами
+- [Про студію](https://www.code-site.art/about): команда і підхід
+- [Блог](https://www.code-site.art/blog): статті про веброзробку та адміністрування сайтів
+- [Контакти](https://www.code-site.art/contacts): форма заявки і контакти
+- [Сайти для медицини](https://www.code-site.art/sites-for/medicine): клініки, стоматології, діагностичні центри
+- [Сайти для будівництва](https://www.code-site.art/sites-for/renovation): будівельні й ремонтні компанії
+- [Сайти для юристів](https://www.code-site.art/sites-for/legal): юридичні фірми та адвокатські бюро
+- [Сайти для фінансів](https://www.code-site.art/sites-for/finance): бухгалтерські й фінансові компанії
+- [Сайти для e-commerce](https://www.code-site.art/sites-for/ecommerce): інтернет-магазини та маркетплейси
+- [Сайти для авто-індустрії](https://www.code-site.art/sites-for/auto): імпорт авто, автодилери, СТО
+- [Сайти для нерухомості](https://www.code-site.art/sites-for/real-estate): агенції нерухомості й забудовники
+- [Сайти для курсів і лендингів](https://www.code-site.art/sites-for/courses): онлайн-курси, інфопродукти
 
-- About (EN): /en/about.md
-- FAQ (EN): /en/faq.md
-- Pricing (EN, GBP): /en/pricing.md
+## English pages (/en)
 
-## Спільні ресурси / Shared resources
+- [Homepage](https://www.code-site.art/en): custom websites for UK businesses
+- [Pricing](https://www.code-site.art/en/pricing): fixed-price plans and add-ons in GBP
+- [Cost calculator](https://www.code-site.art/en/calculator): instant project estimate
+- [Process](https://www.code-site.art/en/process): how a project runs from brief to launch
+- [Portfolio](https://www.code-site.art/en/portfolio): case studies with results
+- [About](https://www.code-site.art/en/about): the studio and team
+- [Blog](https://www.code-site.art/en/blog): articles on web development and site administration
+- [Contacts](https://www.code-site.art/en/contacts): enquiry form and contact details
+- [Websites for healthcare](https://www.code-site.art/en/sites-for/medicine): clinics and dental practices
+- [Websites for construction](https://www.code-site.art/en/sites-for/renovation): building and renovation companies
+- [Websites for legal](https://www.code-site.art/en/sites-for/legal): law firms and solicitors
+- [Websites for finance](https://www.code-site.art/en/sites-for/finance): accountancy and financial firms
+- [Websites for e-commerce](https://www.code-site.art/en/sites-for/ecommerce): online shops and marketplaces
+- [Websites for automotive](https://www.code-site.art/en/sites-for/auto): car dealers, importers and garages
+- [Websites for property](https://www.code-site.art/en/sites-for/real-estate): estate agencies and developers
+- [Websites for courses](https://www.code-site.art/en/sites-for/courses): online courses and landing pages
 
-- Sitemap (обидві локалі / both locales): /sitemap.xml
+## AI resources
 
-## Примітка / Note
+- [About (укр.)](https://www.code-site.art/about.md): опис студії у форматі Markdown
+- [FAQ (укр.)](https://www.code-site.art/faq.md): часті питання у форматі Markdown
+- [Pricing (укр., USD)](https://www.code-site.art/pricing.md): тарифи у форматі Markdown
+- [About (EN)](https://www.code-site.art/en/about.md): studio overview in Markdown
+- [FAQ (EN)](https://www.code-site.art/en/faq.md): frequently asked questions in Markdown
+- [Pricing (EN, GBP)](https://www.code-site.art/en/pricing.md): plans in Markdown
 
-Файл призначений для AI-систем і пошукових асистентів. Відносні шляхи розв'язуються від https://www.code-site.art
-This file is intended for AI systems and search assistants. Relative paths resolve against https://www.code-site.art
+## Optional
+
+- [Vs WordPress (укр.)](https://www.code-site.art/vs-wordpress): порівняння кастомної розробки з WordPress
+- [Vs конструктори (укр.)](https://www.code-site.art/vs-constructors): порівняння з конструкторами сайтів
+- [Vs фрилансери (укр.)](https://www.code-site.art/vs-freelancers): порівняння зі співпрацею з фрилансерами
+- [Vs WordPress (EN)](https://www.code-site.art/en/vs-wordpress): custom build compared with WordPress
+- [Vs website builders (EN)](https://www.code-site.art/en/vs-constructors): custom build compared with site builders
+- [Vs freelancers (EN)](https://www.code-site.art/en/vs-freelancers): custom build compared with hiring freelancers
+- [Sitemap](https://www.code-site.art/sitemap.xml): XML sitemap for both locales
