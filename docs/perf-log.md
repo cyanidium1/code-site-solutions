@@ -171,3 +171,21 @@ of the 421) ship their path once either way, so spriting cannot dedupe them.
 Byte effect similarly negligible (`d` strings are 16–30 chars). Reverted,
 branch deleted. The 27% SVG share of the homepage DOM is irreducible without
 visually removing icons.
+
+**Prod verdict (post-merge, 2026-07-23, PRs #38 + #39 deployed):** the gate's
+primary criterion cleared decisively — **GTM and Clarity are absent from all
+three lab traces** (bootup-time shows zero third-party rows; the 8 s idle
+fallback does not fire inside the trace window). Script evaluation dropped
+2,423 → 1,442 ms. 3-run medians: score 67 / LCP 3.5 s / TBT 722 ms
+(runs 635–981 ms) vs same-day pre-merge baseline 70 / 3.4 s / 859 ms —
+TBT −137 ms median; score/LCP unchanged within the documented variance band
+(same-day runs ranged 44–72 pre-merge). The remaining TBT is now entirely
+first-party floor: `/en` document 1,839 ms (flight eval + parse/layout
+attribution), App Router runtime chunk 746 ms, react-dom 450 ms — consistent
+with the audit's conclusion that flight-payload size is the only remaining
+lever on it. Homepage DOM confirmed 1,585 → 1,563 elements on prod; scrim
+computed styles identical. No rollback: the 700 ms TBT target was missed by
+22 ms on a 3-run median with 350 ms run spread, while the mechanism the
+gate exists for (third-party eval out of the trace/LCP window) is fully
+achieved and the field benefit (no GTM/Clarity main-thread work before first
+interaction) applies to every real visitor.
