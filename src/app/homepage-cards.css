@@ -328,3 +328,29 @@
     height: 13px;
   }
 }
+
+/* Merged static scrim layers — Industries cards (vignette + accent wash).
+   One multi-background div replaces two stacked siblings; the FIRST layer
+   paints on top, reproducing the old "wash below vignette" sibling order.
+   The hover-animated dark grade (with its per-card dimClass override) and
+   the hover glow stay separate elements. The vignette is transparent within
+   ~45% of its radial center, so sitting below the top-left hover glow is
+   visually equivalent to the old order. */
+.hp-ind-scrim {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(120% 115% at 50% -10%, transparent 45%, oklch(0.07 0 0 / 0.6) 100%),
+    linear-gradient(130deg, oklch(from var(--accent-color, var(--color-accent)) l c h / 0.2), transparent 55%);
+}
+
+/* Merged static scrim layers — ValueStack cards (vignette + accent wash +
+   dark grade; none of the three has a hover state in this block). */
+.hp-vs-scrim {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(125% 120% at 50% -10%, transparent 45%, oklch(0.07 0 0 / 0.55) 100%),
+    linear-gradient(135deg, oklch(from var(--card-accent) l c h / 0.18), transparent 55%),
+    linear-gradient(180deg, oklch(0.13 0 0 / 0.74) 0%, oklch(0.11 0 0 / 0.86) 55%, oklch(0.1 0 0 / 0.95) 100%);
+}

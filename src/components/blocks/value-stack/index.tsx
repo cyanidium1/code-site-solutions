@@ -175,14 +175,10 @@ function CardMedia({ src, sizes }: { src: string; sizes: string }) {
         quality={55}
         className="object-cover opacity-[0.22] saturate-[0.7] scale-[1.05] transition-[scale,opacity] duration-[0.9s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/vs:scale-[1.1] group-hover/vs:opacity-[0.3]"
       />
-      {/* dark grade — keeps text readable, darker toward the bottom */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0.13_0_0_/_0.74)_0%,oklch(0.11_0_0_/_0.86)_55%,oklch(0.1_0_0_/_0.95)_100%)]" />
-      {/* per-card accent wash for identity */}
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,oklch(from_var(--card-accent)_l_c_h_/_0.18),transparent_55%)]" />
+      {/* merged static scrim: vignette (top) + accent wash + dark grade — see homepage-cards.css */}
+      <div className="hp-vs-scrim" />
       {/* hover accent glow */}
       <div className="absolute inset-0 opacity-0 transition-opacity duration-[0.5s] ease-[cubic-bezier(0.22,1,0.36,1)] bg-[radial-gradient(420px_220px_at_0%_0%,oklch(from_var(--card-accent)_l_c_h_/_0.25),transparent_70%)] group-hover/vs:opacity-100" />
-      {/* soft vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(125%_120%_at_50%_-10%,transparent_45%,oklch(0.07_0_0_/_0.55)_100%)]" />
       {/* grain — desktop only */}
       <div
         className="absolute inset-0 opacity-[0.06] mix-blend-overlay hidden md:block"
