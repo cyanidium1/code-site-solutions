@@ -1,4 +1,4 @@
-import type { EnRegistry } from "@/lib/shared/i18n-registry-types";
+import type { ContentRegistry } from "@/lib/shared/i18n-registry-types";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import {
   DEFAULT_LOCALE,
@@ -55,11 +55,11 @@ export function localizePath(uaPath: string, locale: Locale): string {
 
 /* ────────────── Sanity-rooted resolvers ──────────────
  *
- * All helpers below take an explicit `registry: EnRegistry`. The
+ * All helpers below take an explicit `registry: ContentRegistry`. The
  * registry is fetched server-side once per layout render and exposed
  * to client components via `I18nRegistryContext` (see
  * `components/layout/i18n-registry-provider`). Server callers can also
- * `await getEnRegistrySafe()` directly.
+ * `await getContentRegistrySafe()` directly.
  *
  * Why pass it in instead of importing constants: the data lives in
  * Sanity, not here. Reading from a registry means new translations show
@@ -68,20 +68,36 @@ export function localizePath(uaPath: string, locale: Locale): string {
  * and ships a release.
  */
 
-export function hasEnIndustry(slug: string, registry: EnRegistry): boolean {
-  return registry.industries.has(slug);
+export function hasLocaleIndustry(
+  slug: string,
+  locale: SecondaryLocale,
+  registry: ContentRegistry,
+): boolean {
+  return registry.get(locale)?.industries.has(slug) ?? false;
 }
 
-export function hasEnCase(slug: string, registry: EnRegistry): boolean {
-  return registry.cases.has(slug);
+export function hasLocaleCase(
+  slug: string,
+  locale: SecondaryLocale,
+  registry: ContentRegistry,
+): boolean {
+  return registry.get(locale)?.cases.has(slug) ?? false;
 }
 
-export function uaBlogToEnSlug(uaSlug: string, registry: EnRegistry): string | undefined {
-  return registry.blogUaToEn.get(uaSlug);
+export function blogSlugFromUa(
+  uaSlug: string,
+  locale: SecondaryLocale,
+  registry: ContentRegistry,
+): string | undefined {
+  return registry.get(locale)?.blogFromUa.get(uaSlug);
 }
 
-export function enBlogToUaSlug(enSlug: string, registry: EnRegistry): string | undefined {
-  return registry.blogEnToUa.get(enSlug);
+export function blogSlugToUa(
+  localizedSlug: string,
+  locale: SecondaryLocale,
+  registry: ContentRegistry,
+): string | undefined {
+  return registry.get(locale)?.blogToUa.get(localizedSlug);
 }
 
 /**
@@ -98,11 +114,11 @@ export function enBlogToUaSlug(enSlug: string, registry: EnRegistry): string | u
 export function resolveServiceHref(
   uaHref: string,
   locale: Locale,
-  registry: EnRegistry,
+  registry: ContentRegistry,
 ): string {
   if (locale === DEFAULT_LOCALE) return uaHref;
   const slug = uaHref.replace(/^\/sites-for\//, "");
-  return hasEnIndustry(slug, registry)
+  return hasLocaleIndustry(slug, locale, registry)
     ? localizePath(uaHref, locale)
     : `${LOCALE_CONFIG[locale].urlPrefix}#solutions`;
 }
@@ -119,7 +135,7 @@ export function resolveServiceHref(
  */
 export function resolveLocaleAlternate(
   rawPathname: string,
-  registry: EnRegistry,
+  registry: ContentRegistry,
 ): Record<Locale, string | null> {
   // Next prerenders the root route with usePathname() === "/index"; normalize
   // it (and any nullish value) so the homepage special-case below matches.
@@ -148,11 +164,11 @@ export function resolveLocaleAlternate(
  * Non-blog paths mirror 1:1 (secondary routes are only published when a
  * matching UA route exists); blog slugs translate via the registry.
  */
-function toUaPath(path: string, from: Locale, registry: EnRegistry): string | null {
+function toUaPath(path: string, from: Locale, registry: ContentRegistry): string | null {
   if (from === DEFAULT_LOCALE) return path;
   const blog = path.match(/^\/blog\/([^/]+)\/?$/);
   if (blog) {
-    const ua = enBlogToUaSlug(blog[1], registry);
+    const ua = blogSlugToUa(blog[1], from, registry);
     return ua ? `/blog/${ua}` : null;
   }
   return path;
@@ -166,24 +182,24 @@ function toUaPath(path: string, from: Locale, registry: EnRegistry): string | nu
 function fromUaPath(
   uaPath: string,
   to: SecondaryLocale,
-  registry: EnRegistry,
+  registry: ContentRegistry,
 ): string | null {
   if (uaPath === "/") return LOCALE_CONFIG[to].urlPrefix;
 
   // Blog post pages (only when a translation exists).
   const blog = uaPath.match(/^\/blog\/([^/]+)\/?$/);
   if (blog) {
-    const s = uaBlogToEnSlug(blog[1], registry);
+    const s = blogSlugFromUa(blog[1], to, registry);
     return s ? localizePath(`/blog/${s}`, to) : null;
   }
 
   // Industry pages (only when a translation exists).
   const ind = uaPath.match(/^\/sites-for\/([^/]+)\/?$/);
-  if (ind) return hasEnIndustry(ind[1], registry) ? localizePath(uaPath, to) : null;
+  if (ind) return hasLocaleIndustry(ind[1], to, registry) ? localizePath(uaPath, to) : null;
 
   // Case-study pages (only when localized content exists).
   const cs = uaPath.match(/^\/portfolio\/([^/]+)\/?$/);
-  if (cs) return hasEnCase(cs[1], registry) ? localizePath(uaPath, to) : null;
+  if (cs) return hasLocaleCase(cs[1], to, registry) ? localizePath(uaPath, to) : null;
 
   // Top-level localized roots (vs-* compare pages, /calculator, /about, …).
   const root = uaPath.match(/^(\/[^/]+)\/?$/);

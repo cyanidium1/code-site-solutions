@@ -17,7 +17,7 @@ import {
   caseRefToCardItem,
   ukProjectsBackedHeadline,
 } from "@/lib/shared/case-card-item";
-import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
+import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { loc } from "@/lib/shared/sanity-locale";
 import { SITE_ORIGIN } from "@/constants/site";
 import {
@@ -68,7 +68,7 @@ export default async function PortfolioPage({
 
   const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
-    getEnRegistrySafe(),
+    getContentRegistrySafe(),
   ]);
 
   const filtered = filterCases(cases, filterValues);

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Linkedin, Send, Instagram, Mail, Phone, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { hasEnIndustry, localizePath } from "@/constants/i18n-routes";
+import { hasLocaleIndustry, localizePath } from "@/constants/i18n-routes";
 import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { CookieSettingsLink } from "@/lib/cookie-consent";
 import { SITE_CONTACT } from "@/constants/site";
@@ -143,7 +143,7 @@ export function HpFooter({
     if (!published) return <span className={footerDisabledClass}>{tSol(key)}</span>;
     if (locale === DEFAULT_LOCALE) return <Link href={href}>{tSol(key)}</Link>;
     const slug = href.replace(/^\/sites-for\//, "");
-    if (hasEnIndustry(slug, registry)) {
+    if (hasLocaleIndustry(slug, locale, registry)) {
       return <Link href={localizePath(`/sites-for/${slug}`, locale)}>{tSol(key)}</Link>;
     }
     return <span className={footerDisabledClass}>{tSol(key)}</span>;

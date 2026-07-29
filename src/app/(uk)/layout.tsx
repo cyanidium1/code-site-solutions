@@ -7,7 +7,7 @@ import ukMessages from "../../../messages/uk.json";
 
 import { Providers } from "../providers";
 import { SITE_ORIGIN } from "@/constants/site";
-import { getEnRegistrySafe, toWire } from "@/lib/server/i18n-registry";
+import { getContentRegistrySafe, toWire } from "@/lib/server/i18n-registry";
 import { fetchCaseStudyCount } from "@/lib/server/fetch-case-study-count";
 import { CaseCountProvider } from "@/components/layout/case-count-provider";
 import { I18nRegistryProvider } from "@/components/layout/i18n-registry-provider";
@@ -97,7 +97,7 @@ export default async function UkRootLayout({
   // window. Wire-format keeps RSC serialization happy across versions.
   // Case count matches portfolio index (`CASE_STUDIES_QUERY`), both locales.
   const [i18nRegistry, caseCount] = await Promise.all([
-    toWire(await getEnRegistrySafe()),
+    toWire(await getContentRegistrySafe()),
     fetchCaseStudyCount(),
   ]);
   return (

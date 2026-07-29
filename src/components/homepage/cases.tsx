@@ -5,7 +5,7 @@ import {
   caseRefToCardItem,
   type CaseCardItem,
 } from "@/lib/shared/case-card-item";
-import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
+import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import type { Locale } from "@/types/sanity";
 import { SectionHead } from "@/components/shared/section-head";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
@@ -54,7 +54,7 @@ export async function Cases({
 } = {}) {
   const [curated, registry] = await Promise.all([
     fetchHomepageCases(),
-    getEnRegistrySafe(),
+    getContentRegistrySafe(),
   ]);
 
   const defaultItems: CaseCardItem[] =

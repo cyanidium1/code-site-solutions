@@ -18,8 +18,8 @@ import {
   enProjectsBackedHeadline,
 } from "@/lib/shared/case-card-item";
 import { loc } from "@/lib/shared/sanity-locale";
-import { hasEnCase, hasEnIndustry } from "@/constants/i18n-routes";
-import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
+import { hasLocaleCase, hasLocaleIndustry } from "@/constants/i18n-routes";
+import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { SITE_ORIGIN } from "@/constants/site";
 import {
   buildJsonLd,
@@ -69,7 +69,7 @@ export default async function EnPortfolioPage({
 
   const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
-    getEnRegistrySafe(),
+    getContentRegistrySafe(),
   ]);
 
   const filtered = filterCases(cases, filterValues);
@@ -82,7 +82,7 @@ export default async function EnPortfolioPage({
     cases,
     (c) => c.industry ?? (c.industrySlug ? { slug: c.industrySlug } : null),
     "en",
-  ).filter((o) => hasEnIndustry(o.key, registry));
+  ).filter((o) => hasLocaleIndustry(o.key, "en", registry));
   const countryOptions = dedupeOptionRefs(
     cases.map((c) => c.country),
     "en",
@@ -108,7 +108,7 @@ export default async function EnPortfolioPage({
           "@type": "ItemList",
           numberOfItems: filtered.length,
           itemListElement: filtered.map((c, i) => {
-            const url = hasEnCase(c.slug, registry)
+            const url = hasLocaleCase(c.slug, "en", registry)
               ? `${SITE_ORIGIN}/en/portfolio/${c.slug}`
               : `${SITE_ORIGIN}/portfolio/${c.slug}`;
             return {

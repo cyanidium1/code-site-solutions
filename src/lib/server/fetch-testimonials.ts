@@ -3,8 +3,9 @@ import "server-only";
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { HOMEPAGE_TESTIMONIALS_QUERY } from "@/lib/server/sanity-queries";
 import { loc } from "@/lib/shared/sanity-locale";
-import { hasEnCase } from "@/constants/i18n-routes";
-import { getEnRegistrySafe, type EnRegistry } from "@/lib/server/i18n-registry";
+import { hasLocaleCase, localizePath } from "@/constants/i18n-routes";
+import { DEFAULT_LOCALE } from "@/constants/locales";
+import { getContentRegistrySafe, type ContentRegistry } from "@/lib/server/i18n-registry";
 import type { Locale, Testimonial } from "@/types/sanity";
 
 export type TestimonialAsset = {
@@ -68,11 +69,11 @@ function toAsset(
 function resolveCaseHref(
   slug: string | undefined,
   locale: Locale,
-  registry: EnRegistry,
+  registry: ContentRegistry,
 ): string | undefined {
   if (!slug) return undefined;
-  if (locale === "en") {
-    return hasEnCase(slug, registry) ? `/en/portfolio/${slug}` : `/portfolio/${slug}`;
+  if (locale !== DEFAULT_LOCALE && hasLocaleCase(slug, locale, registry)) {
+    return localizePath(`/portfolio/${slug}`, locale);
   }
   return `/portfolio/${slug}`;
 }
@@ -98,7 +99,7 @@ export async function fetchTestimonialSlides(
       revalidate: 300,
       tags: ["homepage-testimonials"],
     }).catch(() => null),
-    getEnRegistrySafe(),
+    getContentRegistrySafe(),
   ]);
   if (!docs?.length) return [];
 

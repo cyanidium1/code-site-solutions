@@ -1,13 +1,14 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 
+import { SECONDARY_LOCALES } from "@/constants/locales";
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import {
   FALLBACK_REGISTRY,
   fromWire,
   toWire,
-  type EnRegistry,
-  type EnRegistryWire,
+  type ContentRegistry,
+  type ContentRegistryWire,
 } from "@/lib/shared/i18n-registry-types";
 
 // Re-export the shared shape + helpers for ergonomic server-side imports.
@@ -18,57 +19,71 @@ export {
   FALLBACK_REGISTRY,
   fromWire,
   toWire,
-  type EnRegistry,
-  type EnRegistryWire,
+  type ContentRegistry,
+  type ContentRegistryWire,
 } from "@/lib/shared/i18n-registry-types";
 
-// GROQ predicates MUST mirror the EN content gate used by the actual
-// /en/<...> pages. Keep these in sync with:
-//   - `hasEnglishContent()` in components/industry-page/index.tsx
-//   - `hasEnglishCaseContent()` in components/case-page/index.tsx
+// GROQ predicates MUST mirror the localized-content gate used by the actual
+// secondary-locale pages. Keep these in sync with:
+//   - `hasLocaleContent()` in components/industry-page/index.tsx
+//   - `hasLocaleCaseContent()` in components/case-page/index.tsx
 //   - the `notFound()` guard in app/(en)/en/blog/[slug]/page.tsx
 // If the gate diverges from the predicate, the registry over-reports
 // availability and we re-introduce the "enabled but 404s" failure mode.
-const INDUSTRY_EN_AVAILABLE_QUERY = /* groq */ `
+const INDUSTRY_AVAILABLE_QUERY = /* groq */ `
 *[_type == "industryPage" && status == "published" && defined(slug.current)
-  && defined(title.en) && title.en != ""
+  && defined(title[$locale]) && title[$locale] != ""
 ].slug.current`;
 
-const CASE_EN_AVAILABLE_QUERY = /* groq */ `
+const CASE_AVAILABLE_QUERY = /* groq */ `
 *[_type == "caseStudy" && status == "published" && defined(slug.current)
-  && defined(title.en) && title.en != ""
+  && defined(title[$locale]) && title[$locale] != ""
 ].slug.current`;
 
-const BLOG_EN_PAIRS_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && defined(slug.current)
-  && defined(slugEn.current) && defined(titleEn) && titleEn != ""
-  && defined(bodyEn) && count(bodyEn) > 0
-]{ "ua": slug.current, "en": slugEn.current }`;
+// Transitional (until the blog schema migration lands and the old En-suffix
+// arms are removed): coalesce() reads both the legacy flat fields
+// (slug/slugEn/titleEn/bodyEn) and the new localized objects
+// (slugs.*/title.*/body.*). The legacy arms only ever match for $locale=="en".
+const BLOG_PAIRS_QUERY = /* groq */ `
+*[_type == "blogPost" && status == "published"
+  && defined(coalesce(slugs.uk.current, slug.current))
+  && defined(coalesce(slugs[$locale].current, slugEn.current))
+  && defined(coalesce(title[$locale], titleEn)) && coalesce(title[$locale], titleEn) != ""
+  && count(coalesce(body[$locale], bodyEn)) > 0
+]{
+  "ua": coalesce(slugs.uk.current, slug.current),
+  "loc": coalesce(slugs[$locale].current, slugEn.current)
+}`;
 
 /**
  * Cached fetcher that returns the WIRE format (plain arrays + tuples).
  * `unstable_cache` JSON-serializes its return value, which destroys
  * `Set`/`Map` shapes — so we cache the wire format and let callers
- * reconstruct via `fromWire` on the cheap. ~50 strings; reconstruction
- * is microseconds and runs once per call site.
+ * reconstruct via `fromWire` on the cheap. ~50 strings per locale;
+ * reconstruction is microseconds and runs once per call site.
  *
  * One shared cache key across the build — every caller shares the same
  * fetch within the revalidate window. Tag "i18n-alternates" lets a
  * content-edit webhook invalidate this on demand
  * (`revalidateTag("i18n-alternates")` from a route handler).
  */
-async function fetchRegistryWire(): Promise<EnRegistryWire> {
+async function fetchRegistryWire(): Promise<ContentRegistryWire> {
   try {
-    const [industries, cases, blogPairs] = await Promise.all([
-      sanityFetch<string[]>({ query: INDUSTRY_EN_AVAILABLE_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
-      sanityFetch<string[]>({ query: CASE_EN_AVAILABLE_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
-      sanityFetch<Array<{ ua: string; en: string }>>({ query: BLOG_EN_PAIRS_QUERY, revalidate: 300, tags: ["i18n-alternates"] }),
-    ]);
-    return {
-      industries: industries ?? [],
-      cases: cases ?? [],
-      blogPairs: (blogPairs ?? []).map((p) => [p.ua, p.en] as [string, string]),
-    };
+    const out: ContentRegistryWire = {};
+    for (const locale of SECONDARY_LOCALES) {
+      const params = { locale };
+      const [industries, cases, blogPairs] = await Promise.all([
+        sanityFetch<string[]>({ query: INDUSTRY_AVAILABLE_QUERY, params, revalidate: 300, tags: ["i18n-alternates"] }),
+        sanityFetch<string[]>({ query: CASE_AVAILABLE_QUERY, params, revalidate: 300, tags: ["i18n-alternates"] }),
+        sanityFetch<Array<{ ua: string; loc: string }>>({ query: BLOG_PAIRS_QUERY, params, revalidate: 300, tags: ["i18n-alternates"] }),
+      ]);
+      out[locale] = {
+        industries: industries ?? [],
+        cases: cases ?? [],
+        blogPairs: (blogPairs ?? []).map((p) => [p.ua, p.loc] as [string, string]),
+      };
+    }
+    return out;
   } catch (err) {
     // unstable_cache revalidates in the background — must not throw or Next
     // logs "[Error: Unauthorized - Session not found]" on every revalidate.
@@ -80,25 +95,25 @@ async function fetchRegistryWire(): Promise<EnRegistryWire> {
   }
 }
 
-const getEnRegistryWire = unstable_cache(
+const getContentRegistryWire = unstable_cache(
   fetchRegistryWire,
-  ["i18n-en-registry"],
+  ["i18n-content-registry"],
   { revalidate: 300, tags: ["i18n-alternates"] },
 );
 
 /** Server-side getter returning the Set/Map shape consumers expect. */
-export async function getEnRegistry(): Promise<EnRegistry> {
-  return fromWire(await getEnRegistryWire());
+export async function getContentRegistry(): Promise<ContentRegistry> {
+  return fromWire(await getContentRegistryWire());
 }
 
 /**
- * Wraps `getEnRegistry` so a Sanity outage at build/runtime doesn't
+ * Wraps `getContentRegistry` so a Sanity outage at build/runtime doesn't
  * fail the render — we fall back to `FALLBACK_REGISTRY` and emit a
  * one-line server log so the outage is visible in CI / Vercel logs.
  */
-export async function getEnRegistrySafe(): Promise<EnRegistry> {
+export async function getContentRegistrySafe(): Promise<ContentRegistry> {
   try {
-    return await getEnRegistry();
+    return await getContentRegistry();
   } catch (err) {
     console.warn("[i18n-registry] Sanity fetch failed; using FALLBACK_REGISTRY.", err);
     return FALLBACK_REGISTRY;
