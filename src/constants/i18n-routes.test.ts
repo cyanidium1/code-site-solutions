@@ -2,7 +2,22 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { resolveLocaleAlternate } from "./i18n-routes";
+import { DEFAULT_LOCALE, localeFromPathname, toCanonicalPath } from "./locales";
 import { FALLBACK_REGISTRY } from "@/lib/shared/i18n-registry-types";
+
+test("localeFromPathname detects secondary prefix", () => {
+  assert.equal(localeFromPathname("/en"), "en");
+  assert.equal(localeFromPathname("/en/about"), "en");
+  assert.equal(localeFromPathname("/enigma"), "uk"); // prefix must be segment-aligned
+  assert.equal(localeFromPathname("/about"), "uk");
+  assert.equal(localeFromPathname("/"), "uk");
+});
+
+test("toCanonicalPath strips secondary prefix", () => {
+  assert.deepEqual(toCanonicalPath("/en/about"), { locale: "en", path: "/about" });
+  assert.deepEqual(toCanonicalPath("/en"), { locale: "en", path: "/" });
+  assert.deepEqual(toCanonicalPath("/about"), { locale: DEFAULT_LOCALE, path: "/about" });
+});
 
 const reg = FALLBACK_REGISTRY;
 
