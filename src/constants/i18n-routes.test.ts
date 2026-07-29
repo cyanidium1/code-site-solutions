@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { resolveLocaleAlternate } from "./i18n-routes";
-import { DEFAULT_LOCALE, localeFromPathname, toCanonicalPath } from "./locales";
+import { localizePath, resolveLocaleAlternate } from "./i18n-routes";
+import { DEFAULT_LOCALE, LOCALES, localeFromPathname, toCanonicalPath } from "./locales";
 import { FALLBACK_REGISTRY } from "@/lib/shared/i18n-registry-types";
 
 test("localeFromPathname detects secondary prefix", () => {
@@ -20,6 +20,17 @@ test("toCanonicalPath strips secondary prefix", () => {
 });
 
 const reg = FALLBACK_REGISTRY;
+
+test("localizePath prefixes secondary locales only", () => {
+  assert.equal(localizePath("/about", "en"), "/en/about");
+  assert.equal(localizePath("/about", "uk"), "/about");
+  assert.equal(localizePath("/", "en"), "/en");
+});
+
+test("resolveLocaleAlternate returns an entry for every configured locale", () => {
+  const r = resolveLocaleAlternate("/about", reg);
+  assert.deepEqual(Object.keys(r).sort(), [...LOCALES].sort());
+});
 
 test("homepage '/' offers both locales", () => {
   assert.deepEqual(resolveLocaleAlternate("/", reg), { uk: "/", en: "/en" });

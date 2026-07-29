@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
+import type { Locale } from "@/constants/locales";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import { useLeadModal } from "@/components/blocks/lead-modal";
@@ -73,8 +74,7 @@ export function HpHeader() {
   const pathname = normalizePathname(usePathname());
   const t = useTranslations("Nav");
   const tServices = useTranslations("ServiceNav");
-  const locale = useLocale();
-  const isEn = locale === "en";
+  const locale = useLocale() as Locale;
   const registry = useI18nRegistry();
   const { open: openLeadModal } = useLeadModal();
 
@@ -85,20 +85,20 @@ export function HpHeader() {
   const closeDd = () => ddRef.current?.removeAttribute("open");
 
   const navLinks = HEADER_NAV_LINKS.map((link) => ({
-    href: localizePath(link.uaHref, isEn),
+    href: localizePath(link.uaHref, locale),
     label: t(link.key),
     key: link.key,
   }));
 
-  const homeHref = localizePath("/", isEn);
+  const homeHref = localizePath("/", locale);
   // Intentional discrepancy: "All industries" is an anchor that scrolls to
   // the Industries grid on the homepage, not a dedicated route. There is no
   // standalone /services page, so we keep it as a hash. From any non-home
   // page this triggers a full navigation to home + scroll.
-  const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
+  const allServicesHref = `${localizePath("/", locale)}#solutions`;
 
   const servicesActive = SERVICE_NAV_LINKS.filter((s) => s.published).some((s) =>
-    isActive(pathname, isEn ? `/en${s.href}` : s.href),
+    isActive(pathname, localizePath(s.href, locale)),
   );
 
   return (
@@ -131,7 +131,7 @@ export function HpHeader() {
                     </span>
                   );
                 }
-                const target = resolveServiceHref(item.href, isEn, registry);
+                const target = resolveServiceHref(item.href, locale, registry);
                 const active = isActive(pathname, target);
                 return (
                   <Link
@@ -171,7 +171,7 @@ export function HpHeader() {
             className={headerCtaClass}
             onClick={() => {
               closeDd();
-              openLeadModal({ source: "header", locale: isEn ? "en" : "uk" });
+              openLeadModal({ source: "header", locale });
             }}
           >
             {t("cta")}

@@ -431,7 +431,7 @@ function SectionBlock({
           }
           ctaHref={
             section.cta?.href ||
-            buildHrefWithParams(localizePath("/portfolio", locale === "en"), {
+            buildHrefWithParams(localizePath("/portfolio", locale), {
               industry: slug,
             })
           }
@@ -553,7 +553,7 @@ function SectionBlock({
           }
           tableCtaPrimaryHref={
             section.primaryCta?.href ||
-            localizePath("/calculator", locale === "en")
+            localizePath("/calculator", locale)
           }
           tableCtaGhost={
             loc(section.ghostCta?.label ?? section.tableCtaGhost, locale) ||
@@ -561,7 +561,7 @@ function SectionBlock({
           }
           tableCtaGhostHref={
             section.ghostCta?.href ||
-            localizePath("/vs-wordpress", locale === "en")
+            localizePath("/vs-wordpress", locale)
           }
           contactHeading={loc(section.contact?.heading, locale) || undefined}
           contactSub={loc(section.contact?.sub, locale) || undefined}
@@ -766,10 +766,10 @@ export async function IndustryPageView({
             : undefined
         }
         ctaPrimaryLabel={loc(hero?.ctaPrimary, locale) || undefined}
-        ctaPrimaryHref={localizePath("/contacts", locale === "en")}
+        ctaPrimaryHref={localizePath("/contacts", locale)}
         ctaSecondaryLabel={loc(hero?.ctaSecondary, locale) || undefined}
         ctaSecondaryHref={buildHrefWithParams(
-          localizePath("/portfolio", locale === "en"),
+          localizePath("/portfolio", locale),
           { industry: page.slug },
         )}
         stats={

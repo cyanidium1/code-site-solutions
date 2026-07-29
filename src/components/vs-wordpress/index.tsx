@@ -30,7 +30,7 @@ export function getVsWordpressContent(locale: VsLocale): Content {
 
 export function VsWordpressView({ locale }: { locale: VsLocale }) {
   const c = CONTENT[locale];
-  const isEn = locale === "en";
+
   return (
     <>
       <HpHeader />
@@ -42,9 +42,9 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
         lede={c.hero.lede}
         features={c.hero.badges}
         ctaPrimaryLabel={c.hero.ctaPrimary}
-        ctaPrimaryHref={localizePath("/calculator", isEn)}
+        ctaPrimaryHref={localizePath("/calculator", locale)}
         ctaSecondaryLabel={c.hero.ctaSecondary}
-        ctaSecondaryHref={localizePath("/contacts", isEn)}
+        ctaSecondaryHref={localizePath("/contacts", locale)}
         ctaSecondaryShowPlay={false}
         showStats={false}
         showTicker={false}

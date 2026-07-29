@@ -1,43 +1,56 @@
 import type { EnRegistry } from "@/lib/shared/i18n-registry-types";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  LOCALE_CONFIG,
+  toCanonicalPath,
+  type Locale,
+  type SecondaryLocale,
+} from "./locales";
 
 /**
- * Filesystem-rooted truth: which single-segment top-level routes have
- * BOTH a UA `page.tsx` (`app/(uk)/<seg>/page.tsx`) AND an EN twin
- * (`app/(en)/en/<seg>/page.tsx`). The locale switcher uses this to map
- * `/<seg>` ↔ `/en/<seg>` when toggling languages.
+ * Filesystem-rooted truth: which single-segment top-level routes have BOTH a
+ * default-locale `page.tsx` (`app/(uk)/<seg>/page.tsx`) AND a localized twin
+ * (e.g. `app/(en)/en/<seg>/page.tsx`), per secondary locale. The locale
+ * switcher uses this to map `/<seg>` ↔ `/<locale>/<seg>` when toggling.
  *
  * This stays a hardcoded constant — Sanity isn't the source of truth
  * for code-based routes. When you add or remove a top-level page, update
  * this set in the same commit. `Frontend/scripts/check-i18n-alignment.ts`
  * (if it exists) cross-checks against the filesystem at CI time.
  */
-export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = new Set([
-  "/vs-wordpress",
-  "/vs-constructors",
-  "/vs-freelancers",
-  "/calculator",
-  "/pricing",
-  "/about",
-  "/process",
-  "/contacts",
-  "/portfolio",
-  "/blog",
-]);
+export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
+  en: new Set([
+    "/vs-wordpress",
+    "/vs-constructors",
+    "/vs-freelancers",
+    "/calculator",
+    "/pricing",
+    "/about",
+    "/process",
+    "/contacts",
+    "/portfolio",
+    "/blog",
+  ]),
+};
+
+/** @deprecated Transitional alias; use LOCALIZED_ROOTS.en. */
+export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = LOCALIZED_ROOTS.en;
 
 /**
- * Prefix a UA path with `/en` when the user is on the EN locale.
+ * Prefix a default-locale path for the target locale.
  *
  * Used by the header / mobile drawer to keep all top-level nav links on
- * the active locale. Pass the bare UA path (e.g. `/about`) and the
- * caller's `isEn` flag; you get `/en/about` on EN, `/about` on UA.
+ * the active locale. Pass the bare UA path (e.g. `/about`) and the target
+ * locale; you get `/en/about` on EN, `/about` on UA.
  *
- * `/` → `/en` (the EN homepage lives at `/en`, not `/en/`).
+ * `/` → the locale's bare prefix (the EN homepage lives at `/en`, not `/en/`).
  */
-export function localizePath(uaPath: string, isEn: boolean): string {
-  if (!isEn) return uaPath;
-  if (uaPath === "/") return "/en";
-  return `/en${uaPath}`;
+export function localizePath(uaPath: string, locale: Locale): string {
+  const prefix = LOCALE_CONFIG[locale].urlPrefix;
+  if (!prefix) return uaPath;
+  return uaPath === "/" ? prefix : `${prefix}${uaPath}`;
 }
 
 /* ────────────── Sanity-rooted resolvers ──────────────
@@ -73,27 +86,30 @@ export function enBlogToUaSlug(enSlug: string, registry: EnRegistry): string | u
 
 /**
  * Resolve a UA service-link href (`/sites-for/<slug>`) to its locale-
- * appropriate target. On UA we return the path as-is. On EN we return
- * `/en/sites-for/<slug>` only when an EN industry page exists for the
- * slug; otherwise we fall back to the EN homepage's Solutions anchor
- * so the user lands somewhere meaningful instead of a 404.
+ * appropriate target. On the default locale we return the path as-is. On a
+ * secondary locale we return the prefixed path only when a localized
+ * industry page exists for the slug; otherwise we fall back to that
+ * locale's homepage Solutions anchor so the user lands somewhere
+ * meaningful instead of a 404.
  *
  * Shared by the desktop header dropdown and the mobile drawer so both
  * apply the same fallback rule.
  */
 export function resolveServiceHref(
   uaHref: string,
-  isEn: boolean,
+  locale: Locale,
   registry: EnRegistry,
 ): string {
-  if (!isEn) return uaHref;
+  if (locale === DEFAULT_LOCALE) return uaHref;
   const slug = uaHref.replace(/^\/sites-for\//, "");
-  return hasEnIndustry(slug, registry) ? `/en/sites-for/${slug}` : "/en#solutions";
+  return hasEnIndustry(slug, registry)
+    ? localizePath(uaHref, locale)
+    : `${LOCALE_CONFIG[locale].urlPrefix}#solutions`;
 }
 
 /**
- * Map current pathname to its UA / EN counterpart so the locale switcher
- * keeps page context.
+ * Map current pathname to its counterpart in every configured locale so the
+ * locale switcher keeps page context.
  *
  * Returns `null` for a locale when no counterpart exists for the current
  * pathname — the switcher renders that locale's button in a disabled
@@ -104,74 +120,75 @@ export function resolveServiceHref(
 export function resolveLocaleAlternate(
   rawPathname: string,
   registry: EnRegistry,
-): { uk: string | null; en: string | null } {
+): Record<Locale, string | null> {
   // Next prerenders the root route with usePathname() === "/index"; normalize
   // it (and any nullish value) so the homepage special-case below matches.
   const pathname = normalizePathname(rawPathname);
+  const { locale: current, path } = toCanonicalPath(pathname);
+  const uaPath = toUaPath(path, current, registry);
 
-  if (pathname === "/" || pathname === "/en") {
-    return { uk: "/", en: "/en" };
-  }
-
-  // EN → UA: strip the /en prefix to get the UA path. We assume the UA
-  // mirror exists since /en/ routes are only published when there's a
-  // matching UA route — but if a future /en-only path appears, the
-  // caller can null-check.
-  if (pathname.startsWith("/en/")) {
-    // EN blog post → look up UA slug from the inverse map.
-    const enBlogMatch = pathname.match(/^\/en\/blog\/([^/]+)\/?$/);
-    if (enBlogMatch) {
-      const uaSlug = enBlogToUaSlug(enBlogMatch[1], registry);
-      return {
-        uk: uaSlug ? `/blog/${uaSlug}` : null,
-        en: pathname,
-      };
+  const out = {} as Record<Locale, string | null>;
+  for (const target of LOCALES) {
+    if (target === current) {
+      out[target] = pathname;
+      continue;
     }
-    return { uk: pathname.slice(3), en: pathname };
+    if (uaPath === null) {
+      out[target] = null;
+      continue;
+    }
+    out[target] =
+      target === DEFAULT_LOCALE ? uaPath : fromUaPath(uaPath, target, registry);
+  }
+  return out;
+}
+
+/**
+ * Map a stripped secondary-locale path back to its UA-canonical path.
+ * Non-blog paths mirror 1:1 (secondary routes are only published when a
+ * matching UA route exists); blog slugs translate via the registry.
+ */
+function toUaPath(path: string, from: Locale, registry: EnRegistry): string | null {
+  if (from === DEFAULT_LOCALE) return path;
+  const blog = path.match(/^\/blog\/([^/]+)\/?$/);
+  if (blog) {
+    const ua = enBlogToUaSlug(blog[1], registry);
+    return ua ? `/blog/${ua}` : null;
+  }
+  return path;
+}
+
+/**
+ * Map a UA-canonical path to the target secondary locale, or null when the
+ * localized counterpart doesn't exist (content not translated / UA-only
+ * route like `/stories/<slug>` or `/legal/<sub>`).
+ */
+function fromUaPath(
+  uaPath: string,
+  to: SecondaryLocale,
+  registry: EnRegistry,
+): string | null {
+  if (uaPath === "/") return LOCALE_CONFIG[to].urlPrefix;
+
+  // Blog post pages (only when a translation exists).
+  const blog = uaPath.match(/^\/blog\/([^/]+)\/?$/);
+  if (blog) {
+    const s = uaBlogToEnSlug(blog[1], registry);
+    return s ? localizePath(`/blog/${s}`, to) : null;
   }
 
-  // UA → EN: blog post pages (only when an EN translation exists).
-  const blogMatch = pathname.match(/^\/blog\/([^/]+)\/?$/);
-  if (blogMatch) {
-    const enSlug = uaBlogToEnSlug(blogMatch[1], registry);
-    return {
-      uk: `/blog/${blogMatch[1]}`,
-      en: enSlug ? `/en/blog/${enSlug}` : null,
-    };
-  }
+  // Industry pages (only when a translation exists).
+  const ind = uaPath.match(/^\/sites-for\/([^/]+)\/?$/);
+  if (ind) return hasEnIndustry(ind[1], registry) ? localizePath(uaPath, to) : null;
 
-  // UA → EN: industry pages (only when an EN translation exists).
-  const industryMatch = pathname.match(/^\/sites-for\/([^/]+)\/?$/);
-  if (industryMatch) {
-    const normalized = `/sites-for/${industryMatch[1]}`;
-    return {
-      uk: normalized,
-      en: hasEnIndustry(industryMatch[1], registry) ? `/en${normalized}` : null,
-    };
-  }
+  // Case-study pages (only when localized content exists).
+  const cs = uaPath.match(/^\/portfolio\/([^/]+)\/?$/);
+  if (cs) return hasEnCase(cs[1], registry) ? localizePath(uaPath, to) : null;
 
-  // UA → EN: case-study pages (only when EN content exists).
-  const caseMatch = pathname.match(/^\/portfolio\/([^/]+)\/?$/);
-  if (caseMatch) {
-    const normalized = `/portfolio/${caseMatch[1]}`;
-    return {
-      uk: normalized,
-      en: hasEnCase(caseMatch[1], registry) ? `/en${normalized}` : null,
-    };
-  }
+  // Top-level localized roots (vs-* compare pages, /calculator, /about, …).
+  const root = uaPath.match(/^(\/[^/]+)\/?$/);
+  if (root) return LOCALIZED_ROOTS[to].has(root[1]) ? localizePath(root[1], to) : null;
 
-  // UA → EN: top-level localized roots (vs-* compare pages, /calculator,
-  // /about, /portfolio, /blog, etc. — see `EN_LOCALIZED_ROOTS`).
-  const rootMatch = pathname.match(/^(\/[^/]+)\/?$/);
-  if (rootMatch) {
-    const root = rootMatch[1];
-    return {
-      uk: root,
-      en: EN_LOCALIZED_ROOTS.has(root) ? `/en${root}` : null,
-    };
-  }
-
-  // Catch-all for multi-segment UA-only paths (e.g. `/stories/<slug>`,
-  // `/legal/<sub>`): UA side is the current path; EN has no counterpart.
-  return { uk: pathname, en: null };
+  // Multi-segment UA-only paths: no counterpart.
+  return null;
 }
