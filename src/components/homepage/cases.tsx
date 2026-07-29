@@ -21,11 +21,6 @@ const PILL_LABELS_BY_LOCALE: Record<Locale, Record<IndustryKey, string>> = {
     medicine: "Медицина",
     "real-estate": "Нерухомість",
   },
-  ru: {
-    legal: "Юридические",
-    medicine: "Медицина",
-    "real-estate": "Недвижимость",
-  },
   en: {
     legal: "Legal",
     medicine: "Medicine",
