@@ -32,19 +32,13 @@ import { EN_TIERS } from "@/content/en/homepage";
 import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
 import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
   title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
   description:
     "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
-  alternates: {
-    canonical: "/en/pricing",
-    languages: {
-      uk: "/pricing",
-      "en-GB": "/en/pricing",
-      "x-default": "/pricing",
-    },
-  },
+  alternates: buildAlternates({ locale: "en", uaPath: "/pricing" }),
   openGraph: {
     title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
     description:

@@ -7,7 +7,9 @@ import enMessages from "../../../messages/en.json";
 
 import { Providers } from "../providers";
 import { SITE_ORIGIN } from "@/constants/site";
-import { getEnRegistrySafe, toWire } from "@/lib/server/i18n-registry";
+import { LOCALE_CONFIG } from "@/constants/locales";
+import { buildAlternates } from "@/lib/shared/alternates";
+import { getContentRegistrySafe, toWire } from "@/lib/server/i18n-registry";
 import { fetchCaseStudyCount } from "@/lib/server/fetch-case-study-count";
 import { CaseCountProvider } from "@/components/layout/case-count-provider";
 import { I18nRegistryProvider } from "@/components/layout/i18n-registry-provider";
@@ -42,20 +44,13 @@ export const metadata: Metadata = {
   description:
     "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
   metadataBase: new URL(SITE_ORIGIN),
-  alternates: {
-    canonical: `${SITE_ORIGIN}/en`,
-    languages: {
-      uk: SITE_ORIGIN,
-      "en-GB": `${SITE_ORIGIN}/en`,
-      "x-default": SITE_ORIGIN,
-    },
-  },
+  alternates: buildAlternates({ locale: "en", uaPath: "/" }),
   openGraph: {
     title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:
       "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
     type: "website",
-    locale: "en_GB",
+    locale: LOCALE_CONFIG.en.ogLocale,
     url: `${SITE_ORIGIN}/en`,
   },
   twitter: {
@@ -91,12 +86,12 @@ export default async function EnRootLayout({
   // window. Wire-format keeps RSC serialization happy across versions.
   // Case count matches portfolio index (`CASE_STUDIES_QUERY`), both locales.
   const [i18nRegistry, caseCount] = await Promise.all([
-    toWire(await getEnRegistrySafe()),
+    toWire(await getContentRegistrySafe()),
     fetchCaseStudyCount(),
   ]);
   return (
     <html
-      lang="en"
+      lang={LOCALE_CONFIG.en.htmlLang}
       suppressHydrationWarning
       className={`${manrope.variable} ${jetbrains.variable} ${actay.variable}`}
     >

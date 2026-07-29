@@ -8,7 +8,9 @@
  * range prefixes via separate keys ("from", "від").
  */
 
-export type PriceLocale = "uk" | "en";
+import type { Locale } from "@/constants/locales";
+
+export type PriceLocale = Locale;
 export type PriceCurrency = "USD" | "EUR" | "UAH" | "GBP";
 
 const CURRENCY_SYMBOL: Record<PriceCurrency, string> = {

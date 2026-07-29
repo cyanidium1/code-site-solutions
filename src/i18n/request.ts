@@ -1,23 +1,23 @@
 import { getRequestConfig } from "next-intl/server";
 
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/constants/locales";
+
 /**
  * Locale + messages for next-intl. The locale is pinned by `setRequestLocale`
  * in each route group's root layout (`app/(uk)/layout.tsx`, `app/(en)/layout.tsx`),
  * so this config no longer needs to read request headers — which means pages
  * stay statically renderable and `experimental.inlineCss` can actually run.
  */
-const LOCALES = ["uk", "en"] as const;
-type Locale = (typeof LOCALES)[number];
+const MESSAGES: Record<Locale, () => Promise<{ default: Record<string, unknown> }>> = {
+  uk: () => import("../../messages/uk.json"),
+  en: () => import("../../messages/en.json"),
+};
 
 export default getRequestConfig(async ({ requestLocale }) => {
   const requested = await requestLocale;
   const locale: Locale =
     requested && (LOCALES as readonly string[]).includes(requested)
       ? (requested as Locale)
-      : "uk";
-  const messages =
-    locale === "en"
-      ? (await import("../../messages/en.json")).default
-      : (await import("../../messages/uk.json")).default;
-  return { locale, messages };
+      : DEFAULT_LOCALE;
+  return { locale, messages: (await MESSAGES[locale]()).default };
 });

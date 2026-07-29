@@ -18,16 +18,14 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/uk/process";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
   title:
     "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
   description:
     "Як ми робимо сайти за 4-10 тижнів. Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив. Без сюрпризів.",
-  alternates: {
-    canonical: "/process",
-    languages: { uk: "/process", "en-GB": "/en/process", "x-default": "/process" },
-  },
+  alternates: buildAlternates({ locale: "uk", uaPath: "/process" }),
   openGraph: {
     title:
       "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",

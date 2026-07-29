@@ -31,7 +31,6 @@ export function getVsFreelancersContent(locale: VfLocale): Content {
 
 export function VsFreelancersView({ locale }: { locale: VfLocale }) {
   const c = CONTENT[locale];
-  const isEn = locale === "en";
 
   return (
     <>
@@ -44,9 +43,9 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
         lede={c.hero.lede}
         features={c.hero.badges}
         ctaPrimaryLabel={c.hero.ctaPrimary}
-        ctaPrimaryHref={localizePath("/calculator", isEn)}
+        ctaPrimaryHref={localizePath("/calculator", locale)}
         ctaSecondaryLabel={c.hero.ctaSecondary}
-        ctaSecondaryHref={localizePath("/process", isEn)}
+        ctaSecondaryHref={localizePath("/process", locale)}
         ctaSecondaryShowPlay={false}
         showStats={false}
         showTicker={false}

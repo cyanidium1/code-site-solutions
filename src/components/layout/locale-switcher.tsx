@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 
 import { resolveLocaleAlternate } from "@/constants/i18n-routes";
+import { LOCALES, type Locale } from "@/constants/locales";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import { useI18nRegistry } from "./i18n-registry-provider";
 
@@ -54,13 +55,11 @@ export function LocaleSwitcher() {
   const t = useTranslations("LocaleSwitcher");
 
   const registry = useI18nRegistry();
-  const { uk: ukHref, en: enHref } = resolveLocaleAlternate(pathname, registry);
-  const currentLabel = locale === "en" ? t("en") : t("uk");
-  // When the target locale has no counterpart for this pathname, the
+  const alternates = resolveLocaleAlternate(pathname, registry);
+  const currentLabel = t(locale as Locale);
+  // When the target locale has no counterpart for this pathname, that
   // button is rendered in a disabled state with a "coming soon" tooltip
-  // — never silently bounce to /en or /.
-  const ukDisabled = ukHref === null;
-  const enDisabled = enHref === null;
+  // — never silently bounce to the locale's homepage.
   const comingSoon = "EN version coming soon";
 
   // Close on route change (covers the locale switch we trigger ourselves)
@@ -88,9 +87,9 @@ export function LocaleSwitcher() {
     };
   }, []);
 
-  const pick = (key: "uk" | "en") => (e: React.MouseEvent) => {
+  const pick = (key: Locale) => (e: React.MouseEvent) => {
     e.preventDefault();
-    const target = key === "en" ? enHref : ukHref;
+    const target = alternates[key];
     if (!target) return; // disabled — guard against keyboard activation
     if (typeof document !== "undefined") {
       document.cookie = `NEXT_LOCALE=${key}; path=/; max-age=31536000; samesite=lax`;
@@ -113,30 +112,26 @@ export function LocaleSwitcher() {
         role="menu"
         aria-label={t("ariaLabel")}
       >
-        <a
-          href={ukHref ?? "#"}
-          role="menuitemradio"
-          aria-checked={locale !== "en"}
-          aria-disabled={ukDisabled || undefined}
-          tabIndex={ukDisabled ? -1 : undefined}
-          title={ukDisabled ? comingSoon : undefined}
-          className={`${localePanelItemBaseClass}${locale !== "en" ? ` ${localePanelItemActiveClass}` : ""}${ukDisabled ? ` ${localePanelItemDisabledClass}` : ""}`}
-          onClick={pick("uk")}
-        >
-          {t("uk")}
-        </a>
-        <a
-          href={enHref ?? "#"}
-          role="menuitemradio"
-          aria-checked={locale === "en"}
-          aria-disabled={enDisabled || undefined}
-          tabIndex={enDisabled ? -1 : undefined}
-          title={enDisabled ? comingSoon : undefined}
-          className={`${localePanelItemBaseClass}${locale === "en" ? ` ${localePanelItemActiveClass}` : ""}${enDisabled ? ` ${localePanelItemDisabledClass}` : ""}`}
-          onClick={pick("en")}
-        >
-          {t("en")}
-        </a>
+        {LOCALES.map((l) => {
+          const href = alternates[l];
+          const disabled = href === null;
+          const active = locale === l;
+          return (
+            <a
+              key={l}
+              href={href ?? "#"}
+              role="menuitemradio"
+              aria-checked={active}
+              aria-disabled={disabled || undefined}
+              tabIndex={disabled ? -1 : undefined}
+              title={disabled ? comingSoon : undefined}
+              className={`${localePanelItemBaseClass}${active ? ` ${localePanelItemActiveClass}` : ""}${disabled ? ` ${localePanelItemDisabledClass}` : ""}`}
+              onClick={pick(l)}
+            >
+              {t(l)}
+            </a>
+          );
+        })}
       </div>
     </details>
   );

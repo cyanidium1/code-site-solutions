@@ -27,15 +27,13 @@ import { HOMEPAGE_TIERS } from "@/content/uk/homepage";
 import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
 import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
   title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
   description:
     "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендінг від $800 ✔️ Корпоративний сайт від $3 500 ✔️ Кастомна платформа від $6 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
-  alternates: {
-    canonical: "/pricing",
-    languages: { uk: "/pricing", "en-GB": "/en/pricing", "x-default": "/pricing" },
-  },
+  alternates: buildAlternates({ locale: "uk", uaPath: "/pricing" }),
   openGraph: {
     title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
     description:

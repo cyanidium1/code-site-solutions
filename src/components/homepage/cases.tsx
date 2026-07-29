@@ -5,7 +5,7 @@ import {
   caseRefToCardItem,
   type CaseCardItem,
 } from "@/lib/shared/case-card-item";
-import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
+import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import type { Locale } from "@/types/sanity";
 import { SectionHead } from "@/components/shared/section-head";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
@@ -20,11 +20,6 @@ const PILL_LABELS_BY_LOCALE: Record<Locale, Record<IndustryKey, string>> = {
     legal: "Юридичні",
     medicine: "Медицина",
     "real-estate": "Нерухомість",
-  },
-  ru: {
-    legal: "Юридические",
-    medicine: "Медицина",
-    "real-estate": "Недвижимость",
   },
   en: {
     legal: "Legal",
@@ -59,7 +54,7 @@ export async function Cases({
 } = {}) {
   const [curated, registry] = await Promise.all([
     fetchHomepageCases(),
-    getEnRegistrySafe(),
+    getContentRegistrySafe(),
   ]);
 
   const defaultItems: CaseCardItem[] =

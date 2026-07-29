@@ -1,6 +1,6 @@
 # CLAUDE.md — code-site-solutions
 
-Next.js 15 (App Router) marketing site for Code-Site.Art. Ukrainian at `/`, English at `/en/*` (`next-intl`). Sanity CMS for portfolio, blog, and industry pages; static content in `src/content/`.
+Next.js 15 (App Router) marketing site for Code-Site.Art. Ukrainian at `/`, English at `/en/*` (`next-intl`). Locale config lives in `src/constants/locales.ts` (single source of truth); to add a locale, follow the workspace runbook `../docs/adding-a-locale.md`. Sanity CMS for portfolio, blog, and industry pages; static content in `src/content/`.
 
 ## Commands
 

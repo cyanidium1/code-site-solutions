@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Drawer } from "@/components/ui";
 import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
+import type { Locale } from "@/constants/locales";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
@@ -76,8 +77,7 @@ export function MobileMenuDrawer({
   onClose: () => void;
 }) {
   const pathname = usePathname() ?? "/";
-  const locale = useLocale();
-  const isEn = locale === "en";
+  const locale = useLocale() as Locale;
 
   const t = useTranslations("Nav");
   const tServices = useTranslations("ServiceNav");
@@ -98,15 +98,15 @@ export function MobileMenuDrawer({
   }, [isOpen, pathname, onClose]);
 
   const registry = useI18nRegistry();
-  const ctaHref = localizePath("/contacts", isEn);
+  const ctaHref = localizePath("/contacts", locale);
   // Intentional discrepancy: "All industries" is an anchor that scrolls to
   // the Industries grid on the homepage, not a dedicated route. There is no
   // standalone /services page, so we keep it as a hash. From any non-home
   // page this triggers a full navigation to home + scroll.
-  const allServicesHref = isEn ? "/en#solutions" : "/#solutions";
+  const allServicesHref = `${localizePath("/", locale)}#solutions`;
 
   const navLinks = HEADER_NAV_LINKS.map((link) => ({
-    href: localizePath(link.uaHref, isEn),
+    href: localizePath(link.uaHref, locale),
     label: t(link.key),
     key: link.key,
   }));
@@ -124,7 +124,7 @@ export function MobileMenuDrawer({
     <Drawer isOpen={isOpen} onOpenChange={onOpenChange} classNames={drawerClassNames}>
       <div className={drawerHeadClass}>
         <Logo
-          href={isEn ? "/en" : "/"}
+          href={localizePath("/", locale)}
           className={headerBrandClass}
           onClick={close}
         />
@@ -156,7 +156,7 @@ export function MobileMenuDrawer({
               >
                 {s.published ? (
                   <Link
-                    href={resolveServiceHref(s.href, isEn, registry)}
+                    href={resolveServiceHref(s.href, locale, registry)}
                     className={drawerLinkBaseClass}
                     onClick={close}
                   >

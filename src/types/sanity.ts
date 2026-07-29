@@ -9,9 +9,11 @@
  * Future improvement: replace with `sanity typegen`-generated types.
  */
 
-export type Locale = "uk" | "ru" | "en";
+import type { Locale } from "@/constants/locales";
+export type { Locale };
 
-export type LocalizedString = Partial<Record<Locale, string>>;
+/** CMS payloads may still carry a legacy `ru` key until it is removed from the schema. */
+export type LocalizedString = Partial<Record<Locale | "ru", string>>;
 export type LocalizedText = LocalizedString;
 
 /* ─── pricingPlan document (homepage + /pricing tier cards) ──────────────── */

@@ -7,6 +7,8 @@
  * importers are unaffected.
  */
 
+import { buildAlternates } from "@/lib/shared/alternates";
+import { LOCALE_CONFIG } from "@/constants/locales";
 import type { Metadata } from "next";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
@@ -67,13 +69,11 @@ export async function buildCaseStudyMetadata(
   const path = pathFor(slug, locale);
   const enAvailable = hasEnglishCaseContent(doc);
 
-  const languages: Record<string, string> = {
-    uk: `/portfolio/${slug}`,
-  };
-  if (enAvailable) {
-    languages["en-GB"] = `/en/portfolio/${slug}`;
-    languages["x-default"] = `/portfolio/${slug}`;
-  }
+  const alternates = buildAlternates({
+    locale,
+    uaPath: `/portfolio/${slug}`,
+    available: enAvailable ? ["en"] : [],
+  });
 
   // OG image fallback: dedicated seo.ogImage → hero image → cover image →
   // file-based [slug]/opengraph-image.tsx auto-card (handled by Next when
@@ -87,13 +87,13 @@ export async function buildCaseStudyMetadata(
   return {
     title,
     description,
-    alternates: { canonical: path, languages },
+    alternates,
     openGraph: {
       title,
       description,
       url: path,
       type: "article",
-      locale: locale === "en" ? "en_GB" : "uk_UA",
+      locale: LOCALE_CONFIG[locale].ogLocale,
       ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
     },
     twitter: {

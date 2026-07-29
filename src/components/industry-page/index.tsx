@@ -1,3 +1,5 @@
+import { buildAlternates } from "@/lib/shared/alternates";
+import { LOCALE_CONFIG } from "@/constants/locales";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -247,13 +249,11 @@ export async function buildIndustryMetadata(
   const path = pathFor(slug, locale);
   const enAvailable = hasEnglishContent(page);
 
-  const languages: Record<string, string> = {
-    uk: `/sites-for/${slug}`,
-  };
-  if (enAvailable) {
-    languages["en-GB"] = `/en/sites-for/${slug}`;
-    languages["x-default"] = `/sites-for/${slug}`;
-  }
+  const alternates = buildAlternates({
+    locale,
+    uaPath: `/sites-for/${slug}`,
+    available: enAvailable ? ["en"] : [],
+  });
 
   // OG image fallback: dedicated seo.ogImage → hero device mockup → site default
   // (handled by Next via app/opengraph-image.tsx when `images` is undefined).
@@ -263,16 +263,13 @@ export async function buildIndustryMetadata(
   return {
     title,
     description,
-    alternates: {
-      canonical: path,
-      languages,
-    },
+    alternates,
     openGraph: {
       title,
       description,
       url: path,
       type: "website",
-      locale: locale === "en" ? "en_GB" : "uk_UA",
+      locale: LOCALE_CONFIG[locale].ogLocale,
       ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
     },
     twitter: {
@@ -431,7 +428,7 @@ function SectionBlock({
           }
           ctaHref={
             section.cta?.href ||
-            buildHrefWithParams(localizePath("/portfolio", locale === "en"), {
+            buildHrefWithParams(localizePath("/portfolio", locale), {
               industry: slug,
             })
           }
@@ -553,7 +550,7 @@ function SectionBlock({
           }
           tableCtaPrimaryHref={
             section.primaryCta?.href ||
-            localizePath("/calculator", locale === "en")
+            localizePath("/calculator", locale)
           }
           tableCtaGhost={
             loc(section.ghostCta?.label ?? section.tableCtaGhost, locale) ||
@@ -561,7 +558,7 @@ function SectionBlock({
           }
           tableCtaGhostHref={
             section.ghostCta?.href ||
-            localizePath("/vs-wordpress", locale === "en")
+            localizePath("/vs-wordpress", locale)
           }
           contactHeading={loc(section.contact?.heading, locale) || undefined}
           contactSub={loc(section.contact?.sub, locale) || undefined}
@@ -766,10 +763,10 @@ export async function IndustryPageView({
             : undefined
         }
         ctaPrimaryLabel={loc(hero?.ctaPrimary, locale) || undefined}
-        ctaPrimaryHref={localizePath("/contacts", locale === "en")}
+        ctaPrimaryHref={localizePath("/contacts", locale)}
         ctaSecondaryLabel={loc(hero?.ctaSecondary, locale) || undefined}
         ctaSecondaryHref={buildHrefWithParams(
-          localizePath("/portfolio", locale === "en"),
+          localizePath("/portfolio", locale),
           { industry: page.slug },
         )}
         stats={

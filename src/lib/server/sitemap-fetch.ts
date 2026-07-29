@@ -9,7 +9,7 @@ import type {
   CaseStudyRef,
   IndustryPageRef,
 } from "@/types/sanity";
-import { getEnRegistrySafe } from "@/lib/server/i18n-registry";
+import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { buildEntries, type SitemapEntries } from "./sitemap-data";
 
 /**
@@ -31,14 +31,14 @@ export async function buildSitemapEntries(): Promise<SitemapEntries> {
       query: BLOG_POSTS_LIST_QUERY,
       revalidate: 3600,
     }).catch(() => [] as BlogPostListItem[]),
-    getEnRegistrySafe(),
+    getContentRegistrySafe(),
   ]);
 
   return buildEntries({
     industryPages,
     caseStudies,
     blogPosts,
-    enIndustries: registry.industries,
+    registry,
     now: new Date(),
   });
 }

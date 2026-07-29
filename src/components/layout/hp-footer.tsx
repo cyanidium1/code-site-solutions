@@ -5,7 +5,8 @@ import Link from "next/link";
 import { Linkedin, Send, Instagram, Mail, Phone, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { hasEnIndustry, localizePath } from "@/constants/i18n-routes";
+import { hasLocaleIndustry, localizePath } from "@/constants/i18n-routes";
+import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { CookieSettingsLink } from "@/lib/cookie-consent";
 import { SITE_CONTACT } from "@/constants/site";
 import Logo from "./logo/logo";
@@ -123,10 +124,9 @@ export function HpFooter({
   const tCo = useTranslations("Footer.company");
   const tCmp = useTranslations("Footer.compare");
   const tLeg = useTranslations("Footer.legal");
-  const locale = useLocale();
-  const isEn = locale === "en";
+  const locale = useLocale() as Locale;
   const registry = useI18nRegistry();
-  const homeHref = isEn ? "/en" : "/";
+  const homeHref = localizePath("/", locale);
 
   // Render rules:
   //   - UA: if the industry page is published, link to /sites-for/<slug>;
@@ -141,10 +141,10 @@ export function HpFooter({
     published: boolean,
   ) => {
     if (!published) return <span className={footerDisabledClass}>{tSol(key)}</span>;
-    if (!isEn) return <Link href={href}>{tSol(key)}</Link>;
+    if (locale === DEFAULT_LOCALE) return <Link href={href}>{tSol(key)}</Link>;
     const slug = href.replace(/^\/sites-for\//, "");
-    if (hasEnIndustry(slug, registry)) {
-      return <Link href={`/en/sites-for/${slug}`}>{tSol(key)}</Link>;
+    if (hasLocaleIndustry(slug, locale, registry)) {
+      return <Link href={localizePath(`/sites-for/${slug}`, locale)}>{tSol(key)}</Link>;
     }
     return <span className={footerDisabledClass}>{tSol(key)}</span>;
   };
@@ -153,13 +153,13 @@ export function HpFooter({
   // is the one exception — it scrolls to the homepage #process section on
   // both locales rather than the standalone page.
   const companyLinks = [
-    { key: "about", href: localizePath("/about", isEn) },
-    { key: "process", href: isEn ? "/en#process" : "/#process" },
-    { key: "pricing", href: localizePath("/pricing", isEn) },
-    { key: "calculator", href: localizePath("/calculator", isEn) },
-    { key: "portfolio", href: localizePath("/portfolio", isEn) },
-    { key: "blog", href: localizePath("/blog", isEn) },
-    { key: "contacts", href: localizePath("/contacts", isEn) },
+    { key: "about", href: localizePath("/about", locale) },
+    { key: "process", href: `${localizePath("/", locale)}#process` },
+    { key: "pricing", href: localizePath("/pricing", locale) },
+    { key: "calculator", href: localizePath("/calculator", locale) },
+    { key: "portfolio", href: localizePath("/portfolio", locale) },
+    { key: "blog", href: localizePath("/blog", locale) },
+    { key: "contacts", href: localizePath("/contacts", locale) },
   ];
 
   return (
@@ -210,7 +210,7 @@ export function HpFooter({
           <ul className={footerColListClass}>
             {COMPARE_HREFS.map(({ key, href }) => (
               <li key={key}>
-                <Link href={isEn ? `/en${href}` : href}>{tCmp(key)}</Link>
+                <Link href={localizePath(href, locale)}>{tCmp(key)}</Link>
               </li>
             ))}
           </ul>

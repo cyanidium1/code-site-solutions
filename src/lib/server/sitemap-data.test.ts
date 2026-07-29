@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { buildEntries } from "./sitemap-data";
+import { fromWire } from "@/lib/shared/i18n-registry-types";
 import type {
   BlogPostListItem,
   CaseStudyRef,
@@ -10,12 +11,20 @@ import type {
 
 const NOW = new Date("2026-01-01T00:00:00.000Z");
 
-function baseInput() {
+function baseInput(
+  en: { industries?: string[]; cases?: string[]; blogPairs?: Array<[string, string]> } = {},
+) {
   return {
     industryPages: [] as IndustryPageRef[],
     caseStudies: [] as CaseStudyRef[],
     blogPosts: [] as BlogPostListItem[],
-    enIndustries: new Set<string>(),
+    registry: fromWire({
+      en: {
+        industries: en.industries ?? [],
+        cases: en.cases ?? [],
+        blogPairs: en.blogPairs ?? [],
+      },
+    }),
     now: NOW,
   };
 }
@@ -37,9 +46,8 @@ test("industry page without EN twin appears only in uk", () => {
 });
 
 test("industry page with EN twin appears in both with matching alternates", () => {
-  const input = baseInput();
+  const input = baseInput({ industries: ["medicine"] });
   input.industryPages = [{ _id: "i1", slug: "medicine" } as IndustryPageRef];
-  input.enIndustries = new Set(["medicine"]);
   const { uk, en } = buildEntries(input);
   const ukEntry = uk.find((e) => e.url.endsWith("/sites-for/medicine"));
   const enEntry = en.find((e) => e.url.endsWith("/en/sites-for/medicine"));
@@ -47,8 +55,8 @@ test("industry page with EN twin appears in both with matching alternates", () =
   assert.equal(ukEntry!.alternates!.languages["en-GB"], enEntry!.url);
 });
 
-test("case study EN entry only when title.en is set", () => {
-  const input = baseInput();
+test("case study EN entry only when registry reports EN content", () => {
+  const input = baseInput({ cases: ["has-en"] });
   input.caseStudies = [
     { _id: "c1", slug: "no-en" } as CaseStudyRef,
     { _id: "c2", slug: "has-en", title: { en: "X" } } as CaseStudyRef,
@@ -58,8 +66,8 @@ test("case study EN entry only when title.en is set", () => {
   assert.equal(en.some((e) => e.url.endsWith("/en/portfolio/no-en")), false);
 });
 
-test("blog uses publishedAt for lastModified and gates EN on slugEn+titleEn", () => {
-  const input = baseInput();
+test("blog uses publishedAt for lastModified and gates EN on registry pair", () => {
+  const input = baseInput({ blogPairs: [["pair", "pair-en"]] });
   input.blogPosts = [
     {
       _id: "b1",

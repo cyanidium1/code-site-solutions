@@ -1,5 +1,14 @@
 import { SITE_ORIGIN } from "@/constants/site";
-import { EN_LOCALIZED_ROOTS } from "@/constants/i18n-routes";
+import { LOCALIZED_ROOTS, localizePath } from "@/constants/i18n-routes";
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  LOCALE_CONFIG,
+  SECONDARY_LOCALES,
+  type Locale,
+  type SecondaryLocale,
+} from "@/constants/locales";
+import type { ContentRegistry } from "@/lib/shared/i18n-registry-types";
 import type {
   BlogPostListItem,
   CaseStudyRef,
@@ -23,7 +32,7 @@ export type SitemapEntry = {
   alternates?: { languages: Record<string, string> };
 };
 
-export type SitemapEntries = { uk: SitemapEntry[]; en: SitemapEntry[] };
+export type SitemapEntries = Record<Locale, SitemapEntry[]>;
 
 const STATIC_ROUTES: {
   path: string;
@@ -47,136 +56,128 @@ export type BuildEntriesInput = {
   industryPages: IndustryPageRef[];
   caseStudies: CaseStudyRef[];
   blogPosts: BlogPostListItem[];
-  enIndustries: ReadonlySet<string>;
+  registry: ContentRegistry;
   now: Date;
 };
 
+/** Absolute URL for a default-locale path, localized for `locale`. */
+function absUrl(uaPath: string, locale: Locale): string {
+  const p = localizePath(uaPath === "/" ? "/" : uaPath, locale);
+  return `${SITE_ORIGIN}${p === "/" ? "" : p}`;
+}
+
 /**
- * Pure transform: given already-fetched CMS data, partition all sitemap
- * entries into UA and EN buckets. Each localized entry carries its own
- * `alternates.languages` (uk / en / x-default) so hreflang is preserved in
- * both per-language sitemaps. Mirrors the gating the old `sitemap.ts` used.
+ * hreflang languages map for an entry: default locale + every secondary
+ * locale that has the page (per LOCALE_CONFIG hreflang tags), plus
+ * x-default pointing at the default-locale URL.
+ */
+function languagesFor(
+  uaUrl: string,
+  localized: Partial<Record<SecondaryLocale, string>>,
+): Record<string, string> {
+  const languages: Record<string, string> = {
+    [LOCALE_CONFIG[DEFAULT_LOCALE].hreflang]: uaUrl,
+  };
+  for (const l of SECONDARY_LOCALES) {
+    const u = localized[l];
+    if (u) languages[LOCALE_CONFIG[l].hreflang] = u;
+  }
+  languages["x-default"] = uaUrl;
+  return languages;
+}
+
+/**
+ * Pure transform: given already-fetched CMS data + the content registry,
+ * partition all sitemap entries into per-locale buckets. Each localized
+ * entry carries its own `alternates.languages` (hreflang per available
+ * locale + x-default) so hreflang is preserved in every per-language
+ * sitemap. Availability gating mirrors the registry (same predicates the
+ * locale switcher and the actual localized pages use).
  */
 export function buildEntries(input: BuildEntriesInput): SitemapEntries {
-  const { industryPages, caseStudies, blogPosts, enIndustries, now } = input;
-  const uk: SitemapEntry[] = [];
-  const en: SitemapEntry[] = [];
+  const { industryPages, caseStudies, blogPosts, registry, now } = input;
+  const out = Object.fromEntries(
+    LOCALES.map((l) => [l, [] as SitemapEntry[]]),
+  ) as SitemapEntries;
 
-  // Routes that also have an /en twin. `/` is added because the homepage
-  // pair (UA at `/`, EN at `/en`) isn't kept in EN_LOCALIZED_ROOTS.
-  const EN_LOCALIZED_PATHS = new Set<string>(["/", ...EN_LOCALIZED_ROOTS]);
-
-  for (const { path, changeFrequency, priority } of STATIC_ROUTES) {
-    const url = `${SITE_ORIGIN}${path === "/" ? "" : path}`;
-    if (!EN_LOCALIZED_PATHS.has(path)) {
-      uk.push({ url, lastModified: now, changeFrequency, priority });
-      continue;
+  /**
+   * Push one logical page into every bucket it exists in. `localizedUrls`
+   * lists the secondary locales that have the page; entries in all locales
+   * share one languages map so hreflang stays symmetric.
+   */
+  const push = (
+    uaUrl: string,
+    localizedUrls: Partial<Record<SecondaryLocale, string>>,
+    meta: { lastModified: Date; changeFrequency: ChangeFrequency; priority: number },
+  ) => {
+    const hasLocalized = Object.values(localizedUrls).some(Boolean);
+    if (!hasLocalized) {
+      out[DEFAULT_LOCALE].push({ url: uaUrl, ...meta });
+      return;
     }
-    const enUrl = `${SITE_ORIGIN}/en${path === "/" ? "" : path}`;
-    const languages = { uk: url, "en-GB": enUrl, "x-default": url };
-    uk.push({
-      url,
+    const languages = languagesFor(uaUrl, localizedUrls);
+    out[DEFAULT_LOCALE].push({ url: uaUrl, ...meta, alternates: { languages } });
+    for (const l of SECONDARY_LOCALES) {
+      const u = localizedUrls[l];
+      if (u) out[l].push({ url: u, ...meta, alternates: { languages } });
+    }
+  };
+
+  // Static code-based routes. `/` is localized everywhere by definition
+  // (each locale has a homepage); other roots gate on LOCALIZED_ROOTS.
+  for (const { path, changeFrequency, priority } of STATIC_ROUTES) {
+    const localized: Partial<Record<SecondaryLocale, string>> = {};
+    for (const l of SECONDARY_LOCALES) {
+      if (path === "/" || LOCALIZED_ROOTS[l].has(path)) {
+        localized[l] = absUrl(path, l);
+      }
+    }
+    push(absUrl(path, DEFAULT_LOCALE), localized, {
       lastModified: now,
       changeFrequency,
       priority,
-      alternates: { languages },
-    });
-    en.push({
-      url: enUrl,
-      lastModified: now,
-      changeFrequency,
-      priority,
-      alternates: { languages },
     });
   }
 
   for (const p of industryPages) {
-    const ukUrl = `${SITE_ORIGIN}/sites-for/${p.slug}`;
-    if (!enIndustries.has(p.slug)) {
-      uk.push({
-        url: ukUrl,
-        lastModified: now,
-        changeFrequency: "monthly",
-        priority: 0.8,
-      });
-      continue;
+    const uaPath = `/sites-for/${p.slug}`;
+    const localized: Partial<Record<SecondaryLocale, string>> = {};
+    for (const l of SECONDARY_LOCALES) {
+      if (registry.get(l)?.industries.has(p.slug)) localized[l] = absUrl(uaPath, l);
     }
-    const enUrl = `${SITE_ORIGIN}/en/sites-for/${p.slug}`;
-    const languages = { uk: ukUrl, "en-GB": enUrl, "x-default": ukUrl };
-    uk.push({
-      url: ukUrl,
+    push(absUrl(uaPath, DEFAULT_LOCALE), localized, {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
-      alternates: { languages },
-    });
-    en.push({
-      url: enUrl,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-      alternates: { languages },
     });
   }
 
   for (const c of caseStudies) {
-    const ukUrl = `${SITE_ORIGIN}/portfolio/${c.slug}`;
-    if (!c.title?.en) {
-      uk.push({
-        url: ukUrl,
-        lastModified: now,
-        changeFrequency: "monthly",
-        priority: 0.7,
-      });
-      continue;
+    const uaPath = `/portfolio/${c.slug}`;
+    const localized: Partial<Record<SecondaryLocale, string>> = {};
+    for (const l of SECONDARY_LOCALES) {
+      if (registry.get(l)?.cases.has(c.slug)) localized[l] = absUrl(uaPath, l);
     }
-    const enUrl = `${SITE_ORIGIN}/en/portfolio/${c.slug}`;
-    const languages = { uk: ukUrl, "en-GB": enUrl, "x-default": ukUrl };
-    uk.push({
-      url: ukUrl,
+    push(absUrl(uaPath, DEFAULT_LOCALE), localized, {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
-      alternates: { languages },
-    });
-    en.push({
-      url: enUrl,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-      alternates: { languages },
     });
   }
 
   for (const p of blogPosts) {
-    const ukUrl = `${SITE_ORIGIN}/blog/${p.slug}`;
     const modified = p.publishedAt ? new Date(p.publishedAt) : now;
-    if (!(p.slugEn && p.titleEn)) {
-      uk.push({
-        url: ukUrl,
-        lastModified: modified,
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
-      continue;
+    const localized: Partial<Record<SecondaryLocale, string>> = {};
+    for (const l of SECONDARY_LOCALES) {
+      const slug = registry.get(l)?.blogFromUa.get(p.slug);
+      if (slug) localized[l] = absUrl(`/blog/${slug}`, l);
     }
-    const enUrl = `${SITE_ORIGIN}/en/blog/${p.slugEn}`;
-    const languages = { uk: ukUrl, "en-GB": enUrl, "x-default": ukUrl };
-    uk.push({
-      url: ukUrl,
+    push(absUrl(`/blog/${p.slug}`, DEFAULT_LOCALE), localized, {
       lastModified: modified,
       changeFrequency: "monthly",
       priority: 0.6,
-      alternates: { languages },
-    });
-    en.push({
-      url: enUrl,
-      lastModified: modified,
-      changeFrequency: "monthly",
-      priority: 0.6,
-      alternates: { languages },
     });
   }
 
-  return { uk, en };
+  return out;
 }

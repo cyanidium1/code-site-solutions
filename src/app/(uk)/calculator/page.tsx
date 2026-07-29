@@ -12,6 +12,7 @@ import {
   webPageNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
@@ -20,14 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("title"),
     description: t("description"),
-    alternates: {
-      canonical: "/calculator",
-      languages: {
-        uk: "/calculator",
-        "en-GB": "/en/calculator",
-        "x-default": "/calculator",
-      },
-    },
+    alternates: buildAlternates({ locale: "uk", uaPath: "/calculator" }),
     openGraph: {
       title: t("title"),
       description: t("description"),

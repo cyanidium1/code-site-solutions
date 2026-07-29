@@ -17,19 +17,13 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/en/process";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
   title: "Process — 7 steps from brief to launch | Code-Site.Art",
   description:
     "4-10 weeks end-to-end. Your time: 5 hours total. Fixed price, fixed deadline, 30% rebate for delays. Here's how we work.",
-  alternates: {
-    canonical: "/en/process",
-    languages: {
-      uk: "/process",
-      "en-GB": "/en/process",
-      "x-default": "/process",
-    },
-  },
+  alternates: buildAlternates({ locale: "en", uaPath: "/process" }),
   openGraph: {
     title: "Process — 7 steps from brief to launch | Code-Site.Art",
     description:

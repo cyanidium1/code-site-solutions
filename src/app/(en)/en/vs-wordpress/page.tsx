@@ -1,3 +1,4 @@
+import { buildAlternates } from "@/lib/shared/alternates";
 import type { Metadata } from "next";
 
 import {
@@ -20,14 +21,7 @@ const CONTENT = getVsWordpressContent("en");
 export const metadata: Metadata = {
   title: CONTENT.metaTitle,
   description: CONTENT.metaDescription,
-  alternates: {
-    canonical: PATH,
-    languages: {
-      uk: UK_PATH,
-      "en-GB": PATH,
-      "x-default": UK_PATH,
-    },
-  },
+  alternates: buildAlternates({ locale: "en", uaPath: UK_PATH }),
   openGraph: {
     title: "WordPress was right in 2015. Not in 2026. — Code-Site.Art",
     description: CONTENT.metaDescription,

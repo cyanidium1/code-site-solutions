@@ -12,6 +12,7 @@ import {
   webPageNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 const T = enMessages.Calculator;
 
@@ -29,14 +30,7 @@ function richTitle(value: string): React.ReactNode {
 export const metadata: Metadata = {
   title: T.meta.title,
   description: T.meta.description,
-  alternates: {
-    canonical: "/en/calculator",
-    languages: {
-      uk: "/calculator",
-      "en-GB": "/en/calculator",
-      "x-default": "/calculator",
-    },
-  },
+  alternates: buildAlternates({ locale: "en", uaPath: "/calculator" }),
   openGraph: {
     title: T.meta.title,
     description: T.meta.description,
