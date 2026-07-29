@@ -27,19 +27,13 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
   title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
   description:
     "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
-  alternates: {
-    canonical: "/portfolio",
-    languages: {
-      uk: "/portfolio",
-      "en-GB": "/en/portfolio",
-      "x-default": "/portfolio",
-    },
-  },
+  alternates: buildAlternates({ locale: "uk", uaPath: "/portfolio" }),
   openGraph: {
     title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
     description:

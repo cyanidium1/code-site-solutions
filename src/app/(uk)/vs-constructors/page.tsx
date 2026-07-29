@@ -1,3 +1,4 @@
+import { buildAlternates } from "@/lib/shared/alternates";
 import type { Metadata } from "next";
 
 import {
@@ -19,14 +20,7 @@ const CONTENT = getVsConstructorsContent("uk");
 export const metadata: Metadata = {
   title: CONTENT.metaTitle,
   description: CONTENT.metaDescription,
-  alternates: {
-    canonical: PATH,
-    languages: {
-      uk: PATH,
-      "en-GB": `/en${PATH}`,
-      "x-default": PATH,
-    },
-  },
+  alternates: buildAlternates({ locale: "uk", uaPath: PATH }),
   openGraph: {
     title:
       "Конструктори ідеальні. Поки бізнес у них поміщається. — Code-Site.Art",

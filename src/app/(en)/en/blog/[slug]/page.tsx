@@ -1,3 +1,4 @@
+import { buildAlternates } from "@/lib/shared/alternates";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -78,14 +79,11 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: {
-      canonical: path,
-      languages: {
-        uk: `/blog/${post.slug}`,
-        "en-GB": path,
-        "x-default": `/blog/${post.slug}`,
-      },
-    },
+    alternates: buildAlternates({
+      locale: "en",
+      uaPath: `/blog/${post.slug}`,
+      paths: { en: path },
+    }),
     openGraph: {
       title,
       description,

@@ -1,3 +1,4 @@
+import { buildAlternates } from "@/lib/shared/alternates";
 import type { Metadata } from "next";
 import { HeroEditorial } from "@/components/blocks/hero";
 import { ValueStack } from "@/components/blocks/value-stack";
@@ -39,14 +40,7 @@ export const metadata: Metadata = {
   title: "ᐈ Custom Website Development Studio | Code-Site.Art",
   description:
     "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
-  alternates: {
-    canonical: `${SITE_ORIGIN}/en`,
-    languages: {
-      uk: SITE_ORIGIN,
-      "en-GB": `${SITE_ORIGIN}/en`,
-      "x-default": SITE_ORIGIN,
-    },
-  },
+  alternates: buildAlternates({ locale: "en", uaPath: "/" }),
   openGraph: {
     title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:

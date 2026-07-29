@@ -19,6 +19,7 @@ import {
   webPageNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 const BLOG_DESCRIPTION =
   "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.";
@@ -58,14 +59,7 @@ export const metadata: Metadata = {
   title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
   description:
     "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
-  alternates: {
-    canonical: "/en/blog",
-    languages: {
-      uk: "/blog",
-      "en-GB": "/en/blog",
-      "x-default": "/blog",
-    },
-  },
+  alternates: buildAlternates({ locale: "en", uaPath: "/blog" }),
   openGraph: {
     title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
     description:

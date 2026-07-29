@@ -1,3 +1,4 @@
+import { buildAlternates } from "@/lib/shared/alternates";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -80,18 +81,18 @@ export async function generateMetadata({
   // Mirror the EN post's hreflang only when an EN translation exists
   // (slugEn + titleEn) — matches the EN listing/render guards and sitemap.
   const hasEn = Boolean(post.slugEn && post.titleEn);
-  const languages = hasEn
-    ? {
-        uk: path,
-        "en-GB": `/en/blog/${post.slugEn}`,
-        "x-default": path,
-      }
-    : undefined;
+  const alternates = hasEn
+    ? buildAlternates({
+        locale: "uk",
+        uaPath: path,
+        paths: { en: `/en/blog/${post.slugEn}` },
+      })
+    : { canonical: path };
 
   return {
     title,
     description,
-    alternates: { canonical: path, languages },
+    alternates,
     openGraph: {
       title,
       description,

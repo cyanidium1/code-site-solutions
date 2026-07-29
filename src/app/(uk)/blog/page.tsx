@@ -19,6 +19,7 @@ import {
   webPageNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 const BLOG_DESCRIPTION =
   "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.";
@@ -57,10 +58,7 @@ export const metadata: Metadata = {
   title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
   description:
     "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
-  alternates: {
-    canonical: "/blog",
-    languages: { uk: "/blog", "en-GB": "/en/blog", "x-default": "/blog" },
-  },
+  alternates: buildAlternates({ locale: "uk", uaPath: "/blog" }),
   openGraph: {
     title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
     description:

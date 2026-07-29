@@ -22,18 +22,12 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { ABOUT_UK as C } from "@/content/uk/about";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
   title: C.meta.title,
   description: C.meta.description,
-  alternates: {
-    canonical: "/about",
-    languages: {
-      uk: "/about",
-      "en-GB": "/en/about",
-      "x-default": "/about",
-    },
-  },
+  alternates: buildAlternates({ locale: "uk", uaPath: "/about" }),
   openGraph: {
     title: C.meta.title,
     description: C.meta.description,

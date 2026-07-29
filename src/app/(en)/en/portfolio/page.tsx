@@ -28,19 +28,13 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
   title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
   description:
     "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
-  alternates: {
-    canonical: "/en/portfolio",
-    languages: {
-      uk: "/portfolio",
-      "en-GB": "/en/portfolio",
-      "x-default": "/portfolio",
-    },
-  },
+  alternates: buildAlternates({ locale: "en", uaPath: "/portfolio" }),
   openGraph: {
     title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
     description:

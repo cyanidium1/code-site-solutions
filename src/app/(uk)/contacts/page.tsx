@@ -12,19 +12,13 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
+import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
   title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
   description:
     "➤ Безкоштовна консультація за 24 години ✔️ Без довгих брифів ✔️ 30-хв стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
-  alternates: {
-    canonical: "/contacts",
-    languages: {
-      uk: "/contacts",
-      "en-GB": "/en/contacts",
-      "x-default": "/contacts",
-    },
-  },
+  alternates: buildAlternates({ locale: "uk", uaPath: "/contacts" }),
   openGraph: {
     title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
     description:
