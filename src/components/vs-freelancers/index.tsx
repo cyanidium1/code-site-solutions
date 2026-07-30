@@ -1,3 +1,5 @@
+import type { Locale } from "@/constants/locales";
+import { VS_FAQ_HEADING } from "@/content/comparisons/vs-shared";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
@@ -16,7 +18,7 @@ import {
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { localizePath } from "@/constants/i18n-routes";
 
-export type VfLocale = "uk" | "en";
+export type VfLocale = Locale;
 
 const CONTENT: Record<VfLocale, Content> = {
   uk: VS_FREELANCERS_UK,
@@ -532,9 +534,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       {/* 11 — FAQ (schema.org FAQPage emitted at the route level) */}
       <FAQ
         locale={locale}
-        heading={
-          locale === "en" ? "What people ask most" : "Що питають найчастіше"
-        }
+        heading={VS_FAQ_HEADING[locale]}
         items={c.faq.items.map<FAQItem>((it) => ({
           q: it.q,
           a: [it.a],

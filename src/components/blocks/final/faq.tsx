@@ -116,6 +116,37 @@ const FAQ_ITEM_CONTENT =
 // per FAQ row cost ~6.5 KB of document; see docs/rsc-payload-report.md).
 const FAQ_PLUS = "hp-faq-plus";
 
+/**
+ * Per-locale chrome + default items. The default locale ships hardcoded
+ * homepage FAQ items; other locales pass their own `items` (empty default
+ * hides the section). `showAllCount` renders the counted toggle label when
+ * the caller didn't override `showAllLabel`.
+ */
+const FAQ_LABELS: Record<
+  Locale,
+  {
+    heading: string;
+    showAll: string;
+    showFewer: string;
+    defaultItems: FAQItem[];
+    showAllCount?: (n: number) => string;
+  }
+> = {
+  uk: {
+    heading: "Часті питання",
+    showAll: "Показати ще",
+    showFewer: "Згорнути",
+    defaultItems: DEFAULT_FAQ_UK,
+  },
+  en: {
+    heading: "FAQ",
+    showAll: "Show more",
+    showFewer: "Show fewer",
+    defaultItems: [],
+    showAllCount: (n) => `Show all ${n} questions`,
+  },
+};
+
 export function FAQ({
   heading,
   items,
@@ -128,13 +159,11 @@ export function FAQ({
   locale?: Locale;
 } = {}) {
   const intlLocale = useLocale();
-  const locale: Locale =
-    localeProp ?? ((intlLocale as Locale));
-  const resolvedItems = items ?? (locale === "en" ? [] : DEFAULT_FAQ_UK);
-  const resolvedHeading =
-    heading ?? (locale === "en" ? "FAQ" : "Часті питання");
-  const resolvedShowAllLabel =
-    showAllLabel ?? (locale === "en" ? "Show more" : "Показати ще");
+  const locale: Locale = localeProp ?? (intlLocale as Locale);
+  const labels = FAQ_LABELS[locale];
+  const resolvedItems = items ?? labels.defaultItems;
+  const resolvedHeading = heading ?? labels.heading;
+  const resolvedShowAllLabel = showAllLabel ?? labels.showAll;
 
   const [expanded, setExpanded] = useState(false);
 
@@ -147,11 +176,9 @@ export function FAQ({
     ? resolvedItems
     : resolvedItems.slice(0, FAQ_INITIAL_VISIBLE);
   const toggleLabel = expanded
-    ? locale === "en"
-      ? "Show fewer"
-      : "Згорнути"
-    : locale === "en" && resolvedShowAllLabel === "Show more"
-      ? `Show all ${resolvedItems.length} questions`
+    ? labels.showFewer
+    : showAllLabel === undefined && labels.showAllCount
+      ? labels.showAllCount(resolvedItems.length)
       : resolvedShowAllLabel;
 
   return (

@@ -80,6 +80,12 @@ type LeadFormProps = {
   tier?: string;
 };
 
+/** Primary chat channel per market: default locale leads with Telegram. */
+const PRIMARY_CHAT: Record<LeadFormLocale, { href: string; label: string }> = {
+  uk: { href: SITE_CONTACT.telegram, label: SITE_CONTACT.telegramHandle },
+  en: { href: `https://wa.me/${SITE_CONTACT.whatsapp}`, label: SITE_CONTACT.whatsappDisplay },
+};
+
 function LeadFormInner({
   source = "contacts",
   variant = "full",
@@ -144,18 +150,12 @@ function LeadFormInner({
         <p className="text-[14px] leading-[1.6] text-ink-dim m-0">
           {strings.successOrTg}{" "}
           <a
-            href={
-              locale === "en"
-                ? `https://wa.me/${SITE_CONTACT.whatsapp}`
-                : SITE_CONTACT.telegram
-            }
+            href={PRIMARY_CHAT[locale].href}
             target="_blank"
             rel="noreferrer"
             className="text-accent-soft no-underline font-semibold hover:underline"
           >
-            {locale === "en"
-              ? SITE_CONTACT.whatsappDisplay
-              : SITE_CONTACT.telegramHandle}
+            {PRIMARY_CHAT[locale].label}
           </a>
         </p>
       </div>
@@ -337,18 +337,12 @@ function LeadFormInner({
             >
               {strings.errorBody}{" "}
               <a
-                href={
-                  locale === "en"
-                    ? `https://wa.me/${SITE_CONTACT.whatsapp}`
-                    : SITE_CONTACT.telegram
-                }
+                href={PRIMARY_CHAT[locale].href}
                 target="_blank"
                 rel="noreferrer"
                 className="text-accent-soft no-underline font-semibold hover:underline"
               >
-                {locale === "en"
-                  ? SITE_CONTACT.whatsappDisplay
-                  : SITE_CONTACT.telegramHandle}
+                {PRIMARY_CHAT[locale].label}
               </a>
             </div>
           )}

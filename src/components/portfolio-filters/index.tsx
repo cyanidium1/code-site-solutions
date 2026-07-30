@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
 import { useCallback, useTransition } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -17,7 +18,7 @@ import {
 } from "@/constants/portfolio-filters";
 import { updateSearchParams } from "@/lib/shared/update-search-params";
 
-type FormLocale = "uk" | "en";
+type FormLocale = Locale;
 
 export type PortfolioFiltersProps = {
   locale: FormLocale;

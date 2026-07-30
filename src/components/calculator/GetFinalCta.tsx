@@ -1,5 +1,7 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
+
 import { useLocale, useTranslations } from "next-intl";
 import { Mail, PhoneCall } from "lucide-react"; // CalendarCheck removed — see docs/calendly-disabled.md
 import { SITE_CONTACT } from "@/constants/site";
@@ -28,9 +30,15 @@ type GetFinalCtaProps = {
   onSubmitted?: () => void;
 };
 
+/** Primary chat channel per market: default locale leads with Telegram. */
+const PRIMARY_CHAT_HREF: Record<Locale, string> = {
+  uk: SITE_CONTACT.telegram,
+  en: `https://wa.me/${SITE_CONTACT.whatsapp}`,
+};
+
 export function GetFinalCta({ config, input, estimate, onSubmitted }: GetFinalCtaProps) {
   const t = useTranslations("Calculator");
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
   return (
     <section
       className={`${hpSectionClass} pt-16 pb-20 md-wide:pt-20 md-wide:pb-30`}
@@ -72,11 +80,7 @@ export function GetFinalCta({ config, input, estimate, onSubmitted }: GetFinalCt
           <span className="text-ink-3 opacity-60">{t("getFinal.altOr")}</span>
           */}
           <a
-            href={
-              locale === "en"
-                ? `https://wa.me/${SITE_CONTACT.whatsapp}`
-                : SITE_CONTACT.telegram
-            }
+            href={PRIMARY_CHAT_HREF[locale]}
             className="inline-flex items-center gap-[6px] text-ink no-underline font-medium border-b border-transparent transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-b-accent-soft [&_svg]:text-accent-soft"
             target="_blank"
             rel="noreferrer"

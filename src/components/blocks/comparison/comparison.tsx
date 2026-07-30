@@ -14,6 +14,18 @@ import { Tier } from "./tier";
 import { TableRow } from "./table-row";
 import { CmpTable, CmpThead, CmpTh, CmpPricingGrid } from "./cmp-table";
 
+/** Contact-form status strings, per locale. */
+const FORM_STATUS: Record<Locale, { success: string; error: string }> = {
+  uk: {
+    success: "Дякуємо! Відповімо найближчим часом",
+    error: "Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram.",
+  },
+  en: {
+    success: "Thanks! We'll reply shortly",
+    error: "Couldn't send. Try again or message us on WhatsApp.",
+  },
+};
+
 const DEFAULT_TABLE_LABELS = ["Параметр", "Шаблон WP", "Wix", "Кодовий сайт"];
 const DEFAULT_ROWS: TableRowData[] = [
   { param: "Швидкість завантаження", wp: "5–8 сек", wix: "3–6 сек", custom: "0,8–1,5 сек" },
@@ -314,16 +326,12 @@ export function Comparison({
                 {status === "submitting"
                   ? "…"
                   : status === "success"
-                    ? locale === "en"
-                      ? "Thanks! We'll reply shortly"
-                      : "Дякуємо! Відповімо найближчим часом"
+                    ? FORM_STATUS[locale].success
                     : contactSubmit}
               </button>
               {status === "error" ? (
                 <div role="alert" className="text-[12px] text-[oklch(0.78_0.16_25)]">
-                  {locale === "en"
-                    ? "Couldn't send. Try again or message us on WhatsApp."
-                    : "Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram."}
+                  {FORM_STATUS[locale].error}
                 </div>
               ) : null}
             </form>

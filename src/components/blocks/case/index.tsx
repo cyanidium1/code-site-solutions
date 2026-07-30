@@ -165,6 +165,45 @@ const CTA_ARROW_CLASS =
 // block's heading face) + its own `md:` auto-width breakpoint.
 const CTA_BTN_CLASS = btnClass("solid", "font-display md:justify-normal md:px-[22px] md:py-3");
 
+/** Static UI strings + JSX fallbacks, per locale. */
+const CASE_LABELS: Record<
+  Locale,
+  {
+    before: string;
+    after: string;
+    ctaText: React.ReactNode;
+    ctaLabel: string;
+    beforeTagline: string;
+    afterTagline: string;
+  }
+> = {
+  uk: {
+    before: "БУЛО",
+    after: "СТАЛО",
+    ctaText: (
+      <>
+        Хочете <strong>такий самий результат</strong>? Подивіться, як ми це
+        робимо.
+      </>
+    ),
+    ctaLabel: "Подивитися кейси",
+    beforeTagline: "Сайт, що не продає",
+    afterTagline: "Сайт, що приводить клієнтів",
+  },
+  en: {
+    before: "BEFORE",
+    after: "AFTER",
+    ctaText: (
+      <>
+        Want <strong>the same kind of result</strong>? See how we do it.
+      </>
+    ),
+    ctaLabel: "See case studies",
+    beforeTagline: "A site that doesn't convert",
+    afterTagline: "A site that brings in clients",
+  },
+};
+
 export function Case({
   eyebrow,
   eyebrowEm,
@@ -216,33 +255,16 @@ export function Case({
   /** Layout mode. "auto" (default) shows comparison only when a before image exists. */
   layout: CaseLayout;
 }> = {}) {
-  const beforeLabel = locale === "en" ? "BEFORE" : "БУЛО";
-  const afterLabel = locale === "en" ? "AFTER" : "СТАЛО";
   // Generic, locale-aware fallbacks so industry pages without their own
   // Sanity CTA copy don't show the Ukrainian/medical defaults. The button
   // href is already per-industry (built by the caller).
-  const resolvedCtaText = ctaText ?? (
-    locale === "en" ? (
-      <>
-        Want <strong>the same kind of result</strong>? See how we do it.
-      </>
-    ) : (
-      <>
-        Хочете <strong>такий самий результат</strong>? Подивіться, як ми це
-        робимо.
-      </>
-    )
-  );
-  const resolvedCtaLabel =
-    ctaLabel ?? (locale === "en" ? "See case studies" : "Подивитися кейси");
-  const resolvedBeforeTagline =
-    beforeTagline ??
-    (locale === "en" ? "A site that doesn't convert" : "Сайт, що не продає");
-  const resolvedAfterTagline =
-    afterTagline ??
-    (locale === "en"
-      ? "A site that brings in clients"
-      : "Сайт, що приводить клієнтів");
+  const labels = CASE_LABELS[locale];
+  const beforeLabel = labels.before;
+  const afterLabel = labels.after;
+  const resolvedCtaText = ctaText ?? labels.ctaText;
+  const resolvedCtaLabel = ctaLabel ?? labels.ctaLabel;
+  const resolvedBeforeTagline = beforeTagline ?? labels.beforeTagline;
+  const resolvedAfterTagline = afterTagline ?? labels.afterTagline;
   const mode = resolveCaseLayout(layout, Boolean(beforeShotSrc));
   return (
     <section className={SECTION_CLASS}>

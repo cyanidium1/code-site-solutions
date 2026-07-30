@@ -14,14 +14,14 @@ export type PortfolioFilterKey = "industry" | "country" | "budget";
 export type { FilterOption } from "@/lib/shared/filters/types";
 
 export const FILTER_LABELS_BY_LOCALE: Record<
-  "uk" | "en",
+  Locale,
   Record<PortfolioFilterKey, string>
 > = {
   uk: { industry: "Галузь", country: "Країна", budget: "Бюджет" },
   en: { industry: "Industry", country: "Country", budget: "Budget" },
 };
 
-export const FILTER_PLACEHOLDER_BY_LOCALE: Record<"uk" | "en", string> = {
+export const FILTER_PLACEHOLDER_BY_LOCALE: Record<Locale, string> = {
   uk: "Всі",
   en: "All",
 };
@@ -34,7 +34,7 @@ export const FILTER_PLACEHOLDER_BY_LOCALE: Record<"uk" | "en", string> = {
  */
 export const FILTER_ALL_KEY = "__all__";
 
-export const FILTER_ALL_LABEL_BY_LOCALE: Record<"uk" | "en", string> = {
+export const FILTER_ALL_LABEL_BY_LOCALE: Record<Locale, string> = {
   uk: "Всі",
   en: "All",
 };

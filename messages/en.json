@@ -82,7 +82,8 @@
   "LocaleSwitcher": {
     "ariaLabel": "Site language",
     "uk": "UK",
-    "en": "EN"
+    "en": "EN",
+    "comingSoon": "Translation coming soon"
   },
   "Calculator": {
     "meta": {

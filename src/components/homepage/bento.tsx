@@ -90,10 +90,52 @@ function MigrationVisual() {
   );
 }
 
+/* Per-locale visual copy. Adding a locale extends these records. */
+const STACK_LAYERS: Record<PriceLocale, string[]> = {
+  uk: ["Тексти", "Дизайн", "Код", "SEO + хостинг"],
+  en: ["Copy", "Design", "Code", "SEO + hosting"],
+};
+
+const WEEK_STEPS: Record<PriceLocale, { name: string; wk: string; target?: boolean }[]> = {
+  uk: [
+    { name: "Бриф", wk: "тижд. 1" },
+    { name: "Дизайн", wk: "тижд. 2" },
+    { name: "Розробка", wk: "тижд. 3" },
+    { name: "Запуск", wk: "тижд. 4", target: true },
+  ],
+  en: [
+    { name: "Brief", wk: "wk 1" },
+    { name: "Design", wk: "wk 2" },
+    { name: "Build", wk: "wk 3" },
+    { name: "Launch", wk: "wk 4", target: true },
+  ],
+};
+
+const WARRANTY_POINTS: Record<PriceLocale, { label: string; mid?: boolean; end?: boolean }[]> = {
+  uk: [
+    { label: "Старт" },
+    { label: "Запуск", mid: true },
+    { label: "+1 рік", end: true },
+  ],
+  en: [
+    { label: "Start" },
+    { label: "Launch", mid: true },
+    { label: "+1 year", end: true },
+  ],
+};
+
+const WARRANTY_FOOT: Record<PriceLocale, string> = {
+  uk: "Зрив дедлайну",
+  en: "Missed deadline",
+};
+
+const SLA_SUB: Record<PriceLocale, string> = {
+  uk: "робочих годин SLA",
+  en: "business-hour SLA",
+};
+
 function StackVisual({ locale }: { locale: PriceLocale }) {
-  const layers = locale === "en"
-    ? ["Copy", "Design", "Code", "SEO + hosting"]
-    : ["Тексти", "Дизайн", "Код", "SEO + хостинг"];
+  const layers = STACK_LAYERS[locale];
   return (
     <div className={cn(VIS_CLASS, "flex flex-col gap-1.5")} aria-hidden="true">
       {layers.map((l) => (
@@ -146,19 +188,7 @@ function CommitLogVisual() {
 }
 
 function WeeksProgressVisual({ locale }: { locale: PriceLocale }) {
-  const steps = locale === "en"
-    ? [
-        { name: "Brief", wk: "wk 1" },
-        { name: "Design", wk: "wk 2" },
-        { name: "Build", wk: "wk 3" },
-        { name: "Launch", wk: "wk 4", target: true },
-      ]
-    : [
-        { name: "Бриф", wk: "тижд. 1" },
-        { name: "Дизайн", wk: "тижд. 2" },
-        { name: "Розробка", wk: "тижд. 3" },
-        { name: "Запуск", wk: "тижд. 4", target: true },
-      ];
+  const steps = WEEK_STEPS[locale];
   return (
     <div
       className={cn(VIS_CLASS, "flex flex-col gap-1.5 font-mono text-[11.5px] text-ink-dim")}
@@ -226,18 +256,8 @@ function PriceTableVisual({ locale }: { locale: PriceLocale }) {
 }
 
 function WarrantyTimelineVisual({ locale }: { locale: PriceLocale }) {
-  const points = locale === "en"
-    ? [
-        { label: "Start" },
-        { label: "Launch", mid: true },
-        { label: "+1 year", end: true },
-      ]
-    : [
-        { label: "Старт" },
-        { label: "Запуск", mid: true },
-        { label: "+1 рік", end: true },
-      ];
-  const footL = locale === "en" ? "Missed deadline" : "Зрив дедлайну";
+  const points = WARRANTY_POINTS[locale];
+  const footL = WARRANTY_FOOT[locale];
   return (
     <div className={cn(VIS_CLASS, "flex flex-col gap-3.5")} aria-hidden="true">
       <div className="relative">
@@ -283,7 +303,7 @@ function WarrantyTimelineVisual({ locale }: { locale: PriceLocale }) {
 }
 
 function SupportTimerVisual({ locale }: { locale: PriceLocale }) {
-  const sub = locale === "en" ? "business-hour SLA" : "робочих годин SLA";
+  const sub = SLA_SUB[locale];
   const segBase =
     "rounded-[10px] border border-[oklch(1_0_0_/_0.08)] bg-[oklch(1_0_0_/_0.04)] px-2.5 py-1 [font-feature-settings:'tnum'_1]";
   return (
