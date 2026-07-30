@@ -38,7 +38,7 @@ import type {
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasLocaleContent } from "@/lib/shared/locale-content";
 import { LOCALE_CONFIG } from "@/constants/locales";
-import { localizePath } from "@/constants/i18n-routes";
+import { localizePath, resolveRootHref } from "@/constants/i18n-routes";
 import type { ReactNode } from "react";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
@@ -149,7 +149,7 @@ function buildCaseJsonLd(doc: CaseStudyDoc, locale: Locale): JsonLdNode {
   const homeName = LABELS[locale].home;
   const homePath = localizePath("/", locale);
   const portfolioName = LABELS[locale].portfolio;
-  const portfolioPath = localizePath("/portfolio", locale);
+  const portfolioPath = resolveRootHref("/portfolio", locale);
 
   // Pull testimonials embedded in the case sections. testimonialBlock is
   // always a review; quoteBlock only counts when its `isReview` flag is on
@@ -565,7 +565,7 @@ export async function CasePageView({
               })}
             </div>
             <Link
-              href={localizePath("/portfolio", locale)}
+              href={resolveRootHref("/portfolio", locale)}
               className={btnClass("primary", "hp-section-cta")}
             >
               <span>{labels.relatedLink}</span>

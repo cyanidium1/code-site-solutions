@@ -30,7 +30,7 @@ import {
   type Locale,
   type SecondaryLocale,
 } from "@/constants/locales";
-import { localizePath } from "@/constants/i18n-routes";
+import { localizePath, resolveRootHref } from "@/constants/i18n-routes";
 import { loc } from "@/lib/shared/sanity-locale";
 import { pickLocalized } from "@/lib/shared/pick-localized";
 import { BlogPortableText } from "@/lib/shared/blog-portable";
@@ -195,7 +195,7 @@ function buildBlogJsonLd(post: BlogPostDoc, slug: string, locale: Locale) {
             "@type": "Person",
             name: post.author.name,
             jobTitle: post.author.role,
-            url: `${SITE_ORIGIN}${localizePath("/about", locale)}`,
+            url: `${SITE_ORIGIN}${resolveRootHref("/about", locale)}`,
           }
         : undefined,
       publisher: {

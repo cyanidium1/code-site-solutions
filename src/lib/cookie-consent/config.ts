@@ -1,6 +1,6 @@
 import type { ConsentChoices, GcmSignal, TogglableCategory } from "./types";
 import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/constants/locales";
-import { localizePath } from "@/constants/i18n-routes";
+import { resolveRootHref } from "@/constants/i18n-routes";
 
 /**
  * Project-specific tuning. This is the ONLY file to edit when reusing the
@@ -46,5 +46,5 @@ export function consentPolicyPath(locale: string): string {
   const l = (LOCALES as readonly string[]).includes(locale)
     ? (locale as Locale)
     : DEFAULT_LOCALE;
-  return localizePath("/cookies", l);
+  return resolveRootHref("/cookies", l);
 }

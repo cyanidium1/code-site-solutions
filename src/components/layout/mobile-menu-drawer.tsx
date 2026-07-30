@@ -7,7 +7,7 @@ import { ChevronRight, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Drawer } from "@/components/ui";
-import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
+import { localizePath, resolveRootHref, resolveServiceHref } from "@/constants/i18n-routes";
 import type { Locale } from "@/constants/locales";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
@@ -105,8 +105,10 @@ export function MobileMenuDrawer({
   // page this triggers a full navigation to home + scroll.
   const allServicesHref = `${localizePath("/", locale)}#solutions`;
 
+  // resolveRootHref (not localizePath): roots outside LOCALIZED_ROOTS for
+  // the active locale fall back to the UA page instead of a /ru/... 404.
   const navLinks = HEADER_NAV_LINKS.map((link) => ({
-    href: localizePath(link.uaHref, locale),
+    href: resolveRootHref(link.uaHref, locale),
     label: t(link.key),
     key: link.key,
   }));

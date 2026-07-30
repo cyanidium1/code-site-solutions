@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Linkedin, Send, Instagram, Mail, Phone, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { hasLocaleIndustry, localizePath } from "@/constants/i18n-routes";
+import { hasLocaleIndustry, localizePath, resolveRootHref } from "@/constants/i18n-routes";
 import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { CookieSettingsLink } from "@/lib/cookie-consent";
 import { SITE_CONTACT } from "@/constants/site";
@@ -149,17 +149,19 @@ export function HpFooter({
     return <span className={footerDisabledClass}>{tSol(key)}</span>;
   };
 
-  // Company column: every link is locale-aware via localizePath. Process
-  // is the one exception — it scrolls to the homepage #process section on
-  // both locales rather than the standalone page.
+  // Company column: locale-aware via resolveRootHref — roots outside
+  // LOCALIZED_ROOTS for the active locale fall back to the UA page instead
+  // of linking to a 404 (RU phase-1 surface). Process is the one
+  // exception — it scrolls to the homepage #process section on all
+  // locales rather than the standalone page.
   const companyLinks = [
-    { key: "about", href: localizePath("/about", locale) },
+    { key: "about", href: resolveRootHref("/about", locale) },
     { key: "process", href: `${localizePath("/", locale)}#process` },
-    { key: "pricing", href: localizePath("/pricing", locale) },
-    { key: "calculator", href: localizePath("/calculator", locale) },
-    { key: "portfolio", href: localizePath("/portfolio", locale) },
-    { key: "blog", href: localizePath("/blog", locale) },
-    { key: "contacts", href: localizePath("/contacts", locale) },
+    { key: "pricing", href: resolveRootHref("/pricing", locale) },
+    { key: "calculator", href: resolveRootHref("/calculator", locale) },
+    { key: "portfolio", href: resolveRootHref("/portfolio", locale) },
+    { key: "blog", href: resolveRootHref("/blog", locale) },
+    { key: "contacts", href: resolveRootHref("/contacts", locale) },
   ];
 
   return (
@@ -210,7 +212,7 @@ export function HpFooter({
           <ul className={footerColListClass}>
             {COMPARE_HREFS.map(({ key, href }) => (
               <li key={key}>
-                <Link href={localizePath(href, locale)}>{tCmp(key)}</Link>
+                <Link href={resolveRootHref(href, locale)}>{tCmp(key)}</Link>
               </li>
             ))}
           </ul>
