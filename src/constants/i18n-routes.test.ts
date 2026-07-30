@@ -42,7 +42,7 @@ test("EN homepage '/en' offers both locales", () => {
 
 // Regression: Next prerenders the root route with usePathname() === "/index".
 // Before normalization this fell through to the root-match branch, "/index"
-// wasn't in EN_LOCALIZED_ROOTS, and EN resolved to null — disabling the
+// wasn't in LOCALIZED_ROOTS.en, and EN resolved to null — disabling the
 // UA → EN switch on the homepage ("EN version coming soon").
 test("prerender index alias '/index' resolves like the homepage", () => {
   assert.deepEqual(resolveLocaleAlternate("/index", reg), { uk: "/", en: "/en" });

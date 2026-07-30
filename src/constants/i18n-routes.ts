@@ -35,9 +35,6 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
   ]),
 };
 
-/** @deprecated Transitional alias; use LOCALIZED_ROOTS.en. */
-export const EN_LOCALIZED_ROOTS: ReadonlySet<string> = LOCALIZED_ROOTS.en;
-
 /**
  * Prefix a default-locale path for the target locale.
  *
