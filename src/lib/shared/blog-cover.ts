@@ -21,6 +21,7 @@ export const GENERIC_BLOG_COVER = "/blog/cover-generic.webp";
 const GENERIC_ALT: Record<Locale, string> = {
   uk: "Блог Code-Site.Art — статті про кастомні сайти",
   en: "Code-Site.Art blog — articles on custom websites",
+  ru: "Блог Code-Site.Art — статьи о кастомных сайтах",
 };
 
 export type ResolvedBlogCover = {

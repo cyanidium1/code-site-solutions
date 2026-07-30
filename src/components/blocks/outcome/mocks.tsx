@@ -89,6 +89,13 @@ const MOCK_FORM_STRINGS = {
     service: "Dental hygiene",
     cta: "Book →",
   },
+  ru: {
+    heading: "Запись на консультацию",
+    name: "Елена Петрова",
+    phone: "+380 ··",
+    service: "Стоматология / гигиена",
+    cta: "Записаться",
+  },
 } as const;
 
 export function MockBookingForm({

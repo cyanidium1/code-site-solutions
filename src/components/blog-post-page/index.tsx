@@ -65,11 +65,17 @@ const UA_MONTHS_SHORT = [
   "лип", "сер", "вер", "жов", "лис", "гру",
 ];
 
-/** Short date per locale ("30 чер 2026" / "30 Jun 2026"). */
+const RU_MONTHS_SHORT = [
+  "янв", "фев", "мар", "апр", "мая", "июн",
+  "июл", "авг", "сен", "окт", "ноя", "дек",
+];
+
+/** Short date per locale ("30 чер 2026" / "30 Jun 2026" / "30 июн 2026"). */
 const FORMAT_DATE: Record<Locale, (d: Date) => string> = {
   uk: (d) => `${d.getDate()} ${UA_MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`,
   en: (d) =>
     d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
+  ru: (d) => `${d.getDate()} ${RU_MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`,
 };
 
 function formatDate(iso: string | undefined, locale: Locale): string | undefined {
@@ -119,6 +125,20 @@ const LABELS: Record<
       </>
     ),
     allArticles: "All articles →",
+  },
+  ru: {
+    home: "Главная",
+    blog: "Блог",
+    eyebrow: "/ БЛОГ",
+    updated: "Обновлено",
+    minRead: (n) => `${n} мин чтения`,
+    moreReadingEyebrow: "/ ЕЩЁ ПОЧИТАТЬ",
+    relatedHeading: (
+      <>
+        Похожие <em>статьи</em>
+      </>
+    ),
+    allArticles: "Все статьи →",
   },
 };
 

@@ -179,9 +179,81 @@ const CHANNELS_EN: readonly Channel[] = [
   },
 ] as const;
 
+/* ─── RU channels ────────────────────────────────────────────────────────── */
+
+const TG_GREETING_RU = "Здравствуйте, хочу обсудить сайт";
+const EMAIL_SUBJECT_RU = "Запрос на сайт — Code-Site.Art";
+
+const CHANNELS_RU: readonly Channel[] = [
+  {
+    kind: "telegram",
+    icon: Send,
+    label: "Telegram",
+    handle: SITE_CONTACT.telegramHandle,
+    href: `${SITE_CONTACT.telegram}?text=${encodeURIComponent(TG_GREETING_RU)}`,
+    responseTime: "30 мин в рабочее время",
+    external: true,
+    featured: true,
+  },
+  {
+    kind: "whatsapp",
+    icon: MessageCircle,
+    label: "WhatsApp",
+    handle: SITE_CONTACT.whatsappDisplay,
+    href: `https://wa.me/${SITE_CONTACT.whatsapp}?text=${encodeURIComponent(
+      TG_GREETING_RU,
+    )}`,
+    responseTime: "30 мин в рабочее время",
+    external: true,
+  },
+  {
+    kind: "viber",
+    icon: MessageSquare,
+    label: "Viber",
+    handle: PHONE_DISPLAY,
+    href: `viber://add?number=${PHONE_DIGITS}`,
+    responseTime: "до 1 часа",
+  },
+  {
+    kind: "phone",
+    icon: Phone,
+    label: "Телефон",
+    handle: PHONE_DISPLAY,
+    href: `tel:${PHONE_RAW}`,
+    responseTime: "Пн-Пт 09:00-19:00 EET",
+  },
+  {
+    kind: "email",
+    icon: Mail,
+    label: "Email",
+    handle: SITE_CONTACT.email,
+    href: `mailto:${SITE_CONTACT.email}?subject=${encodeURIComponent(EMAIL_SUBJECT_RU)}`,
+    responseTime: "1-2 рабочих часа",
+  },
+  {
+    kind: "instagram",
+    icon: Instagram,
+    label: "Instagram",
+    handle: SITE_CONTACT.instagramHandle,
+    href: SITE_CONTACT.instagram,
+    responseTime: "до 4 часов",
+    external: true,
+  },
+  {
+    kind: "linkedin",
+    icon: Linkedin,
+    label: "LinkedIn",
+    handle: SITE_CONTACT.linkedinHandle,
+    href: SITE_CONTACT.linkedin,
+    responseTime: "1-2 дня",
+    external: true,
+  },
+] as const;
+
 export const CHANNELS_BY_LOCALE: Record<ContactsLocale, readonly Channel[]> = {
   uk: CHANNELS_UK,
   en: CHANNELS_EN,
+  ru: CHANNELS_RU,
 };
 
 /** Default UA channels — preserved for back-compat with existing imports. */
@@ -202,6 +274,11 @@ export const CONTACT_META_BY_LOCALE: Record<ContactsLocale, ContactMeta> = {
   en: {
     city: "Kyiv",
     hours: "Mon-Fri 09:00-19:00 EET",
+    languages: "UA · RU · EN",
+  },
+  ru: {
+    city: "Киев",
+    hours: "Пн-Пт 09:00-19:00 EET",
     languages: "UA · RU · EN",
   },
 };

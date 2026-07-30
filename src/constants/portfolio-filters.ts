@@ -18,11 +18,13 @@ export const FILTER_LABELS_BY_LOCALE: Record<
   Record<PortfolioFilterKey, string>
 > = {
   uk: { industry: "Галузь", country: "Країна", budget: "Бюджет" },
+  ru: { industry: "Отрасль", country: "Страна", budget: "Бюджет" },
   en: { industry: "Industry", country: "Country", budget: "Budget" },
 };
 
 export const FILTER_PLACEHOLDER_BY_LOCALE: Record<Locale, string> = {
   uk: "Всі",
+  ru: "Все",
   en: "All",
 };
 
@@ -36,6 +38,7 @@ export const FILTER_ALL_KEY = "__all__";
 
 export const FILTER_ALL_LABEL_BY_LOCALE: Record<Locale, string> = {
   uk: "Всі",
+  ru: "Все",
   en: "All",
 };
 
@@ -61,5 +64,6 @@ export const INDUSTRY_CTA_LABEL_BY_LOCALE: Record<
   (industryLabel: string) => string
 > = {
   uk: (label) => `Дізнатися більше про ${lowerFirst(label)}`,
+  ru: (label) => `Узнать больше о ${lowerFirst(label)}`,
   en: (label) => `Learn more about ${lowerFirst(label)}`,
 };

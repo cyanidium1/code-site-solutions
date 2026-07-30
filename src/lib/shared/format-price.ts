@@ -24,18 +24,21 @@ const CURRENCY_SYMBOL: Record<PriceCurrency, string> = {
 export const LOCALE_CURRENCY: Record<PriceLocale, PriceCurrency> = {
   uk: "USD",
   en: "GBP",
+  ru: "USD",
 };
 
 /** "from"/"від" range-prefix word per locale. */
 export const FROM_LABEL: Record<PriceLocale, string> = {
   uk: "від",
   en: "from",
+  ru: "от",
 };
 
 /** Thousands separator per locale (NBSP for UA, comma for EN). */
 const GROUP_SEP: Record<PriceLocale, string> = {
   uk: " ",
   en: ",",
+  ru: " ",
 };
 
 export interface FormatPriceOptions {

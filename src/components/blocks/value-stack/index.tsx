@@ -203,7 +203,55 @@ const smallBase = "group/vs hp-vs-card-sm";
 const accentIconBox =
   "relative z-[1] inline-flex items-center justify-center rounded-2xl border border-[oklch(from_var(--card-accent)_l_c_h_/_0.35)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.14)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)]";
 
-const COPY_BY_LOCALE: Record<Locale, Copy> = { uk: UK, en: EN };
+const RU: Copy = {
+  eyebrow: "ЧТО ВЫ ПОЛУЧАЕТЕ",
+  heading: (
+    <>
+      Наши сайты созданы, чтобы приводить заявки.
+      <br />
+      <em>Красота — по умолчанию.</em>
+    </>
+  ),
+  sub: (
+    <>
+      Не нужно отдельно нанимать дизайнера, копирайтера, SEO-специалиста,
+      разработчика, хостинг и команду поддержки. Всё необходимое для запуска и
+      развития сайта уже включено.
+    </>
+  ),
+  featured: [
+    {
+      icon: TrendingUp,
+      title: "Вас находят в Google",
+      desc: "Построен так, как любит поиск: структура, скорость, метаданные. Чтобы люди, которые уже ищут вашу услугу, находили именно вас.",
+      tone: GREEN,
+      img: IMG.visibility,
+    },
+    {
+      icon: Target,
+      title: "Посетители становятся заявками",
+      desc: "Чёткие сообщения, путь к действию за 1–2 шага и mobile-first вёрстка — ведь именно оттуда приходит большинство ваших клиентов.",
+      tone: PURPLE,
+      img: IMG.enquiries,
+    },
+    {
+      icon: ShieldCheck,
+      title: "Сайт принадлежит вам",
+      desc: "Код, домен, хостинг, доступы, аналитика — всё ваше. Решите сменить команду? Заберёте сайт с собой.",
+      tone: PURPLE,
+      img: IMG.control,
+    },
+  ],
+  small: [
+    { icon: Gauge, title: "Открывается за 0,5 с", desc: "0,5 секунды против 3–5 у типичного сайта на конструкторе. Пока их ещё грузится, ваш уже показал форму заявки.", tone: BLUE, img: IMG.performance },
+    { icon: Network, title: "Готов расти вместе с вами", desc: "Новые страницы, локации и интеграции добавляются поверх существующего — без переделки с нуля.", tone: PURPLE, img: IMG.scalable },
+    { icon: BarChart3, title: "Откуда приходят деньги", desc: "Аналитика с первого дня: источники трафика, заявки, результаты.", tone: CYAN, img: IMG.analytics },
+    { icon: Rocket, title: "Запуск — на нас", desc: "Хостинг, безопасность, DNS, деплой — всю техническую часть делаем мы. Вы просто получаете ключи.", tone: AMBER, img: IMG.launch },
+    { icon: LifeBuoy, title: "Год поддержки после запуска", desc: "Исправления, обновления и ответы до 4 часов. Мы рядом целый год.", tone: PURPLE, img: IMG.support },
+  ],
+};
+
+const COPY_BY_LOCALE: Record<Locale, Copy> = { uk: UK, en: EN, ru: RU };
 
 export function ValueStack({
   locale = "uk",

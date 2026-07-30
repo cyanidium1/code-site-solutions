@@ -94,6 +94,7 @@ function MigrationVisual() {
 const STACK_LAYERS: Record<PriceLocale, string[]> = {
   uk: ["Тексти", "Дизайн", "Код", "SEO + хостинг"],
   en: ["Copy", "Design", "Code", "SEO + hosting"],
+  ru: ["Тексты", "Дизайн", "Код", "SEO + хостинг"],
 };
 
 const WEEK_STEPS: Record<PriceLocale, { name: string; wk: string; target?: boolean }[]> = {
@@ -109,6 +110,12 @@ const WEEK_STEPS: Record<PriceLocale, { name: string; wk: string; target?: boole
     { name: "Build", wk: "wk 3" },
     { name: "Launch", wk: "wk 4", target: true },
   ],
+  ru: [
+    { name: "Бриф", wk: "нед. 1" },
+    { name: "Дизайн", wk: "нед. 2" },
+    { name: "Разработка", wk: "нед. 3" },
+    { name: "Запуск", wk: "нед. 4", target: true },
+  ],
 };
 
 const WARRANTY_POINTS: Record<PriceLocale, { label: string; mid?: boolean; end?: boolean }[]> = {
@@ -122,16 +129,23 @@ const WARRANTY_POINTS: Record<PriceLocale, { label: string; mid?: boolean; end?:
     { label: "Launch", mid: true },
     { label: "+1 year", end: true },
   ],
+  ru: [
+    { label: "Старт" },
+    { label: "Запуск", mid: true },
+    { label: "+1 год", end: true },
+  ],
 };
 
 const WARRANTY_FOOT: Record<PriceLocale, string> = {
   uk: "Зрив дедлайну",
   en: "Missed deadline",
+  ru: "Срыв дедлайна",
 };
 
 const SLA_SUB: Record<PriceLocale, string> = {
   uk: "робочих годин SLA",
   en: "business-hour SLA",
+  ru: "рабочих часов SLA",
 };
 
 function StackVisual({ locale }: { locale: PriceLocale }) {

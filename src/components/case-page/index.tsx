@@ -111,6 +111,14 @@ const LABELS: Record<
     relatedEyebrow: "RELATED",
     relatedLink: "All cases",
   },
+  ru: {
+    home: "Главная",
+    portfolio: "Портфолио",
+    visitSite: "Перейти на сайт",
+    caseEyebrow: "КЕЙС",
+    relatedEyebrow: "СМЕЖНЫЕ КЕЙСЫ",
+    relatedLink: "Все кейсы",
+  },
 };
 
 const RELATED_HEADING: Record<Locale, ReactNode> = {
@@ -122,6 +130,11 @@ const RELATED_HEADING: Record<Locale, ReactNode> = {
   en: (
     <>
       Other <em>case studies</em>
+    </>
+  ),
+  ru: (
+    <>
+      Другие <em>кейсы</em>
     </>
   ),
 };

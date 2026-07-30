@@ -7,4 +7,5 @@ import type { Locale } from "@/constants/locales";
 export const VS_FAQ_HEADING: Record<Locale, string> = {
   uk: "Що питають найчастіше",
   en: "What people ask most",
+  ru: "Что спрашивают чаще всего",
 };

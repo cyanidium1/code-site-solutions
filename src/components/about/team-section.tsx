@@ -90,6 +90,9 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
       tags: ["SEO", "B2B", "Content Strategy", "Europe"],
     },
   ],
+  // TODO(ru-translation): fill before shipping /ru/about (page not in
+  // LOCALIZED_ROOTS.ru yet, so this never renders today).
+  ru: [],
   en: [
     {
       id: "fedir",
@@ -319,6 +322,7 @@ function TeamModal({
 const TEAM_LABELS: Record<TeamLocale, { more: string; close: string }> = {
   uk: { more: "Детальніше", close: "Закрити" },
   en: { more: "Read more", close: "Close" },
+  ru: { more: "Подробнее", close: "Закрыть" },
 };
 
 export function TeamSection({

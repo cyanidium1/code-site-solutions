@@ -202,6 +202,19 @@ const CASE_LABELS: Record<
     beforeTagline: "A site that doesn't convert",
     afterTagline: "A site that brings in clients",
   },
+  ru: {
+    before: "БЫЛО",
+    after: "СТАЛО",
+    ctaText: (
+      <>
+        Хотите <strong>такой же результат</strong>? Посмотрите, как мы это
+        делаем.
+      </>
+    ),
+    ctaLabel: "Посмотреть кейсы",
+    beforeTagline: "Сайт, который не продаёт",
+    afterTagline: "Сайт, который приводит клиентов",
+  },
 };
 
 export function Case({

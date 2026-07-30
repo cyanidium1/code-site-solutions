@@ -84,6 +84,7 @@ type LeadFormProps = {
 const PRIMARY_CHAT: Record<LeadFormLocale, { href: string; label: string }> = {
   uk: { href: SITE_CONTACT.telegram, label: SITE_CONTACT.telegramHandle },
   en: { href: `https://wa.me/${SITE_CONTACT.whatsapp}`, label: SITE_CONTACT.whatsappDisplay },
+  ru: { href: SITE_CONTACT.telegram, label: SITE_CONTACT.telegramHandle },
 };
 
 function LeadFormInner({

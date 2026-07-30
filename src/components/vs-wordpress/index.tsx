@@ -22,6 +22,8 @@ export type VsLocale = Locale;
 const CONTENT: Record<VsLocale, Content> = {
   uk: VS_WORDPRESS_UK,
   en: VS_WORDPRESS_EN,
+  // TODO(ru-translation): real VS_WORDPRESS_RU before shipping /ru/vs-wordpress.
+  ru: VS_WORDPRESS_UK,
 };
 
 export function getVsWordpressContent(locale: VsLocale): Content {

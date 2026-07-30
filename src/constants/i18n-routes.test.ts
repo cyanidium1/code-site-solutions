@@ -13,6 +13,11 @@ test("localeFromPathname detects secondary prefix", () => {
   assert.equal(localeFromPathname("/"), "uk");
 });
 
+test("ru locale is configured and prefix-detected", () => {
+  assert.equal(localeFromPathname("/ru/pricing"), "ru");
+  assert.deepEqual(toCanonicalPath("/ru"), { locale: "ru", path: "/" });
+});
+
 test("toCanonicalPath strips secondary prefix", () => {
   assert.deepEqual(toCanonicalPath("/en/about"), { locale: "en", path: "/about" });
   assert.deepEqual(toCanonicalPath("/en"), { locale: "en", path: "/" });

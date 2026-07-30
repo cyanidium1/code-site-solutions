@@ -81,7 +81,40 @@ const UK: PainCopy = {
   ),
 };
 
-const COPY_BY_LOCALE: Record<Locale, PainCopy> = { uk: UK, en: EN };
+const RU: PainCopy = {
+  eyebrow: "ПРОБЛЕМА",
+  heading: (
+    <>
+      Звучит <em>знакомо?</em>
+    </>
+  ),
+  pains: [
+    {
+      icon: TrendingDown,
+      text: "Вы тратите на рекламу — а заявок нет.",
+    },
+    {
+      icon: EyeOff,
+      text: "Сайт выглядит так, что его стыдно отправить клиенту.",
+    },
+    {
+      icon: MousePointerBan,
+      text: "Конкурент слабее вас — но онлайн выглядит убедительнее, и люди идут к нему.",
+    },
+    {
+      icon: Lock,
+      text: "Прошлый разработчик сделал сайт, на котором вы даже текст не можете поменять сами.",
+    },
+  ],
+  punch: (
+    <>
+      В девяти случаях из десяти дело не в рекламе и не в цене.{" "}
+      <em>Дело в том, что сайт не выполняет свою работу — не приводит заявки.</em>
+    </>
+  ),
+};
+
+const COPY_BY_LOCALE: Record<Locale, PainCopy> = { uk: UK, en: EN, ru: RU };
 
 export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
   const c = COPY_BY_LOCALE[locale];

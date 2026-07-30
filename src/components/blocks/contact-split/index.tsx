@@ -80,6 +80,23 @@ const CHROME = {
     ),
     briefSub: "4 fields. Details — if you want. Everything here is confidential.",
   },
+  ru: {
+    channelsEyebrow: "/ CHANNELS",
+    channelsHeading: (
+      <>
+        Выберите удобный <em>канал</em>
+      </>
+    ),
+    channelsSub:
+      "Telegram — быстрее всего. Остальное — fallback. Никаких ботов — пишет сам Fedir.",
+    briefEyebrow: "/ BRIEF",
+    briefHeading: (
+      <>
+        Или отправьте <em>бриф</em>
+      </>
+    ),
+    briefSub: "4 поля. Детали — по желанию. Всё, что здесь, — конфиденциально.",
+  },
 } as const;
 
 export function ContactSplit({

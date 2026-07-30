@@ -44,6 +44,7 @@ function preferredLocale(acceptLanguage: string | null): Locale {
     const lang = tagRaw.toLowerCase().split("-")[0];
     if (!(LOCALES as readonly string[]).includes(lang)) continue;
     const l = lang as Locale;
+    if (!LOCALE_CONFIG[l].autoDetect) continue;
     const q = qRaw ? parseFloat(qRaw) : 1;
     if (q > (best[l] ?? -1)) best[l] = q;
   }
