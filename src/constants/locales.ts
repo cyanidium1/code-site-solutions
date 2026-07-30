@@ -22,11 +22,13 @@ export type LocaleConfig = {
   hreflang: string;
   /** OpenGraph locale tag. */
   ogLocale: string;
+  /** BCP 47 tag for JSON-LD inLanguage and similar full-language metadata. */
+  bcp47: string;
 };
 
 export const LOCALE_CONFIG: Record<Locale, LocaleConfig> = {
-  uk: { urlPrefix: "", htmlLang: "uk", hreflang: "uk", ogLocale: "uk_UA" },
-  en: { urlPrefix: "/en", htmlLang: "en", hreflang: "en-GB", ogLocale: "en_GB" },
+  uk: { urlPrefix: "", htmlLang: "uk", hreflang: "uk", ogLocale: "uk_UA", bcp47: "uk-UA" },
+  en: { urlPrefix: "/en", htmlLang: "en", hreflang: "en-GB", ogLocale: "en_GB", bcp47: "en-GB" },
 };
 
 /** Locale of a pathname by its URL prefix; DEFAULT_LOCALE when none matches. */
