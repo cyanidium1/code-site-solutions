@@ -28,6 +28,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       description:
         "Largest Contentful Paint — a Core Web Vitals metric measuring the load time of the largest visible element on a page.",
     },
+    ru: {
+      name: "LCP",
+      description:
+        "Largest Contentful Paint — метрика Core Web Vitals, измеряющая время загрузки самого крупного видимого элемента страницы.",
+    },
   },
   coreWebVitals: {
     uk: {
@@ -39,6 +44,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       name: "Core Web Vitals",
       description:
         "Google's set of metrics (LCP, INP, CLS) that measure real user experience and feed into search ranking.",
+    },
+    ru: {
+      name: "Core Web Vitals",
+      description:
+        "Набор метрик Google (LCP, INP, CLS), которые оценивают реальный пользовательский опыт страницы и влияют на ранжирование в поиске.",
     },
   },
   isr: {
@@ -52,6 +62,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       description:
         "Incremental Static Regeneration — a Next.js strategy that keeps pages statically generated while refreshing them on a schedule without a full rebuild.",
     },
+    ru: {
+      name: "ISR",
+      description:
+        "Incremental Static Regeneration — стратегия Next.js, которая держит страницы статически сгенерированными, но обновляет их по расписанию без полного ребилда.",
+    },
   },
   ssr: {
     uk: {
@@ -63,6 +78,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       name: "SSR",
       description:
         "Server-Side Rendering — generating page HTML on the server for each request, ensuring fresh data and full search-engine indexability.",
+    },
+    ru: {
+      name: "SSR",
+      description:
+        "Server-Side Rendering — генерация HTML страницы на сервере при каждом запросе, что даёт актуальные данные и полноценную индексацию поисковиками.",
     },
   },
   nextjs: {
@@ -76,6 +96,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       description:
         "A production React framework for building fast websites with SSR, ISR, the App Router, and optimized asset loading.",
     },
+    ru: {
+      name: "Next.js",
+      description:
+        "Production-фреймворк на базе React для построения быстрых сайтов с SSR, ISR, App Router и оптимизированной загрузкой.",
+    },
   },
   seo: {
     uk: {
@@ -87,6 +112,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       name: "SEO",
       description:
         "Search Engine Optimization — a set of technical and content practices that improve a site's ranking in Google and Bing organic results.",
+    },
+    ru: {
+      name: "SEO",
+      description:
+        "Search Engine Optimization — комплекс технических и контентных практик, поднимающих сайт в органической выдаче Google и Bing.",
     },
   },
   cms: {
@@ -100,6 +130,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       description:
         "Content Management System — software that lets editors update site copy, images, and structure without developer involvement.",
     },
+    ru: {
+      name: "CMS",
+      description:
+        "Content Management System — система управления контентом, позволяющая редактировать тексты, изображения и структуру сайта без участия разработчика.",
+    },
   },
   headlessCms: {
     uk: {
@@ -111,6 +146,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       name: "Headless CMS",
       description:
         "A CMS that exposes content via an API without dictating its own templating engine, leaving the frontend free to use any stack.",
+    },
+    ru: {
+      name: "Headless CMS",
+      description:
+        "CMS, которая отдаёт контент через API и не навязывает собственный шаблонный движок — фронтенд строится отдельно на любом стеке.",
     },
   },
   sanity: {
@@ -124,6 +164,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       description:
         "A headless CMS built on GROQ and a real-time API; we use it as the content source for portfolio, blog, and industry pages.",
     },
+    ru: {
+      name: "Sanity",
+      description:
+        "Headless CMS на базе GROQ и real-time API, которую мы используем как источник контента для портфолио, блога и отраслевых страниц.",
+    },
   },
   typescript: {
     uk: {
@@ -135,6 +180,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
       name: "TypeScript",
       description:
         "A statically-typed superset of JavaScript that catches errors at compile time and keeps the codebase predictable as it grows.",
+    },
+    ru: {
+      name: "TypeScript",
+      description:
+        "Статически типизированная надстройка над JavaScript, которая ловит ошибки на этапе компиляции и делает кодовую базу предсказуемой.",
     },
   },
 } as const;

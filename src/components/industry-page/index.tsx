@@ -76,6 +76,11 @@ const LABELS: Record<
     solutions: "Industry solutions",
     testimonialEyebrow: "CLIENT TESTIMONIAL",
   },
+  ru: {
+    home: "Главная",
+    solutions: "Решения для отраслей",
+    testimonialEyebrow: "ОТЗЫВ КЛИЕНТА",
+  },
 };
 
 /**
@@ -118,6 +123,28 @@ const CONTACT_FOOT: Record<
         className={linkCls}
       >
         {SITE_CONTACT.whatsappDisplay}
+      </a>
+    </>
+  ),
+  ru: ({ phoneDigits, linkCls }) => (
+    <>
+      Или сразу пишите в Telegram:{" "}
+      <a
+        href={SITE_CONTACT.telegram}
+        target="_blank"
+        rel="noreferrer"
+        className={linkCls}
+      >
+        {SITE_CONTACT.telegramHandle}
+      </a>{" "}
+      или в WhatsApp{" "}
+      <a
+        href={`https://wa.me/${phoneDigits}`}
+        target="_blank"
+        rel="noreferrer"
+        className={linkCls}
+      >
+        {SITE_CONTACT.phoneDisplay}
       </a>
     </>
   ),

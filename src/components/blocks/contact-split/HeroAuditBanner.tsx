@@ -15,6 +15,10 @@ const COPY: Record<Locale, { heading: string; body: string }> = {
     heading: "Free site audit — within 24 hours",
     body: "Drop a link to your current site — we'll come back with an audit within 24 hours.",
   },
+  ru: {
+    heading: "Бесплатный аудит сайта — за 24 часа",
+    body: "Оставьте ссылку на ваш текущий сайт — вернёмся с аудитом за 24 часа.",
+  },
 };
 
 function HeroAuditBannerInner() {

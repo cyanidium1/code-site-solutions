@@ -4,7 +4,7 @@
  * from this file. Adding a locale = add it to LOCALES + LOCALE_CONFIG and
  * follow docs/adding-a-locale.md (workspace docs).
  */
-export const LOCALES = ["uk", "en"] as const;
+export const LOCALES = ["uk", "en", "ru"] as const;
 export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE = "uk" satisfies Locale;
@@ -24,11 +24,19 @@ export type LocaleConfig = {
   ogLocale: string;
   /** BCP 47 tag for JSON-LD inLanguage and similar full-language metadata. */
   bcp47: string;
+  /**
+   * Include in Accept-Language auto-detect on `/`. ru is cookie-only: many
+   * Ukrainian visitors' browsers send `ru`, and we must not bounce them off
+   * the default-locale homepage. They reach /ru via the switcher, and the
+   * choice then persists in the NEXT_LOCALE cookie.
+   */
+  autoDetect: boolean;
 };
 
 export const LOCALE_CONFIG: Record<Locale, LocaleConfig> = {
-  uk: { urlPrefix: "", htmlLang: "uk", hreflang: "uk", ogLocale: "uk_UA", bcp47: "uk-UA" },
-  en: { urlPrefix: "/en", htmlLang: "en", hreflang: "en-GB", ogLocale: "en_GB", bcp47: "en-GB" },
+  uk: { urlPrefix: "", htmlLang: "uk", hreflang: "uk", ogLocale: "uk_UA", bcp47: "uk-UA", autoDetect: true },
+  en: { urlPrefix: "/en", htmlLang: "en", hreflang: "en-GB", ogLocale: "en_GB", bcp47: "en-GB", autoDetect: true },
+  ru: { urlPrefix: "/ru", htmlLang: "ru", hreflang: "ru", ogLocale: "ru_UA", bcp47: "ru", autoDetect: false },
 };
 
 /** Locale of a pathname by its URL prefix; DEFAULT_LOCALE when none matches. */

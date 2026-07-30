@@ -23,6 +23,8 @@ export type VcLocale = Locale;
 const CONTENT: Record<VcLocale, Content> = {
   uk: VS_CONSTRUCTORS_UK,
   en: VS_CONSTRUCTORS_EN,
+  // TODO(ru-translation): real VS_CONSTRUCTORS_RU before shipping /ru/vs-constructors.
+  ru: VS_CONSTRUCTORS_UK,
 };
 
 export function getVsConstructorsContent(locale: VcLocale): Content {

@@ -24,6 +24,10 @@ const FORM_STATUS: Record<Locale, { success: string; error: string }> = {
     success: "Thanks! We'll reply shortly",
     error: "Couldn't send. Try again or message us on WhatsApp.",
   },
+  ru: {
+    success: "Спасибо! Ответим в ближайшее время",
+    error: "Не удалось отправить. Попробуйте ещё раз или напишите в Telegram.",
+  },
 };
 
 const DEFAULT_TABLE_LABELS = ["Параметр", "Шаблон WP", "Wix", "Кодовий сайт"];

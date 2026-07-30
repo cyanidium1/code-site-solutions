@@ -23,6 +23,8 @@ export type VfLocale = Locale;
 const CONTENT: Record<VfLocale, Content> = {
   uk: VS_FREELANCERS_UK,
   en: VS_FREELANCERS_EN,
+  // TODO(ru-translation): real VS_FREELANCERS_RU before shipping /ru/vs-freelancers.
+  ru: VS_FREELANCERS_UK,
 };
 
 export function getVsFreelancersContent(locale: VfLocale): Content {

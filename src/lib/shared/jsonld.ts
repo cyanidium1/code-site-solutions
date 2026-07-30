@@ -198,6 +198,7 @@ export type DefinedTerm = { name: string; description: string };
 const GLOSSARY_SET_NAME: Record<Locale, string> = {
   uk: "Глосарій Code-Site.Art",
   en: "Code-Site.Art Glossary",
+  ru: "Глоссарий Code-Site.Art",
 };
 
 export function definedTermNodes(

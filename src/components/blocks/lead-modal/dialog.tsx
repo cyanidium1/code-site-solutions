@@ -28,6 +28,16 @@ const COPY: Record<LeadFormLocale, Record<"default" | "demo", ModalCopy>> = {
       sub: "Leave a contact and we'll send a link to the demo admin panel with login details.",
     },
   },
+  ru: {
+    default: {
+      title: "Оставьте заявку",
+      sub: "Отвечаем в течение 1–2 часов в рабочее время.",
+    },
+    demo: {
+      title: "Тестовый доступ к админ-панели",
+      sub: "Оставьте контакт — пришлём ссылку на тестовую админ-панель и данные для входа.",
+    },
+  },
 };
 
 export function LeadModalDialog({

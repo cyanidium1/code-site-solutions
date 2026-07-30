@@ -11,6 +11,7 @@ import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/constants/locales";
 const MESSAGES: Record<Locale, () => Promise<{ default: Record<string, unknown> }>> = {
   uk: () => import("../../messages/uk.json"),
   en: () => import("../../messages/en.json"),
+  ru: () => import("../../messages/ru.json"),
 };
 
 export default getRequestConfig(async ({ requestLocale }) => {

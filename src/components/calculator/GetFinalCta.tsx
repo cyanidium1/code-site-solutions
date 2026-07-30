@@ -34,6 +34,7 @@ type GetFinalCtaProps = {
 const PRIMARY_CHAT_HREF: Record<Locale, string> = {
   uk: SITE_CONTACT.telegram,
   en: `https://wa.me/${SITE_CONTACT.whatsapp}`,
+  ru: SITE_CONTACT.telegram,
 };
 
 export function GetFinalCta({ config, input, estimate, onSubmitted }: GetFinalCtaProps) {

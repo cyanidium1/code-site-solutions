@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { localizePath } from "@/constants/i18n-routes";
+import { LOCALIZED_ROOTS, localizePath } from "@/constants/i18n-routes";
 import {
   DEFAULT_LOCALE,
   LOCALE_CONFIG,
@@ -12,9 +12,12 @@ import {
 /**
  * Canonical + hreflang alternates derived from LOCALE_CONFIG, replacing
  * per-page hand-written `alternates` blocks. `uaPath` is the default-locale
- * path. `available` limits which secondary locales exist for this page
- * (default: all). `paths` overrides prefix-derived paths (translated slugs).
- * Relative paths resolve against layout `metadataBase` exactly as before.
+ * path. `available` limits which secondary locales exist for this page —
+ * the default derives from LOCALIZED_ROOTS (homepage counts as available
+ * everywhere), which is correct for static top-level pages; dynamic pages
+ * (industry/case/blog) pass a computed list. `paths` overrides
+ * prefix-derived paths (translated slugs). Relative paths resolve against
+ * layout `metadataBase` exactly as before.
  */
 export function buildAlternates(opts: {
   locale: Locale;
@@ -22,7 +25,14 @@ export function buildAlternates(opts: {
   available?: readonly SecondaryLocale[];
   paths?: Partial<Record<SecondaryLocale, string>>;
 }): NonNullable<Metadata["alternates"]> {
-  const { locale, uaPath, available = SECONDARY_LOCALES, paths = {} } = opts;
+  const {
+    locale,
+    uaPath,
+    available = SECONDARY_LOCALES.filter(
+      (l) => uaPath === "/" || LOCALIZED_ROOTS[l].has(uaPath),
+    ),
+    paths = {},
+  } = opts;
   const languages: Record<string, string> = {
     [LOCALE_CONFIG[DEFAULT_LOCALE].hreflang]: uaPath,
   };

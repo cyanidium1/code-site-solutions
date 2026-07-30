@@ -189,6 +189,16 @@ const VIS_COPY = {
     reply: "Reply < 4h",
     warranty: "1-year warranty",
   },
+  ru: {
+    contract: "Договор",
+    official: "официально",
+    dealChips: ["Без брифа", "Без ТЗ"],
+    control: ["Домен", "Хостинг", "Аналитика", "Бэкапы"],
+    top: "ТОП",
+    steps: ["Бриф", "Дизайн", "Код", "Запуск"],
+    reply: "Ответ < 4 ч",
+    warranty: "Гарантия 1 год",
+  },
 } as const;
 
 /* ─── Mini-illustrations ──────────────────────────────────────────────────
@@ -352,8 +362,69 @@ function BizVisual({ kind, locale }: { kind: BizVisualKind; locale: PriceLocale 
 // as the marker for the watermark's group-hover.
 const cardBase = "group/biz-card hp-biz-card";
 
-const SECTION_COPY_BY_LOCALE: Record<Locale, SectionCopy> = { uk: UK_COPY, en: EN_COPY };
-const CARDS_BY_LOCALE: Record<Locale, BizCard[]> = { uk: UK_CARDS, en: EN_CARDS };
+const RU_COPY: SectionCopy = {
+  eyebrow: "ПОЧЕМУ МЫ",
+  heading: (
+    <>
+      Минимум вашего участия — <em>полный контроль</em> в ваших руках
+    </>
+  ),
+  sub: "Работаем официально, по договору. Сайт, доступы и результат — ваши.",
+};
+
+const RU_CARDS: BizCard[] = [
+  {
+    icon: Handshake,
+    ghost: FileSignature,
+    title: "Работаем по договору",
+    body: "Официально, с фиксированным объёмом и сроком. Бриф и ТЗ пишем сами — задаём правильные вопросы и берём бумаги на себя.",
+    tone: PURPLE,
+    visual: "deal",
+  },
+  {
+    icon: ShieldCheck,
+    label: "Собственность",
+    title: "Всё принадлежит вам",
+    body: "Код, домен, хостинг, доступы, админка — ваши с первого дня. Решите сменить команду? Заберёте всё с собой.",
+    tone: BLUE,
+    visual: "control",
+  },
+  {
+    icon: LayoutDashboard,
+    label: "Админка",
+    title: "Управление с телефона",
+    body: "Управляете сайтом сами: тексты, страницы, услуги, кейсы и блог редактируются за минуту. Разработчик не нужен.",
+    tone: PURPLE,
+    visual: "cms",
+  },
+  {
+    icon: Rocket,
+    label: "Дедлайн",
+    title: "Неустойка за срыв срока",
+    body: "Сорвём дедлайн — платим мы. Поэтому уложиться вовремя нам важно так же, как и вам.",
+    tone: AMBER,
+    visual: "launch",
+  },
+  {
+    icon: TrendingUp,
+    label: "SEO",
+    title: "Честность с первого дня",
+    body: "Никто не может гарантировать №1 в Google — это долгая работа. Мы строим сайт по всем стандартам, которые Google и AI-поиск вознаграждают позициями. Остальное — контент и время.",
+    tone: GREEN,
+    visual: "seo",
+  },
+  {
+    icon: Headset,
+    label: "Гарантия",
+    title: "Не исчезаем после запуска",
+    body: "Год поддержки включён: исправляем технические проблемы, помогаем с развитием и поддерживаем сайт.",
+    tone: PURPLE,
+    visual: "support",
+  },
+];
+
+const SECTION_COPY_BY_LOCALE: Record<Locale, SectionCopy> = { uk: UK_COPY, en: EN_COPY, ru: RU_COPY };
+const CARDS_BY_LOCALE: Record<Locale, BizCard[]> = { uk: UK_CARDS, en: EN_CARDS, ru: RU_CARDS };
 
 export function BusinessValue({
   locale = "uk",

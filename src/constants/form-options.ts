@@ -30,6 +30,15 @@ export const BUSINESS_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> =
     { key: "construction", label: "Construction / Renovation" },
     { key: "other", label: "Other (describe in the brief)" },
   ],
+  ru: [
+    { key: "healthcare", label: "Healthcare / клиники и стоматологии" },
+    { key: "legal", label: "Legal / юридическая фирма" },
+    { key: "accounting", label: "Accounting / бухгалтерия" },
+    { key: "ecommerce", label: "E-commerce / интернет-магазин" },
+    { key: "saas", label: "SaaS / стартап" },
+    { key: "construction", label: "Строительство / ремонт" },
+    { key: "other", label: "Другое (укажите в описании)" },
+  ],
 };
 
 export const TIER_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
@@ -44,6 +53,12 @@ export const TIER_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
     { key: "corporate", label: "Corporate Website — from £3,500" },
     { key: "custom", label: "Custom Platform — from £6,000" },
     { key: "undecided", label: "I don't know yet" },
+  ],
+  ru: [
+    { key: "landing", label: "Лендинг — от $800" },
+    { key: "corporate", label: "Корпоративный сайт — от $3 500" },
+    { key: "custom", label: "Кастомная платформа — от $6 000" },
+    { key: "undecided", label: "Ещё не определился" },
   ],
 };
 
@@ -62,6 +77,13 @@ export const BUDGET_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
     { key: "gt15k", label: "£15k+" },
     { key: "unknown", label: "I don't know yet" },
   ],
+  ru: [
+    { key: "lt3k", label: "До $3k" },
+    { key: "3-7k", label: "$3-7k" },
+    { key: "7-15k", label: "$7-15k" },
+    { key: "gt15k", label: "$15k+" },
+    { key: "unknown", label: "Пока не знаю" },
+  ],
 };
 
 export const TIMELINE_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
@@ -74,5 +96,10 @@ export const TIMELINE_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> =
     { key: "urgent", label: "Urgent (1-2 weeks)" },
     { key: "normal", label: "Normal (4-8 weeks)" },
     { key: "relaxed", label: "Not critical" },
+  ],
+  ru: [
+    { key: "urgent", label: "Срочно (1-2 недели)" },
+    { key: "normal", label: "Обычно (4-8 недель)" },
+    { key: "relaxed", label: "Не критично" },
   ],
 };

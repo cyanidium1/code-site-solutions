@@ -13,6 +13,11 @@ test("localeFromPathname detects secondary prefix", () => {
   assert.equal(localeFromPathname("/"), "uk");
 });
 
+test("ru locale is configured and prefix-detected", () => {
+  assert.equal(localeFromPathname("/ru/pricing"), "ru");
+  assert.deepEqual(toCanonicalPath("/ru"), { locale: "ru", path: "/" });
+});
+
 test("toCanonicalPath strips secondary prefix", () => {
   assert.deepEqual(toCanonicalPath("/en/about"), { locale: "en", path: "/about" });
   assert.deepEqual(toCanonicalPath("/en"), { locale: "en", path: "/" });
@@ -33,11 +38,11 @@ test("resolveLocaleAlternate returns an entry for every configured locale", () =
 });
 
 test("homepage '/' offers both locales", () => {
-  assert.deepEqual(resolveLocaleAlternate("/", reg), { uk: "/", en: "/en" });
+  assert.deepEqual(resolveLocaleAlternate("/", reg), { uk: "/", en: "/en", ru: "/ru" });
 });
 
 test("EN homepage '/en' offers both locales", () => {
-  assert.deepEqual(resolveLocaleAlternate("/en", reg), { uk: "/", en: "/en" });
+  assert.deepEqual(resolveLocaleAlternate("/en", reg), { uk: "/", en: "/en", ru: "/ru" });
 });
 
 // Regression: Next prerenders the root route with usePathname() === "/index".
@@ -45,13 +50,15 @@ test("EN homepage '/en' offers both locales", () => {
 // wasn't in LOCALIZED_ROOTS.en, and EN resolved to null — disabling the
 // UA → EN switch on the homepage ("EN version coming soon").
 test("prerender index alias '/index' resolves like the homepage", () => {
-  assert.deepEqual(resolveLocaleAlternate("/index", reg), { uk: "/", en: "/en" });
+  assert.deepEqual(resolveLocaleAlternate("/index", reg), { uk: "/", en: "/en", ru: "/ru" });
 });
 
 test("localized top-level root maps to /en twin", () => {
+  // /pricing is not in LOCALIZED_ROOTS.ru yet -> ru disabled.
   assert.deepEqual(resolveLocaleAlternate("/pricing", reg), {
     uk: "/pricing",
     en: "/en/pricing",
+    ru: null,
   });
 });
 
@@ -59,5 +66,6 @@ test("UA-only top-level root has no EN twin", () => {
   assert.deepEqual(resolveLocaleAlternate("/stories", reg), {
     uk: "/stories",
     en: null,
+    ru: null,
   });
 });

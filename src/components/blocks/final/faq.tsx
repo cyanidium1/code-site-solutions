@@ -145,6 +145,12 @@ const FAQ_LABELS: Record<
     defaultItems: [],
     showAllCount: (n) => `Show all ${n} questions`,
   },
+  ru: {
+    heading: "Частые вопросы",
+    showAll: "Показать ещё",
+    showFewer: "Свернуть",
+    defaultItems: [],
+  },
 };
 
 export function FAQ({

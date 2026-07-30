@@ -18,10 +18,11 @@ function newestIso(entries: SitemapEntry[], fallback: Date): string {
 
 export async function GET() {
   const now = new Date();
-  const { uk, en } = await buildSitemapEntries();
+  const { uk, en, ru } = await buildSitemapEntries();
   const xml = renderSitemapIndex([
     { loc: `${SITE_ORIGIN}/sitemap-ua.xml`, lastmod: newestIso(uk, now) },
     { loc: `${SITE_ORIGIN}/sitemap-en.xml`, lastmod: newestIso(en, now) },
+    { loc: `${SITE_ORIGIN}/sitemap-ru.xml`, lastmod: newestIso(ru, now) },
   ]);
   return new Response(xml, {
     headers: { "Content-Type": "application/xml; charset=utf-8" },

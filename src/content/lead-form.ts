@@ -74,4 +74,37 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
     privacy:
       "We don't share your data with third parties. We only store it to reply to your inquiry.",
   },
+  ru: {
+    nameLabel: "Как к вам обращаться",
+    namePlaceholder: "Ваше имя (необязательно)",
+    namePlaceholderShort: "Ваше имя (необязательно)",
+    contactLabel: "Телефон, Telegram или email",
+    contactPlaceholder: "+380..., @username или hello@example.com",
+    contactPlaceholderShort: "+380..., @username или hello@…",
+    contactDescription: "Как с вами удобнее связаться",
+    contactValidation: "Укажите телефон, Telegram или email",
+    businessLabel: "Тип бизнеса",
+    businessPlaceholder: "Выберите отрасль (необязательно)",
+    descriptionLabel: "Описание задачи",
+    descriptionPlaceholder:
+      "Расскажите коротко: какой сайт нужен, что сейчас не работает, дедлайн (необязательно)",
+    tierLabel: "Ориентировочный пакет",
+    tierPlaceholder: "Выберите пакет",
+    budgetLabel: "Бюджет",
+    budgetPlaceholder: "Необязательно",
+    timelineLabel: "Когда нужно запустить",
+    timelinePlaceholder: "Необязательно",
+    showDetails: "Добавить детали",
+    hideDetails: "Скрыть детали",
+    detailsMeta: "пакет, бюджет, срок",
+    submit: "Отправить — ответим за 1-2 часа",
+    submitDemo: "Получить тестовый доступ",
+    successTitle: "Спасибо! Заявка получена.",
+    successBody:
+      "Свяжемся с вами в течение 1-2 рабочих часов через Telegram или email, который вы оставили.",
+    successOrTg: "Или сразу пишите в Telegram →",
+    errorBody: "Что-то пошло не так. Попробуйте ещё раз или пишите в Telegram",
+    privacy:
+      "Не передаём ваши данные третьим лицам. Храним только для ответа на вашу заявку.",
+  },
 } as const satisfies Record<LeadFormLocale, Record<string, string>>;
