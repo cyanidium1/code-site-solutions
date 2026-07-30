@@ -40,20 +40,12 @@ const CASE_AVAILABLE_QUERY = /* groq */ `
   && defined(title[$locale]) && title[$locale] != ""
 ].slug.current`;
 
-// Transitional (until the blog schema migration lands and the old En-suffix
-// arms are removed): coalesce() reads both the legacy flat fields
-// (slug/slugEn/titleEn/bodyEn) and the new localized objects
-// (slugs.*/title.*/body.*). The legacy arms only ever match for $locale=="en".
 const BLOG_PAIRS_QUERY = /* groq */ `
 *[_type == "blogPost" && status == "published"
-  && defined(coalesce(slugs.uk.current, slug.current))
-  && defined(coalesce(slugs[$locale].current, slugEn.current))
-  && defined(coalesce(title[$locale], titleEn)) && coalesce(title[$locale], titleEn) != ""
-  && count(coalesce(body[$locale], bodyEn)) > 0
-]{
-  "ua": coalesce(slugs.uk.current, slug.current),
-  "loc": coalesce(slugs[$locale].current, slugEn.current)
-}`;
+  && defined(slugs.uk.current) && defined(slugs[$locale].current)
+  && defined(title[$locale]) && title[$locale] != ""
+  && count(body[$locale]) > 0
+]{ "ua": slugs.uk.current, "loc": slugs[$locale].current }`;
 
 /**
  * Cached fetcher that returns the WIRE format (plain arrays + tuples).

@@ -67,14 +67,14 @@ const PRICING_TIER = /* groq */ `{
  * earlier LOCALIZED_STRING / LOCALIZED_TEXT projections were stale —
  * they'd surface objects with empty fields at runtime. Now flat.
  *
- * Sprint 2BC adds optional slugEn for EN-only routing (post resolver
- * uses it to swap UA→EN slugs in related-cards on /en/blog/[slug]).
+ * The optional "slugEn" projection ("slugs.en.current") drives EN-only
+ * routing (post resolver swaps UA→EN slugs in related-cards on /en/blog/[slug]).
  */
 const BLOG_POST_REF = /* groq */ `{
   _id,
-  "slug": coalesce(slugs.uk.current, slug.current),
-  "slugEn": coalesce(slugs.en.current, slugEn.current),
-  "title": coalesce(title.uk, title),
+  "slug": slugs.uk.current,
+  "slugEn": slugs.en.current,
+  "title": title.uk,
   publishedAt,
   excerpt,
   "coverImage": coverImage ${IMAGE_WITH_ALT},
@@ -178,22 +178,22 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
     ...,
     image ${IMAGE_WITH_ALT},
     "image2": image2 ${IMAGE_WITH_ALT},
-    // richTextBlock / imageTextBlock / faqBlock / reasonsBlock — legacy
-    // En-suffix pairs or the new localizedRichText objects (same as the
+    // richTextBlock / imageTextBlock / faqBlock / reasonsBlock — flatten
+    // localizedRichText objects to per-locale keys (same as the
     // industryPage sections projection above).
-    "content": coalesce(content.uk, content),
-    "contentEn": coalesce(content.en, contentEn),
-    "body": coalesce(body.uk, body),
-    "bodyEn": coalesce(body.en, bodyEn),
+    "content": content.uk,
+    "contentEn": content.en,
+    "body": body.uk,
+    "bodyEn": body.en,
     items[]{
       ...,
-      "answer": coalesce(answer.uk, answer),
-      "answerEn": coalesce(answer.en, answerEn)
+      "answer": answer.uk,
+      "answerEn": answer.en
     },
     reasons[]{
       ...,
-      "text": coalesce(text.uk, text),
-      "textEn": coalesce(text.en, textEn)
+      "text": text.uk,
+      "textEn": text.en
     },
     images[]{
       ...,
@@ -231,21 +231,21 @@ const BLOG_COVER = /* groq */ `{
 
 /**
  * Lightweight listing projection for /blog and related-articles cards.
- * Sprint 2BC: EN shadow fields (titleEn / eyebrowEn / ledeEn / slugEn)
- * are projected alongside the UA originals. The caller (listing or
+ * CMS fields are localized objects (title.uk/.en etc.); the projection
+ * flattens them to per-locale keys (title / titleEn, ...). The caller (listing or
  * related-card renderer) picks the right field by locale; if the EN
  * field is missing the post is omitted from the EN listing entirely.
  */
 const BLOG_POST_LIST_ITEM = /* groq */ `{
   _id,
-  "slug": coalesce(slugs.uk.current, slug.current),
-  "slugEn": coalesce(slugs.en.current, slugEn.current),
-  "title": coalesce(title.uk, title),
-  "titleEn": coalesce(title.en, titleEn),
-  "eyebrow": coalesce(eyebrow.uk, eyebrow),
-  "eyebrowEn": coalesce(eyebrow.en, eyebrowEn),
-  "lede": coalesce(lede.uk, lede),
-  "ledeEn": coalesce(lede.en, ledeEn),
+  "slug": slugs.uk.current,
+  "slugEn": slugs.en.current,
+  "title": title.uk,
+  "titleEn": title.en,
+  "eyebrow": eyebrow.uk,
+  "eyebrowEn": eyebrow.en,
+  "lede": lede.uk,
+  "ledeEn": lede.en,
   "category": category->{ "slug": slug.current, name ${LOCALIZED_STRING}, color },
   publishedAt,
   readingTimeMinutes,
@@ -254,7 +254,7 @@ const BLOG_POST_LIST_ITEM = /* groq */ `{
 }`;
 
 export const BLOG_POSTS_LIST_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && defined(coalesce(slugs.uk.current, slug.current))]
+*[_type == "blogPost" && status == "published" && defined(slugs.uk.current)]
 ${BLOG_POST_LIST_ITEM}
 | order(publishedAt desc, _createdAt desc)
 `;
@@ -265,7 +265,7 @@ ${BLOG_POST_LIST_ITEM}
  * re-order against the requested slugs.
  */
 export const BLOG_POSTS_BY_SLUGS_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && coalesce(slugs.uk.current, slug.current) in $slugs]
+*[_type == "blogPost" && status == "published" && slugs.uk.current in $slugs]
 ${BLOG_POST_LIST_ITEM}
 `;
 
@@ -275,20 +275,20 @@ ${BLOG_POST_LIST_ITEM}
  * (flat author object, faq items, related slugs, custom body blocks).
  */
 export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && coalesce(slugs.uk.current, slug.current) == $slug][0]{
+*[_type == "blogPost" && status == "published" && slugs.uk.current == $slug][0]{
   _id,
-  "slug": coalesce(slugs.uk.current, slug.current),
-  "slugEn": coalesce(slugs.en.current, slugEn.current),
-  "title": coalesce(title.uk, title),
-  "titleEn": coalesce(title.en, titleEn),
-  "metaTitle": coalesce(metaTitle.uk, metaTitle),
-  "metaTitleEn": coalesce(metaTitle.en, metaTitleEn),
-  "metaDescription": coalesce(metaDescription.uk, metaDescription),
-  "metaDescriptionEn": coalesce(metaDescription.en, metaDescriptionEn),
-  "eyebrow": coalesce(eyebrow.uk, eyebrow),
-  "eyebrowEn": coalesce(eyebrow.en, eyebrowEn),
-  "lede": coalesce(lede.uk, lede),
-  "ledeEn": coalesce(lede.en, ledeEn),
+  "slug": slugs.uk.current,
+  "slugEn": slugs.en.current,
+  "title": title.uk,
+  "titleEn": title.en,
+  "metaTitle": metaTitle.uk,
+  "metaTitleEn": metaTitle.en,
+  "metaDescription": metaDescription.uk,
+  "metaDescriptionEn": metaDescription.en,
+  "eyebrow": eyebrow.uk,
+  "eyebrowEn": eyebrow.en,
+  "lede": lede.uk,
+  "ledeEn": lede.en,
   "category": category->{ "slug": slug.current, name ${LOCALIZED_STRING}, color },
   tags,
   publishedAt,
@@ -298,9 +298,9 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
   coverImage{ src, alt, altEn },
   "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
   author{ name, role, photoUrl, bio },
-  "faqHeading": coalesce(faqHeading.uk, faqHeading),
-  "faqHeadingEn": coalesce(faqHeading.en, faqHeadingEn),
-  "body": coalesce(body.uk, body)[]{
+  "faqHeading": faqHeading.uk,
+  "faqHeadingEn": faqHeading.en,
+  "body": body.uk[]{
     ...,
     // blogImage — resolve asset once
     _type == "blogImage" => {
@@ -317,7 +317,7 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
       caption
     }
   },
-  "bodyEn": coalesce(body.en, bodyEn)[]{
+  "bodyEn": body.en[]{
     ...,
     _type == "blogImage" => {
       _type,
@@ -335,39 +335,35 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
   },
   "faq": faq[]{
     _key,
-    "question": coalesce(question.uk, question),
-    "answer": coalesce(answer.uk, answer)
+    "question": question.uk,
+    "answer": answer.uk
   },
-  "faqEn": coalesce(
-    faqEn[]{ _key, question, answer },
-    faq[defined(question.en)]{ _key, "question": question.en, "answer": answer.en }
-  ),
+  "faqEn": faq[defined(question.en)]{ _key, "question": question.en, "answer": answer.en },
   relatedPostSlugs
 }
 `;
 
 /**
- * Sprint 2BC EN-locale lookup. Matches on `slugEn.current` (the
- * EN-only slug field). Returns the same shape as the UA query so
+ * EN-locale lookup. Matches on `slugs.en.current`. Returns the same shape as the UA query so
  * the post renderer can render either locale uniformly. If the doc
  * has no EN content at all, the field-level guards in the post page
  * trigger a 404.
  */
 export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && coalesce(slugs.en.current, slugEn.current) == $slug][0]{
+*[_type == "blogPost" && status == "published" && slugs.en.current == $slug][0]{
   _id,
-  "slug": coalesce(slugs.uk.current, slug.current),
-  "slugEn": coalesce(slugs.en.current, slugEn.current),
-  "title": coalesce(title.uk, title),
-  "titleEn": coalesce(title.en, titleEn),
-  "metaTitle": coalesce(metaTitle.uk, metaTitle),
-  "metaTitleEn": coalesce(metaTitle.en, metaTitleEn),
-  "metaDescription": coalesce(metaDescription.uk, metaDescription),
-  "metaDescriptionEn": coalesce(metaDescription.en, metaDescriptionEn),
-  "eyebrow": coalesce(eyebrow.uk, eyebrow),
-  "eyebrowEn": coalesce(eyebrow.en, eyebrowEn),
-  "lede": coalesce(lede.uk, lede),
-  "ledeEn": coalesce(lede.en, ledeEn),
+  "slug": slugs.uk.current,
+  "slugEn": slugs.en.current,
+  "title": title.uk,
+  "titleEn": title.en,
+  "metaTitle": metaTitle.uk,
+  "metaTitleEn": metaTitle.en,
+  "metaDescription": metaDescription.uk,
+  "metaDescriptionEn": metaDescription.en,
+  "eyebrow": eyebrow.uk,
+  "eyebrowEn": eyebrow.en,
+  "lede": lede.uk,
+  "ledeEn": lede.en,
   "category": category->{ "slug": slug.current, name ${LOCALIZED_STRING}, color },
   tags,
   publishedAt,
@@ -377,9 +373,9 @@ export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
   coverImage{ src, alt, altEn },
   "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
   author{ name, role, photoUrl, bio },
-  "faqHeading": coalesce(faqHeading.uk, faqHeading),
-  "faqHeadingEn": coalesce(faqHeading.en, faqHeadingEn),
-  "body": coalesce(body.uk, body)[]{
+  "faqHeading": faqHeading.uk,
+  "faqHeadingEn": faqHeading.en,
+  "body": body.uk[]{
     ...,
     _type == "blogImage" => {
       _type,
@@ -395,7 +391,7 @@ export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
       caption
     }
   },
-  "bodyEn": coalesce(body.en, bodyEn)[]{
+  "bodyEn": body.en[]{
     ...,
     _type == "blogImage" => {
       _type,
@@ -413,13 +409,10 @@ export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
   },
   "faq": faq[]{
     _key,
-    "question": coalesce(question.uk, question),
-    "answer": coalesce(answer.uk, answer)
+    "question": question.uk,
+    "answer": answer.uk
   },
-  "faqEn": coalesce(
-    faqEn[]{ _key, question, answer },
-    faq[defined(question.en)]{ _key, "question": question.en, "answer": answer.en }
-  ),
+  "faqEn": faq[defined(question.en)]{ _key, "question": question.en, "answer": answer.en },
   relatedPostSlugs
 }
 `;
@@ -458,22 +451,22 @@ export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
     ...,
     // imageTextBlock — resolve image asset
     image ${IMAGE_WITH_ALT},
-    // richTextBlock / imageTextBlock — legacy pair or localizedRichText object
-    "content": coalesce(content.uk, content),
-    "contentEn": coalesce(content.en, contentEn),
-    "body": coalesce(body.uk, body),
-    "bodyEn": coalesce(body.en, bodyEn),
-    // faqBlock — legacy pair or localizedRichText answers
+    // richTextBlock / imageTextBlock — flatten localizedRichText to per-locale keys
+    "content": content.uk,
+    "contentEn": content.en,
+    "body": body.uk,
+    "bodyEn": body.en,
+    // faqBlock — flatten localizedRichText answers
     items[]{
       ...,
-      "answer": coalesce(answer.uk, answer),
-      "answerEn": coalesce(answer.en, answerEn)
+      "answer": answer.uk,
+      "answerEn": answer.en
     },
-    // reasonsBlock — legacy pair or localizedRichText descriptions
+    // reasonsBlock — flatten localizedRichText descriptions
     reasons[]{
       ...,
-      "text": coalesce(text.uk, text),
-      "textEn": coalesce(text.en, textEn)
+      "text": text.uk,
+      "textEn": text.en
     },
     // servicesBlock — resolve nested feature image assets
     features[]{

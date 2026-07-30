@@ -10,7 +10,7 @@
  *     `Nav` that holds the visible label.
  *
  * Every header entry corresponds to a real `/en/<path>` page today. If
- * you add a route that only exists in UA, gate it on `EN_LOCALIZED_ROOTS`
+ * you add a route that only exists in UA, gate it on `LOCALIZED_ROOTS`
  * in `i18n-routes.ts` instead of hardcoding the divergence here.
  *
  * All 8 service industries are live in Sanity with published industryPage
