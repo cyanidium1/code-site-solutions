@@ -1,5 +1,8 @@
+import type { Locale } from "@/constants/locales";
+import { loc } from "@/lib/shared/sanity-locale";
+import { pickLocalized } from "@/lib/shared/pick-localized";
 import type { SanityImgInput } from "@/lib/shared/sanity-image";
-import type { BlogCover, SanityImage } from "@/types/sanity";
+import type { BlogCover, LocalizedString, SanityImage } from "@/types/sanity";
 
 /**
  * Blog cover resolution, one priority everywhere (hero, cards, OG, JSON-LD):
@@ -15,7 +18,7 @@ import type { BlogCover, SanityImage } from "@/types/sanity";
 
 export const GENERIC_BLOG_COVER = "/blog/cover-generic.webp";
 
-const GENERIC_ALT: Record<"uk" | "en", string> = {
+const GENERIC_ALT: Record<Locale, string> = {
   uk: "Блог Code-Site.Art — статті про кастомні сайти",
   en: "Code-Site.Art blog — articles on custom websites",
 };
@@ -34,26 +37,25 @@ export function resolveBlogCover(
   post: {
     cover?: SanityImage | null;
     coverImage?: BlogCover | null;
-    title?: string;
-    titleEn?: string;
+    title?: LocalizedString;
   },
-  locale: "uk" | "en",
+  locale: Locale,
 ): ResolvedBlogCover {
-  const title = (locale === "en" ? post.titleEn : post.title) ?? post.title ?? "";
+  const title = pickLocalized(post.title, locale) ?? post.title?.uk ?? "";
 
   const cms = post.cover;
   if (cms?.asset?.url) {
-    const alt =
-      (locale === "en" ? cms.alt?.en : cms.alt?.uk) ?? cms.alt?.uk ?? title;
+    const alt = loc(cms.alt, locale) || title;
     return { image: cms, alt, url: cms.asset.url, generic: false };
   }
 
   const src = post.coverImage?.src;
   if (src) {
+    // Legacy repo-path cover — deprecated, carries only uk/en alts. The one
+    // accepted bilingual special case; goes away with the coverImage field.
+    const legacy = post.coverImage;
     const alt =
-      (locale === "en"
-        ? (post.coverImage?.altEn ?? post.coverImage?.alt)
-        : post.coverImage?.alt) ?? title;
+      (locale !== "uk" ? (legacy?.altEn ?? legacy?.alt) : legacy?.alt) ?? title;
     return { image: src, alt, url: src, generic: false };
   }
 

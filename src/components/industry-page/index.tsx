@@ -44,7 +44,7 @@ import {
 } from "@/lib/shared/sanity-portable";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
-import { pickRichText } from "@/lib/shared/pick-rich-text";
+import { pickLocalized } from "@/lib/shared/pick-localized";
 import { FROM_LABEL, LOCALE_CURRENCY } from "@/lib/shared/format-price";
 import { ORG_ID, pageUrl, SITE_CONTACT } from "@/constants/site";
 import {
@@ -222,7 +222,7 @@ function buildIndustryJsonLd(
           name: loc(it.question, locale),
           acceptedAnswer: {
             "@type": "Answer",
-            text: plainPortable(pickRichText(it.answer, it.answerEn, locale)),
+            text: plainPortable(pickLocalized(it.answer, locale)),
           },
         })),
       }
@@ -356,7 +356,7 @@ function SectionBlock({
           heading={formatLine(loc(section.heading, locale)) ?? ""}
           body={
             <PortableInline
-              value={pickRichText(section.body, section.bodyEn, locale)}
+              value={pickLocalized(section.body, locale)}
             />
           }
           bulletList={section.bulletList?.map((b) => loc(b, locale))}
@@ -420,7 +420,7 @@ function SectionBlock({
             tag: loc(r.tag, locale),
             title: formatLine(loc(r.title, locale)),
             body: (
-              <PortableInline value={pickRichText(r.text, r.textEn, locale)} />
+              <PortableInline value={pickLocalized(r.text, locale)} />
             ),
             stat: {
               n: r.stat?.value ?? "",
@@ -665,7 +665,7 @@ function SectionBlock({
       const faqItems =
         section.items
           ?.map((it) => {
-            const ans = pickRichText(it.answer, it.answerEn, locale);
+            const ans = pickLocalized(it.answer, locale);
             const text = plainPortable(ans);
             const q = loc(it.question, locale);
             if (!q) return null;
@@ -709,7 +709,7 @@ function SectionBlock({
         <section className="py-16 px-5 bg-bg md:px-12">
           <div className="max-w-container-narrow mx-auto [&_p]:text-[16px] [&_p]:leading-[1.7] [&_p]:text-ink-dim [&_h2]:font-display [&_h2]:text-[clamp(24px,3vw,36px)] [&_h2]:font-bold [&_h2]:text-ink [&_h2]:mb-4 [&_h3]:font-display [&_h3]:font-semibold [&_h3]:text-ink [&_h3]:mb-3">
             <PortableText
-              value={pickRichText(section.content, section.contentEn, locale)}
+              value={pickLocalized(section.content, locale)}
             />
           </div>
         </section>

@@ -59,7 +59,7 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
-import { pickRichText } from "@/lib/shared/pick-rich-text";
+import { pickLocalized } from "@/lib/shared/pick-localized";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── data layer ──────────────────────────────────────────────────────────
@@ -350,7 +350,7 @@ function SectionBlock({
               heading={formatLine(loc(section.heading, locale)) ?? ""}
               body={
                 <PortableInline
-                  value={pickRichText(section.body, section.bodyEn, locale)}
+                  value={pickLocalized(section.body, locale)}
                 />
               }
               bulletList={section.bulletList
@@ -405,7 +405,7 @@ function SectionBlock({
           heading={formatLine(loc(section.heading, locale)) ?? ""}
           body={
             <PortableInline
-              value={pickRichText(section.body, section.bodyEn, locale)}
+              value={pickLocalized(section.body, locale)}
             />
           }
           bulletList={section.bulletList

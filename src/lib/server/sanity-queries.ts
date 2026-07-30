@@ -1,5 +1,7 @@
 import "server-only";
 
+import { LOCALES } from "@/constants/locales";
+
 /**
  * GROQ queries — mirror of the queries authored in the admin repo
  * (`code-site-solutions-admin/queries/*`).
@@ -9,11 +11,7 @@ import "server-only";
  * here.
  */
 
-const LOCALIZED_STRING = /* groq */ `{
-  uk,
-  ru,
-  en
-}`;
+const LOCALIZED_STRING = /* groq */ `{ ${LOCALES.join(", ")} }`;
 
 const LOCALIZED_TEXT = LOCALIZED_STRING;
 
@@ -60,23 +58,16 @@ const PRICING_TIER = /* groq */ `{
 }`;
 
 /**
- * Lightweight blog-post projection for related-posts cards.
- *
- * Sprint 2A made blogPost.title / .excerpt flat strings (not the
- * localized {uk,en,ru} objects used elsewhere on the site), so the
- * earlier LOCALIZED_STRING / LOCALIZED_TEXT projections were stale —
- * they'd surface objects with empty fields at runtime. Now flat.
- *
- * The optional "slugEn" projection ("slugs.en.current") drives EN-only
- * routing (post resolver swaps UA→EN slugs in related-cards on /en/blog/[slug]).
+ * Lightweight blog-post projection for related-posts cards. Localized
+ * fields (slugs/title/lede) pass through whole; renderers pick per locale
+ * via `pickLocalized` / `loc`.
  */
 const BLOG_POST_REF = /* groq */ `{
   _id,
-  "slug": slugs.uk.current,
-  "slugEn": slugs.en.current,
-  "title": title.uk,
+  slugs,
+  title,
+  lede,
   publishedAt,
-  excerpt,
   "coverImage": coverImage ${IMAGE_WITH_ALT},
   status
 }`;
@@ -178,23 +169,9 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
     ...,
     image ${IMAGE_WITH_ALT},
     "image2": image2 ${IMAGE_WITH_ALT},
-    // richTextBlock / imageTextBlock / faqBlock / reasonsBlock — flatten
-    // localizedRichText objects to per-locale keys (same as the
-    // industryPage sections projection above).
-    "content": content.uk,
-    "contentEn": content.en,
-    "body": body.uk,
-    "bodyEn": body.en,
-    items[]{
-      ...,
-      "answer": answer.uk,
-      "answerEn": answer.en
-    },
-    reasons[]{
-      ...,
-      "text": text.uk,
-      "textEn": text.en
-    },
+    // richTextBlock / imageTextBlock / faqBlock / reasonsBlock: the spread
+    // passes localizedRichText objects (content/body/items[].answer/
+    // reasons[].text) through whole; renderers pick per locale.
     images[]{
       ...,
       "asset": image.asset->{ _id, url, metadata { lqip, dimensions, isOpaque } },
@@ -231,21 +208,16 @@ const BLOG_COVER = /* groq */ `{
 
 /**
  * Lightweight listing projection for /blog and related-articles cards.
- * CMS fields are localized objects (title.uk/.en etc.); the projection
- * flattens them to per-locale keys (title / titleEn, ...). The caller (listing or
- * related-card renderer) picks the right field by locale; if the EN
- * field is missing the post is omitted from the EN listing entirely.
+ * Localized objects (slugs/title/eyebrow/lede) pass through whole; the
+ * renderer picks per locale via `pickLocalized`. A post is omitted from a
+ * secondary-locale listing when its localized members are missing.
  */
 const BLOG_POST_LIST_ITEM = /* groq */ `{
   _id,
-  "slug": slugs.uk.current,
-  "slugEn": slugs.en.current,
-  "title": title.uk,
-  "titleEn": title.en,
-  "eyebrow": eyebrow.uk,
-  "eyebrowEn": eyebrow.en,
-  "lede": lede.uk,
-  "ledeEn": lede.en,
+  slugs,
+  title,
+  eyebrow,
+  lede,
   "category": category->{ "slug": slug.current, name ${LOCALIZED_STRING}, color },
   publishedAt,
   readingTimeMinutes,
@@ -270,25 +242,34 @@ ${BLOG_POST_LIST_ITEM}
 `;
 
 /**
- * Full blog post payload. Parameter: $slug.
- * Mirrors admin/queries/blogPost.ts but with Sprint 2A's extended schema
- * (flat author object, faq items, related slugs, custom body blocks).
+ * Per-locale body sub-projection with blogImage asset resolution, generated
+ * from LOCALES so a new locale's body member is projected automatically.
  */
-export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && slugs.uk.current == $slug][0]{
+const BLOG_BODY_LOCALIZED = `{
+${LOCALES.map(
+  (l) => `    "${l}": ${l}[]{
+      ...,
+      _type == "blogImage" => {
+        _type,
+        _key,
+        "asset": asset->{ _id, url, metadata { lqip, dimensions, isOpaque } },
+        hotspot,
+        crop,
+        alt,
+        caption
+      }
+    }`,
+).join(",\n")}
+  }`;
+
+const BLOG_POST_FULL = /* groq */ `{
   _id,
-  "slug": slugs.uk.current,
-  "slugEn": slugs.en.current,
-  "title": title.uk,
-  "titleEn": title.en,
-  "metaTitle": metaTitle.uk,
-  "metaTitleEn": metaTitle.en,
-  "metaDescription": metaDescription.uk,
-  "metaDescriptionEn": metaDescription.en,
-  "eyebrow": eyebrow.uk,
-  "eyebrowEn": eyebrow.en,
-  "lede": lede.uk,
-  "ledeEn": lede.en,
+  slugs,
+  title,
+  metaTitle,
+  metaDescription,
+  eyebrow,
+  lede,
   "category": category->{ "slug": slug.current, name ${LOCALIZED_STRING}, color },
   tags,
   publishedAt,
@@ -298,124 +279,22 @@ export const BLOG_POST_BY_SLUG_QUERY = /* groq */ `
   coverImage{ src, alt, altEn },
   "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
   author{ name, role, photoUrl, bio },
-  "faqHeading": faqHeading.uk,
-  "faqHeadingEn": faqHeading.en,
-  "body": body.uk[]{
-    ...,
-    // blogImage — resolve asset once
-    _type == "blogImage" => {
-      _type,
-      _key,
-      "asset": asset->{
-        _id,
-        url,
-        metadata { lqip, dimensions, isOpaque }
-      },
-      hotspot,
-      crop,
-      alt,
-      caption
-    }
-  },
-  "bodyEn": body.en[]{
-    ...,
-    _type == "blogImage" => {
-      _type,
-      _key,
-      "asset": asset->{
-        _id,
-        url,
-        metadata { lqip, dimensions, isOpaque }
-      },
-      hotspot,
-      crop,
-      alt,
-      caption
-    }
-  },
-  "faq": faq[]{
-    _key,
-    "question": question.uk,
-    "answer": answer.uk
-  },
-  "faqEn": faq[defined(question.en)]{ _key, "question": question.en, "answer": answer.en },
+  faqHeading,
+  "body": body${BLOG_BODY_LOCALIZED},
+  faq[]{ _key, question, answer },
   relatedPostSlugs
-}
-`;
+}`;
 
 /**
- * EN-locale lookup. Matches on `slugs.en.current`. Returns the same shape as the UA query so
- * the post renderer can render either locale uniformly. If the doc
- * has no EN content at all, the field-level guards in the post page
- * trigger a 404.
+ * Full blog post payload, any locale. Parameters: $slug + $locale — matches
+ * on that locale's slug (`slugs[$locale].current`). One query serves every
+ * locale's blog [slug] route.
  */
-export const BLOG_POST_BY_EN_SLUG_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && slugs.en.current == $slug][0]{
-  _id,
-  "slug": slugs.uk.current,
-  "slugEn": slugs.en.current,
-  "title": title.uk,
-  "titleEn": title.en,
-  "metaTitle": metaTitle.uk,
-  "metaTitleEn": metaTitle.en,
-  "metaDescription": metaDescription.uk,
-  "metaDescriptionEn": metaDescription.en,
-  "eyebrow": eyebrow.uk,
-  "eyebrowEn": eyebrow.en,
-  "lede": lede.uk,
-  "ledeEn": lede.en,
-  "category": category->{ "slug": slug.current, name ${LOCALIZED_STRING}, color },
-  tags,
-  publishedAt,
-  updatedAt,
-  readingTimeMinutes,
-  "cover": cover${BLOG_COVER},
-  coverImage{ src, alt, altEn },
-  "ogImage": ogImage.asset->{ _id, url, metadata { dimensions } },
-  author{ name, role, photoUrl, bio },
-  "faqHeading": faqHeading.uk,
-  "faqHeadingEn": faqHeading.en,
-  "body": body.uk[]{
-    ...,
-    _type == "blogImage" => {
-      _type,
-      _key,
-      "asset": asset->{
-        _id,
-        url,
-        metadata { lqip, dimensions, isOpaque }
-      },
-      hotspot,
-      crop,
-      alt,
-      caption
-    }
-  },
-  "bodyEn": body.en[]{
-    ...,
-    _type == "blogImage" => {
-      _type,
-      _key,
-      "asset": asset->{
-        _id,
-        url,
-        metadata { lqip, dimensions, isOpaque }
-      },
-      hotspot,
-      crop,
-      alt,
-      caption
-    }
-  },
-  "faq": faq[]{
-    _key,
-    "question": question.uk,
-    "answer": answer.uk
-  },
-  "faqEn": faq[defined(question.en)]{ _key, "question": question.en, "answer": answer.en },
-  relatedPostSlugs
-}
+export const BLOG_POST_BY_LOCALE_SLUG_QUERY = /* groq */ `
+*[_type == "blogPost" && status == "published" && slugs[$locale].current == $slug][0]
+${BLOG_POST_FULL}
 `;
+
 
 export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
 *[_type == "industryPage" && status == "published" && slug.current == $slug][0]{
@@ -451,23 +330,9 @@ export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
     ...,
     // imageTextBlock — resolve image asset
     image ${IMAGE_WITH_ALT},
-    // richTextBlock / imageTextBlock — flatten localizedRichText to per-locale keys
-    "content": content.uk,
-    "contentEn": content.en,
-    "body": body.uk,
-    "bodyEn": body.en,
-    // faqBlock — flatten localizedRichText answers
-    items[]{
-      ...,
-      "answer": answer.uk,
-      "answerEn": answer.en
-    },
-    // reasonsBlock — flatten localizedRichText descriptions
-    reasons[]{
-      ...,
-      "text": text.uk,
-      "textEn": text.en
-    },
+    // richTextBlock / imageTextBlock / faqBlock / reasonsBlock: the spread
+    // passes localizedRichText objects through whole; renderers pick per
+    // locale via pickLocalized.
     // servicesBlock — resolve nested feature image assets
     features[]{
       ...,
