@@ -14,14 +14,14 @@ export type PortfolioFilterKey = "industry" | "country" | "budget";
 export type { FilterOption } from "@/lib/shared/filters/types";
 
 export const FILTER_LABELS_BY_LOCALE: Record<
-  "uk" | "en",
+  Locale,
   Record<PortfolioFilterKey, string>
 > = {
   uk: { industry: "Галузь", country: "Країна", budget: "Бюджет" },
   en: { industry: "Industry", country: "Country", budget: "Budget" },
 };
 
-export const FILTER_PLACEHOLDER_BY_LOCALE: Record<"uk" | "en", string> = {
+export const FILTER_PLACEHOLDER_BY_LOCALE: Record<Locale, string> = {
   uk: "Всі",
   en: "All",
 };
@@ -34,7 +34,7 @@ export const FILTER_PLACEHOLDER_BY_LOCALE: Record<"uk" | "en", string> = {
  */
 export const FILTER_ALL_KEY = "__all__";
 
-export const FILTER_ALL_LABEL_BY_LOCALE: Record<"uk" | "en", string> = {
+export const FILTER_ALL_LABEL_BY_LOCALE: Record<Locale, string> = {
   uk: "Всі",
   en: "All",
 };
@@ -57,13 +57,9 @@ function lowerFirst(s: string): string {
  * lower-cased at the front to sit cleanly inside the sentence.
  */
 export const INDUSTRY_CTA_LABEL_BY_LOCALE: Record<
-  "uk" | "en",
+  Locale,
   (industryLabel: string) => string
 > = {
   uk: (label) => `Дізнатися більше про ${lowerFirst(label)}`,
   en: (label) => `Learn more about ${lowerFirst(label)}`,
 };
-
-export function localeFromLocaleType(locale: Locale): "uk" | "en" {
-  return locale === "en" ? "en" : "uk";
-}

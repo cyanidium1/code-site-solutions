@@ -44,7 +44,8 @@ import {
 } from "@/lib/shared/sanity-portable";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
-import { pickRichText } from "@/lib/shared/pick-rich-text";
+import { pickLocalized } from "@/lib/shared/pick-localized";
+import { FROM_LABEL, LOCALE_CURRENCY } from "@/lib/shared/format-price";
 import { ORG_ID, pageUrl, SITE_CONTACT } from "@/constants/site";
 import {
   buildJsonLd,
@@ -57,7 +58,70 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { glossaryTerms } from "@/constants/glossary";
 import { localizePath } from "@/constants/i18n-routes";
+import { availableLocales, hasLocaleContent } from "@/lib/shared/locale-content";
 import { buildHrefWithParams } from "@/lib/shared/update-search-params";
+
+/** Static UI strings, per locale. Adding a locale extends this record. */
+const LABELS: Record<
+  Locale,
+  { home: string; solutions: string; testimonialEyebrow: string }
+> = {
+  uk: {
+    home: "Головна",
+    solutions: "Рішення для галузей",
+    testimonialEyebrow: "ВІДГУК КЛІЄНТА",
+  },
+  en: {
+    home: "Home",
+    solutions: "Industry solutions",
+    testimonialEyebrow: "CLIENT TESTIMONIAL",
+  },
+};
+
+/**
+ * Contact-section footnote, per locale. Channel emphasis differs by market:
+ * the default locale leads with Telegram, secondary markets with WhatsApp.
+ */
+const CONTACT_FOOT: Record<
+  Locale,
+  (args: { phoneDigits: string; linkCls: string }) => React.ReactNode
+> = {
+  uk: ({ phoneDigits, linkCls }) => (
+    <>
+      Або одразу пишіть у Telegram:{" "}
+      <a
+        href={SITE_CONTACT.telegram}
+        target="_blank"
+        rel="noreferrer"
+        className={linkCls}
+      >
+        {SITE_CONTACT.telegramHandle}
+      </a>{" "}
+      або у WhatsApp{" "}
+      <a
+        href={`https://wa.me/${phoneDigits}`}
+        target="_blank"
+        rel="noreferrer"
+        className={linkCls}
+      >
+        {SITE_CONTACT.phoneDisplay}
+      </a>
+    </>
+  ),
+  en: ({ linkCls }) => (
+    <>
+      Or message us on WhatsApp:{" "}
+      <a
+        href={`https://wa.me/${SITE_CONTACT.whatsapp}`}
+        target="_blank"
+        rel="noreferrer"
+        className={linkCls}
+      >
+        {SITE_CONTACT.whatsappDisplay}
+      </a>
+    </>
+  ),
+};
 
 function findSection<T extends IndustrySection>(
   sections: IndustrySection[] | undefined,
@@ -67,7 +131,7 @@ function findSection<T extends IndustrySection>(
 }
 
 function pathFor(slug: string, locale: Locale): string {
-  return locale === "en" ? `/en/sites-for/${slug}` : `/sites-for/${slug}`;
+  return localizePath(`/sites-for/${slug}`, locale);
 }
 
 /** Glossary keys to attach as DefinedTerm nodes on every industry page. */
@@ -129,7 +193,7 @@ function buildIndustryJsonLd(
             .map((it) => loc(it, locale).replace(/\*/g, ""))
             .join(" · ") || undefined,
         price: priceNumeric || undefined,
-        priceCurrency: locale === "en" ? "GBP" : "USD",
+        priceCurrency: LOCALE_CURRENCY[locale],
         url,
       };
     }) ?? [];
@@ -158,7 +222,7 @@ function buildIndustryJsonLd(
           name: loc(it.question, locale),
           acceptedAnswer: {
             "@type": "Answer",
-            text: plainPortable(pickRichText(it.answer, it.answerEn, locale)),
+            text: plainPortable(pickLocalized(it.answer, locale)),
           },
         })),
       }
@@ -177,12 +241,12 @@ function buildIndustryJsonLd(
     }),
     breadcrumbNode([
       {
-        name: locale === "en" ? "Home" : "Головна",
-        path: locale === "en" ? "/en" : "/",
+        name: LABELS[locale].home,
+        path: localizePath("/", locale),
       },
       {
-        name: locale === "en" ? "Industry solutions" : "Рішення для галузей",
-        path: locale === "en" ? "/en/#solutions" : "/#solutions",
+        name: LABELS[locale].solutions,
+        path: `${localizePath("/", locale)}#solutions`,
       },
       { name: title, path },
     ]),
@@ -213,15 +277,6 @@ function buildOutcomeMock(
   return <MockPages tags={tags} />;
 }
 
-/**
- * Returns true if the doc has English-language content. Used to conditionally
- * emit hreflang alternates and to 404 the EN route for industries that haven't
- * been translated yet.
- */
-export function hasEnglishContent(doc: IndustryPageDoc): boolean {
-  return Boolean(doc.title?.en && doc.title.en.trim().length > 0);
-}
-
 export async function fetchIndustryPage(
   slug: string,
 ): Promise<IndustryPageDoc | null> {
@@ -247,12 +302,11 @@ export async function buildIndustryMetadata(
   const title = loc(page.seo?.title, locale) || loc(page.title, locale);
   const description = loc(page.seo?.description, locale);
   const path = pathFor(slug, locale);
-  const enAvailable = hasEnglishContent(page);
 
   const alternates = buildAlternates({
     locale,
     uaPath: `/sites-for/${slug}`,
-    available: enAvailable ? ["en"] : [],
+    available: availableLocales(page),
   });
 
   // OG image fallback: dedicated seo.ogImage → hero device mockup → site default
@@ -302,7 +356,7 @@ function SectionBlock({
           heading={formatLine(loc(section.heading, locale)) ?? ""}
           body={
             <PortableInline
-              value={pickRichText(section.body, section.bodyEn, locale)}
+              value={pickLocalized(section.body, locale)}
             />
           }
           bulletList={section.bulletList?.map((b) => loc(b, locale))}
@@ -366,7 +420,7 @@ function SectionBlock({
             tag: loc(r.tag, locale),
             title: formatLine(loc(r.title, locale)),
             body: (
-              <PortableInline value={pickRichText(r.text, r.textEn, locale)} />
+              <PortableInline value={pickLocalized(r.text, locale)} />
             ),
             stat: {
               n: r.stat?.value ?? "",
@@ -382,7 +436,7 @@ function SectionBlock({
             undefined
           }
           footCtaHref={section.footCta?.href || "#site-audit"}
-          locale={locale === "en" ? "en" : "uk"}
+          locale={locale}
         />
       );
 
@@ -432,7 +486,7 @@ function SectionBlock({
               industry: slug,
             })
           }
-          locale={locale === "en" ? "en" : "uk"}
+          locale={locale}
           layout={section.layout}
         />
       );
@@ -485,8 +539,7 @@ function SectionBlock({
       return (
         <Services
           testimonialEyebrow={
-            loc(section.testimonialEyebrow, locale) ||
-            (locale === "en" ? "CLIENT TESTIMONIAL" : "ВІДГУК КЛІЄНТА")
+            loc(section.testimonialEyebrow, locale) || LABELS[locale].testimonialEyebrow
           }
           testimonialVisual={section.testimonial?.visual ?? undefined}
           testimonialQuote={
@@ -526,7 +579,7 @@ function SectionBlock({
     case "comparisonBlock":
       return (
         <Comparison
-          locale={locale === "en" ? "en" : "uk"}
+          locale={locale}
           tableHeading={formatLine(loc(section.heading, locale)) || undefined}
           tableLabels={
             section.columns
@@ -574,52 +627,17 @@ function SectionBlock({
           contactSubmit={
             loc(section.contact?.submitLabel, locale) || undefined
           }
-          contactFoot={(() => {
-            const phoneDigits = SITE_CONTACT.phoneRaw.replace(/[^\d]/g, "");
-            const linkCls =
-              "text-accent-soft no-underline font-semibold hover:underline";
-            return locale === "en" ? (
-              <>
-                Or message us on WhatsApp:{" "}
-                <a
-                  href={`https://wa.me/${SITE_CONTACT.whatsapp}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={linkCls}
-                >
-                  {SITE_CONTACT.whatsappDisplay}
-                </a>
-              </>
-            ) : (
-              <>
-                Або одразу пишіть у Telegram:{" "}
-                <a
-                  href={SITE_CONTACT.telegram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={linkCls}
-                >
-                  {SITE_CONTACT.telegramHandle}
-                </a>{" "}
-                або у WhatsApp{" "}
-                <a
-                  href={`https://wa.me/${phoneDigits}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={linkCls}
-                >
-                  {SITE_CONTACT.phoneDisplay}
-                </a>
-              </>
-            );
-          })()}
+          contactFoot={CONTACT_FOOT[locale]({
+            phoneDigits: SITE_CONTACT.phoneRaw.replace(/[^\d]/g, ""),
+            linkCls: "text-accent-soft no-underline font-semibold hover:underline",
+          })}
           pricingHeading={
             formatLine(loc(section.pricingHeading, locale)) || undefined
           }
           tiers={section.tiers?.map((t) => ({
             name: formatLine(loc(t.title, locale)) ?? "",
             price: loc(t.price, locale),
-            priceLabel: locale === "en" ? "from" : "від",
+            priceLabel: FROM_LABEL[locale],
             weeks: loc(t.weeks, locale),
             popular: t.isPopular,
             popularLabel: loc(t.popularLabel, locale) || undefined,
@@ -647,7 +665,7 @@ function SectionBlock({
       const faqItems =
         section.items
           ?.map((it) => {
-            const ans = pickRichText(it.answer, it.answerEn, locale);
+            const ans = pickLocalized(it.answer, locale);
             const text = plainPortable(ans);
             const q = loc(it.question, locale);
             if (!q) return null;
@@ -657,7 +675,7 @@ function SectionBlock({
       if (faqItems.length === 0) return null;
       return (
         <FAQ
-          locale={locale === "en" ? "en" : "uk"}
+          locale={locale}
           heading={loc(section.heading, locale) || undefined}
           items={faqItems}
         />
@@ -691,7 +709,7 @@ function SectionBlock({
         <section className="py-16 px-5 bg-bg md:px-12">
           <div className="max-w-container-narrow mx-auto [&_p]:text-[16px] [&_p]:leading-[1.7] [&_p]:text-ink-dim [&_h2]:font-display [&_h2]:text-[clamp(24px,3vw,36px)] [&_h2]:font-bold [&_h2]:text-ink [&_h2]:mb-4 [&_h3]:font-display [&_h3]:font-semibold [&_h3]:text-ink [&_h3]:mb-3">
             <PortableText
-              value={pickRichText(section.content, section.contentEn, locale)}
+              value={pickLocalized(section.content, locale)}
             />
           </div>
         </section>
@@ -713,7 +731,7 @@ export async function IndustryPageView({
 
   if (!page) notFound();
   // EN route 404s if the doc has no English translation
-  if (locale === "en" && !hasEnglishContent(page)) notFound();
+  if (!hasLocaleContent(page, locale)) notFound();
 
   const jsonLd = buildIndustryJsonLd(page, locale);
   const hero = page.hero;

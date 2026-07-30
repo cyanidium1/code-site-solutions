@@ -6,7 +6,8 @@
  * these arrays.
  */
 
-export type LeadFormLocale = "uk" | "en";
+import type { Locale } from "@/constants/locales";
+export type LeadFormLocale = Locale;
 
 export type LeadFormOption = { key: string; label: string };
 

@@ -1,3 +1,4 @@
+import type { Locale } from "@/constants/locales";
 import type * as React from "react";
 import { AppImage } from "@/lib/shared/app-image";
 import { useTranslations } from "next-intl";
@@ -18,7 +19,7 @@ export function LaunchCta({
   heading,
   sub,
 }: {
-  locale?: "uk" | "en";
+  locale?: Locale;
   // Optional per-page copy overrides — fall back to the translated defaults
   // so existing call sites (homepage, comparison pages) stay unchanged.
   heading?: React.ReactNode;

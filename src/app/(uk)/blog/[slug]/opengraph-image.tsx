@@ -1,6 +1,5 @@
-import { sanityFetch } from "@/lib/server/sanity-fetch";
-import { BLOG_POST_BY_SLUG_QUERY } from "@/lib/server/sanity-queries";
-import type { BlogPostDoc } from "@/types/sanity";
+import { fetchBlogPost } from "@/components/blog-post-page/data";
+import { pickLocalized } from "@/lib/shared/pick-localized";
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgCard } from "@/lib/server/og/card";
 
 export const alt = "Code-Site.Art — блог";
@@ -13,12 +12,10 @@ export default async function Image({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = await sanityFetch<BlogPostDoc | null>({
-    query: BLOG_POST_BY_SLUG_QUERY,
-    params: { slug },
-    revalidate: 300,
-    tags: [`blogPost:${slug}`],
-  });
-  const title = post?.metaTitle ?? post?.title ?? "Стаття";
+  const post = await fetchBlogPost(slug, "uk");
+  const title =
+    pickLocalized(post?.metaTitle, "uk") ??
+    pickLocalized(post?.title, "uk") ??
+    "Стаття";
   return renderOgCard({ title, eyebrow: "Блог" });
 }

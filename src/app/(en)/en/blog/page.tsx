@@ -101,8 +101,8 @@ export default async function EnBlogPage({
     tags: ["blogPost"],
   }).catch(() => [] as BlogPostListItem[]);
 
-  // EN listing: only posts that have an EN translation (titleEn + slugEn).
-  const enPosts = posts.filter((p) => p.titleEn && p.slugEn);
+  // EN listing: only posts that have an EN translation (title.en + slugs.en).
+  const enPosts = posts.filter((p) => p.title?.en && p.slugs?.en?.current);
 
   // Pills are built from the EN subset; the color comes from the category doc.
   const pillItems = dedupeCategoryRefs(enPosts, (p) => p.category ?? null, "en");
@@ -146,6 +146,7 @@ export default async function EnBlogPage({
             {filteredEnPosts.length > 0 ? (
               <div className={casesGridClass}>
                 {filteredEnPosts.map((p) => {
+                  const slug = p.slugs?.en?.current ?? "";
                   const date = formatEnDate(p.publishedAt);
                   const reading = p.readingTimeMinutes
                     ? `${p.readingTimeMinutes} min read`
@@ -160,12 +161,12 @@ export default async function EnBlogPage({
                       key={p._id}
                       category={categoryLabel}
                       metrics={metrics}
-                      title={p.titleEn ?? p.slugEn ?? ""}
+                      title={p.title?.en ?? slug}
                       eyebrow={date}
-                      sub={p.ledeEn}
+                      sub={p.lede?.en}
                       coverImage={{ src: cover.image, alt: cover.alt }}
                       coverAspect="wide"
-                      href={`/en/blog/${p.slugEn}`}
+                      href={`/en/blog/${slug}`}
                     />
                   );
                 })}

@@ -5,7 +5,9 @@ import { useState } from "react";
 import { Btn, Modal, ModalBody, ModalFooter, ModalHeader } from "@/components/ui";
 import { AppImage } from "@/lib/shared/app-image";
 
-export type TeamLocale = "uk" | "en";
+import type { Locale } from "@/constants/locales";
+
+export type TeamLocale = Locale;
 
 export type TeamMember = {
   id: string;

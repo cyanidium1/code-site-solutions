@@ -60,7 +60,7 @@ export function LocaleSwitcher() {
   // When the target locale has no counterpart for this pathname, that
   // button is rendered in a disabled state with a "coming soon" tooltip
   // — never silently bounce to the locale's homepage.
-  const comingSoon = "EN version coming soon";
+  const comingSoon = t("comingSoon");
 
   // Close on route change (covers the locale switch we trigger ourselves)
   useEffect(() => {

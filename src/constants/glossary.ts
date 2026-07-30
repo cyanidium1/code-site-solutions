@@ -14,7 +14,7 @@
 import type { Locale } from "@/types/sanity";
 import type { DefinedTerm } from "@/lib/shared/jsonld";
 
-type GlossaryEntry = { uk: DefinedTerm; en: DefinedTerm };
+type GlossaryEntry = Record<Locale, DefinedTerm>;
 
 export const GLOSSARY: Record<string, GlossaryEntry> = {
   lcp: {
@@ -145,8 +145,7 @@ export function glossaryTerms(
   keys: readonly GlossaryKey[],
   locale: Locale,
 ): DefinedTerm[] {
-  const localeKey = locale === "en" ? "en" : "uk";
   return keys
-    .map((k) => GLOSSARY[k]?.[localeKey])
+    .map((k) => GLOSSARY[k]?.[locale])
     .filter((t): t is DefinedTerm => Boolean(t));
 }

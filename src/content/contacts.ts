@@ -1,3 +1,4 @@
+import type { Locale } from "@/constants/locales";
 import type { LucideIcon } from "lucide-react";
 import {
   Send,
@@ -10,7 +11,7 @@ import {
 } from "lucide-react";
 import { SITE_CONTACT } from "@/constants/site";
 
-export type ContactsLocale = "uk" | "en";
+export type ContactsLocale = Locale;
 
 export type ChannelKind =
   | "telegram"

@@ -166,13 +166,15 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
   }
 
   for (const p of blogPosts) {
+    const uaSlug = p.slugs?.[DEFAULT_LOCALE]?.current;
+    if (!uaSlug) continue;
     const modified = p.publishedAt ? new Date(p.publishedAt) : now;
     const localized: Partial<Record<SecondaryLocale, string>> = {};
     for (const l of SECONDARY_LOCALES) {
-      const slug = registry.get(l)?.blogFromUa.get(p.slug);
+      const slug = registry.get(l)?.blogFromUa.get(uaSlug);
       if (slug) localized[l] = absUrl(`/blog/${slug}`, l);
     }
-    push(absUrl(`/blog/${p.slug}`, DEFAULT_LOCALE), localized, {
+    push(absUrl(`/blog/${uaSlug}`, DEFAULT_LOCALE), localized, {
       lastModified: modified,
       changeFrequency: "monthly",
       priority: 0.6,

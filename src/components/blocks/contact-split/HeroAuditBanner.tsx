@@ -4,19 +4,25 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLocale } from "next-intl";
 
+import type { Locale } from "@/constants/locales";
+
+const COPY: Record<Locale, { heading: string; body: string }> = {
+  uk: {
+    heading: "Безкоштовний аудит сайту — за 24 години",
+    body: "Залиште посилання на ваш поточний сайт — повернемось з аудитом за 24 години.",
+  },
+  en: {
+    heading: "Free site audit — within 24 hours",
+    body: "Drop a link to your current site — we'll come back with an audit within 24 hours.",
+  },
+};
+
 function HeroAuditBannerInner() {
   const searchParams = useSearchParams();
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
   if (searchParams?.get("source") !== "hero-audit") return null;
 
-  const heading =
-    locale === "en"
-      ? "Free site audit — within 24 hours"
-      : "Безкоштовний аудит сайту — за 24 години";
-  const body =
-    locale === "en"
-      ? "Drop a link to your current site — we'll come back with an audit within 24 hours."
-      : "Залиште посилання на ваш поточний сайт — повернемось з аудитом за 24 години.";
+  const { heading, body } = COPY[locale];
 
   return (
     <div

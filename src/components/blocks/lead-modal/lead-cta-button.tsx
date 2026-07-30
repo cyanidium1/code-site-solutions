@@ -1,5 +1,7 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
+
 import type { ReactNode } from "react";
 import { useLocale } from "next-intl";
 import { useLeadModal, type OpenLeadModalOptions } from "./index";
@@ -30,7 +32,7 @@ export function LeadCtaButton({
 }: LeadCtaButtonProps) {
   const { open } = useLeadModal();
   const intlLocale = useLocale();
-  const resolvedLocale = locale ?? (intlLocale === "en" ? "en" : "uk");
+  const resolvedLocale = locale ?? ((intlLocale as Locale));
   return (
     <button
       type="button"

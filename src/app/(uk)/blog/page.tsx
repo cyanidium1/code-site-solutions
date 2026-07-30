@@ -144,6 +144,7 @@ export default async function BlogPage({
             {filtered.length > 0 ? (
               <div className={casesGridClass}>
                 {filtered.map((p) => {
+                  const slug = p.slugs?.uk?.current ?? "";
                   const date = formatUkDate(p.publishedAt);
                   const reading = p.readingTimeMinutes
                     ? `${p.readingTimeMinutes} хв читання`
@@ -159,12 +160,12 @@ export default async function BlogPage({
                       key={p._id}
                       category={categoryLabel}
                       metrics={metrics}
-                      title={p.title ?? p.slug}
+                      title={p.title?.uk ?? slug}
                       eyebrow={eyebrow}
-                      sub={p.lede}
+                      sub={p.lede?.uk}
                       coverImage={{ src: cover.image, alt: cover.alt }}
                       coverAspect="wide"
-                      href={`/blog/${p.slug}`}
+                      href={`/blog/${slug}`}
                     />
                   );
                 })}

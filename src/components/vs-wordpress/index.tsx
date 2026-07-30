@@ -1,3 +1,5 @@
+import type { Locale } from "@/constants/locales";
+import { VS_FAQ_HEADING } from "@/content/comparisons/vs-shared";
 import { ArrowRight, CheckCircle2, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
@@ -15,7 +17,7 @@ import {
 import { hpInnerClass, hpLinkClass, hpSectionClass } from "@/components/homepage/shared";
 import { localizePath } from "@/constants/i18n-routes";
 
-export type VsLocale = "uk" | "en";
+export type VsLocale = Locale;
 
 const CONTENT: Record<VsLocale, Content> = {
   uk: VS_WORDPRESS_UK,
@@ -424,11 +426,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
       {/* 09 — FAQ */}
       <FAQ
         locale={locale}
-        heading={
-          locale === "en"
-            ? "What people ask most"
-            : "Що питають найчастіше"
-        }
+        heading={VS_FAQ_HEADING[locale]}
         items={c.faq.items.map<FAQItem>((it) => ({
           q: it.q,
           a: [it.a],

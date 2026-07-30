@@ -105,6 +105,9 @@ export type PortableBlock = {
 
 export type RichTextSimple = PortableBlock[];
 
+/** Localized rich text (localizedRichText object): per-locale block arrays. */
+export type LocalizedRichText = Partial<Record<Locale, RichTextSimple>>;
+
 /* ─── Section block discriminated union ──────────────────────────────────── */
 
 type BlockBase<T extends string> = {
@@ -120,8 +123,7 @@ export type ImageTextSection = BlockBase<"imageTextBlock"> & {
   /** "natural" renders the image at its intrinsic aspect ratio (no 4:3 crop). */
   imageFit?: "cover" | "natural";
   centeredLayout?: "vertical" | "horizontal";
-  body?: RichTextSimple;
-  bodyEn?: RichTextSimple;
+  body?: LocalizedRichText;
   bulletList?: LocalizedString[];
   bulletIcon?: "check" | "cross" | "dot";
   image?: SanityImage | null;
@@ -137,8 +139,7 @@ export type FaqSection = BlockBase<"faqBlock"> & {
   items?: Array<{
     _key?: string;
     question?: LocalizedString;
-    answer?: RichTextSimple;
-    answerEn?: RichTextSimple;
+    answer?: LocalizedRichText;
   }>;
 };
 
@@ -204,8 +205,7 @@ export type ReasonsSection = BlockBase<"reasonsBlock"> & {
     number?: string;
     tag?: LocalizedString;
     title?: LocalizedText;
-    text?: RichTextSimple;
-    textEn?: RichTextSimple;
+    text?: LocalizedRichText;
     stat?: {
       value?: string;
       label?: LocalizedString;
@@ -332,8 +332,7 @@ export type CtaSection = BlockBase<"ctaBlock"> & {
 };
 
 export type RichTextSection = BlockBase<"richTextBlock"> & {
-  content?: RichTextSimple;
-  contentEn?: RichTextSimple;
+  content?: LocalizedRichText;
 };
 
 export type QuoteSection = BlockBase<"quoteBlock"> & {
@@ -509,15 +508,22 @@ export type HomepageCasesData = {
   "real-estate": CaseStudyRef[];
 };
 
+/** Per-locale slugs (localizedSlug object) — distinct URL per locale. */
+export type LocalizedSlugs = Partial<Record<Locale, { current?: string }>>;
+
 export type BlogPostRef = {
   _id: string;
-  slug: string;
-  /** EN-locale slug, present only when the post has an EN translation. */
-  slugEn?: string;
-  title?: string;
+  slugs?: LocalizedSlugs;
+  title?: LocalizedString;
   publishedAt?: string;
-  excerpt?: string;
-  coverImage?: SanityImage | null;
+  lede?: LocalizedString;
+  cover?: SanityImage | null;
+  coverImage?: BlogCover | null;
+  category?: {
+    slug: string;
+    name?: LocalizedString;
+    color?: string;
+  } | null;
   status?: "draft" | "published";
 };
 
@@ -592,8 +598,8 @@ export type BlogAuthor = {
 
 export type BlogFaqItem = {
   _key?: string;
-  question?: string;
-  answer?: string;
+  question?: LocalizedString;
+  answer?: LocalizedString;
 };
 
 /** Legacy static-asset cover — file lives under /public/blog/. Fallback
@@ -608,18 +614,10 @@ export type BlogCover = {
 
 export type BlogPostListItem = {
   _id: string;
-  slug: string;
-  /** EN-locale slug, present only when the post has an EN translation. */
-  slugEn?: string;
-  title?: string;
-  /** EN translation of `title`. Absent when no EN translation exists. */
-  titleEn?: string;
-  eyebrow?: string;
-  /** EN translation of `eyebrow`. */
-  eyebrowEn?: string;
-  lede?: string;
-  /** EN translation of `lede`. */
-  ledeEn?: string;
+  slugs?: LocalizedSlugs;
+  title?: LocalizedString;
+  eyebrow?: LocalizedString;
+  lede?: LocalizedString;
   category?: {
     slug: string;
     name?: LocalizedString;
@@ -636,24 +634,15 @@ export type BlogPostListItem = {
 
 export type BlogPostDoc = {
   _id: string;
-  slug: string;
-  /** EN-locale slug. Different from `slug` so EN posts can have natural
-   *  English URLs (e.g. `website-cost-2026-breakdown` vs the UA original
-   *  `skilky-koshtuye-sayt-2026`). */
-  slugEn?: string;
-  title?: string;
-  /** EN shadow fields — Sprint 2BC. Optional: if absent on the doc,
-   *  /en/blog/<slug> returns 404 (no UA fallback — that would defeat
-   *  the locale). */
-  titleEn?: string;
-  metaTitle?: string;
-  metaTitleEn?: string;
-  metaDescription?: string;
-  metaDescriptionEn?: string;
-  eyebrow?: string;
-  eyebrowEn?: string;
-  lede?: string;
-  ledeEn?: string;
+  /** Per-locale slugs — distinct URLs (e.g. uk `skilky-koshtuye-sayt-2026`,
+   *  en `website-cost-2026-breakdown`). A locale's blog page 404s when its
+   *  slug/title/body members are missing (no cross-locale fallback). */
+  slugs?: LocalizedSlugs;
+  title?: LocalizedString;
+  metaTitle?: LocalizedString;
+  metaDescription?: LocalizedString;
+  eyebrow?: LocalizedString;
+  lede?: LocalizedString;
   category?: {
     slug: string;
     name?: LocalizedString;
@@ -668,16 +657,12 @@ export type BlogPostDoc = {
   coverImage?: BlogCover | null;
   ogImage?: SanityAsset | null;
   author?: BlogAuthor;
-  body?: BlogBody;
-  /** EN portable-text body. Same custom blocks as `body` (tldrBox,
-   *  ctaCallout, blogTable, blogImage, blogVideo). */
-  bodyEn?: BlogBody;
-  /** Optional FAQ section heading override (default «Часті питання»). */
-  faqHeading?: string;
-  /** Optional FAQ section heading override (default "FAQ"). */
-  faqHeadingEn?: string;
+  /** Per-locale portable-text bodies (tldrBox, ctaCallout, blogTable,
+   *  blogImage, blogVideo custom blocks). */
+  body?: Partial<Record<Locale, BlogBody>>;
+  /** Optional FAQ section heading override per locale. */
+  faqHeading?: LocalizedString;
   faq?: BlogFaqItem[];
-  faqEn?: BlogFaqItem[];
   relatedPostSlugs?: string[];
 };
 

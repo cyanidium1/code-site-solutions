@@ -1,3 +1,4 @@
+import type { Locale } from "@/constants/locales";
 import type * as React from "react";
 import { AppImage } from "@/lib/shared/app-image";
 import {
@@ -56,6 +57,7 @@ const IMG = {
   launch: UNSPLASH("photo-1680992046626-418f7e910589"),
   support: UNSPLASH("photo-1655204903983-73007f15cb3e"),
 };
+
 
 const UK: Copy = {
   eyebrow: "ЩО ВИ ОТРИМУЄТЕ",
@@ -201,6 +203,8 @@ const smallBase = "group/vs hp-vs-card-sm";
 const accentIconBox =
   "relative z-[1] inline-flex items-center justify-center rounded-2xl border border-[oklch(from_var(--card-accent)_l_c_h_/_0.35)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.14)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)]";
 
+const COPY_BY_LOCALE: Record<Locale, Copy> = { uk: UK, en: EN };
+
 export function ValueStack({
   locale = "uk",
   eyebrow,
@@ -212,7 +216,7 @@ export function ValueStack({
   heading?: React.ReactNode;
   sub?: React.ReactNode;
 } = {}) {
-  const c = locale === "en" ? EN : UK;
+  const c = COPY_BY_LOCALE[locale];
 
   return (
     <section className={hpSectionClass} id="value">

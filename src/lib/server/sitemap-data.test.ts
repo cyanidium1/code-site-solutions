@@ -71,14 +71,13 @@ test("blog uses publishedAt for lastModified and gates EN on registry pair", () 
   input.blogPosts = [
     {
       _id: "b1",
-      slug: "ua-only",
+      slugs: { uk: { current: "ua-only" } },
       publishedAt: "2025-05-01T00:00:00.000Z",
     } as BlogPostListItem,
     {
       _id: "b2",
-      slug: "pair",
-      slugEn: "pair-en",
-      titleEn: "Pair",
+      slugs: { uk: { current: "pair" }, en: { current: "pair-en" } },
+      title: { uk: "Пара", en: "Pair" },
       publishedAt: "2025-06-01T00:00:00.000Z",
     } as BlogPostListItem,
   ];

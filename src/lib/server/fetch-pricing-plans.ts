@@ -4,10 +4,14 @@ import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { PRICING_PLANS_QUERY } from "@/lib/server/sanity-queries";
 import { loc } from "@/lib/shared/sanity-locale";
 import {
+  FROM_LABEL,
+  LOCALE_CURRENCY,
   formatPrice,
   type PriceCurrency,
   type PriceLocale,
 } from "@/lib/shared/format-price";
+import { DEFAULT_LOCALE } from "@/constants/locales";
+import { localizePath } from "@/constants/i18n-routes";
 import type { TierProps } from "@/types/pricing";
 import type { PricingPlanDoc } from "@/types/sanity";
 import {
@@ -29,11 +33,8 @@ export type ResolvedPlan = {
   tier: TierProps;
 };
 
-const FROM_LABEL: Record<PriceLocale, string> = { uk: "від", en: "from" };
-
 function defaultHref(planKey: string, locale: PriceLocale): string {
-  const prefix = locale === "en" ? "/en" : "";
-  return `${prefix}/contacts?tier=${planKey}`;
+  return `${localizePath("/contacts", locale)}?tier=${planKey}`;
 }
 
 /**
@@ -56,9 +57,12 @@ export async function fetchPricingPlans(
     .filter((d) => typeof d.priceFrom === "number" && loc(d.name, locale))
     .map<ResolvedPlan>((d) => {
       const key = d.planKey || d._id;
-      // EN targets the UK market → GBP (£). UA keeps the doc currency ($).
+      // The default locale respects the doc's own currency ($); secondary
+      // locales use their market currency (en → GBP per LOCALE_CURRENCY).
       const currency: PriceCurrency =
-        locale === "en" ? "GBP" : ((d.currency ?? "USD") as PriceCurrency);
+        locale === DEFAULT_LOCALE
+          ? ((d.currency ?? "USD") as PriceCurrency)
+          : LOCALE_CURRENCY[locale];
       const includesItems = (d.includes ?? [])
         .map((s) => loc(s, locale))
         .filter(Boolean);

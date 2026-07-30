@@ -1,3 +1,4 @@
+import type { Locale } from "@/constants/locales";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import type { SanityImage } from "@/types/sanity";
@@ -93,10 +94,10 @@ const MOCK_FORM_STRINGS = {
 export function MockBookingForm({
   locale = "uk",
 }: {
-  locale?: string;
+  locale?: Locale;
 }) {
   const s =
-    locale === "en" ? MOCK_FORM_STRINGS.en : MOCK_FORM_STRINGS.uk;
+    MOCK_FORM_STRINGS[locale];
   return (
     <div className={VISUAL_SHELL}>
       <div className={VISUAL_CONTENT}>

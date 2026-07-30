@@ -1,3 +1,5 @@
+import type { Locale } from "@/constants/locales";
+import { VS_FAQ_HEADING } from "@/content/comparisons/vs-shared";
 import { AlertTriangle, CheckCircle2, Target, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
@@ -16,7 +18,7 @@ import {
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { localizePath } from "@/constants/i18n-routes";
 
-export type VcLocale = "uk" | "en";
+export type VcLocale = Locale;
 
 const CONTENT: Record<VcLocale, Content> = {
   uk: VS_CONSTRUCTORS_UK,
@@ -460,9 +462,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       {/* 10 — FAQ */}
       <FAQ
         locale={locale}
-        heading={
-          locale === "en" ? "What people ask most" : "Що питають найчастіше"
-        }
+        heading={VS_FAQ_HEADING[locale]}
         items={c.faq.items.map<FAQItem>((it) => ({
           q: it.q,
           a: [it.a],

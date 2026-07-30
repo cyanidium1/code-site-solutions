@@ -1,3 +1,4 @@
+import type { Locale } from "@/constants/locales";
 import type * as React from "react";
 import { Gauge, Zap, Check, type LucideIcon } from "lucide-react";
 
@@ -46,6 +47,7 @@ const EN: ProofCopy = {
   ),
 };
 
+
 const UK: ProofCopy = {
   stats: [
     {
@@ -80,8 +82,10 @@ const UK: ProofCopy = {
   ),
 };
 
+const COPY_BY_LOCALE: Record<Locale, ProofCopy> = { uk: UK, en: EN };
+
 export function PerformanceProof({ locale = "uk" }: { locale?: PriceLocale } = {}) {
-  const c = locale === "en" ? EN : UK;
+  const c = COPY_BY_LOCALE[locale];
   return (
     <section className={hpSectionClass} id="performance">
       <div className={hpInnerClass}>

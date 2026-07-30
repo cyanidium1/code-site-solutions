@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
 import Link from "next/link";
 import type * as React from "react";
 import { useState } from "react";
@@ -12,6 +13,18 @@ import { H2, btnClass } from "@/components/ui";
 import { Tier } from "./tier";
 import { TableRow } from "./table-row";
 import { CmpTable, CmpThead, CmpTh, CmpPricingGrid } from "./cmp-table";
+
+/** Contact-form status strings, per locale. */
+const FORM_STATUS: Record<Locale, { success: string; error: string }> = {
+  uk: {
+    success: "Дякуємо! Відповімо найближчим часом",
+    error: "Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram.",
+  },
+  en: {
+    success: "Thanks! We'll reply shortly",
+    error: "Couldn't send. Try again or message us on WhatsApp.",
+  },
+};
 
 const DEFAULT_TABLE_LABELS = ["Параметр", "Шаблон WP", "Wix", "Кодовий сайт"];
 const DEFAULT_ROWS: TableRowData[] = [
@@ -186,7 +199,7 @@ export function Comparison({
   pricingHeading: React.ReactNode;
   tiers: TierProps[];
   contactSource: string;
-  locale: "uk" | "en";
+  locale: Locale;
 }> = {}) {
   const [form, setForm] = useState({ name: "", channel: "", brief: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -313,16 +326,12 @@ export function Comparison({
                 {status === "submitting"
                   ? "…"
                   : status === "success"
-                    ? locale === "en"
-                      ? "Thanks! We'll reply shortly"
-                      : "Дякуємо! Відповімо найближчим часом"
+                    ? FORM_STATUS[locale].success
                     : contactSubmit}
               </button>
               {status === "error" ? (
                 <div role="alert" className="text-[12px] text-[oklch(0.78_0.16_25)]">
-                  {locale === "en"
-                    ? "Couldn't send. Try again or message us on WhatsApp."
-                    : "Не вдалося надіслати. Спробуйте ще раз або напишіть у Telegram."}
+                  {FORM_STATUS[locale].error}
                 </div>
               ) : null}
             </form>
