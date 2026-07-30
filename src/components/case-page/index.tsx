@@ -36,6 +36,7 @@ import type {
   TestimonialSection,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
+import { hasLocaleContent } from "@/lib/shared/locale-content";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import {
@@ -68,7 +69,6 @@ import {
   buildCaseStudyMetadata,
   fetchCaseStudies,
   fetchCaseStudy,
-  hasEnglishCaseContent,
   pathFor,
 } from "./data";
 
@@ -76,7 +76,6 @@ export {
   buildCaseStudyMetadata,
   fetchCaseStudies,
   fetchCaseStudy,
-  hasEnglishCaseContent,
 };
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────── */
@@ -416,7 +415,7 @@ export async function CasePageView({
 }) {
   const doc = await fetchCaseStudy(slug);
   if (!doc) notFound();
-  if (locale === "en" && !hasEnglishCaseContent(doc)) notFound();
+  if (!hasLocaleContent(doc, locale)) notFound();
 
   const [allCases, registry] = await Promise.all([
     fetchCaseStudies(),

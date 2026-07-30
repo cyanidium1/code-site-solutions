@@ -57,6 +57,7 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { glossaryTerms } from "@/constants/glossary";
 import { localizePath } from "@/constants/i18n-routes";
+import { availableLocales, hasLocaleContent } from "@/lib/shared/locale-content";
 import { buildHrefWithParams } from "@/lib/shared/update-search-params";
 
 function findSection<T extends IndustrySection>(
@@ -67,7 +68,7 @@ function findSection<T extends IndustrySection>(
 }
 
 function pathFor(slug: string, locale: Locale): string {
-  return locale === "en" ? `/en/sites-for/${slug}` : `/sites-for/${slug}`;
+  return localizePath(`/sites-for/${slug}`, locale);
 }
 
 /** Glossary keys to attach as DefinedTerm nodes on every industry page. */
@@ -213,15 +214,6 @@ function buildOutcomeMock(
   return <MockPages tags={tags} />;
 }
 
-/**
- * Returns true if the doc has English-language content. Used to conditionally
- * emit hreflang alternates and to 404 the EN route for industries that haven't
- * been translated yet.
- */
-export function hasEnglishContent(doc: IndustryPageDoc): boolean {
-  return Boolean(doc.title?.en && doc.title.en.trim().length > 0);
-}
-
 export async function fetchIndustryPage(
   slug: string,
 ): Promise<IndustryPageDoc | null> {
@@ -247,12 +239,11 @@ export async function buildIndustryMetadata(
   const title = loc(page.seo?.title, locale) || loc(page.title, locale);
   const description = loc(page.seo?.description, locale);
   const path = pathFor(slug, locale);
-  const enAvailable = hasEnglishContent(page);
 
   const alternates = buildAlternates({
     locale,
     uaPath: `/sites-for/${slug}`,
-    available: enAvailable ? ["en"] : [],
+    available: availableLocales(page),
   });
 
   // OG image fallback: dedicated seo.ogImage → hero device mockup → site default
@@ -713,7 +704,7 @@ export async function IndustryPageView({
 
   if (!page) notFound();
   // EN route 404s if the doc has no English translation
-  if (locale === "en" && !hasEnglishContent(page)) notFound();
+  if (!hasLocaleContent(page, locale)) notFound();
 
   const jsonLd = buildIndustryJsonLd(page, locale);
   const hero = page.hero;

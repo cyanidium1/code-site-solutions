@@ -5,8 +5,8 @@ import {
   buildCaseStudyMetadata,
   fetchCaseStudies,
   fetchCaseStudy,
-  hasEnglishCaseContent,
 } from "@/components/case-page";
+import { hasLocaleContent } from "@/lib/shared/locale-content";
 
 export const dynamicParams = true;
 export const revalidate = 3600;
@@ -17,7 +17,7 @@ export async function generateStaticParams() {
   const checked = await Promise.all(
     cases.map(async (c) => {
       const doc = await fetchCaseStudy(c.slug);
-      return doc && hasEnglishCaseContent(doc) ? { slug: c.slug } : null;
+      return doc && hasLocaleContent(doc, "en") ? { slug: c.slug } : null;
     }),
   );
   return checked.filter((c): c is { slug: string } => c !== null);

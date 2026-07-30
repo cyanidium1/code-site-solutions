@@ -18,17 +18,13 @@ import {
 } from "@/lib/server/sanity-queries";
 import type { CaseStudyDoc, CaseStudyRef, Locale } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
+import { localizePath } from "@/constants/i18n-routes";
+import { availableLocales, hasLocaleContent } from "@/lib/shared/locale-content";
 
 /* ─── locale / path helpers ───────────────────────────────────────────── */
 
 export function pathFor(slug: string, locale: Locale): string {
-  return locale === "en"
-    ? `/en/portfolio/${slug}`
-    : `/portfolio/${slug}`;
-}
-
-export function hasEnglishCaseContent(doc: CaseStudyDoc): boolean {
-  return Boolean(doc.title?.en && doc.title.en.trim().length > 0);
+  return localizePath(`/portfolio/${slug}`, locale);
 }
 
 /* ─── data fetchers ───────────────────────────────────────────────────── */
@@ -67,12 +63,11 @@ export async function buildCaseStudyMetadata(
     loc(doc.seo?.title, locale) || loc(doc.title, locale);
   const description = loc(doc.seo?.description, locale);
   const path = pathFor(slug, locale);
-  const enAvailable = hasEnglishCaseContent(doc);
 
   const alternates = buildAlternates({
     locale,
     uaPath: `/portfolio/${slug}`,
-    available: enAvailable ? ["en"] : [],
+    available: availableLocales(doc),
   });
 
   // OG image fallback: dedicated seo.ogImage → hero image → cover image →
