@@ -19,7 +19,7 @@ import {
 import type { CaseStudyDoc, CaseStudyRef, Locale } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import { localizePath } from "@/constants/i18n-routes";
-import { availableLocales, hasLocaleContent } from "@/lib/shared/locale-content";
+import { availableLocales } from "@/lib/shared/locale-content";
 
 /* ─── locale / path helpers ───────────────────────────────────────────── */
 
