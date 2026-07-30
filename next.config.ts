@@ -5,6 +5,12 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // The per-slug OG card (src/lib/server/og/card.tsx) reads its Cyrillic
+  // TTFs from disk at runtime; make sure every opengraph-image route's
+  // serverless bundle ships them.
+  outputFileTracingIncludes: {
+    "/**/opengraph-image*": ["./src/lib/server/og/fonts/*"],
+  },
   async redirects() {
     // Blog relaunch 2026: the 3 original posts were replaced by 3 new
     // bilingual posts on new slugs. The contract post was retired with no

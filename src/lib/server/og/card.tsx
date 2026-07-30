@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 // Per-slug social card. Unlike the site-wide /opengraph-image (which relies on
@@ -8,15 +9,23 @@ import { ImageResponse } from "next/og";
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
-// Read each weight once and reuse across renders. nft traces the
-// `new URL(..., import.meta.url)` reference and bundles the font files.
+// Read each weight once and reuse across renders.
+//
+// Do NOT use `new URL("./fonts/…", import.meta.url)` here: webpack rewrites
+// import.meta.url into a bundler asset URL that Node's readFile rejects at
+// runtime (ERR_INVALID_ARG_TYPE) — which silently 500'd every per-slug OG
+// route until 2026-07-30. A literal process.cwd() join works in dev and is
+// statically traceable; `outputFileTracingIncludes` in next.config.ts
+// guarantees the TTFs ship with the serverless bundle.
+const FONT_DIR = join(process.cwd(), "src", "lib", "server", "og", "fonts");
+
 let fontsPromise: Promise<{ bold: Buffer; regular: Buffer }> | null = null;
 
 function loadFonts() {
   fontsPromise ??= (async () => {
     const [bold, regular] = await Promise.all([
-      readFile(new URL("./fonts/FiraSans-Bold.ttf", import.meta.url)),
-      readFile(new URL("./fonts/FiraSans-Regular.ttf", import.meta.url)),
+      readFile(join(FONT_DIR, "FiraSans-Bold.ttf")),
+      readFile(join(FONT_DIR, "FiraSans-Regular.ttf")),
     ]);
     return { bold, regular };
   })();
