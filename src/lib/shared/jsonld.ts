@@ -7,11 +7,11 @@
  * a single node from Google's perspective, while per-page nodes (WebPage,
  * BreadcrumbList, Article, Service, FAQPage…) live on the pages that emit them.
  *
- * Locale rule: `inLanguage` uses BCP-47 (`uk-UA` / `en-GB`). The legacy `ru`
- * Locale value falls back to `uk-UA` since RU content isn't actively published.
+ * Locale rule: `inLanguage` uses BCP-47 from LOCALE_CONFIG[locale].bcp47.
  */
 
 import type { Locale } from "@/types/sanity";
+import { LOCALE_CONFIG } from "@/constants/locales";
 import {
   ORG_ID,
   SITE_CONTACT,
@@ -26,15 +26,18 @@ export type JsonLdNode = Record<string, unknown>;
 export type BreadcrumbItem = { name: string; path: string };
 
 function langTag(locale: Locale): string {
-  return locale === "en" ? "en-GB" : "uk-UA";
+  return LOCALE_CONFIG[locale].bcp47;
 }
 
 function homeUrlFor(locale: Locale): string {
-  return locale === "en" ? `${SITE_ORIGIN}/en` : SITE_ORIGIN;
+  return `${SITE_ORIGIN}${LOCALE_CONFIG[locale].urlPrefix}`;
 }
 
 function websiteIdFor(locale: Locale): string {
-  return locale === "en" ? `${SITE_ORIGIN}/en#website` : WEBSITE_ID;
+  // Default locale keeps the canonical WEBSITE_ID ("/#website"); secondary
+  // locales get their prefix-scoped node id.
+  const prefix = LOCALE_CONFIG[locale].urlPrefix;
+  return prefix ? `${SITE_ORIGIN}${prefix}#website` : WEBSITE_ID;
 }
 
 /* ─── WebPage ─────────────────────────────────────────────────────────────── */
@@ -192,7 +195,7 @@ export function organizationNode(): JsonLdNode {
 
 export type DefinedTerm = { name: string; description: string };
 
-const GLOSSARY_SET_NAME: Record<"uk" | "en", string> = {
+const GLOSSARY_SET_NAME: Record<Locale, string> = {
   uk: "Глосарій Code-Site.Art",
   en: "Code-Site.Art Glossary",
 };
@@ -201,8 +204,7 @@ export function definedTermNodes(
   terms: DefinedTerm[],
   locale: Locale,
 ): JsonLdNode[] {
-  const setKey = locale === "en" ? "en" : "uk";
-  const setName = GLOSSARY_SET_NAME[setKey];
+  const setName = GLOSSARY_SET_NAME[locale];
   return terms.map((t) => ({
     "@type": "DefinedTerm",
     name: t.name,

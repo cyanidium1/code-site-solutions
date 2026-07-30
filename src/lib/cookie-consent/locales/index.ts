@@ -1,9 +1,19 @@
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/constants/locales";
+
 import { consentCopyEn, type ConsentCopy } from "./en/consent";
 import { consentCopyUk } from "./uk/consent";
 
 export type { ConsentCopy };
 
-/** Locale → copy, English fallback for unknown locales. */
+const COPY: Record<Locale, ConsentCopy> = {
+  uk: consentCopyUk,
+  en: consentCopyEn,
+};
+
+/** Locale → copy; default-locale copy for unknown locale strings. */
 export function getConsentCopy(locale: string): ConsentCopy {
-  return locale === "uk" ? consentCopyUk : consentCopyEn;
+  const l = (LOCALES as readonly string[]).includes(locale)
+    ? (locale as Locale)
+    : DEFAULT_LOCALE;
+  return COPY[l];
 }

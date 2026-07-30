@@ -1,4 +1,6 @@
 import type { ConsentChoices, GcmSignal, TogglableCategory } from "./types";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/constants/locales";
+import { localizePath } from "@/constants/i18n-routes";
 
 /**
  * Project-specific tuning. This is the ONLY file to edit when reusing the
@@ -41,5 +43,8 @@ export const CONSENT_UPDATE_EVENT = "cs_consent_update";
 
 /** Localized cookie-policy URL the banner and preferences link to. */
 export function consentPolicyPath(locale: string): string {
-  return locale === "en" ? "/en/cookies" : "/cookies";
+  const l = (LOCALES as readonly string[]).includes(locale)
+    ? (locale as Locale)
+    : DEFAULT_LOCALE;
+  return localizePath("/cookies", l);
 }

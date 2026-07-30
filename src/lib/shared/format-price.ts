@@ -21,14 +21,21 @@ const CURRENCY_SYMBOL: Record<PriceCurrency, string> = {
 };
 
 /** Market currency per locale: EN targets the UK (£), UA stays on $. */
-const LOCALE_CURRENCY: Record<PriceLocale, PriceCurrency> = {
+export const LOCALE_CURRENCY: Record<PriceLocale, PriceCurrency> = {
   uk: "USD",
   en: "GBP",
 };
 
-const FROM_LABEL: Record<PriceLocale, string> = {
+/** "from"/"від" range-prefix word per locale. */
+export const FROM_LABEL: Record<PriceLocale, string> = {
   uk: "від",
   en: "from",
+};
+
+/** Thousands separator per locale (NBSP for UA, comma for EN). */
+const GROUP_SEP: Record<PriceLocale, string> = {
+  uk: " ",
+  en: ",",
 };
 
 export interface FormatPriceOptions {
@@ -45,7 +52,7 @@ export function formatPrice(amount: number, opts: FormatPriceOptions): string {
   const whole = Math.round(amount);
 
   const symbol = CURRENCY_SYMBOL[currency];
-  const groupSep = locale === "uk" ? " " : ",";
+  const groupSep = GROUP_SEP[locale];
   const grouped = whole
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, groupSep);

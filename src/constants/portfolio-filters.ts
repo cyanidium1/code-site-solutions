@@ -57,13 +57,9 @@ function lowerFirst(s: string): string {
  * lower-cased at the front to sit cleanly inside the sentence.
  */
 export const INDUSTRY_CTA_LABEL_BY_LOCALE: Record<
-  "uk" | "en",
+  Locale,
   (industryLabel: string) => string
 > = {
   uk: (label) => `Дізнатися більше про ${lowerFirst(label)}`,
   en: (label) => `Learn more about ${lowerFirst(label)}`,
 };
-
-export function localeFromLocaleType(locale: Locale): "uk" | "en" {
-  return locale === "en" ? "en" : "uk";
-}
