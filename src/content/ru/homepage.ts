@@ -176,11 +176,7 @@ export function buildRuHomepageFaq(
   ];
 }
 
-/**
- * Homepage industry cards. Hrefs point at the UA industry pages until the
- * CMS gets ru content (title.ru) — then flip to /ru/sites-for/<slug>.
- * TODO(ru-translation): switch hrefs once industry docs carry ru.
- */
+/** Homepage industry cards — industry docs carry ru since 2026-07-30. */
 export const RU_INDUSTRIES: Industry[] = [
   {
     icon: Stethoscope,
@@ -188,7 +184,7 @@ export const RU_INDUSTRIES: Industry[] = [
     description: "Сайты для клиник, стоматологий, диагностических центров",
     tags: ["МИС", "GDPR", "Онлайн-запись"],
     price: "От $3 500 · 4–10 недель",
-    href: "/sites-for/medicine",
+    href: "/ru/sites-for/medicine",
   },
   {
     icon: Building,
@@ -196,7 +192,7 @@ export const RU_INDUSTRIES: Industry[] = [
     description: "Сайты для строительных и ремонтных компаний",
     tags: ["CRM", "Калькулятор", "Локальное SEO"],
     price: "От $3 500 · 4–8 недель",
-    href: "/sites-for/renovation",
+    href: "/ru/sites-for/renovation",
   },
   {
     icon: Scale,
@@ -204,7 +200,7 @@ export const RU_INDUSTRIES: Industry[] = [
     description: "Сайты для юридических фирм, адвокатских бюро, частных практик",
     tags: ["Clio", "DocuSign", "Онлайн-консультации"],
     price: "От $3 500 · 4–8 недель",
-    href: "/sites-for/legal",
+    href: "/ru/sites-for/legal",
   },
   {
     icon: Calculator,
@@ -212,7 +208,7 @@ export const RU_INDUSTRIES: Industry[] = [
     description: "Сайты для бухгалтерских фирм, финансовых советников, трейдинга",
     tags: ["Xero", "Stripe", "1С"],
     price: "От $3 500 · 4–8 недель",
-    href: "/sites-for/finance",
+    href: "/ru/sites-for/finance",
   },
   {
     icon: ShoppingCart,
@@ -220,7 +216,7 @@ export const RU_INDUSTRIES: Industry[] = [
     description: "Интернет-магазины, маркетплейсы, B2B-каталоги",
     tags: ["Stripe", "LiqPay", "Нова пошта"],
     price: "От $3 000 · 6–10 недель",
-    href: "/sites-for/ecommerce",
+    href: "/ru/sites-for/ecommerce",
   },
   {
     icon: Car,
@@ -228,7 +224,7 @@ export const RU_INDUSTRIES: Industry[] = [
     description: "Сайты для автоимпортёров, автосалонов, СТО и автосервисов",
     tags: ["Аукционы", "PDF-счёт", "Мультиязычность"],
     price: "От $3 000 · 6–10 недель",
-    href: "/sites-for/auto",
+    href: "/ru/sites-for/auto",
   },
   {
     icon: Home,
@@ -236,7 +232,7 @@ export const RU_INDUSTRIES: Industry[] = [
     description: "Сайты для агентств недвижимости, застройщиков, частных объявлений",
     tags: ["Каталог", "Карта", "Ипотека"],
     price: "От $3 500 · 4–8 недель",
-    href: "/sites-for/real-estate",
+    href: "/ru/sites-for/real-estate",
   },
   {
     icon: GraduationCap,
@@ -244,6 +240,6 @@ export const RU_INDUSTRIES: Industry[] = [
     description: "Сайты для онлайн-школ, курсов, продуктовых лендингов",
     tags: ["LMS", "Оплата", "Вебинары"],
     price: "От $1 500 · 1–4 недели",
-    href: "/sites-for/courses",
+    href: "/ru/sites-for/courses",
   },
 ];
