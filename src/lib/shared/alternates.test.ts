@@ -6,7 +6,12 @@ import { buildAlternates } from "./alternates";
 test("default-locale page with all secondary locales available", () => {
   assert.deepEqual(buildAlternates({ locale: "uk", uaPath: "/about" }), {
     canonical: "/about",
-    languages: { uk: "/about", "en-GB": "/en/about", "x-default": "/about" },
+    languages: {
+      uk: "/about",
+      "en-GB": "/en/about",
+      ru: "/ru/about",
+      "x-default": "/about",
+    },
   });
 });
 
