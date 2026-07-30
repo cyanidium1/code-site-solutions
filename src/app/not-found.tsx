@@ -14,7 +14,8 @@ export default function NotFound() {
           </p>
           <h1 className="text-2xl font-bold">Сторінку не знайдено</h1>
           <p className="text-ink-dim max-w-md">
-            Схоже, такої сторінки немає або її перенесли. Page not found.
+            Схоже, такої сторінки немає або її перенесли. Страница не найдена.
+            Page not found.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
@@ -28,6 +29,12 @@ export default function NotFound() {
               className="rounded-full border border-line px-6 py-3 font-medium text-ink-dim"
             >
               Home (EN)
+            </Link>
+            <Link
+              href="/ru"
+              className="rounded-full border border-line px-6 py-3 font-medium text-ink-dim"
+            >
+              На главную (RU)
             </Link>
           </div>
         </main>

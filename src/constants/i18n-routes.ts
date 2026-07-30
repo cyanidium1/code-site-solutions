@@ -32,6 +32,7 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     "/contacts",
     "/portfolio",
     "/blog",
+    "/cookies",
   ]),
   // RU phase-1 surface: homepage (implicit) + blog + contacts. Grows as
   // content/ru pages ship (about, process, pricing, calculator, vs-*).
@@ -121,6 +122,19 @@ export function resolveServiceHref(
   return hasLocaleIndustry(slug, locale, registry)
     ? localizePath(uaHref, locale)
     : `${LOCALE_CONFIG[locale].urlPrefix}#solutions`;
+}
+
+/**
+ * Resolve a top-level UA href (`/about`, `/pricing`, `/vs-wordpress`, …) to
+ * its locale-appropriate target: the locale-prefixed path when that root is
+ * localized for the target locale (per `LOCALIZED_ROOTS`), otherwise the
+ * bare UA path. Chrome (header/footer) must use this instead of a raw
+ * `localizePath` so locales with a partial surface (RU phase-1) fall back
+ * to the UA page instead of linking to a 404.
+ */
+export function resolveRootHref(uaPath: string, locale: Locale): string {
+  if (locale === DEFAULT_LOCALE) return uaPath;
+  return LOCALIZED_ROOTS[locale].has(uaPath) ? localizePath(uaPath, locale) : uaPath;
 }
 
 /**

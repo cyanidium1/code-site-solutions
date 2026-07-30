@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { localizePath, resolveLocaleAlternate } from "./i18n-routes";
+import { localizePath, resolveLocaleAlternate, resolveRootHref } from "./i18n-routes";
 import { DEFAULT_LOCALE, LOCALES, localeFromPathname, toCanonicalPath } from "./locales";
 import { FALLBACK_REGISTRY } from "@/lib/shared/i18n-registry-types";
 
@@ -30,6 +30,22 @@ test("localizePath prefixes secondary locales only", () => {
   assert.equal(localizePath("/about", "en"), "/en/about");
   assert.equal(localizePath("/about", "uk"), "/about");
   assert.equal(localizePath("/", "en"), "/en");
+});
+
+// Regression: header/footer chrome once ran every root through a raw
+// localizePath, emitting /ru/about, /ru/pricing, /ru/vs-* … on RU pages —
+// all 404s while the RU surface is partial. resolveRootHref falls back to
+// the UA page for roots outside LOCALIZED_ROOTS[locale].
+test("resolveRootHref localizes only roots the locale actually has", () => {
+  assert.equal(resolveRootHref("/blog", "ru"), "/ru/blog");
+  assert.equal(resolveRootHref("/contacts", "ru"), "/ru/contacts");
+  assert.equal(resolveRootHref("/about", "ru"), "/about");
+  assert.equal(resolveRootHref("/pricing", "ru"), "/pricing");
+  assert.equal(resolveRootHref("/portfolio", "ru"), "/portfolio");
+  assert.equal(resolveRootHref("/vs-wordpress", "ru"), "/vs-wordpress");
+  assert.equal(resolveRootHref("/about", "en"), "/en/about");
+  assert.equal(resolveRootHref("/cookies", "en"), "/en/cookies");
+  assert.equal(resolveRootHref("/about", "uk"), "/about");
 });
 
 test("resolveLocaleAlternate returns an entry for every configured locale", () => {

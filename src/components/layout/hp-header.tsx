@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { localizePath, resolveServiceHref } from "@/constants/i18n-routes";
+import { localizePath, resolveRootHref, resolveServiceHref } from "@/constants/i18n-routes";
 import type { Locale } from "@/constants/locales";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
@@ -84,8 +84,10 @@ export function HpHeader() {
 
   const closeDd = () => ddRef.current?.removeAttribute("open");
 
+  // resolveRootHref (not localizePath): roots outside LOCALIZED_ROOTS for
+  // the active locale fall back to the UA page instead of a /ru/... 404.
   const navLinks = HEADER_NAV_LINKS.map((link) => ({
-    href: localizePath(link.uaHref, locale),
+    href: resolveRootHref(link.uaHref, locale),
     label: t(link.key),
     key: link.key,
   }));
