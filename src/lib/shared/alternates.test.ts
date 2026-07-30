@@ -33,6 +33,7 @@ test("path override for translated slugs", () => {
   const a = buildAlternates({
     locale: "uk",
     uaPath: "/blog/ua-slug",
+    available: ["en"],
     paths: { en: "/en/blog/en-slug" },
   });
   assert.equal(a.languages!["en-GB"], "/en/blog/en-slug");
