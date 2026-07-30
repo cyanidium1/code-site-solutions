@@ -373,7 +373,7 @@ function SectionBlock({
             undefined
           }
           footCtaHref={section.footCta?.href || "#site-audit"}
-          locale={locale === "en" ? "en" : "uk"}
+          locale={locale}
         />
       );
 
@@ -423,7 +423,7 @@ function SectionBlock({
               industry: slug,
             })
           }
-          locale={locale === "en" ? "en" : "uk"}
+          locale={locale}
           layout={section.layout}
         />
       );
@@ -517,7 +517,7 @@ function SectionBlock({
     case "comparisonBlock":
       return (
         <Comparison
-          locale={locale === "en" ? "en" : "uk"}
+          locale={locale}
           tableHeading={formatLine(loc(section.heading, locale)) || undefined}
           tableLabels={
             section.columns
@@ -648,7 +648,7 @@ function SectionBlock({
       if (faqItems.length === 0) return null;
       return (
         <FAQ
-          locale={locale === "en" ? "en" : "uk"}
+          locale={locale}
           heading={loc(section.heading, locale) || undefined}
           items={faqItems}
         />

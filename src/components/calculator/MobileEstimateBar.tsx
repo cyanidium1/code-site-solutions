@@ -1,5 +1,7 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
+
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { ChevronRight } from "lucide-react";
@@ -18,7 +20,7 @@ import type { CalculatorEstimate } from "@/types/pricing";
 export function MobileEstimateBar({ estimate }: { estimate: CalculatorEstimate }) {
   const [visible, setVisible] = useState(false);
   const t = useTranslations("Calculator");
-  const locale = useLocale() as "uk" | "en";
+  const locale = useLocale() as Locale;
 
   useEffect(() => {
     const controls = document.getElementById("calc-controls");

@@ -1,3 +1,4 @@
+import type { Locale } from "@/constants/locales";
 import type * as React from "react";
 import {
   Handshake,
@@ -351,6 +352,9 @@ function BizVisual({ kind, locale }: { kind: BizVisualKind; locale: PriceLocale 
 // as the marker for the watermark's group-hover.
 const cardBase = "group/biz-card hp-biz-card";
 
+const SECTION_COPY_BY_LOCALE: Record<Locale, SectionCopy> = { uk: UK_COPY, en: EN_COPY };
+const CARDS_BY_LOCALE: Record<Locale, BizCard[]> = { uk: UK_CARDS, en: EN_CARDS };
+
 export function BusinessValue({
   locale = "uk",
   eyebrow,
@@ -364,8 +368,8 @@ export function BusinessValue({
   sub?: React.ReactNode;
   cards?: BizCard[];
 } = {}) {
-  const copy = locale === "en" ? EN_COPY : UK_COPY;
-  const resolvedCards = cards ?? (locale === "en" ? EN_CARDS : UK_CARDS);
+  const copy = SECTION_COPY_BY_LOCALE[locale];
+  const resolvedCards = cards ?? CARDS_BY_LOCALE[locale];
 
   return (
     <section className={hpSectionClass} id="why-us">

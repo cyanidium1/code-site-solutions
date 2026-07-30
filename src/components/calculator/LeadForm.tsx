@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
 import { useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Quote, Clock, Phone, FileCheck2 } from "lucide-react";
@@ -78,7 +79,7 @@ export function LeadForm({ config, input, estimate, onSubmitted }: LeadFormProps
   const [hp, setHp] = useState("");
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const t = useTranslations("Calculator.leadForm");
-  const locale = useLocale() as "uk" | "en";
+  const locale = useLocale() as Locale;
 
   const summary = useMemo(
     () => ({

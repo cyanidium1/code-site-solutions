@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
 import { useTranslations, useLocale } from "next-intl";
 import { formatEur as formatEurRaw, formatPercent } from "@/lib/shared/format-eur";
 
@@ -34,7 +35,7 @@ const BREAKDOWN_CLASS =
 
 export function PriceBreakdown(props: PriceBreakdownProps) {
   const t = useTranslations("Calculator.breakdown");
-  const locale = useLocale() as "uk" | "en";
+  const locale = useLocale() as Locale;
   const formatEur = (n: number) => formatEurRaw(n, locale);
   return (
     <details className={BREAKDOWN_CLASS}>

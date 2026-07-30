@@ -1,3 +1,4 @@
+import type { Locale } from "@/constants/locales";
 import type * as React from "react";
 import { MousePointerBan, EyeOff, TrendingDown, Lock, type LucideIcon } from "lucide-react";
 
@@ -46,6 +47,7 @@ const EN: PainCopy = {
   ),
 };
 
+
 const UK: PainCopy = {
   eyebrow: "ПРОБЛЕМА",
   heading: (
@@ -79,8 +81,10 @@ const UK: PainCopy = {
   ),
 };
 
+const COPY_BY_LOCALE: Record<Locale, PainCopy> = { uk: UK, en: EN };
+
 export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
-  const c = locale === "en" ? EN : UK;
+  const c = COPY_BY_LOCALE[locale];
   return (
     <section className={hpSectionClass} id="pains">
       <div className={hpInnerClass}>

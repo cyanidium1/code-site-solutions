@@ -1,5 +1,7 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
+
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import type { TierProps } from "@/types/pricing";
@@ -84,7 +86,7 @@ export function Tier({
   discountLine,
 }: TierProps) {
   const { open } = useLeadModal();
-  const locale = useLocale() === "en" ? "en" : "uk";
+  const locale = useLocale() as Locale;
   return (
     <div className={`${TIER_BASE} ${popular ? TIER_POP : TIER_DEFAULT}`}>
       {popular && (

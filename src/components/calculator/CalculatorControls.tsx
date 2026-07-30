@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
 import { useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import {
@@ -86,7 +87,7 @@ type CalculatorControlsProps = {
 export function CalculatorControls({ config, value, onChange, onReset }: CalculatorControlsProps) {
   const projectConfig = config.projectTypes.find((p) => p.key === value.projectType);
   const t = useTranslations("Calculator");
-  const locale = useLocale() as "uk" | "en";
+  const locale = useLocale() as Locale;
   const formatEur = (n: number) => formatEurRaw(n, locale);
 
   const leadCaptureFeatures = useMemo(

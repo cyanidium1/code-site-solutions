@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useLocale } from "next-intl";
@@ -124,11 +125,11 @@ export function FAQ({
   heading?: string;
   items?: FAQItem[];
   showAllLabel?: string;
-  locale?: "uk" | "en";
+  locale?: Locale;
 } = {}) {
   const intlLocale = useLocale();
-  const locale: "uk" | "en" =
-    localeProp ?? (intlLocale === "en" ? "en" : "uk");
+  const locale: Locale =
+    localeProp ?? ((intlLocale as Locale));
   const resolvedItems = items ?? (locale === "en" ? [] : DEFAULT_FAQ_UK);
   const resolvedHeading =
     heading ?? (locale === "en" ? "FAQ" : "Часті питання");

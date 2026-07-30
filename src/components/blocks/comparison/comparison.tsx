@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
 import Link from "next/link";
 import type * as React from "react";
 import { useState } from "react";
@@ -186,7 +187,7 @@ export function Comparison({
   pricingHeading: React.ReactNode;
   tiers: TierProps[];
   contactSource: string;
-  locale: "uk" | "en";
+  locale: Locale;
 }> = {}) {
   const [form, setForm] = useState({ name: "", channel: "", brief: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");

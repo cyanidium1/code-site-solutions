@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@/constants/locales";
 import { useTranslations, useLocale } from "next-intl";
 import type {
   CalculatorEstimate,
@@ -34,7 +35,7 @@ export function EstimateSummary({
   estimate,
 }: EstimateSummaryProps) {
   const t = useTranslations("Calculator");
-  const locale = useLocale() as "uk" | "en";
+  const locale = useLocale() as Locale;
   const formatEur = (n: number) => formatEurRaw(n, locale);
 
   const projectMeta = config.projectTypes.find((p) => p.key === input.projectType);

@@ -37,6 +37,9 @@ import type {
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasLocaleContent } from "@/lib/shared/locale-content";
+import { LOCALE_CONFIG } from "@/constants/locales";
+import { localizePath } from "@/constants/i18n-routes";
+import type { ReactNode } from "react";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import {
@@ -80,6 +83,49 @@ export {
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────── */
 
+/** Static UI strings, per locale. Adding a locale extends this record. */
+const LABELS: Record<
+  Locale,
+  {
+    home: string;
+    portfolio: string;
+    visitSite: string;
+    caseEyebrow: string;
+    relatedEyebrow: string;
+    relatedLink: string;
+  }
+> = {
+  uk: {
+    home: "Головна",
+    portfolio: "Портфоліо",
+    visitSite: "Перейти на сайт",
+    caseEyebrow: "КЕЙС",
+    relatedEyebrow: "СУМІЖНІ КЕЙСИ",
+    relatedLink: "Всі кейси",
+  },
+  en: {
+    home: "Home",
+    portfolio: "Portfolio",
+    visitSite: "Visit site",
+    caseEyebrow: "CASE STUDY",
+    relatedEyebrow: "RELATED",
+    relatedLink: "All cases",
+  },
+};
+
+const RELATED_HEADING: Record<Locale, ReactNode> = {
+  uk: (
+    <>
+      Інші <em>кейси</em>
+    </>
+  ),
+  en: (
+    <>
+      Other <em>case studies</em>
+    </>
+  ),
+};
+
 function buildCaseJsonLd(doc: CaseStudyDoc, locale: Locale): JsonLdNode {
   const path = pathFor(doc.slug, locale);
   const url = pageUrl(path);
@@ -87,10 +133,10 @@ function buildCaseJsonLd(doc: CaseStudyDoc, locale: Locale): JsonLdNode {
   const description = loc(doc.seo?.description, locale) || undefined;
   const ABOUT_URL = pageUrl("/about");
 
-  const homeName = locale === "en" ? "Home" : "Головна";
-  const homePath = locale === "en" ? "/en" : "/";
-  const portfolioName = locale === "en" ? "Portfolio" : "Портфоліо";
-  const portfolioPath = locale === "en" ? "/en/portfolio" : "/portfolio";
+  const homeName = LABELS[locale].home;
+  const homePath = localizePath("/", locale);
+  const portfolioName = LABELS[locale].portfolio;
+  const portfolioPath = localizePath("/portfolio", locale);
 
   // Pull testimonials embedded in the case sections. testimonialBlock is
   // always a review; quoteBlock only counts when its `isReview` flag is on
@@ -137,7 +183,7 @@ function buildCaseJsonLd(doc: CaseStudyDoc, locale: Locale): JsonLdNode {
       url,
       headline: title,
       description,
-      inLanguage: locale === "en" ? "en-US" : "uk-UA",
+      inLanguage: LOCALE_CONFIG[locale].bcp47,
       datePublished:
         doc.date ?? `${doc.year ?? new Date().getFullYear()}-01-01`,
       author: {
@@ -423,7 +469,7 @@ export async function CasePageView({
   ]);
   const related = allCases
     .filter((c) => c.slug !== doc.slug)
-    .filter((c) => locale !== "en" || Boolean(c.title?.en))
+    .filter((c) => hasLocaleContent(c, locale))
     .slice(0, 3);
 
   const title = loc(doc.title, locale);
@@ -432,27 +478,13 @@ export async function CasePageView({
   const sub = loc(doc.hero?.subheading, locale);
   const heroCta = doc.hero?.link?.href
     ? {
-        label:
-          loc(doc.hero.link.label, locale) ||
-          (locale === "en" ? "Visit site" : "Перейти на сайт"),
+        label: loc(doc.hero.link.label, locale) || LABELS[locale].visitSite,
         href: doc.hero.link.href,
       }
     : undefined;
 
-  const homeLabel = locale === "en" ? "Home" : "Головна";
-  const portfolioLabel = locale === "en" ? "Portfolio" : "Портфоліо";
-
-  const relatedHeading =
-    locale === "en" ? (
-      <>
-        Other <em>case studies</em>
-      </>
-    ) : (
-      <>
-        Інші <em>кейси</em>
-      </>
-    );
-  const relatedLink = locale === "en" ? "All cases" : "Всі кейси";
+  const labels = LABELS[locale];
+  const relatedHeading = RELATED_HEADING[locale];
 
   const heroImageNode = doc.hero?.heroImage?.asset?.url ? (
     <SanityImg
@@ -470,11 +502,11 @@ export async function CasePageView({
 
       <CasePageHero
         breadcrumbs={[
-          { label: homeLabel, href: locale === "en" ? "/en" : "/" },
-          { label: portfolioLabel, href: "/portfolio" },
+          { label: labels.home, href: localizePath("/", locale) },
+          { label: labels.portfolio, href: "/portfolio" },
           { label: title },
         ]}
-        eyebrow={eyebrow || (locale === "en" ? "CASE STUDY" : "КЕЙС")}
+        eyebrow={eyebrow || labels.caseEyebrow}
         headline={heading ?? title}
         sub={sub}
         image={heroImageNode}
@@ -491,7 +523,7 @@ export async function CasePageView({
             <div className={hpSectionHeadClass}>
               <div className={hpEyebrowClass}>
                 <span className={hpEyebrowDotClass} />
-                <span>{locale === "en" ? "RELATED" : "СУМІЖНІ КЕЙСИ"}</span>
+                <span>{labels.relatedEyebrow}</span>
               </div>
               <h2 className={hpH2Class}>{relatedHeading}</h2>
             </div>
@@ -520,17 +552,17 @@ export async function CasePageView({
               })}
             </div>
             <Link
-              href={locale === "en" ? "/en/portfolio" : "/portfolio"}
+              href={localizePath("/portfolio", locale)}
               className={btnClass("primary", "hp-section-cta")}
             >
-              <span>{relatedLink}</span>
+              <span>{labels.relatedLink}</span>
               <ArrowUpRight size={18} strokeWidth={1.8} />
             </Link>
           </div>
         </section>
       ) : null}
 
-      <LaunchCta locale={locale === "en" ? "en" : "uk"} />
+      <LaunchCta locale={locale} />
 
       <HpFooter />
     </>

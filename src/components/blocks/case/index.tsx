@@ -1,3 +1,4 @@
+import type { Locale } from "@/constants/locales";
 import Link from "next/link";
 
 import { H2, btnClass } from "@/components/ui";
@@ -211,7 +212,7 @@ export function Case({
   ctaLabel: string;
   /** Destination for the CTA button. When set, renders a link; omit and the CTA is inert. */
   ctaHref: string;
-  locale: "uk" | "en";
+  locale: Locale;
   /** Layout mode. "auto" (default) shows comparison only when a before image exists. */
   layout: CaseLayout;
 }> = {}) {
