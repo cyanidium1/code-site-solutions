@@ -109,6 +109,9 @@
   --font-sans: var(--font-manrope), system-ui, sans-serif;
   --font-actay: var(--font-actay), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  /* Header/nav chrome — Montserrat per the 2026 home redesign (Figma «код
+     сайт арт», header node 1729:1911). Generates the `font-nav` utility. */
+  --font-nav: var(--font-montserrat), system-ui, sans-serif;
 
   /* Animations — keyframes are defined in keyframes.css; hero-pulse
      and float keyframes live in src/components/blocks/hero/hero-effects.css
