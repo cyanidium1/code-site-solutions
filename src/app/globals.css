@@ -35,7 +35,13 @@
   /* Colors — canonical tokens. Generates utilities `bg-bg`, `text-ink`,
      `text-ink-dim`, `border-line`, `bg-accent`, etc. The legacy `:root`
      color shim was removed in Phase 3. */
-  --color-bg: #121212;
+  /* 2026 redesign (job #147): the Figma page base is near-black (grey
+     family #010101–#070707, band renders sample ≈#020202) while CARDS sit
+     on it at #121212. The old single #121212 token served both roles, so
+     cards had zero contrast against the page. --color-bg is now the page
+     base; --color-surface carries the old #121212 for card/panel fills. */
+  --color-bg: #030303;
+  --color-surface: #121212;
   --color-bg-raised: #1f1a26;
 
   --color-ink: oklch(0.97 0.005 300);

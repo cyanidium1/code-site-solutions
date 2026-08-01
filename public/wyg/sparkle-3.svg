@@ -1,10 +1,7 @@
-<svg overflow="visible" style="display: block;" width="47.4902" height="47.4902" viewBox="0 0 47.4902 47.4902" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="SVG" clip-path="url(#clip0_3022_59)">
-<path id="Vector" d="M23.7432 -0.00291054C24.9304 12.6611 34.8242 22.5549 47.4883 23.7422C34.8242 24.9294 24.9304 34.8232 23.7432 47.4873C22.5559 34.8232 12.6621 24.9294 -0.00191483 23.7422C12.6621 22.5549 22.5559 12.6611 23.7432 -0.00291054Z" fill="black" fill-opacity="0.01"/>
-</g>
-<defs>
-<clipPath id="clip0_3022_59">
-<rect width="47.4902" height="47.4902" fill="white"/>
-</clipPath>
-</defs>
+<svg width="47.4902" height="47.4902" viewBox="0 0 47.4902 47.4902" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Third sparkle of the WYG header trio (Figma #1729:2721). The Figma
+     export came out as fill-opacity 0.01 black (invisible); the design
+     renders it as a thin white outline star, so the same four-point path
+     is re-drawn here as a white stroke. -->
+<path d="M23.7432 1.5C24.9 13.5 34 22.6 46 23.7422C34 24.9 24.9 34 23.7432 46C22.6 34 13.5 24.9 1.5 23.7422C13.5 22.6 22.6 13.5 23.7432 1.5Z" stroke="white" stroke-opacity="0.75" stroke-width="1.2" fill="none"/>
 </svg>

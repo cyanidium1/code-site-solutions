@@ -169,7 +169,7 @@
   overflow: hidden;
   border-radius: 26px;
   border: 1px solid var(--color-line);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   padding: calc(var(--spacing) * 7);
   opacity: 0;
   translate: 0 calc(var(--spacing) * 6);
@@ -231,7 +231,7 @@
   overflow: hidden;
   border-radius: 20px;
   border: 1px solid var(--color-line);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
   padding: calc(var(--spacing) * 5);
   opacity: 0;
   translate: 0 calc(var(--spacing) * 5);

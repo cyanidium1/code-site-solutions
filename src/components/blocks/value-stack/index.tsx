@@ -368,10 +368,15 @@ const CHECK_CHIP_CLASS =
 
 const DECOR_STAGE_CLASS =
   "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-container pointer-events-none";
-// Chevron vectors (#1729:2697): Figma frame box (1455,1061) 615×396 →
-// container-relative left 1215; y anchored to the stats/panel cluster.
-const CHEVRONS_CLASS =
-  "hidden lg:block absolute left-[1215px] top-[1034px] w-[615px] max-w-none select-none";
+// CS-monogram vectors (#1729:2697): the export strips the placement
+// rotation (workflow-doc trap — node box 615×396 vs art 579×326 solves to
+// ≈7.2°; sign resolved visually per the candidate-render protocol: the
+// design's bars RISE to the right ⇒ rotate(-7.2deg)). Wrapper sits at the
+// node box (container-relative 1215,1034), art centered inside at its
+// natural 579×326 and rotated — the rotated bbox reproduces the node box.
+const CHEVRONS_WRAP_CLASS =
+  "hidden lg:flex absolute left-[1215px] top-[1034px] w-[615px] h-[396px] items-center justify-center select-none";
+const CHEVRONS_IMG_CLASS = "w-[579px] max-w-none -rotate-[7.2deg]";
 // Ellipse 822 (#1729:2458): #642DBA blur-266 → radial, 0x70 peak alpha,
 // center container-relative (258, ~1109), footprint 1622×1582.
 const E822_CLASS =
@@ -399,16 +404,21 @@ export function ValueStack({
     <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="value">
       <div className={DECOR_STAGE_CLASS}>
         <div className={E822_CLASS} aria-hidden="true" />
-        {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
-        <img src="/wyg/chevrons.svg" alt="" aria-hidden="true" width={615} height={396} loading="lazy" className={CHEVRONS_CLASS} />
+        <span className={CHEVRONS_WRAP_CLASS} aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
+          <img src="/wyg/chevrons.svg" alt="" width={579} height={326} loading="lazy" className={CHEVRONS_IMG_CLASS} />
+        </span>
       </div>
       <div className={hpInnerClass}>
         {/* Header row: heading left (880), support paragraph + sparkles right */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,880px)_minmax(0,1fr)] lg:gap-12 lg:items-start">
           <SectionHead eyebrow={eyebrow ?? c.eyebrow} heading={heading ?? c.heading} />
-          <div className="hidden lg:flex flex-col self-stretch pt-[43px]">
+          <div className="hidden lg:flex flex-col self-stretch pt-[70px]">
             <p className="max-w-[508px] text-[16px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
-            <span className="mt-auto flex items-center justify-end gap-[15px] pt-8" aria-hidden="true">
+            {/* Figma: trio bottom-aligned with the header block, ≈105px below
+                the paragraph — mt-auto against the stretched column + a
+                pt floor keeps that air on shorter locales. */}
+            <span className="mt-auto flex items-center justify-end gap-[15px] pt-14" aria-hidden="true">
               {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
               <img src="/wyg/sparkle-1.svg" alt="" width={47} height={47} loading="lazy" />
               {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
