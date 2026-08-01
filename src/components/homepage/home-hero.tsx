@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { AppImage } from "@/lib/shared/app-image";
-import { SanityImg } from "@/lib/shared/sanity-image";
-import type { SanityImage } from "@/types/sanity";
 import { btnClass } from "@/components/ui";
 import { CtaArrow } from "@/components/layout/cta-arrow";
 import { LOGO_PATHS } from "@/components/layout/logo/logo-paths";
@@ -17,9 +15,10 @@ import { LOGO_PATHS } from "@/components/layout/logo/logo-paths";
    job-#135 rule (never CSS `blur()` — see docs/glass-ui-patterns.md).
 
    Coordinate system: decor is positioned in % of the 1920×872 design
-   frame so the composition scales with the viewport at xl+; below xl the
-   overlays collapse into normal flow (no mobile design exists — the
-   ladder mirrors the header's: flow < xl ≤ absolute composition).
+   frame INSIDE a centered stage capped at 1920px wide (job #137 fix:
+   viewport-% anchoring blew the composition up on >1920 viewports).
+   Below xl the overlays collapse into normal flow (no mobile design
+   exists — the ladder mirrors the header's: flow < xl ≤ absolute).
    ─────────────────────────────────────────────────────────────────── */
 
 // Page-level backdrop kept during the redesign transition (user decision):
@@ -39,7 +38,16 @@ const SECTION_CLASS =
 // ─── Decor layers (back → front, Figma paint order) ───────────────────
 
 // Aurora raster (Figma #1729:1872) — organic violet streaks, 14KB webp.
+// Full-bleed (object-cover survives any width); everything else lives in
+// the capped stage below.
 const AURORA_CLASS = "absolute inset-0 z-0 pointer-events-none select-none";
+
+// Centered 1920px stage — the coordinate frame for ALL positioned decor
+// (wordmark, ellipses, globe, xl devices). On viewports ≤1920 it equals
+// the viewport; beyond that it stays design-sized and centered, so the
+// composition never outgrows the Figma frame.
+const STAGE_CLASS =
+  "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] pointer-events-none";
 
 // Giant ghost wordmark (Figma #1729:1873): the logo glyphs at 145% frame
 // width, y≈36%, #090909 at 20% — reuses LOGO_PATHS (viewBox 129×9.06).
@@ -69,11 +77,13 @@ const GLOBE_CLASS =
   "left-[71.1%] top-[25.7%] w-[34.9%] max-w-[670px]";
 
 // Device collage (composed webp, Figma #1729:1908+1909): canvas maps to
-// frame box (601,340)-(1982,872). In flow below xl; absolute at xl+,
-// bottom-anchored (the collage is pre-clipped at the hero fold).
-const DEVICES_WRAP_CLASS =
-  "relative z-[3] mt-8 -mb-6 mx-auto w-full max-w-[720px] px-2 " +
-  "xl:absolute xl:mt-0 xl:mb-0 xl:px-0 xl:max-w-none xl:w-[71.9%] xl:left-[31.3%] xl:bottom-0";
+// frame box (601,340)-(1982,872). Two placements: in-flow below xl
+// (mobile/tablet), stage-absolute bottom-anchored at xl+ (the collage is
+// pre-clipped at the hero fold). Same src → single fetch.
+const DEVICES_FLOW_WRAP_CLASS =
+  "relative z-[3] mt-8 -mb-6 mx-auto w-full max-w-[720px] px-2 xl:hidden";
+const DEVICES_STAGE_WRAP_CLASS =
+  "hidden xl:block absolute z-[3] w-[71.9%] left-[31.3%] bottom-0";
 const DEVICES_IMG_CLASS =
   "w-full h-auto [filter:drop-shadow(0_34px_44px_oklch(0_0_0_/_0.5))]";
 
@@ -81,9 +91,12 @@ const DEVICES_IMG_CLASS =
 
 const CONTAINER_CLASS = "relative z-10 max-w-container mx-auto px-6 sm:px-8 lg:px-12";
 // Top padding clears the floating header (68/81px) + the design's 63px gap
-// (144-81). Bottom padding leaves room for the absolute stats bar at xl+.
+// (144-81). Bottom padding leaves room for the absolute stats bar at xl+;
+// 2xl value tuned so the section lands on the design's 872px total (the
+// EN content stack measures ~615px: 144+615+113=872 — job #137 fix, the
+// initial 153px sagged the whole device/stats layer 40px low).
 const CONTENT_CLASS =
-  "relative pt-[100px] sm:pt-[120px] xl:pt-[144px] pb-10 xl:pb-[220px] 2xl:pb-[153px] " +
+  "relative pt-[100px] sm:pt-[120px] xl:pt-[144px] pb-10 xl:pb-[180px] 2xl:pb-[113px] " +
   "max-w-[635px]";
 
 // H1 — Actay Wide Bold 64/61.44, tracking −2.24px, uppercase (Figma
@@ -145,12 +158,11 @@ const PORTFOLIO_CARD_CLASS =
 const PORTFOLIO_TITLE_CLASS =
   "absolute left-[26px] top-[26px] w-[181px] font-actay font-bold uppercase text-white " +
   "text-[19.4px] leading-[0.857] z-[2]";
-// Phone-framed cover: rounded frame tilted like the Figma iPhone 40
-// (218×273 at (74,87), bleeding past the card's bottom-right).
-const PORTFOLIO_PHONE_CLASS =
-  "absolute left-[74px] top-[87px] w-[218px] h-[273px] rounded-[24px] overflow-hidden " +
-  "rotate-[8deg] border border-[oklch(1_0_0/0.25)] bg-[#121212] " +
-  "[&_img]:w-full [&_img]:h-full [&_img]:object-cover [&_img]:object-top";
+// Phone mock: the exact Figma iPhone-40 crop (218×273 at (74,87), bleeding
+// past the card's bottom-right; card overflow-hidden clips it). Static
+// asset exported from the file — CMS covers are composed differently and
+// looked wrong here (user decision, job #137).
+const PORTFOLIO_PHONE_CLASS = "absolute left-[74px] top-[87px] w-[218px] h-[273px]";
 const PORTFOLIO_ARROW_CLASS = "absolute left-[24px] top-[175px] size-[57px] z-[2]";
 
 // Vertical "Cases" label (Figma #1729:2065 at x1341 y144: dot + rotated text).
@@ -232,8 +244,6 @@ export type HomeHeroProps = {
     title: string;
     tag: string;
     href: string;
-    image: SanityImage | null;
-    imageAlt: string;
   };
   deviceAlt: string;
 };
@@ -267,25 +277,43 @@ export function HomeHero({
           sizes="100vw"
           className={AURORA_CLASS + " h-full w-full object-cover"}
         />
-        <GhostWordmark />
-        <div className={E823_CLASS} aria-hidden="true" />
-        <div className={E825_CLASS} aria-hidden="true" />
-        <div className={E821_CLASS} aria-hidden="true" />
-        {/* eslint-disable-next-line @next/next/no-img-element -- SVG asset:
-            next/image refuses SVG without dangerouslyAllowSVG; a plain img
-            serves the static file directly (no optimizer round-trip). */}
-        <img
-          src="/hero/globe.svg"
-          alt=""
-          aria-hidden="true"
-          width={670}
-          height={670}
-          loading="lazy"
-          className={GLOBE_CLASS}
-        />
+        {/* Capped 1920px stage: all positioned decor lives here so the
+            composition never scales past the design frame. */}
+        <div className={STAGE_CLASS}>
+          <GhostWordmark />
+          <div className={E823_CLASS} aria-hidden="true" />
+          <div className={E825_CLASS} aria-hidden="true" />
+          <div className={E821_CLASS} aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element -- SVG asset:
+              next/image refuses SVG without dangerouslyAllowSVG; a plain img
+              serves the static file directly (no optimizer round-trip). */}
+          <img
+            src="/hero/globe.svg"
+            alt=""
+            aria-hidden="true"
+            width={670}
+            height={670}
+            loading="lazy"
+            className={GLOBE_CLASS}
+          />
+          <div className={DEVICES_STAGE_WRAP_CLASS}>
+            <AppImage
+              src="/hero/devices.webp"
+              alt={deviceAlt}
+              width={1381}
+              height={532}
+              priority
+              fetchPriority="high"
+              quality={75}
+              sizes="(max-width: 1100px) 96vw, (max-width: 1920px) 72vw, 1381px"
+              className={DEVICES_IMG_CLASS}
+            />
+          </div>
+          <div className={E824_CLASS} aria-hidden="true" />
+        </div>
 
-        {/* Device collage — in flow below xl, absolute bottom-right at xl+ */}
-        <div className={DEVICES_WRAP_CLASS}>
+        {/* In-flow device collage for mobile/tablet (stage copy is xl+) */}
+        <div className={DEVICES_FLOW_WRAP_CLASS}>
           <AppImage
             src="/hero/devices.webp"
             alt={deviceAlt}
@@ -294,11 +322,10 @@ export function HomeHero({
             priority
             fetchPriority="high"
             quality={75}
-            sizes="(max-width: 1100px) 96vw, 72vw"
+            sizes="96vw"
             className={DEVICES_IMG_CLASS}
           />
         </div>
-        <div className={E824_CLASS} aria-hidden="true" />
 
         <div className={CONTAINER_CLASS}>
           <div className={CONTENT_CLASS}>
@@ -347,17 +374,17 @@ export function HomeHero({
           {/* Portfolio teaser + vertical Cases tag */}
           <Link href={portfolio.href} className={PORTFOLIO_CARD_CLASS}>
             <span className={PORTFOLIO_TITLE_CLASS}>{portfolio.title}</span>
-            <span className={PORTFOLIO_PHONE_CLASS} aria-hidden="true">
-              {portfolio.image ? (
-                <SanityImg
-                  image={portfolio.image}
-                  alt=""
-                  sizes="218px"
-                />
-              ) : null}
-            </span>
+            <AppImage
+              src="/hero/portfolio-phone.webp"
+              alt=""
+              aria-hidden
+              width={436}
+              height={546}
+              quality={75}
+              sizes="218px"
+              className={PORTFOLIO_PHONE_CLASS}
+            />
             <CtaArrow className={PORTFOLIO_ARROW_CLASS} />
-            <span className="sr-only">{portfolio.imageAlt}</span>
           </Link>
           <div className={CASES_TAG_CLASS} aria-hidden="true">
             <span className={CASES_DOT_CLASS} />

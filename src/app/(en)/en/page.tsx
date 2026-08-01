@@ -28,8 +28,6 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { fetchHomepageCases } from "@/lib/server/fetch-homepage-cases";
-import { pickLocalized } from "@/lib/shared/pick-localized";
 import { EN_INDUSTRIES, EN_TIERS, buildEnHomepageFaq } from "@/content/en/homepage";
 import {
   fetchPricingPlans,
@@ -63,13 +61,10 @@ const HOMEPAGE_EN_DESCRIPTION =
   "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.";
 
 export default async function HomePageEn() {
-  const [cmsPlans, testimonialSlides, homepageCases] = await Promise.all([
+  const [cmsPlans, testimonialSlides] = await Promise.all([
     fetchPricingPlans("en"),
     fetchTestimonialSlides("en"),
-    fetchHomepageCases(),
   ]);
-  // Hero portfolio teaser media = first curated case's cover (CMS-fed).
-  const heroCase = homepageCases.default[0];
   const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : EN_TIERS;
   const planOverride = toHomepagePlanOverride(cmsPlans);
   const faqItems = buildEnHomepageFaq(planOverride);
@@ -137,8 +132,6 @@ export default async function HomePageEn() {
           title: "See our portfolio",
           tag: "Cases",
           href: "/en/portfolio",
-          image: heroCase?.coverImage ?? null,
-          imageAlt: pickLocalized(heroCase?.title, "en") ?? heroCase?.client ?? "Code-Site.Art case study",
         }}
         deviceAlt="Business websites built by Code-Site.Art"
       />

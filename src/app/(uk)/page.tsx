@@ -31,21 +31,16 @@ import {
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { fetchHomepageCases } from "@/lib/server/fetch-homepage-cases";
-import { pickLocalized } from "@/lib/shared/pick-localized";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 const HOMEPAGE_DESCRIPTION =
   "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.";
 
 export default async function HomePage() {
-  const [cmsPlans, testimonialSlides, homepageCases] = await Promise.all([
+  const [cmsPlans, testimonialSlides] = await Promise.all([
     fetchPricingPlans("uk"),
     fetchTestimonialSlides("uk"),
-    fetchHomepageCases(),
   ]);
-  // Hero portfolio teaser media = first curated case's cover (CMS-fed).
-  const heroCase = homepageCases.default[0];
   const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : HOMEPAGE_TIERS;
   const planOverride = toHomepagePlanOverride(cmsPlans);
   const faqItems = buildHomepageFaq(planOverride);
@@ -114,8 +109,6 @@ export default async function HomePage() {
           title: "Дивитись портфоліо",
           tag: "Кейси",
           href: "/portfolio",
-          image: heroCase?.coverImage ?? null,
-          imageAlt: pickLocalized(heroCase?.title, "uk") ?? heroCase?.client ?? "Кейс Code-Site.Art",
         }}
         deviceAlt="Приклади сайтів для бізнесу, створених Code-Site.Art"
       />

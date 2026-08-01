@@ -33,8 +33,6 @@ import {
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { fetchHomepageCases } from "@/lib/server/fetch-homepage-cases";
-import { pickLocalized } from "@/lib/shared/pick-localized";
 import { resolveRootHref } from "@/constants/i18n-routes";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
@@ -60,13 +58,10 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePageRu() {
-  const [cmsPlans, testimonialSlides, homepageCases] = await Promise.all([
+  const [cmsPlans, testimonialSlides] = await Promise.all([
     fetchPricingPlans("ru"),
     fetchTestimonialSlides("ru"),
-    fetchHomepageCases(),
   ]);
-  // Hero portfolio teaser media = first curated case's cover (CMS-fed).
-  const heroCase = homepageCases.default[0];
   const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : RU_TIERS;
   const planOverride = toHomepagePlanOverride(cmsPlans);
   const faqItems = buildRuHomepageFaq(planOverride);
@@ -136,8 +131,6 @@ export default async function HomePageRu() {
           // /portfolio is not RU-localized yet — resolveRootHref falls back
           // to the UA page (same gating pattern as the header nav).
           href: resolveRootHref("/portfolio", "ru"),
-          image: heroCase?.coverImage ?? null,
-          imageAlt: pickLocalized(heroCase?.title, "ru") ?? heroCase?.client ?? "Кейс Code-Site.Art",
         }}
         deviceAlt="Примеры сайтов для бизнеса, созданных Code-Site.Art"
       />
