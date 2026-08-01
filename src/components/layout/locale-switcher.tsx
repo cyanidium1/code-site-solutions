@@ -18,16 +18,18 @@ import { useI18nRegistry } from "./i18n-registry-provider";
 // text-only control from `lg` up inside the desktop nav row. Desktop `-mx-1`
 // neutralizes summary `px-1` so spacing matches adjacent nav links.
 const localeDdClass =
-  "group/locale relative self-stretch flex items-center shrink-0 lg:-mx-1";
+  "group/locale relative self-stretch flex items-center shrink-0 xl:-mx-1";
 const localeTriggerClass =
   "list-none inline-flex items-center gap-2 min-h-12 px-3.5 py-2.5 rounded-full " +
   " font-nav text-[13px] tracking-[0.06em] uppercase text-[oklch(1_0_0/0.92)] cursor-pointer " +
   "transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/locale:text-ink " +
   "[&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 group-open/locale:[&_svg]:rotate-180 " +
-  "lg:min-h-11 lg:gap-[5px] lg:px-1 lg:py-0 lg:border-0 lg:rounded-none lg:bg-transparent lg:text-[13px] xl:text-[14px]";
-const localeChevronClass = "w-3.5 h-3.5 lg:w-3 lg:h-3";
+  "xl:min-h-11 xl:gap-[5px] xl:px-1 xl:py-0 xl:border-0 xl:rounded-none xl:bg-transparent xl:text-[13px] 2xl:text-[14px]";
+const localeChevronClass = "w-3.5 h-3.5 xl:w-3 xl:h-3";
+// Panel offset clears the glass pill's bottom edge (anchor is centered in the
+// 60px pill, so 100% + 20px ≈ 12px below the pill; was +12px on the old bar).
 const localePanelClass =
-  "hidden group-open/locale:flex absolute top-[calc(100%+12px)] right-0 min-w-[148px] p-2 border border-line rounded-[14px] " +
+  "hidden group-open/locale:flex absolute top-[calc(100%+20px)] right-0 min-w-[148px] p-2 border border-line rounded-[14px] " +
   "bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60] flex-col gap-0.5 " +
   "lg:min-w-[132px] lg:p-1.5";
 const localePanelItemBaseClass =

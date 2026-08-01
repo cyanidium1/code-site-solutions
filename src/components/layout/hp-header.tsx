@@ -21,6 +21,7 @@ import {
   headerPillClass,
   headerCtaPillClass,
   headerCtaTextClass,
+  headerCtaArrowClass,
   headerDividerClass,
 } from "./header-classes";
 import { CtaArrow } from "./cta-arrow";
@@ -36,16 +37,18 @@ function isActive(pathname: string | null, href: string): boolean {
 // Floating split glass pill (Figma «код сайт арт» 1729:1911; audit:
 // docs/home-header-figma-audit.md). Two sibling pills — main (logo/nav/
 // locale/burger) + CTA — in a transparent sticky wrapper, constant top
-// offset. Below lg the nav + CTA pill hide; locale + burger stay in the
+// offset. Below xl the nav + CTA pill hide; locale + burger stay in the
 // main pill and the CTA lives in the drawer.
 //
 // Figma 1729:1953 — Montserrat 400 uppercase, 11px links / 12px Services
 // trigger, tracking 1.32px, lh 16.5, white (92% base → 100% hover; the
 // active gradient underline is a kept deviation — mockup shows none).
 // Gap ladder compresses below the 1440 design width; 18px is the Figma value.
-const headerNavClass = "hidden gap-3 lg:flex xl:gap-[18px]";
+// Nav appears at xl (1100), not lg — see the breakpoint note in
+// header-classes.ts: the Figma typography can't fit an 800px viewport.
+const headerNavClass = "hidden gap-1.5 xl:flex 2xl:gap-[18px]";
 const navLinkBaseClass =
-  "flex items-center font-nav text-[11px] leading-[16.5px] tracking-[1.32px] uppercase text-[oklch(1_0_0/0.92)] no-underline transition-colors duration-200 hover:text-ink";
+  "flex items-center font-nav text-[10px] tracking-[0.8px] 2xl:text-[11px] leading-[16.5px] 2xl:tracking-[1.32px] uppercase text-[oklch(1_0_0/0.92)] no-underline transition-colors duration-200 hover:text-ink";
 const navLinkActiveClass =
   "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
 
@@ -53,11 +56,14 @@ const navLinkActiveClass =
 // summary + hiding the marker. Chevron rotates 180° when [open].
 const navDdClass = "relative self-stretch flex items-center";
 const navDdTriggerClass =
-  "list-none flex items-center gap-1.5 cursor-pointer font-nav text-[12px] leading-[16.5px] tracking-[1.32px] uppercase text-[oklch(1_0_0/0.92)] transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink";
+  "list-none flex items-center gap-1.5 cursor-pointer font-nav text-[11px] tracking-[0.8px] 2xl:text-[12px] leading-[16.5px] 2xl:tracking-[1.32px] uppercase text-[oklch(1_0_0/0.92)] transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink";
 const navDdChevronClass =
   "shrink-0 opacity-75 transition-transform duration-200 group-open/dd:rotate-180";
+// Panel offset clears the 60px pill: the <details> anchor is only as tall as
+// the 17px nav row centered in the pill, so 100% + 34px lands the panel 12px
+// below the pill's bottom edge (was +12px on the old flush bar).
 const navDdPanelClass =
-  "absolute top-[calc(100%+12px)] left-0 min-w-[232px] p-2 rounded-[14px] border border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60]";
+  "absolute top-[calc(100%+34px)] left-0 min-w-[232px] p-2 rounded-[14px] border border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60]";
 const navDdLinkBaseClass =
   "block px-3 py-2.5 rounded-[10px] font-sans text-[13px] font-medium normal-case text-ink-dim no-underline transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
 const navDdLinkActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.1)] text-ink";
@@ -182,7 +188,7 @@ export function HpHeader() {
           }}
         >
           <span className={headerCtaTextClass}>{t("cta")}</span>
-          <CtaArrow className="size-9 shrink-0" />
+          <CtaArrow className={headerCtaArrowClass} />
         </button>
       </div>
     </header>
