@@ -82,14 +82,9 @@ export default async function HomePage() {
 
       <main>
       <HomeHero
-        eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДІЯ" }}
-        h1Lines={[
-          <>Сайти будь-якої складності,</>,
-          <>
-            що приводять <em>заявки 24/7.</em>
-          </>,
-        ]}
-        lede={
+        h1White={<>Сайти будь-якої складності, що приводять </>}
+        h1Gradient="заявки 24/7"
+        sub={
           <>
             За 4–10 тижнів ви отримуєте сайт, який швидко завантажується,
             викликає довіру з першого екрана й ранжується в Google та
@@ -102,24 +97,20 @@ export default async function HomePage() {
           { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
           { label: "Все під ключ", sub: "тексти + дизайн + код + хостинг" },
         ]}
-        ctaPrimaryLabel="Розрахувати вартість"
-        ctaPrimaryHref="/calculator"
-        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 години"
-        ctaSecondaryHref="/contacts?source=hero-audit"
-        ctaFootnote="Протягом 24 годин надішлемо розбір: що гальмує ваш сайт, чому немає заявок і що виправити першим."
+        ctaPrimary={{ label: "Розрахувати вартість", href: "/calculator" }}
+        ctaSecondary={{ label: "Безкоштовний аудит сайту за 24 години", href: "/contacts?source=hero-audit" }}
         stats={[
           { num: "50+", lbl: <>проєктів<br/>за 5 років</> },
           { num: "7", lbl: <>країн<br/>UA · EU · US · DK · ZA · UK · FR</> },
           { num: "×3.2", lbl: <>більше заявок<br/>у середньому</> },
           { num: "30%", lbl: <>неустойка<br/>за зрив терміну</> },
         ]}
-        deviceTags={[
-          { kind: "default", primary: "Custom code" },
-          { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "98" },
-        ]}
-        deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
+        portfolio={{
+          title: "Дивитись портфоліо",
+          tag: "Кейси",
+          href: "/portfolio",
+        }}
+        deviceAlt="Приклади сайтів для бізнесу, створених Code-Site.Art"
       />
 
       <PainPoints />

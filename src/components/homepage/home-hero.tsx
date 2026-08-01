@@ -1,155 +1,186 @@
 import Link from "next/link";
 import { AppImage } from "@/lib/shared/app-image";
-import { btnClass, H1 } from "@/components/ui";
+import { btnClass } from "@/components/ui";
+import { CtaArrow } from "@/components/layout/cta-arrow";
+import { LOGO_PATHS } from "@/components/layout/logo/logo-paths";
 
 /* ───────────────────────────────────────────────────────────────────────
-   HOME HERO — standalone hero for the 3 home pages (uk/en/ru), split out
-   of the shared `blocks/hero` HeroEditorial (Phase 0 of the 2026 home
-   redesign; audit: docs/home-hero-figma-audit.md, plan:
-   docs/superpowers/plans/2026-08-01-home-hero-rebuild.md).
+   HOME HERO — 2026 redesign build of Figma «код сайт арт» frame `1`
+   (#1729:1871, 1920×872). Audit with every node id + number:
+   docs/home-hero-figma-audit.md. Plan:
+   docs/superpowers/plans/2026-08-01-home-hero-rebuild.md.
 
-   Phase 0 is a ZERO-VISUAL-CHANGE visual copy: every class string below is
-   verbatim from blocks/hero/index.tsx, with the home pages' fixed prop
-   values hardcoded (secondary CTA = primary style, homepage mockup
-   placement 1700×1674, no ticker/eyebrow-em/h1Num/compare/Sanity paths).
-   The Figma rebuild replaces this file's internals in the next PR.
+   Fully server-rendered: no client JS, no keyframes, no backdrop-blur
+   above 4px (stats bar), decor blurs are STATIC radial gradients per the
+   job-#135 rule (never CSS `blur()` — see docs/glass-ui-patterns.md).
+
+   Coordinate system (job #138): decor is positioned in FIXED PX inside a
+   stage that mirrors the CONTENT container (centered max-w-container =
+   1440) — offsets are the Figma coordinates minus the frame's 240px
+   container margin. The section grows with the viewport but the container
+   does not, so viewport/stage percentages drifted the decor away from the
+   content at every width except exactly 1920. Decor overflows the stage
+   freely; the section's overflow-hidden clips at the viewport, same as
+   the Figma frame clips at 1920. Below xl the overlays collapse into
+   normal flow (no mobile design exists).
    ─────────────────────────────────────────────────────────────────── */
 
-// Fixed page backdrop: dual accent radials + linear base, plus the grain
-// overlay (.hero-grain in blocks/hero/hero-effects.css — still imported
-// globally). Kept on home during the redesign transition (user decision).
-const HERO_BG_CLASS =
+// Page-level backdrop kept during the redesign transition (user decision):
+// same fixed dual-radial + grain the old shared hero rendered, so the
+// not-yet-redesigned sections below keep their look.
+const PAGE_BG_CLASS =
   "fixed inset-0 z-0 pointer-events-none " +
   "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg)_100%)]";
 
-const HERO_SHELL_CLASS =
-  "relative z-[5] pt-0 pb-9 px-6 sm:px-8 sm:pt-8 sm:pb-14 lg:px-12 2xl:pt-6 2xl:pb-[60px]";
+// Hero section. Pulls up under the sticky glass-pill header (header flow
+// height: 12+56=68 below xl, 21+60=81 at xl+) so the aurora runs behind
+// the glass exactly as in the mockup. Height is content-driven below xl;
+// at xl+ it approaches the design's 872px via the padded content column.
+const SECTION_CLASS =
+  "relative overflow-hidden z-[1] -mt-[68px] xl:-mt-[81px]";
 
-const HERO_GRID_CLASS =
-  "grid grid-cols-1 grid-rows-[auto_auto] gap-0 items-center max-w-container mx-auto min-h-0 " +
-  "sm:grid-cols-[minmax(0,1000px)_minmax(0,1fr)] sm:grid-rows-none sm:gap-[22px] sm:min-h-[clamp(560px,80vh,720px)] " +
-  "min-[1081px]:gap-7 2xl:gap-12";
+// ─── Decor layers (back → front, Figma paint order) ───────────────────
 
-const HERO_LEFT_CLASS = "relative z-[4]";
+// Aurora raster (Figma #1729:1872) — organic violet streaks, 14KB webp.
+// Full-bleed (object-cover survives any width); everything else lives in
+// the capped stage below.
+const AURORA_CLASS = "absolute inset-0 z-0 pointer-events-none select-none";
 
-const EYEBROW_CLASS =
-  "inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 border border-line-strong rounded-full text-[9px] font-medium tracking-[0.1em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] backdrop-blur-[8px] mb-[18px] " +
-  "sm:gap-2.5 sm:pl-3 sm:pr-3.5 sm:py-2 sm:text-[11px] sm:tracking-[0.12em] sm:mb-8";
+// Decor stage — mirrors the CONTENT container box (centered, 1440 max),
+// so fixed-px decor offsets keep their designed relationship to the
+// content column/stats/card at EVERY viewport width. Decor may overflow
+// this box; the section clips at the viewport edge like the Figma frame.
+const STAGE_CLASS =
+  "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-container pointer-events-none";
 
-const EYEBROW_DOT_CLASS =
-  "w-[5px] h-[5px] rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] sm:w-1.5 sm:h-1.5";
+// Giant ghost wordmark (Figma #1729:1873: frame box −790..1993 × y312,
+// 2783 wide) — container-relative left = −790−240 = −1030. Reuses
+// LOGO_PATHS (viewBox 129×9.06 → rendered ≈196 tall; top centers on the
+// Figma band's 428px mid-line).
+const WORDMARK_CLASS =
+  "hidden lg:block absolute z-[1] pointer-events-none opacity-20 " +
+  "left-[-1030px] top-[331px] w-[2783px] max-w-none";
 
-const HERO_H1_CLASS =
-  "text-ink m-0 mb-[18px] sm:mb-7 " +
-  "[&_em]:italic [&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
+// Blur-ellipse stand-ins — STATIC radial gradients sized to the blurred
+// footprint (node box + Figma blur bleed), job-#135 rule. Three dark
+// vignettes (#080712) carve darkness out of the aurora; one violet glow
+// (#642DBA) feeds the right edge / header glass. Positions are the
+// ellipse CENTERS in container-relative px (Figma x − 240), −50%/−50%.
+const ELLIPSE_BASE =
+  "absolute pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full max-w-none";
+const E823_CLASS = // dark, behind content column — center (935,556), footprint ≈2081×2018
+  `${ELLIPSE_BASE} z-[2] left-[695px] top-[556px] w-[2081px] aspect-[2081/2018] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
+const E825_CLASS = // dark, upper-left of devices — center (778,277), footprint ≈727×685
+  `${ELLIPSE_BASE} z-[2] left-[538px] top-[277px] w-[727px] aspect-[727/685] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
+const E821_CLASS = // violet glow, right edge — center (2118,446), footprint ≈1291×1252
+  `${ELLIPSE_BASE} z-[2] left-[1878px] top-[446px] w-[1291px] aspect-[1291/1252] bg-[radial-gradient(50%_50%_at_50%_50%,#642DBA_0%,transparent_70%)]`;
+const E824_CLASS = // dark, OVER the devices' lower half — center (1341,874), footprint ≈1071×830
+  `${ELLIPSE_BASE} z-[4] left-[1101px] top-[874px] w-[1071px] aspect-[1071/830] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
 
-const H1_LINE_CLASS = "block md:max-w-[50vw]";
+// Wireframe globe (Figma #1729:1904 at (1365,224) 670×670) —
+// container-relative left = 1365 − 240 = 1125.
+const GLOBE_CLASS =
+  "hidden md:block absolute z-[2] pointer-events-none select-none " +
+  "left-[1125px] top-[224px] w-[670px] max-w-none";
 
-const LEDE_CLASS =
-  "text-sm leading-[1.55] text-ink-dim max-w-full m-0 mb-[22px] text-pretty " +
-  "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
-  "sm:leading-[1.6] sm:mb-6 " +
-  "min-[1081px]:max-w-[460px] " +
-  "2xl:mb-8";
+// Device collage (composed webp, Figma #1729:1908+1909): canvas maps to
+// frame box (601,340)-(1982,872). Two placements: in-flow below xl
+// (mobile/tablet), stage-absolute bottom-anchored at xl+ (the collage is
+// pre-clipped at the hero fold). Same src → single fetch.
+const DEVICES_FLOW_WRAP_CLASS =
+  "relative z-[3] mt-8 -mb-6 mx-auto w-full max-w-[720px] px-2 xl:hidden";
+// Container-relative left = 601 − 240 = 361; fixed design size (1381),
+// bottom-anchored to the fold.
+const DEVICES_STAGE_WRAP_CLASS =
+  "hidden xl:block absolute z-[3] w-[1381px] max-w-none left-[361px] bottom-0";
+const DEVICES_IMG_CLASS =
+  "w-full h-auto [filter:drop-shadow(0_34px_44px_oklch(0_0_0_/_0.5))]";
 
+// ─── Content column (Figma #1729:1977: x240 y144, 635 wide) ───────────
+
+const CONTAINER_CLASS = "relative z-10 max-w-container mx-auto px-6 sm:px-8 lg:px-12";
+// Top padding clears the floating header (68/81px) + the design's 63px gap
+// (144-81). Bottom padding leaves room for the absolute stats bar at xl+;
+// 2xl value tuned so the section lands on the design's 872px total (the
+// EN content stack measures ~615px: 144+615+113=872 — job #137 fix, the
+// initial 153px sagged the whole device/stats layer 40px low).
+const CONTENT_CLASS =
+  "relative pt-[100px] sm:pt-[120px] xl:pt-[144px] pb-10 xl:pb-[144px] 2xl:pb-[113px] " +
+  "max-w-[635px]";
+
+// H1 — Actay Wide Bold 64/61.44, tracking −2.24px, uppercase (Figma
+// #1729:1981); gradient tail = 3-stop violet (#1729:1983).
+const H1_CLASS =
+  "m-0 mb-6 xl:mb-[50px] font-actay font-bold uppercase text-white " +
+  "text-[38px] leading-[0.96] tracking-[-0.035em] sm:text-[48px] xl:text-[56px] 2xl:text-[64px]";
+const H1_GRADIENT_CLASS =
+  "block w-fit bg-clip-text text-transparent [-webkit-text-fill-color:transparent] " +
+  "bg-[linear-gradient(180deg,#7C54CD_19.6%,#4D3481_58.3%,#1E1335_97%)]";
+
+// Sub (Figma #1729:1984): Montserrat 14/22.4, white, 377px cap.
+const SUB_CLASS =
+  "m-0 mb-[34px] font-nav text-[14px] leading-[1.6] text-white max-w-[377px] text-pretty";
+
+// Divider (Figma #1729:1985): 457px hairline.
+const DIVIDER_CLASS = "w-[457px] max-w-full h-px bg-[oklch(1_0_0/0.14)]";
+
+// 2×2 features (Figma #1729:1986: 480 wide, gaps 24/12, pt 19).
 const FEATURES_CLASS =
-  "grid grid-cols-1 gap-2.5 mb-[22px] max-w-full px-4 py-3.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
-  "sm:grid-cols-2 sm:gap-x-3.5 sm:gap-y-2 sm:mb-[26px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
-  "min-[1081px]:max-w-[460px] min-[1081px]:gap-x-[18px] min-[1081px]:gap-y-2.5 " +
-  "2xl:max-w-[480px] 2xl:gap-x-6 2xl:gap-y-3 2xl:mb-9";
-
-const FEAT_CLASS = "flex items-center gap-2.5 sm:gap-3";
-
+  "grid grid-cols-1 min-[420px]:grid-cols-2 gap-x-6 gap-y-3 pt-[19px] mb-10 xl:mb-[68px] max-w-[480px]";
+const FEAT_CLASS = "flex items-center gap-3";
+// 26px circle: violet 12% fill + violet 20% 1px border (Figma #1729:1988).
 const FEAT_CHECK_CLASS =
-  "w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 text-accent " +
-  "bg-accent-12 border border-accent-20 " +
-  "[&_svg]:w-3 [&_svg]:h-3 sm:w-[26px] sm:h-[26px] [&_svg]:sm:w-[14px] [&_svg]:sm:h-[14px]";
-
+  "w-[26px] h-[26px] rounded-full flex items-center justify-center shrink-0 " +
+  "bg-[rgba(124,84,205,0.12)] border border-[rgba(124,84,205,0.2)] text-[#a58bec] " +
+  "[&_svg]:w-3.5 [&_svg]:h-3.5";
 const FEAT_LABEL_CLASS =
-  "text-xs font-semibold text-ink leading-[1.2] 2xl:text-[13px]";
+  "font-sans font-semibold text-[13px] leading-[1.2] text-[#f5f4f8]";
 const FEAT_SUB_CLASS =
-  "text-[10px] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[11px]";
+  "font-sans text-[11px] leading-[1.5] tracking-[0.22px] text-[#727077] mt-px";
 
-const CTA_ROW_CLASS =
-  "flex flex-col flex-wrap gap-2.5 items-stretch mb-6 " +
-  "sm:flex-row sm:gap-3 sm:items-center sm:mb-7 " +
-  "2xl:mb-3.5";
+const CTA_ROW_CLASS = "flex flex-col sm:flex-row gap-3 items-stretch sm:items-center";
 
-const CTA_FOOTNOTE_CLASS =
-  "text-[12.5px] tracking-[0.01em] text-ink-3 m-0 mb-[30px] leading-[1.5]";
+// ─── Overlays ─────────────────────────────────────────────────────────
 
+// Stats bar (Figma #1729:2034: 733×102 at x947 y719 — right edge on the
+// container's right, 51px above the fold; overlaps the MacBook). Glass:
+// white 2% + white 8% border + blur 4 (small surface — allowed everywhere).
 const STATS_CLASS =
-  "flex items-center gap-3 px-4 py-3.5 border border-line rounded-[14px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
-  "sm:gap-3.5 " +
-  "min-[1081px]:gap-[18px] min-[1081px]:px-5 min-[1081px]:py-4 " +
-  "2xl:gap-6 2xl:px-7 2xl:py-5 2xl:rounded-[18px]";
-
-const STAT_CLASS = "flex-1 flex flex-col gap-1.5";
+  "relative z-20 mt-10 flex flex-wrap items-center gap-x-6 gap-y-4 rounded-[18px] px-6 py-5 " +
+  "bg-[oklch(1_0_0/0.02)] border border-[oklch(1_0_0/0.08)] backdrop-blur-[4px] " +
+  "xl:absolute xl:mt-0 xl:right-0 xl:bottom-[51px] xl:w-[733px] xl:max-w-none xl:h-[102px] xl:flex-nowrap xl:px-[25px] xl:gap-0 xl:justify-between";
+const STAT_CLASS = "flex flex-col gap-1.5 min-w-0";
 const STAT_NUM_CLASS =
-  "font-sans font-bold text-[16px] tracking-[-0.03em] leading-none text-ink " +
-  "sm:text-[22px] min-[1081px]:text-2xl 2xl:text-[28px]";
+  "font-sans font-bold text-[22px] xl:text-[28px] leading-none tracking-[-0.84px] text-[#f5f4f8]";
 const STAT_LBL_CLASS =
-  "text-[9px] text-ink-3 uppercase tracking-[0.08em] leading-[1.3] sm:text-[10px]";
-const STAT_DIV_CLASS = "w-px h-[30px] bg-line sm:h-10";
+  "font-sans text-[10px] leading-[13px] tracking-[0.8px] uppercase text-[#727077]";
+const STAT_DIV_CLASS = "hidden xl:block w-px h-10 bg-[oklch(1_0_0/0.08)] shrink-0";
 
-const DEVICE_STAGE_CLASS =
-  "relative w-full h-full min-w-0 [perspective:2000px] overflow-hidden lg:overflow-visible " +
-  "after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-[linear-gradient(180deg,transparent,var(--color-bg)_90%)] after:z-[3] after:pointer-events-none " +
-  "sm:after:content-none";
+// Portfolio teaser (Figma #1729:2058/2064: 253×257 at x1427 y144 — right
+// edge on the container's right). White-10% glass card linking to the
+// portfolio; media = CMS case cover (decision 6), phone-framed.
+const PORTFOLIO_CARD_CLASS =
+  "hidden xl:block absolute z-20 right-0 top-[144px] w-[253px] h-[257px] rounded-[13px] " +
+  "bg-[oklch(1_0_0/0.10)] backdrop-blur-[8px] overflow-hidden no-underline " +
+  "transition-transform duration-200 hover:-translate-y-1 " +
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
+const PORTFOLIO_TITLE_CLASS =
+  "absolute left-[26px] top-[26px] w-[181px] font-actay font-bold uppercase text-white " +
+  "text-[19.4px] leading-[0.857] z-[2]";
+// Phone mock: the exact Figma iPhone-40 crop (218×273 at (74,87), bleeding
+// past the card's bottom-right; card overflow-hidden clips it). Static
+// asset exported from the file — CMS covers are composed differently and
+// looked wrong here (user decision, job #137).
+const PORTFOLIO_PHONE_CLASS = "absolute left-[74px] top-[87px] w-[218px] h-[273px]";
+const PORTFOLIO_ARROW_CLASS = "absolute left-[24px] top-[175px] size-[57px] z-[2]";
 
-const DEVICE_GLOW_CLASS =
-  "absolute -inset-[10%] pointer-events-none blur-[40px] " +
-  "bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,oklch(from_var(--color-accent)_l_c_h_/_0.18),transparent_70%)]";
-
-const DEVICE_GRID_CLASS =
-  "absolute inset-0 pointer-events-none " +
-  "bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.06)_1px,transparent_0)] " +
-  "bg-[size:24px_24px] " +
-  "[mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)] " +
-  "[-webkit-mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)]";
-
-const DEVICE_TAG_CLASS =
-  "hidden absolute z-[5] px-[11px] py-1.5 backdrop-blur-[12px] border border-line-strong rounded-full text-[10px] font-medium text-ink items-center gap-2 tracking-[0.02em] " +
-  "bg-[oklch(0.22_0.008_60_/_0.85)] shadow-[0_4px_16px_oklch(0_0_0_/_0.4)] animate-float " +
-  "sm:inline-flex " +
-  "2xl:text-[11px] 2xl:px-3.5 2xl:py-2";
-
-const DEVICE_TAG_POSITIONS: { style: React.CSSProperties; className: string }[] = [
-  {
-    style: { top: "12%", left: "2%", animationDelay: "0s" },
-    className: "!top-[8%] !left-[2%] min-[1081px]:!left-[4%] 2xl:!top-[12%] 2xl:!left-[2%]",
-  },
-  {
-    style: { top: "22%", left: "60%", animationDelay: "-2s" },
-    className: "sm:!hidden 2xl:!inline-flex",
-  },
-  {
-    style: { bottom: "28%", left: "40%", animationDelay: "-4s" },
-    className: "!bottom-[22%] !left-[36%] min-[1081px]:!left-[38%] 2xl:!bottom-[28%] 2xl:!left-[40%]",
-  },
-];
-
-const DT_DOT_CLASS =
-  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_6px_var(--color-accent)]";
-const DT_MINI_CLASS = "font-mono text-[10px] text-ink-3";
-const DT_GOOD_CLASS = "text-accent";
-
-const MOCKUP_CLASS =
-  "absolute w-[134%] top-[-65px] left-[-54px] lg:inset-0 flex items-center justify-center z-[2] pointer-events-none overflow-visible";
-
-const MOCKUP_IMG_CLASS =
-  "w-full max-w-full max-h-full h-auto -translate-x-[10%] " +
-  "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))] " +
-  "sm:w-[clamp(420px,50vw,1000px)] sm:max-w-none sm:max-h-none";
-
-const MOCKUP_IMG_HOMEPAGE_CLASS =
-  "relative w-full max-w-none max-h-none !translate-x-[10%] top-[unset] left-[unset] " +
-  "sm:absolute sm:w-[clamp(420px,100vw,1200px)] sm:-top-[136px] sm:-left-[272px] sm:!-translate-x-[10%]";
-
-const HERO_RIGHT_CLASS =
-  "relative min-w-0 -order-1 [aspect-ratio:auto] z-[-1] h-[320px] min-h-[320px] overflow-visible [contain:layout] -mx-6 -mb-10 w-[calc(100%+48px)] " +
-  "sm:order-none sm:z-10 sm:h-full sm:mx-0 sm:mb-0 sm:w-full " +
-  "md:min-h-[420px]";
+// Vertical "Cases" label (Figma #1729:2065 at x1341 y144: dot + rotated text).
+const CASES_TAG_CLASS =
+  "hidden xl:flex absolute z-20 right-[315px] top-[144px] flex-col items-center gap-3.5";
+const CASES_DOT_CLASS =
+  "w-2.5 h-2.5 rounded-full bg-[#7c54cd] shadow-[0_0_8px_rgba(124,84,205,0.6)]";
+const CASES_TEXT_CLASS =
+  "[writing-mode:vertical-rl] font-nav text-[11px] tracking-[1.32px] uppercase text-white";
 
 const ARROW_ICON = (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -179,7 +210,7 @@ function FeatureChip({ label, sub }: { label: string; sub: string }) {
   return (
     <div className={FEAT_CLASS}>
       <div className={FEAT_CHECK_CLASS}>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        <svg viewBox="0 0 24 24" fill="none">
           <path
             d="M4 12l5 5L20 6"
             stroke="currentColor"
@@ -197,59 +228,126 @@ function FeatureChip({ label, sub }: { label: string; sub: string }) {
   );
 }
 
+/** Ghost wordmark — LOGO_PATHS scaled to the hero band (see audit §1.1). */
+function GhostWordmark() {
+  return (
+    <svg viewBox="0 0 129 9.06" className={WORDMARK_CLASS} aria-hidden="true" focusable="false">
+      {LOGO_PATHS.map((d, i) => (
+        <path key={i} d={d} fill="#090909" />
+      ))}
+    </svg>
+  );
+}
+
 export type HomeHeroProps = {
-  eyebrow: { label: string };
-  h1Lines: React.ReactNode[];
-  lede: React.ReactNode;
+  /** White H1 lines (Figma #1729:1982). */
+  h1White: React.ReactNode;
+  /** Gradient H1 tail, e.g. "leads 24/7" (Figma #1729:1983). */
+  h1Gradient: string;
+  sub: React.ReactNode;
   features: { label: string; sub: string }[];
-  ctaPrimaryLabel: string;
-  ctaPrimaryHref: string;
-  ctaSecondaryLabel: string;
-  ctaSecondaryHref: string;
-  ctaFootnote: React.ReactNode;
+  ctaPrimary: { label: string; href: string };
+  ctaSecondary: { label: string; href: string };
   stats: { num: string; lbl: React.ReactNode }[];
-  deviceTags: { kind: "default" | "good"; primary: string; mini?: string }[];
-  deviceMockupSrc: string;
-  deviceMockupAlt: string;
+  portfolio: {
+    title: string;
+    tag: string;
+    href: string;
+  };
+  deviceAlt: string;
 };
 
 export function HomeHero({
-  eyebrow,
-  h1Lines,
-  lede,
+  h1White,
+  h1Gradient,
+  sub,
   features,
-  ctaPrimaryLabel,
-  ctaPrimaryHref,
-  ctaSecondaryLabel,
-  ctaSecondaryHref,
-  ctaFootnote,
+  ctaPrimary,
+  ctaSecondary,
   stats,
-  deviceTags,
-  deviceMockupSrc,
-  deviceMockupAlt,
+  portfolio,
+  deviceAlt,
 }: HomeHeroProps) {
   return (
     <>
-      <div className={HERO_BG_CLASS} />
+      <div className={PAGE_BG_CLASS} />
       <div className="hero-grain" />
 
-      <div className={HERO_SHELL_CLASS}>
-        <div className={HERO_GRID_CLASS}>
-          <div className={HERO_LEFT_CLASS}>
-            <div className={EYEBROW_CLASS}>
-              <span className={EYEBROW_DOT_CLASS} />
-              <span>{eyebrow.label}</span>
-            </div>
+      <section className={SECTION_CLASS}>
+        {/* Decor stack (Figma paint order) */}
+        <AppImage
+          src="/hero/aurora.webp"
+          alt=""
+          aria-hidden
+          width={1672}
+          height={941}
+          quality={75}
+          loading="eager"
+          sizes="100vw"
+          className={AURORA_CLASS + " h-full w-full object-cover"}
+        />
+        {/* Capped 1920px stage: all positioned decor lives here so the
+            composition never scales past the design frame. */}
+        <div className={STAGE_CLASS}>
+          <GhostWordmark />
+          <div className={E823_CLASS} aria-hidden="true" />
+          <div className={E825_CLASS} aria-hidden="true" />
+          <div className={E821_CLASS} aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element -- SVG asset:
+              next/image refuses SVG without dangerouslyAllowSVG; a plain img
+              serves the static file directly (no optimizer round-trip). */}
+          <img
+            src="/hero/globe.svg"
+            alt=""
+            aria-hidden="true"
+            width={670}
+            height={670}
+            loading="lazy"
+            className={GLOBE_CLASS}
+          />
+          <div className={DEVICES_STAGE_WRAP_CLASS}>
+            <AppImage
+              src="/hero/devices.webp"
+              alt={deviceAlt}
+              width={1381}
+              height={532}
+              priority
+              fetchPriority="high"
+              quality={75}
+              sizes="1381px"
+              className={DEVICES_IMG_CLASS}
+            />
+          </div>
+          <div className={E824_CLASS} aria-hidden="true" />
+        </div>
 
-            <H1 variant="hp" className={HERO_H1_CLASS} data-speakable="hero-title">
-              {h1Lines.map((line, i) => (
-                <span key={i} className={H1_LINE_CLASS}>
-                  {line}
-                </span>
-              ))}
-            </H1>
+        {/* In-flow device collage for mobile/tablet (stage copy is xl+) */}
+        <div className={DEVICES_FLOW_WRAP_CLASS}>
+          <AppImage
+            src="/hero/devices.webp"
+            alt={deviceAlt}
+            width={1381}
+            height={532}
+            priority
+            fetchPriority="high"
+            quality={75}
+            sizes="96vw"
+            className={DEVICES_IMG_CLASS}
+          />
+        </div>
 
-            <p className={LEDE_CLASS} data-speakable="hero-description">{lede}</p>
+        <div className={CONTAINER_CLASS}>
+          <div className={CONTENT_CLASS}>
+            <h1 className={H1_CLASS} data-speakable="hero-title">
+              {h1White}
+              <span className={H1_GRADIENT_CLASS}>{h1Gradient}</span>
+            </h1>
+
+            <p className={SUB_CLASS} data-speakable="hero-description">
+              {sub}
+            </p>
+
+            <div className={DIVIDER_CLASS} aria-hidden="true" />
 
             <div className={FEATURES_CLASS}>
               {features.map((f) => (
@@ -258,72 +356,51 @@ export function HomeHero({
             </div>
 
             <div className={CTA_ROW_CLASS}>
-              <Link href={ctaPrimaryHref} className={btnClass("primary")}>
-                <span>{ctaPrimaryLabel}</span>
+              <Link href={ctaPrimary.href} className={btnClass("violet")}>
+                <span>{ctaPrimary.label}</span>
                 {ARROW_ICON}
               </Link>
-              <Link href={ctaSecondaryHref} className={btnClass("primary")}>
-                <span>{ctaSecondaryLabel}</span>
+              <Link href={ctaSecondary.href} className={btnClass("whisper")}>
+                <span>{ctaSecondary.label}</span>
                 {SECONDARY_ARROW_ICON}
               </Link>
             </div>
-            <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p>
-
-            <div className={STATS_CLASS}>
-              {stats.map((s, i) => (
-                <span key={i} className="contents">
-                  {i > 0 && <div className={STAT_DIV_CLASS} />}
-                  <div className={STAT_CLASS}>
-                    <div className={STAT_NUM_CLASS}>{s.num}</div>
-                    <div className={STAT_LBL_CLASS}>{s.lbl}</div>
-                  </div>
-                </span>
-              ))}
-            </div>
           </div>
 
-          <div className={HERO_RIGHT_CLASS}>
-            <div className={DEVICE_STAGE_CLASS}>
-              <div className={DEVICE_GLOW_CLASS} />
-              <div className={DEVICE_GRID_CLASS} />
-              <div className={MOCKUP_CLASS}>
-                <AppImage
-                  src={deviceMockupSrc}
-                  alt={deviceMockupAlt}
-                  width={1700}
-                  height={1674}
-                  priority
-                  fetchPriority="high"
-                  quality={75}
-                  sizes="(max-width: 640px) 64vw, (max-width: 1200px) 100vw, 1200px"
-                  className={`${MOCKUP_IMG_CLASS} ${MOCKUP_IMG_HOMEPAGE_CLASS}`}
-                />
-              </div>
-              {deviceTags.map((t, i) => {
-                const pos = DEVICE_TAG_POSITIONS[i] ?? DEVICE_TAG_POSITIONS[0];
-                return (
-                  <div
-                    key={i}
-                    className={`${DEVICE_TAG_CLASS} ${pos.className}`}
-                    // eslint-disable-next-line react/forbid-dom-props -- per-pill top/left/animation-delay are dynamic position offsets that cannot be expressed as static utilities
-                    style={pos.style}
-                  >
-                    {i === 0 && <span className={DT_DOT_CLASS} />}
-                    <span>{t.primary}</span>
-                    {t.mini && (
-                      <span
-                        className={`${DT_MINI_CLASS}${t.kind === "good" ? ` ${DT_GOOD_CLASS}` : ""}`}
-                      >
-                        {t.mini}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+          {/* Stats bar — glass overlay across the MacBook at xl+ */}
+          <div className={STATS_CLASS}>
+            {stats.map((s, i) => (
+              <span key={i} className="contents">
+                {i > 0 && <span className={STAT_DIV_CLASS} />}
+                <div className={STAT_CLASS}>
+                  <div className={STAT_NUM_CLASS}>{s.num}</div>
+                  <div className={STAT_LBL_CLASS}>{s.lbl}</div>
+                </div>
+              </span>
+            ))}
+          </div>
+
+          {/* Portfolio teaser + vertical Cases tag */}
+          <Link href={portfolio.href} className={PORTFOLIO_CARD_CLASS}>
+            <span className={PORTFOLIO_TITLE_CLASS}>{portfolio.title}</span>
+            <AppImage
+              src="/hero/portfolio-phone.webp"
+              alt=""
+              aria-hidden
+              width={436}
+              height={546}
+              quality={75}
+              sizes="218px"
+              className={PORTFOLIO_PHONE_CLASS}
+            />
+            <CtaArrow className={PORTFOLIO_ARROW_CLASS} />
+          </Link>
+          <div className={CASES_TAG_CLASS} aria-hidden="true">
+            <span className={CASES_DOT_CLASS} />
+            <span className={CASES_TEXT_CLASS}>{portfolio.tag}</span>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

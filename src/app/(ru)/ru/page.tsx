@@ -33,6 +33,7 @@ import {
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
+import { resolveRootHref } from "@/constants/i18n-routes";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 const HOMEPAGE_RU_DESCRIPTION =
@@ -101,14 +102,9 @@ export default async function HomePageRu() {
 
       <main>
       <HomeHero
-        eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДИЯ" }}
-        h1Lines={[
-          <>Сайты любой сложности,</>,
-          <>
-            которые приводят <em>заявки 24/7.</em>
-          </>,
-        ]}
-        lede={
+        h1White={<>Сайты любой сложности, которые приводят </>}
+        h1Gradient="заявки 24/7"
+        sub={
           <>
             За 4–10 недель вы получаете сайт, который быстро загружается,
             вызывает доверие с первого экрана и ранжируется в Google и
@@ -121,24 +117,22 @@ export default async function HomePageRu() {
           { label: "Гарантия 1 год", sub: "+ неустойка 30% за срыв" },
           { label: "Всё под ключ", sub: "тексты + дизайн + код + хостинг" },
         ]}
-        ctaPrimaryLabel="Обсудить проект"
-        ctaPrimaryHref="/ru/contacts"
-        ctaSecondaryLabel="Бесплатный аудит сайта за 24 часа"
-        ctaSecondaryHref="/ru/contacts?source=hero-audit"
-        ctaFootnote="В течение 24 часов пришлём разбор: что тормозит ваш сайт, почему нет заявок и что исправить первым."
+        ctaPrimary={{ label: "Обсудить проект", href: "/ru/contacts" }}
+        ctaSecondary={{ label: "Бесплатный аудит сайта за 24 часа", href: "/ru/contacts?source=hero-audit" }}
         stats={[
           { num: "50+", lbl: <>проектов<br/>за 5 лет</> },
           { num: "7", lbl: <>стран<br/>UA · EU · US · DK · ZA · UK · FR</> },
           { num: "×3.2", lbl: <>больше заявок<br/>в среднем</> },
           { num: "30%", lbl: <>неустойка<br/>за срыв срока</> },
         ]}
-        deviceTags={[
-          { kind: "default", primary: "Custom code" },
-          { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "98" },
-        ]}
-        deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Пример сайта для бизнеса, созданного Code-Site.Art"
+        portfolio={{
+          title: "Смотреть портфолио",
+          tag: "Кейсы",
+          // /portfolio is not RU-localized yet — resolveRootHref falls back
+          // to the UA page (same gating pattern as the header nav).
+          href: resolveRootHref("/portfolio", "ru"),
+        }}
+        deviceAlt="Примеры сайтов для бизнеса, созданных Code-Site.Art"
       />
 
       <PainPoints locale="ru" />

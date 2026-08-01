@@ -105,13 +105,9 @@ export default async function HomePageEn() {
 
       <main>
       <HomeHero
-        eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
-        h1Lines={[
-          <>Websites of any complexity,</>,
-          <>built to bring in</>,
-          <em key="hero-em">leads 24/7.</em>,
-        ]}
-        lede={
+        h1White={<>Websites of any complexity, built to bring in </>}
+        h1Gradient="leads 24/7"
+        sub={
           <>
             In 4–10 weeks you get a site that loads fast, earns trust from
             the first screen, and ranks in Google and AI search. Your part:
@@ -124,24 +120,20 @@ export default async function HomePageEn() {
           { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
           { label: "End-to-end", sub: "Copy + design + code + hosting" },
         ]}
-        ctaPrimaryLabel="Calculate the cost"
-        ctaPrimaryHref="/en/calculator"
-        ctaSecondaryLabel="Free site audit in 24 hours"
-        ctaSecondaryHref="/en/contacts?source=hero-audit"
-        ctaFootnote="Within 24 hours we’ll send you a breakdown: what’s slowing your site down, why you’re not getting leads, and what to fix first."
+        ctaPrimary={{ label: "Calculate the cost", href: "/en/calculator" }}
+        ctaSecondary={{ label: "Free site audit in 24 hours", href: "/en/contacts?source=hero-audit" }}
         stats={[
           { num: "50+", lbl: <>projects<br />across 5 years</> },
           { num: "7", lbl: <>countries<br />UA · EU · US · DK · ZA · UK · FR</> },
           { num: "×3.2", lbl: <>more leads<br />on average</> },
           { num: "30%", lbl: <>penalty if we<br />miss the deadline</> },
         ]}
-        deviceTags={[
-          { kind: "default", primary: "Custom code" },
-          { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "98" },
-        ]}
-        deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
+        portfolio={{
+          title: "See our portfolio",
+          tag: "Cases",
+          href: "/en/portfolio",
+        }}
+        deviceAlt="Business websites built by Code-Site.Art"
       />
 
       <PainPoints locale="en" />
