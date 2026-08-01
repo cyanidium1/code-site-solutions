@@ -21,11 +21,10 @@ const localeDdClass =
   "group/locale relative self-stretch flex items-center shrink-0 lg:-mx-1";
 const localeTriggerClass =
   "list-none inline-flex items-center gap-2 min-h-12 px-3.5 py-2.5 rounded-full " +
-  " font-mono text-[13px] tracking-[0.14em] uppercase text-ink-dim cursor-pointer " +
+  " font-nav text-[13px] tracking-[0.06em] uppercase text-[oklch(1_0_0/0.92)] cursor-pointer " +
   "transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/locale:text-ink " +
   "[&_svg]:opacity-70 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:shrink-0 group-open/locale:[&_svg]:rotate-180 " +
-  "lg:min-h-11 lg:gap-[5px] lg:px-1 lg:py-0 lg:border-0 lg:rounded-none lg:bg-transparent lg:text-[10px] lg:tracking-[0.1em] " +
-  "xl:text-[10.5px] xl:tracking-[0.12em] 2xl:text-[11px]";
+  "lg:min-h-11 lg:gap-[5px] lg:px-1 lg:py-0 lg:border-0 lg:rounded-none lg:bg-transparent lg:text-[13px] xl:text-[14px]";
 const localeChevronClass = "w-3.5 h-3.5 lg:w-3 lg:h-3";
 const localePanelClass =
   "hidden group-open/locale:flex absolute top-[calc(100%+12px)] right-0 min-w-[148px] p-2 border border-line rounded-[14px] " +
