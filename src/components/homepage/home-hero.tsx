@@ -271,13 +271,16 @@ export function HomeHero({
         <div className={E823_CLASS} aria-hidden="true" />
         <div className={E825_CLASS} aria-hidden="true" />
         <div className={E821_CLASS} aria-hidden="true" />
-        <AppImage
+        {/* eslint-disable-next-line @next/next/no-img-element -- SVG asset:
+            next/image refuses SVG without dangerouslyAllowSVG; a plain img
+            serves the static file directly (no optimizer round-trip). */}
+        <img
           src="/hero/globe.svg"
           alt=""
-          aria-hidden
+          aria-hidden="true"
           width={670}
           height={670}
-          sizes="(max-width: 1100px) 0px, 35vw"
+          loading="lazy"
           className={GLOBE_CLASS}
         />
 
@@ -290,7 +293,7 @@ export function HomeHero({
             height={532}
             priority
             fetchPriority="high"
-            quality={80}
+            quality={75}
             sizes="(max-width: 1100px) 96vw, 72vw"
             className={DEVICES_IMG_CLASS}
           />
