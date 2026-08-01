@@ -9,7 +9,6 @@ import {
   Industries,
   BusinessValue,
   PainPoints,
-  PerformanceProof,
   Process,
   Cases,
   PullQuoteSwiper,
@@ -143,7 +142,6 @@ export default async function HomePageRu() {
 
       <PainPoints locale="ru" />
       <ValueStack locale="ru" />
-      <PerformanceProof locale="ru" />
 
       <Industries
         eyebrow=""

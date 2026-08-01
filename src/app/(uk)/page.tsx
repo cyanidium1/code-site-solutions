@@ -8,7 +8,6 @@ import {
   Industries,
   BusinessValue,
   PainPoints,
-  PerformanceProof,
   Process,
   Cases,
   PullQuoteSwiper,
@@ -124,7 +123,6 @@ export default async function HomePage() {
 
       <PainPoints />
       <ValueStack />
-      <PerformanceProof />
       <Industries />
       <BusinessValue />
       <Process />
