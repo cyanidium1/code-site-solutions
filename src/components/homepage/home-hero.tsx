@@ -14,11 +14,15 @@ import { LOGO_PATHS } from "@/components/layout/logo/logo-paths";
    above 4px (stats bar), decor blurs are STATIC radial gradients per the
    job-#135 rule (never CSS `blur()` — see docs/glass-ui-patterns.md).
 
-   Coordinate system: decor is positioned in % of the 1920×872 design
-   frame INSIDE a centered stage capped at 1920px wide (job #137 fix:
-   viewport-% anchoring blew the composition up on >1920 viewports).
-   Below xl the overlays collapse into normal flow (no mobile design
-   exists — the ladder mirrors the header's: flow < xl ≤ absolute).
+   Coordinate system (job #138): decor is positioned in FIXED PX inside a
+   stage that mirrors the CONTENT container (centered max-w-container =
+   1440) — offsets are the Figma coordinates minus the frame's 240px
+   container margin. The section grows with the viewport but the container
+   does not, so viewport/stage percentages drifted the decor away from the
+   content at every width except exactly 1920. Decor overflows the stage
+   freely; the section's overflow-hidden clips at the viewport, same as
+   the Figma frame clips at 1920. Below xl the overlays collapse into
+   normal flow (no mobile design exists).
    ─────────────────────────────────────────────────────────────────── */
 
 // Page-level backdrop kept during the redesign transition (user decision):
@@ -42,39 +46,42 @@ const SECTION_CLASS =
 // the capped stage below.
 const AURORA_CLASS = "absolute inset-0 z-0 pointer-events-none select-none";
 
-// Centered 1920px stage — the coordinate frame for ALL positioned decor
-// (wordmark, ellipses, globe, xl devices). On viewports ≤1920 it equals
-// the viewport; beyond that it stays design-sized and centered, so the
-// composition never outgrows the Figma frame.
+// Decor stage — mirrors the CONTENT container box (centered, 1440 max),
+// so fixed-px decor offsets keep their designed relationship to the
+// content column/stats/card at EVERY viewport width. Decor may overflow
+// this box; the section clips at the viewport edge like the Figma frame.
 const STAGE_CLASS =
-  "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] pointer-events-none";
+  "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-container pointer-events-none";
 
-// Giant ghost wordmark (Figma #1729:1873): the logo glyphs at 145% frame
-// width, y≈36%, #090909 at 20% — reuses LOGO_PATHS (viewBox 129×9.06).
+// Giant ghost wordmark (Figma #1729:1873: frame box −790..1993 × y312,
+// 2783 wide) — container-relative left = −790−240 = −1030. Reuses
+// LOGO_PATHS (viewBox 129×9.06 → rendered ≈196 tall; top centers on the
+// Figma band's 428px mid-line).
 const WORDMARK_CLASS =
   "hidden lg:block absolute z-[1] pointer-events-none opacity-20 " +
-  "left-[-41.1%] top-[35.8%] w-[145%]";
+  "left-[-1030px] top-[331px] w-[2783px] max-w-none";
 
 // Blur-ellipse stand-ins — STATIC radial gradients sized to the blurred
 // footprint (node box + Figma blur bleed), job-#135 rule. Three dark
 // vignettes (#080712) carve darkness out of the aurora; one violet glow
-// (#642DBA) feeds the right edge / header glass. Percentages are the
-// ellipse CENTERS mapped to the 1920×872 frame, translated -50%/-50%.
+// (#642DBA) feeds the right edge / header glass. Positions are the
+// ellipse CENTERS in container-relative px (Figma x − 240), −50%/−50%.
 const ELLIPSE_BASE =
-  "absolute pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full";
+  "absolute pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full max-w-none";
 const E823_CLASS = // dark, behind content column — center (935,556), footprint ≈2081×2018
-  `${ELLIPSE_BASE} z-[2] left-[48.7%] top-[63.8%] w-[108%] aspect-[2081/2018] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
+  `${ELLIPSE_BASE} z-[2] left-[695px] top-[556px] w-[2081px] aspect-[2081/2018] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
 const E825_CLASS = // dark, upper-left of devices — center (778,277), footprint ≈727×685
-  `${ELLIPSE_BASE} z-[2] left-[40.5%] top-[31.8%] w-[37.9%] aspect-[727/685] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
+  `${ELLIPSE_BASE} z-[2] left-[538px] top-[277px] w-[727px] aspect-[727/685] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
 const E821_CLASS = // violet glow, right edge — center (2118,446), footprint ≈1291×1252
-  `${ELLIPSE_BASE} z-[2] left-[110.3%] top-[51.1%] w-[67.2%] aspect-[1291/1252] bg-[radial-gradient(50%_50%_at_50%_50%,#642DBA_0%,transparent_70%)]`;
+  `${ELLIPSE_BASE} z-[2] left-[1878px] top-[446px] w-[1291px] aspect-[1291/1252] bg-[radial-gradient(50%_50%_at_50%_50%,#642DBA_0%,transparent_70%)]`;
 const E824_CLASS = // dark, OVER the devices' lower half — center (1341,874), footprint ≈1071×830
-  `${ELLIPSE_BASE} z-[4] left-[69.8%] top-[100.3%] w-[55.8%] aspect-[1071/830] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
+  `${ELLIPSE_BASE} z-[4] left-[1101px] top-[874px] w-[1071px] aspect-[1071/830] bg-[radial-gradient(50%_50%_at_50%_50%,#080712_0%,transparent_70%)]`;
 
-// Wireframe globe (Figma #1729:1904) at (1365,224) 670×670.
+// Wireframe globe (Figma #1729:1904 at (1365,224) 670×670) —
+// container-relative left = 1365 − 240 = 1125.
 const GLOBE_CLASS =
   "hidden md:block absolute z-[2] pointer-events-none select-none " +
-  "left-[71.1%] top-[25.7%] w-[34.9%] max-w-[670px]";
+  "left-[1125px] top-[224px] w-[670px] max-w-none";
 
 // Device collage (composed webp, Figma #1729:1908+1909): canvas maps to
 // frame box (601,340)-(1982,872). Two placements: in-flow below xl
@@ -82,8 +89,10 @@ const GLOBE_CLASS =
 // pre-clipped at the hero fold). Same src → single fetch.
 const DEVICES_FLOW_WRAP_CLASS =
   "relative z-[3] mt-8 -mb-6 mx-auto w-full max-w-[720px] px-2 xl:hidden";
+// Container-relative left = 601 − 240 = 361; fixed design size (1381),
+// bottom-anchored to the fold.
 const DEVICES_STAGE_WRAP_CLASS =
-  "hidden xl:block absolute z-[3] w-[71.9%] left-[31.3%] bottom-0";
+  "hidden xl:block absolute z-[3] w-[1381px] max-w-none left-[361px] bottom-0";
 const DEVICES_IMG_CLASS =
   "w-full h-auto [filter:drop-shadow(0_34px_44px_oklch(0_0_0_/_0.5))]";
 
@@ -96,7 +105,7 @@ const CONTAINER_CLASS = "relative z-10 max-w-container mx-auto px-6 sm:px-8 lg:p
 // EN content stack measures ~615px: 144+615+113=872 — job #137 fix, the
 // initial 153px sagged the whole device/stats layer 40px low).
 const CONTENT_CLASS =
-  "relative pt-[100px] sm:pt-[120px] xl:pt-[144px] pb-10 xl:pb-[180px] 2xl:pb-[113px] " +
+  "relative pt-[100px] sm:pt-[120px] xl:pt-[144px] pb-10 xl:pb-[144px] 2xl:pb-[113px] " +
   "max-w-[635px]";
 
 // H1 — Actay Wide Bold 64/61.44, tracking −2.24px, uppercase (Figma
@@ -167,7 +176,7 @@ const PORTFOLIO_ARROW_CLASS = "absolute left-[24px] top-[175px] size-[57px] z-[2
 
 // Vertical "Cases" label (Figma #1729:2065 at x1341 y144: dot + rotated text).
 const CASES_TAG_CLASS =
-  "hidden xl:flex absolute z-20 right-[286px] top-[144px] flex-col items-center gap-3.5";
+  "hidden xl:flex absolute z-20 right-[315px] top-[144px] flex-col items-center gap-3.5";
 const CASES_DOT_CLASS =
   "w-2.5 h-2.5 rounded-full bg-[#7c54cd] shadow-[0_0_8px_rgba(124,84,205,0.6)]";
 const CASES_TEXT_CLASS =
@@ -305,7 +314,7 @@ export function HomeHero({
               priority
               fetchPriority="high"
               quality={75}
-              sizes="(max-width: 1100px) 96vw, (max-width: 1920px) 72vw, 1381px"
+              sizes="1381px"
               className={DEVICES_IMG_CLASS}
             />
           </div>
