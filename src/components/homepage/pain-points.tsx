@@ -20,18 +20,23 @@ const DECOR_STAGE_CLASS =
 
 // Figma blur-266 ellipses as static radial gradients (job-#135 rule).
 // Centers are container-relative px (Figma x − 240 / y − section top ≈880);
-// footprint = 558×518 node + blur bleed ≈ 1622×1582.
+// footprint = 558×518 node + blur bleed ≈ 1622×1582. Peak alpha 0x70 (44%):
+// a Gaussian blur of a solid ellipse never reaches full saturation, so the
+// stand-in starts at partial alpha to match the Figma intensity (job #142).
 const ELLIPSE_BASE =
   "absolute -translate-x-1/2 -translate-y-1/2 rounded-full max-w-none w-[1622px] aspect-[1622/1582]";
 const ELLIPSE_LEFT_CLASS = // #1729:2075 — deep indigo, left edge
-  `${ELLIPSE_BASE} left-[-149px] top-[215px] bg-[radial-gradient(50%_50%_at_50%_50%,#19004D_0%,transparent_70%)]`;
+  `${ELLIPSE_BASE} left-[-149px] top-[215px] bg-[radial-gradient(50%_50%_at_50%_50%,#19004D70_0%,transparent_70%)]`;
 const ELLIPSE_RIGHT_CLASS = // #1729:2074 — violet, right edge
-  `${ELLIPSE_BASE} left-[1736px] top-[327px] bg-[radial-gradient(50%_50%_at_50%_50%,#642DBA_0%,transparent_70%)]`;
+  `${ELLIPSE_BASE} left-[1736px] top-[327px] bg-[radial-gradient(50%_50%_at_50%_50%,#642DBA70_0%,transparent_70%)]`;
 
 // Card: Figma #1729:2088 — white-2% fill, white-8% border (=border-line),
-// rounded-16, px25/pt25/pb49 (deep bottom air).
+// rounded-16, px25/pt25/pb49 (deep bottom air). The Figma GLASS effect
+// (radius 22) did not survive the code export — applied here as
+// backdrop-blur with the standard mobile cap (blur policy).
 const CARD_CLASS =
-  "rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] px-[25px] pt-[25px] pb-[49px]";
+  "rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] px-[25px] pt-[25px] pb-[49px] " +
+  "backdrop-blur-[12px] lg:backdrop-blur-[22px]";
 
 // Punch line — Figma #1729:2119: Actay Wide Bold 24/31.2, tracking −0.24px,
 // uppercase, Whisper, single colour (the copy's <em> is neutralized).
@@ -175,7 +180,11 @@ export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
     // body's overflow-x-clip does NOT stop html-level horizontal scroll, so
     // the section clips its own x-axis (y stays visible — clip+visible is a
     // valid Overflow-3 pair; the upward bleed toward the hero survives).
-    <section className={`${hpSectionClass} overflow-x-clip`} id="pains">
+    // z-[2]: the next section's opaque bg-bg (hpSectionClass) was cutting
+    // the DOWNWARD bleed; lifting this section lets the glow overlay the
+    // neighbor's top — same paint order as the Figma canvas, where these
+    // ellipses sit above the surrounding frames (job #142).
+    <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="pains">
       <div className={DECOR_STAGE_CLASS}>
         <div className={ELLIPSE_LEFT_CLASS} aria-hidden="true" />
         <div className={ELLIPSE_RIGHT_CLASS} aria-hidden="true" />
