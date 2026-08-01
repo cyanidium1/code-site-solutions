@@ -10,11 +10,20 @@ import type { Locale } from "@/constants/locales";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
 import { useLeadModal } from "@/components/blocks/lead-modal";
-import { btnClass } from "@/components/ui";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
 import Logo from "./logo/logo";
-import { headerBrandClass, headerEndClass } from "./header-classes";
+import {
+  headerBrandClass,
+  headerEndClass,
+  headerWrapClass,
+  headerRowClass,
+  headerPillClass,
+  headerCtaPillClass,
+  headerCtaTextClass,
+  headerDividerClass,
+} from "./header-classes";
+import { CtaArrow } from "./cta-arrow";
 import { useI18nRegistry } from "./i18n-registry-provider";
 import { NavWorkLabel } from "./nav-work-label";
 
@@ -24,39 +33,27 @@ function isActive(pathname: string | null, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-// Header is sticky, backdrop-blurred. Responsive ladder grows the
-// nav gap, link font size, and CTA padding lg→2xl to keep the bar
-// on one row at desktop without wrapping. Below lg nav + CTA hide;
-// locale + burger stay in the bar.
-const headerClass =
-  "sticky top-0 z-50 border-b border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.7)] backdrop-blur-[14px] px-6 sm:px-8 lg:px-12";
-const headerInnerClass =
-  "mx-auto max-w-container flex items-center justify-between gap-4 py-[14px] xl:py-[18px]";
-const headerNavClass =
-  "hidden gap-4 lg:flex xl:gap-[22px] 2xl:gap-7";
-// Trailing-colon variant builders for hover-active state on nav links.
+// Floating split glass pill (Figma «код сайт арт» 1729:1911; audit:
+// docs/home-header-figma-audit.md). Two sibling pills — main (logo/nav/
+// locale/burger) + CTA — in a transparent sticky wrapper, constant top
+// offset. Below lg the nav + CTA pill hide; locale + burger stay in the
+// main pill and the CTA lives in the drawer.
+//
+// Figma 1729:1953 — Montserrat 400 uppercase, 11px links / 12px Services
+// trigger, tracking 1.32px, lh 16.5, white (92% base → 100% hover; the
+// active gradient underline is a kept deviation — mockup shows none).
+// Gap ladder compresses below the 1440 design width; 18px is the Figma value.
+const headerNavClass = "hidden gap-3 lg:flex xl:gap-[18px]";
 const navLinkBaseClass =
-  "flex items-center font-mono text-[10px] tracking-[0.1em] uppercase text-ink-dim no-underline transition-colors duration-200 hover:text-ink xl:text-[10.5px] xl:tracking-[0.12em] 2xl:text-[11px]";
+  "flex items-center font-nav text-[11px] leading-[16.5px] tracking-[1.32px] uppercase text-[oklch(1_0_0/0.92)] no-underline transition-colors duration-200 hover:text-ink";
 const navLinkActiveClass =
   "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
-// Header nav CTA — the FLAT, compact member of the `solid` bg-ink family.
-// Routes through `btnClass` for the shared pill structure + cursor/focus/
-// disabled/min-h-11 base; the `sm` size supplies the compact px/py/text
-// ladder. Overrides restore the header's own look: hidden below `lg` (the nav
-// collapses to the burger there), shadow-less (solid carries an inset glow the
-// header intentionally doesn't), and a subtler 1px hover lift — so the visual
-// is unchanged from the prior hand-rolled string.
-const headerCtaClass = btnClass(
-  "solid",
-  "hidden lg:inline-flex shrink-0 uppercase tracking-[0.04em] shadow-none hover:shadow-none hover:-translate-y-px",
-  "sm",
-);
 
 // <details>-based hover/click dropdown. `cursor-pointer + select-none` on
 // summary + hiding the marker. Chevron rotates 180° when [open].
 const navDdClass = "relative self-stretch flex items-center";
 const navDdTriggerClass =
-  "list-none flex items-center gap-1.5 cursor-pointer font-mono text-[10px] tracking-[0.1em] uppercase text-ink-dim transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink xl:text-[10.5px] xl:tracking-[0.12em] 2xl:text-[11px]";
+  "list-none flex items-center gap-1.5 cursor-pointer font-nav text-[12px] leading-[16.5px] tracking-[1.32px] uppercase text-[oklch(1_0_0/0.92)] transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink";
 const navDdChevronClass =
   "shrink-0 opacity-75 transition-transform duration-200 group-open/dd:rotate-180";
 const navDdPanelClass =
@@ -104,82 +101,89 @@ export function HpHeader() {
   );
 
   return (
-    <header className={headerClass}>
-      <div className={headerInnerClass}>
-        <Logo href={homeHref} className={headerBrandClass} onClick={closeDd} />
-        <div className={headerEndClass}>
-          <nav className={headerNavClass} aria-label={t("menuLabel")}>
-          <details ref={ddRef} className={`group/dd ${navDdClass}`}>
-            <summary
-              className={`${navDdTriggerClass}${servicesActive ? ` ${navLinkActiveClass}` : ""}`}
-              aria-current={servicesActive ? "page" : undefined}
-            >
-              {t("services")}
-              <ChevronDown className={navDdChevronClass} size={14} strokeWidth={2} aria-hidden />
-            </summary>
-            <div className={navDdPanelClass}>
-              {SERVICE_NAV_LINKS.map((item) => {
-                if (!item.published) {
-                  // No Sanity page yet — show the label but make it
-                  // non-clickable so the dropdown lists the full industry
-                  // line-up without leading visitors to a 404.
-                  return (
-                    <span
-                      key={item.href}
-                      className={`${navDdLinkBaseClass} ${navDdLinkDisabledClass}`}
-                      aria-disabled="true"
-                    >
-                      {tServices(item.key)}
-                    </span>
-                  );
-                }
-                const target = resolveServiceHref(item.href, locale, registry);
-                const active = isActive(pathname, target);
+    <header className={headerWrapClass}>
+      <div className={headerRowClass}>
+        {/* Main pill: logo + nav + divider + locale (+ burger below lg) */}
+        <div className={headerPillClass}>
+          <Logo href={homeHref} className={headerBrandClass} onClick={closeDd} />
+          <div className={headerEndClass}>
+            <nav className={headerNavClass} aria-label={t("menuLabel")}>
+              <details ref={ddRef} className={`group/dd ${navDdClass}`}>
+                <summary
+                  className={`${navDdTriggerClass}${servicesActive ? ` ${navLinkActiveClass}` : ""}`}
+                  aria-current={servicesActive ? "page" : undefined}
+                >
+                  {t("services")}
+                  <ChevronDown className={navDdChevronClass} size={14} strokeWidth={2} aria-hidden />
+                </summary>
+                <div className={navDdPanelClass}>
+                  {SERVICE_NAV_LINKS.map((item) => {
+                    if (!item.published) {
+                      // No Sanity page yet — show the label but make it
+                      // non-clickable so the dropdown lists the full industry
+                      // line-up without leading visitors to a 404.
+                      return (
+                        <span
+                          key={item.href}
+                          className={`${navDdLinkBaseClass} ${navDdLinkDisabledClass}`}
+                          aria-disabled="true"
+                        >
+                          {tServices(item.key)}
+                        </span>
+                      );
+                    }
+                    const target = resolveServiceHref(item.href, locale, registry);
+                    const active = isActive(pathname, target);
+                    return (
+                      <Link
+                        key={item.href}
+                        href={target}
+                        className={`${navDdLinkBaseClass}${active ? ` ${navDdLinkActiveClass}` : ""}`}
+                        aria-current={active ? "page" : undefined}
+                        onClick={closeDd}
+                      >
+                        {tServices(item.key)}
+                      </Link>
+                    );
+                  })}
+                  <Link href={allServicesHref} className={navDdFooterClass} onClick={closeDd}>
+                    {t("allServicesFooter")}
+                  </Link>
+                </div>
+              </details>
+              {navLinks.map((item) => {
+                const active = isActive(pathname, item.href);
                 return (
                   <Link
                     key={item.href}
-                    href={target}
-                    className={`${navDdLinkBaseClass}${active ? ` ${navDdLinkActiveClass}` : ""}`}
+                    href={item.href}
+                    className={`${navLinkBaseClass}${active ? ` ${navLinkActiveClass}` : ""}`}
                     aria-current={active ? "page" : undefined}
                     onClick={closeDd}
                   >
-                    {tServices(item.key)}
+                    <NavWorkLabel label={item.label} linkKey={item.key} />
                   </Link>
                 );
               })}
-              <Link href={allServicesHref} className={navDdFooterClass} onClick={closeDd}>
-                {t("allServicesFooter")}
-              </Link>
-            </div>
-          </details>
-          {navLinks.map((item) => {
-            const active = isActive(pathname, item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`${navLinkBaseClass}${active ? ` ${navLinkActiveClass}` : ""}`}
-                aria-current={active ? "page" : undefined}
-                onClick={closeDd}
-              >
-                <NavWorkLabel label={item.label} linkKey={item.key} />
-              </Link>
-            );
-          })}
-          </nav>
-          <LocaleSwitcher />
-          <button
-            type="button"
-            className={headerCtaClass}
-            onClick={() => {
-              closeDd();
-              openLeadModal({ source: "header", locale });
-            }}
-          >
-            {t("cta")}
-          </button>
-          <MobileMenu />
+            </nav>
+            <span className={headerDividerClass} aria-hidden="true" />
+            <LocaleSwitcher />
+            <MobileMenu />
+          </div>
         </div>
+        {/* CTA pill: Figma right segment — text + white ↗ circle. Whole
+            segment is one button → lead modal (behavior unchanged). */}
+        <button
+          type="button"
+          className={headerCtaPillClass}
+          onClick={() => {
+            closeDd();
+            openLeadModal({ source: "header", locale });
+          }}
+        >
+          <span className={headerCtaTextClass}>{t("cta")}</span>
+          <CtaArrow className="size-9 shrink-0" />
+        </button>
       </div>
     </header>
   );
