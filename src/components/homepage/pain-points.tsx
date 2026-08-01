@@ -32,11 +32,19 @@ const ELLIPSE_RIGHT_CLASS = // #1729:2074 — violet, right edge
 
 // Card: Figma #1729:2088 — white-2% fill, white-8% border (=border-line),
 // rounded-16, px25/pt25/pb49 (deep bottom air). The Figma GLASS effect
-// (radius 22) did not survive the code export — applied here as
-// backdrop-blur with the standard mobile cap (blur policy).
+// (radius 22) did not survive the code export; pixel-sampling the node
+// render (job #143) shows THREE layers on top of the fill+border:
+//   1. backdrop blur 22 (12 below lg — blur policy)
+//   2. a diagonal sheen: surface lifts to ~white-5% at the top-left,
+//      settling to ~2% toward the bottom-right (light from top-left)
+//   3. a specular rim: 1px ring highlight concentrated at the top-left
+//      corner (sampled ~white-25% there), fading out along top/left —
+//      done with the shared `glass-ring` masked-overlay utility
 const CARD_CLASS =
-  "rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] px-[25px] pt-[25px] pb-[49px] " +
-  "backdrop-blur-[12px] lg:backdrop-blur-[22px]";
+  "glass-ring rounded-2xl border border-line px-[25px] pt-[25px] pb-[49px] " +
+  "bg-[linear-gradient(135deg,oklch(1_0_0/0.05)_0%,oklch(1_0_0/0.018)_45%,oklch(1_0_0/0.025)_100%)] " +
+  "backdrop-blur-[12px] lg:backdrop-blur-[22px] " +
+  "[--glass-ring-bg:linear-gradient(135deg,rgba(255,255,255,0.25)_0%,rgba(255,255,255,0.04)_45%,rgba(255,255,255,0)_70%)]";
 
 // Punch line — Figma #1729:2119: Actay Wide Bold 24/31.2, tracking −0.24px,
 // uppercase, Whisper, single colour (the copy's <em> is neutralized).
@@ -50,7 +58,9 @@ const PUNCH_TEXT_CLASS =
 // rotate-180 (flips gradient + dots in one go).
 const PUNCH_RULE_CLASS = "hidden lg:flex items-center shrink-0 w-[294px]";
 const PUNCH_RULE_DOT_OUT_CLASS = "size-[5.33px] rounded-full bg-[#111111] shrink-0";
-const PUNCH_RULE_LINE_CLASS = "h-px flex-1 bg-[linear-gradient(90deg,#111111,#7C54CD)]";
+// 1.5px, not 1px: the rotate-180'd right copy rounded to zero height at
+// some browser zooms (user report, job #143).
+const PUNCH_RULE_LINE_CLASS = "h-[1.5px] flex-1 bg-[linear-gradient(90deg,#111111,#7C54CD)]";
 const PUNCH_RULE_DOT_IN_CLASS = "size-[5.33px] rounded-full bg-[#7c54cd] shrink-0";
 
 /** Dot-capped gradient rule flanking the punch line (aria-hidden decor). */
