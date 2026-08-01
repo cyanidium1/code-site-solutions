@@ -222,3 +222,33 @@ h6 {
   max-width: var(--container-form);
 }
 
+/* 1px gradient border ring for rounded glass surfaces («скло 2», Figma header
+   1729:1911). A real `border` can't take a gradient on a rounded box, so this
+   paints a masked overlay: gradient fill, 1px padding, mask-composite keeps
+   only the ring. Override the gradient per-surface via --glass-ring-bg.
+   Figma spec: 1px, #7C54CD 100% → 17% opacity, left→right. */
+@utility glass-ring {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(
+      --glass-ring-bg,
+      linear-gradient(
+        90deg,
+        oklch(from var(--color-accent) l c h / 0.85) 0%,
+        oklch(from var(--color-accent) l c h / 0.17) 85%
+      )
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
