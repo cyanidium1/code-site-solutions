@@ -1,7 +1,7 @@
 import { type ButtonHTMLAttributes, type AnchorHTMLAttributes } from "react";
 import { cn } from "./cn";
 
-export type BtnVariant = "primary" | "ghost" | "gradient" | "solid";
+export type BtnVariant = "primary" | "ghost" | "gradient" | "solid" | "violet" | "whisper";
 export type BtnSize = "sm" | "md";
 
 // `min-h-11` enforces the WCAG 2.5.5 (AAA) 44px touch-target floor on every
@@ -59,6 +59,21 @@ const variantClass: Record<BtnVariant, string> = {
     "transition-[transform,box-shadow] duration-200",
     "shadow-[0_4px_16px_oklch(from_var(--color-accent)_l_c_h/0.2),inset_0_0_0_1px_oklch(1_0_0/0.1)]",
     "hover:-translate-y-0.5 hover:shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h/0.3),inset_0_0_0_1px_oklch(1_0_0/0.1)]",
+  ),
+  // Violet + whisper pills from the 2026 home-redesign hero (Figma «код сайт
+  // арт» 1729:2023-2032). Literal design fills (#7c54cd = the file's
+  // violet/57, #f5f4f8 = Whisper) — deliberately NOT the oklch accent tokens
+  // so the hero matches the file byte-for-byte; migrate to tokens if the
+  // palette tokens are ever re-anchored to the redesign values.
+  violet: cn(
+    "bg-[#7c54cd] text-white font-sans font-semibold justify-center text-[14px] leading-5 px-6 py-4 w-full sm:w-auto sm:justify-normal",
+    "shadow-[0_4px_20px_rgba(124,84,205,0.35),0_0_0_1px_rgba(124,84,205,0.3)]",
+    "transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(124,84,205,0.45),0_0_0_1px_rgba(124,84,205,0.3)]",
+  ),
+  whisper: cn(
+    "bg-[#f5f4f8] text-[#121212] font-sans font-semibold justify-center text-[14px] leading-5 px-6 py-4 w-full sm:w-auto sm:justify-normal",
+    "shadow-[0_4px_20px_rgba(124,84,205,0.35),0_0_0_1px_rgba(124,84,205,0.3)]",
+    "transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(124,84,205,0.45),0_0_0_1px_rgba(124,84,205,0.3)]",
   ),
 };
 
