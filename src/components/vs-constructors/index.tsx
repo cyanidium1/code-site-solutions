@@ -62,7 +62,6 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
         deviceMockupWidth={2000}
         deviceMockupHeight={1000}
-        deviceMockupVariant="strip"
       />
 
       {/* 02 — 5 outgrew signs */}

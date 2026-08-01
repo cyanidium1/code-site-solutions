@@ -230,25 +230,12 @@ const MOCKUP_IMG_CLASS =
   "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))] " +
   "sm:w-[clamp(420px,50vw,1000px)] sm:max-w-none sm:max-h-none";
 
-// U — homepage mockup variant: on mobile the image is relative and
-// centered with a +10% nudge; at sm+ it becomes absolutely positioned
-// + offset so the laptop hero image lands in the back-centre of the
-// cluster. Uses !important on translate-x so it wins over the base
-// MOCKUP_IMG_CLASS -translate-x-[10%].
-const MOCKUP_IMG_HOMEPAGE_CLASS =
-  "relative w-full max-w-none max-h-none !translate-x-[10%] top-[unset] left-[unset] " +
-  "sm:absolute sm:w-[clamp(420px,100vw,1200px)] sm:-top-[136px] sm:-left-[272px] sm:!-translate-x-[10%]";
-
-// U — industry/CMS mockup wrapper. Unlike the homepage composed device
-// cluster — which is meant to bleed via MOCKUP_CLASS's w-[134%]/negative
-// top/left offsets — a Sanity industry screenshot is a standalone image
-// that must sit fully visible inside the device stage at mobile/tablet.
-// The homepage wrapper only resets to inset-0 at lg, so below lg the
-// industry image inherited the cluster offsets and was blown up + cropped.
-// Use inset-0 at every breakpoint; lg:w-[134%] re-creates the homepage
-// wrapper's exact lg geometry (its w-[134%] wins over lg:inset-0's right:0,
-// so the wrapper is 134%-wide left-anchored at lg) so the verified desktop
-// placement is preserved byte-for-byte.
+// U — industry/CMS mockup wrapper. A Sanity industry screenshot is a
+// standalone image that must sit fully visible inside the device stage at
+// mobile/tablet, so it uses inset-0 at every breakpoint; lg:w-[134%]
+// preserves the verified desktop geometry of MOCKUP_CLASS (its w-[134%]
+// wins over lg:inset-0's right:0, so the wrapper is 134%-wide
+// left-anchored at lg).
 const MOCKUP_WRAP_CONTAINED =
   "absolute inset-0 lg:w-[134%] flex items-center justify-center z-[2] pointer-events-none overflow-visible";
 
@@ -318,35 +305,24 @@ export function DeviceMockup({
   src,
   image,
   alt = "",
-  width = 1700,
-  height = 1674,
-  variant = "homepage",
+  width,
+  height,
 }: {
-  /** Static /public mockup (homepage) — composed device cluster, AppImage. */
+  /** Static /public mockup (vs-* device strip) — in-flow placement, AppImage. */
   src?: string;
   /** Sanity-hosted mockup (industry pages) — a different image type, so it
-   *  uses the base in-flow sizing WITHOUT the homepage absolute-offset variant,
-   *  and renders via SanityImg per docs/images.md. */
+   *  uses the contained wrapper and renders via SanityImg per docs/images.md. */
   image?: SanityImage | null;
   alt?: string;
-  /** Intrinsic size of the static `src` mockup. Defaults to the homepage
-   *  composition (1700×1674); other callers (e.g. vs-* pages use a 2000×1000
-   *  device strip) MUST pass their image's real dimensions or next/image forces
-   *  the wrong aspect ratio. */
+  /** Intrinsic size of the static `src` mockup — REQUIRED with `src` (e.g.
+   *  the vs-* pages' 2000×1000 device strip) or next/image forces the wrong
+   *  aspect ratio. */
   width?: number;
   height?: number;
-  /** Placement of the static `src` mockup.
-   *  - "homepage": the composed 1:1 cluster with its absolute offset/scale,
-   *     tuned for /hero/hero-mockup.webp. Used ONLY by the homepage.
-   *  - "strip": a self-contained, in-flow placement (no homepage offset),
-   *     for the wide 2:1 device strip on the vs-* pages. Mirrors how Sanity
-   *     industry mockups are placed. */
-  variant?: "homepage" | "strip";
 }) {
-  const isHomepage = variant === "homepage";
   // A Sanity-hosted industry screenshot uses the contained placement at every
-  // breakpoint below lg (so it isn't blown up + cropped by the homepage cluster
-  // offsets); the static homepage/strip mockups keep MOCKUP_CLASS.
+  // breakpoint below lg (so it isn't blown up + cropped by the stage bleed
+  // offsets); static strip mockups keep MOCKUP_CLASS.
   const isContained = Boolean(image?.asset);
   return (
     <div className={isContained ? MOCKUP_WRAP_CONTAINED : MOCKUP_CLASS}>
@@ -367,21 +343,8 @@ export function DeviceMockup({
           priority
           fetchPriority="high"
           quality={75}
-          // homepage: renders ~100vw (clamp 420px→1200px). On phones (≤640px)
-          // we under-declare to 64vw so the optimizer serves a smaller source
-          // for this decorative mockup — the rendered box is unchanged, only
-          // fewer image pixels (mild softness, acceptable on mobile; desktop
-          // stays full-res). strip: in-flow at ~50vw on desktop.
-          sizes={
-            isHomepage
-              ? "(max-width: 640px) 64vw, (max-width: 1200px) 100vw, 1200px"
-              : "(max-width: 640px) 100vw, 50vw"
-          }
-          className={
-            isHomepage
-              ? `${MOCKUP_IMG_CLASS} ${MOCKUP_IMG_HOMEPAGE_CLASS}`
-              : MOCKUP_IMG_CLASS
-          }
+          sizes="(max-width: 640px) 100vw, 50vw"
+          className={MOCKUP_IMG_CLASS}
         />
       ) : (
         <div className={MOCKUP_PLACEHOLDER_CLASS} aria-hidden="true">
@@ -444,15 +407,6 @@ export type HeroEditorialProps = {
   ctaSecondaryLabel?: string;
   ctaSecondaryHref: string;
   ctaSecondaryShowPlay?: boolean;
-  /**
-   * Visual style for the secondary CTA. Defaults to "ghost" (transparent,
-   * bordered) to preserve the appearance on `/sites-for/*` and `/vs-*`
-   * pages. Set to "primary" to render it identically to the primary CTA
-   * (white bg, shimmer on hover) — used on the home page where both CTAs
-   * are primary-style. Only meaningful when `ctaSecondaryShowPlay={false}`;
-   * the play-icon decoration assumes a ghost background.
-   */
-  ctaSecondaryVariant?: "ghost" | "primary";
   ctaFootnote?: React.ReactNode;
   showStats?: boolean;
   stats?: HeroStats[];
@@ -460,14 +414,10 @@ export type HeroEditorialProps = {
   tickerItems?: string[];
   deviceTags?: { kind: "default" | "good"; primary: string; mini?: string }[];
   deviceMockupSrc?: string;
-  /** Intrinsic dimensions of `deviceMockupSrc` (defaults to the homepage
-   *  1700×1674 composition). Pass the real size for other static mockups. */
+  /** Intrinsic dimensions of `deviceMockupSrc` — required with a static src
+   *  (e.g. the vs-* pages' 2000×1000 device strip). */
   deviceMockupWidth?: number;
   deviceMockupHeight?: number;
-  /** Placement variant for `deviceMockupSrc`. "homepage" (default) uses the
-   *  composed-cluster offset; "strip" uses the in-flow placement for the wide
-   *  2:1 device strip (vs-* pages). */
-  deviceMockupVariant?: "homepage" | "strip";
   /** Sanity-hosted mockup (industry pages); takes precedence over deviceMockupSrc. */
   deviceMockupImage?: SanityImage | null;
   deviceMockupAlt?: string;
@@ -506,7 +456,6 @@ export function HeroEditorial({
   ctaSecondaryLabel = "Подивитися кейси клінік",
   ctaSecondaryHref,
   ctaSecondaryShowPlay = true,
-  ctaSecondaryVariant = "ghost",
   ctaFootnote,
   showStats = true,
   stats = [
@@ -531,7 +480,6 @@ export function HeroEditorial({
   deviceMockupSrc,
   deviceMockupWidth,
   deviceMockupHeight,
-  deviceMockupVariant,
   deviceMockupImage,
   deviceMockupAlt = "Code-Site.Art — custom website mockup",
   variant = "default",
@@ -584,7 +532,7 @@ export function HeroEditorial({
                 <span>{ctaPrimaryLabel}</span>
                 {ARROW_ICON}
               </Link>
-              <Link href={ctaSecondaryHref} className={btnClass(ctaSecondaryVariant)}>
+              <Link href={ctaSecondaryHref} className={btnClass("ghost")}>
                 {ctaSecondaryShowPlay ? (
                   <span className={PLAY_ICON_CLASS}>▶</span>
                 ) : null}
@@ -629,7 +577,6 @@ export function HeroEditorial({
                 alt={deviceMockupAlt}
                 width={deviceMockupWidth}
                 height={deviceMockupHeight}
-                variant={deviceMockupVariant}
               />
               {deviceTags.map((t, i) => {
                 const pos = DEVICE_TAG_POSITIONS[i] ?? DEVICE_TAG_POSITIONS[0];

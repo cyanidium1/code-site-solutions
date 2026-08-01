@@ -1,10 +1,10 @@
 import { buildAlternates } from "@/lib/shared/alternates";
 import type { Metadata } from "next";
-import { HeroEditorial } from "@/components/blocks/hero";
 import { ValueStack } from "@/components/blocks/value-stack";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
+  HomeHero,
   HpHeader,
   Marquee,
   Industries,
@@ -104,7 +104,7 @@ export default async function HomePageEn() {
       <HpHeader />
 
       <main>
-      <HeroEditorial
+      <HomeHero
         eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
         h1Lines={[
           <>Websites of any complexity,</>,
@@ -128,17 +128,13 @@ export default async function HomePageEn() {
         ctaPrimaryHref="/en/calculator"
         ctaSecondaryLabel="Free site audit in 24 hours"
         ctaSecondaryHref="/en/contacts?source=hero-audit"
-        ctaSecondaryShowPlay={false}
-        ctaSecondaryVariant="primary"
         ctaFootnote="Within 24 hours we’ll send you a breakdown: what’s slowing your site down, why you’re not getting leads, and what to fix first."
-        showStats
         stats={[
           { num: "50+", lbl: <>projects<br />across 5 years</> },
           { num: "7", lbl: <>countries<br />UA · EU · US · DK · ZA · UK · FR</> },
           { num: "×3.2", lbl: <>more leads<br />on average</> },
           { num: "30%", lbl: <>penalty if we<br />miss the deadline</> },
         ]}
-        showTicker={false}
         deviceTags={[
           { kind: "default", primary: "Custom code" },
           { kind: "default", primary: "TypeScript", mini: "5.7" },

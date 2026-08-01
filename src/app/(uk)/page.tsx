@@ -1,8 +1,8 @@
-import { HeroEditorial } from "@/components/blocks/hero";
 import { ValueStack } from "@/components/blocks/value-stack";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
+  HomeHero,
   HpHeader,
   Marquee,
   Industries,
@@ -81,7 +81,7 @@ export default async function HomePage() {
       <HpHeader />
 
       <main>
-      <HeroEditorial
+      <HomeHero
         eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДІЯ" }}
         h1Lines={[
           <>Сайти будь-якої складності,</>,
@@ -106,17 +106,13 @@ export default async function HomePage() {
         ctaPrimaryHref="/calculator"
         ctaSecondaryLabel="Безкоштовний аудит сайту за 24 години"
         ctaSecondaryHref="/contacts?source=hero-audit"
-        ctaSecondaryShowPlay={false}
-        ctaSecondaryVariant="primary"
         ctaFootnote="Протягом 24 годин надішлемо розбір: що гальмує ваш сайт, чому немає заявок і що виправити першим."
-        showStats
         stats={[
           { num: "50+", lbl: <>проєктів<br/>за 5 років</> },
           { num: "7", lbl: <>країн<br/>UA · EU · US · DK · ZA · UK · FR</> },
           { num: "×3.2", lbl: <>більше заявок<br/>у середньому</> },
           { num: "30%", lbl: <>неустойка<br/>за зрив терміну</> },
         ]}
-        showTicker={false}
         deviceTags={[
           { kind: "default", primary: "Custom code" },
           { kind: "default", primary: "TypeScript", mini: "5.7" },

@@ -23,6 +23,7 @@
  */
 
 // Section components
+export { HomeHero } from "./home-hero";
 export { Marquee } from "./marquee";
 export { Industries } from "./industries";
 export { Bento } from "./bento";
