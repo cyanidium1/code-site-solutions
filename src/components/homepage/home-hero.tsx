@@ -4,7 +4,7 @@ import { SanityImg } from "@/lib/shared/sanity-image";
 import type { SanityImage } from "@/types/sanity";
 import { btnClass } from "@/components/ui";
 import { CtaArrow } from "@/components/layout/cta-arrow";
-import { LOGO_PATHS } from "@/components/layout/logo/logo-svg";
+import { LOGO_PATHS } from "@/components/layout/logo/logo-paths";
 
 /* ───────────────────────────────────────────────────────────────────────
    HOME HERO — 2026 redesign build of Figma «код сайт арт» frame `1`
