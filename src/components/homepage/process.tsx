@@ -12,8 +12,37 @@ import {
   ChevronRight,
   type LucideIcon,
 } from "lucide-react";
-import { btnClass, cn } from "@/components/ui";
+import { cn } from "@/components/ui";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+
+/* 2026 redesign restyle (Figma «код сайт арт» #1729:2937 + CTA #1729:3085;
+   audit: docs/home-process-figma-audit.md). The step grid, timeline, chevrons,
+   bullets and all copy already matched — see the audit for the exact list. */
+
+// CTA — Figma #1729:3085: 52px pill, white-14% border, Manrope Medium 14/20
+// tracking 0.28, plus Effect(type: GLASS, radius: 22) which the code export
+// drops (docs/glass-ui-patterns.md). Mobile blur cap per the blur policy.
+const PROCESS_CTA_CLASS =
+  "inline-flex h-[52px] items-center gap-2 rounded-full border border-line-strong px-6 " +
+  "font-sans text-[14px] font-medium leading-5 tracking-[0.28px] text-ink no-underline " +
+  "backdrop-blur-[12px] lg:backdrop-blur-[22px] " +
+  "transition-colors duration-200 hover:bg-[oklch(1_0_0/0.04)] " +
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
+
+// Decor stage — mirrors the content container; y offsets are the Figma
+// container-relative centres PLUS the section's 100px top padding (the
+// convention the Problem section uses; Why Us missed it — see audit §4).
+const DECOR_STAGE_CLASS =
+  "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-container pointer-events-none";
+const ELLIPSE_BASE =
+  "absolute -translate-x-1/2 -translate-y-1/2 rounded-full max-w-none w-[1622px] aspect-[1622/1582]";
+// #1729:2077 — violet, upper right; the glow that sits between Why Us and
+// this section (73% of its height lands here, hence it ships with Process).
+const ELLIPSE_VIOLET_CLASS =
+  `${ELLIPSE_BASE} left-[1547px] top-[220px] bg-[radial-gradient(50%_50%_at_50%_50%,#642DBA70_0%,transparent_70%)]`;
+// #1729:2076 — deep indigo, lower left, bleeding off-canvas.
+const ELLIPSE_INDIGO_CLASS =
+  `${ELLIPSE_BASE} left-[-183px] top-[681px] bg-[radial-gradient(50%_50%_at_50%_50%,#19004D70_0%,transparent_70%)]`;
 
 type ProcessStep = {
   n: string;
@@ -99,14 +128,25 @@ export function Process({
   }, []);
 
   return (
-    <section className={hpSectionClass} id="process">
+    // overflow-x-clip: both ellipses bleed past the viewport (body clip does
+    // not stop html-level h-scroll, job #141). z-[2] keeps the downward bleed
+    // above the next section's opaque bg (job #142).
+    <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="process">
+      <div className={DECOR_STAGE_CLASS}>
+        <div className={ELLIPSE_VIOLET_CLASS} aria-hidden="true" />
+        <div className={ELLIPSE_INDIGO_CLASS} aria-hidden="true" />
+      </div>
       <div className={hpInnerClass}>
         <div className={hpSectionHeadClass}>
           <div className={hpEyebrowClass}>
             <span className={hpEyebrowDotClass} />
             <span>{eyebrow}</span>
           </div>
-          <h2 className={hpH2Class}>{heading}</h2>
+          {/* Figma #1729:2945: the second line is one 1105px run that deliberately
+              overflows its 880px box — hpH2Class caps at max-w-container-narrow
+              (880), which wrapped EN onto a third line. EN line 2 measures 1117px at
+              56px, so 1180 leaves headroom without reaching the 1344 content box. */}
+          <h2 className={cn(hpH2Class, "xl:max-w-[1180px]")}>{heading}</h2>
           {sub ? <p className={cn(hpSubClass, "max-w-[600px]")}>{sub}</p> : null}
         </div>
         <div
@@ -119,7 +159,7 @@ export function Process({
             className="pointer-events-none absolute top-7 right-7 left-7 z-0 h-px bg-[linear-gradient(90deg,transparent,var(--color-line-strong)_8%,var(--color-line-strong)_92%,transparent)] hidden lg:block"
           >
             <div className="relative h-full w-0 bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.55)_12%,var(--color-accent)_100%)] [transition:width_3s_cubic-bezier(0.2,0.8,0.2,1)] [will-change:width] group-data-[visible=true]/proc:w-full motion-reduce:w-full motion-reduce:transition-none">
-              <span className="absolute top-1/2 -right-3.5 inline-flex h-7 w-7 -translate-y-1/2 rotate-45 items-center justify-center rounded-full border border-accent-50 bg-bg text-accent-soft opacity-0 [filter:drop-shadow(0_0_14px_oklch(from_var(--color-accent)_l_c_h_/_0.55))] transition-opacity duration-[600ms] delay-[300ms] group-data-[visible=true]/proc:opacity-100 motion-reduce:opacity-100 motion-reduce:transition-none">
+              <span className="absolute top-1/2 -right-5 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[rgba(124,84,205,0.5)] bg-surface text-accent-soft opacity-0 [filter:drop-shadow(0_0_7px_rgba(124,84,205,0.55))] transition-opacity duration-[600ms] delay-[300ms] group-data-[visible=true]/proc:opacity-100 motion-reduce:opacity-100 motion-reduce:transition-none">
                 <Rocket size={16} strokeWidth={1.8} />
               </span>
             </div>
@@ -137,11 +177,11 @@ export function Process({
                 >
                   <div
                     className={cn(
-                      "inline-flex col-start-1 row-span-3 h-12 w-12 self-start items-center justify-center rounded-full border border-line-strong bg-bg font-mono text-xs tracking-[0.06em] text-ink lg:col-auto lg:row-auto lg:h-14 lg:w-14 lg:self-auto lg:text-sm",
+                      "inline-flex col-start-1 row-span-3 h-12 w-12 self-start items-center justify-center rounded-full border border-line-strong bg-surface font-mono text-xs tracking-[0.06em] text-ink lg:col-auto lg:row-auto lg:h-14 lg:w-14 lg:self-auto lg:text-sm",
                       !isLast && RING[Math.min(i, RING.length - 1)],
                       !isLast && "font-semibold text-accent-soft [border-color:oklch(from_var(--color-accent)_l_c_h_/_0.35)] [box-shadow:0_0_0_4px_var(--color-bg)] lg:font-normal lg:text-ink lg:[box-shadow:none]",
                       isLast &&
-                        "border-transparent bg-brand-gradient font-semibold text-bg [box-shadow:0_0_0_4px_var(--color-bg),0_0_24px_oklch(from_var(--color-accent)_l_c_h_/_0.45)] lg:[box-shadow:0_0_30px_oklch(from_var(--color-accent)_l_c_h_/_0.5)]",
+                        "border-transparent bg-brand-gradient font-semibold text-bg [box-shadow:0_0_0_4px_var(--color-bg)] [filter:drop-shadow(0_0_15px_rgba(124,84,205,0.5))] lg:[box-shadow:none]",
                     )}
                   >
                     {s.n}
@@ -174,7 +214,7 @@ export function Process({
                       ))}
                     </ul>
 
-                    <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 py-1 font-mono text-[10.5px] tracking-[0.04em] text-ink-3">
+                    <div className="mt-3 inline-flex h-[25.75px] items-center gap-1.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 font-mono text-[10.5px] tracking-[0.04em] text-ink-3">
                       <StepIcon size={12} strokeWidth={1.8} className="text-accent-soft" />
                       {s.duration}
                     </div>
@@ -185,10 +225,7 @@ export function Process({
           </ol>
         </div>
         <div className="flex justify-start">
-          <Link
-            href={ctaHref}
-            className={btnClass("ghost", "min-h-0 gap-2 px-4 py-2.5 text-[12px] tracking-[0.02em]")}
-          >
+          <Link href={ctaHref} className={PROCESS_CTA_CLASS}>
             <span>{ctaLabel}</span>
             <ArrowRight size={15} strokeWidth={1.8} />
           </Link>

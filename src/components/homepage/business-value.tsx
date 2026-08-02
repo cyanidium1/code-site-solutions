@@ -354,7 +354,7 @@ const DECOR_STAGE_CLASS =
 // footprint 1622×1582.
 const DECOR_GLOW_CLASS =
   "absolute -translate-x-1/2 -translate-y-1/2 rounded-full max-w-none w-[1622px] aspect-[1622/1582] " +
-  "left-[1016px] top-[318px] bg-[radial-gradient(50%_50%_at_50%_50%,#19004D70_0%,transparent_70%)]";
+  "left-[1016px] top-[418px] bg-[radial-gradient(50%_50%_at_50%_50%,#19004D70_0%,transparent_70%)]";
 // планетка #1729:2070 — the same wireframe globe the hero design also uses.
 // Lives at /decor/globe.svg (shared): the hero branch that first exported it
 // is deferred and unmerged, so this section carries the asset. The reported
@@ -367,7 +367,7 @@ const DECOR_GLOW_CLASS =
 // only a visual check catches it). Same class of stripped placement
 // transform as the WYG chevron rotation.
 const DECOR_GLOBE_CLASS =
-  "hidden lg:block absolute left-[823px] top-[91px] w-[670px] max-w-none select-none opacity-70 scale-x-[-1]";
+  "hidden lg:block absolute left-[823px] top-[193px] w-[670px] max-w-none select-none opacity-70 scale-x-[-1]";
 
 // Card shell/entrance/hover/hairline styles live in src/app/homepage-cards.css
 // as `.hp-biz-card` — this 1.4 KB stack repeated 6× cost ~17 KB of document
