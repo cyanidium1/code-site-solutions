@@ -4,7 +4,7 @@ import { MousePointerBan, EyeOff, TrendingDown, Lock, type LucideIcon } from "lu
 
 import type { PriceLocale } from "@/lib/shared/format-price";
 import { SectionHead } from "@/components/shared/section-head";
-import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { hpInnerClass, hpSectionClass, hpDecorFadeClass } from "@/components/homepage/shared";
 import { ScrollReveal } from "@/components/homepage/scroll-reveal";
 import { GradientRule } from "@/components/homepage/gradient-rule";
 
@@ -180,9 +180,11 @@ export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
     // neighbor's top — same paint order as the Figma canvas, where these
     // ellipses sit above the surrounding frames (job #142).
     <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="pains">
-      <div className={DECOR_STAGE_CLASS}>
-        <div className={ELLIPSE_LEFT_CLASS} aria-hidden="true" />
-        <div className={ELLIPSE_RIGHT_CLASS} aria-hidden="true" />
+      <div className={hpDecorFadeClass}>
+        <div className={DECOR_STAGE_CLASS}>
+          <div className={ELLIPSE_LEFT_CLASS} aria-hidden="true" />
+          <div className={ELLIPSE_RIGHT_CLASS} aria-hidden="true" />
+        </div>
       </div>
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} />
