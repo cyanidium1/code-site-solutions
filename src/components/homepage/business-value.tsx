@@ -26,8 +26,6 @@ type BizCard = {
   label?: string;
   title: string;
   body: string;
-  /** Per-card accent as a raw oklch() colour, assigned to `--card-accent`. */
-  tone: string;
   visual: BizVisualKind;
 };
 
@@ -37,18 +35,17 @@ type SectionCopy = {
   sub: React.ReactNode;
 };
 
-// Purple stays dominant (cards 1, 3, 6); blue / green / amber are used sparingly
-// as secondary accents so the grid reads as one system, not a rainbow.
-const PURPLE = "oklch(0.62 0.16 295)";
-const BLUE = "oklch(0.62 0.13 245)";
-const GREEN = "oklch(0.66 0.15 150)";
-const AMBER = "oklch(0.72 0.14 70)";
+// 2026 redesign: the grid is UNIFORM violet — the design drops per-card hues
+// entirely (Figma «код сайт арт» #1729:2459 uses Medium Purple #8F6EDB with
+// its 12% fill / 30% border on every card, and #D3BEFF for the tinted glyph,
+// which the oklch(from …) chain below reproduces).
+const VIOLET = "#8f6edb";
 
 const UK_COPY: SectionCopy = {
   eyebrow: "ЧОМУ МИ",
   heading: (
     <>
-      Мінімум вашої участі — <em>повний контроль</em> у ваших руках
+      Мінімум вашої участі — повний контроль у ваших руках
     </>
   ),
   sub: "Працюємо офіційно, за договором. Сайт, доступи й результат — ваші.",
@@ -58,7 +55,7 @@ const EN_COPY: SectionCopy = {
   eyebrow: "WHY US",
   heading: (
     <>
-      Minimal involvement from you — <em>full control</em> still in your hands
+      Minimal involvement from you — full control still in your hands
     </>
   ),
   sub: "We work under contract. The site, the access, and the results are yours.",
@@ -70,7 +67,6 @@ const UK_CARDS: BizCard[] = [
     ghost: FileSignature,
     title: "Працюємо за договором",
     body: "Офіційно, з фіксованим обсягом і терміном. Бриф і ТЗ пишемо самі — ставимо правильні питання й беремо папери на себе.",
-    tone: PURPLE,
     visual: "deal",
   },
   {
@@ -78,7 +74,6 @@ const UK_CARDS: BizCard[] = [
     label: "Власність",
     title: "Все належить вам",
     body: "Код, домен, хостинг, доступи, адмінка — ваші з першого дня. Вирішите змінити команду? Заберете все з собою.",
-    tone: BLUE,
     visual: "control",
   },
   {
@@ -86,7 +81,6 @@ const UK_CARDS: BizCard[] = [
     label: "Адмінка",
     title: "Керування з телефона",
     body: "Керуєте сайтом самі: тексти, сторінки, послуги, кейси та блог редагуються за хвилину. Розробник не потрібен.",
-    tone: PURPLE,
     visual: "cms",
   },
   {
@@ -94,7 +88,6 @@ const UK_CARDS: BizCard[] = [
     label: "Дедлайн",
     title: "Неустойка за зрив терміну",
     body: "Зірвемо дедлайн — платимо ми. Тому вкластися вчасно нам важливо так само, як і вам.",
-    tone: AMBER,
     visual: "launch",
   },
   {
@@ -102,7 +95,6 @@ const UK_CARDS: BizCard[] = [
     label: "SEO",
     title: "Чесність із першого дня",
     body: "Ніхто не може гарантувати №1 у Google — це довга робота. Ми будуємо сайт за всіма стандартами, які Google та AI-пошук винагороджують позиціями. Решта — контент і час.",
-    tone: GREEN,
     visual: "seo",
   },
   {
@@ -110,7 +102,6 @@ const UK_CARDS: BizCard[] = [
     label: "Гарантія",
     title: "Не зникаємо після запуску",
     body: "Рік підтримки включено: виправляємо технічні проблеми, допомагаємо з розвитком і підтримуємо сайт.",
-    tone: PURPLE,
     visual: "support",
   },
 ];
@@ -121,7 +112,6 @@ const EN_CARDS: BizCard[] = [
     ghost: FileSignature,
     title: "We work under contract",
     body: "Officially, with a fixed scope and timeline. We write the brief and the spec ourselves — we ask the right questions and handle the paperwork for you.",
-    tone: PURPLE,
     visual: "deal",
   },
   {
@@ -129,7 +119,6 @@ const EN_CARDS: BizCard[] = [
     label: "Ownership",
     title: "Everything belongs to you",
     body: "Code, domain, hosting, access, admin panel — yours from day one. Decide to switch teams? You take it all with you.",
-    tone: BLUE,
     visual: "control",
   },
   {
@@ -137,7 +126,6 @@ const EN_CARDS: BizCard[] = [
     label: "Admin",
     title: "Manage it from your phone",
     body: "You manage the site yourself: edit text, pages, services, cases, and the blog in a minute. No developer required.",
-    tone: PURPLE,
     visual: "cms",
   },
   {
@@ -145,7 +133,6 @@ const EN_CARDS: BizCard[] = [
     label: "Deadline",
     title: "A penalty if we miss the deadline",
     body: "Miss the deadline, we pay. So hitting it on time matters to us just as much as it does to you.",
-    tone: AMBER,
     visual: "launch",
   },
   {
@@ -153,7 +140,6 @@ const EN_CARDS: BizCard[] = [
     label: "SEO",
     title: "Honesty from day one",
     body: "No one can guarantee #1 on Google — that’s long-term work. We build the site to every standard Google and AI search reward with rankings. The rest comes down to content and time.",
-    tone: GREEN,
     visual: "seo",
   },
   {
@@ -161,7 +147,6 @@ const EN_CARDS: BizCard[] = [
     label: "Warranty",
     title: "We don’t disappear after launch",
     body: "A year of support included: we fix technical issues, help you grow, and keep the site running.",
-    tone: PURPLE,
     visual: "support",
   },
 ];
@@ -356,6 +341,29 @@ function BizVisual({ kind, locale }: { kind: BizVisualKind; locale: PriceLocale 
   }
 }
 
+// ─── Decor (Figma #1729:2459's two overlapping siblings) ──────────────
+// Stage mirrors the content container so fixed-px design offsets hold at
+// every viewport (hero lesson, job #138). Coordinates are container-relative
+// (Figma abs − 246). Ownership note: the glow that sits between this section
+// and Process (#1729:2077) spends 73% of its height over Process and ships
+// with THAT section, not here (see docs/home-whyus-figma-audit.md §3).
+const DECOR_STAGE_CLASS =
+  "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-container pointer-events-none";
+// Ellipse 821 #1729:2069 — #19004D blur-266 → static radial at 0x70 peak
+// (job-#135/#142 rules). Node 558×518 at (737,59) ⇒ centre (1016,318),
+// footprint 1622×1582.
+const DECOR_GLOW_CLASS =
+  "absolute -translate-x-1/2 -translate-y-1/2 rounded-full max-w-none w-[1622px] aspect-[1622/1582] " +
+  "left-[1016px] top-[318px] bg-[radial-gradient(50%_50%_at_50%_50%,#19004D70_0%,transparent_70%)]";
+// планетка #1729:2070 — the same wireframe globe the hero design also uses.
+// Lives at /decor/globe.svg (shared): the hero branch that first exported it
+// is deferred and unmerged, so this section carries the asset. The reported
+// x is the node's RIGHT edge; measuring the design render puts its left edge
+// at container-relative x≈823, y≈91 (670×670), bleeding off the right and
+// clipped below by the card grid.
+const DECOR_GLOBE_CLASS =
+  "hidden lg:block absolute left-[823px] top-[91px] w-[670px] max-w-none select-none opacity-70";
+
 // Card shell/entrance/hover/hairline styles live in src/app/homepage-cards.css
 // as `.hp-biz-card` — this 1.4 KB stack repeated 6× cost ~17 KB of document
 // (HTML + RSC flight, see docs/rsc-payload-report.md). `group/biz-card` stays
@@ -366,7 +374,7 @@ const RU_COPY: SectionCopy = {
   eyebrow: "ПОЧЕМУ МЫ",
   heading: (
     <>
-      Минимум вашего участия — <em>полный контроль</em> в ваших руках
+      Минимум вашего участия — полный контроль в ваших руках
     </>
   ),
   sub: "Работаем официально, по договору. Сайт, доступы и результат — ваши.",
@@ -378,7 +386,6 @@ const RU_CARDS: BizCard[] = [
     ghost: FileSignature,
     title: "Работаем по договору",
     body: "Официально, с фиксированным объёмом и сроком. Бриф и ТЗ пишем сами — задаём правильные вопросы и берём бумаги на себя.",
-    tone: PURPLE,
     visual: "deal",
   },
   {
@@ -386,7 +393,6 @@ const RU_CARDS: BizCard[] = [
     label: "Собственность",
     title: "Всё принадлежит вам",
     body: "Код, домен, хостинг, доступы, админка — ваши с первого дня. Решите сменить команду? Заберёте всё с собой.",
-    tone: BLUE,
     visual: "control",
   },
   {
@@ -394,7 +400,6 @@ const RU_CARDS: BizCard[] = [
     label: "Админка",
     title: "Управление с телефона",
     body: "Управляете сайтом сами: тексты, страницы, услуги, кейсы и блог редактируются за минуту. Разработчик не нужен.",
-    tone: PURPLE,
     visual: "cms",
   },
   {
@@ -402,7 +407,6 @@ const RU_CARDS: BizCard[] = [
     label: "Дедлайн",
     title: "Неустойка за срыв срока",
     body: "Сорвём дедлайн — платим мы. Поэтому уложиться вовремя нам важно так же, как и вам.",
-    tone: AMBER,
     visual: "launch",
   },
   {
@@ -410,7 +414,6 @@ const RU_CARDS: BizCard[] = [
     label: "SEO",
     title: "Честность с первого дня",
     body: "Никто не может гарантировать №1 в Google — это долгая работа. Мы строим сайт по всем стандартам, которые Google и AI-поиск вознаграждают позициями. Остальное — контент и время.",
-    tone: GREEN,
     visual: "seo",
   },
   {
@@ -418,7 +421,6 @@ const RU_CARDS: BizCard[] = [
     label: "Гарантия",
     title: "Не исчезаем после запуска",
     body: "Год поддержки включён: исправляем технические проблемы, помогаем с развитием и поддерживаем сайт.",
-    tone: PURPLE,
     visual: "support",
   },
 ];
@@ -443,7 +445,15 @@ export function BusinessValue({
   const resolvedCards = cards ?? CARDS_BY_LOCALE[locale];
 
   return (
-    <section className={hpSectionClass} id="why-us">
+    // overflow-x-clip: the glow + globe bleed past the viewport (body's own
+    // clip does NOT stop html-level h-scroll, job #141). z-[2] keeps the
+    // downward bleed above the next section's opaque bg (job #142).
+    <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="why-us">
+      <div className={DECOR_STAGE_CLASS}>
+        <div className={DECOR_GLOW_CLASS} aria-hidden="true" />
+        {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
+        <img src="/decor/globe.svg" alt="" aria-hidden="true" width={670} height={670} loading="lazy" className={DECOR_GLOBE_CLASS} />
+      </div>
       <div className={hpInnerClass}>
         <SectionHead
           eyebrow={eyebrow ?? copy.eyebrow}
@@ -459,7 +469,7 @@ export function BusinessValue({
                 key={i}
                 className={cardBase}
                 // eslint-disable-next-line react/forbid-dom-props -- per-card accent + stagger-index CSS vars
-                style={{ "--card-accent": c.tone, "--i": i } as React.CSSProperties}
+                style={{ "--card-accent": VIOLET, "--i": i } as React.CSSProperties}
               >
                 <Ghost
                   size={120}

@@ -46,7 +46,8 @@
 
 @media (min-width: 800px) {
   .hp-biz-card {
-    padding: calc(var(--spacing) * 9);
+    /* 37px per Figma #1729:2470 (was spacing*9 = 36px). */
+    padding: 37px;
   }
 }
 
