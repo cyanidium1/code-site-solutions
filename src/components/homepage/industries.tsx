@@ -14,10 +14,31 @@ import {
 } from "lucide-react";
 
 import type { Industry } from "@/types/homepage";
-import { SectionHead } from "@/components/shared/section-head";
 import { cn } from "@/components/ui";
-import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
+import { GradientRule } from "@/components/homepage/gradient-rule";
 import { industryAccent } from "@/constants/industry-colors";
+
+/* 2026 redesign restyle (Figma «код сайт арт» #1729:2120; audit:
+   docs/home-industries-figma-audit.md). The design was derived from this
+   component — cards, accent palette and EN copy already matched — so the
+   deltas are the header decor plus small type/padding nudges.
+
+   NOTE: this section carries NO decor of its own. The glow bleeding up from
+   below is Ellipse 821 (#1729:2069, abs y4205), a sibling of the NEXT band
+   (Why Us) — it ships with that section, not here. */
+
+// Header — Figma #1729:2121. No eyebrow badge in the design.
+const HEADER_CLASS = "mb-10";
+// Heading row: H2 then the rule filling the rest of the track. At the design
+// width this lands the rule at exactly 575px (1440 container − 821px heading
+// − 44px gap), so no magic numbers are needed.
+const HEADING_ROW_CLASS = "flex items-center gap-8 2xl:gap-11";
+const HEADER_RULE_CLASS = "hidden xl:flex flex-1 min-w-0";
+// Sub row: paragraph left, sparkle trio right — the design bottom-aligns
+// them (both end at y145).
+const SUB_ROW_CLASS = "mt-5 flex items-end justify-between gap-8";
+const SPARKLES_CLASS = "hidden xl:flex shrink-0 items-center gap-[15.27px]";
 
 // All 8 industries have published Sanity pages and live hrefs.
 const DEFAULT_INDUSTRIES: Industry[] = [
@@ -172,7 +193,6 @@ const cardBase = "group/ind hp-ind-card";
 const cardDisabled = "cursor-default opacity-[0.78]";
 
 export function Industries({
-  eyebrow = "РІШЕННЯ",
   heading = (
     <>
       Спеціалізовані рішення під <em>вашу галузь</em>
@@ -181,7 +201,6 @@ export function Industries({
   sub = "Комплексне рішення під вашу галузь — з інтеграціями і compliance.",
   items = DEFAULT_INDUSTRIES,
 }: {
-  eyebrow?: string;
   heading?: React.ReactNode;
   sub?: React.ReactNode;
   items?: Industry[];
@@ -189,7 +208,23 @@ export function Industries({
   return (
     <section className={hpSectionClass} id="solutions">
       <div className={hpInnerClass}>
-        <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
+        <div className={HEADER_CLASS}>
+          <div className={HEADING_ROW_CLASS}>
+            <h2 className={cn(hpH2Class, "mt-0")}>{heading}</h2>
+            <GradientRule className={HEADER_RULE_CLASS} flip />
+          </div>
+          <div className={SUB_ROW_CLASS}>
+            <p className={cn(hpSubClass, "mt-0")}>{sub}</p>
+            <span className={SPARKLES_CLASS} aria-hidden="true">
+              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
+              <img src="/wyg/sparkle-1.svg" alt="" width={47} height={47} loading="lazy" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
+              <img src="/wyg/sparkle-2.svg" alt="" width={47} height={47} loading="lazy" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
+              <img src="/wyg/sparkle-3.svg" alt="" width={47} height={47} loading="lazy" />
+            </span>
+          </div>
+        </div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-4">
           {items.map((ind, i) => {
             const Icon = ind.icon;
@@ -198,13 +233,13 @@ export function Industries({
                 <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-[12px] border border-line bg-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.12)] text-[var(--accent-color,var(--color-accent))]">
                   <Icon size={20} strokeWidth={1.6} />
                 </div>
-                <h3 className="m-0 font-sans text-[17px] font-semibold text-ink">{ind.title}</h3>
+                <h3 className="m-0 font-sans text-[17px] font-bold uppercase leading-[25.5px] text-ink">{ind.title}</h3>
                 <p className="mt-2 text-[13px] leading-[1.55] text-ink-dim">{ind.description}</p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {ind.tags.map((t) => (
                     <span
                       key={t}
-                      className="inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-2 py-[3px] font-mono text-[10.5px] text-ink-3"
+                      className="inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-[9px] py-[3px] font-mono text-[10.5px] text-ink-3"
                     >
                       {t}
                     </span>

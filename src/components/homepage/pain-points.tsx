@@ -6,6 +6,7 @@ import type { PriceLocale } from "@/lib/shared/format-price";
 import { SectionHead } from "@/components/shared/section-head";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { ScrollReveal } from "@/components/homepage/scroll-reveal";
+import { GradientRule } from "@/components/homepage/gradient-rule";
 
 /* 2026 redesign restyle (Figma «код сайт арт» #1729:2078; audit:
    docs/home-problem-figma-audit.md). Deltas vs the legacy look are local to
@@ -53,26 +54,10 @@ const PUNCH_TEXT_CLASS =
   "max-w-[789px] text-center font-actay text-[20px] font-bold uppercase leading-[1.3] tracking-[-0.01em] text-ink md:text-[24px] " +
   "[&_em]:not-italic [&_em]:text-inherit";
 
-// Flanking rule — Figma #1729:2068: 294×1px `#111111 → #7C54CD` gradient
-// running toward the text, 5.33px dot endcaps. The right side mirrors via
-// rotate-180 (flips gradient + dots in one go).
-const PUNCH_RULE_CLASS = "hidden lg:flex items-center shrink-0 w-[294px]";
-const PUNCH_RULE_DOT_OUT_CLASS = "size-[5.33px] rounded-full bg-[#111111] shrink-0";
-// 1.5px, not 1px: the rotate-180'd right copy rounded to zero height at
-// some browser zooms (user report, job #143).
-const PUNCH_RULE_LINE_CLASS = "h-[1.5px] flex-1 bg-[linear-gradient(90deg,#111111,#7C54CD)]";
-const PUNCH_RULE_DOT_IN_CLASS = "size-[5.33px] rounded-full bg-[#7c54cd] shrink-0";
-
-/** Dot-capped gradient rule flanking the punch line (aria-hidden decor). */
-function PunchRule({ flip = false }: { flip?: boolean }) {
-  return (
-    <span aria-hidden="true" className={`${PUNCH_RULE_CLASS}${flip ? " rotate-180" : ""}`}>
-      <span className={PUNCH_RULE_DOT_OUT_CLASS} />
-      <span className={PUNCH_RULE_LINE_CLASS} />
-      <span className={PUNCH_RULE_DOT_IN_CLASS} />
-    </span>
-  );
-}
+// Flanking rules — Figma #1729:2068, 294px wide. The shared `GradientRule`
+// carries the art (dot caps + `#111111 → #7C54CD`); the right side mirrors
+// via its `flip` prop.
+const PUNCH_RULE_CLASS = "hidden lg:flex w-[294px]";
 
 type PainCopy = {
   eyebrow: string;
@@ -215,9 +200,9 @@ export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
             ))}
           </div>
           <div className={PUNCH_ROW_CLASS}>
-            <PunchRule />
+            <GradientRule className={PUNCH_RULE_CLASS} />
             <p className={PUNCH_TEXT_CLASS}>{c.punch}</p>
-            <PunchRule flip />
+            <GradientRule className={PUNCH_RULE_CLASS} flip />
           </div>
         </ScrollReveal>
       </div>
