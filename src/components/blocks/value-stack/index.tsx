@@ -19,6 +19,7 @@ import type { PriceLocale } from "@/lib/shared/format-price";
 import { SectionHead } from "@/components/shared/section-head";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { ScrollReveal } from "@/components/homepage/scroll-reveal";
+import { SparkleTrio } from "@/components/homepage/sparkle-trio";
 import { cn } from "@/components/ui";
 
 /* ───────────────────────────────────────────────────────────────────────
@@ -420,14 +421,7 @@ export function ValueStack({
                 The column stretches into SectionHead's 40px bottom margin, so
                 mt-auto alone pins the trio flush to the cards — pb-[46px]
                 restores the design gap; pt-14 keeps air on shorter locales. */}
-            <span className="mt-auto flex items-center justify-end gap-[15px] pt-14 pb-[46px]" aria-hidden="true">
-              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
-              <img src="/wyg/sparkle-1.svg" alt="" width={47} height={47} loading="lazy" />
-              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
-              <img src="/wyg/sparkle-2.svg" alt="" width={47} height={47} loading="lazy" />
-              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
-              <img src="/wyg/sparkle-3.svg" alt="" width={47} height={47} loading="lazy" />
-            </span>
+            <SparkleTrio className="mt-auto flex justify-end pt-14 pb-[46px]" />
           </div>
           {/* Mobile: support paragraph in flow (sparkles are desktop decor) */}
           <p className="lg:hidden -mt-4 mb-2 text-[15px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>

@@ -17,6 +17,7 @@ import type { Industry } from "@/types/homepage";
 import { cn } from "@/components/ui";
 import { hpH2Class, hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
 import { GradientRule } from "@/components/homepage/gradient-rule";
+import { SparkleTrio } from "@/components/homepage/sparkle-trio";
 import { industryAccent } from "@/constants/industry-colors";
 
 /* 2026 redesign restyle (Figma «код сайт арт» #1729:2120; audit:
@@ -38,7 +39,7 @@ const HEADER_RULE_CLASS = "hidden xl:flex flex-1 min-w-0";
 // Sub row: paragraph left, sparkle trio right — the design bottom-aligns
 // them (both end at y145).
 const SUB_ROW_CLASS = "mt-5 flex items-end justify-between gap-8";
-const SPARKLES_CLASS = "hidden xl:flex shrink-0 items-center gap-[15.27px]";
+const SPARKLES_CLASS = "hidden xl:flex";
 
 // All 8 industries have published Sanity pages and live hrefs.
 const DEFAULT_INDUSTRIES: Industry[] = [
@@ -215,14 +216,7 @@ export function Industries({
           </div>
           <div className={SUB_ROW_CLASS}>
             <p className={cn(hpSubClass, "mt-0")}>{sub}</p>
-            <span className={SPARKLES_CLASS} aria-hidden="true">
-              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
-              <img src="/wyg/sparkle-1.svg" alt="" width={47} height={47} loading="lazy" />
-              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
-              <img src="/wyg/sparkle-2.svg" alt="" width={47} height={47} loading="lazy" />
-              {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
-              <img src="/wyg/sparkle-3.svg" alt="" width={47} height={47} loading="lazy" />
-            </span>
+            <SparkleTrio className={SPARKLES_CLASS} />
           </div>
         </div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-4">
