@@ -1,7 +1,19 @@
-<svg width="47.4902" height="47.4902" viewBox="0 0 47.4902 47.4902" fill="none" xmlns="http://www.w3.org/2000/svg">
-<!-- Third sparkle of the WYG header trio (Figma #1729:2721). The Figma
-     export came out as fill-opacity 0.01 black (invisible); the design
-     renders it as a thin white outline star, so the same four-point path
-     is re-drawn here as a white stroke. -->
-<path d="M23.7432 1.5C24.9 13.5 34 22.6 46 23.7422C34 24.9 24.9 34 23.7432 46C22.6 34 13.5 24.9 1.5 23.7422C13.5 22.6 22.6 13.5 23.7432 1.5Z" stroke="white" stroke-opacity="0.75" stroke-width="1.2" fill="none"/>
+<svg width="47.4902" height="47.4902" viewBox="-1 -1 49.4902 49.4902" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Third sparkle of the WYG header trio (Figma #1729:2721). In the file
+     this is the same four-point star as its siblings, but with a
+     near-invisible fill (black @1%) plus a GLASS effect (radius 22), so
+     Figma renders only the material's refraction highlights: the
+     top-left and bottom-right edges catch the light (brightest toward the
+     top and right tips) while the other two edges stay dark. The plain
+     SVG export drops the effect and comes back invisible, so the two lit
+     edges are drawn here as strokes off the original path data. -->
+<defs>
+<linearGradient id="wyg-sparkle-glass" x1="0" y1="47.4902" x2="47.4902" y2="0" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFFFFF" stop-opacity="0.05"/>
+<stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.42"/>
+<stop offset="1" stop-color="#FFFFFF" stop-opacity="0.95"/>
+</linearGradient>
+</defs>
+<path d="M-0.00191483 23.7422C12.6621 22.5549 22.5559 12.6611 23.7432 -0.00291054" fill="none" stroke="url(#wyg-sparkle-glass)" stroke-width="1.1" stroke-linecap="round"/>
+<path d="M47.4883 23.7422C34.8242 24.9294 24.9304 34.8232 23.7432 47.4873" fill="none" stroke="url(#wyg-sparkle-glass)" stroke-width="1.1" stroke-linecap="round"/>
 </svg>

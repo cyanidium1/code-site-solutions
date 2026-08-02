@@ -415,10 +415,12 @@ export function ValueStack({
           <SectionHead eyebrow={eyebrow ?? c.eyebrow} heading={heading ?? c.heading} />
           <div className="hidden lg:flex flex-col self-stretch pt-[70px]">
             <p className="max-w-[508px] text-[16px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
-            {/* Figma: trio bottom-aligned with the header block, ≈105px below
-                the paragraph — mt-auto against the stretched column + a
-                pt floor keeps that air on shorter locales. */}
-            <span className="mt-auto flex items-center justify-end gap-[15px] pt-14" aria-hidden="true">
+            {/* Figma: trio bottom-aligned with the header block, sitting 46px
+                clear of the cards (sparkles end y299.75, cards start y346.19).
+                The column stretches into SectionHead's 40px bottom margin, so
+                mt-auto alone pins the trio flush to the cards — pb-[46px]
+                restores the design gap; pt-14 keeps air on shorter locales. */}
+            <span className="mt-auto flex items-center justify-end gap-[15px] pt-14 pb-[46px]" aria-hidden="true">
               {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
               <img src="/wyg/sparkle-1.svg" alt="" width={47} height={47} loading="lazy" />
               {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor */}
