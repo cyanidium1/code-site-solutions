@@ -144,7 +144,6 @@ export default async function HomePageRu() {
       <ValueStack locale="ru" />
 
       <Industries
-        eyebrow=""
         heading={
           <>
             Решения для <em>вашей отрасли.</em>

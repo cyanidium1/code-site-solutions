@@ -113,7 +113,8 @@
   border-radius: 18px;
   border: 1px solid var(--color-line);
   background-color: oklch(1 0 0 / 0.02);
-  padding: calc(var(--spacing) * 6);
+  /* 25px per Figma #1729:2135 (was spacing*6 = 24px). */
+  padding: 25px;
   color: inherit;
   text-decoration-line: none;
   transition-property: translate, border-color;

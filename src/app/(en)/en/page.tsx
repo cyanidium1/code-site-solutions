@@ -148,7 +148,6 @@ export default async function HomePageEn() {
       <ValueStack locale="en" />
 
       <Industries
-        eyebrow=""
         heading={
           <>
             Built for <em>your industry.</em>
