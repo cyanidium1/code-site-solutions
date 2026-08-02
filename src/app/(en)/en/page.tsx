@@ -10,7 +10,6 @@ import {
   Industries,
   BusinessValue,
   PainPoints,
-  PerformanceProof,
   Process,
   Cases,
   Stack,
@@ -147,8 +146,6 @@ export default async function HomePageEn() {
       <PainPoints locale="en" />
 
       <ValueStack locale="en" />
-
-      <PerformanceProof locale="en" />
 
       <Industries
         eyebrow=""
