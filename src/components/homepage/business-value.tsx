@@ -361,8 +361,13 @@ const DECOR_GLOW_CLASS =
 // x is the node's RIGHT edge; measuring the design render puts its left edge
 // at container-relative x≈823, y≈91 (670×670), bleeding off the right and
 // clipped below by the card grid.
+// scale-x-[-1]: the design's globe is MIRRORED relative to the raw export —
+// its lit side faces right, the export's faces left (verified by comparing
+// the artwork, not the bbox: a horizontal flip leaves the bbox identical, so
+// only a visual check catches it). Same class of stripped placement
+// transform as the WYG chevron rotation.
 const DECOR_GLOBE_CLASS =
-  "hidden lg:block absolute left-[823px] top-[91px] w-[670px] max-w-none select-none opacity-70";
+  "hidden lg:block absolute left-[823px] top-[91px] w-[670px] max-w-none select-none opacity-70 scale-x-[-1]";
 
 // Card shell/entrance/hover/hairline styles live in src/app/homepage-cards.css
 // as `.hp-biz-card` — this 1.4 KB stack repeated 6× cost ~17 KB of document

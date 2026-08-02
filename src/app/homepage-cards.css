@@ -30,6 +30,11 @@
   background:
     radial-gradient(440px 240px at 0% 0%, oklch(from var(--card-accent) l c h / 0.10), transparent 70%),
     oklch(1 0 0 / 0.02);
+  /* Figma GLASS effect (radius 22) — dropped by the code export, listed only
+     in the node's style notes. Matters here because the cards sit over the
+     globe: without it the wireframe reads crisp through the card instead of
+     frosted. Mobile cap per the blur policy (docs/glass-ui-patterns.md). */
+  backdrop-filter: blur(12px);
   /* entrance start state: staggered settle once the grid reaches the viewport */
   opacity: 0;
   translate: 0 calc(var(--spacing) * 6);
@@ -48,6 +53,7 @@
   .hp-biz-card {
     /* 37px per Figma #1729:2470 (was spacing*9 = 36px). */
     padding: 37px;
+    backdrop-filter: blur(22px);
   }
 }
 
