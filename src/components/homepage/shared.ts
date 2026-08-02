@@ -66,3 +66,23 @@ export const hpLinkClass =
 // Section header wrapper — column layout, items at flex-start, 40px bottom
 // margin. The `SectionHead` shared component renders this layout.
 export const hpSectionHeadClass = "flex flex-col items-start gap-4 mb-10";
+
+/**
+ * Full-width wrapper for a section's decor layer, with a horizontal
+ * fade-out at the viewport edges.
+ *
+ * Decor is placed at fixed px offsets inside a container-mirroring stage
+ * (max-w-container, centred). Below the 1440 design width that stage
+ * narrows, so a glow anchored near its right edge ends up close to the
+ * screen edge and the section's `overflow-x-clip` cuts it while it is still
+ * bright — measured at 1280 the Why-Us glow hit the right edge at luminance
+ * 110 against an 11 background (job #159).
+ *
+ * The mask fades the outer 96px to transparent, so decor always dissolves
+ * into the page instead of being sliced. It also bounds the layer, so decor
+ * never contributes horizontal scroll.
+ */
+export const hpDecorFadeClass =
+  "absolute inset-0 pointer-events-none " +
+  "[mask-image:linear-gradient(90deg,transparent_0,black_96px,black_calc(100%-96px),transparent_100%)] " +
+  "[-webkit-mask-image:linear-gradient(90deg,transparent_0,black_96px,black_calc(100%-96px),transparent_100%)]";

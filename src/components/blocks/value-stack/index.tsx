@@ -17,7 +17,7 @@ import {
 
 import type { PriceLocale } from "@/lib/shared/format-price";
 import { SectionHead } from "@/components/shared/section-head";
-import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { hpInnerClass, hpSectionClass, hpDecorFadeClass } from "@/components/homepage/shared";
 import { ScrollReveal } from "@/components/homepage/scroll-reveal";
 import { SparkleTrio } from "@/components/homepage/sparkle-trio";
 import { cn } from "@/components/ui";
@@ -403,12 +403,14 @@ export function ValueStack({
     // below the section — pattern-doc rules (h-scroll guard + Figma paint
     // order over the next section's opaque bg).
     <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="value">
-      <div className={DECOR_STAGE_CLASS}>
-        <div className={E822_CLASS} aria-hidden="true" />
-        <span className={CHEVRONS_WRAP_CLASS} aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
-          <img src="/wyg/chevrons.svg" alt="" width={579} height={326} loading="lazy" className={CHEVRONS_IMG_CLASS} />
-        </span>
+      <div className={hpDecorFadeClass}>
+        <div className={DECOR_STAGE_CLASS}>
+          <div className={E822_CLASS} aria-hidden="true" />
+          <span className={CHEVRONS_WRAP_CLASS} aria-hidden="true">
+            {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
+            <img src="/wyg/chevrons.svg" alt="" width={579} height={326} loading="lazy" className={CHEVRONS_IMG_CLASS} />
+          </span>
+        </div>
       </div>
       <div className={hpInnerClass}>
         {/* Header row: heading left (880), support paragraph + sparkles right */}

@@ -14,7 +14,7 @@ import {
 
 import type { PriceLocale } from "@/lib/shared/format-price";
 import { SectionHead } from "@/components/shared/section-head";
-import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { hpInnerClass, hpSectionClass, hpDecorFadeClass } from "@/components/homepage/shared";
 import { ScrollReveal } from "./scroll-reveal";
 
 type BizVisualKind = "deal" | "control" | "cms" | "seo" | "launch" | "support";
@@ -454,10 +454,12 @@ export function BusinessValue({
     // clip does NOT stop html-level h-scroll, job #141). z-[2] keeps the
     // downward bleed above the next section's opaque bg (job #142).
     <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="why-us">
-      <div className={DECOR_STAGE_CLASS}>
-        <div className={DECOR_GLOW_CLASS} aria-hidden="true" />
-        {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
-        <img src="/decor/globe.svg" alt="" aria-hidden="true" width={670} height={670} loading="lazy" className={DECOR_GLOBE_CLASS} />
+      <div className={hpDecorFadeClass}>
+        <div className={DECOR_STAGE_CLASS}>
+          <div className={DECOR_GLOW_CLASS} aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
+          <img src="/decor/globe.svg" alt="" aria-hidden="true" width={670} height={670} loading="lazy" className={DECOR_GLOBE_CLASS} />
+        </div>
       </div>
       <div className={hpInnerClass}>
         <SectionHead

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/components/ui";
 import { SparkleTrio } from "@/components/homepage/sparkle-trio";
-import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass, hpDecorFadeClass } from "@/components/homepage/shared";
 
 /* 2026 redesign restyle (Figma «код сайт арт» #1729:2937 + CTA #1729:3085;
    audit: docs/home-process-figma-audit.md). The step grid, timeline, chevrons,
@@ -133,9 +133,11 @@ export function Process({
     // not stop html-level h-scroll, job #141). z-[2] keeps the downward bleed
     // above the next section's opaque bg (job #142).
     <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="process">
-      <div className={DECOR_STAGE_CLASS}>
-        <div className={ELLIPSE_VIOLET_CLASS} aria-hidden="true" />
-        <div className={ELLIPSE_INDIGO_CLASS} aria-hidden="true" />
+      <div className={hpDecorFadeClass}>
+        <div className={DECOR_STAGE_CLASS}>
+          <div className={ELLIPSE_VIOLET_CLASS} aria-hidden="true" />
+          <div className={ELLIPSE_INDIGO_CLASS} aria-hidden="true" />
+        </div>
       </div>
       <div className={hpInnerClass}>
         <div className={hpSectionHeadClass}>
