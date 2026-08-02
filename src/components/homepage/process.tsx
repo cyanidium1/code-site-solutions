@@ -13,6 +13,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/components/ui";
+import { SparkleTrio } from "@/components/homepage/sparkle-trio";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 /* 2026 redesign restyle (Figma «код сайт арт» #1729:2937 + CTA #1729:3085;
@@ -224,11 +225,14 @@ export function Process({
             })}
           </ol>
         </div>
-        <div className="flex justify-start">
+        {/* CTA row — Figma #1729:3085: link left, sparkle trio right-aligned
+            to the container edge (#1729:3092). */}
+        <div className="flex items-center justify-between gap-8">
           <Link href={ctaHref} className={PROCESS_CTA_CLASS}>
             <span>{ctaLabel}</span>
             <ArrowRight size={15} strokeWidth={1.8} />
           </Link>
+          <SparkleTrio className="hidden xl:flex" />
         </div>
       </div>
     </section>
