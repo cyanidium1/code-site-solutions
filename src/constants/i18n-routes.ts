@@ -26,6 +26,8 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     "/vs-constructors",
     "/vs-freelancers",
     "/landing",
+    "/corporate-site",
+    "/online-store",
     "/calculator",
     "/pricing",
     "/about",
@@ -37,7 +39,7 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
   ]),
   // RU phase-1 surface: homepage (implicit) + blog + contacts. Grows as
   // content/ru pages ship (about, process, pricing, calculator, vs-*).
-  ru: new Set(["/blog", "/contacts", "/landing"]),
+  ru: new Set(["/blog", "/contacts", "/landing", "/corporate-site", "/online-store"]),
 };
 
 /**
