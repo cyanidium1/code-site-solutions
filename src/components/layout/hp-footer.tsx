@@ -157,6 +157,7 @@ export function HpFooter({
   const companyLinks = [
     { key: "about", href: resolveRootHref("/about", locale) },
     { key: "process", href: `${localizePath("/", locale)}#process` },
+    { key: "landing", href: resolveRootHref("/landing", locale) },
     { key: "pricing", href: resolveRootHref("/pricing", locale) },
     { key: "calculator", href: resolveRootHref("/calculator", locale) },
     { key: "portfolio", href: resolveRootHref("/portfolio", locale) },
