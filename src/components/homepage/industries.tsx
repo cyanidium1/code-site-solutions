@@ -80,7 +80,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "E-commerce",
     description: "Інтернет-магазини, маркетплейси, B2B-каталоги",
     tags: ["Stripe", "LiqPay", "Нова Пошта"],
-    price: "Від $3 000 · 6-10 тижнів",
+    price: "Від $6 000 · 6-10 тижнів",
     href: "/sites-for/ecommerce",
   },
   {

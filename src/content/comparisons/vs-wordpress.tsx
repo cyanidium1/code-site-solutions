@@ -136,7 +136,7 @@ export const VS_WORDPRESS_UK: Content = {
   metaTitle:
     "Перейти з WordPress на custom code за 4 тижні · 0 SEO-падінь | Code-Site.Art",
   metaDescription:
-    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $800 за лендінг. Гарантія 1 рік + неустойка 30%.",
+    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 50+ проєктів — 0 SEO-падінь. Від $800 за лендінг. Гарантія 1 рік + неустойка 30%.",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · WORDPRESS",
     h1Lines: [
@@ -146,12 +146,12 @@ export const VS_WORDPRESS_UK: Content = {
     lede: (
       <>
         Мігруємо ваш сайт з WordPress на custom code за 4 тижні.
-        Зберігаємо кожну позицію в Google. 47 проєктів — 0 SEO-падінь.
+        Зберігаємо кожну позицію в Google. 50+ проєктів — 0 SEO-падінь.
         Без втрати контенту, коментарів і медіа.
       </>
     ),
     badges: [
-      { label: "0 SEO-падінь", sub: "на 47 проєктах" },
+      { label: "0 SEO-падінь", sub: "на 50+ проєктах" },
       { label: "4 тижні", sub: "від брифу до перенесення" },
       { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
       { label: "Від $800", sub: "за міграцію лендінга" },
@@ -226,7 +226,7 @@ export const VS_WORDPRESS_UK: Content = {
         WordPress vs Code-Site. <em>Чесно.</em>
       </>
     ),
-    sub: "Без перекручувань. Те, що зустрічаємо щодня на 47 проєктах.",
+    sub: "Без перекручувань. Те, що зустрічаємо щодня на 50+ проєктах.",
     headers: { criterion: "Критерій", wp: "WordPress", us: "Code-Site" },
     rows: [
       {
@@ -327,10 +327,10 @@ export const VS_WORDPRESS_UK: Content = {
     sub: "Це питання №1, яке нам ставлять. Ось чесна відповідь:",
     cards: [
       {
-        title: "47 проєктів · 0 падінь",
+        title: "50+ проєктів · 0 падінь",
         body: (
           <>
-            Ми мігрували 47 сайтів з WordPress (та інших платформ). Жоден не
+            Ми мігрували десятки сайтів з WordPress та інших платформ. Жоден не
             втратив позиції більш ніж на тиждень. У більшості випадків
             позиції зростали через 30–60 днів — швидший сайт = краще
             ранжування.
@@ -612,7 +612,7 @@ export const VS_WORDPRESS_UK: Content = {
     items: [
       {
         q: "Чи я втрачу позиції в Google після міграції?",
-        a: "Ні. 47 проєктів — 0 падінь більше ніж на тиждень. Робимо повну мапу 301-редіректів і моніторимо Search Console щодня перші 30 днів.",
+        a: "Ні. 50+ проєктів — 0 падінь більше ніж на тиждень. Робимо повну мапу 301-редіректів і моніторимо Search Console щодня перші 30 днів.",
       },
       {
         q: "Що буде з моїм блогом і коментарями?",
@@ -688,7 +688,7 @@ export const VS_WORDPRESS_EN: Content = {
   metaTitle:
     "Migrate off WordPress in 4 weeks · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate WordPress sites to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £800 for a landing. 1-year warranty + 30% rebate.",
+    "We migrate WordPress sites to Next.js in 4–10 weeks. 50+ projects — zero SEO drops. From £800 for a landing. 1-year warranty + 30% rebate.",
   hero: {
     eyebrowLabel: "/ COMPARE · WORDPRESS",
     h1Lines: [
@@ -698,12 +698,12 @@ export const VS_WORDPRESS_EN: Content = {
     lede: (
       <>
         We migrate your site off WordPress in 4 weeks. Every Google
-        ranking stays put. 47 projects — zero SEO drops. Your
+        ranking stays put. 50+ projects — zero SEO drops. Your
         content, comments, and media come with you.
       </>
     ),
     badges: [
-      { label: "0 SEO drops", sub: "across 47 projects" },
+      { label: "0 SEO drops", sub: "across 50+ projects" },
       { label: "4 weeks", sub: "brief to live" },
       { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
       { label: "From £800", sub: "for a landing migration" },
@@ -778,7 +778,7 @@ export const VS_WORDPRESS_EN: Content = {
         WordPress vs Code-Site. <em>Honest.</em>
       </>
     ),
-    sub: "No spin. What we actually see across 47 projects.",
+    sub: "No spin. What we actually see across 50+ projects.",
     headers: { criterion: "Criterion", wp: "WordPress", us: "Code-Site" },
     rows: [
       {
@@ -877,10 +877,10 @@ export const VS_WORDPRESS_EN: Content = {
     sub: "This is the #1 question we get. Here's the straight answer:",
     cards: [
       {
-        title: "47 projects · 0 drops",
+        title: "50+ projects · 0 drops",
         body: (
           <>
-            We&apos;ve migrated 47 sites off WordPress (and other platforms). Not
+            We&apos;ve migrated dozens of sites off WordPress and other platforms. Not
             one lost rankings for more than a week. In most cases, rankings
             climbed 30–60 days post-launch — a faster site is a better-ranked
             site.
@@ -1165,7 +1165,7 @@ export const VS_WORDPRESS_EN: Content = {
     items: [
       {
         q: "Will I lose Google rankings after migration?",
-        a: "No. 47 projects, zero drops longer than a week. We build a complete 301 redirect map and monitor Search Console daily for the first 30 days.",
+        a: "No. 50+ projects, zero drops longer than a week. We build a complete 301 redirect map and monitor Search Console daily for the first 30 days.",
       },
       {
         q: "What about my blog and comments?",

@@ -26,7 +26,7 @@ export const TURNKEY_ITEMS_EN: TurnkeyItem[] = [
   { icon: Palette, title: "Design", line: "2 rounds of revisions included" },
   { icon: Smartphone, title: "Frontend", line: "Responsive: mobile / tablet / desktop" },
   { icon: Code, title: "Engineering", line: "Next.js, all integrations" },
-  { icon: LayoutDashboard, title: "CMS", line: "Sanity, edit content from your phone" },
+  { icon: LayoutDashboard, title: "CMS", line: "Sanity, edit from your phone — Corporate tier and up" },
   { icon: Lock, title: "Domain & SSL", line: "We set it up for you" },
   { icon: Cloud, title: "Hosting", line: "Vercel or Cloudflare on your account" },
   { icon: Rocket, title: "Launch", line: "Search Console, Analytics, 301 redirects" },
@@ -81,7 +81,7 @@ export const ADDONS_CELLS: BentoCell[] = [
   {
     icon: Zap,
     title: "Express landing",
-    body: "Simplified landing for a time-sensitive campaign. 7-14 days from brief to launch.",
+    body: "Skip the queue: we start right away and launch in 7 days instead of the standard 1–2 weeks.",
     stat: formatPrice(1500, { locale: "en" }),
     span: "1x1",
   },

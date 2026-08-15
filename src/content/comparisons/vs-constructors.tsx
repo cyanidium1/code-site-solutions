@@ -150,7 +150,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
   metaTitle:
     "Перейти з Tilda, Webflow, Wix на custom code · 0 SEO-падінь | Code-Site.Art",
   metaDescription:
-    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 47 проєктів — 0 SEO-падінь. Від $800. Без підписок після запуску.",
+    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 50+ проєктів — 0 SEO-падінь. Від $800. Без підписок після запуску.",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · КОНСТРУКТОРИ",
     h1Lines: [
@@ -167,7 +167,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
       </>
     ),
     badges: [
-      { label: "47 проєктів", sub: "0 SEO-падінь" },
+      { label: "50+ проєктів", sub: "0 SEO-падінь" },
       { label: "4 тижні", sub: "від брифу до запуску" },
       { label: "0 підписок", sub: "платите один раз" },
       { label: "Від $800", sub: "за міграцію лендінга" },
@@ -284,7 +284,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         Code-Site vs усі <em>топові конструктори.</em>
       </>
     ),
-    sub: "Чесно по фактах. Без перекручувань. На основі 47 проєктів і 3 років роботи з кожним з них.",
+    sub: "Чесно по фактах. Без перекручувань. На основі 50+ проєктів і 3 років роботи з кожним з них.",
     criterionHeader: "Критерій",
     builderHeaders: ["Tilda", "Webflow", "Wix", "Squarespace", "Weblium"],
     usHeader: "Code-Site",
@@ -470,13 +470,13 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ),
   },
   patterns: {
-    eyebrow: "/ 07 НА 47 МІГРАЦІЯХ",
+    eyebrow: "/ 07 НА РЕАЛЬНИХ МІГРАЦІЯХ",
     heading: (
       <>
         Що ми бачимо <em>на типовій міграції з конструктора.</em>
       </>
     ),
-    sub: "12 з 47 наших міграцій — це переходи з Tilda, Webflow, Wix і Squarespace. Тут — типові цифри до/після:",
+    sub: "12 наших проєктів — це переходи з Tilda, Webflow, Wix і Squarespace. Тут — типові цифри до/після:",
     headers: {
       metric: "Метрика",
       before: "До (на конструкторі)",
@@ -621,7 +621,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     items: [
       {
         q: "Чи я втрачу позиції в Google після міграції?",
-        a: "Ні. На 47 проєктах — 0 падінь більше ніж на тиждень. Будуємо повну мапу 301-редіректів зі старих URL на нові. Перші 30 днів моніторимо Search Console щодня.",
+        a: "Ні. На 50+ проєктах — 0 падінь більше ніж на тиждень. Будуємо повну мапу 301-редіректів зі старих URL на нові. Перші 30 днів моніторимо Search Console щодня.",
       },
       {
         q: "Що з моїм доменом?",
@@ -697,7 +697,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
   metaTitle:
     "Migrate from GoDaddy, Webflow, Wix to custom code · 0 SEO drops | Code-Site.Art",
   metaDescription:
-    "We migrate sites from GoDaddy, Webflow, Wix, Squarespace, Shopify to Next.js in 4–10 weeks. 47 projects — zero SEO drops. From £800. No subscriptions after launch.",
+    "We migrate sites from GoDaddy, Webflow, Wix, Squarespace, Shopify to Next.js in 4–10 weeks. 50+ projects — zero SEO drops. From £800. No subscriptions after launch.",
   hero: {
     eyebrowLabel: "/ COMPARE · SITE BUILDERS",
     h1Lines: [
@@ -714,7 +714,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       </>
     ),
     badges: [
-      { label: "47 projects", sub: "0 SEO drops" },
+      { label: "50+ projects", sub: "0 SEO drops" },
       { label: "4 weeks", sub: "brief to launch" },
       { label: "0 subscriptions", sub: "pay once, own it" },
       { label: "From £800", sub: "for a landing migration" },
@@ -831,7 +831,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         Code-Site vs every <em>major builder.</em>
       </>
     ),
-    sub: "Honest, fact-based. Pulled from 47 projects and 3 years working with each of these.",
+    sub: "Honest, fact-based. Pulled from 50+ projects and 3 years working with each of these.",
     criterionHeader: "Criterion",
     builderHeaders: ["GoDaddy", "Webflow", "Wix", "Squarespace", "Shopify"],
     usHeader: "Code-Site",
@@ -1023,13 +1023,13 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ),
   },
   patterns: {
-    eyebrow: "/ 07 ACROSS 47 MIGRATIONS",
+    eyebrow: "/ 07 ACROSS REAL MIGRATIONS",
     heading: (
       <>
         What we see <em>on a typical builder migration.</em>
       </>
     ),
-    sub: "12 of our 47 projects were from GoDaddy, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
+    sub: "12 of our 50+ projects were from GoDaddy, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
     headers: {
       metric: "Metric",
       before: "Before (on builder)",
@@ -1177,7 +1177,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     items: [
       {
         q: "Will I lose Google rankings after migration?",
-        a: "No. Across 47 projects — zero drops longer than a week. We build a complete 301 redirect map from every old URL to the new one. We watch Search Console daily for the first 30 days.",
+        a: "No. Across 50+ projects — zero drops longer than a week. We build a complete 301 redirect map from every old URL to the new one. We watch Search Console daily for the first 30 days.",
       },
       {
         q: "What happens to my domain?",

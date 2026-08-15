@@ -49,7 +49,7 @@ const DEFAULT_ITEMS: TurnkeyItem[] = [
   {
     icon: LayoutDashboard,
     title: "Адмінка",
-    line: "Sanity, ви додаєте контент з телефону",
+    line: "Sanity, контент з телефону — Корпоративний і вище",
   },
   {
     icon: Lock,
