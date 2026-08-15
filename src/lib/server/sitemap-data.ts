@@ -50,6 +50,7 @@ const STATIC_ROUTES: {
   { path: "/landing", changeFrequency: "monthly", priority: 0.8 },
   { path: "/corporate-site", changeFrequency: "monthly", priority: 0.8 },
   { path: "/online-store", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/seo", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-constructors", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-freelancers", changeFrequency: "monthly", priority: 0.8 },

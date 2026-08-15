@@ -43,6 +43,16 @@ export type LandingPageContent = {
     heading: [string, string];
     cells: BentoCell[];
   };
+  /** Optional prose section (used by /seo: why builder/old-WP sites are
+   *  harder to promote). Rendered between the price grid and the CTA. */
+  platforms?: {
+    eyebrow: string;
+    heading: [string, string];
+    paragraphs: string[];
+    bullets: string[];
+    foot: string;
+    links: { label: string; href: string }[];
+  };
   calcCta: {
     heading: [string, string];
     sub: string;

@@ -192,6 +192,57 @@ export async function LandingPageView({
         cells={content.price.cells}
       />
 
+      {/* 4.5 — Optional platform-limitations prose section */}
+      {content.platforms && (
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <div className="flex flex-col items-start mb-10 max-w-[840px]">
+              <span className={EYEBROW_CLASS}>{content.platforms.eyebrow}</span>
+              <H2 className={`mt-6 mb-0 text-ink ${HEADING_EM_CLASS}`}>
+                {em(content.platforms.heading)}
+              </H2>
+            </div>
+            <div className="max-w-[760px] flex flex-col gap-4">
+              {content.platforms.paragraphs.map((p) => (
+                <p
+                  key={p.slice(0, 24)}
+                  className="m-0 font-sans text-[15px] leading-[1.65] text-ink-dim"
+                >
+                  {p}
+                </p>
+              ))}
+              <ul className="list-none m-0 mt-2 p-0 flex flex-col gap-2.5">
+                {content.platforms.bullets.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5 text-[13.5px] leading-[1.55] text-ink-dim"
+                  >
+                    <Minus
+                      size={16}
+                      strokeWidth={2.2}
+                      className="mt-0.5 shrink-0 text-ink-3"
+                      aria-hidden="true"
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="m-0 mt-2 text-[13px] leading-[1.6] text-ink-3 italic">
+                {content.platforms.foot}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-3">
+                {content.platforms.links.map((l) => (
+                  <Link key={l.href} href={l.href} className={ALL_CASES_LINK_CLASS}>
+                    {l.label}
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* 5 — Calculator CTA */}
       <CtaBanner
         heading={em(content.calcCta.heading)}
