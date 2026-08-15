@@ -10,6 +10,7 @@ import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { Bento } from "@/components/homepage";
 import { H2 } from "@/components/ui";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { MiniCalc } from "@/components/landing-page/mini-calc";
 import { fetchCaseStudies } from "@/components/case-page/data";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
@@ -159,19 +160,54 @@ export async function LandingPageView({
 
   return (
     <>
-      {/* 1 — Hero */}
-      <PageHero
-        breadcrumbs={[
-          {
-            label: content.breadcrumbHome,
-            href: locale === "uk" ? "/" : `/${locale}`,
-          },
-          { label: content.breadcrumbSelf },
-        ]}
-        eyebrow={content.hero.eyebrow}
-        headline={em(content.hero.headline)}
-        sub={content.hero.sub}
-      />
+      {/* 1 — Hero (two-column with the mini-calculator when configured) */}
+      {content.miniCalc ? (
+        <section className="relative pt-10 pb-14 lg:pt-16 lg:pb-[72px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none [background:radial-gradient(ellipse_46%_38%_at_78%_8%,oklch(from_var(--color-accent)_l_c_h_/_0.08),transparent_70%),radial-gradient(ellipse_44%_44%_at_6%_92%,oklch(from_var(--color-accent-2)_l_c_h_/_0.05),transparent_70%)]" />
+          <div className="relative max-w-container mx-auto grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 items-center">
+            <div>
+              <span className={EYEBROW_CLASS}>{content.hero.eyebrow}</span>
+              <h1 className={`mt-6 mb-0 font-actay uppercase font-bold text-[clamp(28px,4.4vw,52px)] leading-[1.12] text-ink ${HEADING_EM_CLASS}`}>
+                {em(content.hero.headline)}
+              </h1>
+              <p className="mt-5 font-sans text-[15.5px] leading-[1.65] text-ink-dim max-w-[540px]">
+                {content.hero.sub}
+              </p>
+              {content.hero.badges?.length ? (
+                <div className="mt-7 grid grid-cols-2 gap-[10px] max-w-[460px]">
+                  {content.hero.badges.map((b) => (
+                    <div
+                      key={b.label}
+                      className="py-3 px-4 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)]"
+                    >
+                      <div className="font-actay uppercase font-semibold text-[14px] text-ink leading-[1.2]">
+                        {b.label}
+                      </div>
+                      <div className="mt-1 font-mono text-[10.5px] tracking-[0.04em] text-ink-3">
+                        {b.sub}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+            <MiniCalc content={content.miniCalc} locale={locale} />
+          </div>
+        </section>
+      ) : (
+        <PageHero
+          breadcrumbs={[
+            {
+              label: content.breadcrumbHome,
+              href: locale === "uk" ? "/" : `/${locale}`,
+            },
+            { label: content.breadcrumbSelf },
+          ]}
+          eyebrow={content.hero.eyebrow}
+          headline={em(content.hero.headline)}
+          sub={content.hero.sub}
+        />
+      )}
 
       {/* 2 — When a landing page fits / when it doesn't */}
       <WhenSection content={content.when} />

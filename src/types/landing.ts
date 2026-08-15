@@ -18,6 +18,33 @@ export type LandingPageContent = {
     /** `[plain, em]` — rendered as `{plain} <em>{em}</em>`. */
     headline: [string, string];
     sub: string;
+    /** Stat chips under the hero sub (rendered only by the miniCalc hero). */
+    badges?: { label: string; sub: string }[];
+  };
+  /** Interactive mini-calculator rendered inside the hero (landing page).
+   *  When present, the view swaps PageHero for a two-column hero with the
+   *  calculator + inline lead form on the right. */
+  miniCalc?: {
+    title: string;
+    baseLabel: string;
+    baseNote: string;
+    basePrice: number;
+    /** Currency symbol prefix, e.g. "$" or "£". */
+    currency: string;
+    blocks: { label: string; note: string; unitPrice: number; max: number };
+    options: { id: string; label: string; price: number }[];
+    totalLabel: string;
+    totalNote: string;
+    form: {
+      heading: string;
+      namePlaceholder: string;
+      contactPlaceholder: string;
+      submitLabel: string;
+      success: string;
+      error: string;
+      /** Prefix for the auto-built selection summary sent with the lead. */
+      summaryTitle: string;
+    };
   };
   when: {
     eyebrow: string;
