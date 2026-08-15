@@ -11,6 +11,9 @@ import { Bento } from "@/components/homepage";
 import { H2 } from "@/components/ui";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { MiniCalc } from "@/components/landing-page/mini-calc";
+import { SanityImg } from "@/lib/shared/sanity-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
+import { loc } from "@/lib/shared/sanity-locale";
 import { fetchCaseStudies } from "@/components/case-page/data";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
@@ -228,6 +231,141 @@ export async function LandingPageView({
         cells={content.price.cells}
       />
 
+      {/* 4.2 — Ready-made configuration price table */}
+      {content.priceTable && (
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <div className="flex flex-col items-start mb-10 max-w-[840px]">
+              <span className={EYEBROW_CLASS}>{content.priceTable.eyebrow}</span>
+              <H2 className={`mt-6 mb-0 text-ink ${HEADING_EM_CLASS}`}>
+                {em(content.priceTable.heading)}
+              </H2>
+            </div>
+            <div className="overflow-x-auto rounded-2xl border border-line">
+              <table className="w-full min-w-[640px] border-collapse text-left">
+                <thead>
+                  <tr className="bg-[oklch(1_0_0_/_0.03)]">
+                    {content.priceTable.headers.map((h) => (
+                      <th
+                        key={h}
+                        className="py-3.5 px-5 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3 font-medium border-b border-line"
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {content.priceTable.rows.map((row) => (
+                    <tr
+                      key={row[0]}
+                      className="border-b border-line last:border-b-0 transition-colors duration-150 hover:bg-[oklch(1_0_0_/_0.02)]"
+                    >
+                      {row.map((cell, ci) => (
+                        <td
+                          key={ci}
+                          className={
+                            "py-3.5 px-5 font-sans text-[13.5px] leading-[1.5] " +
+                            (ci === 0
+                              ? "font-semibold text-ink"
+                              : ci === row.length - 2
+                                ? "font-mono text-[13px] text-accent-soft whitespace-nowrap"
+                                : "text-ink-dim")
+                          }
+                        >
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[640px]">
+              {content.priceTable.foot}
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* 4.3 — Case stories with photos */}
+      {content.stories && (
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <div className="flex flex-col items-start mb-12 max-w-[840px]">
+              <span className={EYEBROW_CLASS}>{content.stories.eyebrow}</span>
+              <H2 className={`mt-6 mb-0 text-ink ${HEADING_EM_CLASS}`}>
+                {em(content.stories.heading)}
+              </H2>
+            </div>
+            <div className="flex flex-col gap-12 lg:gap-16">
+              {content.stories.items.map((story, i) => {
+                const c = cases.find((x) => x.slug === story.slug);
+                const image = c?.coverImage?.asset?.url ? c.coverImage : null;
+                return (
+                  <div
+                    key={story.slug}
+                    className={`grid grid-cols-1 gap-7 lg:grid-cols-2 lg:gap-12 items-center ${
+                      i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+                    }`}
+                  >
+                    {image ? (
+                      <Link
+                        href={`/portfolio/${story.slug}`}
+                        className="block relative aspect-[4/3] overflow-hidden rounded-[22px] border border-line group"
+                      >
+                        <SanityImg
+                          image={image}
+                          alt={loc(image.alt, locale) || story.title}
+                          sizes={IMG_SIZES.half}
+                          fill
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                        />
+                      </Link>
+                    ) : (
+                      <div className="aspect-[4/3] rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)]" />
+                    )}
+                    <div>
+                      <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
+                        {story.kicker}
+                      </div>
+                      <h3 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.2] text-ink">
+                        {story.title}
+                      </h3>
+                      {story.paragraphs.map((p) => (
+                        <p
+                          key={p.slice(0, 24)}
+                          className="mt-4 mb-0 font-sans text-[14.5px] leading-[1.65] text-ink-dim"
+                        >
+                          {p}
+                        </p>
+                      ))}
+                      <div className="mt-6 flex items-end gap-5 flex-wrap">
+                        <div>
+                          <div className="font-actay font-bold text-[34px] leading-none bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
+                            {story.stat.value}
+                          </div>
+                          <div className="mt-1.5 font-mono text-[11px] tracking-[0.06em] text-ink-3">
+                            {story.stat.label}
+                          </div>
+                        </div>
+                        <Link
+                          href={`/portfolio/${story.slug}`}
+                          className={ALL_CASES_LINK_CLASS}
+                        >
+                          {story.ctaLabel}
+                          <ArrowUpRight size={15} aria-hidden="true" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* 4.5 — Optional platform-limitations prose section */}
       {content.platforms && (
         <section className={hpSectionClass}>
@@ -293,7 +431,64 @@ export async function LandingPageView({
         }}
       />
 
-      {/* 6 — Example landing pages from the portfolio */}
+      {/* 5.5 — Photo gallery of works */}
+      {content.gallery && (
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <div className="flex flex-col items-start mb-12 max-w-[840px]">
+              <span className={EYEBROW_CLASS}>{content.gallery.eyebrow}</span>
+              <H2 className={`mt-6 mb-0 text-ink ${HEADING_EM_CLASS}`}>
+                {em(content.gallery.heading)}
+              </H2>
+              <p className="mt-5 font-sans text-base leading-[1.6] text-ink-dim max-w-[640px]">
+                {content.gallery.sub}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+              {content.gallery.slugs
+                .map((slug) => cases.find((c) => c.slug === slug))
+                .filter((c): c is NonNullable<typeof c> =>
+                  Boolean(c?.coverImage?.asset?.url),
+                )
+                .map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/portfolio/${c.slug}`}
+                    className="group block overflow-hidden rounded-[18px] border border-line no-underline transition-[transform,border-color] duration-[0.25s] hover:-translate-y-0.5 hover:border-line-strong"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <SanityImg
+                        image={c.coverImage!}
+                        alt={loc(c.coverImage!.alt, locale) || loc(c.title, locale) || c.slug}
+                        sizes={IMG_SIZES.cardThird}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between gap-3 py-3 px-4">
+                      <span className="font-actay uppercase font-semibold text-[13.5px] text-ink truncate">
+                        {loc(c.title, locale) || c.client || c.slug}
+                      </span>
+                      <ArrowUpRight
+                        size={16}
+                        className="shrink-0 text-ink-3 transition-[transform,color] duration-[0.25s] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </Link>
+                ))}
+            </div>
+            <Link href={content.gallery.allHref} className={ALL_CASES_LINK_CLASS}>
+              {content.gallery.allLabel}
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* 6 — Example landing pages from the portfolio (hidden when the
+          gallery replaces it) */}
+      {!content.gallery && (
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
           <div className="flex flex-col items-start mb-12 max-w-[840px]">
@@ -339,6 +534,7 @@ export async function LandingPageView({
           </Link>
         </div>
       </section>
+      )}
 
       {/* 7 — FAQ */}
       <section className="bg-bg">

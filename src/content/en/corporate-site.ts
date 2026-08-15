@@ -27,6 +27,45 @@ export const CORPORATE_EN: LandingPageContent = {
     eyebrow: "CORPORATE WEBSITE",
     headline: ["A corporate website from £3,500 ", "that sells your services"],
     sub: "A page for every service, a CMS, a blog, integrations and local SEO. 4–8 weeks from brief to launch. The price is fixed in the contract before we start.",
+    badges: [
+      { label: "4–8 weeks", sub: "brief to launch" },
+      { label: "CMS & blog", sub: "included in the base" },
+      { label: "1-year warranty", sub: "fixes and advice" },
+      { label: "Fixed price", sub: "in the contract upfront" },
+    ],
+  },
+  miniCalc: {
+    tier: "corporate",
+    title: "Build your website — the price updates live",
+    baseLabel: "Base corporate website",
+    baseNote: "5 pages: CMS, blog, 2 languages, integrations, local SEO, 1-year warranty",
+    basePrice: 3500,
+    currency: "£",
+    blocks: {
+      label: "Extra pages",
+      note: "+£220 per page beyond 5",
+      unitPrice: 220,
+      max: 5,
+    },
+    options: [
+      { id: "premium", label: "Premium design with custom artwork", price: 400 },
+      { id: "payments", label: "Online payments (Stripe / GoCardless)", price: 250 },
+      { id: "booking", label: "Booking / time slots", price: 300 },
+      { id: "industry", label: "Industry integration (Xero, Clio, e-sign)", price: 300 },
+      { id: "lang3", label: "Third language", price: 250 },
+      { id: "seopack", label: "Launch SEO pack: 5 articles", price: 150 },
+    ],
+    totalLabel: "Estimated price",
+    totalNote: "An estimate, not an invoice. The final figure is fixed in the contract.",
+    form: {
+      heading: "Get an exact quote — your selection ships with the enquiry",
+      namePlaceholder: "Name",
+      contactPlaceholder: "Email / Telegram / WhatsApp",
+      submitLabel: "Send my configuration",
+      success: "Thank you! We'll reply within 4 working hours with a confirmed price for your selection.",
+      error: "Something went wrong. Try again or email hi@code-site.art.",
+      summaryTitle: "Corporate website configuration from the mini-calculator:",
+    },
   },
   when: {
     eyebrow: "/ 01 WHEN IT FITS",
@@ -170,6 +209,61 @@ export const CORPORATE_EN: LandingPageContent = {
       },
     ],
   },
+  priceTable: {
+    eyebrow: "/ READY-MADE SETUPS",
+    heading: ["Price table: ", "typical configurations"],
+    headers: ["Configuration", "What's inside", "Price", "Timeline"],
+    rows: [
+      ["Base corporate site", "5 pages, CMS, blog, 2 languages, integrations, local SEO", "£3,500", "4–8 weeks"],
+      ["Service business with booking", "base + booking + online payments", "£4,050", "6–8 weeks"],
+      ["10-page services site", "base + 5 pages for separate directions", "£4,600", "6–8 weeks"],
+      ["Fully loaded", "10 pages, 3 languages, payments, booking, industry integration, SEO pack", "£6,250", "8 weeks"],
+    ],
+    foot: "Configurations beyond £6,000 are Custom Platform territory: an architectural session, a dedicated team, an SLA. Build your own configuration in the calculator above.",
+  },
+  stories: {
+    eyebrow: "/ STORIES",
+    heading: ["How it plays out ", "for real clients"],
+    items: [
+      {
+        slug: "nbyg-kobenhavn",
+        kicker: "CASE · CONSTRUCTION",
+        title: "NBYG: from 3 to 24 enquiries a month",
+        paragraphs: [
+          "A construction firm with two locations — Copenhagen and Bornholm. Their old 2018 WordPress site with five paid plugins brought 3 enquiries a month.",
+          "The new site: a clear service structure, separated locations, fast loading and a CMS the team uses without a developer. A year on — 300+ enquiries and 302,000 Google impressions.",
+        ],
+        stat: { value: "×8", label: "growth in monthly enquiries" },
+        ctaLabel: "View the case",
+      },
+      {
+        slug: "efedra-clinic",
+        kicker: "CASE · HEALTHCARE",
+        title: "Efedra: a clinic patients find on Google",
+        paragraphs: [
+          "An Odesa clinic with two arms — dentistry and aesthetic medicine. The old site produced no enquiries, and every edit needed a developer.",
+          "We rebuilt the structure around the two arms, added online booking and a manageable CMS. Six months on: 1,460 Google visits versus 340, impressions up sevenfold.",
+        ],
+        stat: { value: "×3.2", label: "more enquiries from the site" },
+        ctaLabel: "View the case",
+      },
+    ],
+  },
+  gallery: {
+    eyebrow: "GALLERY",
+    heading: ["Corporate websites ", "we've shipped"],
+    sub: "Construction, healthcare, renovation, consulting — sites that bring enquiries from search, not just \u201cexist online\u201d.",
+    slugs: [
+      "nbyg-kobenhavn",
+      "efedra-clinic",
+      "solide-renovation",
+      "webbond",
+      "co2lab",
+      "domlivo",
+    ],
+    allLabel: "All case studies",
+    allHref: "/en/portfolio",
+  },
   calcCta: {
     heading: ["Price your website ", "in 60 seconds"],
     sub: "Pages, languages, integrations — the calculator shows a range with a full breakdown. No email gate, no sales call.",
@@ -219,6 +313,20 @@ export const CORPORATE_EN: LandingPageContent = {
         q: "How long does it take?",
         a: [
           "4–8 weeks depending on scope. The deadline is fixed in the contract — if we miss it through our own fault, we pay a 30% rebate.",
+        ],
+      },
+      {
+        q: "How many enquiries will the site bring?",
+        a: [
+          "It depends on your niche and traffic, but here are real case numbers: construction firm NBYG grew from 3 to 24 enquiries a month, the Efedra clinic by 3.2×. A corporate site compounds: SEO traffic builds over 3–6 months, then keeps working with no ad budget.",
+        ],
+      },
+      {
+        q: "Where can I see examples of your work?",
+        a: [
+          "In the gallery above — six live projects with linked breakdowns, or in the full ",
+          { em: "portfolio" },
+          ": 22 cases with numbers and screenshots.",
         ],
       },
     ],

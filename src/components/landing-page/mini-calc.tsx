@@ -98,13 +98,13 @@ export function MiniCalc({
           name: name.trim(),
           contact: contact.trim(),
           business: "",
-          tier: "landing",
+          tier: content.tier,
           description: buildSummary(),
           budget: String(total),
           timeline: "",
           hp,
         },
-        `landing-mini-calc-${locale}`,
+        `${content.tier}-mini-calc-${locale}`,
       );
       setStatus("ok");
     } catch {

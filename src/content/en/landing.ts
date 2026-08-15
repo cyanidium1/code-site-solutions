@@ -36,6 +36,7 @@ export const LANDING_EN: LandingPageContent = {
     ],
   },
   miniCalc: {
+    tier: "landing",
     title: "Build your landing page — the price updates live",
     baseLabel: "Base landing page",
     baseNote: "up to 7 sections: design, copy, email lead form, launch, 1-year warranty",
@@ -210,6 +211,62 @@ export const LANDING_EN: LandingPageContent = {
       },
     ],
   },
+  priceTable: {
+    eyebrow: "/ READY-MADE SETUPS",
+    heading: ["Price table: ", "typical configurations"],
+    headers: ["Configuration", "What's inside", "Price", "Timeline"],
+    rows: [
+      ["Base landing page", "up to 7 sections, copy, design, email lead form", "£800", "1–2 weeks"],
+      ["Landing + notifications", "base + Telegram leads + CRM", "£950", "1–2 weeks"],
+      ["Bilingual landing", "base + second language + branded design", "£1,020", "2 weeks"],
+      ["Fully loaded", "2 languages, payments, booking, CRM, Telegram, +2 sections", "£1,470", "2–3 weeks"],
+      ["Express landing", "base, skip the queue, live in 7 days", "£1,500", "7 days"],
+    ],
+    foot: "These are ready-made examples — build your own configuration in the calculator above. The final price is fixed in the contract before we start.",
+  },
+  stories: {
+    eyebrow: "/ STORIES",
+    heading: ["How it plays out ", "for real clients"],
+    items: [
+      {
+        slug: "aleko-course",
+        kicker: "CASE · ONLINE COURSE",
+        title: "A landing page for Aleko Sokurashvili",
+        paragraphs: [
+          "A popular entrepreneur-blogger with a 1.3M+ audience sells an online course on viral video. The landing page's job: turn followers into buyers — 48 video lessons, 3 tiers, online payment.",
+          "We built the page around one action — pick a tier and pay. No extra steps between interest and purchase.",
+        ],
+        stat: { value: "×2.4", label: "more checkout clicks" },
+        ctaLabel: "View the case",
+      },
+      {
+        slug: "tatarka-franchise",
+        kicker: "CASE · FRANCHISE",
+        title: "The Tatarka franchise landing page",
+        paragraphs: [
+          "A Crimean Tatar restaurant chain sells its franchise. The landing page had to speak investor: the concept, the numbers, partnership terms and an application form.",
+          "The page became the chain's main negotiation tool — helping raise over $250,000 in investment.",
+        ],
+        stat: { value: "$250,000+", label: "investment raised" },
+        ctaLabel: "View the case",
+      },
+    ],
+  },
+  gallery: {
+    eyebrow: "GALLERY",
+    heading: ["Landing pages and sites ", "we've shipped"],
+    sub: "A course, a franchise, a personal brand, a model agency, a music project, travel — every page built around its own action.",
+    slugs: [
+      "aleko-course",
+      "tatarka-franchise",
+      "oleksandr-sitnikov",
+      "urmodels",
+      "glenn-garbo",
+      "rich-tour",
+    ],
+    allLabel: "All case studies",
+    allHref: "/en/portfolio",
+  },
   calcCta: {
     heading: ["Price your landing page ", "in 60 seconds"],
     sub: "Languages, integrations, design level — the calculator shows a range with a full breakdown. No email gate, no sales call.",
@@ -261,6 +318,20 @@ export const LANDING_EN: LandingPageContent = {
         q: "What about support after launch?",
         a: [
           "A year of warranty is included: fixes, updates, and advice with responses within 4 hours. After that — optional, £200/mo or £40/hr.",
+        ],
+      },
+      {
+        q: "How many leads will a landing page bring?",
+        a: [
+          "The honest answer: it depends on traffic. A landing page converts the visitors you bring via ads or social — our case record is 2.4× more clicks to the target action after a redesign. No traffic, no leads — and we say that before the project, not after.",
+        ],
+      },
+      {
+        q: "Where can I see examples of your landing pages?",
+        a: [
+          "In the gallery above — six live projects with linked breakdowns, or in the full ",
+          { em: "portfolio" },
+          ": 22 cases with numbers and screenshots.",
         ],
       },
     ],

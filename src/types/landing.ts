@@ -25,6 +25,8 @@ export type LandingPageContent = {
    *  When present, the view swaps PageHero for a two-column hero with the
    *  calculator + inline lead form on the right. */
   miniCalc?: {
+    /** pricingPlan tier key sent with the lead (landing / corporate / custom). */
+    tier: string;
     title: string;
     baseLabel: string;
     baseNote: string;
@@ -69,6 +71,37 @@ export type LandingPageContent = {
     eyebrow: string;
     heading: [string, string];
     cells: BentoCell[];
+  };
+  /** Ready-made configuration price table rendered after the price grid. */
+  priceTable?: {
+    eyebrow: string;
+    heading: [string, string];
+    headers: string[];
+    rows: string[][];
+    foot: string;
+  };
+  /** Case story blocks (image + narrative + stat), alternating sides. */
+  stories?: {
+    eyebrow: string;
+    heading: [string, string];
+    items: {
+      /** Portfolio slug — supplies the image and the case link. */
+      slug: string;
+      kicker: string;
+      title: string;
+      paragraphs: string[];
+      stat: { value: string; label: string };
+      ctaLabel: string;
+    }[];
+  };
+  /** Photo gallery of works (replaces the examples card grid when set). */
+  gallery?: {
+    eyebrow: string;
+    heading: [string, string];
+    sub: string;
+    slugs: string[];
+    allLabel: string;
+    allHref: string;
   };
   /** Optional prose section (used by /seo: why builder/old-WP sites are
    *  harder to promote). Rendered between the price grid and the CTA. */
