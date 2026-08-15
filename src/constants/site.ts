@@ -5,6 +5,20 @@ export const GTM_ID = "GTM-TRCVT2FH";
 export const ORG_ID = `${SITE_ORIGIN}/#organization`;
 export const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
 
+/**
+ * Site-wide default social-share card. Points at the statically generated
+ * `app/opengraph-image.tsx` route. Next only auto-injects that file-convention
+ * image when a segment does NOT declare its own `openGraph`; every page/layout
+ * here sets `openGraph` explicitly (for localized og:title/description), which
+ * suppresses the fallback — so pages must reference this image directly.
+ */
+export const OG_DEFAULT_IMAGE = {
+  url: `${SITE_ORIGIN}/opengraph-image`,
+  width: 1200,
+  height: 630,
+  alt: "Code-Site.Art — custom-coded websites for business",
+} as const;
+
 export const SITE_CONTACT = {
   email: "hi@code-site.art",
   /** Hyphenated display form — used in footer labels and JSON-LD `telephone`. */
