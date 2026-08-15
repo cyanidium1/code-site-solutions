@@ -162,7 +162,8 @@ export default async function RuBlogPage({
                       title={p.title?.ru ?? slug}
                       eyebrow={date}
                       sub={p.lede?.ru}
-                      coverImage={{ src: cover.image, alt: cover.alt }}
+                      coverImage={cover.generic ? undefined : { src: cover.image, alt: cover.alt }}
+                      generatedCover={cover.generic ? { title: p.title?.ru ?? slug, category: categoryLabel } : undefined}
                       coverAspect="wide"
                       href={`/ru/blog/${slug}`}
                     />

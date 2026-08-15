@@ -163,7 +163,8 @@ export default async function BlogPage({
                       title={p.title?.uk ?? slug}
                       eyebrow={eyebrow}
                       sub={p.lede?.uk}
-                      coverImage={{ src: cover.image, alt: cover.alt }}
+                      coverImage={cover.generic ? undefined : { src: cover.image, alt: cover.alt }}
+                      generatedCover={cover.generic ? { title: p.title?.uk ?? slug, category: categoryLabel } : undefined}
                       coverAspect="wide"
                       href={`/blog/${slug}`}
                     />

@@ -95,8 +95,8 @@ export const ADDONS_CELLS: BentoCell[] = [
   {
     icon: FileText,
     title: "Content",
-    body: "B2B copywriter. Copy for landings, cases, blog.",
-    stat: "£200/article",
+    body: "From a simple post to a deep B2B piece (legal, medical) with research, charts and 3 languages.",
+    stat: "£30–100/article",
     span: "1x1",
   },
 ];

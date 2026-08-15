@@ -103,7 +103,7 @@ export const CORPORATE_EN: LandingPageContent = {
       "Complex SaaS architecture and user accounts",
       "A dedicated team with a 24/7 SLA",
       "Photo and video production",
-      "Content beyond the launch copy (articles — £200 each)",
+      "Content beyond the launch copy (articles from £30)",
     ],
     notIncludedFoot:
       "The first two are Custom Platform territory (from £6,000). The rest can be added as options or through vetted partners.",
@@ -157,7 +157,7 @@ export const CORPORATE_EN: LandingPageContent = {
       {
         icon: Bell,
         title: "Extended content",
-        stat: "+£200/article",
+        stat: "+£30–100/article",
         body: "Launch copy is included. SEO articles and service pages at scale are separate.",
         span: "1x1",
       },

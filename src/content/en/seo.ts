@@ -135,8 +135,8 @@ export const SEO_EN: LandingPageContent = {
       {
         icon: PenLine,
         title: "Extra content",
-        stat: "£200/article",
-        body: "Beyond the included volume — when you want to grow faster.",
+        stat: "£30–100/article",
+        body: "Depends on niche, languages and depth: a simple post is £30, a researched B2B piece in a narrow niche across 3 languages runs up to £100.",
         span: "1x1",
       },
       {

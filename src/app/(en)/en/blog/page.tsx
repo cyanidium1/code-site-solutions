@@ -164,7 +164,8 @@ export default async function EnBlogPage({
                       title={p.title?.en ?? slug}
                       eyebrow={date}
                       sub={p.lede?.en}
-                      coverImage={{ src: cover.image, alt: cover.alt }}
+                      coverImage={cover.generic ? undefined : { src: cover.image, alt: cover.alt }}
+                      generatedCover={cover.generic ? { title: p.title?.en ?? slug, category: categoryLabel } : undefined}
                       coverAspect="wide"
                       href={`/en/blog/${slug}`}
                     />

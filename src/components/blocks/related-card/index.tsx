@@ -13,6 +13,10 @@ export type RelatedCardProps = {
   metrics?: string[];
   /** `src` takes anything SanityImg accepts: URL/path string or image object. */
   coverImage?: { src: SanityImgInput; alt: string };
+  /** Programmatic cover: deterministic gradient + the (localized) title text.
+   *  Used by blog cards when a post has no CMS cover, so the cover text
+   *  always matches the active locale. Ignored when `coverImage` is set. */
+  generatedCover?: { title: string; category?: string; brand?: string };
   /** Cover area aspect: 4/3 (portfolio cases, default) or 1.91:1 ("wide" —
    *  blog covers, which are designed as og-card frames). */
   coverAspect?: "album" | "wide";
@@ -24,6 +28,57 @@ export type RelatedCardProps = {
 
 const DEFAULT_GRADIENT =
   "linear-gradient(135deg, oklch(0.30 0.10 290), oklch(0.22 0.06 250))";
+
+/* Palette pool for generated covers — dark, brand-adjacent hues. The pick is
+   a deterministic hash of the title, so a card keeps its colors between
+   renders and locales while different posts get different gradients. */
+const GENERATED_GRADIENTS = [
+  "linear-gradient(131deg, oklch(0.34 0.13 292) 0%, oklch(0.19 0.06 258) 78%)",
+  "linear-gradient(118deg, oklch(0.33 0.12 252) 0%, oklch(0.18 0.05 300) 80%)",
+  "linear-gradient(142deg, oklch(0.32 0.11 322) 0%, oklch(0.18 0.05 272) 76%)",
+  "linear-gradient(125deg, oklch(0.31 0.09 212) 0%, oklch(0.17 0.05 262) 82%)",
+  "linear-gradient(136deg, oklch(0.30 0.08 182) 0%, oklch(0.17 0.05 240) 78%)",
+  "linear-gradient(122deg, oklch(0.33 0.10 268) 0%, oklch(0.18 0.06 322) 80%)",
+] as const;
+
+function hashSeed(seed: string): number {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+function GeneratedCover({
+  title,
+  category,
+  brand = "CODE-SITE.ART",
+}: NonNullable<RelatedCardProps["generatedCover"]>) {
+  const gradient = GENERATED_GRADIENTS[hashSeed(title) % GENERATED_GRADIENTS.length];
+  return (
+    <>
+      <div
+        className={caseCoverBgClass}
+        // eslint-disable-next-line react/forbid-dom-props -- deterministic per-title gradient
+        style={{ background: gradient }}
+      />
+      <div className={caseCoverDotsClass} />
+      <div className="absolute inset-0 flex flex-col justify-between p-6">
+        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[oklch(1_0_0/0.55)]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.72_0.16_295)] shadow-[0_0_8px_oklch(0.72_0.16_295/0.8)]" />
+          {category ?? "BLOG"}
+        </div>
+        <div className="font-actay uppercase font-bold text-[clamp(17px,1.6vw,23px)] leading-[1.18] text-[oklch(0.97_0.005_300)] line-clamp-3 [text-wrap:balance]">
+          {title}
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="h-[5px] w-16 rounded-full bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.5_0.19_320))]" />
+          <span className="font-mono text-[10px] tracking-[0.14em] text-[oklch(1_0_0/0.35)]">
+            {brand}
+          </span>
+        </div>
+      </div>
+    </>
+  );
+}
 
 // Shared class strings exported for other portfolio/case consumers
 // (e.g. case-page/index.tsx) that compose their own JSX out of the same
@@ -70,6 +125,7 @@ export function RelatedCard({
   sub,
   metrics = [],
   coverImage,
+  generatedCover,
   coverAspect = "album",
   gradient,
   href,
@@ -96,6 +152,8 @@ export function RelatedCard({
           fill
           className="object-cover object-top"
         />
+      ) : generatedCover ? (
+        <GeneratedCover {...generatedCover} />
       ) : (
         <>
           <div

@@ -374,7 +374,8 @@ export async function BlogPostPageView({
                       title={pickLocalized(p.title, locale) ?? pSlug}
                       eyebrow={date}
                       sub={pickLocalized(p.lede, locale)}
-                      coverImage={{ src: cover.image, alt: cover.alt }}
+                      coverImage={cover.generic ? undefined : { src: cover.image, alt: cover.alt }}
+                      generatedCover={cover.generic ? { title: pickLocalized(p.title, locale) ?? pSlug, category: loc(p.category?.name, locale) || undefined } : undefined}
                       coverAspect="wide"
                       href={localizePath(`/blog/${pSlug}`, locale)}
                     />
