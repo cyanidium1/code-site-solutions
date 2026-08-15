@@ -155,7 +155,7 @@ export const VS_FREELANCERS_UK: Content = {
   metaTitle:
     "Студія vs Фрілансер · 12 людей у вашому проєкті · 0 ризику зникнення | Code-Site.Art",
   metaDescription:
-    "Studio з 12 людей замість одного фрілансера. Контракт із юр. особою, гарантія 1 рік, неустойка 30%. Rescue-проєкти після фрілансерів — 12 з 47.",
+    "Studio з 12 людей замість одного фрілансера. Контракт із юр. особою, гарантія 1 рік, неустойка 30%. Rescue-проєкти після фрілансерів — 12 з 50+.",
   ogTitle: "12 людей у вашому проєкті. Жоден не зникне з аванса. — Code-Site.Art",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · ФРІЛАНСЕРИ",
@@ -229,7 +229,7 @@ export const VS_FREELANCERS_UK: Content = {
     foot: (
       <>
         Кожна з цих 6 — це не виняткова історія. Це{" "}
-        <strong>типовий патерн</strong>. У нас 12 з 47 проєктів — це rescue
+        <strong>типовий патерн</strong>. У нас 12 з 50+ проєктів — це rescue
         після фрілансера або іншої студії. Якщо ви впізнаєте себе — пишіть, на
         безкоштовному розборі скажемо чесно, що можна врятувати.
       </>
@@ -270,7 +270,7 @@ export const VS_FREELANCERS_UK: Content = {
         Фрілансер vs Code-Site. <em>Чесно по фактах.</em>
       </>
     ),
-    sub: "Не «ми кращі за всіх». Ось де фрілансер виграє, а де ми — на основі 47 проєктів і 12 rescue-кейсів.",
+    sub: "Не «ми кращі за всіх». Ось де фрілансер виграє, а де ми — на основі 50+ проєктів і 12 rescue-кейсів.",
     headers: { criterion: "Критерій", freelancer: "Фрілансер", us: "Code-Site" },
     rows: [
       {
@@ -531,7 +531,7 @@ export const VS_FREELANCERS_UK: Content = {
     eyebrow: "/ 08 RESCUE-ПРОЄКТИ",
     heading: (
       <>
-        12 з 47 наших проєктів — <em>це rescue після фрілансера.</em>
+        12 з 50+ наших проєктів — <em>це rescue після фрілансера.</em>
       </>
     ),
     sub: "Це не виняток. Це типовий патерн. Ось що ми бачимо на типовому rescue-кейсі:",
@@ -749,7 +749,7 @@ export const VS_FREELANCERS_EN: Content = {
   metaTitle:
     "Studio vs Freelancer · 12 people on your project · No ghost risk | Code-Site.Art",
   metaDescription:
-    "A studio of 12 people instead of one freelancer. Legal-entity contract, 1-year warranty, 30% rebate. Rescue projects after freelancers — 12 of 47.",
+    "A studio of 12 people instead of one freelancer. Legal-entity contract, 1-year warranty, 30% rebate. Rescue projects after freelancers — 12 of 50+.",
   ogTitle:
     "12 people on your project. None of them can ghost you. — Code-Site.Art",
   hero: {
@@ -827,7 +827,7 @@ export const VS_FREELANCERS_EN: Content = {
     foot: (
       <>
         Each of these 6 isn&apos;t an exceptional story. It&apos;s a{" "}
-        <strong>typical pattern</strong>. 12 of our 47 projects are rescues
+        <strong>typical pattern</strong>. 12 of our 50+ projects are rescues
         after a freelancer or another agency. If you recognise yourself — talk
         to us. The free 30-minute consult will tell you straight what&apos;s
         salvageable.
@@ -869,7 +869,7 @@ export const VS_FREELANCERS_EN: Content = {
         Freelancer vs Code-Site. <em>Honest, fact-based.</em>
       </>
     ),
-    sub: "Not “we're better than everyone.” Here's where a freelancer wins, and where we do — based on 47 projects and 12 rescue cases.",
+    sub: "Not “we're better than everyone.” Here's where a freelancer wins, and where we do — based on 50+ projects and 12 rescue cases.",
     headers: { criterion: "Criterion", freelancer: "Freelancer", us: "Code-Site" },
     rows: [
       {
@@ -1129,7 +1129,7 @@ export const VS_FREELANCERS_EN: Content = {
     eyebrow: "/ 08 RESCUE PROJECTS",
     heading: (
       <>
-        12 of our 47 projects — <em>rescues after a freelancer.</em>
+        12 of our 50+ projects — <em>rescues after a freelancer.</em>
       </>
     ),
     sub: "Not an outlier. A typical pattern. Here's what we see on a typical rescue:",

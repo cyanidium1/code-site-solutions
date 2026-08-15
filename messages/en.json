@@ -45,6 +45,10 @@
     "company": {
       "about": "About",
       "process": "Process",
+      "landing": "Landing from £800",
+      "corporateSite": "Corporate website",
+      "onlineStore": "Online store",
+      "seo": "SEO services",
       "pricing": "Pricing",
       "calculator": "Calculator",
       "portfolio": "Cases",
@@ -100,7 +104,7 @@
     },
     "stats": {
       "projects": { "value": "50+", "label": "projects · last 5 years" },
-      "range": { "value": "£1,500–£10,000", "label": "typical price range" },
+      "range": { "value": "£800–£10,000", "label": "typical price range" },
       "weeks": { "value": "4–10 weeks", "label": "from brief to launch" },
       "warranty": { "value": "1 year", "label": "warranty included" }
     },
@@ -156,7 +160,7 @@
         },
         {
           "q": "What if I need only one page?",
-          "a": "We do landings starting at £1,500. Anything below that is either a templated solution or we're the wrong fit, and we'll point you to who isn't."
+          "a": "We do landings starting at £800. Anything below that is either a templated solution or we're the wrong fit, and we'll point you to who isn't."
         },
         {
           "q": "Do I need to know exactly what I want?",

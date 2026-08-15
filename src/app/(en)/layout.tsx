@@ -6,7 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import enMessages from "../../../messages/en.json";
 
 import { Providers } from "../providers";
-import { SITE_ORIGIN } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
 import { LOCALE_CONFIG } from "@/constants/locales";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { getContentRegistrySafe, toWire } from "@/lib/server/i18n-registry";
@@ -58,12 +58,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: LOCALE_CONFIG.en.ogLocale,
     url: `${SITE_ORIGIN}/en`,
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:
       "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

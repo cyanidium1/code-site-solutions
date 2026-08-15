@@ -30,6 +30,7 @@ export const RU_TIERS: TierProps[] = [
     includes: {
       heading: "Что входит",
       items: [
+        "1 страница-лонгрид",
         "Адаптивная вёрстка",
         "SEO-структура",
         "Интеграция форм",
@@ -49,6 +50,7 @@ export const RU_TIERS: TierProps[] = [
     includes: {
       heading: "Всё из Лендинга +",
       items: [
+        "5 страниц включено, дальше +$220/страница",
         "CMS, блог",
         "5+ интеграций",
         "Локальное SEO",
@@ -67,6 +69,7 @@ export const RU_TIERS: TierProps[] = [
     includes: {
       heading: "Всё из Корпоративного +",
       items: [
+        "Без лимита страниц",
         "Архитектурная сессия",
         "Dedicated team",
         "SLA + 24/7 support",
@@ -215,7 +218,7 @@ export const RU_INDUSTRIES: Industry[] = [
     title: "E-commerce",
     description: "Интернет-магазины, маркетплейсы, B2B-каталоги",
     tags: ["Stripe", "LiqPay", "Нова пошта"],
-    price: "От $3 000 · 6–10 недель",
+    price: "От $6 000 · 6–10 недель",
     href: "/ru/sites-for/ecommerce",
   },
   {

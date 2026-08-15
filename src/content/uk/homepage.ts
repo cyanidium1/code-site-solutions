@@ -19,6 +19,7 @@ export const HOMEPAGE_TIERS: TierProps[] = [
     includes: {
       heading: "Що входить",
       items: [
+        "1 сторінка-лонгрід",
         "Адаптивна верстка",
         "SEO-структура",
         "Інтеграція форм",
@@ -38,6 +39,7 @@ export const HOMEPAGE_TIERS: TierProps[] = [
     includes: {
       heading: "Все з Лендінгу +",
       items: [
+        "5 сторінок включено, далі +$220/сторінка",
         "CMS, блог",
         "5+ інтеграцій",
         "Локальне SEO",
@@ -56,6 +58,7 @@ export const HOMEPAGE_TIERS: TierProps[] = [
     includes: {
       heading: "Все з Корпоративного +",
       items: [
+        "Без ліміту сторінок",
         "Архітектурна сесія",
         "Dedicated team",
         "SLA + 24/7 support",

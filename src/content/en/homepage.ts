@@ -60,7 +60,7 @@ export const EN_INDUSTRIES: Industry[] = [
     title: "E-commerce",
     description: "Online shops, marketplaces, B2B catalogues",
     tags: ["Stripe", "GoCardless", "Royal Mail"],
-    price: "From £3,000 · 6–10 weeks",
+    price: "From £6,000 · 6–10 weeks",
     href: "/en/sites-for/ecommerce",
   },
   {
@@ -102,6 +102,7 @@ export const EN_TIERS: TierProps[] = [
     includes: {
       heading: "Includes",
       items: [
+        "One long-form page",
         "Responsive build",
         "SEO-first structure",
         "Form integrations",
@@ -123,6 +124,7 @@ export const EN_TIERS: TierProps[] = [
     includes: {
       heading: "Everything in Landing, plus",
       items: [
+        "5 pages included, then +£220/page",
         "CMS, blog",
         "5+ integrations",
         "Local SEO",
@@ -143,6 +145,7 @@ export const EN_TIERS: TierProps[] = [
     includes: {
       heading: "Everything in Corporate, plus",
       items: [
+        "No page limit",
         "Architectural session",
         "Dedicated team",
         "SLA + 24/7 support",

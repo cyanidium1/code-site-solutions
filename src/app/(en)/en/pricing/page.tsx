@@ -222,7 +222,7 @@ export default async function EnPricingPage() {
         body="We don't hide our limits. Here's what's NOT in the price — but we can help separately or recommend partners."
         bulletIcon="cross"
         bulletList={[
-          "Content: copy, photo, video — separate service or your copywriter",
+          "Content beyond the launch copy: service pages at scale, blog articles, photo, video — separate service (£200/article) or your copywriter",
           "Branding from scratch: logo, brand book — partner referral",
           "Legal consulting — only technical compliance",
           "Google Ads / Meta Ads — separate service from a performance marketer",

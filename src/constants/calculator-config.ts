@@ -20,7 +20,7 @@ export const PROJECT_TYPE_CONFIG: Record<
 > = {
   landing: {
     label: "Landing page",
-    basePrice: 1500,
+    basePrice: 800,
     hint: "Best for one offer, service, event, MVP, or focused lead generation.",
     pages: { min: 5, max: 16, defaultValue: 7, included: 7, extraPrice: 150 },
   },
