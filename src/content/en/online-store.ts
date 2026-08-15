@@ -41,7 +41,7 @@ export const ONLINE_STORE_EN: LandingPageContent = {
     ],
     notFitTitle: "Better with something else",
     notFit: [
-      "1–3 products or an info-product — a landing page with payments is enough (from £800 + £900)",
+      "1–3 products or an info-product — a landing page with payments is enough (from £800 + £150 for payments)",
       "Services without a catalogue — that's a corporate website from £3,500",
       "A marketplace with vendors and complex logistics — that's platform territory, it needs an architectural session",
     ],
