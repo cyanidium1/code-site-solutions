@@ -147,22 +147,46 @@ export async function POST(req: Request) {
     const message = buildMessage(data);
 
     if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
-      const tgRes = await fetch(
-        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-        {
+      const send = (body: Record<string, string>) =>
+        fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: message,
-            parse_mode: "MarkdownV2",
-          }),
-        },
-      );
+          body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, ...body }),
+          // Never hang the user's submit on a slow Telegram round-trip.
+          signal: AbortSignal.timeout(8000),
+        });
 
-      if (!tgRes.ok) {
-        console.error("Telegram API error:", await tgRes.text());
+      let delivered = false;
+      try {
+        const tgRes = await send({ text: message, parse_mode: "MarkdownV2" });
+        if (tgRes.ok) {
+          delivered = true;
+        } else {
+          // Most common failure: MarkdownV2 rejecting an entity. Retry once
+          // as plain text — an unformatted lead beats a lost lead.
+          console.error("Telegram MarkdownV2 error:", await tgRes.text());
+          const plain = message.replace(/\\([_*[\]()~`>#+\-=|{}.!\\])/g, "$1");
+          const retry = await send({ text: plain });
+          if (retry.ok) {
+            delivered = true;
+          } else {
+            console.error("Telegram plain-text error:", await retry.text());
+          }
+        }
+      } catch (err) {
+        console.error("Telegram request failed:", err);
       }
+
+      // Do NOT pretend success when delivery failed — the client shows the
+      // error state with direct contacts instead of a false "received".
+      if (!delivered) {
+        return NextResponse.json({ ok: false }, { status: 502 });
+      }
+    } else if (process.env.NODE_ENV === "production") {
+      // Misconfigured production (missing bot credentials) must be loud:
+      // silently dropping leads is the worst possible failure mode.
+      console.error("Lead delivery unconfigured: TELEGRAM_* env vars missing");
+      return NextResponse.json({ ok: false }, { status: 500 });
     } else {
       console.log("[LEAD]", message);
     }
