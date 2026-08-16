@@ -322,11 +322,15 @@
 
 /* ─── In-body image with caption ────────────────────────────────────────── */
 .blog-image {
-  margin: 32px 0;
+  /* Stock photos are illustrative, not hero art: cap width and height so a
+     single figure never fills a desktop viewport. */
+  margin: 32px auto;
+  max-width: 620px;
 }
 .blog-image img {
-  @apply w-full h-auto border border-line;
+  @apply w-full border border-line object-cover;
   border-radius: 14px;
+  max-height: 360px;
 }
 .blog-image figcaption {
   @apply font-sans text-ink-3 text-center;

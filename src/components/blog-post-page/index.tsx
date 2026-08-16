@@ -11,6 +11,7 @@ import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { FAQ } from "@/components/blocks/final";
+import { LeadForm } from "@/components/blocks/lead-form";
 import "@/components/blocks/blog/blog.css";
 
 import { fetchBlogPost, fetchRelated } from "./data";
@@ -23,6 +24,28 @@ export {
 } from "./data";
 
 import type { BlogPostDoc, BlogPostListItem } from "@/types/sanity";
+
+/** End-of-post lead-form copy, per locale. */
+const BLOG_FORM_COPY: Record<
+  Locale,
+  { eyebrow: string; heading: string; sub: string }
+> = {
+  uk: {
+    eyebrow: "БЕЗКОШТОВНА КОНСУЛЬТАЦІЯ",
+    heading: "Обговорити свій проєкт?",
+    sub: "Залиште контакт — відповімо протягом 4 робочих годин. Без спаму і скриптів продажів.",
+  },
+  ru: {
+    eyebrow: "БЕСПЛАТНАЯ КОНСУЛЬТАЦИЯ",
+    heading: "Обсудить свой проект?",
+    sub: "Оставьте контакт — ответим в течение 4 рабочих часов. Без спама и скриптов продаж.",
+  },
+  en: {
+    eyebrow: "FREE CONSULTATION",
+    heading: "Want to discuss your project?",
+    sub: "Leave your contact — we reply within 4 working hours. No spam, no sales scripts.",
+  },
+};
 import {
   DEFAULT_LOCALE,
   LOCALE_CONFIG,
@@ -345,6 +368,34 @@ export async function BlogPostPageView({
             locale={locale}
           />
         ) : null}
+
+        {/* Lead form — every post ends with a direct contact form. The
+            `source` encodes the reading locale and the article slug, so each
+            lead arrives tagged with the language and the page it came from. */}
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <div className="mx-auto max-w-[760px]">
+              <div className="mb-6 text-center">
+                <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
+                  {BLOG_FORM_COPY[locale].eyebrow}
+                </div>
+                <h2 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,32px)] leading-[1.15] text-ink">
+                  {BLOG_FORM_COPY[locale].heading}
+                </h2>
+                <p className="mt-3 mb-0 font-sans text-[14.5px] leading-[1.6] text-ink-dim">
+                  {BLOG_FORM_COPY[locale].sub}
+                </p>
+              </div>
+              <div className="p-5 border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] md:p-7 md:rounded-[22px]">
+                <LeadForm
+                  source={`blog-${locale}:${slug}`}
+                  variant="compact"
+                  locale={locale}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Related articles */}
         {related.length > 0 ? (
