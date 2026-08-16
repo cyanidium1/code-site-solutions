@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { LOCALE_CONFIG } from "@/constants/locales";
 import type { Metadata } from "next";
@@ -37,6 +38,11 @@ import type {
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import { MedBookingDemo } from "@/components/industry-page/med-booking-demo";
+import { MiniCalc } from "@/components/landing-page/mini-calc";
+import {
+  industryCalcContent,
+  industryCalcHeading,
+} from "@/components/industry-page/industry-calcs";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { resolveBlogCover } from "@/lib/shared/blog-cover";
 import { BLOG_POSTS_BY_CATEGORY_QUERY } from "@/lib/server/sanity-queries";
@@ -800,6 +806,38 @@ export async function IndustryPageView({
     Boolean(p.slugs?.[locale]?.current && pickLocalized(p.title, locale)),
   );
 
+  // Industry mini-calculator (reuses the site-type MiniCalc). Rendered right
+  // after the pricing/comparison section when one exists, otherwise after
+  // the last CMS section.
+  const calcContent = industryCalcContent(page.slug, locale);
+  const calcHeading = industryCalcHeading(page.slug, locale);
+  const hasComparison = Boolean(
+    page.sections?.some((sct) => sct._type === "comparisonBlock"),
+  );
+  const calcSection =
+    calcContent && calcHeading ? (
+      <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none [background:radial-gradient(ellipse_44%_40%_at_20%_80%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%)]" />
+        <div className="relative max-w-container mx-auto">
+          <div className="mx-auto max-w-[640px] text-center mb-8">
+            <h2 className="m-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
+              {calcHeading.heading}
+            </h2>
+            <p className="mt-3 mb-0 font-sans text-[14.5px] leading-[1.6] text-ink-dim">
+              {calcHeading.sub}
+            </p>
+          </div>
+          <div className="mx-auto max-w-[620px]">
+            <MiniCalc
+              content={calcContent}
+              locale={locale}
+              source={`${page.slug}-calc-${locale}`}
+            />
+          </div>
+        </div>
+      </section>
+    ) : null;
+
   const eyebrowStr = loc(hero?.eyebrow, locale);
   const slashIdx = eyebrowStr.lastIndexOf(" / ");
   const eyebrowProp = eyebrowStr
@@ -884,13 +922,16 @@ export async function IndustryPageView({
       {page.slug === "medicine" ? <MedBookingDemo locale={locale} /> : null}
 
       {page.sections?.map((section) => (
-        <SectionBlock
-          key={section._key}
-          section={section}
-          locale={locale}
-          slug={page.slug}
-        />
+        <Fragment key={section._key}>
+          <SectionBlock
+            section={section}
+            locale={locale}
+            slug={page.slug}
+          />
+          {section._type === "comparisonBlock" ? calcSection : null}
+        </Fragment>
       ))}
+      {!hasComparison ? calcSection : null}
 
       {clusterPostsForLocale.length > 0 ? (
         <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">

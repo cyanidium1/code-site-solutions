@@ -50,9 +50,12 @@ function fmt(currency: string, n: number): string {
 export function MiniCalc({
   content,
   locale,
+  source,
 }: {
   content: MiniCalcContent;
   locale: string;
+  /** Lead-source override; defaults to `<tier>-mini-calc-<locale>`. */
+  source?: string;
 }) {
   const [extraBlocks, setExtraBlocks] = useState(0);
   const [picked, setPicked] = useState<Set<string>>(new Set());
@@ -109,7 +112,7 @@ export function MiniCalc({
           timeline: "",
           hp,
         },
-        `${content.tier}-mini-calc-${locale}`,
+        source ?? `${content.tier}-mini-calc-${locale}`,
       );
       setStatus("ok");
     } catch {
