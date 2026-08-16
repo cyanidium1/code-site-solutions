@@ -36,6 +36,11 @@ import type {
   ServicesSection,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
+import { MedBookingDemo } from "@/components/industry-page/med-booking-demo";
+import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { resolveBlogCover } from "@/lib/shared/blog-cover";
+import { BLOG_POSTS_BY_CATEGORY_QUERY } from "@/lib/server/sanity-queries";
+import type { BlogPostListItem } from "@/types/sanity";
 import {
   PortableText,
   PortableInline,
@@ -64,22 +69,42 @@ import { buildHrefWithParams } from "@/lib/shared/update-search-params";
 /** Static UI strings, per locale. Adding a locale extends this record. */
 const LABELS: Record<
   Locale,
-  { home: string; solutions: string; testimonialEyebrow: string }
+  {
+    home: string;
+    solutions: string;
+    testimonialEyebrow: string;
+    articlesEyebrow: string;
+    articlesHeading: string;
+    articlesAll: string;
+    minRead: (n: number) => string;
+  }
 > = {
   uk: {
     home: "Головна",
     solutions: "Рішення для галузей",
     testimonialEyebrow: "ВІДГУК КЛІЄНТА",
+    articlesEyebrow: "КОРИСНЕ",
+    articlesHeading: "Розбори по темі з нашого блогу",
+    articlesAll: "Всі статті",
+    minRead: (n) => `${n} хв читання`,
   },
   en: {
     home: "Home",
     solutions: "Industry solutions",
     testimonialEyebrow: "CLIENT TESTIMONIAL",
+    articlesEyebrow: "USEFUL READING",
+    articlesHeading: "Deep dives on this topic from our blog",
+    articlesAll: "All articles",
+    minRead: (n) => `${n} min read`,
   },
   ru: {
     home: "Главная",
     solutions: "Решения для отраслей",
     testimonialEyebrow: "ОТЗЫВ КЛИЕНТА",
+    articlesEyebrow: "ПОЛЕЗНОЕ",
+    articlesHeading: "Разборы по теме из нашего блога",
+    articlesAll: "Все статьи",
+    minRead: (n) => `${n} мин чтения`,
   },
 };
 
@@ -763,6 +788,18 @@ export async function IndustryPageView({
   const jsonLd = buildIndustryJsonLd(page, locale);
   const hero = page.hero;
 
+  // Blog cluster for this industry (category slug == industry slug). Empty
+  // for industries without a matching blog category — section is hidden.
+  const clusterPosts = await sanityFetch<BlogPostListItem[] | null>({
+    query: BLOG_POSTS_BY_CATEGORY_QUERY,
+    params: { cat: page.slug },
+    revalidate: 3600,
+    tags: ["blogPost"],
+  }).catch(() => null);
+  const clusterPostsForLocale = (clusterPosts ?? []).filter((p) =>
+    Boolean(p.slugs?.[locale]?.current && pickLocalized(p.title, locale)),
+  );
+
   const eyebrowStr = loc(hero?.eyebrow, locale);
   const slashIdx = eyebrowStr.lastIndexOf(" / ");
   const eyebrowProp = eyebrowStr
@@ -844,6 +881,8 @@ export async function IndustryPageView({
         }
       />
 
+      {page.slug === "medicine" ? <MedBookingDemo locale={locale} /> : null}
+
       {page.sections?.map((section) => (
         <SectionBlock
           key={section._key}
@@ -852,6 +891,60 @@ export async function IndustryPageView({
           slug={page.slug}
         />
       ))}
+
+      {clusterPostsForLocale.length > 0 ? (
+        <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
+          <div className="max-w-container mx-auto">
+            <div className="mb-10">
+              <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
+                / {LABELS[locale].articlesEyebrow}
+              </div>
+              <h2 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
+                {LABELS[locale].articlesHeading}
+              </h2>
+            </div>
+            <div className={casesGridClass}>
+              {clusterPostsForLocale.slice(0, 3).map((p) => {
+                const pSlug = p.slugs?.[locale]?.current ?? "";
+                const cover = resolveBlogCover(p, locale);
+                const reading = p.readingTimeMinutes
+                  ? LABELS[locale].minRead(p.readingTimeMinutes)
+                  : undefined;
+                return (
+                  <RelatedCard
+                    key={p._id}
+                    category={loc(p.category?.name, locale) || undefined}
+                    metrics={reading ? [reading] : []}
+                    title={pickLocalized(p.title, locale) ?? pSlug}
+                    sub={pickLocalized(p.lede, locale)}
+                    coverImage={
+                      cover.generic
+                        ? undefined
+                        : { src: cover.image, alt: cover.alt }
+                    }
+                    generatedCover={
+                      cover.generic
+                        ? {
+                            title: pickLocalized(p.title, locale) ?? pSlug,
+                            category: loc(p.category?.name, locale) || undefined,
+                          }
+                        : undefined
+                    }
+                    coverAspect="wide"
+                    href={localizePath(`/blog/${pSlug}`, locale)}
+                  />
+                );
+              })}
+            </div>
+            <a
+              href={resolveRootHref("/blog", locale)}
+              className="inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40"
+            >
+              {LABELS[locale].articlesAll}
+            </a>
+          </div>
+        </section>
+      ) : null}
       </main>
 
       <HpFooter />

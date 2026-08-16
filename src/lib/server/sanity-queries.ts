@@ -231,6 +231,14 @@ ${BLOG_POST_LIST_ITEM}
 | order(publishedAt desc, _createdAt desc)
 `;
 
+/** Latest posts of one category (industry pages cross-link their cluster). */
+export const BLOG_POSTS_BY_CATEGORY_QUERY = /* groq */ `
+*[_type == "blogPost" && status == "published" && defined(slugs.uk.current)
+  && category->slug.current == $cat]
+${BLOG_POST_LIST_ITEM}
+| order(publishedAt desc, _createdAt desc)[0...3]
+`;
+
 /**
  * Per-slug lookup used by related-articles resolution. Accepts a $slugs
  * array — empty array returns []. Order is not guaranteed; caller should
