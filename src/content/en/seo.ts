@@ -27,7 +27,7 @@ export const SEO_EN: LandingPageContent = {
     sub: "Technical work, content, links and local SEO — monthly work with reports on rankings and traffic. First measurable results take 3–6 months, and we say that upfront.",
   },
   when: {
-    eyebrow: "/ 01 WHO IT'S FOR",
+    eyebrow: "/ WHO IT'S FOR",
     heading: ["When SEO pays off — ", "and when it's too early"],
     sub: "SEO is an investment with a delayed start. It works when there's something to promote and room to grow.",
     fitTitle: "SEO will pay off",
@@ -108,7 +108,7 @@ export const SEO_EN: LandingPageContent = {
       "Google doesn't sell positions. We build what it rewards — a fast site, useful content and authority — and show progress in numbers every month.",
   },
   price: {
-    eyebrow: "/ 02 PRICING",
+    eyebrow: "/ PRICING",
     heading: ["What it ", "costs"],
     cells: [
       {
@@ -156,7 +156,7 @@ export const SEO_EN: LandingPageContent = {
     ],
   },
   platforms: {
-    eyebrow: "/ 03 WORTH KNOWING",
+    eyebrow: "/ WORTH KNOWING",
     heading: ["Why builder platforms and old WordPress ", "are harder to promote"],
     paragraphs: [
       "Wix, Squarespace and other builders restrict exactly what Google rewards: speed (platform code bloat on every page), URL structure, Schema.org and access to technical fixes. You pay for a retainer — and half the audit's recommendations physically can't be implemented on a builder.",

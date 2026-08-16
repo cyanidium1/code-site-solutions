@@ -69,7 +69,7 @@ export const LANDING_EN: LandingPageContent = {
     },
   },
   when: {
-    eyebrow: "/ 01 WHEN A LANDING FITS",
+    eyebrow: "/ WHEN A LANDING FITS",
     heading: ["When a landing page is enough — ", "and when it isn't"],
     sub: "A landing page isn't a \"small website\" — it's a different tool: one page built around one visitor action.",
     fitTitle: "A landing page is the right call",
@@ -150,7 +150,7 @@ export const LANDING_EN: LandingPageContent = {
       "All of it can be added as options below — or grow the landing into a Corporate website later: the architecture scales without a rebuild.",
   },
   price: {
-    eyebrow: "/ 02 PRICING",
+    eyebrow: "/ PRICING",
     heading: ["What shapes ", "the price"],
     cells: [
       {

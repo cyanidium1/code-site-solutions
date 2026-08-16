@@ -42,8 +42,8 @@ export const ONLINE_STORE_EN: LandingPageContent = {
     basePrice: 6000,
     currency: "£",
     blocks: {
-      label: "Extra content pages",
-      note: "brand, delivery, B2B — +£220/page",
+      label: "Extra unique pages",
+      note: "brand, B2B, promo landings — +£220; utility pages are included",
       unitPrice: 220,
       max: 5,
     },
@@ -69,7 +69,7 @@ export const ONLINE_STORE_EN: LandingPageContent = {
     },
   },
   when: {
-    eyebrow: "/ 01 WHEN A STORE FITS",
+    eyebrow: "/ WHEN A STORE FITS",
     heading: ["When you need an online store — ", "and when you don't"],
     sub: "A store means products get chosen and ordered without you. If a manager closes every sale, you need a different tool.",
     fitTitle: "A store is the right call",
@@ -149,7 +149,7 @@ export const ONLINE_STORE_EN: LandingPageContent = {
       "All of it can be added as options once sales justify it. The base is a complete store that takes orders from day one.",
   },
   price: {
-    eyebrow: "/ 02 PRICING",
+    eyebrow: "/ PRICING",
     heading: ["What shapes ", "the price"],
     cells: [
       {

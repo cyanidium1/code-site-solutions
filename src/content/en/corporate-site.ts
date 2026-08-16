@@ -42,8 +42,8 @@ export const CORPORATE_EN: LandingPageContent = {
     basePrice: 3500,
     currency: "£",
     blocks: {
-      label: "Extra pages",
-      note: "+£220 per page beyond 5",
+      label: "Extra unique pages",
+      note: "+£220 per unique layout beyond 5; utility pages are included",
       unitPrice: 220,
       max: 5,
     },
@@ -68,7 +68,7 @@ export const CORPORATE_EN: LandingPageContent = {
     },
   },
   when: {
-    eyebrow: "/ 01 WHEN IT FITS",
+    eyebrow: "/ WHEN IT FITS",
     heading: ["When you need a corporate website — ", "and when you don't"],
     sub: "A corporate website is a system of pages, one per service and search intent, that keeps compounding in Google for years.",
     fitTitle: "A corporate site is the right call",
@@ -148,7 +148,7 @@ export const CORPORATE_EN: LandingPageContent = {
       "The first two are Custom Platform territory (from £6,000). The rest can be added as options or through vetted partners.",
   },
   price: {
-    eyebrow: "/ 02 PRICING",
+    eyebrow: "/ PRICING",
     heading: ["What shapes ", "the price"],
     cells: [
       {
@@ -160,9 +160,9 @@ export const CORPORATE_EN: LandingPageContent = {
       },
       {
         icon: LayoutList,
-        title: "Extra pages",
+        title: "Extra unique pages",
         stat: "+£220 each",
-        body: "Every new service or location gets its own page targeting its own search query.",
+        body: "Every new service or location gets its own layout targeting its own search query. Utility pages — thank-you, policies, 404 — are already included.",
         span: "1x1",
       },
       {
@@ -294,7 +294,7 @@ export const CORPORATE_EN: LandingPageContent = {
       {
         q: "5 pages isn't enough. What if I need 12?",
         a: [
-          "Each extra page is £220. Twelve pages is £3,500 + 7×£220 = £5,040. The calculator shows the exact figure with a line-by-line breakdown.",
+          "£220 buys an extra unique page — a separate layout for a service or location. Utility pages (thank-you, policies, 404) are included and never billed. Twelve unique pages is £3,500 + 7×£220 = £5,040; the calculator shows the exact figure.",
         ],
       },
       {
