@@ -84,7 +84,7 @@ export default function EnSeoServicePage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="en" content={CONTENT} />
+      <LandingPageView locale="en" content={CONTENT} source="seo-page" />
       <HpFooter />
     </>
   );

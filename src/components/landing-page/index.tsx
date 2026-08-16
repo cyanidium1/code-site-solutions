@@ -421,9 +421,14 @@ function CtaBand({ content }: { content: LandingPageContent["calcCta"] }) {
 export async function LandingPageView({
   locale,
   content,
+  source = "landing-page",
 }: {
   locale: Locale;
   content: LandingPageContent;
+  /** Lead-source tag for the bottom ContactSplit form, so leads from
+      /corporate-site, /online-store and /seo aren't attributed to /landing.
+      The hero mini-calc tags itself separately (`${tier}-mini-calc-${locale}`). */
+  source?: string;
 }) {
   const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
@@ -923,7 +928,7 @@ export async function LandingPageView({
 
       {/* 8 — Lead form. Compact: name + contact, details fold out on demand —
           the page already collected specifics via the hero mini-calculator. */}
-      <ContactSplit source="landing-page" variant="compact" locale={locale} />
+      <ContactSplit source={source} variant="compact" locale={locale} />
     </>
   );
 }

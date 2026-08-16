@@ -75,7 +75,7 @@ export default function CorporateSitePage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="uk" content={CONTENT} />
+      <LandingPageView locale="uk" content={CONTENT} source="corporate-site-page" />
       <HpFooter />
     </>
   );

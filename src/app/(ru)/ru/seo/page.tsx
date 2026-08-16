@@ -84,7 +84,7 @@ export default function RuSeoServicePage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="ru" content={CONTENT} />
+      <LandingPageView locale="ru" content={CONTENT} source="seo-page" />
       <HpFooter />
     </>
   );

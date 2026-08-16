@@ -75,7 +75,7 @@ export default function EnCorporateSitePage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="en" content={CONTENT} />
+      <LandingPageView locale="en" content={CONTENT} source="corporate-site-page" />
       <HpFooter />
     </>
   );

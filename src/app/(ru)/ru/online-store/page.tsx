@@ -75,7 +75,7 @@ export default function RuOnlineStorePage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="ru" content={CONTENT} />
+      <LandingPageView locale="ru" content={CONTENT} source="online-store-page" />
       <HpFooter />
     </>
   );

@@ -75,7 +75,7 @@ export default function RuCorporateSitePage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="ru" content={CONTENT} />
+      <LandingPageView locale="ru" content={CONTENT} source="corporate-site-page" />
       <HpFooter />
     </>
   );

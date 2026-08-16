@@ -75,7 +75,7 @@ export default function EnOnlineStorePage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="en" content={CONTENT} />
+      <LandingPageView locale="en" content={CONTENT} source="online-store-page" />
       <HpFooter />
     </>
   );

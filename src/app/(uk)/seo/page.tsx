@@ -84,7 +84,7 @@ export default function SeoServicePage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="uk" content={CONTENT} />
+      <LandingPageView locale="uk" content={CONTENT} source="seo-page" />
       <HpFooter />
     </>
   );
