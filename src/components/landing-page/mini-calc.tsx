@@ -9,9 +9,13 @@ import type { LandingPageContent } from "@/types/landing";
 
 type MiniCalcContent = NonNullable<LandingPageContent["miniCalc"]>;
 
+/* "Lit glass" panel: gradient hairline ring (glass-ring), soft blur fill and
+   a top edge highlight — the underglow pool is painted by the hero wrapper. */
 const CARD_CLASS =
-  "relative p-6 md:p-7 border border-line-strong rounded-[22px] bg-[oklch(0.13_0.005_300_/_0.72)] backdrop-blur-[8px] " +
-  "shadow-[0_24px_60px_oklch(0_0_0_/_0.35)]";
+  "relative p-6 md:p-7 rounded-[22px] glass-ring bg-[oklch(0.14_0.008_300_/_0.75)] backdrop-blur-[10px] " +
+  "shadow-[0_30px_90px_oklch(0_0_0_/_0.5)] " +
+  "after:content-[''] after:absolute after:inset-x-8 after:top-0 after:h-px after:rounded-full " +
+  "after:bg-[linear-gradient(90deg,transparent,oklch(1_0_0_/_0.3),transparent)] after:pointer-events-none";
 
 const ROW_CLASS =
   "flex items-center justify-between gap-3 py-2.5 border-b border-line last:border-b-0";
@@ -24,7 +28,7 @@ const CHECK_BASE =
   "inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[5px] border transition-colors duration-150";
 
 const STEP_BTN =
-  "inline-flex h-7 w-7 items-center justify-center rounded-lg border border-line-strong bg-[oklch(1_0_0_/_0.03)] text-ink-dim cursor-pointer " +
+  "inline-flex h-7 w-7 items-center justify-center rounded-full border border-line-strong bg-[oklch(1_0_0_/_0.03)] text-ink-dim cursor-pointer " +
   "transition-colors duration-150 hover:text-ink hover:border-accent-40 disabled:opacity-35 disabled:cursor-default";
 
 const SUBMIT_CLASS =
@@ -34,7 +38,8 @@ const SUBMIT_CLASS =
   "transition-[transform,box-shadow] duration-[250ms] hover:-translate-y-px";
 
 function fmt(currency: string, n: number): string {
-  return `${currency}${n.toLocaleString("en-US").replace(/,/g, " ")}`;
+  // NBSP thousands separator so prices never wrap mid-number.
+  return `${currency}${n.toLocaleString("en-US").replace(/,/g, " ")}`;
 }
 
 /**
@@ -201,7 +206,7 @@ export function MiniCalc({
           <div className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3">
             {content.totalLabel}
           </div>
-          <div className="font-actay font-bold text-[34px] leading-none mt-1 bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
+          <div className="font-actay font-bold text-[clamp(26px,2.4vw,34px)] leading-none mt-1 whitespace-nowrap bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
             {fmt(content.currency, total)}
           </div>
         </div>
