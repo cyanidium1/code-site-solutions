@@ -50,8 +50,13 @@ import {
 } from "@/components/industry-page/industry-calcs";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { resolveBlogCover } from "@/lib/shared/blog-cover";
-import { BLOG_POSTS_BY_CATEGORY_QUERY } from "@/lib/server/sanity-queries";
-import type { BlogPostListItem } from "@/types/sanity";
+import {
+  BLOG_POSTS_BY_CATEGORY_QUERY,
+  CASE_STUDIES_QUERY,
+} from "@/lib/server/sanity-queries";
+import type { BlogPostListItem, CaseStudyRef } from "@/types/sanity";
+import { caseRefToCardItem } from "@/lib/shared/case-card-item";
+import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import {
   PortableText,
   PortableInline,
@@ -87,6 +92,9 @@ const LABELS: Record<
     articlesEyebrow: string;
     articlesHeading: string;
     articlesAll: string;
+    nicheCasesEyebrow: string;
+    nicheCasesHeading: string;
+    nicheCasesAll: string;
     minRead: (n: number) => string;
   }
 > = {
@@ -97,6 +105,9 @@ const LABELS: Record<
     articlesEyebrow: "КОРИСНЕ",
     articlesHeading: "Розбори по темі з нашого блогу",
     articlesAll: "Всі статті",
+    nicheCasesEyebrow: "ПОРТФОЛІО",
+    nicheCasesHeading: "Кейси в цій ніші",
+    nicheCasesAll: "Всі кейси",
     minRead: (n) => `${n} хв читання`,
   },
   en: {
@@ -106,6 +117,9 @@ const LABELS: Record<
     articlesEyebrow: "USEFUL READING",
     articlesHeading: "Deep dives on this topic from our blog",
     articlesAll: "All articles",
+    nicheCasesEyebrow: "PORTFOLIO",
+    nicheCasesHeading: "Case studies in this niche",
+    nicheCasesAll: "All case studies",
     minRead: (n) => `${n} min read`,
   },
   ru: {
@@ -115,6 +129,9 @@ const LABELS: Record<
     articlesEyebrow: "ПОЛЕЗНОЕ",
     articlesHeading: "Разборы по теме из нашего блога",
     articlesAll: "Все статьи",
+    nicheCasesEyebrow: "ПОРТФОЛИО",
+    nicheCasesHeading: "Кейсы в этой нише",
+    nicheCasesAll: "Все кейсы",
     minRead: (n) => `${n} мин чтения`,
   },
 };
@@ -868,6 +885,21 @@ export async function IndustryPageView({
     Boolean(p.slugs?.[locale]?.current && pickLocalized(p.title, locale)),
   );
 
+  // "Cases in this niche": every /sites-for page links its portfolio
+  // cases (and each case links back — see case-page/index.tsx).
+  const [allCaseRefs, registry] = await Promise.all([
+    sanityFetch<CaseStudyRef[] | null>({
+      query: CASE_STUDIES_QUERY,
+      revalidate: 3600,
+      tags: ["caseStudy"],
+    }).catch(() => null),
+    getContentRegistrySafe(),
+  ]);
+  const nicheCases = (allCaseRefs ?? [])
+    .filter((c) => c.industrySlug === page.slug)
+    .filter((c) => hasLocaleContent(c, locale))
+    .slice(0, 3);
+
   // Industry mini-calculator (reuses the site-type MiniCalc). Rendered right
   // after the pricing/comparison section when one exists, otherwise after
   // the last CMS section.
@@ -1089,6 +1121,54 @@ export async function IndustryPageView({
         </Fragment>
       ))}
       {!hasComparison ? calcSection : null}
+
+      {nicheCases.length > 0 ? (
+        <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
+          <div className="max-w-container mx-auto">
+            <div className="mb-10">
+              <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
+                / {LABELS[locale].nicheCasesEyebrow}
+              </div>
+              <h2 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
+                {LABELS[locale].nicheCasesHeading}
+              </h2>
+            </div>
+            <div className={casesGridClass}>
+              {nicheCases.map((r) => {
+                const item = caseRefToCardItem(r, locale, registry);
+                const metaLine = [item.industry, item.region, item.year]
+                  .filter(Boolean)
+                  .join(" · ");
+                return (
+                  <RelatedCard
+                    key={r._id}
+                    metrics={item.chips}
+                    title={item.name}
+                    eyebrow={metaLine || undefined}
+                    sub={item.metrics || undefined}
+                    coverImage={
+                      item.coverImage
+                        ? {
+                            src: item.coverImage,
+                            alt: item.coverImageAlt ?? item.name,
+                          }
+                        : undefined
+                    }
+                    gradient={item.gradient}
+                    href={item.href}
+                  />
+                );
+              })}
+            </div>
+            <a
+              href={resolveRootHref("/portfolio", locale)}
+              className="inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40"
+            >
+              {LABELS[locale].nicheCasesAll}
+            </a>
+          </div>
+        </section>
+      ) : null}
 
       {clusterPostsForLocale.length > 0 ? (
         <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">

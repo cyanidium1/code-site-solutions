@@ -165,6 +165,88 @@ const LABELS: Record<
   },
 };
 
+/**
+ * Commercial page each blog category funnels into, with keyword anchors.
+ * Rendered as a server-side contextual link in the "related" block so
+ * every article passes equity to a money page even when its body copy
+ * doesn't (body links live in the CMS).
+ */
+const CATEGORY_COMMERCIAL: Record<
+  string,
+  { href: string; anchor: Record<Locale, string> }
+> = {
+  medicine: {
+    href: "/sites-for/medicine",
+    anchor: {
+      uk: "створення медичних сайтів",
+      en: "medical website development",
+      ru: "создание медицинских сайтов",
+    },
+  },
+  finance: {
+    href: "/sites-for/finance",
+    anchor: {
+      uk: "сайт для фінансової компанії",
+      en: "websites for finance firms",
+      ru: "сайт для финансовой компании",
+    },
+  },
+  legal: {
+    href: "/sites-for/legal",
+    anchor: {
+      uk: "створення сайту для юридичної фірми",
+      en: "websites for law firms",
+      ru: "создание сайта для юридической фирмы",
+    },
+  },
+  "real-estate": {
+    href: "/sites-for/real-estate",
+    anchor: {
+      uk: "створення сайту нерухомості",
+      en: "real-estate website development",
+      ru: "создание сайта недвижимости",
+    },
+  },
+  ecommerce: {
+    href: "/sites-for/ecommerce",
+    anchor: {
+      uk: "створення інтернет-магазину під ключ",
+      en: "custom e-commerce development",
+      ru: "создание интернет-магазина под ключ",
+    },
+  },
+  auto: {
+    href: "/sites-for/auto",
+    anchor: {
+      uk: "розробка сайту автосервісу",
+      en: "websites for car businesses",
+      ru: "разработка сайта автосервиса",
+    },
+  },
+  courses: {
+    href: "/sites-for/courses",
+    anchor: {
+      uk: "створення сайту для онлайн-курсів",
+      en: "websites for online courses",
+      ru: "создание сайта для онлайн-курсов",
+    },
+  },
+  platforms: {
+    href: "/pricing",
+    anchor: {
+      uk: "ціна створення сайту",
+      en: "website development pricing",
+      ru: "цена создания сайта",
+    },
+  },
+};
+
+const COMMERCIAL_LEAD: Record<Locale, string> = {
+  uk: "По темі:",
+  en: "Related service:",
+  ru: "По теме:",
+};
+
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
 
 /** Glossary terms attached to every blog post — keep small to avoid bloat. */
@@ -276,6 +358,9 @@ export async function BlogPostPageView({
 
   const related = await fetchRelated(post.relatedPostSlugs, locale);
   const heroCover = resolveBlogCover(post, locale);
+  const commercial = post.category?.slug
+    ? (CATEGORY_COMMERCIAL[post.category.slug] ?? CATEGORY_COMMERCIAL.platforms)
+    : CATEGORY_COMMERCIAL.platforms;
 
   // FAQ → existing FAQ component expects { q, a }
   const faqItems = (post.faq ?? [])
@@ -397,10 +482,12 @@ export async function BlogPostPageView({
           </div>
         </section>
 
-        {/* Related articles */}
-        {related.length > 0 ? (
+        {/* Related articles + a commercial contextual link */}
+        {related.length > 0 || commercial ? (
           <section className={hpSectionClass}>
             <div className={hpInnerClass}>
+              {related.length > 0 ? (
+              <>
               <div className={hpSectionHeadClass}>
                 <div className={hpEyebrowClass}>
                   <span className={hpEyebrowDotClass} />
@@ -433,9 +520,28 @@ export async function BlogPostPageView({
                   );
                 })}
               </div>
-              <Link href={localizePath("/blog", locale)} className={hpLinkClass}>
-                {labels.allArticles}
-              </Link>
+              </>
+              ) : null}
+              {commercial ? (
+                <p className="mt-8 mb-0 font-sans text-[15px] leading-[1.65] text-ink-dim">
+                  {COMMERCIAL_LEAD[locale]}{" "}
+                  <Link
+                    href={
+                      commercial.href === "/pricing"
+                        ? resolveRootHref("/pricing", locale)
+                        : localizePath(commercial.href, locale)
+                    }
+                    className="rich-link"
+                  >
+                    {commercial.anchor[locale]}
+                  </Link>
+                </p>
+              ) : null}
+              {related.length > 0 ? (
+                <Link href={localizePath("/blog", locale)} className={hpLinkClass}>
+                  {labels.allArticles}
+                </Link>
+              ) : null}
             </div>
           </section>
         ) : null}

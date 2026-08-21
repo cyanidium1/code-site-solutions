@@ -30,7 +30,23 @@ import {
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import Link from "next/link";
+
+/**
+ * In-content directions block. Every external link the site earns points at
+ * the homepage; this block passes that equity down to the money pages with
+ * keyword anchors (footer/nav links don't count for this purpose).
+ */
+const DIRECTION_LINKS: { href: string; label: string }[] = [
+  { href: "/sites-for/medicine", label: "Створення медичних сайтів" },
+  { href: "/sites-for/renovation", label: "Розробка сайту для будівельної компанії" },
+  { href: "/pricing", label: "Ціна створення сайту" },
+  { href: "/calculator", label: "Калькулятор вартості сайту" },
+  { href: "/seo", label: "Просування сайту від $300/міс" },
+  { href: "/portfolio", label: "Кейси розробки сайтів" },
+  { href: "/process", label: "Процес розробки сайту" },
+];
 
 const HOMEPAGE_DESCRIPTION =
   "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.";
@@ -149,6 +165,33 @@ export default async function HomePage() {
               <Tier key={i} {...t} />
             ))}
           </CmpPricingGrid>
+        </div>
+      </section>
+
+      <section className={hpSectionClass} id="directions">
+        <div className={hpInnerClass}>
+          <div className={hpSectionHeadClass}>
+            <div className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
+              <span>НАПРЯМКИ</span>
+            </div>
+            <h2 className={hpH2Class}>
+              З чого <em>почати</em>
+            </h2>
+            <p className={hpSubClass}>
+              Сторінки, з яких найчастіше починають: рішення під вашу галузь,
+              ціни і процес роботи.
+            </p>
+          </div>
+          <ul className="m-0 flex list-none flex-wrap gap-x-8 gap-y-1 p-0">
+            {DIRECTION_LINKS.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className={hpLinkClass}>
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

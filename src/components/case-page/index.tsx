@@ -121,6 +121,34 @@ const LABELS: Record<
   },
 };
 
+/**
+ * Keyword anchors for the "same niche" contextual link every case emits
+ * back to its /sites-for page (uk — the SEO-bearing locale; en/ru fall
+ * back to the industry title from the CMS).
+ */
+const NICHE_ANCHOR_UK: Record<string, string> = {
+  medicine: "створення медичних сайтів",
+  renovation: "розробка сайту для будівельної компанії",
+  legal: "створення сайту для юридичної фірми",
+  auto: "розробка сайту автосервісу",
+  "real-estate": "створення сайту нерухомості",
+  finance: "сайт для фінансової компанії",
+  courses: "створення сайту для онлайн-курсів",
+  ecommerce: "створення інтернет-магазину під ключ",
+};
+
+const NICHE_LEAD: Record<Locale, string> = {
+  uk: "Потрібен схожий сайт?",
+  en: "Need a similar website?",
+  ru: "Нужен похожий сайт?",
+};
+
+const PRICING_ANCHOR: Record<Locale, string> = {
+  uk: "вартість розробки сайту",
+  en: "website development cost",
+  ru: "стоимость разработки сайта",
+};
+
 const RELATED_HEADING: Record<Locale, ReactNode> = {
   uk: (
     <>
@@ -529,6 +557,34 @@ export async function CasePageView({
       {doc.sections?.map((s) => (
         <SectionBlock key={s._key} section={s} locale={locale} doc={doc} />
       ))}
+
+      {/* Contextual links: every case points at its niche page and at
+          /pricing with keyword anchors (server-rendered). */}
+      {doc.industry?.slug ? (
+        <section className="bg-bg px-6 sm:px-8 lg:px-12 py-9">
+          <p className="relative max-w-container mx-auto m-0 font-sans text-[15.5px] leading-[1.65] text-ink-dim">
+            {NICHE_LEAD[locale]}{" "}
+            <Link
+              href={
+                locale === "uk" ||
+                registry.get(locale)?.industries.has(doc.industry.slug)
+                  ? localizePath(`/sites-for/${doc.industry.slug}`, locale)
+                  : `/sites-for/${doc.industry.slug}`
+              }
+              className="rich-link"
+            >
+              {locale === "uk"
+                ? (NICHE_ANCHOR_UK[doc.industry.slug] ??
+                  loc(doc.industry.title, locale))
+                : loc(doc.industry.title, locale)}
+            </Link>
+            {" · "}
+            <Link href={resolveRootHref("/pricing", locale)} className="rich-link">
+              {PRICING_ANCHOR[locale]}
+            </Link>
+          </p>
+        </section>
+      ) : null}
 
       {related.length > 0 ? (
         <section className={hpSectionClass}>
