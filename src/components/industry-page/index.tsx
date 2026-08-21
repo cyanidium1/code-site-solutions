@@ -37,7 +37,12 @@ import type {
   ServicesSection,
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
-import { MedBookingDemo } from "@/components/industry-page/med-booking-demo";
+import { MedBookingDemo } from "@/components/industry-page/medicine/med-booking-demo";
+import { MedPatientFlow } from "@/components/industry-page/medicine/med-patient-flow";
+import { MedHero } from "@/components/industry-page/medicine/med-hero";
+import { MedVitals } from "@/components/industry-page/medicine/med-vitals";
+import { MedDiagnosis } from "@/components/industry-page/medicine/med-diagnosis";
+import { MedCapabilities } from "@/components/industry-page/medicine/med-capabilities";
 import { MiniCalc } from "@/components/landing-page/mini-calc";
 import {
   industryCalcContent,
@@ -466,26 +471,45 @@ function SectionBlock({
         />
       );
 
-    case "reasonsBlock":
+    case "reasonsBlock": {
+      const reasonItems = section.reasons?.map((r) => ({
+        n: r.number ?? "",
+        tag: loc(r.tag, locale),
+        title: formatLine(loc(r.title, locale)),
+        body: <PortableInline value={pickLocalized(r.text, locale)} />,
+        stat: {
+          n: r.stat?.value ?? "",
+          lbl: loc(r.stat?.label, locale),
+          src: loc(r.stat?.source, locale),
+        },
+      }));
+
+      // Medicine reads these as a diagnostic sheet, not a bento of cards.
+      if (slug === "medicine") {
+        return (
+          <MedDiagnosis
+            eyebrow={loc(section.eyebrow, locale) || undefined}
+            eyebrowNum={loc(section.eyebrowNum, locale) || undefined}
+            heading={formatLine(loc(section.heading, locale)) || undefined}
+            metaRows={section.metaRows?.map((m) => loc(m, locale))}
+            items={reasonItems}
+            footText={formatLine(loc(section.footText, locale)) || undefined}
+            footCtaLabel={
+              loc(section.footCta?.label ?? section.footCtaLabel, locale) ||
+              undefined
+            }
+            footCtaHref={section.footCta?.href || "#site-audit"}
+          />
+        );
+      }
+
       return (
         <Reasons
           eyebrow={loc(section.eyebrow, locale) || undefined}
           eyebrowNum={loc(section.eyebrowNum, locale) || undefined}
           heading={formatLine(loc(section.heading, locale)) || undefined}
           metaRows={section.metaRows?.map((m) => loc(m, locale))}
-          items={section.reasons?.map((r) => ({
-            n: r.number ?? "",
-            tag: loc(r.tag, locale),
-            title: formatLine(loc(r.title, locale)),
-            body: (
-              <PortableInline value={pickLocalized(r.text, locale)} />
-            ),
-            stat: {
-              n: r.stat?.value ?? "",
-              lbl: loc(r.stat?.label, locale),
-              src: loc(r.stat?.source, locale),
-            },
-          }))}
+          items={reasonItems}
           footText={
             formatLine(loc(section.footText, locale)) || undefined
           }
@@ -497,6 +521,7 @@ function SectionBlock({
           locale={locale}
         />
       );
+    }
 
     case "caseBlock":
       return (
@@ -593,7 +618,43 @@ function SectionBlock({
         />
       );
 
-    case "servicesBlock":
+    case "servicesBlock": {
+      // Medicine reads capabilities as a ruled spec list beside real artwork,
+      // and integrations as a directional bus.
+      if (slug === "medicine") {
+        const icons = featureIconsForIndustry(slug);
+        return (
+          <MedCapabilities
+            locale={locale}
+            heading={formatLine(loc(section.heading, locale)) || undefined}
+            sub={formatLine(loc(section.sub, locale)) || undefined}
+            capabilities={section.features?.map((f, i) => ({
+              icon: icons[i] ?? null,
+              title: loc(f.title, locale),
+              items: f.items?.map((it) => formatLine(loc(it, locale))) ?? [],
+            }))}
+            testimonialEyebrow={
+              loc(section.testimonialEyebrow, locale) ||
+              LABELS[locale].testimonialEyebrow
+            }
+            testimonialQuote={
+              formatLine(loc(section.testimonial?.quote, locale)) || undefined
+            }
+            testimonialAuthorName={section.testimonial?.authorName}
+            testimonialAuthorRole={
+              loc(section.testimonial?.authorRole, locale) || undefined
+            }
+            integrationsHeading={
+              formatLine(loc(section.integrationsHeading, locale)) || undefined
+            }
+            integrationsSub={
+              formatLine(loc(section.integrationsSub, locale)) || undefined
+            }
+            integrations={section.integrations?.map((it) => loc(it, locale))}
+          />
+        );
+      }
+
       return (
         <Services
           testimonialEyebrow={
@@ -633,6 +694,7 @@ function SectionBlock({
           integrations={section.integrations?.map((it) => loc(it, locale))}
         />
       );
+    }
 
     case "comparisonBlock":
       return (
@@ -838,6 +900,59 @@ export async function IndustryPageView({
       </section>
     ) : null;
 
+  // ── Medicine composition ────────────────────────────────────────────
+  // The medicine page runs a bespoke hero and three extra sections; every
+  // other industry keeps the shared blocks untouched.
+  const isMedicine = page.slug === "medicine";
+
+  /**
+   * Splits the CMS headline into plain lines and the accented one. A line
+   * carrying an `*em*` marker is the accent; the marker itself is stripped
+   * because <MedHero> paints the whole line rather than an inline span.
+   */
+  const heroLines = (() => {
+    const raw = hero?.heading ? loc(hero.heading, locale).split("\n") : [];
+    const plain: React.ReactNode[] = [];
+    let accent: React.ReactNode;
+    raw.forEach((line, i) => {
+      if (line.includes("*") && accent === undefined) {
+        accent = line.replace(/\*+/g, "");
+      } else {
+        plain.push(<Fragment key={i}>{formatLine(line)}</Fragment>);
+      }
+    });
+    return { plain, accent };
+  })();
+
+  const heroFeatures = hero?.features?.length
+    ? hero.features.map((f) => {
+        const str = loc(f, locale);
+        const pipeIdx = str.indexOf(" | ");
+        return pipeIdx > -1
+          ? { label: str.slice(0, pipeIdx), sub: str.slice(pipeIdx + 3) }
+          : { label: str, sub: "" };
+      })
+    : undefined;
+
+  const heroStats = hero?.stats?.length
+    ? hero.stats.map((s) => ({
+        num: loc(s.value, locale),
+        lbl: formatLine(loc(s.label, locale)),
+      }))
+    : undefined;
+
+  const heroTicker = hero?.tickerItems?.length
+    ? hero.tickerItems.map((t) => loc(t, locale))
+    : undefined;
+
+  const heroDeviceTags = hero?.deviceTags?.length
+    ? hero.deviceTags.map((dt) => ({
+        kind: dt.kind ?? "default",
+        primary: loc(dt.primary, locale),
+        mini: dt.mini,
+      }))
+    : undefined;
+
   const eyebrowStr = loc(hero?.eyebrow, locale);
   const slashIdx = eyebrowStr.lastIndexOf(" / ");
   const eyebrowProp = eyebrowStr
@@ -851,7 +966,42 @@ export async function IndustryPageView({
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <main>
+      {/* `med` scopes the medicine design layer (accents, streaks) AND drops
+          the decorative italic on <em> across every shared CMS block on this
+          one page — see medicine/medicine.css. */}
+      <main className={isMedicine ? "med" : undefined}>
+      {isMedicine ? (
+        <MedHero
+          eyebrow={eyebrowProp?.label}
+          eyebrowEm={eyebrowProp?.em || undefined}
+          h1Lines={heroLines.plain}
+          h1Accent={heroLines.accent}
+          kpiValue={hero?.h1Num}
+          kpiLabel={
+            hero?.h1NumLabel
+              ? formatLine(loc(hero.h1NumLabel, locale))
+              : undefined
+          }
+          lede={hero?.lede ? formatLine(loc(hero.lede, locale)) : undefined}
+          features={heroFeatures}
+          ctaPrimaryLabel={loc(hero?.ctaPrimary, locale) || undefined}
+          ctaPrimaryHref={localizePath("/contacts", locale)}
+          ctaSecondaryLabel={loc(hero?.ctaSecondary, locale) || undefined}
+          ctaSecondaryHref={buildHrefWithParams(
+            resolveRootHref("/portfolio", locale),
+            { industry: page.slug },
+          )}
+          stats={heroStats}
+          tickerItems={heroTicker}
+          deviceTags={heroDeviceTags}
+          deviceMockupImage={hero?.deviceMockup ?? undefined}
+          deviceMockupAlt={
+            loc(hero?.deviceMockup?.alt, locale) ||
+            loc(hero?.heading, locale) ||
+            undefined
+          }
+        />
+      ) : (
       <HeroEditorial
         eyebrow={eyebrowProp}
         h1Lines={
@@ -918,8 +1068,15 @@ export async function IndustryPageView({
           undefined
         }
       />
+      )}
 
-      {page.slug === "medicine" ? <MedBookingDemo locale={locale} /> : null}
+      {isMedicine ? (
+        <>
+          <MedVitals locale={locale} />
+          <MedBookingDemo locale={locale} />
+          <MedPatientFlow locale={locale} />
+        </>
+      ) : null}
 
       {page.sections?.map((section) => (
         <Fragment key={section._key}>

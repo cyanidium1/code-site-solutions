@@ -15,6 +15,8 @@ import { loc } from "@/lib/shared/sanity-locale";
 import { fetchCaseStudies } from "@/components/case-page/data";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
+import { hasLocaleCase, localizePath } from "@/constants/i18n-routes";
+import { DEFAULT_LOCALE } from "@/constants/locales";
 import type { Locale } from "@/constants/locales";
 import type { LandingPageContent } from "@/types/landing";
 import type { BentoCell } from "@/types/homepage";
@@ -434,6 +436,14 @@ export async function LandingPageView({
     fetchCaseStudies(),
     getContentRegistrySafe(),
   ]);
+  // Case links must stay inside the reading locale when a translation
+  // exists, and fall back to the UA case page when it doesn't — otherwise
+  // an EN/RU reader gets bounced to Ukrainian mid-journey.
+  const casePath = (slug: string) =>
+    locale !== DEFAULT_LOCALE && hasLocaleCase(slug, locale, registry)
+      ? localizePath(`/portfolio/${slug}`, locale)
+      : `/portfolio/${slug}`;
+
   const examples = content.examples.slugs
     .map((slug) => cases.find((c) => c.slug === slug))
     .filter((c): c is NonNullable<typeof c> => Boolean(c))
@@ -527,7 +537,7 @@ export async function LandingPageView({
                   {[...reel, ...reel].map((c, idx) => (
                     <Link
                       key={`${c.slug}-${idx}`}
-                      href={`/portfolio/${c.slug}`}
+                      href={casePath(c.slug)}
                       tabIndex={idx >= reel.length ? -1 : undefined}
                       aria-hidden={idx >= reel.length ? true : undefined}
                       className="relative block w-[240px] sm:w-[290px] shrink-0 overflow-hidden rounded-xl border border-line-strong bg-surface transition-[border-color] duration-300 hover:border-accent-40"
@@ -673,7 +683,7 @@ export async function LandingPageView({
                     }`}
                   >
                     <Link
-                      href={`/portfolio/${story.slug}`}
+                      href={casePath(story.slug)}
                       className="group relative block"
                     >
                       {/* Underglow pool beneath the framed screenshot. */}
@@ -738,7 +748,7 @@ export async function LandingPageView({
                           </div>
                         </div>
                         <Link
-                          href={`/portfolio/${story.slug}`}
+                          href={casePath(story.slug)}
                           className={ALL_CASES_LINK_CLASS}
                         >
                           {story.ctaLabel}
@@ -830,7 +840,7 @@ export async function LandingPageView({
                 .map((c) => (
                   <Link
                     key={c.slug}
-                    href={`/portfolio/${c.slug}`}
+                    href={casePath(c.slug)}
                     className="group relative block overflow-hidden rounded-[18px] border border-line no-underline transition-[border-color,box-shadow] duration-300 hover:border-accent-40 hover:shadow-[0_20px_60px_var(--color-accent-20)]"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden">

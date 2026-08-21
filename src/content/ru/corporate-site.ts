@@ -268,7 +268,7 @@ export const CORPORATE_RU: LandingPageContent = {
     heading: ["Рассчитайте свой сайт ", "за 60 секунд"],
     sub: "Страницы, языки, интеграции — калькулятор сразу покажет вилку с разбивкой. Без email и звонка с менеджером.",
     primaryLabel: "Открыть калькулятор",
-    primaryHref: "/calculator",
+    primaryHref: "/ru/calculator",
     secondaryLabel: "Обсудить проект",
     secondaryHref: "/ru/contacts",
   },

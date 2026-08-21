@@ -269,7 +269,7 @@ export const ONLINE_STORE_RU: LandingPageContent = {
     heading: ["Рассчитайте свой магазин ", "за 60 секунд"],
     sub: "Количество товаров, оплата, языки — калькулятор сразу покажет вилку с разбивкой. Без email и звонка с менеджером.",
     primaryLabel: "Открыть калькулятор",
-    primaryHref: "/calculator",
+    primaryHref: "/ru/calculator",
     secondaryLabel: "Обсудить проект",
     secondaryHref: "/ru/contacts",
   },

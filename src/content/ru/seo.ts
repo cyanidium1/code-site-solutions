@@ -180,7 +180,7 @@ export const SEO_RU: LandingPageContent = {
     primaryLabel: "Заказать аудит",
     primaryHref: "/ru/contacts",
     secondaryLabel: "Рассчитать новый сайт",
-    secondaryHref: "/calculator",
+    secondaryHref: "/ru/calculator",
   },
   examples: {
     eyebrow: "КЕЙСЫ",

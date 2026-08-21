@@ -103,6 +103,27 @@ export function ukProjectsBackedHeadline(n: number): {
   return { count, backed };
 }
 
+/** e.g. 9 → { count: "9 проектов", backed: "подкреплённых цифрами" } */
+export function ruProjectsBackedHeadline(n: number): {
+  count: string;
+  backed: string;
+} {
+  const form = ukCountForm(n);
+  const count =
+    form === "one"
+      ? `${n} проект`
+      : form === "few"
+        ? `${n} проекта`
+        : `${n} проектов`;
+  const backed =
+    form === "one"
+      ? "подкреплённый цифрами"
+      : form === "few"
+        ? "подкреплённых цифрами"
+        : "подкреплённых цифрами";
+  return { count, backed };
+}
+
 /** e.g. 9 → { count: "9 projects", backed: "backed by the numbers" } */
 export function enProjectsBackedHeadline(n: number): {
   count: string;

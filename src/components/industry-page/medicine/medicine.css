@@ -1,0 +1,232 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   MEDICINE PAGE — scoped design layer.
+
+   Reference lock (see docs/medicine-redesign.md):
+     primary   Impilo (impilo.health) — deep-violet healthcare control room:
+               depth from layered surfaces + hairline borders, never shadows;
+               two FUNCTIONAL accents beside the brand violet, bound to roles.
+     borrowed  Harness.io — atmospheric data-flow graphics, glow-edged panels.
+     borrowed  Superlative — small boxed technical labels, corner metadata.
+     ours      code-site-frontend (old site) — the "drops": diagonal blurred
+               light streaks, floating annotation pills, marquee ticker.
+
+   Everything here is namespaced under `.med` so the other seven industry
+   pages, which share the same CMS blocks, are untouched.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.med {
+  /* Functional accents. ROLE-BOUND — do not repurpose:
+     --med-signal  measured data about the site (speed, positions, traffic)
+     --med-vital   a confirmed state (booking taken, SMS sent, check passed)
+     Neither may become a background fill, a heading colour, or a CTA. */
+  --med-signal: oklch(0.72 0.15 233);
+  --med-vital: oklch(0.84 0.19 165);
+  --med-hair: oklch(1 0 0 / 0.09);
+  --med-hair-lit: oklch(1 0 0 / 0.16);
+  --med-panel: oklch(1 0 0 / 0.022);
+}
+
+/* ─── Anti-slop: no italic word-swaps anywhere on this page ──────────────
+   The shared CMS blocks style <em> as italic + gradient. That decorative
+   swap fired 12× down this page and is the single loudest AI tell on it.
+   Gradient emphasis stays; the italic goes. Genuine italics (source notes,
+   client attributions) opt back in with `.med-quote`. */
+.med em {
+  font-style: normal;
+}
+
+/* Body <em> keeps its job — emphasis — but earns it with weight and
+   contrast instead of a slant, matching how the site-type pages resolved
+   the same problem. */
+.med :is(p, li, dd, blockquote) em {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+/* Genuine italics (source notes, attributions) opt back in. */
+.med .med-quote,
+.med .med-quote em {
+  font-style: italic;
+}
+
+/* ─── "Drops" — the old site's signature decoration ──────────────────────
+   code-site-frontend drew section decor as rotated, heavily blurred
+   ellipses (public/images/**/drops-*.svg): diagonal light streaks, not the
+   centred radial blob every AI layout reaches for. Rebuilt in CSS so it
+   scales and costs no request. */
+.med-streaks {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.med-streaks::before,
+.med-streaks::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+
+.med-streaks::before {
+  width: 46%;
+  height: 12%;
+  top: 14%;
+  right: -6%;
+  transform: rotate(-33deg);
+  background: oklch(from var(--color-accent) l c h / 0.5);
+}
+
+.med-streaks::after {
+  width: 30%;
+  height: 9%;
+  bottom: 12%;
+  left: -4%;
+  transform: rotate(-27deg);
+  background: var(--med-signal);
+  opacity: 0.16;
+}
+
+/* Flipped variant so consecutive sections don't repeat the same diagonal. */
+.med-streaks[data-flip="true"]::before {
+  right: auto;
+  left: -6%;
+  transform: rotate(33deg);
+}
+
+.med-streaks[data-flip="true"]::after {
+  left: auto;
+  right: -4%;
+  transform: rotate(27deg);
+}
+
+/* ─── Technical label (Superlative) ─────────────────────────────────────
+   A hairline box with mono uppercase text. Replaces the eyebrow pill on
+   secondary elements so the page stops opening every block the same way. */
+.med-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 8px;
+  border: 1px solid var(--med-hair);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  white-space: nowrap;
+}
+
+/* ─── ECG trace ─────────────────────────────────────────────────────────
+   The page's medical signature. A lead-II waveform that scrolls the way a
+   bedside monitor's does — the same always-on, never-shouting register the
+   old site gave its marquee. Two copies of the trace sit side by side and
+   the track translates by half its width, so the loop is seamless. */
+@keyframes med-ecg-scroll {
+  to { transform: translateX(-50%); }
+}
+
+.med-ecg-track {
+  animation: med-ecg-scroll 24s linear infinite;
+  will-change: transform;
+}
+
+/* ─── Flow rail ─────────────────────────────────────────────────────────
+   The patient-route diagram runs along a dashed rail that marches in the
+   direction of travel. Painted as a repeating gradient rather than an SVG
+   stroke so it stretches to any width without distorting the dashes. */
+@keyframes med-rail-march {
+  to { background-position: 12px 0; }
+}
+
+@keyframes med-rail-march-y {
+  to { background-position: 0 12px; }
+}
+
+.med-rail {
+  background-image: repeating-linear-gradient(
+    90deg,
+    oklch(1 0 0 / 0.3) 0 3px,
+    transparent 3px 12px
+  );
+  animation: med-rail-march 1.4s linear infinite;
+}
+
+.med-rail-y {
+  background-image: repeating-linear-gradient(
+    180deg,
+    oklch(1 0 0 / 0.3) 0 3px,
+    transparent 3px 12px
+  );
+  animation: med-rail-march-y 1.4s linear infinite;
+}
+
+/* Node pips fire in sequence, so the eye travels the diagram in the same
+   order the patient does. Index is set per node via --med-pip-i. */
+@keyframes med-pip {
+  0%, 76%, 100% {
+    box-shadow: 0 0 0 0 oklch(from var(--med-vital) l c h / 0.5);
+  }
+  10% {
+    box-shadow: 0 0 0 5px oklch(from var(--med-vital) l c h / 0);
+  }
+}
+
+.med-pip {
+  animation: med-pip 5s ease-out infinite;
+  animation-delay: calc(var(--med-pip-i, 0) * 0.42s);
+}
+
+/* ─── Reveal ────────────────────────────────────────────────────────────
+   Driven by <ScrollReveal data-visible>. Transform + opacity only. */
+.med-reveal > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.55s var(--ease-out-soft),
+    transform 0.55s var(--ease-out-soft);
+}
+
+.med-reveal[data-visible="true"] > * {
+  opacity: 1;
+  transform: none;
+}
+
+.med-reveal[data-visible="true"] > *:nth-child(2) { transition-delay: 70ms; }
+.med-reveal[data-visible="true"] > *:nth-child(3) { transition-delay: 140ms; }
+.med-reveal[data-visible="true"] > *:nth-child(4) { transition-delay: 210ms; }
+.med-reveal[data-visible="true"] > *:nth-child(5) { transition-delay: 280ms; }
+.med-reveal[data-visible="true"] > *:nth-child(6) { transition-delay: 350ms; }
+
+/* ─── Event rail (booking demo) ─────────────────────────────────────────
+   Each backend event slides in as the visitor advances the widget. */
+@keyframes med-event-in {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.med-event {
+  animation: med-event-in 0.34s var(--ease-out-soft) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .med-ecg-track,
+  .med-rail,
+  .med-rail-y,
+  .med-pip,
+  .med-event {
+    animation: none;
+  }
+
+  .med-reveal > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

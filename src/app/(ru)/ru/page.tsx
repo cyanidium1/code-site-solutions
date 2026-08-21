@@ -178,7 +178,7 @@ export default async function HomePageRu() {
           { n: "05", name: "Запуск и поддержка", duration: "год поддержки", items: ["Мониторинг", "Гарантия 1 год", "Постоянный рост"] },
         ]}
         ctaLabel="Весь процесс"
-        ctaHref="/process"
+        ctaHref="/ru/process"
       />
 
       <Cases
@@ -190,7 +190,7 @@ export default async function HomePageRu() {
         }
         locale="ru"
         ctaLabel="Все кейсы"
-        ctaHref="/portfolio"
+        ctaHref="/ru/portfolio"
       />
 
       <Marquee label="50+ КОМПАНИЙ ДОВЕРИЛИСЬ · UA · EU · US · DK · ZA · UK · FR" />
