@@ -146,9 +146,13 @@ export function WebsiteCalculator({ config }: WebsiteCalculatorProps) {
       body: t("howItWorks.cards.final.body"),
     },
   ];
-  const faqItems: FAQItem[] = (t.raw("faq.items") as { q: string; a: string }[]).map(
-    (it) => ({ q: it.q, a: [it.a] }),
-  );
+  const faqItems: FAQItem[] = (
+    t.raw("faq.items") as {
+      q: string;
+      a: string;
+      link?: { href: string; text: string };
+    }[]
+  ).map((it) => ({ q: it.q, a: it.link ? [it.a + " ", { link: it.link }] : [it.a] }));
 
   return (
     <>

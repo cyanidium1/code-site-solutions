@@ -27,26 +27,28 @@ import { HOMEPAGE_TIERS } from "@/content/uk/homepage";
 import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
 import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { SectionHead } from "@/components/shared/section-head";
 import { buildAlternates } from "@/lib/shared/alternates";
 
+const PRICING_TITLE = "Ціна створення сайту 2026 — фіксовані пакети | Code-Site.Art";
+const PRICING_DESCRIPTION =
+  "➤ Вартість розробки сайту за фіксованою ціною ✔️ Лендінг від $800 ✔️ Корпоративний сайт від $3 500 ✔️ Кастомна платформа від $6 000 ➡ Без «під запит».";
+
 export const metadata: Metadata = {
-  title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
-  description:
-    "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендінг від $800 ✔️ Корпоративний сайт від $3 500 ✔️ Кастомна платформа від $6 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
+  title: PRICING_TITLE,
+  description: PRICING_DESCRIPTION,
   alternates: buildAlternates({ locale: "uk", uaPath: "/pricing" }),
   openGraph: {
-    title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
-    description:
-      "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендінг від $800 ✔️ Корпоративний сайт від $3 500 ✔️ Кастомна платформа від $6 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
+    title: PRICING_TITLE,
+    description: PRICING_DESCRIPTION,
     type: "website",
     locale: "uk_UA",
     url: "/pricing",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
-    description:
-      "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендінг від $800 ✔️ Корпоративний сайт від $3 500 ✔️ Кастомна платформа від $6 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
+    title: PRICING_TITLE,
+    description: PRICING_DESCRIPTION,
   },
 };
 
@@ -68,9 +70,8 @@ function buildUkPricingJsonLd(offers: UkPricingOffer[]) {
     webPageNode({
       path: "/pricing",
       locale: "uk",
-      title: "ᐈ Ціни на розробку сайтів | Фіксовані тарифи | Code-Site.Art",
-      description:
-        "➤ Прозора розробка сайтів за фіксованою ціною ✔️ Лендінг від $800 ✔️ Корпоративний сайт від $3 500 ✔️ Кастомна платформа від $6 000 ✔️ Без прихованих платежів ➡ Оберіть свій тариф.",
+      title: PRICING_TITLE,
+      description: PRICING_DESCRIPTION,
     }),
     breadcrumbNode([
       { name: "Головна", path: "/" },
@@ -140,10 +141,10 @@ export default async function PricingPage() {
         eyebrow="ЦІНИ"
         headline={
           <>
-            Ціна — це <em>те, що ви отримаєте</em>. Не «під запит».
+            Ціна створення сайту у 2026 — <em>фіксовані пакети від $800</em>
           </>
         }
-        sub="Від $800, фіксовано в договорі. У ціну входить все — копірайтинг, дизайн, верстка, код, домен, хостинг, запуск, рік підтримки. Ви платите і отримуєте готовий продукт."
+        sub="Ціна — це те, що ви отримаєте. Не «під запит». Фіксовано в договорі, у ціну входить все — копірайтинг, дизайн, верстка, код, домен, хостинг, запуск, рік підтримки. Ви платите і отримуєте готовий продукт."
       />
 
       {/* Section 1.5: Turnkey list — promise of "everything included" */}
@@ -158,6 +159,14 @@ export default async function PricingPage() {
       {/* Section 2: pricing tiers */}
       <section className={hpSectionClass} id="tiers">
         <div className={hpInnerClass}>
+          <SectionHead
+            eyebrow="ПАКЕТИ"
+            heading={
+              <>
+                Скільки коштує <em>зробити сайт</em>
+              </>
+            }
+          />
           <CmpPricingGrid>
             {tiers.map((t, i) => (
               <Tier key={i} {...t} />
@@ -173,7 +182,7 @@ export default async function PricingPage() {
         eyebrow="ВХОДИТЬ"
         heading={
           <>
-            Що входить у <em>всі пакети</em> — без винятків
+            Що входить у <em>вартість розробки сайту</em> — без винятків
           </>
         }
         body="Незалежно від пакета — ось базовий стандарт, який ви отримуєте з будь-яким проектом Code-Site.Art. Не платите за це окремо."
