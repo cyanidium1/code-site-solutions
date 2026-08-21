@@ -131,7 +131,13 @@ export function organizationNode(): JsonLdNode {
     "@type": "Organization",
     "@id": ORG_ID,
     name: "Code-Site.Art",
-    alternateName: "Code-Site Art",
+    alternateName: [
+      "Code-Site Art",
+      "CodeSite",
+      "Code Site",
+      "Code-Site.Art",
+      "code-site",
+    ],
     url: SITE_ORIGIN,
     logo: {
       "@type": "ImageObject",
