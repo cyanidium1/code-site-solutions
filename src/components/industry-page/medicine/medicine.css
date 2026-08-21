@@ -51,9 +51,12 @@
 
 /* ─── "Drops" — the old site's signature decoration ──────────────────────
    code-site-frontend drew section decor as rotated, heavily blurred
-   ellipses (public/images/**/drops-*.svg): diagonal light streaks, not the
-   centred radial blob every AI layout reaches for. Rebuilt in CSS so it
-   scales and costs no request. */
+   ellipses (drops-*.svg under public/images): diagonal light streaks, not
+   the centred radial blob every AI layout reaches for. Rebuilt in CSS so
+   it scales and costs no request.
+   NB: never write a glob with a slash after the double star inside this
+   comment — the star-star-slash sequence terminates a CSS comment early
+   and the leftover text breaks the production CSS minifier. */
 .med-streaks {
   position: absolute;
   inset: 0;
