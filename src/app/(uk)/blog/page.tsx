@@ -95,11 +95,14 @@ export default async function BlogPage({
   const params = await searchParams;
   const { category } = readFilterValues(params, ["category"] as const);
 
-  const posts = await sanityFetch<BlogPostListItem[]>({
+  const allPosts = await sanityFetch<BlogPostListItem[]>({
     query: BLOG_POSTS_LIST_QUERY,
     revalidate: 300,
     tags: ["blogPost"],
   }).catch(() => [] as BlogPostListItem[]);
+  // UA listing: only posts with a UA translation (the list query also
+  // returns secondary-locale-only posts).
+  const posts = allPosts.filter((p) => p.title?.uk && p.slugs?.uk?.current);
 
   // Pills are built from the unfiltered post list — single source of truth.
   // Hide the pill row entirely when no post has a category assigned yet.

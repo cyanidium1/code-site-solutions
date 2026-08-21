@@ -77,6 +77,18 @@ const nextConfig: NextConfig = {
         destination: "/blog/vartist-rozrobky-saytu-2026",
         statusCode: 301,
       },
+      {
+        source:
+          "/blog/pochemu-saity-na-kode-rabotayut-bystree-i-prinosyat-bolshe-klientov",
+        destination: "/blog/nextjs-proty-wordpress-ta-konstruktoriv",
+        statusCode: 301,
+      },
+      {
+        source:
+          "/blog/pochemu-saity-na-kode-rabotayut-bystree-i-prinosyat-bolshe-klientov-7",
+        destination: "/blog/nextjs-proty-wordpress-ta-konstruktoriv",
+        statusCode: 301,
+      },
     ];
   },
   experimental: {

@@ -229,14 +229,16 @@ const BLOG_POST_LIST_ITEM = /* groq */ `{
 }`;
 
 export const BLOG_POSTS_LIST_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && defined(slugs.uk.current)]
+*[_type == "blogPost" && status == "published"
+  && (defined(slugs.uk.current) || defined(slugs.en.current) || defined(slugs.ru.current))]
 ${BLOG_POST_LIST_ITEM}
 | order(publishedAt desc, _createdAt desc)
 `;
 
 /** Latest posts of one category (industry pages cross-link their cluster). */
 export const BLOG_POSTS_BY_CATEGORY_QUERY = /* groq */ `
-*[_type == "blogPost" && status == "published" && defined(slugs.uk.current)
+*[_type == "blogPost" && status == "published"
+  && (defined(slugs.uk.current) || defined(slugs.en.current) || defined(slugs.ru.current))
   && category->slug.current == $cat]
 ${BLOG_POST_LIST_ITEM}
 | order(publishedAt desc, _createdAt desc)[0...3]

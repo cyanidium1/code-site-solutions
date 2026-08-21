@@ -189,9 +189,23 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
 
   for (const p of blogPosts) {
     const uaSlug = p.slugs?.[DEFAULT_LOCALE]?.current;
-    if (!uaSlug) continue;
     const modifiedIso = p._updatedAt ?? p.publishedAt;
     const modified = modifiedIso ? new Date(modifiedIso) : undefined;
+    if (!uaSlug) {
+      // Secondary-locale-only post (e.g. EN-market article): emit it in the
+      // locales it exists in, self-referencing, no cross-locale alternates.
+      for (const l of SECONDARY_LOCALES) {
+        const slug = p.slugs?.[l]?.current;
+        if (!slug) continue;
+        out[l].push({
+          url: absUrl(`/blog/${slug}`, l),
+          lastModified: modified,
+          changeFrequency: "monthly",
+          priority: 0.6,
+        });
+      }
+      continue;
+    }
     const localized: Partial<Record<SecondaryLocale, string>> = {};
     for (const l of SECONDARY_LOCALES) {
       const slug = registry.get(l)?.blogFromUa.get(uaSlug);

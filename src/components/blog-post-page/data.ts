@@ -117,6 +117,10 @@ export async function buildBlogPostMetadata(
   const paths = Object.fromEntries(
     available.map((l) => [l, localizePath(`/blog/${post.slugs![l]!.current}`, l)]),
   ) as Partial<Record<SecondaryLocale, string>>;
+  // `buildAlternates` always anchors the set on the UA URL, which would
+  // emit an hreflang pointing at a 404 for secondary-locale-only posts —
+  // those get a bare self-canonical instead.
+  const hasUa = hasBlogLocaleContent(post, DEFAULT_LOCALE);
 
   return {
     title,
@@ -124,7 +128,9 @@ export async function buildBlogPostMetadata(
     alternates:
       locale === DEFAULT_LOCALE && available.length === 0
         ? { canonical: uaPath }
-        : buildAlternates({ locale, uaPath, available, paths }),
+        : !hasUa
+          ? { canonical: path }
+          : buildAlternates({ locale, uaPath, available, paths }),
     openGraph: {
       title,
       description,
