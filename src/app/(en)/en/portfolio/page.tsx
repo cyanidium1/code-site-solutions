@@ -31,23 +31,23 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
-  title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
+  title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
   description:
-    "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
+    "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
   alternates: buildAlternates({ locale: "en", uaPath: "/portfolio" }),
   openGraph: {
-    title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
+    title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
     description:
-      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
+      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
     type: "website",
     locale: "en_GB",
     url: "/en/portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
+    title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
     description:
-      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
+      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
   },
 };
 
@@ -93,9 +93,9 @@ export default async function EnPortfolioPage({
     webPageNode({
       path: "/en/portfolio",
       locale: "en",
-      title: "ᐈ Web Design Portfolio UK | Custom Website Case Studies | Code-Site.Art",
+      title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
       description:
-        "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ✔️ Next.js + Sanity stack ➡ See all projects.",
+        "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
       type: "CollectionPage",
       extra: {
         mainEntity: {

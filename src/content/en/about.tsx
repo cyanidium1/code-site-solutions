@@ -24,7 +24,7 @@ export const ABOUT_EN: AboutContent = {
   meta: {
     title: "About the studio — Code Site Art | Custom web development, Kyiv",
     description:
-      "A boutique custom web development studio. Sites and business systems on Next.js, React, TypeScript and Sanity that you own. Code in your GitHub, 1-year warranty, 30% rebate for missed deadlines.",
+      "A boutique custom web development studio. Sites and business systems on Next.js, React and TypeScript that you own: code in your GitHub, 1-year warranty.",
   },
 
   hero: {

@@ -134,7 +134,7 @@ export type Content = {
 
 export const VS_WORDPRESS_UK: Content = {
   metaTitle:
-    "Перейти з WordPress на custom code за 4 тижні · 0 SEO-падінь | Code-Site.Art",
+    "Міграція з WordPress на кастомний код сайту | Code-Site.Art",
   metaDescription:
     "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 50+ проєктів — 0 SEO-падінь. Від $800 за лендінг. Гарантія 1 рік + неустойка 30%.",
   hero: {

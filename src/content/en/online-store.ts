@@ -18,7 +18,7 @@ import {
 import type { LandingPageContent } from "@/types/landing";
 
 export const ONLINE_STORE_EN: LandingPageContent = {
-  metaTitle: "ᐈ Online Store from £6,000 | E-commerce Development | Code-Site.Art",
+  metaTitle: "Online Store from £6,000 — E-commerce Development | Code-Site.Art",
   metaDescription:
     "➤ Custom-coded online store from £6,000 in 6–10 weeks ✔️ Catalogue, cart, checkout, CMS ✔️ No builder subscriptions ✔️ Fixed price in the contract ➡ Get your quote.",
   breadcrumbHome: "Home",

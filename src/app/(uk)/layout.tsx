@@ -48,13 +48,13 @@ const actay = localFont({
 export const metadata: Metadata = {
   title: "ᐈ Студія розробки кастомних сайтів під ключ | Code-Site.Art",
   description:
-    "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.",
+    "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ➤ Замовте безкоштовний дзвінок.",
   metadataBase: new URL(SITE_ORIGIN),
   alternates: buildAlternates({ locale: "uk", uaPath: "/" }),
   openGraph: {
     title: "ᐈ Студія розробки кастомних сайтів під ключ | Code-Site.Art",
     description:
-      "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.",
+      "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ➤ Замовте безкоштовний дзвінок.",
     type: "website",
     locale: LOCALE_CONFIG.uk.ogLocale,
     alternateLocale: SECONDARY_LOCALES.map((l) => LOCALE_CONFIG[l].ogLocale),
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ᐈ Студія розробки кастомних сайтів під ключ | Code-Site.Art",
     description:
-      "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.",
+      "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ➤ Замовте безкоштовний дзвінок.",
   },
 };
 

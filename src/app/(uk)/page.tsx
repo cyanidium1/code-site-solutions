@@ -50,7 +50,7 @@ const DIRECTION_LINKS: { href: string; label: string }[] = [
 ];
 
 const HOMEPAGE_DESCRIPTION =
-  "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ✔️ Гарантія 1 рік ➤ Замовте безкоштовний дзвінок.";
+  "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ➤ Замовте безкоштовний дзвінок.";
 
 export default async function HomePage() {
   const [cmsPlans, testimonialSlides] = await Promise.all([

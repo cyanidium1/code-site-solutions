@@ -21,7 +21,7 @@ import type { LandingPageContent } from "@/types/landing";
 export const LANDING_EN: LandingPageContent = {
   metaTitle: "ᐈ Landing Page Design from £800 | Code-Site.Art",
   metaDescription:
-    "➤ Custom-coded landing page from £800, live in 1–2 weeks ✔️ Design, copy, build, launch and 1 year of support included ✔️ Fixed price in the contract ➡ Get your quote.",
+    "➤ Custom-coded landing page from £800, live in 1–2 weeks ✔️ Design, copy, build and launch included ✔️ Fixed price in the contract ➡ Get your quote.",
   breadcrumbHome: "Home",
   breadcrumbSelf: "Landing page",
   hero: {

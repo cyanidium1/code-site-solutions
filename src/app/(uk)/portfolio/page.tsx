@@ -32,12 +32,12 @@ import { buildAlternates } from "@/lib/shared/alternates";
 export const metadata: Metadata = {
   title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
   description:
-    "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
+    "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
   alternates: buildAlternates({ locale: "uk", uaPath: "/portfolio" }),
   openGraph: {
     title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
     description:
-      "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
+      "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
     type: "website",
     locale: "uk_UA",
     url: "/portfolio",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
     description:
-      "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
+      "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
   },
 };
 
@@ -94,7 +94,7 @@ export default async function PortfolioPage({
       locale: "uk",
       title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
       description:
-        "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ✔️ Стек Next.js + Sanity ➡ Дивіться всі проєкти.",
+        "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
       type: "CollectionPage",
       extra: {
         mainEntity: {

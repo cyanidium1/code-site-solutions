@@ -59,8 +59,19 @@ export async function buildCaseStudyMetadata(
   const doc = await fetchCaseStudy(slug);
   if (!doc) return {};
 
+  // Explicit per-locale SEO title first; otherwise construct a locale-true
+  // fallback instead of letting `loc()` fall back to the UK string — that
+  // fallback made every untranslated EN case page carry the UK title
+  // verbatim (duplicate titles across locales, and Ukrainian in EN SERPs).
+  const CASE_SUFFIX: Record<Locale, string> = {
+    uk: "кейс розробки сайту",
+    en: "website case study",
+    ru: "кейс разработки сайта",
+  };
+  const caseSuffix = CASE_SUFFIX[locale];
   const title =
-    loc(doc.seo?.title, locale) || loc(doc.title, locale);
+    doc.seo?.title?.[locale] ||
+    `${loc(doc.title, locale)} — ${caseSuffix} | Code-Site.Art`;
   const description = loc(doc.seo?.description, locale);
   const path = pathFor(slug, locale);
 

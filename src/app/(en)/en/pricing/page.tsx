@@ -35,23 +35,23 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
-  title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
+  title: "Website Development Pricing UK — Fixed Plans | Code-Site.Art",
   description:
-    "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
+    "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ➡ Choose your plan.",
   alternates: buildAlternates({ locale: "en", uaPath: "/pricing" }),
   openGraph: {
-    title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
+    title: "Website Development Pricing UK — Fixed Plans | Code-Site.Art",
     description:
-      "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
+      "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ➡ Choose your plan.",
     type: "website",
     locale: "en_GB",
     url: "/en/pricing",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
+    title: "Website Development Pricing UK — Fixed Plans | Code-Site.Art",
     description:
-      "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
+      "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ➡ Choose your plan.",
   },
 };
 
@@ -73,9 +73,9 @@ function buildEnPricingJsonLd(offers: EnPricingOffer[]) {
     webPageNode({
       path: "/en/pricing",
       locale: "en",
-      title: "ᐈ Website Development Pricing UK | Fixed Price Plans | Code-Site.Art",
+      title: "Website Development Pricing UK — Fixed Plans | Code-Site.Art",
       description:
-        "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ✔️ No hidden fees ➡ Choose your plan today.",
+        "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ➡ Choose your plan.",
     }),
     breadcrumbNode([
       { name: "Home", path: "/en" },

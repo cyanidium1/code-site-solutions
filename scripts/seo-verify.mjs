@@ -16,7 +16,11 @@ const SITE = "https://www.code-site.art";
 
 /* ─── tiny HTML helpers (regex-based; fine for our own SSR output) ──────── */
 
-const stripTags = (s) => s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const stripScripts = (s) =>
+  s
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ");
+const stripTags = (s) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 const decode = (s) =>
   s
     .replaceAll("&amp;", "&")
@@ -267,7 +271,7 @@ const main = async () => {
   check(
     "every <title> is 30–65 characters",
     badTitleLen.length === 0,
-    badTitleLen.slice(0, 8).join(", "),
+    badTitleLen.slice(0, 30).join(", "),
   );
 
   const descs = new Map();
@@ -288,7 +292,7 @@ const main = async () => {
   check(
     "every meta description is 120–165 characters",
     badDescLen.length === 0,
-    badDescLen.slice(0, 10).join(", "),
+    badDescLen.slice(0, 40).join(", "),
   );
 
   const med = pages.get("/sites-for/medicine");
@@ -325,7 +329,10 @@ const main = async () => {
   // price word. Links TO /seo (the replacement the task asks for) and their
   // anchors are excluded first.
   const calcText = stripTags(
-    contentOnly(calcHtml).replace(/<a\s[^>]*href="\/seo"[\s\S]*?<\/a>/gi, ""),
+    stripScripts(contentOnly(calcHtml)).replace(
+      /<a\s[^>]*href="\/seo"[\s\S]*?<\/a>/gi,
+      "",
+    ),
   );
   const promoSentences = calcText
     .split(/[.!?]/)
@@ -350,7 +357,8 @@ const main = async () => {
   };
   for (const [path, kws] of Object.entries(INDUSTRY_KEYWORDS)) {
     const page = pages.get(path);
-    const text = (page?.title ?? "") + " " + stripTags(page?.html ?? "");
+    const text =
+      (page?.title ?? "") + " " + stripTags(stripScripts(page?.html ?? ""));
     const missing = kws.filter((kw) => !text.toLowerCase().includes(kw.toLowerCase()));
     check(
       `${path} contains its assigned anchor keywords`,

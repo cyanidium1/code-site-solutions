@@ -148,7 +148,7 @@ export type Content = {
 
 export const VS_CONSTRUCTORS_UK: Content = {
   metaTitle:
-    "Перейти з Tilda, Webflow, Wix на custom code · 0 SEO-падінь | Code-Site.Art",
+    "Перейти з Tilda, Webflow, Wix на кастомний код | Code-Site.Art",
   metaDescription:
     "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 50+ проєктів — 0 SEO-падінь. Від $800. Без підписок після запуску.",
   hero: {
@@ -695,7 +695,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
 
 export const VS_CONSTRUCTORS_EN: Content = {
   metaTitle:
-    "Migrate from GoDaddy, Webflow, Wix to custom code · 0 SEO drops | Code-Site.Art",
+    "Migrate from Wix, Webflow, GoDaddy to custom code | Code-Site.Art",
   metaDescription:
     "We migrate sites from GoDaddy, Webflow, Wix, Squarespace, Shopify to Next.js in 4–10 weeks. 50+ projects — zero SEO drops. From £800. No subscriptions after launch.",
   hero: {

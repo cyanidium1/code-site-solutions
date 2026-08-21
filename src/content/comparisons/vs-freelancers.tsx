@@ -153,7 +153,7 @@ export type Content = {
 
 export const VS_FREELANCERS_UK: Content = {
   metaTitle:
-    "Студія vs Фрілансер · 12 людей у вашому проєкті · 0 ризику зникнення | Code-Site.Art",
+    "Студія проти фрілансера: 12 людей у проєкті | Code-Site.Art",
   metaDescription:
     "Studio з 12 людей замість одного фрілансера. Контракт із юр. особою, гарантія 1 рік, неустойка 30%. Rescue-проєкти після фрілансерів — 12 з 50+.",
   ogTitle: "12 людей у вашому проєкті. Жоден не зникне з аванса. — Code-Site.Art",
@@ -747,7 +747,7 @@ export const VS_FREELANCERS_UK: Content = {
 
 export const VS_FREELANCERS_EN: Content = {
   metaTitle:
-    "Studio vs Freelancer · 12 people on your project · No ghost risk | Code-Site.Art",
+    "Studio vs Freelancer: 12 people on your project | Code-Site.Art",
   metaDescription:
     "A studio of 12 people instead of one freelancer. Legal-entity contract, 1-year warranty, 30% rebate. Rescue projects after freelancers — 12 of 50+.",
   ogTitle:

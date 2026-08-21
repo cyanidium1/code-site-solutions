@@ -18,7 +18,7 @@ import type { LandingPageContent } from "@/types/landing";
 export const SEO_EN: LandingPageContent = {
   metaTitle: "ᐈ SEO Services from £300/mo | Code-Site.Art",
   metaDescription:
-    "➤ SEO for service businesses from £300/mo, e-commerce from £500/mo ✔️ One-off audit £300 ✔️ No \"#1 guarantees\" ✔️ Reports show rankings and traffic ➡ Start with an audit.",
+    "➤ SEO for service businesses from £300/mo, e-commerce from £500/mo ✔️ One-off audit £300 ✔️ No \"#1 guarantees\" ➡ Start with an audit.",
   breadcrumbHome: "Home",
   breadcrumbSelf: "SEO services",
   hero: {
