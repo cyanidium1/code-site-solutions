@@ -26,7 +26,12 @@ export type ChangeFrequency =
 
 export type SitemapEntry = {
   url: string;
-  lastModified: Date;
+  /**
+   * Real content-modification date (Sanity `_updatedAt`, blog `publishedAt`
+   * fallback). Absent for static code-based routes — a `<lastmod>` that is
+   * really "revalidation time" is worse than none, so we omit the tag.
+   */
+  lastModified?: Date;
   changeFrequency: ChangeFrequency;
   priority: number;
   alternates?: { languages: Record<string, string> };
@@ -61,7 +66,6 @@ export type BuildEntriesInput = {
   caseStudies: CaseStudyRef[];
   blogPosts: BlogPostListItem[];
   registry: ContentRegistry;
-  now: Date;
 };
 
 /** Absolute URL for a default-locale path, localized for `locale`. */
@@ -99,7 +103,7 @@ function languagesFor(
  * locale switcher and the actual localized pages use).
  */
 export function buildEntries(input: BuildEntriesInput): SitemapEntries {
-  const { industryPages, caseStudies, blogPosts, registry, now } = input;
+  const { industryPages, caseStudies, blogPosts, registry } = input;
   const out = Object.fromEntries(
     LOCALES.map((l) => [l, [] as SitemapEntry[]]),
   ) as SitemapEntries;
@@ -112,7 +116,11 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
   const push = (
     uaUrl: string,
     localizedUrls: Partial<Record<SecondaryLocale, string>>,
-    meta: { lastModified: Date; changeFrequency: ChangeFrequency; priority: number },
+    meta: {
+      lastModified?: Date;
+      changeFrequency: ChangeFrequency;
+      priority: number;
+    },
   ) => {
     const hasLocalized = Object.values(localizedUrls).some(Boolean);
     if (!hasLocalized) {
@@ -137,7 +145,6 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
       }
     }
     push(absUrl(path, DEFAULT_LOCALE), localized, {
-      lastModified: now,
       changeFrequency,
       priority,
     });
@@ -150,7 +157,7 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
       if (registry.get(l)?.industries.has(p.slug)) localized[l] = absUrl(uaPath, l);
     }
     push(absUrl(uaPath, DEFAULT_LOCALE), localized, {
-      lastModified: now,
+      lastModified: p._updatedAt ? new Date(p._updatedAt) : undefined,
       changeFrequency: "monthly",
       priority: 0.8,
     });
@@ -163,7 +170,7 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
       if (registry.get(l)?.cases.has(c.slug)) localized[l] = absUrl(uaPath, l);
     }
     push(absUrl(uaPath, DEFAULT_LOCALE), localized, {
-      lastModified: now,
+      lastModified: c._updatedAt ? new Date(c._updatedAt) : undefined,
       changeFrequency: "monthly",
       priority: 0.7,
     });
@@ -172,7 +179,8 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
   for (const p of blogPosts) {
     const uaSlug = p.slugs?.[DEFAULT_LOCALE]?.current;
     if (!uaSlug) continue;
-    const modified = p.publishedAt ? new Date(p.publishedAt) : now;
+    const modifiedIso = p._updatedAt ?? p.publishedAt;
+    const modified = modifiedIso ? new Date(modifiedIso) : undefined;
     const localized: Partial<Record<SecondaryLocale, string>> = {};
     for (const l of SECONDARY_LOCALES) {
       const slug = registry.get(l)?.blogFromUa.get(uaSlug);

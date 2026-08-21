@@ -92,6 +92,7 @@ const CASE_STUDY_REF = /* groq */ `{
  */
 const CASE_STUDY_LISTING_PROJECTION = /* groq */ `{
   _id,
+  _updatedAt,
   "slug": slug.current,
   title ${LOCALIZED_STRING},
   client,
@@ -189,6 +190,7 @@ export const CASE_STUDY_BY_SLUG_QUERY = /* groq */ `
 export const INDUSTRY_PAGES_QUERY = /* groq */ `
 *[_type == "industryPage" && status == "published" && defined(slug.current)]{
   _id,
+  _updatedAt,
   "slug": slug.current,
   title ${LOCALIZED_STRING},
   status,
@@ -214,6 +216,7 @@ const BLOG_COVER = /* groq */ `{
  */
 const BLOG_POST_LIST_ITEM = /* groq */ `{
   _id,
+  _updatedAt,
   slugs,
   title,
   eyebrow,

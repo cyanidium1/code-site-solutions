@@ -9,8 +9,6 @@ import type {
   IndustryPageRef,
 } from "@/types/sanity";
 
-const NOW = new Date("2026-01-01T00:00:00.000Z");
-
 function baseInput(
   en: { industries?: string[]; cases?: string[]; blogPairs?: Array<[string, string]> } = {},
 ) {
@@ -25,7 +23,6 @@ function baseInput(
         blogPairs: en.blogPairs ?? [],
       },
     }),
-    now: NOW,
   };
 }
 
@@ -83,7 +80,7 @@ test("blog uses publishedAt for lastModified and gates EN on registry pair", () 
   ];
   const { uk, en } = buildEntries(input);
   const uaOnly = uk.find((e) => e.url.endsWith("/blog/ua-only"));
-  assert.equal(uaOnly!.lastModified.toISOString(), "2025-05-01T00:00:00.000Z");
+  assert.equal(uaOnly!.lastModified?.toISOString(), "2025-05-01T00:00:00.000Z");
   assert.equal(en.some((e) => e.url.endsWith("/en/blog/pair-en")), true);
   assert.equal(en.some((e) => e.url.endsWith("/blog/ua-only")), false);
 });

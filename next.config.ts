@@ -12,39 +12,70 @@ const nextConfig: NextConfig = {
     "/**/opengraph-image*": ["./src/lib/server/og/fonts/*"],
   },
   async redirects() {
+    // All redirects are explicit 301s (statusCode instead of permanent:true,
+    // which would emit 308) and single-hop: every destination is a final,
+    // 200-serving URL — never another redirect source.
+    //
     // Blog relaunch 2026: the 3 original posts were replaced by 3 new
     // bilingual posts on new slugs. The contract post was retired with no
-    // direct replacement, so it points at the blog listing. 308 (permanent).
+    // direct replacement, so it points at the blog listing.
+    //
+    // The GSC hard-404 set (Aug 2026): stale slugs from the pre-Next.js
+    // site (/services, /uk/* prefix era, old RU-transliterated blog slugs,
+    // old portfolio slugs) mapped to their closest current equivalents.
     return [
       {
         source: "/blog/skilky-koshtuye-sayt-2026",
         destination: "/blog/vartist-rozrobky-saytu-2026",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/blog/tilda-7200-za-3-roky",
         destination: "/blog/tilda-vs-kastomnyy-sayt-2026",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/blog/dohovir-z-veb-studieyu-7-punktiv",
         destination: "/blog",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/en/blog/website-cost-2026-breakdown",
         destination: "/en/blog/custom-website-cost-uk-2026",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/en/blog/tilda-7200-over-3-years",
         destination: "/en/blog/custom-website-vs-wordpress-2026",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/en/blog/web-studio-contract-7-items",
         destination: "/en/blog",
-        permanent: true,
+        statusCode: 301,
+      },
+      // GSC hard 404s → current equivalents.
+      { source: "/services", destination: "/pricing", statusCode: 301 },
+      { source: "/uk", destination: "/", statusCode: 301 },
+      { source: "/uk/legal", destination: "/legal", statusCode: 301 },
+      { source: "/uk/offer", destination: "/offer", statusCode: 301 },
+      { source: "/uk/services", destination: "/pricing", statusCode: 301 },
+      { source: "/ru/services", destination: "/ru", statusCode: 301 },
+      {
+        source: "/ru/public-contract",
+        destination: "/public-contract",
+        statusCode: 301,
+      },
+      {
+        source: "/portfolio/efedra-sait-dlya-centra-mediciny-2",
+        destination: "/portfolio/efedra-clinic",
+        statusCode: 301,
+      },
+      {
+        source:
+          "/blog/custom-code-website-development-what-it-is-what-it-costs-and-why-it-is-the-best-fit-for-business",
+        destination: "/blog/vartist-rozrobky-saytu-2026",
+        statusCode: 301,
       },
     ];
   },

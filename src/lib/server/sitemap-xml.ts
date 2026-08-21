@@ -27,7 +27,9 @@ export function renderUrlset(entries: SitemapEntry[]): string {
     return [
       "  <url>",
       `    <loc>${escapeXml(e.url)}</loc>`,
-      `    <lastmod>${e.lastModified.toISOString()}</lastmod>`,
+      ...(e.lastModified
+        ? [`    <lastmod>${e.lastModified.toISOString()}</lastmod>`]
+        : []),
       `    <changefreq>${e.changeFrequency}</changefreq>`,
       `    <priority>${e.priority.toFixed(1)}</priority>`,
       ...alts,

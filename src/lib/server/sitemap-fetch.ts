@@ -39,6 +39,5 @@ export async function buildSitemapEntries(): Promise<SitemapEntries> {
     caseStudies,
     blogPosts,
     registry,
-    now: new Date(),
   });
 }

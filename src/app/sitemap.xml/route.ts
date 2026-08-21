@@ -5,15 +5,17 @@ import type { SitemapEntry } from "@/lib/server/sitemap-data";
 
 export const revalidate = 3600;
 
-/** ISO timestamp of the newest entry, or `fallback` if the list is empty. */
+/**
+ * ISO timestamp of the newest dated entry (static routes carry no
+ * lastModified), or `fallback` when no entry has a real date.
+ */
 function newestIso(entries: SitemapEntry[], fallback: Date): string {
-  if (entries.length === 0) return fallback.toISOString();
-  return entries
-    .reduce(
-      (max, e) => (e.lastModified > max ? e.lastModified : max),
-      new Date(0),
-    )
-    .toISOString();
+  const newest = entries.reduce<Date | null>(
+    (max, e) =>
+      e.lastModified && (!max || e.lastModified > max) ? e.lastModified : max,
+    null,
+  );
+  return (newest ?? fallback).toISOString();
 }
 
 export async function GET() {

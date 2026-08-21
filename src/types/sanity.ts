@@ -451,6 +451,7 @@ export type IndustryPageDoc = {
 
 export type IndustryPageRef = {
   _id: string;
+  _updatedAt?: string;
   slug: string;
   title?: LocalizedString;
   status?: "draft" | "published";
@@ -469,6 +470,7 @@ export type OptionRef = {
 
 export type CaseStudyRef = {
   _id: string;
+  _updatedAt?: string;
   slug: string;
   title?: LocalizedString;
   client?: string;
@@ -614,6 +616,7 @@ export type BlogCover = {
 
 export type BlogPostListItem = {
   _id: string;
+  _updatedAt?: string;
   slugs?: LocalizedSlugs;
   title?: LocalizedString;
   eyebrow?: LocalizedString;
