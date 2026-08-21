@@ -1,0 +1,271 @@
+﻿diff --git a/next.config.ts b/next.config.ts
+index cfdffc3..a467249 100644
+--- a/next.config.ts
++++ b/next.config.ts
+@@ -89,6 +89,80 @@ const nextConfig: NextConfig = {
+         destination: "/blog/nextjs-proty-wordpress-ta-konstruktoriv",
+         statusCode: 301,
+       },
++      // ── RU prune (decision item, see src/constants/ru-prune.ts) ─────────
++      // Kept as-is: /ru, /ru/portfolio/oleksandr-sitnikov,
++      // /ru/blog/tilda-vs-kastomnyy-sayt-2026. Everything else 301s to UA.
++      { source: "/ru/contacts", destination: "/contacts", statusCode: 301 },
++      { source: "/ru/landing", destination: "/landing", statusCode: 301 },
++      {
++        source: "/ru/corporate-site",
++        destination: "/corporate-site",
++        statusCode: 301,
++      },
++      {
++        source: "/ru/online-store",
++        destination: "/online-store",
++        statusCode: 301,
++      },
++      { source: "/ru/seo", destination: "/seo", statusCode: 301 },
++      { source: "/ru/process", destination: "/process", statusCode: 301 },
++      { source: "/ru/calculator", destination: "/calculator", statusCode: 301 },
++      { source: "/ru/blog", destination: "/blog", statusCode: 301 },
++      { source: "/ru/portfolio", destination: "/portfolio", statusCode: 301 },
++      {
++        source: "/ru/sites-for/:slug",
++        destination: "/sites-for/:slug",
++        statusCode: 301,
++      },
++      {
++        source: "/ru/portfolio/:slug((?!oleksandr-sitnikov$).*)",
++        destination: "/portfolio/:slug",
++        statusCode: 301,
++      },
++      // RU blog slugs → their UA twins (tilda-vs-kastomnyy-sayt-2026 kept).
++      ...(
++        [
++          ["skorost-medicinskogo-sayta", "shvydkist-medychnoho-saitu"],
++          ["prodvizhenie-sayta-cena-2026", "prosuvannia-saitu-tsina-2026"],
++          ["redizayn-bez-poteri-seo", "redyzain-bez-vtraty-seo"],
++          ["dizayn-sayta-medicinskogo-centra", "dyzain-saitu-medychnoho-tsentru"],
++          ["kak-chitat-google-search-console", "yak-chytaty-google-search-console"],
++          ["tyomnaya-ili-svetlaya-tema-sayta", "temna-chy-svitla-tema-saitu"],
++          ["lokalnoe-seo-top-3-google-maps", "lokalne-seo-top-3-google-maps"],
++          [
++            "skolko-stoit-sayt-dlya-kliniki-2026",
++            "skilky-koshtuye-sait-dlia-kliniky-2026",
++          ],
++          ["ai-poisk-kak-popast-v-otvety", "ai-poshuk-yak-potrapyty-u-vidpovidi"],
++          ["15-oshibok-na-saytah-klinik", "15-pomylok-na-saitakh-klinik"],
++          [
++            "razrabotka-sayta-medicinskogo-centra-pod-klyuch",
++            "rozrobka-saitu-medychnoho-tsentru-pid-kliuch",
++          ],
++          ["kak-rabotaet-admin-panel-sayta", "yak-pratsyuye-admin-panel-saytu"],
++          ["seo-dlya-medicinskih-saytov", "seo-dlia-medychnykh-saitiv"],
++          [
++            "sayt-dlya-stroitelnoy-kompanii-2026",
++            "sait-dlia-budivelnoi-kompanii-2026",
++          ],
++          ["9-dizayn-priyomov-dlya-konversii", "9-dyzain-pryiomiv-dlia-konversii"],
++          ["trendy-veb-dizayna-2026", "trendy-veb-dyzainu-2026"],
++          ["seo-audit-svoimi-rukami", "seo-audyt-svoimy-rukamy"],
++          [
++            "sayt-dlya-bolnicy-vs-chastnyy-kabinet",
++            "sait-dlia-likarni-vs-pryvatnyi-kabinet",
++          ],
++          ["skolko-stoit-sayt-2026", "vartist-rozrobky-saytu-2026"],
++          [
++            "nextjs-protiv-wordpress-i-konstruktorov",
++            "nextjs-proty-wordpress-ta-konstruktoriv",
++          ],
++        ] as const
++      ).map(([ru, uk]) => ({
++        source: `/ru/blog/${ru}`,
++        destination: `/blog/${uk}`,
++        statusCode: 301 as const,
++      })),
+     ];
+   },
+   experimental: {
+diff --git a/src/components/blog-post-page/data.ts b/src/components/blog-post-page/data.ts
+index 56469f6..903dd31 100644
+--- a/src/components/blog-post-page/data.ts
++++ b/src/components/blog-post-page/data.ts
+@@ -22,6 +22,7 @@ import {
+   type SecondaryLocale,
+ } from "@/constants/locales";
+ import { localizePath } from "@/constants/i18n-routes";
++import { RU_KEPT_BLOG_UA_SLUGS } from "@/constants/ru-prune";
+ import { buildAlternates } from "@/lib/shared/alternates";
+ import { pickLocalized } from "@/lib/shared/pick-localized";
+ import { resolveBlogCover } from "@/lib/shared/blog-cover";
+@@ -112,8 +113,14 @@ export async function buildBlogPostMetadata(
+       ? sanityCdn(cover.url, { w: 1200, q: 70 })
+       : undefined;
+ 
+-  // hreflang only for locales the post is actually renderable in.
+-  const available = SECONDARY_LOCALES.filter((l) => hasBlogLocaleContent(post, l));
++  // hreflang only for locales the post is actually renderable in. RU is
++  // additionally gated by the prune allowlist (constants/ru-prune.ts) —
++  // non-allowlisted /ru/blog/* URLs 301 to UA and must not be referenced.
++  const available = SECONDARY_LOCALES.filter(
++    (l) =>
++      hasBlogLocaleContent(post, l) &&
++      (l !== "ru" || RU_KEPT_BLOG_UA_SLUGS.has(uaSlug)),
++  );
+   const paths = Object.fromEntries(
+     available.map((l) => [l, localizePath(`/blog/${post.slugs![l]!.current}`, l)]),
+   ) as Partial<Record<SecondaryLocale, string>>;
+diff --git a/src/components/case-page/data.ts b/src/components/case-page/data.ts
+index f30948c..809c5b4 100644
+--- a/src/components/case-page/data.ts
++++ b/src/components/case-page/data.ts
+@@ -20,6 +20,7 @@ import type { CaseStudyDoc, CaseStudyRef, Locale } from "@/types/sanity";
+ import { loc } from "@/lib/shared/sanity-locale";
+ import { localizePath } from "@/constants/i18n-routes";
+ import { availableLocales } from "@/lib/shared/locale-content";
++import { RU_KEPT_CASE_SLUGS } from "@/constants/ru-prune";
+ 
+ /* ─── locale / path helpers ───────────────────────────────────────────── */
+ 
+@@ -64,10 +65,14 @@ export async function buildCaseStudyMetadata(
+   const description = loc(doc.seo?.description, locale);
+   const path = pathFor(slug, locale);
+ 
++  // RU prune (constants/ru-prune.ts): non-allowlisted /ru/portfolio/* URLs
++  // 301 to UA, so they must not appear in the hreflang set.
+   const alternates = buildAlternates({
+     locale,
+     uaPath: `/portfolio/${slug}`,
+-    available: availableLocales(doc),
++    available: availableLocales(doc).filter(
++      (l) => l !== "ru" || RU_KEPT_CASE_SLUGS.has(slug),
++    ),
+   });
+ 
+   // OG image fallback: dedicated seo.ogImage → hero image → cover image →
+diff --git a/src/components/industry-page/index.tsx b/src/components/industry-page/index.tsx
+index e1f151f..7247cdb 100644
+--- a/src/components/industry-page/index.tsx
++++ b/src/components/industry-page/index.tsx
+@@ -384,10 +384,11 @@ export async function buildIndustryMetadata(
+   const description = loc(page.seo?.description, locale);
+   const path = pathFor(slug, locale);
+ 
++  // RU prune (constants/ru-prune.ts): /ru/sites-for/* 301s to UA.
+   const alternates = buildAlternates({
+     locale,
+     uaPath: `/sites-for/${slug}`,
+-    available: availableLocales(page),
++    available: availableLocales(page).filter((l) => l !== "ru"),
+   });
+ 
+   // OG image fallback: dedicated seo.ogImage → hero device mockup → site default
+diff --git a/src/constants/i18n-routes.test.ts b/src/constants/i18n-routes.test.ts
+index 9217fe9..afd1a19 100644
+--- a/src/constants/i18n-routes.test.ts
++++ b/src/constants/i18n-routes.test.ts
+@@ -37,11 +37,13 @@ test("localizePath prefixes secondary locales only", () => {
+ // all 404s while the RU surface is partial. resolveRootHref falls back to
+ // the UA page for roots outside LOCALIZED_ROOTS[locale].
+ test("resolveRootHref localizes only roots the locale actually has", () => {
+-  assert.equal(resolveRootHref("/blog", "ru"), "/ru/blog");
+-  assert.equal(resolveRootHref("/contacts", "ru"), "/ru/contacts");
++  // RU roots are empty while the ru-prune (constants/ru-prune.ts) is in
++  // effect — every RU root falls back to the UA page.
++  assert.equal(resolveRootHref("/blog", "ru"), "/blog");
++  assert.equal(resolveRootHref("/contacts", "ru"), "/contacts");
+   assert.equal(resolveRootHref("/about", "ru"), "/about");
+   assert.equal(resolveRootHref("/pricing", "ru"), "/pricing");
+-  assert.equal(resolveRootHref("/portfolio", "ru"), "/ru/portfolio");
++  assert.equal(resolveRootHref("/portfolio", "ru"), "/portfolio");
+   assert.equal(resolveRootHref("/vs-wordpress", "ru"), "/vs-wordpress");
+   assert.equal(resolveRootHref("/about", "en"), "/en/about");
+   assert.equal(resolveRootHref("/cookies", "en"), "/en/cookies");
+diff --git a/src/constants/i18n-routes.ts b/src/constants/i18n-routes.ts
+index 356ec47..8e2711a 100644
+--- a/src/constants/i18n-routes.ts
++++ b/src/constants/i18n-routes.ts
+@@ -38,18 +38,11 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
+     "/blog",
+     "/cookies",
+   ]),
+-  // RU surface. Grows as content/ru pages ship (about, pricing, vs-*).
+-  ru: new Set([
+-    "/blog",
+-    "/contacts",
+-    "/landing",
+-    "/corporate-site",
+-    "/online-store",
+-    "/seo",
+-    "/process",
+-    "/portfolio",
+-    "/calculator",
+-  ]),
++  // RU surface pruned (SEO overhaul Aug 2026, see constants/ru-prune.ts):
++  // only /ru itself plus two allowlisted CMS pages stay; every other /ru/*
++  // route 301s to its UA equivalent in next.config.ts. Restore the previous
++  // set by reverting the ru-prune commit.
++  ru: new Set([]),
+ };
+ 
+ /**
+diff --git a/src/lib/server/i18n-registry.ts b/src/lib/server/i18n-registry.ts
+index e7831a9..7a6adcc 100644
+--- a/src/lib/server/i18n-registry.ts
++++ b/src/lib/server/i18n-registry.ts
+@@ -2,6 +2,10 @@ import "server-only";
+ import { unstable_cache } from "next/cache";
+ 
+ import { SECONDARY_LOCALES } from "@/constants/locales";
++import {
++  RU_KEPT_BLOG_UA_SLUGS,
++  RU_KEPT_CASE_SLUGS,
++} from "@/constants/ru-prune";
+ import { sanityFetch } from "@/lib/server/sanity-fetch";
+ import {
+   FALLBACK_REGISTRY,
+@@ -69,11 +73,24 @@ async function fetchRegistryWire(): Promise<ContentRegistryWire> {
+         sanityFetch<string[]>({ query: CASE_AVAILABLE_QUERY, params, revalidate: 300, tags: ["i18n-alternates"] }),
+         sanityFetch<Array<{ ua: string; loc: string }>>({ query: BLOG_PAIRS_QUERY, params, revalidate: 300, tags: ["i18n-alternates"] }),
+       ]);
+-      out[locale] = {
+-        industries: industries ?? [],
+-        cases: cases ?? [],
+-        blogPairs: (blogPairs ?? []).map((p) => [p.ua, p.loc] as [string, string]),
+-      };
++      // RU prune (constants/ru-prune.ts): only the allowlisted RU pages keep
++      // their localized alternates; the rest 301 to UA in next.config.ts.
++      out[locale] =
++        locale === "ru"
++          ? {
++              industries: [],
++              cases: (cases ?? []).filter((s) => RU_KEPT_CASE_SLUGS.has(s)),
++              blogPairs: (blogPairs ?? [])
++                .filter((p) => RU_KEPT_BLOG_UA_SLUGS.has(p.ua))
++                .map((p) => [p.ua, p.loc] as [string, string]),
++            }
++          : {
++              industries: industries ?? [],
++              cases: cases ?? [],
++              blogPairs: (blogPairs ?? []).map(
++                (p) => [p.ua, p.loc] as [string, string],
++              ),
++            };
+     }
+     return out;
+   } catch (err) {
+diff --git a/src/lib/shared/alternates.test.ts b/src/lib/shared/alternates.test.ts
+index 324d297..7d8b30e 100644
+--- a/src/lib/shared/alternates.test.ts
++++ b/src/lib/shared/alternates.test.ts
+@@ -9,10 +9,11 @@ test("default availability follows LOCALIZED_ROOTS per locale", () => {
+     canonical: "/about",
+     languages: { uk: "/about", "en-GB": "/en/about", "x-default": "/about" },
+   });
+-  // /blog exists in both secondary locales.
++  // /blog exists in EN; RU roots are empty while the ru-prune
++  // (constants/ru-prune.ts) is in effect.
+   assert.deepEqual(
+     buildAlternates({ locale: "uk", uaPath: "/blog" }).languages,
+-    { uk: "/blog", "en-GB": "/en/blog", ru: "/ru/blog", "x-default": "/blog" },
++    { uk: "/blog", "en-GB": "/en/blog", "x-default": "/blog" },
+   );
+ });
+ 
