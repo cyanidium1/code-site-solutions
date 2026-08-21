@@ -587,7 +587,7 @@ export async function LandingPageView({
           breadcrumbs={[
             {
               label: content.breadcrumbHome,
-              href: locale === "uk" ? "/" : `/${locale}`,
+              href: localizePath("/", locale),
             },
             { label: content.breadcrumbSelf },
           ]}

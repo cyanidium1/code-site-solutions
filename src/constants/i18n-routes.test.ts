@@ -41,7 +41,7 @@ test("resolveRootHref localizes only roots the locale actually has", () => {
   assert.equal(resolveRootHref("/contacts", "ru"), "/ru/contacts");
   assert.equal(resolveRootHref("/about", "ru"), "/about");
   assert.equal(resolveRootHref("/pricing", "ru"), "/pricing");
-  assert.equal(resolveRootHref("/portfolio", "ru"), "/portfolio");
+  assert.equal(resolveRootHref("/portfolio", "ru"), "/ru/portfolio");
   assert.equal(resolveRootHref("/vs-wordpress", "ru"), "/vs-wordpress");
   assert.equal(resolveRootHref("/about", "en"), "/en/about");
   assert.equal(resolveRootHref("/cookies", "en"), "/en/cookies");

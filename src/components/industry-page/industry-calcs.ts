@@ -12,6 +12,13 @@ import type { Locale } from "@/constants/locales";
 type MiniCalcContent = NonNullable<LandingPageContent["miniCalc"]>;
 type L3 = { uk: string; ru: string; en: string };
 
+/** EN mirrors numerals in £ (site-wide 1:1 convention); uk/ru price in $. */
+const CURRENCY_BY_LOCALE: Record<Locale, string> = {
+  uk: "$",
+  ru: "$",
+  en: "£",
+};
+
 type IndustryCalcDef = {
   tier: string;
   base: number;
@@ -387,9 +394,8 @@ export function industryCalcContent(
 ): MiniCalcContent | null {
   const def = CALCS[slug];
   if (!def) return null;
-  const cur = locale === "en" ? "£" : "$";
-  const fixNote = (s: string) =>
-    locale === "en" ? s.replace(/\$/g, "£") : s;
+  const cur = CURRENCY_BY_LOCALE[locale];
+  const fixNote = (s: string) => (cur === "$" ? s : s.replace(/\$/g, cur));
   return {
     tier: def.tier,
     title: COMMON.title[locale],
