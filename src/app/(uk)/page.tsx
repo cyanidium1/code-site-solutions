@@ -46,6 +46,7 @@ const DIRECTION_LINKS: { href: string; label: string }[] = [
   { href: "/seo", label: "Просування сайту від $300/міс" },
   { href: "/portfolio", label: "Кейси розробки сайтів" },
   { href: "/process", label: "Процес розробки сайту" },
+  { href: "/support", label: "Обслуговування сайтів — вартість" },
 ];
 
 const HOMEPAGE_DESCRIPTION =

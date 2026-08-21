@@ -56,6 +56,17 @@ const STATIC_ROUTES: {
   { path: "/corporate-site", changeFrequency: "monthly", priority: 0.8 },
   { path: "/online-store", changeFrequency: "monthly", priority: 0.8 },
   { path: "/seo", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/support", changeFrequency: "monthly", priority: 0.7 },
+  {
+    path: "/sites-for/medicine/stomatolohiia",
+    changeFrequency: "monthly",
+    priority: 0.7,
+  },
+  {
+    path: "/sites-for/medicine/medychnyi-tsentr",
+    changeFrequency: "monthly",
+    priority: 0.7,
+  },
   { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-constructors", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-freelancers", changeFrequency: "monthly", priority: 0.8 },

@@ -37,7 +37,7 @@ import type {
 } from "@/types/sanity";
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasLocaleContent } from "@/lib/shared/locale-content";
-import { LOCALE_CONFIG } from "@/constants/locales";
+import { DEFAULT_LOCALE, LOCALE_CONFIG } from "@/constants/locales";
 import { localizePath, resolveRootHref } from "@/constants/i18n-routes";
 import type { ReactNode } from "react";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
@@ -566,14 +566,14 @@ export async function CasePageView({
             {NICHE_LEAD[locale]}{" "}
             <Link
               href={
-                locale === "uk" ||
+                locale === DEFAULT_LOCALE ||
                 registry.get(locale)?.industries.has(doc.industry.slug)
                   ? localizePath(`/sites-for/${doc.industry.slug}`, locale)
                   : `/sites-for/${doc.industry.slug}`
               }
               className="rich-link"
             >
-              {locale === "uk"
+              {locale === DEFAULT_LOCALE
                 ? (NICHE_ANCHOR_UK[doc.industry.slug] ??
                   loc(doc.industry.title, locale))
                 : loc(doc.industry.title, locale)}

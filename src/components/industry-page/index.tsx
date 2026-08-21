@@ -1,6 +1,7 @@
 import { Fragment } from "react";
+import Link from "next/link";
 import { buildAlternates } from "@/lib/shared/alternates";
-import { LOCALE_CONFIG } from "@/constants/locales";
+import { DEFAULT_LOCALE, LOCALE_CONFIG } from "@/constants/locales";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -1107,6 +1108,27 @@ export async function IndustryPageView({
           <MedVitals locale={locale} />
           <MedBookingDemo locale={locale} />
           <MedPatientFlow locale={locale} />
+          {locale === DEFAULT_LOCALE ? (
+            /* Specialization subpages exist in the default locale only. */
+            <section className="bg-bg px-6 sm:px-8 lg:px-12 py-8">
+              <p className="max-w-container mx-auto m-0 font-sans text-[15.5px] leading-[1.65] text-ink-dim">
+                Окремі рішення під вашу спеціалізацію:{" "}
+                <Link
+                  href="/sites-for/medicine/stomatolohiia"
+                  className="rich-link"
+                >
+                  створення сайту для стоматології
+                </Link>
+                {" · "}
+                <Link
+                  href="/sites-for/medicine/medychnyi-tsentr"
+                  className="rich-link"
+                >
+                  розробка сайту для медичного центру
+                </Link>
+              </p>
+            </section>
+          ) : null}
         </>
       ) : null}
 
