@@ -161,7 +161,10 @@ export async function buildBlogPostMetadata(
  * anyone curating them by hand.
  */
 export async function fetchSiblingPosts(
-  currentUaSlug: string,
+  /** The CURRENT locale's slug — not the UA one. EN-market posts have no
+      UA slug, so matching on UA silently placed them at index 0 and broke
+      the rotation cycle for whichever post followed them. */
+  currentSlug: string,
   locale: Locale,
   want: number,
 ): Promise<BlogPostListItem[]> {
@@ -174,13 +177,11 @@ export async function fetchSiblingPosts(
     Boolean(p.slugs?.[locale]?.current && pickLocalized(p.title, locale)),
   );
   if (pool.length <= 1) return [];
-  const self = pool.findIndex(
-    (p) => p.slugs?.[DEFAULT_LOCALE]?.current === currentUaSlug,
-  );
+  const self = pool.findIndex((p) => p.slugs?.[locale]?.current === currentSlug);
   const out: BlogPostListItem[] = [];
   for (let i = 1; out.length < Math.min(want, pool.length - 1); i++) {
     const cand = pool[(Math.max(self, 0) + i) % pool.length];
-    if (cand.slugs?.[DEFAULT_LOCALE]?.current === currentUaSlug) continue;
+    if (cand.slugs?.[locale]?.current === currentSlug) continue;
     out.push(cand);
   }
   return out;

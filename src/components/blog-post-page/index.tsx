@@ -47,7 +47,6 @@ const BLOG_FORM_COPY: Record<
   },
 };
 import {
-  DEFAULT_LOCALE,
   LOCALE_CONFIG,
   SECONDARY_LOCALES,
   type Locale,
@@ -363,9 +362,8 @@ export async function BlogPostPageView({
   // nobody happened to pick those. Rotation walks the archive in publication
   // order, so it forms a cycle: every post is pointed at by its neighbour,
   // whatever the editors chose.
-  const uaSlug = post.slugs?.[DEFAULT_LOCALE]?.current ?? slug;
   const seen = new Set(curated.map((p) => p._id));
-  const rotating = (await fetchSiblingPosts(uaSlug, locale, 3)).filter(
+  const rotating = (await fetchSiblingPosts(slug, locale, 3)).filter(
     (p) => !seen.has(p._id),
   );
   const related = [...curated, ...rotating.slice(0, Math.max(1, 2 - curated.length))];
