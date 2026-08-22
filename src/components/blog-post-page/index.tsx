@@ -14,7 +14,7 @@ import { FAQ } from "@/components/blocks/final";
 import { LeadForm } from "@/components/blocks/lead-form";
 import "@/components/blocks/blog/blog.css";
 
-import { fetchBlogPost, fetchRelated } from "./data";
+import { fetchBlogPost, fetchRelated, fetchSiblingPosts } from "./data";
 
 export {
   buildBlogPostMetadata,
@@ -356,7 +356,19 @@ export async function BlogPostPageView({
       ? formatDate(post.updatedAt, locale)
       : undefined;
 
-  const related = await fetchRelated(post.relatedPostSlugs, locale);
+  const curated = await fetchRelated(post.relatedPostSlugs, locale);
+  // ALWAYS add one rotating sibling on top of the curated picks. Curation
+  // alone left four UA posts with a single in-body inbound link (only the
+  // /blog index pointed at them), because every post curates two others and
+  // nobody happened to pick those. Rotation walks the archive in publication
+  // order, so it forms a cycle: every post is pointed at by its neighbour,
+  // whatever the editors chose.
+  const uaSlug = post.slugs?.[DEFAULT_LOCALE]?.current ?? slug;
+  const seen = new Set(curated.map((p) => p._id));
+  const rotating = (await fetchSiblingPosts(uaSlug, locale, 3)).filter(
+    (p) => !seen.has(p._id),
+  );
+  const related = [...curated, ...rotating.slice(0, Math.max(1, 2 - curated.length))];
   const heroCover = resolveBlogCover(post, locale);
   const commercial = post.category?.slug
     ? (CATEGORY_COMMERCIAL[post.category.slug] ?? CATEGORY_COMMERCIAL.platforms)
@@ -417,7 +429,15 @@ export async function BlogPostPageView({
                     className="rounded-full border border-line block"
                   />
                 ) : null}
-                <span className="text-ink-dim">{post.author.name}</span>
+                {/* The byline links the studio page: it is the natural
+                    place a reader checks who wrote this, and it is what
+                    gives /about in-body inbound links from the archive. */}
+                <Link
+                  href={resolveRootHref("/about", locale)}
+                  className="text-ink-dim no-underline transition-colors hover:text-ink"
+                >
+                  {post.author.name}
+                </Link>
                 {post.author.role ? (
                   <span className="opacity-60">· {post.author.role}</span>
                 ) : null}
@@ -496,7 +516,7 @@ export async function BlogPostPageView({
                 <h2 className={hpH2Class}>{labels.relatedHeading}</h2>
               </div>
               <div className={casesGridClass}>
-                {related.slice(0, 2).map((p) => {
+                {related.slice(0, 3).map((p) => {
                   const pSlug = p.slugs?.[locale]?.current ?? "";
                   const reading = p.readingTimeMinutes
                     ? labels.minRead(p.readingTimeMinutes)

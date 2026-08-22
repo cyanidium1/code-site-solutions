@@ -21,7 +21,7 @@ import type { LandingPageContent } from "@/types/landing";
 export const LANDING_RU: LandingPageContent = {
   metaTitle: "ᐈ Лендинг под ключ от $800 | Разработка лендингов | Code-Site.Art",
   metaDescription:
-    "➤ Лендинг на custom-коде от $800 за 1–2 недели ✔️ Дизайн, тексты, вёрстка, запуск и год поддержки включены ✔️ Фиксированная цена в договоре ➡ Рассчитайте свой лендинг.",
+    "➤ Лендинг на custom-коде от $800 за 1–2 недели ✔️ Дизайн, тексты, вёрстка и запуск включены ✔️ Фиксированная цена в договоре ➡ Рассчитайте лендинг.",
   breadcrumbHome: "Главная",
   breadcrumbSelf: "Лендинг",
   hero: {

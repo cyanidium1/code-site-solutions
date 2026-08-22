@@ -55,6 +55,15 @@ const nextConfig: NextConfig = {
         statusCode: 301,
       },
       // GSC hard 404s → current equivalents.
+      // Round 2: the seeded "skilky-koshtuye-zrobyty-sait-2026" article was
+      // withdrawn as a cannibal of vartist-rozrobky-saytu-2026 (same intent,
+      // and /pricing now targets that cluster too). Its phrases were folded
+      // into the surviving article; the slug 301s there.
+      {
+        source: "/blog/skilky-koshtuye-zrobyty-sait-2026",
+        destination: "/blog/vartist-rozrobky-saytu-2026",
+        statusCode: 301,
+      },
       { source: "/services", destination: "/pricing", statusCode: 301 },
       { source: "/uk", destination: "/", statusCode: 301 },
       { source: "/uk/legal", destination: "/legal", statusCode: 301 },

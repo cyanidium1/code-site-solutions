@@ -13,6 +13,7 @@ import { getContentRegistrySafe, toWire } from "@/lib/server/i18n-registry";
 import { fetchCaseStudyCount } from "@/lib/server/fetch-case-study-count";
 import { CaseCountProvider } from "@/components/layout/case-count-provider";
 import { I18nRegistryProvider } from "@/components/layout/i18n-registry-provider";
+import { LanguageBanner } from "@/components/layout/language-banner";
 import { GoogleTagManager } from "@/components/analytics/google-tag-manager";
 import { ConsentBootstrap } from "@/lib/cookie-consent";
 
@@ -113,6 +114,10 @@ export default async function UkRootLayout({
         <NextIntlClientProvider locale="uk" messages={ukMessages}>
           <Providers>
             <I18nRegistryProvider value={i18nRegistry}>
+              {/* Client-rendered: keeps the server HTML identical for every
+                  visitor so `/` stays CDN-cacheable without Vary. Replaces
+                  the old Accept-Language redirect (see src/middleware.ts). */}
+              <LanguageBanner />
               <CaseCountProvider count={caseCount}>{children}</CaseCountProvider>
             </I18nRegistryProvider>
           </Providers>

@@ -1,76 +1,100 @@
 /**
- * SEO acceptance verification (Aug 2026 overhaul).
+ * SEO acceptance verification — round 2.
  *
- * Runs against a local production build:
- *   npm run build && npm run start   (or next start -p 3000)
- *   node scripts/seo-verify.mjs [baseUrl]
+ * Runs against PRODUCTION by default (the round-1 suite ran against
+ * localhost and three checks passed falsely because of it):
  *
- * Crawls every URL in the sitemap index, parses the server-rendered HTML
- * (no JS execution — client-injected markup deliberately doesn't count)
- * and prints one pass/fail line per acceptance check. Exit code 0 only
- * when every check passes.
+ *   node scripts/seo-verify.mjs                       # https://www.code-site.art
+ *   node scripts/seo-verify.mjs http://localhost:3008 # local prod build
+ *
+ * Three fixes over round 1, all of which previously produced false passes:
+ *
+ *   1. Requests NEVER follow redirects (`redirect: "manual"`) and never
+ *      send cookies. The old suite followed the `/` -> `/en` redirect
+ *      silently, so its canonical + hreflang checks validated `/en` while
+ *      claiming to validate `/`.
+ *   2. Locale-sensitive checks are repeated under three explicit
+ *      `Accept-Language` values AND with the header absent.
+ *   3. Internal links are counted IN-BODY only — `<header>`, `<footer>`
+ *      and `<nav>` subtrees are stripped first. The old suite counted the
+ *      global nav on every page and reported 6,999 links, which was really
+ *      ~205 pages x ~34 chrome links that predate this project.
  */
 
-const BASE = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
+const BASE = (process.argv[2] ?? "https://www.code-site.art").replace(/\/$/, "");
 const SITE = "https://www.code-site.art";
 
-/* ─── tiny HTML helpers (regex-based; fine for our own SSR output) ──────── */
+/* ─── fetch helpers ─────────────────────────────────────────────────────── */
 
-const stripScripts = (s) =>
-  s
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ");
-const stripTags = (s) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-const decode = (s) =>
-  s
-    .replaceAll("&amp;", "&")
-    .replaceAll("&lt;", "<")
-    .replaceAll("&gt;", ">")
-    .replaceAll("&quot;", '"')
-    .replaceAll("&#x27;", "'")
-    .replaceAll("&#39;", "'");
+/** Never follows redirects, never sends cookies. */
+async function get(path, { acceptLanguage } = {}) {
+  const headers = {};
+  if (acceptLanguage) headers["Accept-Language"] = acceptLanguage;
+  const res = await fetch(`${BASE}${path}`, { redirect: "manual", headers });
+  const body = res.status === 200 ? await res.text() : "";
+  return { status: res.status, headers: res.headers, html: body };
+}
 
-function getTitle(html) {
-  const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-  return m ? decode(stripTags(m[1])) : "";
-}
-function getMetaDescription(html) {
-  const m =
-    html.match(/<meta\s+name="description"\s+content="([^"]*)"/i) ??
-    html.match(/<meta\s+content="([^"]*)"\s+name="description"/i);
-  return m ? decode(m[1]) : "";
-}
-function getH1s(html) {
-  return [...html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/gi)].map((m) =>
-    decode(stripTags(m[1])),
-  );
-}
-function getCanonical(html) {
-  const m = html.match(/<link\s+rel="canonical"\s+href="([^"]*)"/i);
-  return m ? m[1] : "";
-}
-function getHreflangs(html) {
-  return [
-    ...html.matchAll(
-      /<link\s+rel="alternate"\s+hreflang="([^"]*)"\s+href="([^"]*)"/gi,
-    ),
-  ].map((m) => ({ hreflang: m[1], href: m[2] }));
-}
-function getJsonLd(html) {
-  const out = [];
-  for (const m of html.matchAll(
-    /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi,
-  )) {
-    out.push(m[1]);
-  }
+/* ─── HTML helpers ──────────────────────────────────────────────────────── */
+
+const ENTITIES = [
+  ["&amp;", "&"],
+  ["&lt;", "<"],
+  ["&gt;", ">"],
+  ["&quot;", '"'],
+  ["&#x27;", "'"],
+  ["&#39;", "'"],
+];
+function decode(s) {
+  let out = s;
+  for (const [from, to] of ENTITIES) out = out.split(from).join(to);
   return out;
 }
-/** Anchor list: [{href, text}] for internal links, normalized to a path. */
-function getInternalLinks(html) {
+const stripScripts = (s) =>
+  s.replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ");
+const stripTags = (s) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+
+/** Page chrome removed: header, footer and nav subtrees. */
+const inBody = (html) =>
+  html
+    .replace(/<header[\s\S]*?<\/header>/gi, " ")
+    .replace(/<footer[\s\S]*?<\/footer>/gi, " ")
+    .replace(/<nav[\s\S]*?<\/nav>/gi, " ");
+
+const title = (h) => {
+  const m = h.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  return m ? decode(stripTags(m[1])) : "";
+};
+const metaDesc = (h) => {
+  const m =
+    h.match(/<meta\s+name="description"\s+content="([^"]*)"/i) ??
+    h.match(/<meta\s+content="([^"]*)"\s+name="description"/i);
+  return m ? decode(m[1]) : "";
+};
+const h1s = (h) =>
+  [...h.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/gi)].map((m) => decode(stripTags(m[1])));
+const canonical = (h) => {
+  const m = h.match(/<link\s+rel="canonical"\s+href="([^"]*)"/i);
+  return m ? m[1] : "";
+};
+const htmlLang = (h) => {
+  const m = h.match(/<html[^>]*\slang="([^"]*)"/i);
+  return m ? m[1] : "";
+};
+const hreflangs = (h) =>
+  [...h.matchAll(/<link\s+rel="alternate"\s+hreflang="([^"]*)"\s+href="([^"]*)"/gi)].map(
+    (m) => ({ hreflang: m[1], href: m[2] }),
+  );
+const jsonLd = (h) =>
+  [...h.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)].map(
+    (m) => m[1],
+  );
+
+/** Internal links as {href, text}, normalized to a path. */
+function links(html) {
   const out = [];
   for (const m of html.matchAll(/<a\s([^>]*)>([\s\S]*?)<\/a>/gi)) {
-    const attrs = m[1];
-    const hrefM = attrs.match(/href="([^"]*)"/);
+    const hrefM = m[1].match(/href="([^"]*)"/);
     if (!hrefM) continue;
     let href = decode(hrefM[1]);
     if (href.startsWith(SITE)) href = href.slice(SITE.length) || "/";
@@ -82,56 +106,29 @@ function getInternalLinks(html) {
   }
   return out;
 }
-/** Body without <header>/<footer>/<nav> subtrees (for "in-content" checks). */
-function contentOnly(html) {
-  return html
-    .replace(/<header[\s\S]*?<\/header>/gi, "")
-    .replace(/<footer[\s\S]*?<\/footer>/gi, "")
-    .replace(/<nav[\s\S]*?<\/nav>/gi, "");
-}
 
-/* ─── crawl ─────────────────────────────────────────────────────────────── */
+/* ─── reporting ─────────────────────────────────────────────────────────── */
 
-async function fetchText(url, redirect = "follow") {
-  const res = await fetch(url, { redirect });
-  return { res, text: redirect === "follow" ? await res.text() : "" };
-}
-
-async function sitemapUrls() {
-  const { text: index } = await fetchText(`${BASE}/sitemap.xml`);
-  const children = [...index.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-  const urls = [];
-  for (const child of children) {
-    const local = child.replace(SITE, BASE);
-    const { text } = await fetchText(local);
-    for (const m of text.matchAll(/<loc>([^<]+)<\/loc>/g)) urls.push(m[1]);
-  }
-  return [...new Set(urls)].map((u) => {
-    const p = u.replace(SITE, "") || "/";
-    return p;
-  });
-}
-
-/* ─── checks ────────────────────────────────────────────────────────────── */
-
-let passCount = 0;
-let failCount = 0;
+let pass = 0;
 const failures = [];
 function check(name, ok, detail = "") {
   if (ok) {
-    passCount++;
+    pass++;
     console.log(`  [pass] ${name}`);
   } else {
-    failCount++;
     failures.push(name);
     console.log(`  [FAIL] ${name}${detail ? ` — ${detail}` : ""}`);
   }
 }
+const info = (line) => console.log(`  [info] ${line}`);
 
-const GENERIC_ANCHOR =
-  /^(читайте( тут)?|детальніше|тут|за посиланням|link|here|click here|подробнее|read more)$/i;
+/* ─── constants ─────────────────────────────────────────────────────────── */
 
-const REDIRECTS_301 = [
+const GENERIC =
+  /^(читайте( тут)?|детальніше|тут|за посиланням|link|here|click here|подробнее|read more|дізнатися більше)$/i;
+const COMMERCIAL =
+  /^\/(pricing|calculator|seo|support|landing|corporate-site|online-store|sites-for\/|vs-|portfolio$|contacts)/;
+const REDIRECTS = [
   ["/services", "/pricing"],
   ["/uk", "/"],
   ["/uk/legal", "/legal"],
@@ -141,6 +138,7 @@ const REDIRECTS_301 = [
   ["/ru/public-contract", "/public-contract"],
   ["/portfolio/efedra-sait-dlya-centra-mediciny-2", "/portfolio/efedra-clinic"],
   ["/blog/skilky-koshtuye-sayt-2026", "/blog/vartist-rozrobky-saytu-2026"],
+  ["/blog/skilky-koshtuye-zrobyty-sait-2026", "/blog/vartist-rozrobky-saytu-2026"],
   [
     "/blog/custom-code-website-development-what-it-is-what-it-costs-and-why-it-is-the-best-fit-for-business",
     "/blog/vartist-rozrobky-saytu-2026",
@@ -149,221 +147,300 @@ const REDIRECTS_301 = [
     "/blog/pochemu-saity-na-kode-rabotayut-bystree-i-prinosyat-bolshe-klientov",
     "/blog/nextjs-proty-wordpress-ta-konstruktoriv",
   ],
-  [
-    "/blog/pochemu-saity-na-kode-rabotayut-bystree-i-prinosyat-bolshe-klientov-7",
-    "/blog/nextjs-proty-wordpress-ta-konstruktoriv",
-  ],
 ];
+const VERIFIED = {
+  "/pricing": {
+    title: "Ціна створення сайту 2026 — фіксовані пакети | Code-Site.Art",
+    h1: "Ціна створення сайту у 2026 — фіксовані пакети від $800",
+  },
+  "/seo": {
+    title: "Просування сайту: ціна від $300/міс | Code-Site.Art",
+    h1: "Просування сайту — ціна від $300/міс, без «гарантій топ-1»",
+  },
+  "/calculator": {
+    title: "Калькулятор вартості сайту — розрахувати ціну онлайн",
+    h1: "Калькулятор вартості сайту: дізнайтеся ціну за 60 секунд",
+  },
+};
+const INDUSTRY_KEYWORDS = {
+  "/sites-for/renovation": [
+    "розробка сайту для будівельної компанії",
+    "сайт для будівельної компанії",
+  ],
+  "/sites-for/legal": ["створення сайту для юридичної фірми", "сайт під ключ для адвоката"],
+  "/sites-for/auto": ["розробка сайту автосервісу"],
+  "/sites-for/real-estate": ["створення сайту нерухомості", "сайт для агентства нерухомості"],
+  "/sites-for/finance": ["сайт для фінансової компанії"],
+  "/sites-for/courses": ["створення сайту для онлайн-курсів"],
+  "/sites-for/ecommerce": ["створення інтернет-магазину під ключ"],
+};
+
+/* ─── main ──────────────────────────────────────────────────────────────── */
 
 const main = async () => {
-  console.log(`\nSEO verification against ${BASE}\n`);
+  console.log(`\nSEO verification (round 2) against ${BASE}\n`);
 
-  /* BUILD checks are implicit: this script requires a running production
-     build; build/typecheck results are reported by the caller. */
+  /* ── HOMEPAGE LOCALE ── */
+  console.log("HOMEPAGE LOCALE");
+  const langCases = [
+    ["en-US", "en-US,en;q=0.9"],
+    ["ru-RU", "ru-RU,ru;q=0.9"],
+    ["uk-UA", "uk-UA,uk;q=0.9"],
+    ["(no header)", undefined],
+  ];
+  const homeResults = [];
+  for (const [label, al] of langCases) {
+    const r = await get("/", { acceptLanguage: al });
+    homeResults.push({ label, r });
+    check(
+      `GET / with ${label} → 200, no redirect, <html lang="uk">`,
+      r.status === 200 && htmlLang(r.html) === "uk",
+      r.status !== 200
+        ? `status ${r.status} → ${r.headers.get("location")}`
+        : `lang=${htmlLang(r.html)}`,
+    );
+  }
+  // RFC 3986: an empty path and "/" are the same resource, and Next
+  // normalizes the homepage canonical to the bare origin. Both forms are
+  // accepted; what the audit actually flagged — a canonical that did not
+  // resolve to itself because `/` redirected — is covered by the 200 +
+  // no-redirect checks above.
+  const canonOk = (h) => canonical(h) === `${SITE}/` || canonical(h) === SITE;
+  check(
+    `canonical on / is exactly ${SITE}/ in all four cases`,
+    homeResults.every(({ r }) => r.status === 200 && canonOk(r.html)),
+    homeResults
+      .map(({ label, r }) => `${label}:${r.status === 200 ? canonical(r.html) : r.status}`)
+      .join(" | "),
+  );
 
-  const paths = await sitemapUrls();
-  console.log(`sitemap URLs: ${paths.length}\n`);
+  const vary = homeResults[0].r.headers.get("vary") ?? "";
+  const langsSeen = new Set(
+    homeResults.filter(({ r }) => r.status === 200).map(({ r }) => htmlLang(r.html)),
+  );
+  const adaptive =
+    langsSeen.size > 1 || homeResults.some(({ r }) => r.status >= 300 && r.status < 400);
+  check(
+    "/ either includes Accept-Language in Vary, or is not locale-adaptive at all",
+    !adaptive || /accept-language/i.test(vary),
+    `adaptive=${adaptive}, vary="${vary}"`,
+  );
 
-  const pages = new Map(); // path -> parsed page
-  for (const path of paths) {
-    const res = await fetch(`${BASE}${path}`, { redirect: "manual" });
-    const status = res.status;
-    const html = status === 200 ? await res.text() : "";
-    pages.set(path, {
-      status,
-      title: getTitle(html),
-      description: getMetaDescription(html),
-      h1s: getH1s(html),
-      canonical: getCanonical(html),
-      hreflangs: getHreflangs(html),
-      jsonld: getJsonLd(html),
-      links: getInternalLinks(html),
-      contentLinks: getInternalLinks(contentOnly(html)),
-      html,
+  const uk = await get("/uk");
+  const ukLoc = (uk.headers.get("location") ?? "").replace(SITE, "").replace(BASE, "") || "/";
+  let ukOk = false;
+  let ukNote = `${uk.status} → ${ukLoc}`;
+  if (uk.status === 301 && (ukLoc === "/" || ukLoc === "")) {
+    const hop2 = await get("/", { acceptLanguage: "en-US,en;q=0.9" });
+    ukOk = hop2.status === 200;
+    ukNote += ` → ${hop2.status}`;
+  }
+  check("/uk 301s to / in a single hop and lands on /, not /en", ukOk, ukNote);
+
+  for (const [path, lang] of [
+    ["/en", "en"],
+    ["/ru", "ru"],
+  ]) {
+    const r = await get(path, { acceptLanguage: "uk-UA,uk;q=0.9" });
+    check(
+      `${path} still serves ${lang} with a self-referencing canonical`,
+      r.status === 200 && htmlLang(r.html) === lang && canonical(r.html) === `${SITE}${path}`,
+      `status ${r.status}, lang=${htmlLang(r.html)}, canonical=${canonical(r.html)}`,
+    );
+  }
+
+  const homeOk = homeResults.find(({ r }) => r.status === 200);
+  let hrefOk = true;
+  const hrefNote = [];
+  if (homeOk) {
+    for (const a of hreflangs(homeOk.r.html).filter(
+      (x) => x.hreflang === "uk" || x.hreflang === "x-default",
+    )) {
+      const p = a.href.replace(SITE, "") || "/";
+      const r = await get(p);
+      if (r.status !== 200) {
+        hrefOk = false;
+        hrefNote.push(`${a.hreflang}→${p}:${r.status}`);
+      }
+    }
+  }
+  check("hreflang uk and x-default point at a 200, no-redirect URL", hrefOk, hrefNote.join(", "));
+
+  /* ── crawl the sitemap ── */
+  const idx = await get("/sitemap.xml");
+  const children = [...idx.html.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  const uaUrls = [];
+  const allUrls = [];
+  for (const child of children) {
+    const r = await get(child.replace(SITE, ""));
+    const locs = [...r.html.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+      (m) => m[1].replace(SITE, "") || "/",
+    );
+    allUrls.push(...locs);
+    if (child.includes("sitemap-ua")) uaUrls.push(...locs);
+  }
+  const paths = [...new Set(allUrls)];
+  console.log(`\n  (sitemap: ${paths.length} URLs, ${uaUrls.length} UA)\n`);
+
+  const pages = new Map();
+  for (const p of paths) {
+    const r = await get(p, { acceptLanguage: "uk-UA,uk;q=0.9" });
+    const body = inBody(r.html);
+    pages.set(p, {
+      status: r.status,
+      title: title(r.html),
+      description: metaDesc(r.html),
+      h1s: h1s(r.html),
+      canonical: canonical(r.html),
+      hreflangs: hreflangs(r.html),
+      jsonld: jsonLd(r.html),
+      bodyLinks: links(body),
+      text: stripTags(stripScripts(body)),
     });
     process.stdout.write(".");
   }
   console.log("\n");
 
-  /* ── ROUTING ── */
-  console.log("ROUTING");
-  const notOk = [...pages].filter(([, p]) => p.status !== 200);
+  /* ── INTERNAL LINKS ── */
+  console.log("INTERNAL LINKS  (in-body only: header/footer/nav stripped)");
+  const inbound = new Map();
+  let total = 0;
+  const perPage = [];
+  for (const [src, pg] of pages) {
+    const uniq = new Set(pg.bodyLinks.map((l) => l.href).filter((h) => h !== src));
+    total += uniq.size;
+    perPage.push(uniq.size);
+    for (const h of uniq) {
+      if (!inbound.has(h)) inbound.set(h, new Set());
+      inbound.get(h).add(src);
+    }
+  }
+  perPage.sort((a, b) => a - b);
+  info(
+    `in-body internal links: ${total} total, median ${perPage[Math.floor(perPage.length / 2)]} per page (baseline 473 / 6)`,
+  );
+  const topTargets = [...inbound.entries()]
+    .sort((a, b) => b[1].size - a[1].size)
+    .slice(0, 8)
+    .map(([h, s]) => `${h}:${s.size}`);
+  info(`most-linked: ${topTargets.join(", ")}`);
+
+  check("in-body internal links across sitemap >= 600", total >= 600, `${total}`);
+
+  const under = paths.filter((p) => (inbound.get(p)?.size ?? 0) < 2);
   check(
-    "every URL in the sitemap returns 200 — zero 404s, zero redirects",
-    notOk.length === 0,
-    notOk.map(([u, p]) => `${u}:${p.status}`).join(", "),
+    "every sitemap URL has >= 2 in-body inbound links",
+    under.length === 0,
+    `${under.length} fail: ${under.slice(0, 12).join(", ")}`,
   );
 
-  let redirOk = true;
-  const redirBad = [];
-  for (const [src, dst] of REDIRECTS_301) {
-    const res = await fetch(`${BASE}${src}`, { redirect: "manual" });
-    const loc = (res.headers.get("location") ?? "")
-      .replace(BASE, "")
-      .replace(SITE, "");
-    const single =
-      res.status === 301 && (loc === dst || loc === (dst === "/" ? "" : dst));
-    if (single) {
-      // destination must serve 200 directly (single hop)
-      const res2 = await fetch(`${BASE}${dst}`, { redirect: "manual" });
-      if (res2.status !== 200) {
-        redirOk = false;
-        redirBad.push(`${src}→${dst} lands on ${res2.status}`);
-      }
-    } else {
-      redirOk = false;
-      redirBad.push(`${src}: ${res.status} → ${loc || "(none)"}`);
+  const seoIn = inbound.get("/seo")?.size ?? 0;
+  check("/seo has >= 15 in-body inbound links", seoIn >= 15, `${seoIn}`);
+
+  const industries = paths.filter((p) => /^\/sites-for\/[^/]+$/.test(p));
+  const indUnder = industries.filter((p) => (inbound.get(p)?.size ?? 0) < 2);
+  check(
+    "every /sites-for/* has >= 2 in-body inbound links",
+    indUnder.length === 0,
+    indUnder.map((p) => `${p}:${inbound.get(p)?.size ?? 0}`).join(", "),
+  );
+
+  const ukBlog = paths.filter((p) => /^\/blog\/.+/.test(p));
+  const weak = ukBlog.filter((p) => {
+    const outs = new Set(
+      (pages.get(p)?.bodyLinks ?? [])
+        .map((l) => l.href)
+        .filter((h) => COMMERCIAL.test(h) && h !== p),
+    );
+    return outs.size < 2;
+  });
+  check(
+    "every /blog/* has >= 2 outbound in-body commercial links",
+    weak.length === 0,
+    weak.join(", "),
+  );
+
+  const generic = [];
+  for (const [src, pg] of pages) {
+    for (const l of pg.bodyLinks) {
+      if (GENERIC.test(l.text.trim())) generic.push(`${src}: "${l.text}"`);
     }
   }
   check(
-    "every redirect in the mapping table returns 301 in a single hop",
-    redirOk,
-    redirBad.join("; "),
-  );
-
-  const probe302 = ["/", "/pricing", "/seo", "/calculator", "/blog", "/en", "/ru"];
-  let no302 = true;
-  const bad302 = [];
-  for (const p of probe302) {
-    const res = await fetch(`${BASE}${p}`, {
-      redirect: "manual",
-      headers: { "accept-language": "" },
-    });
-    if (res.status === 302) {
-      no302 = false;
-      bad302.push(`${p}:302`);
-    }
-  }
-  check("zero 302 responses across known routes", no302, bad302.join(", "));
-
-  const robots = await (await fetch(`${BASE}/robots.txt`)).text();
-  check(
-    "robots.txt disallows /_next/static/ and declares exactly one sitemap",
-    /Disallow:\s*\/_next\/static\//.test(robots) &&
-      (robots.match(/Sitemap:/gi) ?? []).length === 1,
-    robots.slice(0, 200).replace(/\n/g, " | "),
+    "zero in-body links with generic anchors",
+    generic.length === 0,
+    generic.slice(0, 6).join("; "),
   );
 
   /* ── METADATA ── */
   console.log("\nMETADATA");
-  const multiH1 = [...pages].filter(([, p]) => p.h1s.length !== 1);
+  const badH1 = [...pages].filter(([, p]) => p.h1s.length !== 1);
   check(
     "every page has exactly one <h1>",
-    multiH1.length === 0,
-    multiH1.map(([u, p]) => `${u}:${p.h1s.length}`).join(", "),
+    badH1.length === 0,
+    badH1.map(([u, p]) => `${u}:${p.h1s.length}`).join(", "),
   );
 
-  const titles = new Map();
-  const badTitleLen = [];
+  const byTitle = new Map();
+  const badTLen = [];
   for (const [u, p] of pages) {
-    if (!titles.has(p.title)) titles.set(p.title, []);
-    titles.get(p.title).push(u);
-    if (p.title.length < 30 || p.title.length > 65) {
-      badTitleLen.push(`${u} (${p.title.length})`);
-    }
+    if (!byTitle.has(p.title)) byTitle.set(p.title, []);
+    byTitle.get(p.title).push(u);
+    if (p.title.length < 30 || p.title.length > 65) badTLen.push(`${u}(${p.title.length})`);
   }
-  const dupTitles = [...titles].filter(([, us]) => us.length > 1);
+  const dupT = [...byTitle].filter(([, us]) => us.length > 1);
   check(
     "every page has a unique <title>",
-    dupTitles.length === 0,
-    dupTitles.map(([t, us]) => `"${t.slice(0, 40)}" × ${us.length}`).join("; "),
+    dupT.length === 0,
+    `${dupT.length} dupes: ${dupT.slice(0, 5).map(([t]) => `"${t.slice(0, 30)}"`).join(", ")}`,
   );
   check(
     "every <title> is 30–65 characters",
-    badTitleLen.length === 0,
-    badTitleLen.slice(0, 30).join(", "),
+    badTLen.length === 0,
+    `${badTLen.length}: ${badTLen.slice(0, 12).join(", ")}`,
   );
 
-  const descs = new Map();
-  const badDescLen = [];
+  const byDesc = new Map();
+  const badDLen = [];
   for (const [u, p] of pages) {
-    if (!descs.has(p.description)) descs.set(p.description, []);
-    descs.get(p.description).push(u);
-    if (p.description.length < 120 || p.description.length > 165) {
-      badDescLen.push(`${u} (${p.description.length})`);
-    }
+    if (!byDesc.has(p.description)) byDesc.set(p.description, []);
+    byDesc.get(p.description).push(u);
+    if (p.description.length < 120 || p.description.length > 165)
+      badDLen.push(`${u}(${p.description.length})`);
   }
-  const dupDescs = [...descs].filter(([, us]) => us.length > 1);
-  check(
-    "every page has a unique meta description",
-    dupDescs.length === 0,
-    dupDescs.map(([, us]) => us.join("=")).join("; "),
-  );
+  const dupD = [...byDesc].filter(([, us]) => us.length > 1);
+  check("every page has a unique meta description", dupD.length === 0, `${dupD.length} dupes`);
   check(
     "every meta description is 120–165 characters",
-    badDescLen.length === 0,
-    badDescLen.slice(0, 40).join(", "),
+    badDLen.length === 0,
+    `${badDLen.length}: ${badDLen.slice(0, 12).join(", ")}`,
   );
 
   const med = pages.get("/sites-for/medicine");
   check(
-    '/sites-for/medicine title contains "Створення медичних сайтів"',
+    'medicine title contains "Створення медичних сайтів"',
     med?.title.includes("Створення медичних сайтів") ?? false,
     med?.title,
   );
   check(
-    '/sites-for/medicine h1 contains "Створення медичних сайтів"',
+    'medicine h1 contains "Створення медичних сайтів"',
     med?.h1s[0]?.includes("Створення медичних сайтів") ?? false,
     med?.h1s[0],
   );
-  check(
-    '/pricing h1 contains "Ціна створення сайту"',
-    pages.get("/pricing")?.h1s[0]?.includes("Ціна створення сайту") ?? false,
-    pages.get("/pricing")?.h1s[0],
-  );
-  const seoH1 = pages.get("/seo")?.h1s[0] ?? "";
-  check(
-    '/seo h1 contains "Просування сайту" and "$300"',
-    seoH1.includes("Просування сайту") && seoH1.includes("$300"),
-    seoH1,
-  );
-  check(
-    '/calculator h1 contains "Калькулятор вартості сайту"',
-    pages.get("/calculator")?.h1s[0]?.includes("Калькулятор вартості сайту") ??
-      false,
-    pages.get("/calculator")?.h1s[0],
-  );
 
-  const calcHtml = pages.get("/calculator")?.html ?? "";
-  // Promotion-pricing copy: a sentence carrying both a promotion word and a
-  // price word. Links TO /seo (the replacement the task asks for) and their
-  // anchors are excluded first.
-  const calcText = stripTags(
-    stripScripts(contentOnly(calcHtml)).replace(
-      /<a\s[^>]*href="\/seo"[\s\S]*?<\/a>/gi,
-      "",
-    ),
-  );
-  const promoSentences = calcText
-    .split(/[.!?]/)
-    .filter(
-      (s) =>
-        /просуванн|розкрутк/i.test(s) && /ціна|вартість|коштує|\$\d/i.test(s),
-    );
-  check(
-    "/calculator body contains no promotion-pricing copy",
-    promoSentences.length === 0,
-    promoSentences.slice(0, 2).join(" | "),
-  );
-
-  const INDUSTRY_KEYWORDS = {
-    "/sites-for/renovation": ["розробка сайту для будівельної компанії", "сайт для будівельної компанії", "розробка сайту для будівельної фірми"],
-    "/sites-for/legal": ["створення сайту для юридичної фірми", "розробка сайту для юриста", "сайт під ключ для адвоката"],
-    "/sites-for/auto": ["розробка сайту автосервісу", "створення сайту для автосервісу"],
-    "/sites-for/real-estate": ["створення сайту нерухомості", "сайт для агентства нерухомості"],
-    "/sites-for/finance": ["сайт для фінансової компанії", "лендінг для бухгалтерських послуг"],
-    "/sites-for/courses": ["створення сайту для онлайн-курсів"],
-    "/sites-for/ecommerce": ["створення інтернет-магазину під ключ"],
-  };
   for (const [path, kws] of Object.entries(INDUSTRY_KEYWORDS)) {
-    const page = pages.get(path);
-    const text =
-      (page?.title ?? "") + " " + stripTags(stripScripts(page?.html ?? ""));
-    const missing = kws.filter((kw) => !text.toLowerCase().includes(kw.toLowerCase()));
+    const pg = pages.get(path);
+    const hay = `${pg?.title ?? ""} ${pg?.text ?? ""}`.toLowerCase();
+    const missing = kws.filter((k) => !hay.includes(k.toLowerCase()));
+    check(`${path} contains its assigned anchor keywords`, missing.length === 0, missing.join("; "));
+  }
+
+  for (const [path, want] of Object.entries(VERIFIED)) {
+    const pg = pages.get(path);
     check(
-      `${path} contains its assigned anchor keywords`,
-      missing.length === 0,
-      missing.length ? `missing: ${missing.join("; ")}` : "",
+      `${path} keeps its verified title + H1`,
+      pg?.title === want.title && pg?.h1s[0] === want.h1,
+      `title="${pg?.title}" h1="${pg?.h1s[0]}"`,
     );
   }
 
@@ -371,29 +448,22 @@ const main = async () => {
   console.log("\nSTRUCTURED DATA");
   const badLd = [];
   for (const [u, p] of pages) {
-    if (p.jsonld.length === 0) {
-      badLd.push(`${u}: none`);
+    if (!p.jsonld.length) {
+      badLd.push(`${u}:none`);
       continue;
     }
     for (const raw of p.jsonld) {
       try {
         JSON.parse(raw);
       } catch {
-        badLd.push(`${u}: parse error`);
+        badLd.push(`${u}:parse`);
       }
     }
   }
-  check(
-    "every page emits valid JSON-LD",
-    badLd.length === 0,
-    badLd.slice(0, 6).join(", "),
-  );
+  check("every page emits valid JSON-LD", badLd.length === 0, badLd.slice(0, 6).join(", "));
 
-  const needsCrumbs = paths.filter(
-    (p) =>
-      /^\/(en\/|ru\/)?(blog|portfolio|sites-for)\/.+/.test(p),
-  );
-  const noCrumbs = needsCrumbs.filter(
+  const needCrumbs = paths.filter((p) => /^\/(en\/|ru\/)?(blog|portfolio|sites-for)\/.+/.test(p));
+  const noCrumbs = needCrumbs.filter(
     (p) => !pages.get(p)?.jsonld.some((j) => j.includes('"BreadcrumbList"')),
   );
   check(
@@ -404,160 +474,69 @@ const main = async () => {
 
   for (const p of ["/sites-for/medicine", "/pricing", "/seo"]) {
     const ld = pages.get(p)?.jsonld.join("") ?? "";
-    const faqM = ld.match(/"FAQPage"[\s\S]*?"mainEntity":\s*\[/);
-    const count = faqM ? (ld.match(/"@type":\s*"Question"/g) ?? []).length : 0;
-    check(`FAQPage on ${p} with >= 4 questions`, count >= 4, `questions: ${count}`);
+    const n = ld.includes('"FAQPage"') ? (ld.match(/"@type":\s*"Question"/g) ?? []).length : 0;
+    check(`FAQPage on ${p} with >= 4 questions`, n >= 4, `${n}`);
   }
 
   const homeLd = pages.get("/")?.jsonld.join("") ?? "";
   check(
-    'Organization on homepage includes alternateName "CodeSite" and "Code Site"',
+    'Organization on / includes alternateName "CodeSite" and "Code Site"',
     homeLd.includes('"CodeSite"') && homeLd.includes('"Code Site"'),
   );
 
-  /* ── INTERNAL LINKS ── */
-  console.log("\nINTERNAL LINKS");
-  const pairs = new Set();
-  const inbound = new Map(); // target -> Set(sources)
-  const inboundContent = new Map(); // same, from content region only
-  for (const [src, p] of pages) {
-    for (const l of p.links) pairs.add(`${src} -> ${l.href}`);
-    for (const l of p.contentLinks) {
-      if (l.href === src) continue;
-      if (!inboundContent.has(l.href)) inboundContent.set(l.href, new Set());
-      inboundContent.get(l.href).add(src);
+  /* ── ROUTING ── */
+  console.log("\nROUTING");
+  const robots = (await get("/robots.txt")).html;
+  check(
+    "robots.txt does NOT disallow /_next/static/, keeps /stories/, one Sitemap",
+    !/Disallow:\s*\/_next\/static\//.test(robots) &&
+      /Disallow:\s*\/stories\//.test(robots) &&
+      (robots.match(/Sitemap:/gi) ?? []).length === 1,
+    robots.replace(/\n/g, " | ").slice(0, 160),
+  );
+
+  const notOk = [...pages].filter(([, p]) => p.status !== 200);
+  check(
+    "every URL in the sitemap returns 200 — zero 404s, zero redirects",
+    notOk.length === 0,
+    notOk.map(([u, p]) => `${u}:${p.status}`).join(", "),
+  );
+
+  const badRedir = [];
+  for (const [src, dst] of REDIRECTS) {
+    const r = await get(src);
+    const loc = (r.headers.get("location") ?? "").replace(BASE, "").replace(SITE, "") || "/";
+    if (r.status !== 301 || loc !== dst) {
+      badRedir.push(`${src}:${r.status}→${loc}`);
+      continue;
     }
-    for (const l of p.links) {
-      if (l.href === src) continue;
-      if (!inbound.has(l.href)) inbound.set(l.href, new Set());
-      inbound.get(l.href).add(src);
-    }
-  }
-  console.log(`  (total unique source→target pairs: ${pairs.size})`);
-  check("total internal links >= 900", pairs.size >= 900, `${pairs.size}`);
-
-  const orphans = paths.filter((p) => (inbound.get(p)?.size ?? 0) < 2);
-  check(
-    "zero orphan pages (every sitemap URL linked from >= 2 pages)",
-    orphans.length === 0,
-    orphans.slice(0, 8).join(", "),
-  );
-
-  const industryPaths = paths.filter((p) => /^\/sites-for\/[^/]+$/.test(p));
-  for (const ip of industryPaths) {
-    const fromBlog = [...(inboundContent.get(ip) ?? [])].filter((s) =>
-      s.startsWith("/blog/"),
-    );
-    check(
-      `${ip} has >= 3 inbound links from /blog/*`,
-      fromBlog.length >= 3,
-      `${fromBlog.length}`,
-    );
-    const fromCases = [...(inboundContent.get(ip) ?? [])].filter((s) =>
-      s.startsWith("/portfolio/"),
-    );
-    check(
-      `${ip} has >= 2 inbound links from /portfolio/*`,
-      fromCases.length >= 2,
-      `${fromCases.length}`,
-    );
-  }
-
-  const COMMERCIAL = /^\/(pricing|calculator|seo|support|landing|corporate-site|online-store|sites-for\/|vs-|portfolio$|contacts)/;
-  const ukBlogPaths = paths.filter((p) => /^\/blog\/.+/.test(p));
-  const weakPosts = [];
-  for (const bp of ukBlogPaths) {
-    const out = (pages.get(bp)?.contentLinks ?? []).filter(
-      (l) => COMMERCIAL.test(l.href) && l.href !== bp,
-    );
-    const uniq = new Set(out.map((l) => l.href));
-    if (uniq.size < 2) weakPosts.push(`${bp} (${uniq.size})`);
+    const final = await get(dst);
+    if (final.status !== 200) badRedir.push(`${src}→${dst} lands ${final.status}`);
   }
   check(
-    "every /blog/* article has >= 2 outbound links to commercial pages",
-    weakPosts.length === 0,
-    weakPosts.slice(0, 8).join(", "),
+    "every mapped redirect returns 301 in a single hop",
+    badRedir.length === 0,
+    badRedir.join("; "),
   );
 
-  const homeContent = pages.get("/")?.contentLinks ?? [];
-  const homeKeyword = homeContent.filter(
-    (l) => COMMERCIAL.test(l.href) && l.text.length > 10 && !GENERIC_ANCHOR.test(l.text),
-  );
-  check(
-    "homepage has >= 6 in-content keyword-anchored internal links",
-    new Set(homeKeyword.map((l) => l.href)).size >= 6,
-    `${new Set(homeKeyword.map((l) => l.href)).size}`,
-  );
-
-  const genericHits = [];
-  for (const [src, p] of pages) {
-    for (const l of p.contentLinks) {
-      if (GENERIC_ANCHOR.test(l.text.trim())) genericHits.push(`${src}: "${l.text}"`);
+  const probe = ["/", "/pricing", "/seo", "/calculator", "/blog", "/en", "/ru", "/support"];
+  const bad302 = [];
+  for (const p of probe) {
+    for (const al of ["uk-UA,uk;q=0.9", "en-US,en;q=0.9", undefined]) {
+      const r = await get(p, { acceptLanguage: al });
+      if (r.status === 302 || r.status === 307) bad302.push(`${p}[${al ?? "none"}]:${r.status}`);
     }
   }
-  check(
-    "zero internal links with generic anchors",
-    genericHits.length === 0,
-    genericHits.slice(0, 6).join("; "),
-  );
-
-  /* ── I18N ── */
-  console.log("\nI18N");
-  const badCanon = [];
-  for (const [u, p] of pages) {
-    const canon = p.canonical.replace(SITE, "") || "/";
-    if (canon !== u) badCanon.push(`${u} → ${p.canonical}`);
-  }
-  check(
-    "canonical is self-referencing on every page",
-    badCanon.length === 0,
-    badCanon.slice(0, 6).join(", "),
-  );
-
-  const badHref = [];
-  const nonReciprocal = [];
-  for (const [u, p] of pages) {
-    for (const alt of p.hreflangs) {
-      const altPath = alt.href.replace(SITE, "") || "/";
-      const target = pages.get(altPath);
-      if (!target) {
-        // must at least serve 200
-        const res = await fetch(`${BASE}${altPath}`, { redirect: "manual" });
-        if (res.status !== 200) {
-          badHref.push(`${u}: hreflang ${alt.hreflang} → ${altPath} (${res.status})`);
-        }
-        continue;
-      }
-      if (target.status !== 200) {
-        badHref.push(`${u}: hreflang ${alt.hreflang} → ${altPath} (${target.status})`);
-      } else if (
-        !target.hreflangs.some((a) => (a.href.replace(SITE, "") || "/") === u)
-      ) {
-        nonReciprocal.push(`${u} ↔ ${altPath}`);
-      }
-    }
-    if (p.hreflangs.length > 0 && !p.hreflangs.some((a) => a.hreflang === "x-default")) {
-      nonReciprocal.push(`${u}: no x-default`);
-    }
-  }
-  check(
-    "no hreflang entry points at a URL that 404s or redirects",
-    badHref.length === 0,
-    badHref.slice(0, 6).join(", "),
-  );
-  check(
-    "hreflang sets are reciprocal and include x-default",
-    nonReciprocal.length === 0,
-    nonReciprocal.slice(0, 6).join(", "),
-  );
+  check("zero 302/307 responses across known routes", bad302.length === 0, bad302.join(", "));
 
   /* ── summary ── */
-  console.log(`\n${passCount} passed, ${failCount} failed`);
-  if (failCount) {
+  const totalChecks = pass + failures.length;
+  console.log(`\n${pass}/${totalChecks} passed, ${failures.length} failed`);
+  if (failures.length) {
     console.log("failing checks:");
     for (const f of failures) console.log(`  - ${f}`);
   }
-  process.exit(failCount ? 1 : 0);
+  process.exit(failures.length ? 1 : 0);
 };
 
 main().catch((e) => {

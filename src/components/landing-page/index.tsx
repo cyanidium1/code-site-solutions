@@ -15,7 +15,7 @@ import { loc } from "@/lib/shared/sanity-locale";
 import { fetchCaseStudies } from "@/components/case-page/data";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
-import { hasLocaleCase, localizePath } from "@/constants/i18n-routes";
+import { hasLocaleCase, localizePath, resolveRootHref } from "@/constants/i18n-routes";
 import { DEFAULT_LOCALE } from "@/constants/locales";
 import type { Locale } from "@/constants/locales";
 import type { LandingPageContent } from "@/types/landing";
@@ -410,6 +410,104 @@ function CtaBand({ content }: { content: LandingPageContent["calcCta"] }) {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Sibling-services strip. The four site-type pages (/landing,
+ * /corporate-site, /online-store, /seo) and the comparison pages had
+ * almost no in-body links between them: measured on production,
+ * /online-store had 1 inbound and /vs-freelancers 0, while /seo — a
+ * priority page for a ~962-impression cluster — sat at 11.
+ *
+ * Linking the siblings from each of these pages is genuine navigation (a
+ * visitor pricing a landing routinely wants the corporate tier or the
+ * freelancer comparison) and it spreads in-body links without inventing
+ * filler copy. Anchors are the keyword phrases each target ranks for.
+ */
+const SIBLING_LINKS: { href: string; label: Record<Locale, string> }[] = [
+  {
+    href: "/landing",
+    label: {
+      uk: "розробка лендінгу",
+      en: "landing page development",
+      ru: "разработка лендинга",
+    },
+  },
+  {
+    href: "/corporate-site",
+    label: {
+      uk: "корпоративний сайт під ключ",
+      en: "corporate website development",
+      ru: "корпоративный сайт под ключ",
+    },
+  },
+  {
+    href: "/online-store",
+    label: {
+      uk: "створення інтернет-магазину",
+      en: "online store development",
+      ru: "создание интернет-магазина",
+    },
+  },
+  {
+    href: "/seo",
+    label: {
+      uk: "просування сайту — ціна",
+      en: "SEO services pricing",
+      ru: "продвижение сайта — цена",
+    },
+  },
+  {
+    href: "/vs-wordpress",
+    label: {
+      uk: "кастомний сайт замість WordPress",
+      en: "custom site vs WordPress",
+      ru: "кастомный сайт вместо WordPress",
+    },
+  },
+  {
+    href: "/vs-constructors",
+    label: {
+      uk: "кастомний сайт замість конструктора",
+      en: "custom site vs website builders",
+      ru: "кастомный сайт вместо конструктора",
+    },
+  },
+  {
+    href: "/vs-freelancers",
+    label: {
+      uk: "студія проти фрілансера",
+      en: "studio vs freelancer",
+      ru: "студия против фрилансера",
+    },
+  },
+];
+
+const SIBLING_HEADING: Record<Locale, string> = {
+  uk: "Суміжні послуги",
+  en: "Related services",
+  ru: "Смежные услуги",
+};
+
+function SiblingServices({ locale, self }: { locale: Locale; self: string }) {
+  return (
+    <section className="bg-bg px-6 sm:px-8 lg:px-12 py-12">
+      <div className="max-w-container mx-auto">
+        <h2 className="m-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.15] text-ink">
+          {SIBLING_HEADING[locale]}
+        </h2>
+        <ul className="mt-5 flex list-none flex-wrap gap-x-7 gap-y-2 p-0">
+          {SIBLING_LINKS.filter((l) => l.href !== self).map((l) => (
+            <li key={l.href}>
+              <Link href={resolveRootHref(l.href, locale)} className="rich-link">
+                {l.label[locale]}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
@@ -935,6 +1033,14 @@ export async function LandingPageView({
           locale={locale}
         />
       </section>
+
+      {/* 7.5 — Sibling services: in-body cross-links (see SIBLING_LINKS).
+          `source` is "landing-page" | "corporate-site-page" | ... so the
+          page's own href derives from it without a new prop at 12 call sites. */}
+      <SiblingServices
+        locale={locale}
+        self={`/${source.replace(/-page$/, "")}`}
+      />
 
       {/* 8 — Lead form. Compact: name + contact, details fold out on demand —
           the page already collected specifics via the hero mini-calculator. */}

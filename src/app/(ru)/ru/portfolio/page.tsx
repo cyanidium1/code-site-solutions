@@ -31,9 +31,9 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
 
 const META_TITLE =
-  "ᐈ Портфолио веб-разработки | Кейсы кастомных сайтов | Code-Site.Art";
+  "Портфолио веб-разработки — кейсы сайтов | Code-Site.Art";
 const META_DESCRIPTION =
-  "➤ 50+ кастомных сайтов для клиник, юристов, недвижимости и e-commerce ✔️ Реальные результаты: ×3.2 заявок, LCP 0.8с, топ-3 Google ✔️ Next.js + Sanity ➡ Смотреть проекты.";
+  "➤ 50+ кастомных сайтов для клиник, юристов, недвижимости и e-commerce ✔️ Реальные результаты: ×3.2 заявок, LCP 0.8с, топ-3 Google ➡ Смотреть проекты.";
 
 export const metadata: Metadata = {
   title: META_TITLE,

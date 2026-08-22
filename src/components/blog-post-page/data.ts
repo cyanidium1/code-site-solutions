@@ -149,3 +149,39 @@ export async function buildBlogPostMetadata(
     },
   };
 }
+
+/**
+ * Sibling posts used to top up the "related articles" block when a post's
+ * curated `relatedPostSlugs` yields fewer than two renderable entries.
+ *
+ * Without this, posts nobody links to received zero in-body inbound links
+ * (measured on production: 4 UA posts sat at 1, their only link coming from
+ * the /blog index). Picking neighbours by publication order — wrapping at
+ * the ends — distributes inbound links across the whole archive without
+ * anyone curating them by hand.
+ */
+export async function fetchSiblingPosts(
+  currentUaSlug: string,
+  locale: Locale,
+  want: number,
+): Promise<BlogPostListItem[]> {
+  if (want <= 0) return [];
+  const posts = await sanityFetch<BlogPostListItem[]>({
+    query: BLOG_POSTS_LIST_QUERY,
+    revalidate: 300,
+  }).catch(() => [] as BlogPostListItem[]);
+  const pool = posts.filter((p) =>
+    Boolean(p.slugs?.[locale]?.current && pickLocalized(p.title, locale)),
+  );
+  if (pool.length <= 1) return [];
+  const self = pool.findIndex(
+    (p) => p.slugs?.[DEFAULT_LOCALE]?.current === currentUaSlug,
+  );
+  const out: BlogPostListItem[] = [];
+  for (let i = 1; out.length < Math.min(want, pool.length - 1); i++) {
+    const cand = pool[(Math.max(self, 0) + i) % pool.length];
+    if (cand.slugs?.[DEFAULT_LOCALE]?.current === currentUaSlug) continue;
+    out.push(cand);
+  }
+  return out;
+}

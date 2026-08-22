@@ -20,7 +20,7 @@ import type { LandingPageContent } from "@/types/landing";
 export const ONLINE_STORE_RU: LandingPageContent = {
   metaTitle: "ᐈ Интернет-магазин под ключ от $6 000 | Code-Site.Art",
   metaDescription:
-    "➤ Интернет-магазин на custom-коде от $6 000 за 6–10 недель ✔️ Каталог, корзина, чекаут, админка ✔️ Без подписок конструкторов ✔️ Фиксированная цена ➡ Рассчитайте свой магазин.",
+    "➤ Интернет-магазин на custom-коде от $6 000 за 6–10 недель ✔️ Каталог, корзина, чекаут, админка ✔️ Без подписок конструкторов ➡ Рассчитайте цену.",
   breadcrumbHome: "Главная",
   breadcrumbSelf: "Интернет-магазин",
   hero: {

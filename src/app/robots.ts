@@ -7,7 +7,11 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/stories/", "/_next/static/"],
+        // NOTE: do NOT add "/_next/static/" here. Googlebot renders pages;
+        // blocking JS/CSS degrades rendering and goes against Google's
+        // guidance. The `_next/static/*.js` rows under "Crawled - currently
+        // not indexed" are harmless noise, not a problem to fix.
+        disallow: ["/stories/"],
       },
     ],
     sitemap: `${SITE_ORIGIN}/sitemap.xml`,

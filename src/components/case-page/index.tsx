@@ -508,10 +508,21 @@ export async function CasePageView({
     fetchCaseStudies(),
     getContentRegistrySafe(),
   ]);
-  const related = allCases
-    .filter((c) => c.slug !== doc.slug)
-    .filter((c) => hasLocaleContent(c, locale))
-    .slice(0, 3);
+  // Related cases ROTATE: take the three that follow this one in the shared
+  // ordering, wrapping around. A plain `.slice(0, 3)` always surfaced the
+  // same three cases site-wide, so every other case page received zero
+  // in-body inbound links (measured: 22 of 25 cases sat at 1 inbound, their
+  // only link coming from the /portfolio index). Rotating distributes three
+  // inbound links to every case at no editorial cost.
+  const pool = allCases.filter((c) => hasLocaleContent(c, locale));
+  const self = pool.findIndex((c) => c.slug === doc.slug);
+  const related =
+    pool.length > 1
+      ? Array.from(
+          { length: Math.min(3, pool.length - 1) },
+          (_, i) => pool[(Math.max(self, 0) + 1 + i) % pool.length],
+        ).filter((c) => c.slug !== doc.slug)
+      : [];
 
   const title = loc(doc.title, locale);
   const eyebrow = loc(doc.hero?.eyebrow, locale);
