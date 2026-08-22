@@ -461,6 +461,14 @@ const SIBLING_LINKS: { href: string; label: Record<Locale, string> }[] = [
     },
   },
   {
+    href: "/process",
+    label: {
+      uk: "як проходить розробка сайту",
+      en: "how the development process works",
+      ru: "как проходит разработка сайта",
+    },
+  },
+  {
     href: "/vs-wordpress",
     label: {
       uk: "кастомний сайт замість WordPress",
