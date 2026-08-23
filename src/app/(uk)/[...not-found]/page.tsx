@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 // Catch-all for unmatched root-level URLs. Calls notFound() so the (uk)
@@ -9,13 +8,8 @@ export default function CatchAllNotFound() {
   notFound();
 }
 
-// SEO audit Aug 2026: without this the 404 inherited the locale
-// layout's homepage title and its canonical pointing at "/". The 404
-// status already keeps it out of the index; this stops the page from
-// describing itself as the homepage to crawlers and to users.
-export const metadata: Metadata = {
-  title: "Сторінку не знайдено — 404 | Code-Site.Art",
-  description: "Такої сторінки немає або її перенесли. Скористайтеся навігацією або поверніться на головну.",
-  robots: { index: false, follow: true },
-  alternates: {},
-};
+// SEO audit Aug 2026 — do not add `export const metadata` here.
+// notFound() hands rendering to the not-found boundary, and Next 15
+// ignores metadata exported from the page that threw. The 404 keeps
+// the layout's title and canonical; the 404 status already keeps it
+// out of the index, so this is cosmetic and not worth a second layout.
