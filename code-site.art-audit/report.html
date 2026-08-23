@@ -1,0 +1,526 @@
+<title>code-site.art SEO Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
+
+<style>
+  :root {
+    --ground: #F2F5F4;
+    --surface: #FFFFFF;
+    --sunken: #E8EDEB;
+    --ink: #141A19;
+    --ink-soft: #46524F;
+    --ink-mute: #6E7B78;
+    --rule: #D6DEDB;
+    --rule-firm: #B8C4C0;
+    --accent: #1B4E5C;
+    --accent-soft: #E2EDEF;
+    --crit: #A32A20;
+    --high: #B36514;
+    --med: #4C6272;
+    --low: #838E8B;
+    --good: #2C6650;
+    --crit-wash: #F7E7E5;
+    --high-wash: #F9EDE0;
+    --good-wash: #E4EFE9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0E1413;
+      --surface: #161D1C;
+      --sunken: #1D2625;
+      --ink: #E8EFED;
+      --ink-soft: #B2C0BC;
+      --ink-mute: #7E8D89;
+      --rule: #2A3533;
+      --rule-firm: #3D4B48;
+      --accent: #6FBECF;
+      --accent-soft: #17302F;
+      --crit: #E8776B;
+      --high: #E0A055;
+      --med: #8FA6B5;
+      --low: #7E8D89;
+      --good: #6BB894;
+      --crit-wash: #2A1714;
+      --high-wash: #2A1F12;
+      --good-wash: #14241D;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0E1413;
+    --surface: #161D1C;
+    --sunken: #1D2625;
+    --ink: #E8EFED;
+    --ink-soft: #B2C0BC;
+    --ink-mute: #7E8D89;
+    --rule: #2A3533;
+    --rule-firm: #3D4B48;
+    --accent: #6FBECF;
+    --accent-soft: #17302F;
+    --crit: #E8776B;
+    --high: #E0A055;
+    --med: #8FA6B5;
+    --low: #7E8D89;
+    --good: #6BB894;
+    --crit-wash: #2A1714;
+    --high-wash: #2A1F12;
+    --good-wash: #14241D;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 2.5rem) 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  .mono {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1, h2, h3 {
+    font-family: "IBM Plex Serif", Georgia, serif;
+    font-weight: 600;
+    text-wrap: balance;
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead { display: flex; flex-direction: column; gap: 1.25rem; }
+  .masthead h1 { font-size: clamp(1.9rem, 5vw, 2.9rem); letter-spacing: -0.015em; }
+  .masthead h1 .dom { font-family: "IBM Plex Mono", monospace; font-weight: 500; }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .meta-grid div { background: var(--surface); padding: 0.85rem 1rem; }
+  .meta-grid dt { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-mute); margin: 0 0 0.35rem; }
+  .meta-grid dd { margin: 0; font-size: 0.95rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  /* ---------- score readout ---------- */
+  .readout {
+    border: 1px solid var(--rule-firm);
+    background: var(--surface);
+    display: grid;
+    grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+  }
+  @media (max-width: 42rem) { .readout { grid-template-columns: 1fr; } }
+
+  .score-face {
+    padding: 1.75rem;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+  @media (max-width: 42rem) { .score-face { border-right: 0; border-bottom: 1px solid var(--rule); } }
+  .score-face .num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 4.2rem;
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+  }
+  .score-face .denom { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: var(--ink-mute); }
+
+  .bars { padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 0.85rem; }
+  .bar-row { display: grid; grid-template-columns: minmax(0, 10rem) 1fr 2.6rem; gap: 0.9rem; align-items: center; }
+  @media (max-width: 34rem) { .bar-row { grid-template-columns: 1fr 2.6rem; } .bar-row .track { grid-column: 1 / -1; order: 3; } }
+  .bar-row .label { font-size: 0.85rem; color: var(--ink-soft); }
+  .bar-row .label .wt { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; color: var(--ink-mute); margin-left: 0.35rem; }
+  .track { height: 7px; background: var(--sunken); position: relative; }
+  .track span { position: absolute; inset: 0 auto 0 0; background: var(--accent); }
+  .bar-row .val { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* ---------- generic section ---------- */
+  section { display: flex; flex-direction: column; gap: 1.15rem; }
+  section > h2 { font-size: clamp(1.25rem, 3vw, 1.6rem); letter-spacing: -0.01em; }
+  section > p, .prose p { margin: 0; max-width: 62ch; color: var(--ink-soft); }
+  .lede { font-size: 1.02rem; }
+
+  .panel { border: 1px solid var(--rule); background: var(--surface); padding: 1.25rem 1.4rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .panel.warn { border-left: 3px solid var(--high); }
+  .panel ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.45rem; color: var(--ink-soft); }
+  .panel li::marker { color: var(--ink-mute); }
+
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .checks li { background: var(--surface); padding: 0.8rem 1rem; display: flex; gap: 0.7rem; align-items: baseline; font-size: 0.92rem; }
+  .checks .fig { font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--good); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ---------- findings ---------- */
+  .finding { border-top: 1px solid var(--rule); padding-top: 1.1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .finding:first-of-type { border-top: 1px solid var(--rule-firm); }
+  .fhead { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: baseline; }
+  .fhead h3 { font-size: 1.06rem; flex: 1 1 16rem; }
+  .chip {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.63rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.22rem 0.5rem; border: 1px solid currentColor; white-space: nowrap;
+  }
+  .chip.c { color: var(--crit); background: var(--crit-wash); }
+  .chip.h { color: var(--high); background: var(--high-wash); }
+  .chip.m { color: var(--med); }
+  .chip.l { color: var(--low); }
+  .finding p { margin: 0; color: var(--ink-soft); max-width: 68ch; }
+  .fix { font-size: 0.93rem; padding-left: 0.9rem; border-left: 2px solid var(--accent); color: var(--ink); }
+  .fix b { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); display: block; margin-bottom: 0.15rem; font-weight: 500; }
+
+  code { font-family: "IBM Plex Mono", monospace; font-size: 0.88em; background: var(--sunken); padding: 0.1em 0.34em; }
+
+  /* ---------- tables ---------- */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 30rem; }
+  th, td { text-align: left; padding: 0.6rem 0.85rem; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+  th { font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); font-weight: 500; background: var(--sunken); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.n { font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; }
+  td.bad { color: var(--crit); font-weight: 600; }
+  td.ok { color: var(--good); }
+  tr.flag td { background: var(--crit-wash); }
+
+  /* ---------- phases ---------- */
+  .phase { display: grid; grid-template-columns: 2.4rem 1fr; gap: 1rem; border-top: 1px solid var(--rule); padding-top: 1.1rem; }
+  .phase .idx { font-family: "IBM Plex Mono", monospace; font-size: 1.5rem; font-weight: 600; color: var(--rule-firm); line-height: 1; font-variant-numeric: tabular-nums; }
+  .phase h3 { font-size: 1.02rem; }
+  .phase .when { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mute); }
+  .phase ul { margin: 0.55rem 0 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.35rem; color: var(--ink-soft); font-size: 0.94rem; }
+
+  .corr { border: 1px solid var(--rule); border-left: 3px solid var(--accent); background: var(--surface); padding: 1.1rem 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .corr h3 { font-size: 1rem; }
+
+  footer { border-top: 1px solid var(--rule-firm); padding-top: 1.4rem; color: var(--ink-mute); font-size: 0.85rem; max-width: 62ch; }
+
+  a { color: var(--accent); }
+  a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">SEO-аудит · 23 августа 2026</p>
+    <h1><span class="dom">code-site.art</span> — состояние поисковой оптимизации</h1>
+    <dl class="meta-grid">
+      <div><dt>Проверено URL</dt><dd>208</dd></div>
+      <div><dt>Локали</dt><dd>ua 73 · en 71 · ru 64</dd></div>
+      <div><dt>Тип бизнеса</dt><dd>B2B-услуги</dd></div>
+      <div><dt>Метод</dt><dd>Полная свёртка + 10 проходов</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <div class="readout">
+      <div class="score-face">
+        <div class="num">72</div>
+        <div class="denom">из 100</div>
+      </div>
+      <div class="bars">
+        <div class="bar-row"><div class="label">Technical SEO<span class="wt">22%</span></div><div class="track"><span style="width:80%"></span></div><div class="val">80</div></div>
+        <div class="bar-row"><div class="label">Content Quality<span class="wt">23%</span></div><div class="track"><span style="width:68%"></span></div><div class="val">68</div></div>
+        <div class="bar-row"><div class="label">On-Page SEO<span class="wt">20%</span></div><div class="track"><span style="width:82%"></span></div><div class="val">82</div></div>
+        <div class="bar-row"><div class="label">Schema<span class="wt">10%</span></div><div class="track"><span style="width:64%"></span></div><div class="val">64</div></div>
+        <div class="bar-row"><div class="label">Performance<span class="wt">10%</span></div><div class="track"><span style="width:58%"></span></div><div class="val">58</div></div>
+        <div class="bar-row"><div class="label">AI Search<span class="wt">10%</span></div><div class="track"><span style="width:68%"></span></div><div class="val">68</div></div>
+        <div class="bar-row"><div class="label">Images<span class="wt">5%</span></div><div class="track"><span style="width:60%"></span></div><div class="val">60</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Границы данных</h2>
+    <p class="lede">Прочитать до выводов. Аудит проведён без доступа к Google API, и это меняет статус половины чисел ниже.</p>
+    <div class="panel warn">
+      <ul>
+        <li><b>Полевых Core Web Vitals нет.</b> Все метрики скорости — лабораторные, снятые Playwright по реальной сети с эмуляцией мобильного профиля и 4-кратным замедлением CPU. Это не то, что видят пользователи.</li>
+        <li><b>Search Console и GA4 недоступны.</b> Реальная индексация, показы, клики, органический трафик — неизвестны.</li>
+        <li><b>Ссылочный профиль неизмерим.</b> Только Common Crawl. Из семи факторов оценки закрыто ноль.</li>
+        <li><b>Позиций и объёмов запросов нет.</b> Все выводы про выдачу — качественные наблюдения, а не измерения.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Что работает правильно</h2>
+    <p>Техническая база заметно выше среднего, и это стоит зафиксировать до разбора проблем. Проверено на всех 208 URL без выборок.</p>
+    <ul class="checks">
+      <li><span class="fig">208/208</span><span>отдают HTTP 200 — ни одного 404, ни одного редиректа внутри карт</span></li>
+      <li><span class="fig">0</span><span>дублей title и meta description — все 208 значений уникальны</span></li>
+      <li><span class="fig">0</span><span>случайных <code>noindex</code> в meta и <code>X-Robots-Tag</code></span></li>
+      <li><span class="fig">208/208</span><span>каноникалов на месте и самореференсны</span></li>
+      <li><span class="fig">1</span><span>H1 ровно на каждой странице — ни пропусков, ни задвоений</span></li>
+      <li><span class="fig">405</span><span>слов минимум по сайту — тонкого контента нет вообще</span></li>
+      <li><span class="fig">57</span><span>внутренних ссылок медиана, минимум 50 — сирот нет</span></li>
+      <li><span class="fig">0</span><span>битых JSON-LD при разметке на каждой странице</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Критичное</h2>
+
+    <article class="finding">
+      <div class="fhead"><h3>Все 26 отраслевых страниц идут мимо CDN</h3><span class="chip c">Critical</span></div>
+      <p><code>/sites-for/*</code> во всех трёх локалях отдаются с <code>Cache-Control: private, no-cache, no-store</code> и <code>X-Vercel-Cache: MISS</code>, без пререндера. Все остальные типы страниц кэшируются на границе.</p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Маршрут</th><th>TTFB, медиана</th><th>Кэш</th></tr></thead>
+          <tbody>
+            <tr><td><code>/pricing</code></td><td class="n ok">0.148 с</td><td class="n">HIT</td></tr>
+            <tr><td><code>/process</code></td><td class="n ok">0.145 с</td><td class="n">HIT</td></tr>
+            <tr><td><code>/portfolio/bravo</code></td><td class="n ok">0.157 с</td><td class="n">HIT</td></tr>
+            <tr class="flag"><td><code>/sites-for/legal</code></td><td class="n bad">0.434 с</td><td class="n">MISS</td></tr>
+            <tr class="flag"><td><code>/sites-for/courses</code></td><td class="n bad">0.427 с</td><td class="n">MISS</td></tr>
+            <tr class="flag"><td><code>/ru/sites-for/auto</code></td><td class="n bad">0.447 с</td><td class="n">MISS</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Причина найдена в коде: <code>sites-for/[slug]/page.tsx</code> экспортирует только <code>generateMetadata</code> и компонент — без <code>generateStaticParams()</code> и <code>revalidate</code>, которые есть у <code>portfolio/[slug]</code> и <code>blog/[slug]</code>. Контрольная проверка подтверждает диагноз: статические подстраницы медицины, не проходящие через <code>[slug]</code>, кэшируются нормально.</p>
+      <p class="fix"><b>Исправление</b>Добавить <code>generateStaticParams()</code> и <code>revalidate</code> в три файла по образцу <code>portfolio/[slug]</code>. Проверка: <code>X-Vercel-Cache</code> должен стать <code>HIT</code>.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Мобильный первый экран не содержит ни одной целевой кнопки</h3><span class="chip c">Critical</span></div>
+      <p>Проверено на скриншотах 375×812 во всех трёх локалях. Порядок того, что видит человек с телефона: логотип → мокап устройств почти на 40% высоты → H1 → одна строка подзаголовка, обрывающаяся на полуслове → cookie-панель на треть экрана с тремя кнопками.</p>
+      <p>Первое действие, которое сайт предлагает мобильному посетителю, — решить вопрос про cookies.</p>
+      <p class="fix"><b>Исправление</b>Высота hero-иллюстрации на мобильных брейкпоинтах до 40–45vh; cookie-панель — тонкой нижней плашкой вместо блока на треть экрана.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Мобильная главная проваливает CLS</h3><span class="chip c">Critical</span></div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Страница</th><th>Форм-фактор</th><th>LCP</th><th>CLS</th><th>TBT (прокси)</th></tr></thead>
+          <tbody>
+            <tr class="flag"><td>Главная</td><td>mobile</td><td class="n">2408 мс</td><td class="n bad">0.27</td><td class="n">1981 мс</td></tr>
+            <tr><td>Главная</td><td>desktop</td><td class="n">1032 мс</td><td class="n ok">0.00</td><td class="n">66 мс</td></tr>
+            <tr><td>Статья блога</td><td>mobile</td><td class="n">1992 мс</td><td class="n ok">0.00</td><td class="n">1738 мс</td></tr>
+            <tr><td><code>/pricing</code></td><td>mobile</td><td class="n">1892 мс</td><td class="n ok">0.00</td><td class="n bad">3480 мс</td></tr>
+            <tr><td><code>/sites-for/legal</code></td><td>mobile</td><td class="n">1672 мс</td><td class="n ok">0.00</td><td class="n">571 мс</td></tr>
+            <tr><td><code>/sites-for/legal</code></td><td>desktop</td><td class="n">924 мс</td><td class="n ok">0.05</td><td class="n">22 мс</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>CLS 0.27 при пороге «плохо» 0.25 — единственная конфигурация из шести, проваливающая метрику. На десктопе той же страницы ровно 0.00, значит причина специфична для мобильной вёрстки, и cookie-панель — первый подозреваемый.</p>
+      <p class="fix"><b>Исправление</b>Зарезервировать место под cookie-панель, затем перемерить. Замер лабораторный — после подключения Google API проверить на полевых данных.</p>
+    </article>
+  </section>
+
+  <section>
+    <h2>Высокий приоритет</h2>
+
+    <article class="finding">
+      <div class="fhead"><h3>og:image отсутствует на половине сайта</h3><span class="chip h">High</span></div>
+      <p>102 страницы из 208 уходят в соцсети и AI-превью без изображения — в том числе 63 статьи блога из 69. Портфолио при этом покрыто корректно: 75 из 78, через Sanity CDN.</p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Раздел</th><th>С картинкой</th><th>Без</th></tr></thead>
+          <tbody>
+            <tr class="flag"><td>Блог</td><td class="n">6</td><td class="n bad">63</td></tr>
+            <tr><td>Портфолио</td><td class="n ok">75</td><td class="n">3</td></tr>
+            <tr><td><code>sites-for</code></td><td class="n ok">24</td><td class="n">2</td></tr>
+            <tr class="flag"><td><code>/pricing</code>, <code>/about</code>, <code>/vs-*</code></td><td class="n">0</td><td class="n bad">по 2</td></tr>
+            <tr class="flag"><td><code>/calculator</code>, <code>/contacts</code>, <code>/process</code>, <code>/seo</code> и др.</td><td class="n">0</td><td class="n bad">по 3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fix"><b>Исправление</b>Генерируемый OG-образ по шаблону для блога и статических разделов. Портфолио — готовый образец обработки.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Русская локаль без страницы цен и без «о студии»</h3><span class="chip h">High</span></div>
+      <p><code>/ru/pricing</code> и <code>/ru/about</code> отдают 404 при работающих украинских и английских версиях. Туда же три сравнительные страницы <code>/ru/vs-*</code>.</p>
+      <p>Важное уточнение: эти URL <b>отсутствуют во всех трёх картах сайта</b> — ноль вхождений. Карты корректны, 404 честный. Это контентный пробел, а не техническая рассинхронизация: в локали с 64 живыми страницами нет ни точки конверсии, ни страницы доверия.</p>
+      <p class="fix"><b>Исправление</b>Перевести и опубликовать pricing и about, затем сравнительные страницы.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Отзывы привязаны к статье вместо организации</h3><span class="chip h">High</span></div>
+      <p>На кейсах портфолио <code>Review.itemReviewed.@id</code> ссылается на сам <code>Article</code> страницы, а не на организацию. Затрагивает около 78 страниц. Разметка утверждает, что кто-то оценил статью, а не работу студии.</p>
+      <p>В <code>industry-page/index.tsx</code> это уже сделано верно — расхождение только в <code>case-page/index.tsx</code>, функция <code>buildCaseJsonLd()</code>.</p>
+      <p class="fix"><b>Исправление</b>Заменить ссылку на <code>ORG_ID</code>. Одна правка чинит 78 страниц.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Пять из восьми отраслевых пилляров без единой статьи</h3><span class="chip h">High</span></div>
+      <p>Категории <code>auto</code>, <code>courses</code>, <code>ecommerce</code>, <code>real-estate</code>, <code>renovation</code> — ноль статей блога. Работает только кластер <code>medicine</code>: 7 статей, автоблок «статьи по теме», привязанные кейсы. Он и есть готовый образец схемы.</p>
+      <p class="fix"><b>Исправление</b>По две статьи на вертикаль. Попутно добавить <code>renovation</code> в карту <code>CATEGORY_COMMERCIAL</code> — сейчас ключа нет.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Article.image не заполнен</h3><span class="chip h">High</span></div>
+      <p>Обязательное поле типа <code>Article</code>. Четыре из пяти проверенных Article-страниц отдают <code>image: null</code>; в <code>case-page/index.tsx</code> поле не задаётся ни для одного кейса.</p>
+      <p class="fix"><b>Исправление</b>Заполнять из <code>doc.hero.heroImage</code> через <code>sanityCdn</code>.</p>
+    </article>
+  </section>
+
+  <section>
+    <h2>Средний приоритет</h2>
+
+    <article class="finding">
+      <div class="fhead"><h3>Признак механического перевода русской локали</h3><span class="chip m">Medium</span></div>
+      <p>На всех 12 проверенных парах ua/ru расхождение объёма текста меньше 1% — <code>/sites-for/medicine</code> даёт 2250 против 2210 слов. При этом английские версии стабильно на 10–18% длиннее украинских в каждой паре без исключения.</p>
+      <p>Человек, переводящий текст, почти неизбежно меняет длину. Расхождение под 1% на дюжине пар — характерный след машинного перевода. Не доказательство, но проверить стоит.</p>
+      <p class="fix"><b>Исправление</b>Вычитка носителем, начиная с <code>/ru/sites-for/medicine</code> как самой чувствительной темы.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>llms.txt отстал от сайта на целую локаль</h3><span class="chip m">Medium</span></div>
+      <p>Файл существует, отдаёт 200, написан содержательно — 7 КБ с описанием студии и структурированным списком страниц. Но описывает <b>две локали из трёх</b>: русской в нём нет вовсе, хотя это 64 живые страницы.</p>
+      <p>Отдельно стоит понимать: Google официально заявил, что Search не использует llms.txt. Это не фактор ранжирования, и вкладываться в него ради Google не нужно. Но если файл уже отдаётся ботам — он должен описывать сайт целиком.</p>
+      <p class="fix"><b>Исправление</b>Добавить русскую локаль. На эффект в выдаче Google не рассчитывать.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>FAQPage на 119 страницах больше не даёт результата</h3><span class="chip m">Medium</span></div>
+      <p>Распределение: ua 43, en 41, ru 35. Google отменил rich-результат для FAQPage 7 мая 2026 — для всех сайтов, без исключений. Туда же <code>HowTo</code> на <code>/process</code>, снятый ещё в 2023.</p>
+      <p>Нарушения здесь нет: FAQ-контент виден на страницах и разметка ему соответствует, штрафа не будет. Но пользы в выдаче она больше не приносит.</p>
+      <p class="fix"><b>Исправление</b>Не удалять срочно. Перестать генерировать при следующей переработке шаблонов и не вкладываться в расширение.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Три из пяти проверенных кейсов — шаблонные заглушки</h3><span class="chip m">Medium</span></div>
+      <p><code>co2lab</code> 276 слов, <code>e-fedra-beauty</code> 295, <code>webbond</code> 319 — против <code>nbyg-kobenhavn</code> 761 и <code>solide-renovation</code> 699, где есть настоящий нарратив. Порог тонкого контента формально не пробит, но как доказательство компетенции короткий кейс не работает.</p>
+      <p class="fix"><b>Исправление</b>Проверить все 78 страниц кейсов — проверено 5. Коротким дописать блок «проблема → решение → результат».</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Заголовки безопасности почти отсутствуют</h3><span class="chip m">Medium</span></div>
+      <p>Присутствует только <code>Strict-Transport-Security</code>, без <code>includeSubDomains</code> и <code>preload</code>. Нет <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code>, <code>Content-Security-Policy</code>, <code>X-Frame-Options</code>. Блока <code>headers()</code> в <code>next.config.ts</code> нет.</p>
+      <p class="fix"><b>Исправление</b>Добавить <code>headers()</code> минимум с <code>nosniff</code>, <code>strict-origin-when-cross-origin</code> и <code>SAMEORIGIN</code>.</p>
+    </article>
+
+    <article class="finding">
+      <div class="fhead"><h3>Английское позиционирование сужено до Британии</h3><span class="chip m">Medium</span></div>
+      <p>Мета английской версии — «Custom-coded websites for UK SMBs &amp; startups», цены в фунтах. При этом главная заявляет географию UA · EU · US · DK · ZA · UK · FR, а в портфолио есть датский кейс.</p>
+      <p>Два утверждения противоречат друг другу: либо английская версия обслуживает только Британию — и тогда обещание семи стран не подкреплено, либо международный рынок — и тогда фунты отсекают остальных.</p>
+      <p class="fix"><b>Исправление</b>Решение, а не задача: определить рынок и привести формулировки в соответствие.</p>
+    </article>
+  </section>
+
+  <section>
+    <h2>Две поправки к работе агентов</h2>
+    <p>Аудит собирали десять специализированных проходов, и два их вывода не выдержали перепроверки. Фиксирую, потому что иначе они пошли бы дальше как факты.</p>
+
+    <div class="corr">
+      <h3>«Главная теряет текст для экстракторов» — неверно</h3>
+      <p>Утверждение выросло из числа «503 символа», которое трижды переходило из отчёта в отчёт. На деле <code>render_page.py</code> в JSON-режиме обрезает поле <code>extracted_text</code> ровно до 500 символов, чтобы не гнать мегабайты через stdio — то есть «503» это 500 плюс многоточие, лимит вывода утилиты.</p>
+      <p>Прямой прогон trafilatura по сохранённому HTML даёт <b>6119 символов и 951 слово</b> при 1530 словах видимого текста. Удержание 62% — норма для маркетинговой страницы. Проблемы нет.</p>
+    </div>
+
+    <div class="corr">
+      <h3>«/ru/pricing лежит в карте сайта и отдаёт 404» — неверно</h3>
+      <p>Проверка: ноль вхождений во всех трёх картах. Страницы действительно нет, 404 честный, карта корректна. Находка остаётся, но как контентный пробел, а не техническая рассинхронизация — и приоритет у неё соответственно ниже.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>План работ</h2>
+    <p>Порядок задан отношением эффекта к трудозатратам, а не severity. Внутри фаз задачи независимы.</p>
+
+    <div class="phase">
+      <div class="idx">01</div>
+      <div>
+        <h3>Критичное и дешёвое</h3>
+        <p class="when">Неделя 1</p>
+        <ul>
+          <li><code>generateStaticParams</code> + <code>revalidate</code> в трёх <code>sites-for/[slug]</code> — вернёт кэш 26 страницам · ~1 ч</li>
+          <li>Мобильный первый экран: высота hero, cookie-панель · ~2 ч</li>
+          <li><code>Review.itemReviewed</code> → <code>ORG_ID</code> — чинит 78 страниц · ~30 мин</li>
+          <li><code>Article.image</code> через <code>sanityCdn</code> · ~1 ч</li>
+          <li>Убрать узел <code>HowTo</code> с <code>/process</code> · ~15 мин</li>
+          <li>Блок <code>headers()</code> в <code>next.config.ts</code> · ~30 мин</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="idx">02</div>
+      <div>
+        <h3>Закрыть дыры в охвате</h3>
+        <p class="when">Недели 2–3</p>
+        <ul>
+          <li>og:image для 63 статей блога и статических разделов · ~1 день</li>
+          <li><code>/ru/pricing</code> и <code>/ru/about</code> · ~1 день</li>
+          <li>Три сравнительные страницы на русском · ~2 дня</li>
+          <li>Вычитка русских переводов носителем · ~2 дня</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="idx">03</div>
+      <div>
+        <h3>Контент и архитектура</h3>
+        <p class="when">Месяц 2</p>
+        <ul>
+          <li>По две статьи на пять пустых отраслевых пилляров</li>
+          <li>Блок «статьи по теме» на <code>/seo</code> · ~3 ч</li>
+          <li>Проверить все 78 кейсов, шаблонным дописать нарратив · ~3 дня</li>
+          <li>Проставить <code>industry</code> восьми кейсам без привязки</li>
+          <li>Решить вопрос английского рынка</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="idx">04</div>
+      <div>
+        <h3>Измеримость</h3>
+        <p class="when">Постоянно</p>
+        <ul>
+          <li>Подключить Google API — полевые CWV, Search Console, GA4 · ~1 ч, бесплатно</li>
+          <li>Подключить Moz API — 2500 строк/мес · ~15 мин, бесплатно</li>
+          <li>Снять базлайн дрейфа по ключевым URL</li>
+          <li>Ручной поиск незалинкованных упоминаний бренда</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Что сознательно не делать</h2>
+    <div class="panel">
+      <ul>
+        <li><b>Не удалять FAQPage со 119 страниц прямо сейчас.</b> Rich-результат снят, но штрафа нет и контент виден.</li>
+        <li><b>Не добавлять AggregateRating,</b> пока нет внешнего источника рейтинга. В коде уже стоит TODO с ожиданием Google Business Profile — это верное решение.</li>
+        <li><b>Не вкладываться в llms.txt ради Google.</b> Обновить до трёх локалей стоит, эффекта на выдачу не ждать.</li>
+        <li><b>Не пытаться обогнать Clutch и DesignRush</b> по головному английскому запросу — директории занимают выдачу структурно. Дешевле попасть в их листинги.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p><b>Чего аудит не покрыл.</b> Полевые Core Web Vitals, индексацию, показы и клики — нужен доступ к Google API. Позиции и объёмы запросов — нужен DataForSEO. Ссылочный профиль — нужен Moz или Ahrefs. Визуально разобраны первые экраны только главной в трёх локалях. Инвентарь изображений собран для главной ua. Из 78 страниц кейсов по содержанию проверено 5. Разбор выдачи — 4 запроса вместо запланированных 8–10, поиск не гео-таргетирован.</p>
+  </footer>
+
+</div>

@@ -1,0 +1,326 @@
+{
+  "summary": {
+    "health_score": 72,
+    "business_type": "B2B services — boutique custom web development studio",
+    "domain": "code-site.art",
+    "audit_date": "2026-08-23",
+    "urls_audited": 208,
+    "locales": { "ua": 73, "en": 71, "ru": 64 },
+    "data_limitations": [
+      "Нет Google API: полевых CWV (CrUX), Search Console и GA4 нет — все метрики скорости лабораторные",
+      "Нет DataForSEO: позиций и объёмов запросов нет",
+      "Ссылочный профиль неизмерим: только Common Crawl, без Moz/Ahrefs"
+    ],
+    "top_findings": [
+      "26 отраслевых страниц /sites-for/* идут мимо CDN: no-store, TTFB 0.43с против 0.15с у кэшируемых. Причина — отсутствие generateStaticParams и revalidate",
+      "Мобильный первый экран главной не содержит ни одной CTA: hero-иллюстрация плюс cookie-панель занимают экран целиком",
+      "Мобильная главная проваливает CLS: 0.27 при пороге 0.25; на десктопе той же страницы 0.00",
+      "og:image отсутствует на 102 из 208 страниц, включая 63 из 69 статей блога",
+      "Русская локаль без /ru/pricing и /ru/about — 404 при работающих ua и en версиях"
+    ],
+    "quick_wins": [
+      "generateStaticParams + revalidate в трёх файлах sites-for/[slug]/page.tsx — вернёт кэш 26 страницам",
+      "Review.itemReviewed → ORG_ID в buildCaseJsonLd() — одна правка чинит 78 страниц",
+      "Убрать узел HowTo с /process — rich-результат снят в 2023",
+      "Блок headers() в next.config.ts — три заголовка безопасности",
+      "Добавить русскую локаль в llms.txt"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 80,
+      "weight": 22,
+      "what_works": [
+        "208 из 208 URL отдают 200, ни одного редиректа внутри карт сайта",
+        "Каноникалы присутствуют и самореференсны на всех 208 страницах",
+        "Ноль случайных noindex в meta и X-Robots-Tag",
+        "hreflang корректен: код uk, не ошибочный ua; 192 из 208 URL несут полный трёхъязычный кластер",
+        "Редиректы нормализованы: не-www и http через 308, слэш снимается, /uk → / через 301"
+      ],
+      "findings": [
+        {
+          "title": "Все 26 страниц /sites-for/* идут мимо CDN",
+          "severity": "Critical",
+          "description": "Cache-Control: private, no-cache, no-store и X-Vercel-Cache: MISS на всех трёх локалях, пререндера нет. TTFB 0.43-0.45с против 0.145-0.16с у кэшируемых маршрутов, 5 замеров на URL. Причина: sites-for/[slug]/page.tsx экспортирует только generateMetadata и компонент, без generateStaticParams и revalidate. Контроль: статические подстраницы медицины кэшируются нормально.",
+          "recommendation": "Добавить generateStaticParams() и revalidate в три файла по образцу portfolio/[slug]/page.tsx"
+        },
+        {
+          "title": "Заголовки безопасности почти отсутствуют",
+          "severity": "Medium",
+          "description": "Есть только HSTS без includeSubDomains и preload. Нет X-Content-Type-Options, Referrer-Policy, CSP, X-Frame-Options, Permissions-Policy. Блока headers() в next.config.ts нет.",
+          "recommendation": "Добавить headers() минимум с nosniff, strict-origin-when-cross-origin и SAMEORIGIN"
+        },
+        {
+          "title": "Лишний хоп в цепочке редиректов",
+          "severity": "Low",
+          "description": "http://code-site.art доходит до финала за 2 хопа через промежуточный https non-www",
+          "recommendation": "Прямой 301 на https://www.code-site.art на уровне edge"
+        },
+        {
+          "title": "/index отдаёт 200 вместо редиректа",
+          "severity": "Low",
+          "description": "Побайтово идентичен главной. Canonical корректен, поэтому риск индексации дубля низкий",
+          "recommendation": "Явный redirect /index → / в next.config.ts"
+        },
+        {
+          "title": "Мёртвое правило robots.txt и 404 без своего title",
+          "severity": "Low",
+          "description": "Disallow: /stories/ указывает на несуществующий путь. Страница 404 наследует title и canonical главной",
+          "recommendation": "Убрать правило; дать 404 собственный title без canonical на главную"
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 68,
+      "weight": 23,
+      "what_works": [
+        "Тонкого контента нет: минимум по сайту 405 слов, медианы ua 994 / en 1089 / ru 958",
+        "Реальное именное авторство блога с указанием роли и внешними профилями",
+        "Конкретные проверяемые обязательства в тексте: гарантия год, неустойка 30%, ответ менее 4 часов",
+        "Лучшие кейсы портфолио содержат полноценный нарратив на 700-850 слов"
+      ],
+      "findings": [
+        {
+          "title": "Русская локаль без страницы цен и без «о студии»",
+          "severity": "High",
+          "description": "/ru/pricing и /ru/about отдают 404 при работающих /pricing, /en/pricing, /about, /en/about. Проверено: эти URL отсутствуют во всех трёх картах сайта, то есть карты корректны — это контентный пробел, а не техническая рассинхронизация. Туда же /ru/vs-wordpress, /ru/vs-freelancers, /ru/vs-constructors.",
+          "recommendation": "Перевести и опубликовать pricing и about, затем сравнительные страницы"
+        },
+        {
+          "title": "Признак механического перевода русской локали",
+          "severity": "Medium",
+          "description": "На всех 12 проверенных парах ua/ru расхождение объёма меньше 1%, при этом английские версии стабильно на 10-18% длиннее украинских в каждой паре. Ручной перевод почти неизбежно меняет длину.",
+          "recommendation": "Вычитка носителем, начиная с /ru/sites-for/medicine как самой чувствительной темы"
+        },
+        {
+          "title": "Три из пяти проверенных кейсов портфолио — шаблонные заглушки",
+          "severity": "Medium",
+          "description": "co2lab 276 слов, e-fedra-beauty 295, webbond 319 против nbyg-kobenhavn 761 и solide-renovation 699. Проверено 5 из 78 — выборка мала.",
+          "recommendation": "Полный проход по 78 кейсам; коротким дописать блок проблема-решение-результат на 400-500 слов"
+        },
+        {
+          "title": "Блог короче собственного норматива студии",
+          "severity": "Medium",
+          "description": "15 проверенных URL в диапазоне 751-1185 слов при заявленном внутреннем пороге 1500",
+          "recommendation": "Расширить топовые по интенту статьи либо пересмотреть норматив"
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 82,
+      "weight": 20,
+      "what_works": [
+        "Ноль дублей title и ноль дублей meta description на всех 208 URL",
+        "Ровно один H1 на каждой из 208 страниц",
+        "Сирот нет: минимум 50 внутренних ссылок на страницу, медиана 57",
+        "html lang и og:locale совпадают с локалью URL на 100%"
+      ],
+      "findings": [
+        {
+          "title": "og:image отсутствует на 102 из 208 страниц",
+          "severity": "High",
+          "description": "Блог 63 из 69 без изображения; все три локали /calculator, /contacts, /corporate-site, /landing, /online-store, /process, /seo, /pricing, /about, /vs-*. Портфолио при этом покрыто корректно: 75 из 78 через Sanity CDN.",
+          "recommendation": "Генерируемый OG-образ по шаблону для блога и статических разделов"
+        },
+        {
+          "title": "Длина title и description за пределами отображаемого",
+          "severity": "Medium",
+          "description": "44 из 208 title длиннее 60 символов, максимум 65. 33 из 208 description длиннее 160, максимум 165.",
+          "recommendation": "Подрезать шаблоны генерации до 60 и 155 символов"
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 64,
+      "weight": 10,
+      "what_works": [
+        "JSON-LD на каждой из 208 страниц, ни одного битого JSON",
+        "Единый @id организации на всех трёх локалях, граф связный",
+        "WebSite и WebPage корректно скоуплены по локали, дублей @id нет",
+        "FAQ-контент виден на страницах и совпадает с разметкой — нарушения «невидимого контента» нет"
+      ],
+      "findings": [
+        {
+          "title": "Review.itemReviewed указывает на статью вместо организации",
+          "severity": "High",
+          "description": "На кейсах портфолио itemReviewed.@id ссылается на сам Article страницы. Затрагивает около 78 страниц. В industry-page/index.tsx это сделано верно — расхождение только в case-page/index.tsx, функция buildCaseJsonLd().",
+          "recommendation": "Заменить ссылку на ORG_ID"
+        },
+        {
+          "title": "Article.image не заполнен",
+          "severity": "High",
+          "description": "Обязательное поле типа Article. Четыре из пяти проверенных Article-страниц отдают image: null; в case-page/index.tsx поле не задаётся вовсе.",
+          "recommendation": "Заполнять из doc.hero.heroImage через sanityCdn"
+        },
+        {
+          "title": "HowTo на /process — снятый rich-результат",
+          "severity": "Medium",
+          "description": "7 узлов HowToStep, валидный JSON, нулевой эффект в выдаче с 2023 года",
+          "recommendation": "Убрать узел из билдера JSON-LD, вёрстку не трогать"
+        },
+        {
+          "title": "FAQPage на 119 страницах больше не даёт rich-результата",
+          "severity": "Medium",
+          "description": "ua 43, en 41, ru 35. Google отменил rich-результат 7 мая 2026 для всех сайтов. Нарушения нет, контент виден, штрафа не будет.",
+          "recommendation": "Не удалять срочно; перестать генерировать при следующей переработке шаблонов"
+        },
+        {
+          "title": "54 отзыва без внешнего источника",
+          "severity": "Medium",
+          "description": "Self-serving отзывы о собственной студии, авторы без @id и верификации, на весь сайт только 2 сущности Person",
+          "recommendation": "Не рассчитывать на звёзды в выдаче; для легитимного рейтинга нужен внешний источник"
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 58,
+      "weight": 10,
+      "what_works": [
+        "Десктопная главная: LCP 1032 мс, CLS 0.00, TBT-прокси 66 мс",
+        "Brotli на всех проверенных ответах, ISR-кэш на большинстве маршрутов"
+      ],
+      "findings": [
+        {
+          "title": "Мобильная главная проваливает CLS",
+          "severity": "Critical",
+          "description": "CLS 0.27 при пороге «плохо» 0.25, медиана трёх прогонов. На десктопе той же страницы 0.00, значит причина в мобильной вёрстке. Первый подозреваемый — cookie-панель. Замер лабораторный, полевых данных нет.",
+          "recommendation": "Зарезервировать место под cookie-панель; перемерить после правки первого экрана"
+        },
+        {
+          "title": "Высокий TBT на мобильных",
+          "severity": "Medium",
+          "description": "TBT-прокси: /pricing 3480 мс, главная 1981 мс, статья блога 1738 мс при 4-кратном замедлении CPU. Это прокси через длинные задачи, а не настоящий Lighthouse TBT — сигнал, не вердикт.",
+          "recommendation": "Проверить вклад GTM и GA4 в блокировку главного потока"
+        },
+        {
+          "title": "Hero-изображение перекачивается вдвое",
+          "severity": "Low",
+          "description": "w=3840 отдаёт 95 852 байта против 48 583 при w=1200 — потолке из sizes",
+          "recommendation": "Подрезать sizes или deviceSizes для priority-изображения"
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 68,
+      "weight": 10,
+      "what_works": [
+        "Контент отдаётся ботам без JS: SSR/ISR подтверждён заголовком X-Nextjs-Prerender",
+        "Trafilatura извлекает 951 слово из 1530 видимых — удержание 62%, проблемы с извлекаемостью нет",
+        "Разметка SpeakableSpecification и атрибуты data-speakable — про AI-цитирование уже думали",
+        "alternateName со списком написаний бренда помогает сопоставлению сущности",
+        "Конкретные цитируемые числа прямо в meta description: цена от $800, срок 4-10 недель"
+      ],
+      "findings": [
+        {
+          "title": "llms.txt описывает две локали из трёх",
+          "severity": "Medium",
+          "description": "Файл существует, отдаёт 200, содержателен — 7 КБ. Но описывает только украинскую и английскую версии; русской локали в 64 страницы в нём нет вовсе. Отдельно: Google официально не использует llms.txt в Search, это не фактор ранжирования.",
+          "recommendation": "Добавить русскую локаль; на эффект в Google не рассчитывать"
+        },
+        {
+          "title": "robots.txt не документирует политику по AI-ботам",
+          "severity": "Low",
+          "description": "Только User-Agent: * с Allow: /. Отдельных правил для GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, Google-Extended, CCBot нет — доступ открыт по умолчанию, а не осознанным решением.",
+          "recommendation": "Явные строки для четырёх поисковых AI-краулеров; отдельно решить по тренировочным"
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 60,
+      "weight": 5,
+      "what_works": [
+        "Портфолио покрыто изображениями корректно: 75 из 78 через Sanity CDN",
+        "12 из 13 логотипов партнёров имеют явные width и height"
+      ],
+      "findings": [
+        {
+          "title": "Половина сайта без og:image",
+          "severity": "High",
+          "description": "102 из 208 страниц. См. категорию On-Page SEO.",
+          "recommendation": "Генерируемый OG-образ по шаблону"
+        },
+        {
+          "title": "Пустой alt на шести смысловых плитках главной",
+          "severity": "Low",
+          "description": "Плитки индустрий и услуг на главной ua, все с alt=\"\"",
+          "recommendation": "Проверить наличие рядом текстового лейбла; если его нет — добавить содержательный alt"
+        }
+      ]
+    }
+  ],
+  "backlinks": {
+    "status": "INSUFFICIENT_DATA",
+    "note": "Из семи факторов оценки реальными данными закрыто ноль. Common Crawl отдаёт только домен-уровневые агрегаты, список доноров не извлекается.",
+    "known": [
+      "Домен создан 2025-05-01, возраст 1.3 года, регистратор NameCheap",
+      "История чистая: 247 снимков Wayback с 2025-07-10, следов другой тематики нет",
+      "Common Crawl pagerank_rank 15374900 — ожидаемо низко для домена такого возраста",
+      "Незалинкованные упоминания бренда проверить не удалось: поисковики заблокировали автозапросы"
+    ]
+  },
+  "corrections": [
+    "Утверждение «главная теряет текст для экстракторов» отклонено: число 503 символа было артефактом обрезки CLI в render_page.py (лимит 500 в JSON-режиме). Прямой прогон trafilatura даёт 6119 символов и 951 слово.",
+    "Утверждение «/ru/pricing лежит в карте сайта и отдаёт 404» отклонено: URL отсутствует во всех трёх картах, ноль вхождений. Карты корректны, 404 честный."
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Фаза 1: критичное и дешёвое",
+        "timeframe": "Неделя 1",
+        "items": [
+          "generateStaticParams + revalidate в трёх sites-for/[slug]/page.tsx (~1ч)",
+          "Мобильный первый экран: высота hero до 40-45vh, cookie-панель в тонкую плашку (~2ч)",
+          "Review.itemReviewed → ORG_ID в buildCaseJsonLd() (~30мин, чинит 78 страниц)",
+          "Article.image из doc.hero.heroImage через sanityCdn (~1ч)",
+          "Убрать узел HowTo с /process (~15мин)",
+          "Блок headers() в next.config.ts (~30мин)"
+        ]
+      },
+      {
+        "name": "Фаза 2: закрыть дыры в охвате",
+        "timeframe": "Недели 2-3",
+        "items": [
+          "og:image для 63 статей блога и статических разделов (~1 день)",
+          "/ru/pricing и /ru/about (~1 день)",
+          "Три сравнительные страницы на русском (~2 дня)",
+          "Вычитка русских переводов носителем, приоритет /ru/sites-for/medicine (~2 дня)"
+        ]
+      },
+      {
+        "name": "Фаза 3: контент и архитектура",
+        "timeframe": "Месяц 2",
+        "items": [
+          "По две статьи на пять пустых отраслевых пилляров: auto, courses, ecommerce, real-estate, renovation",
+          "Добавить renovation в карту CATEGORY_COMMERCIAL",
+          "Блок «статьи по теме» на /seo (~3ч)",
+          "Проверить все 78 кейсов портфолио, шаблонным дописать нарратив (~3 дня)",
+          "Проставить industry восьми кейсам без привязки",
+          "Решить: английская версия обслуживает Британию или международный рынок"
+        ]
+      },
+      {
+        "name": "Фаза 4: измеримость",
+        "timeframe": "Постоянно",
+        "items": [
+          "Подключить Google API — полевые CWV, Search Console, GA4 (~1ч, бесплатно)",
+          "Подключить Moz API — 2500 строк/мес, переводит ссылочный профиль в измеримое (~15мин, бесплатно)",
+          "Снять базлайн дрейфа по ключевым URL",
+          "Ручной поиск незалинкованных упоминаний бренда"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/",
+    "raw_sweep": "sweep.json",
+    "perf_raw": "perf_probe_raw.json"
+  }
+}
