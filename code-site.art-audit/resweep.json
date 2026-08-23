@@ -1,0 +1,3253 @@
+[
+ {
+  "url": "https://www.code-site.art",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "Organization",
+   "WebSite",
+   "WebPage",
+   "Review",
+   "Review",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/about",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "AboutPage",
+   "BreadcrumbList",
+   "Organization",
+   "Person"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog",
+  "status": 200,
+  "vercel_cache": "MISS",
+  "prerender": false,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "CollectionPage",
+   "BreadcrumbList",
+   "Blog"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/15-pomylok-na-saitakh-klinik",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/9-dyzain-pryiomiv-dlia-konversii",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/ai-poshuk-yak-potrapyty-u-vidpovidi",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/dyzain-saitu-medychnoho-tsentru",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/lokalne-seo-top-3-google-maps",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/nextjs-proty-wordpress-ta-konstruktoriv",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/prosuvannia-saitu-tsina-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/redyzain-bez-vtraty-seo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/rozrobka-saitu-medychnoho-tsentru-pid-kliuch",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/sait-dlia-budivelnoi-kompanii-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/sait-dlia-likarni-vs-pryvatnyi-kabinet",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/seo-audyt-svoimy-rukamy",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/seo-dlia-medychnykh-saitiv",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/shcho-vkhodyt-u-vartist-rozrobky-saitu",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/shvydkist-medychnoho-saitu",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/skilky-koshtuye-sait-dlia-kliniky-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/temna-chy-svitla-tema-saitu",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/tilda-vs-kastomnyy-sayt-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/trendy-veb-dyzainu-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/vartist-rozrobky-saytu-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/yak-chytaty-google-search-console",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/blog/yak-pratsyuye-admin-panel-saytu",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/calculator",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/contacts",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ContactPage",
+   "BreadcrumbList",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/corporate-site",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "Organization",
+   "WebSite",
+   "WebPage",
+   "Review",
+   "Review",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/about",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "AboutPage",
+   "BreadcrumbList",
+   "Organization",
+   "Person"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog",
+  "status": 200,
+  "vercel_cache": "MISS",
+  "prerender": false,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "CollectionPage",
+   "BreadcrumbList",
+   "Blog"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/15-clinic-website-mistakes",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/9-design-moves-that-lift-conversion",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/ai-search-how-to-get-cited",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/builders-website-cost-uk-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/clinic-website-cost-uk-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/clinic-website-development-process",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/custom-website-cost-uk-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/custom-website-vs-wordpress-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/dark-vs-light-website-theme",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/diy-seo-audit-20-checks",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/google-search-console-for-business-owners",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/hospital-vs-private-practice-website",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/how-website-admin-panel-works",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/local-seo-google-maps-top-3",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/medical-website-design-trust",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/medical-website-seo-guide",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/medical-website-speed",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/nextjs-vs-wordpress-for-business-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/redesign-without-losing-seo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/seo-pricing-uk-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/web-design-for-accountants",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/web-design-trends-2026-to-ignore",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/blog/websites-for-solicitors",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/calculator",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/contacts",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ContactPage",
+   "BreadcrumbList",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/corporate-site",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/landing",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/online-store",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio",
+  "status": 200,
+  "vercel_cache": "MISS",
+  "prerender": false,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "CollectionPage",
+   "BreadcrumbList"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/aleko-course",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/boulevard-salon",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/bravo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/clarion-solutions",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/co2lab",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/domlivo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/e-fedra-beauty",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/efedra-clinic",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/glenn-garbo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/glimmer",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/grontland",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/icelab",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/kondor-device",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/le-muse-nature",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/mono-pools",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/nbyg-kobenhavn",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/oleksandr-sitnikov",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/raul-avto",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/rich-tour",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/right-cars",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/solide-renovation",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/tatarka-franchise",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/urmodels",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/webbond",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/portfolio/yangoly-hvostykiv",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/pricing",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/process",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/seo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/sites-for/auto",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/sites-for/courses",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/sites-for/ecommerce",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/sites-for/finance",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/sites-for/legal",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/sites-for/medicine",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/sites-for/real-estate",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/sites-for/renovation",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/vs-constructors",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/vs-freelancers",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/en/vs-wordpress",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/landing",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/online-store",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio",
+  "status": 200,
+  "vercel_cache": "MISS",
+  "prerender": false,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "CollectionPage",
+   "BreadcrumbList"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/aleko-course",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/boulevard-salon",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/bravo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/clarion-solutions",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/co2lab",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/domlivo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/e-fedra-beauty",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/efedra-clinic",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/glenn-garbo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/glimmer",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/grontland",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/icelab",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/kondor-device",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/le-muse-nature",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/mono-pools",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/nbyg-kobenhavn",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/oleksandr-sitnikov",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/raul-avto",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/rich-tour",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/right-cars",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/solide-renovation",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/tatarka-franchise",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/urmodels",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/webbond",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/portfolio/yangoly-hvostykiv",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/pricing",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/process",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "Organization",
+   "WebSite",
+   "WebPage",
+   "Review",
+   "Review",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog",
+  "status": 200,
+  "vercel_cache": "MISS",
+  "prerender": false,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "CollectionPage",
+   "BreadcrumbList",
+   "Blog"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/15-oshibok-na-saytah-klinik",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/9-dizayn-priyomov-dlya-konversii",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/ai-poisk-kak-popast-v-otvety",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/dizayn-sayta-medicinskogo-centra",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/kak-chitat-google-search-console",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/kak-rabotaet-admin-panel-sayta",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/lokalnoe-seo-top-3-google-maps",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/nextjs-protiv-wordpress-i-konstruktorov",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/prodvizhenie-sayta-cena-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/razrabotka-sayta-medicinskogo-centra-pod-klyuch",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/redizayn-bez-poteri-seo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/sayt-dlya-bolnicy-vs-chastnyy-kabinet",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/sayt-dlya-stroitelnoy-kompanii-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/seo-audit-svoimi-rukami",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/seo-dlya-medicinskih-saytov",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/skolko-stoit-sayt-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/skolko-stoit-sayt-dlya-kliniki-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/skorost-medicinskogo-sayta",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/tilda-vs-kastomnyy-sayt-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/trendy-veb-dizayna-2026",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/blog/tyomnaya-ili-svetlaya-tema-sayta",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/calculator",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/contacts",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ContactPage",
+   "BreadcrumbList",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/corporate-site",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/landing",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/online-store",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio",
+  "status": 200,
+  "vercel_cache": "MISS",
+  "prerender": false,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "CollectionPage",
+   "BreadcrumbList"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/aleko-course",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/boulevard-salon",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/bravo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/clarion-solutions",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/co2lab",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/domlivo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/e-fedra-beauty",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/efedra-clinic",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/glenn-garbo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/glimmer",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/grontland",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/icelab",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/kondor-device",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/le-muse-nature",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/mono-pools",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/nbyg-kobenhavn",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/oleksandr-sitnikov",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/raul-avto",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/rich-tour",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/right-cars",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/solide-renovation",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article",
+   "Review"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/tatarka-franchise",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/urmodels",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/webbond",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/portfolio/yangoly-hvostykiv",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "ItemPage",
+   "BreadcrumbList",
+   "Article"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/process",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/seo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/sites-for/auto",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/sites-for/courses",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/sites-for/ecommerce",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/sites-for/finance",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/sites-for/legal",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/sites-for/medicine",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/sites-for/real-estate",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/ru/sites-for/renovation",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/seo",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/auto",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/courses",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/ecommerce",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/finance",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/legal",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/medicine",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "Review",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/medicine/medychnyi-tsentr",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/medicine/stomatolohiia",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/real-estate",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/sites-for/renovation",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm",
+   "DefinedTerm"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/support",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/vs-constructors",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/vs-freelancers",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ },
+ {
+  "url": "https://www.code-site.art/vs-wordpress",
+  "status": 200,
+  "vercel_cache": "PRERENDER",
+  "prerender": true,
+  "sec_headers": 4,
+  "og_image": true,
+  "jsonld_types": [
+   "WebPage",
+   "BreadcrumbList",
+   "Service",
+   "FAQPage"
+  ]
+ }
+]
