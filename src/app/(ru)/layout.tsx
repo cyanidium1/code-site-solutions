@@ -6,7 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import ruMessages from "../../../messages/ru.json";
 
 import { Providers } from "../providers";
-import { SITE_ORIGIN } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
 import { LOCALE_CONFIG } from "@/constants/locales";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { getContentRegistrySafe, toWire } from "@/lib/server/i18n-registry";
@@ -58,12 +58,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: LOCALE_CONFIG.ru.ogLocale,
     url: `${SITE_ORIGIN}/ru`,
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ᐈ Студия разработки кастомных сайтов под ключ | Code-Site.Art",
     description:
       "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

@@ -27,11 +27,15 @@ import {
 import { FAQ, Audit } from "@/components/blocks/final";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
-import { INDUSTRY_PAGE_BY_SLUG_QUERY } from "@/lib/server/sanity-queries";
+import {
+  INDUSTRY_PAGE_BY_SLUG_QUERY,
+  INDUSTRY_PAGES_QUERY,
+} from "@/lib/server/sanity-queries";
 import type {
   ComparisonSection,
   FaqSection,
   IndustryPageDoc,
+  IndustryPageRef,
   IndustrySection,
   Locale,
   OutcomeSection,
@@ -356,6 +360,21 @@ function buildOutcomeMock(
   // Default to "pages"
   const tags = row.mockTags?.map((t) => loc(t, locale)) ?? [];
   return <MockPages tags={tags} />;
+}
+
+/**
+ * Slugs of every published industry page, used by `generateStaticParams` so the
+ * `/sites-for/[slug]` routes are prerendered and served from the edge cache.
+ * Mirrors `fetchCaseStudies` in `@/components/case-page`.
+ */
+export async function fetchIndustryPages(): Promise<IndustryPageRef[]> {
+  return (
+    (await sanityFetch<IndustryPageRef[]>({
+      query: INDUSTRY_PAGES_QUERY,
+      revalidate: 3600,
+      tags: ["industryPage"],
+    }).catch(() => [])) ?? []
+  );
 }
 
 export async function fetchIndustryPage(

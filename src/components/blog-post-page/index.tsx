@@ -230,6 +230,17 @@ const CATEGORY_COMMERCIAL: Record<
       ru: "создание сайта для онлайн-курсов",
     },
   },
+  // SEO audit Aug 2026: `renovation` was the only /sites-for page missing from
+  // this map, so any post filed under it would fall back to the generic
+  // /pricing link instead of its own industry page.
+  renovation: {
+    href: "/sites-for/renovation",
+    anchor: {
+      uk: "розробка сайту для будівельної компанії",
+      en: "websites for construction companies",
+      ru: "разработка сайта для строительной компании",
+    },
+  },
   platforms: {
     href: "/pricing",
     anchor: {

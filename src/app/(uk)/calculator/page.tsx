@@ -13,6 +13,7 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
 
 const emChunk = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
@@ -28,11 +29,13 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: "uk_UA",
       url: "/calculator",
+      images: [OG_DEFAULT_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
+      images: [OG_DEFAULT_IMAGE.url],
     },
   };
 }

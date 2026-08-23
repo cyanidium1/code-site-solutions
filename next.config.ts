@@ -98,6 +98,36 @@ const nextConfig: NextConfig = {
         destination: "/blog/nextjs-proty-wordpress-ta-konstruktoriv",
         statusCode: 301,
       },
+      // SEO audit Aug 2026: /index served a byte-identical copy of the home
+      // page with a 200. The canonical already pointed at /, so the duplicate
+      // risk was low, but a redirect removes the ambiguity entirely.
+      { source: "/index", destination: "/", statusCode: 301 },
+    ];
+  },
+  async headers() {
+    // SEO audit Aug 2026: only HSTS was present. These four are the ones that
+    // carry no behavioural risk for this app.
+    //
+    // Content-Security-Policy is deliberately NOT set here: the site loads GTM,
+    // GA4, Sanity CDN, Unsplash and YouTube facades, so a policy written blind
+    // would break analytics or media. It needs its own pass with report-only
+    // first — tracked separately, not bundled into this change.
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+          },
+        ],
+      },
     ];
   },
   experimental: {

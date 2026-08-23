@@ -9,7 +9,7 @@ import { LaunchCta } from "@/components/blocks/launch-cta";
 import { Bento, HpHeader, HpFooter } from "@/components/homepage";
 import { AppImage } from "@/lib/shared/app-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -37,11 +37,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "uk_UA",
     url: PATH,
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

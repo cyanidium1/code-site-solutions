@@ -20,7 +20,7 @@ import {
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasLocaleCase, hasLocaleIndustry } from "@/constants/i18n-routes";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
-import { SITE_ORIGIN } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -45,11 +45,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_UA",
     url: "/ru/portfolio",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: META_TITLE,
     description: META_DESCRIPTION,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

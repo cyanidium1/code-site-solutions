@@ -13,6 +13,7 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
 
 const T = ruMessages.Calculator;
 
@@ -36,11 +37,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_UA",
     url: "/ru/calculator",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: T.meta.title,
     description: T.meta.description,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

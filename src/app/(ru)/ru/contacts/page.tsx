@@ -4,7 +4,7 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { ORG_ID } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -28,11 +28,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_UA",
     url: "/ru/contacts",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: META_TITLE,
     description: META_DESCRIPTION,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

@@ -13,7 +13,7 @@ import { TeamSection } from "@/components/about/team-section";
 import { FAQ } from "@/components/blocks/final";
 import { LaunchCta } from "@/components/blocks/launch-cta";
 import { HpHeader, HpFooter, Marquee, PullQuote } from "@/components/homepage";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -34,11 +34,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     url: "/en/about",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: C.meta.title,
     description: C.meta.description,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

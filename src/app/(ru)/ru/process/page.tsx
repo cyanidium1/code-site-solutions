@@ -18,6 +18,7 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/ru/process";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
 
 const META_TITLE = "Процесс — 7 шагов от брифа до запуска | Code-Site.Art";
 const META_DESCRIPTION =
@@ -33,11 +34,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_UA",
     url: "/ru/process",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: META_TITLE,
     description: META_DESCRIPTION,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

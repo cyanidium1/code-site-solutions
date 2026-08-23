@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { LandingPageView } from "@/components/landing-page";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -26,11 +26,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ru_UA",
     url: URL,
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: CONTENT.metaTitle,
     description: CONTENT.metaDescription,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

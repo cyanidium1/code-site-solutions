@@ -51,3 +51,7 @@ debug.log
 # delete the directory if you still have one.
 /.heroui-tw/
 
+
+# SEO audit artefacts: keep the written findings, skip the 15 MB of
+# screenshots and raw page dumps.
+code-site.art-audit/screenshots/

@@ -14,7 +14,7 @@ import {
   Bento,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -44,11 +44,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "uk_UA",
     url: "/pricing",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: PRICING_TITLE,
     description: PRICING_DESCRIPTION,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 
@@ -80,7 +82,9 @@ function buildUkPricingJsonLd(offers: UkPricingOffer[]) {
     {
       "@type": "Service",
       "@id": `${PRICING_URL}#service`,
-      name: "Custom website development",
+      // SEO audit Aug 2026: was the English "Custom website development" on
+      // the Ukrainian page, next to a Ukrainian description.
+      name: "Розробка кастомних сайтів під ключ",
       description:
         "Custom-coded сайти на Next.js: лендинги, корпоративні сайти, спеціалізовані під галузь рішення, enterprise-платформи.",
       provider: { "@id": ORG_ID },

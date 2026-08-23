@@ -19,7 +19,7 @@ import {
 } from "@/lib/shared/case-card-item";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { loc } from "@/lib/shared/sanity-locale";
-import { SITE_ORIGIN } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -41,12 +41,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "uk_UA",
     url: "/portfolio",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
     description:
       "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

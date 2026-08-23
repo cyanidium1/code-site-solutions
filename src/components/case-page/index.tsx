@@ -42,6 +42,7 @@ import { localizePath, resolveRootHref } from "@/constants/i18n-routes";
 import type { ReactNode } from "react";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
+import { sanityCdn } from "@/lib/shared/sanity-cdn";
 import {
   PortableInline,
   formatLine,
@@ -173,6 +174,13 @@ function buildCaseJsonLd(doc: CaseStudyDoc, locale: Locale): JsonLdNode {
   const title = loc(doc.title, locale);
   const description = loc(doc.seo?.description, locale) || undefined;
   const ABOUT_URL = pageUrl("/about");
+  const rawCaseImage =
+    doc.seo?.ogImage?.url ??
+    doc.hero?.heroImage?.asset?.url ??
+    doc.coverImage?.asset?.url;
+  const caseImageUrl = rawCaseImage
+    ? sanityCdn(rawCaseImage, { w: 1200, q: 70 })
+    : undefined;
 
   const homeName = LABELS[locale].home;
   const homePath = localizePath("/", locale);
@@ -203,7 +211,10 @@ function buildCaseJsonLd(doc: CaseStudyDoc, locale: Locale): JsonLdNode {
     }
     return [];
   });
-  const reviews = buildReviewNodes(reviewSeeds, `${url}#article`);
+  // SEO audit Aug 2026: this used to point at `${url}#article`, which claimed
+  // the client had reviewed the case write-up rather than the studio's work.
+  // Same reasoning as industry-page: the testimonial is about the studio.
+  const reviews = buildReviewNodes(reviewSeeds, ORG_ID);
 
   return buildJsonLd([
     webPageNode({
@@ -239,6 +250,9 @@ function buildCaseJsonLd(doc: CaseStudyDoc, locale: Locale): JsonLdNode {
         "@id": ORG_ID,
         name: "Code-Site.Art",
       },
+      // SEO audit Aug 2026: `image` is required on Article and was omitted on
+      // every case page. Same source chain the OG tag uses.
+      ...(caseImageUrl ? { image: [caseImageUrl] } : {}),
     },
     reviews,
   ]);

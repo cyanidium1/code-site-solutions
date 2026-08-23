@@ -3,7 +3,16 @@ import type { Metadata } from "next";
 import {
   IndustryPageView,
   buildIndustryMetadata,
+  fetchIndustryPages,
 } from "@/components/industry-page";
+
+export const dynamicParams = true;
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const pages = await fetchIndustryPages();
+  return pages.map((p) => ({ slug: p.slug }));
+}
 
 export async function generateMetadata({
   params,

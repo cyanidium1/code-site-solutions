@@ -20,7 +20,7 @@ import {
 import { loc } from "@/lib/shared/sanity-locale";
 import { hasLocaleCase, hasLocaleIndustry } from "@/constants/i18n-routes";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
-import { SITE_ORIGIN } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -42,12 +42,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     url: "/en/portfolio",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
     description:
       "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

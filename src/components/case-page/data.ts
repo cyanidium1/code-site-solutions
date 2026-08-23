@@ -12,6 +12,7 @@ import { LOCALE_CONFIG } from "@/constants/locales";
 import type { Metadata } from "next";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
 import {
   CASE_STUDIES_QUERY,
   CASE_STUDY_BY_SLUG_QUERY,
@@ -100,7 +101,10 @@ export async function buildCaseStudyMetadata(
       url: path,
       type: "article",
       locale: LOCALE_CONFIG[locale].ogLocale,
-      ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
+      // SEO audit Aug 2026: omitting `images` does NOT fall through to the
+      // [slug]/opengraph-image.tsx card — declaring `openGraph` at all
+      // suppresses that convention, which left 3 cases with no og:image.
+      images: [ogImageUrl ?? OG_DEFAULT_IMAGE.url],
     },
     twitter: {
       card: "summary_large_image",

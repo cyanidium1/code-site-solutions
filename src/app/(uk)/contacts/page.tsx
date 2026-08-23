@@ -4,7 +4,7 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { ORG_ID } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -26,12 +26,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "uk_UA",
     url: "/contacts",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
     description:
       "➤ Безкоштовна консультація за 24 години ✔️ 30-хв стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

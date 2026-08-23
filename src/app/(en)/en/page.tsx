@@ -17,7 +17,7 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { ORG_ID, SITE_ORIGIN } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, SITE_ORIGIN } from "@/constants/site";
 import {
   buildJsonLd,
   buildReviewNodes,
@@ -47,12 +47,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     url: `${SITE_ORIGIN}/en`,
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ᐈ Custom Website Development Studio | Code-Site.Art",
     description:
       "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

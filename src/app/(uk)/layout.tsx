@@ -6,7 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import ukMessages from "../../../messages/uk.json";
 
 import { Providers } from "../providers";
-import { SITE_ORIGIN } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
 import { LOCALE_CONFIG, SECONDARY_LOCALES } from "@/constants/locales";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { getContentRegistrySafe, toWire } from "@/lib/server/i18n-registry";
@@ -59,12 +59,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: LOCALE_CONFIG.uk.ogLocale,
     alternateLocale: SECONDARY_LOCALES.map((l) => LOCALE_CONFIG[l].ogLocale),
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ᐈ Студія розробки кастомних сайтів під ключ | Code-Site.Art",
     description:
       "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ➤ Замовте безкоштовний дзвінок.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

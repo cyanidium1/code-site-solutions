@@ -18,6 +18,7 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/en/process";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: "Process — 7 steps from brief to launch | Code-Site.Art",
@@ -31,12 +32,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     url: "/en/process",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Process — 7 steps from brief to launch | Code-Site.Art",
     description:
       "4-10 weeks end-to-end. Your time: 5 hours. Fixed price, 30% rebate for delays.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

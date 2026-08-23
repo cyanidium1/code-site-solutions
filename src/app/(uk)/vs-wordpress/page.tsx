@@ -5,7 +5,7 @@ import {
   VsWordpressView,
   getVsWordpressContent,
 } from "@/components/vs-wordpress";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -28,11 +28,13 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     alternateLocale: ["en_GB"],
     url: URL,
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "WordPress був правий у 2015. Не у 2026. — Code-Site.Art",
     description: CONTENT.metaDescription,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

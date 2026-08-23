@@ -14,7 +14,7 @@ import {
   Bento,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -46,12 +46,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     url: "/en/pricing",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Website Development Pricing UK — Fixed Plans | Code-Site.Art",
     description:
       "➤ Transparent fixed-price web development ✔️ Landing page from £800 ✔️ Corporate website from £3,500 ✔️ Custom platform from £6,000 ➡ Choose your plan.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

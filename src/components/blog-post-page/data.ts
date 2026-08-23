@@ -8,6 +8,7 @@
 import type { Metadata } from "next";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
 import {
   BLOG_POSTS_LIST_QUERY,
   BLOG_POST_BY_LOCALE_SLUG_QUERY,
@@ -140,12 +141,18 @@ export async function buildBlogPostMetadata(
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt ?? post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
-      images: ogUrl ? [{ url: ogUrl }] : undefined,
+      // SEO audit Aug 2026: this used to be `ogUrl ? [...] : undefined`, which
+      // left 63 of 69 posts with no og:image at all. An explicit `undefined`
+      // does NOT hand off to the `opengraph-image.tsx` route — declaring
+      // `openGraph` at all suppresses that fallback (see OG_DEFAULT_IMAGE in
+      // constants/site.ts). Fall back to the site card instead of nothing.
+      images: [ogUrl ? { url: ogUrl } : OG_DEFAULT_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogUrl ?? OG_DEFAULT_IMAGE.url],
     },
   };
 }

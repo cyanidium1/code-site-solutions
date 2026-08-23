@@ -4,7 +4,7 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { ORG_ID } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -26,12 +26,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     url: "/en/contacts",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
       "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

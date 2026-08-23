@@ -9,7 +9,7 @@ import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
 import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "uk_UA",
     url: "/process",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
@@ -41,6 +42,7 @@ export const metadata: Metadata = {
       "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
     description:
       "Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 
@@ -48,13 +50,6 @@ export const metadata: Metadata = {
 
 const PROCESS_URL = pageUrl("/process");
 
-const HOWTO_STEPS = STEPS.map((s, i) => ({
-  "@type": "HowToStep",
-  position: i + 1,
-  name: s.title,
-  text: typeof s.body === "string" ? s.body : `${s.title} — ${s.duration}`,
-  url: `${PROCESS_URL}#step-${s.n}`,
-}));
 
 const jsonLd = buildJsonLd([
   webPageNode({
@@ -68,16 +63,9 @@ const jsonLd = buildJsonLd([
     { name: "Головна", path: "/" },
     { name: "Процес", path: "/process" },
   ]),
-  {
-    "@type": "HowTo",
-    "@id": `${PROCESS_URL}#howto`,
-    name: "Процес розробки сайту — 7 кроків від брифу до запуску",
-    description:
-      "Покроковий процес створення сайту в Code-Site.Art: від брифу і договору до запуску і підтримки.",
-    totalTime: "P10W",
-    step: HOWTO_STEPS,
-    provider: { "@id": ORG_ID },
-  },
+  // SEO audit Aug 2026: the HowTo node was removed. Google retired the HowTo
+  // rich result in 2023, so these 7 steps produced nothing in the SERP while
+  // still shipping in every response. The on-page steps are untouched.
   {
     "@type": "FAQPage",
     mainEntity: PROCESS_FAQ.map((it) => ({

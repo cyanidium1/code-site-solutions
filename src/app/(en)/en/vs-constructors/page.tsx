@@ -5,7 +5,7 @@ import {
   VsConstructorsView,
   getVsConstructorsContent,
 } from "@/components/vs-constructors";
-import { ORG_ID, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -30,12 +30,14 @@ export const metadata: Metadata = {
     locale: "en_GB",
     alternateLocale: ["uk_UA"],
     url: URL,
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title:
       "Site builders are great. Until your business outgrows them. — Code-Site.Art",
     description: CONTENT.metaDescription,
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

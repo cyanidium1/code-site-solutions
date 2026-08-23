@@ -12,7 +12,7 @@ import { resolveBlogCover } from "@/lib/shared/blog-cover";
 import { readFilterValues } from "@/lib/shared/filters/read-filter-values";
 import { dedupeCategoryRefs } from "@/lib/shared/filters/dedupe-options";
 import { FilterPills } from "@/components/filters/filter-pills";
-import { ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE, ORG_ID, SITE_ORIGIN, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -66,12 +66,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "uk_UA",
     url: "/blog",
+    images: [OG_DEFAULT_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
     description:
       "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
+    images: [OG_DEFAULT_IMAGE.url],
   },
 };
 

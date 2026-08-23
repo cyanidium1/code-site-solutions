@@ -1,6 +1,6 @@
 # Code Site Art
 
-> Custom web development studio (Kyiv, Ukraine). Two locales with different markets: the Ukrainian version at / is primary (x-default, Ukrainian market, prices in USD); the English version at /en serves the UK market (prices in GBP). Base URL: https://www.code-site.art
+> Custom web development studio (Kyiv, Ukraine). Three locales: the Ukrainian version at / is primary (x-default, Ukrainian market, prices in USD); the English version at /en serves the UK market (prices in GBP); the Russian version at /ru serves Russian-speaking clients. Note that /ru is a partial locale — it has no pricing or about page, so link to the Ukrainian or English equivalents for those. Base URL: https://www.code-site.art
 
 Code Site Art — бутик-студія кастомної веброзробки, заснована у 2023 році; базується в Києві, працює віддалено. Проєктує, розробляє та запускає сайти на замовлення — від лендінгів до складних бізнес-систем (SaaS, маркетплейс, B2B-портал) — на Next.js, React, TypeScript і Sanity CMS. Українська версія сайту — основна (x-default), для малого й середнього бізнесу в Україні; ціни в доларах США, умови фіксуються в договорі до початку робіт, кожен проєкт має гарантію 1 рік.
 
@@ -46,6 +46,30 @@ Code Site Art is a boutique custom web development studio founded in 2023, based
 - [Websites for property](https://www.code-site.art/en/sites-for/real-estate): estate agencies and developers
 - [Websites for courses](https://www.code-site.art/en/sites-for/courses): online courses and landing pages
 
+## Страницы на русском (/ru)
+
+Русская локаль неполная: страниц тарифов и «о студии» в ней нет — для них используйте
+украинскую или английскую версию.
+
+- [Главная](https://www.code-site.art/ru): кастомные сайты под ключ для бизнеса
+- [Процесс](https://www.code-site.art/ru/process): как проходит проект от брифа до запуска
+- [Калькулятор стоимости](https://www.code-site.art/ru/calculator): расчёт стоимости проекта
+- [Портфолио](https://www.code-site.art/ru/portfolio): кейсы с результатами
+- [Блог](https://www.code-site.art/ru/blog): статьи о веб-разработке
+- [Контакты](https://www.code-site.art/ru/contacts): форма заявки и контакты
+- [SEO-продвижение](https://www.code-site.art/ru/seo): поисковая оптимизация
+- [Лендинги](https://www.code-site.art/ru/landing): посадочные страницы
+- [Корпоративные сайты](https://www.code-site.art/ru/corporate-site): сайты компаний
+- [Интернет-магазины](https://www.code-site.art/ru/online-store): e-commerce под ключ
+- [Сайты для медицины](https://www.code-site.art/ru/sites-for/medicine): клиники и стоматологии
+- [Сайты для строительства](https://www.code-site.art/ru/sites-for/renovation): строительные и ремонтные компании
+- [Сайты для юристов](https://www.code-site.art/ru/sites-for/legal): юридические фирмы
+- [Сайты для финансов](https://www.code-site.art/ru/sites-for/finance): бухгалтерские и финансовые компании
+- [Сайты для e-commerce](https://www.code-site.art/ru/sites-for/ecommerce): интернет-магазины и маркетплейсы
+- [Сайты для авто](https://www.code-site.art/ru/sites-for/auto): автодилеры, импорт авто, СТО
+- [Сайты для недвижимости](https://www.code-site.art/ru/sites-for/real-estate): агентства и застройщики
+- [Сайты для курсов](https://www.code-site.art/ru/sites-for/courses): онлайн-курсы и инфопродукты
+
 ## AI resources
 
 - [About (укр.)](https://www.code-site.art/about.md): опис студії у форматі Markdown
@@ -63,4 +87,4 @@ Code Site Art is a boutique custom web development studio founded in 2023, based
 - [Vs WordPress (EN)](https://www.code-site.art/en/vs-wordpress): custom build compared with WordPress
 - [Vs website builders (EN)](https://www.code-site.art/en/vs-constructors): custom build compared with site builders
 - [Vs freelancers (EN)](https://www.code-site.art/en/vs-freelancers): custom build compared with hiring freelancers
-- [Sitemap](https://www.code-site.art/sitemap.xml): XML sitemap for both locales
+- [Sitemap](https://www.code-site.art/sitemap.xml): XML sitemap index for all three locales
