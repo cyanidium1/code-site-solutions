@@ -128,6 +128,24 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // GSC diagnosis Aug 2026: the whole site was reachable and indexable on
+      // three Vercel hosts (code-site-frontend / code-site-solutions /
+      // code-site.vercel.app) — 200, `Allow: /` in robots.txt and
+      // `<meta robots="index, follow">`. GSC listed
+      // `code-site-frontend.vercel.app/ru/portfolio` as a *referring page* for
+      // the canonical URL, so Googlebot was really walking those copies.
+      // Canonicals already point at www.code-site.art, which caps the duplicate
+      // risk, but a canonical is a hint and it does not stop the crawl: with 28
+      // real pages sitting in "Discovered – currently not indexed", crawl budget
+      // spent on three mirrors is budget taken from them.
+      //
+      // `has: host` matches the request Host header, so this rule fires only on
+      // the preview hosts and never on the production domain.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "(?<preview>.*\\.vercel\\.app)" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
     ];
   },
   experimental: {
