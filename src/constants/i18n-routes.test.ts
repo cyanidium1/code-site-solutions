@@ -40,7 +40,7 @@ test("resolveRootHref localizes only roots the locale actually has", () => {
   assert.equal(resolveRootHref("/blog", "ru"), "/ru/blog");
   assert.equal(resolveRootHref("/contacts", "ru"), "/ru/contacts");
   assert.equal(resolveRootHref("/about", "ru"), "/about");
-  assert.equal(resolveRootHref("/pricing", "ru"), "/pricing");
+  assert.equal(resolveRootHref("/pricing", "ru"), "/ru/pricing");
   assert.equal(resolveRootHref("/portfolio", "ru"), "/ru/portfolio");
   assert.equal(resolveRootHref("/vs-wordpress", "ru"), "/vs-wordpress");
   assert.equal(resolveRootHref("/about", "en"), "/en/about");
@@ -69,11 +69,20 @@ test("prerender index alias '/index' resolves like the homepage", () => {
   assert.deepEqual(resolveLocaleAlternate("/index", reg), { uk: "/", en: "/en", ru: "/ru" });
 });
 
-test("localized top-level root maps to /en twin", () => {
-  // /pricing is not in LOCALIZED_ROOTS.ru yet -> ru disabled.
+test("localized top-level root maps to every locale that ships it", () => {
+  // /pricing shipped on all three surfaces in 2026-08.
   assert.deepEqual(resolveLocaleAlternate("/pricing", reg), {
     uk: "/pricing",
     en: "/en/pricing",
+    ru: "/ru/pricing",
+  });
+});
+
+test("root present on EN but not RU leaves the RU twin disabled", () => {
+  // /about has no content/ru page yet, so the RU switch stays off.
+  assert.deepEqual(resolveLocaleAlternate("/about", reg), {
+    uk: "/about",
+    en: "/en/about",
     ru: null,
   });
 });

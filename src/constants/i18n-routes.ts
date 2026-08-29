@@ -38,7 +38,7 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     "/blog",
     "/cookies",
   ]),
-  // RU surface. Grows as content/ru pages ship (about, pricing, vs-*).
+  // RU surface. Grows as content/ru pages ship (about, vs-*).
   ru: new Set([
     "/blog",
     "/contacts",
@@ -49,6 +49,7 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     "/process",
     "/portfolio",
     "/calculator",
+    "/pricing",
   ]),
 };
 
