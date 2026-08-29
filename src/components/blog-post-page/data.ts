@@ -8,7 +8,7 @@
 import type { Metadata } from "next";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
-import { OG_DEFAULT_IMAGE } from "@/constants/site";
+import { SITE_ORIGIN } from "@/constants/site";
 import {
   BLOG_POSTS_LIST_QUERY,
   BLOG_POST_BY_LOCALE_SLUG_QUERY,
@@ -26,7 +26,11 @@ import { localizePath } from "@/constants/i18n-routes";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { pickLocalized } from "@/lib/shared/pick-localized";
 import { resolveBlogCover } from "@/lib/shared/blog-cover";
-import { sanityCdn, sanityOgImage } from "@/lib/shared/sanity-cdn";
+import {
+  OG_IMAGE_SIZE,
+  sanityCdn,
+  sanityOgImage,
+} from "@/lib/shared/sanity-cdn";
 
 /** True when the post is fully renderable in `locale` (slug+title+body). */
 export function hasBlogLocaleContent(
@@ -89,6 +93,12 @@ export async function fetchRelated(
     );
 }
 
+const BLOG_EYEBROW: Record<Locale, string> = {
+  uk: "Блог",
+  ru: "Блог",
+  en: "Blog",
+};
+
 export async function buildBlogPostMetadata(
   slug: string,
   locale: Locale,
@@ -110,6 +120,15 @@ export async function buildBlogPostMetadata(
   // `auto=format` (what sanityCdn emits by default) is content-negotiated, so
   // a social scraper's wildcard Accept header gets the original PNG back.
   // sanityOgImage pins fm=jpg and the 1200x630 card ratio.
+  // Branded card carrying the post's own title, for the many posts with no
+  // cover image. Uses /api/og rather than the file-based opengraph-image
+  // route: Next serves that one at a build-hashed path we cannot link to.
+  const postCard = {
+    url: `${SITE_ORIGIN}/api/og?title=${encodeURIComponent(title)}&eyebrow=${encodeURIComponent(BLOG_EYEBROW[locale])}`,
+    width: OG_IMAGE_SIZE.width,
+    height: OG_IMAGE_SIZE.height,
+  };
+
   const ogImage = sanityOgImage(
     post.ogImage?.url ?? (!cover.generic ? cover.url : undefined),
   );
@@ -142,18 +161,18 @@ export async function buildBlogPostMetadata(
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt ?? post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
-      // SEO audit Aug 2026: this used to be `ogUrl ? [...] : undefined`, which
-      // left 63 of 69 posts with no og:image at all. An explicit `undefined`
-      // does NOT hand off to the `opengraph-image.tsx` route — declaring
-      // `openGraph` at all suppresses that fallback (see OG_DEFAULT_IMAGE in
-      // constants/site.ts). Fall back to the site card instead of nothing.
-      images: [ogImage ?? OG_DEFAULT_IMAGE],
+      // Declaring `openGraph` suppresses Next's file-based opengraph-image
+      // hand-off, so the per-post card has to be linked explicitly. Most
+      // posts have no cover, and the site-wide default made every one of
+      // them share as the same generic card; the per-slug route renders the
+      // post's own title instead.
+      images: [ogImage ?? postCard],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [(ogImage ?? OG_DEFAULT_IMAGE).url],
+      images: [(ogImage ?? postCard).url],
     },
   };
 }
