@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import Link from "next/link";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { sanityOgImage } from "@/lib/shared/sanity-cdn";
 import { DEFAULT_LOCALE, LOCALE_CONFIG } from "@/constants/locales";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -411,8 +412,11 @@ export async function buildIndustryMetadata(
 
   // OG image fallback: dedicated seo.ogImage → hero device mockup → site default
   // (handled by Next via app/opengraph-image.tsx when `images` is undefined).
-  const ogImageUrl =
-    page.seo?.ogImage?.url ?? page.hero?.deviceMockup?.asset?.url ?? undefined;
+  // Raw asset URLs here meant scrapers pulled multi-MB PNG mockups; see
+  // sanityOgImage for why fm=jpg matters more than auto=format.
+  const ogImage = sanityOgImage(
+    page.seo?.ogImage?.url ?? page.hero?.deviceMockup?.asset?.url,
+  );
 
   return {
     title,
@@ -424,7 +428,7 @@ export async function buildIndustryMetadata(
       url: path,
       type: "website",
       locale: LOCALE_CONFIG[locale].ogLocale,
-      ...(ogImageUrl ? { images: [ogImageUrl] } : {}),
+      ...(ogImage ? { images: [ogImage] } : {}),
     },
     twitter: {
       card: "summary_large_image",

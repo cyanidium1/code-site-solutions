@@ -5,6 +5,7 @@ import {
   cropRect,
   croppedDims,
   sanityCdn,
+  sanityOgImage,
   sanitySrcSet,
 } from "./sanity-cdn";
 
@@ -92,4 +93,37 @@ test("sanitySrcSet falls back to the default ladder for an empty widths array", 
   assert.ok(out);
   assert.ok(out.includes(" 400w") && out.includes(" 1600w"));
   assert.ok(!out.includes("Infinity"));
+});
+
+/* ─── og:image ────────────────────────────────────────────────────────────── */
+
+const OG_ASSET =
+  "https://cdn.sanity.io/images/p/production/abc-1202x1133.png";
+
+test("sanityOgImage pins fm=jpg so wildcard-Accept scrapers get a light file", () => {
+  const og = sanityOgImage(OG_ASSET)!;
+  // auto=format is content-negotiated and hands scrapers the original PNG.
+  assert.ok(og.url.includes("fm=jpg"));
+  assert.ok(!og.url.includes("auto=format"));
+});
+
+test("sanityOgImage crops to the 1200x630 card and reports those dimensions", () => {
+  const og = sanityOgImage(OG_ASSET)!;
+  assert.ok(og.url.includes("w=1200"));
+  assert.ok(og.url.includes("h=630"));
+  assert.ok(og.url.includes("fit=crop"));
+  assert.equal(og.width, 1200);
+  assert.equal(og.height, 630);
+});
+
+test("sanityOgImage returns undefined for a missing url", () => {
+  assert.equal(sanityOgImage(undefined), undefined);
+  assert.equal(sanityOgImage(null), undefined);
+  assert.equal(sanityOgImage(""), undefined);
+});
+
+test("sanityOgImage passes a non-Sanity url through with card dimensions", () => {
+  const og = sanityOgImage("https://example.com/card.png")!;
+  assert.equal(og.url, "https://example.com/card.png");
+  assert.equal(og.width, 1200);
 });

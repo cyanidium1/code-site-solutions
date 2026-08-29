@@ -26,7 +26,7 @@ import { localizePath } from "@/constants/i18n-routes";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { pickLocalized } from "@/lib/shared/pick-localized";
 import { resolveBlogCover } from "@/lib/shared/blog-cover";
-import { sanityCdn } from "@/lib/shared/sanity-cdn";
+import { sanityCdn, sanityOgImage } from "@/lib/shared/sanity-cdn";
 
 /** True when the post is fully renderable in `locale` (slug+title+body). */
 export function hasBlogLocaleContent(
@@ -107,11 +107,12 @@ export async function buildBlogPostMetadata(
   // OG image: explicit Sanity ogImage → resolved cover (generic skipped —
   // the opengraph-image route's branded text card is the better fallback).
   const cover = resolveBlogCover(post, locale);
-  const ogUrl = post.ogImage?.url
-    ? sanityCdn(post.ogImage.url, { w: 1200, q: 70 })
-    : !cover.generic
-      ? sanityCdn(cover.url, { w: 1200, q: 70 })
-      : undefined;
+  // `auto=format` (what sanityCdn emits by default) is content-negotiated, so
+  // a social scraper's wildcard Accept header gets the original PNG back.
+  // sanityOgImage pins fm=jpg and the 1200x630 card ratio.
+  const ogImage = sanityOgImage(
+    post.ogImage?.url ?? (!cover.generic ? cover.url : undefined),
+  );
 
   // hreflang only for locales the post is actually renderable in.
   const available = SECONDARY_LOCALES.filter((l) => hasBlogLocaleContent(post, l));
@@ -146,13 +147,13 @@ export async function buildBlogPostMetadata(
       // does NOT hand off to the `opengraph-image.tsx` route — declaring
       // `openGraph` at all suppresses that fallback (see OG_DEFAULT_IMAGE in
       // constants/site.ts). Fall back to the site card instead of nothing.
-      images: [ogUrl ? { url: ogUrl } : OG_DEFAULT_IMAGE],
+      images: [ogImage ?? OG_DEFAULT_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogUrl ?? OG_DEFAULT_IMAGE.url],
+      images: [(ogImage ?? OG_DEFAULT_IMAGE).url],
     },
   };
 }

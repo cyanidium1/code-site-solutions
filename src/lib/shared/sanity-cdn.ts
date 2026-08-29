@@ -30,6 +30,12 @@ type CdnOpts = {
   h?: number;
   q?: number;
   fit?: "max" | "crop" | "clip";
+  /**
+   * Force an output format instead of content-negotiating via `auto=format`.
+   * Needed for og:image: social scrapers send a wildcard Accept header, so
+   * `auto=format` hands them the original — a 1.2 MB PNG stays a 900 KB PNG.
+   */
+  fm?: "jpg" | "png" | "webp";
   /** Studio crop (fractions 0..1) — applied as ?rect= when dims are known. */
   crop?: SanityCrop | null;
   /** Original asset dimensions (from metadata.dimensions). */
@@ -72,13 +78,14 @@ export function croppedDims(
 
 export function sanityCdn(
   url: string | undefined | null,
-  { w, h, q = 60, fit = "max", crop, dims }: CdnOpts = {},
+  { w, h, q = 60, fit = "max", crop, dims, fm }: CdnOpts = {},
 ): string {
   if (!isSanityUrl(url)) return url ?? "";
   const u = new URL(url);
   const rect = cropRect(crop, dims);
   if (rect) u.searchParams.set("rect", rect);
-  u.searchParams.set("auto", "format");
+  if (fm) u.searchParams.set("fm", fm);
+  else u.searchParams.set("auto", "format");
   u.searchParams.set("fit", fit);
   if (w) u.searchParams.set("w", String(w));
   if (h) u.searchParams.set("h", String(h));
@@ -110,4 +117,37 @@ export function sanitySrcSet(
     .sort((a, b) => a - b)
     .map((w) => `${sanityCdn(url, { w, q, crop, dims })} ${w}w`)
     .join(", ");
+}
+
+/** Open Graph card size. 1.91:1, the ratio Telegram, Slack and X render large. */
+export const OG_IMAGE_SIZE = { width: 1200, height: 630 } as const;
+
+/**
+ * A Sanity URL shaped for og:image / twitter:image.
+ *
+ * Two things matter to a social scraper and neither is the default:
+ *   - explicit `fm=jpg`, because scrapers send a wildcard Accept header and
+ *     `auto=format` therefore serves them the original PNG (measured on a case
+ *     cover: 1.17 MB original, 897 KB with auto=format, 62 KB with fm=jpg);
+ *   - a 1200×630 crop, so the preview renders as a wide card rather than a
+ *     near-square thumbnail.
+ *
+ * Returns undefined for a missing URL so callers can fall back to the site
+ * default card.
+ */
+export function sanityOgImage(
+  url: string | null | undefined,
+): { url: string; width: number; height: number } | undefined {
+  if (!url) return undefined;
+  if (!isSanityUrl(url)) return { url, ...OG_IMAGE_SIZE };
+  return {
+    url: sanityCdn(url, {
+      w: OG_IMAGE_SIZE.width,
+      h: OG_IMAGE_SIZE.height,
+      fit: "crop",
+      q: 75,
+      fm: "jpg",
+    }),
+    ...OG_IMAGE_SIZE,
+  };
 }

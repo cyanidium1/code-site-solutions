@@ -13,6 +13,7 @@ import type { Metadata } from "next";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { OG_DEFAULT_IMAGE } from "@/constants/site";
+import { sanityOgImage } from "@/lib/shared/sanity-cdn";
 import {
   CASE_STUDIES_QUERY,
   CASE_STUDY_BY_SLUG_QUERY,
@@ -85,11 +86,14 @@ export async function buildCaseStudyMetadata(
   // OG image fallback: dedicated seo.ogImage → hero image → cover image →
   // file-based [slug]/opengraph-image.tsx auto-card (handled by Next when
   // `images` is undefined).
-  const ogImageUrl =
+  // Telegram bug Aug 2026: this handed scrapers the raw asset — a 1.17 MB
+  // PNG at 1202x1133, which previews as a heavy near-square thumbnail.
+  // sanityOgImage forces a 1200x630 JPEG (62 KB on the same asset).
+  const ogImage = sanityOgImage(
     doc.seo?.ogImage?.url ??
-    doc.hero?.heroImage?.asset?.url ??
-    doc.coverImage?.asset?.url ??
-    undefined;
+      doc.hero?.heroImage?.asset?.url ??
+      doc.coverImage?.asset?.url,
+  );
 
   return {
     title,
@@ -104,12 +108,13 @@ export async function buildCaseStudyMetadata(
       // SEO audit Aug 2026: omitting `images` does NOT fall through to the
       // [slug]/opengraph-image.tsx card — declaring `openGraph` at all
       // suppresses that convention, which left 3 cases with no og:image.
-      images: [ogImageUrl ?? OG_DEFAULT_IMAGE.url],
+      images: [ogImage ?? OG_DEFAULT_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [(ogImage ?? OG_DEFAULT_IMAGE).url],
     },
   };
 }
