@@ -44,7 +44,7 @@ const DEFAULT_ROWS: TableRowData[] = [
 const DEFAULT_TIERS: TierProps[] = [
   {
     name: <>Базовий сайт<br />клініки</>,
-    price: formatPrice(3500, { locale: "uk" }),
+    price: formatPrice(2500, { locale: "uk" }),
     weeks: "4 тижні",
     includes: {
       heading: "Що входить",

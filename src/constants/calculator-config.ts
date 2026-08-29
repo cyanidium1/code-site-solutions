@@ -8,6 +8,7 @@ import type {
   ProjectType,
   TimelineOption,
 } from "@/types/pricing";
+import type { PriceLocale } from "@/lib/shared/format-price";
 
 export const PROJECT_TYPE_CONFIG: Record<
   ProjectType,
@@ -26,7 +27,7 @@ export const PROJECT_TYPE_CONFIG: Record<
   },
   multiPage: {
     label: "Multi-page website",
-    basePrice: 3500,
+    basePrice: 2500,
     hint: "Best for companies that need service pages, about page, cases, blog, SEO structure.",
     pages: { min: 3, max: 30, defaultValue: 5, included: 5, extraPrice: 220 },
   },
@@ -178,3 +179,24 @@ export const DEFAULT_CALCULATOR_INPUT: CalculatorInput = {
   contentOption: "clientProvided",
   timeline: "standard",
 };
+
+/**
+ * Per-market base prices for the calculator, mirroring TIER_AMOUNT_OVERRIDES
+ * in constants/pricing-tiers. uk/ru quote the multi-page build at $2,500;
+ * the EN/UK market stays at £3,500. Applied in fetchCalculatorConfig so both
+ * the CMS-driven and the constants-driven config go through the same rule.
+ */
+export const PROJECT_BASE_PRICE_OVERRIDES: Partial<
+  Record<PriceLocale, Partial<Record<ProjectType, number>>>
+> = {
+  en: { multiPage: 3500 },
+};
+
+/** Base price for a project type on a given market. */
+export function projectBasePrice(
+  projectKey: ProjectType,
+  locale: PriceLocale,
+  fallback: number,
+): number {
+  return PROJECT_BASE_PRICE_OVERRIDES[locale]?.[projectKey] ?? fallback;
+}

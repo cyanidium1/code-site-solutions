@@ -57,7 +57,7 @@ const jsonLd = buildJsonLd([
     offers: {
       "@type": "Offer",
       name: "Корпоративный сайт под ключ",
-      price: "3500",
+      price: "2500",
       priceCurrency: "USD",
       url: URL,
     },

@@ -606,7 +606,7 @@ export const VS_FREELANCERS_UK: Content = {
     totalLabel: "Разом за рік",
     s1Title: "Сценарій 1: Лендінг для клініки",
     s1Rows: [
-      { item: "Розробка", freelancer: formatPrice(1500, { locale: "uk" }), us: formatPrice(3500, { locale: "uk" }) },
+      { item: "Розробка", freelancer: formatPrice(1500, { locale: "uk" }), us: formatPrice(2500, { locale: "uk" }) },
       {
         item: "Підтримка перший рік",
         freelancer: "$50/міс × 12 = $600",
@@ -628,11 +628,12 @@ export const VS_FREELANCERS_UK: Content = {
         us: "$0",
       },
     ],
-    s1Total: { freelancer: formatPrice(3225, { locale: "uk" }), us: formatPrice(3500, { locale: "uk" }) },
+    s1Total: { freelancer: formatPrice(3225, { locale: "uk" }), us: formatPrice(2500, { locale: "uk" }) },
     s1Verdict: (
       <>
-        Різниця: $275. Це <strong>базова ставка ризику</strong>. Через 2 роки
-        фрілансер може бути дорожче на 30%.
+        Різниця: $725 — і вже <strong>на нашу користь</strong>. Фрілансер
+        дешевший лише в рядку «розробка»; рік володіння з підтримкою, багфіксами
+        і ризиком зникнення виводить його дорожче.
       </>
     ),
     s2Title: "Сценарій 2: Сайт e-commerce малого бізнесу",

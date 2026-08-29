@@ -44,7 +44,7 @@ export const BUSINESS_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> =
 export const TIER_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
   uk: [
     { key: "landing", label: "Лендінг — від $800" },
-    { key: "corporate", label: "Корпоративний сайт — від $3 500" },
+    { key: "corporate", label: "Корпоративний сайт — від $2 500" },
     { key: "custom", label: "Кастомна платформа — від $6 000" },
     { key: "undecided", label: "Не визначився" },
   ],
@@ -56,7 +56,7 @@ export const TIER_OPTS_BY_LOCALE: Record<LeadFormLocale, LeadFormOption[]> = {
   ],
   ru: [
     { key: "landing", label: "Лендинг — от $800" },
-    { key: "corporate", label: "Корпоративный сайт — от $3 500" },
+    { key: "corporate", label: "Корпоративный сайт — от $2 500" },
     { key: "custom", label: "Кастомная платформа — от $6 000" },
     { key: "undecided", label: "Ещё не определился" },
   ],

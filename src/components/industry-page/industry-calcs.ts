@@ -4,8 +4,8 @@ import type { Locale } from "@/constants/locales";
 /**
  * Per-industry mini-calculator configs, reusing the MiniCalc component from
  * the site-type pages. Prices follow the canonical tier ladder: corporate
- * industries start at $3,500 (auto $3,000, real estate $4,000 per their
- * homepage cards), e-commerce at $6,000, courses at the $800 landing base.
+ * industries start at $2,500 on uk/ru and £3,500 on en (auto $3,000, real
+ * estate $4,000 per their homepage cards), e-commerce at $6,000, courses at the $800 landing base.
  * EN mirrors numerals in £ (site-wide 1:1 convention).
  */
 
@@ -22,6 +22,12 @@ const CURRENCY_BY_LOCALE: Record<Locale, string> = {
 type IndustryCalcDef = {
   tier: string;
   base: number;
+  /**
+   * Per-market base, for locales where it diverges from `base`. Mirrors
+   * TIER_AMOUNT_OVERRIDES in constants/pricing-tiers: the corporate tier is
+   * $2,500 on uk/ru and £3,500 on en. Omit when every market shares a number.
+   */
+  baseByLocale?: Partial<Record<Locale, number>>;
   baseLabel: L3;
   baseNote: L3;
   blocks: { label: L3; note: L3; unitPrice: number; max: number };
@@ -108,7 +114,8 @@ const pagesBlock = (unit = 220, max = 5) => ({
 const CALCS: Record<string, IndustryCalcDef> = {
   medicine: {
     tier: "corporate",
-    base: 3500,
+    base: 2500,
+    baseByLocale: { en: 3500 },
     baseLabel: {
       uk: "Базовий сайт клініки",
       ru: "Базовый сайт клиники",
@@ -134,14 +141,15 @@ const CALCS: Record<string, IndustryCalcDef> = {
       en: "Price your clinic's website",
     },
     sub: {
-      uk: "База $3 500 — повноцінний сайт із записом. Опції — коли ваша клініка цього потребує.",
-      ru: "База $3 500 — полноценный сайт с записью. Опции — когда ваша клиника этого требует.",
+      uk: "База $2 500 — повноцінний сайт із записом. Опції — коли ваша клініка цього потребує.",
+      ru: "База $2 500 — полноценный сайт с записью. Опции — когда ваша клиника этого требует.",
       en: "The £3,500 base is a complete site with booking. Options — when your clinic needs them.",
     },
   },
   renovation: {
     tier: "corporate",
-    base: 3500,
+    base: 2500,
+    baseByLocale: { en: 3500 },
     baseLabel: {
       uk: "Базовий сайт будівельної компанії",
       ru: "Базовый сайт строительной компании",
@@ -167,14 +175,15 @@ const CALCS: Record<string, IndustryCalcDef> = {
       en: "Price your company's website",
     },
     sub: {
-      uk: "База $3 500 окупається з одного закритого обʼєкта. Опції — під ваш формат робіт.",
-      ru: "База $3 500 окупается с одного закрытого объекта. Опции — под ваш формат работ.",
+      uk: "База $2 500 окупається з одного закритого обʼєкта. Опції — під ваш формат робіт.",
+      ru: "База $2 500 окупается с одного закрытого объекта. Опции — под ваш формат работ.",
       en: "The £3,500 base pays back with one closed project. Options — for how you work.",
     },
   },
   legal: {
     tier: "corporate",
-    base: 3500,
+    base: 2500,
+    baseByLocale: { en: 3500 },
     baseLabel: {
       uk: "Базовий сайт юридичної фірми",
       ru: "Базовый сайт юридической фирмы",
@@ -200,14 +209,15 @@ const CALCS: Record<string, IndustryCalcDef> = {
       en: "Price your firm's website",
     },
     sub: {
-      uk: "База $3 500 — сайт, що будує довіру. Опції — під вашу практику.",
-      ru: "База $3 500 — сайт, который строит доверие. Опции — под вашу практику.",
+      uk: "База $2 500 — сайт, що будує довіру. Опції — під вашу практику.",
+      ru: "База $2 500 — сайт, который строит доверие. Опции — под вашу практику.",
       en: "The £3,500 base builds trust. Options — for your practice.",
     },
   },
   finance: {
     tier: "corporate",
-    base: 3500,
+    base: 2500,
+    baseByLocale: { en: 3500 },
     baseLabel: {
       uk: "Базовий сайт фінансової компанії",
       ru: "Базовый сайт финансовой компании",
@@ -233,8 +243,8 @@ const CALCS: Record<string, IndustryCalcDef> = {
       en: "Price your website",
     },
     sub: {
-      uk: "База $3 500 — сайт, якому довіряють гроші. Опції — під ваші послуги.",
-      ru: "База $3 500 — сайт, которому доверяют деньги. Опции — под ваши услуги.",
+      uk: "База $2 500 — сайт, якому довіряють гроші. Опції — під ваші послуги.",
+      ru: "База $2 500 — сайт, которому доверяют деньги. Опции — под ваши услуги.",
       en: "The £3,500 base earns financial trust. Options — for your services.",
     },
   },
@@ -401,7 +411,7 @@ export function industryCalcContent(
     title: COMMON.title[locale],
     baseLabel: def.baseLabel[locale],
     baseNote: def.baseNote[locale],
-    basePrice: def.base,
+    basePrice: def.baseByLocale?.[locale] ?? def.base,
     currency: cur,
     blocks: {
       label: def.blocks.label[locale],

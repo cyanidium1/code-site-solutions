@@ -16,6 +16,7 @@ import type { TierProps } from "@/types/pricing";
 import type { PricingPlanDoc } from "@/types/sanity";
 import {
   TIER_AMOUNTS,
+  TIER_AMOUNT_OVERRIDES,
   TIER_NAMES,
   TIER_WEEKS,
   type HomepagePlanInfo,
@@ -57,6 +58,12 @@ export async function fetchPricingPlans(
     .filter((d) => typeof d.priceFrom === "number" && loc(d.name, locale))
     .map<ResolvedPlan>((d) => {
       const key = d.planKey || d._id;
+      // The CMS holds one number per plan, but the corporate tier is priced
+      // per market ($2,500 on uk/ru, £3,500 on en). Override wins over the
+      // doc; every other plan keeps the CMS value.
+      const priceFrom =
+        TIER_AMOUNT_OVERRIDES[locale]?.[key as TierKey] ??
+        (d.priceFrom as number);
       // The default locale respects the doc's own currency ($); secondary
       // locales use their market currency (en → GBP per LOCALE_CURRENCY).
       const currency: PriceCurrency =
@@ -72,7 +79,7 @@ export async function fetchPricingPlans(
 
       const tier: TierProps = {
         name: loc(d.name, locale),
-        price: formatPrice(d.priceFrom as number, { locale, currency }),
+        price: formatPrice(priceFrom, { locale, currency }),
         priceLabel: FROM_LABEL[locale],
         weeks: loc(d.weeks, locale),
         popular: Boolean(d.isPopular),
@@ -95,7 +102,7 @@ export async function fetchPricingPlans(
 
       return {
         key,
-        priceFrom: d.priceFrom as number,
+        priceFrom,
         currency,
         name: loc(d.name, locale),
         tier,

@@ -10,9 +10,28 @@ export type TierKey = "landing" | "corporate" | "custom";
 
 export const TIER_AMOUNTS: Record<TierKey, number> = {
   landing: 800,
-  corporate: 3500,
+  corporate: 2500,
   custom: 6000,
 };
+
+/**
+ * Per-market amounts. The USD markets (uk, ru) run the corporate tier at
+ * $2,500; the EN market is priced for the UK in GBP and stays at £3,500.
+ * These are two separate market prices, not a currency conversion of one
+ * another — do not "fix" one to match the other.
+ *
+ * Only overrides go here; anything absent falls back to TIER_AMOUNTS.
+ */
+export const TIER_AMOUNT_OVERRIDES: Partial<
+  Record<PriceLocale, Partial<Record<TierKey, number>>>
+> = {
+  en: { corporate: 3500 },
+};
+
+/** Amount for a tier on a given market. Use instead of reading TIER_AMOUNTS. */
+export function tierAmount(tier: TierKey, locale: PriceLocale): number {
+  return TIER_AMOUNT_OVERRIDES[locale]?.[tier] ?? TIER_AMOUNTS[tier];
+}
 
 export const TIER_NAMES: Record<TierKey, Record<PriceLocale, string>> = {
   landing: { uk: "Лендінг", en: "Landing", ru: "Лендинг" },

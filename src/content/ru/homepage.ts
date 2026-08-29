@@ -186,7 +186,7 @@ export const RU_INDUSTRIES: Industry[] = [
     title: "Медицина",
     description: "Сайты для клиник, стоматологий, диагностических центров",
     tags: ["МИС", "GDPR", "Онлайн-запись"],
-    price: "От $3 500 · 4–10 недель",
+    price: "От $2 500 · 4–10 недель",
     href: "/ru/sites-for/medicine",
   },
   {
@@ -194,7 +194,7 @@ export const RU_INDUSTRIES: Industry[] = [
     title: "Строительство / ремонт",
     description: "Сайты для строительных и ремонтных компаний",
     tags: ["CRM", "Калькулятор", "Локальное SEO"],
-    price: "От $3 500 · 4–8 недель",
+    price: "От $2 500 · 4–8 недель",
     href: "/ru/sites-for/renovation",
   },
   {
@@ -202,7 +202,7 @@ export const RU_INDUSTRIES: Industry[] = [
     title: "Юристы и адвокаты",
     description: "Сайты для юридических фирм, адвокатских бюро, частных практик",
     tags: ["Clio", "DocuSign", "Онлайн-консультации"],
-    price: "От $3 500 · 4–8 недель",
+    price: "От $2 500 · 4–8 недель",
     href: "/ru/sites-for/legal",
   },
   {
@@ -210,7 +210,7 @@ export const RU_INDUSTRIES: Industry[] = [
     title: "Финансы и бухгалтерия",
     description: "Сайты для бухгалтерских фирм, финансовых советников, трейдинга",
     tags: ["Xero", "Stripe", "1С"],
-    price: "От $3 500 · 4–8 недель",
+    price: "От $2 500 · 4–8 недель",
     href: "/ru/sites-for/finance",
   },
   {
@@ -234,7 +234,7 @@ export const RU_INDUSTRIES: Industry[] = [
     title: "Недвижимость",
     description: "Сайты для агентств недвижимости, застройщиков, частных объявлений",
     tags: ["Каталог", "Карта", "Ипотека"],
-    price: "От $3 500 · 4–8 недель",
+    price: "От $2 500 · 4–8 недель",
     href: "/ru/sites-for/real-estate",
   },
   {

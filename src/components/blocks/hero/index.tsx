@@ -430,7 +430,7 @@ export type HeroEditorialProps = {
 };
 
 export function HeroEditorial({
-  eyebrow = { label: "САЙТИ ДЛЯ МЕДИЧНОЇ ГАЛУЗІ", em: formatPrice(3500, { locale: "uk", withPrefix: true }) },
+  eyebrow = { label: "САЙТИ ДЛЯ МЕДИЧНОЇ ГАЛУЗІ", em: formatPrice(2500, { locale: "uk", withPrefix: true }) },
   h1Lines = [
     <>Клініка, до якої</>,
     <>

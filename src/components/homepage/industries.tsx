@@ -48,7 +48,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Healthcare / Medicine",
     description: "Сайти для клінік, стоматологій, діагностичних центрів",
     tags: ["Helsi", "Medesk", "Online booking"],
-    price: "Від $3 500 · 4-10 тижнів",
+    price: "Від $2 500 · 4-10 тижнів",
     href: "/sites-for/medicine",
   },
   {
@@ -56,7 +56,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Construction / Renovation",
     description: "Сайти для будівельних і ремонтних компаній",
     tags: ["CRM", "Calculator", "Local SEO"],
-    price: "Від $3 500 · 4-8 тижнів",
+    price: "Від $2 500 · 4-8 тижнів",
     href: "/sites-for/renovation",
   },
   {
@@ -64,7 +64,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Legal & Attorneys",
     description: "Сайти для юр. фірм, адвокатських бюро, приватних юристів",
     tags: ["Clio", "Diia.Sign", "Online consult"],
-    price: "Від $3 500 · 4-8 тижнів",
+    price: "Від $2 500 · 4-8 тижнів",
     href: "/sites-for/legal",
   },
   {
@@ -72,7 +72,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     title: "Фінанси і бухгалтерія",
     description: "Сайти для бух-фірм, фінансових радників, трейдинг-сервісів",
     tags: ["MEDoc", "Stripe", "1С/BAS"],
-    price: "Від $3 500 · 4-8 тижнів",
+    price: "Від $2 500 · 4-8 тижнів",
     href: "/sites-for/finance",
   },
   {

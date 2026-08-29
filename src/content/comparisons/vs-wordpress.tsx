@@ -566,7 +566,7 @@ export const VS_WORDPRESS_UK: Content = {
         popular: true,
         popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
         name: "Сайт-міграція",
-        price: formatPrice(3500, { locale: "uk" }),
+        price: formatPrice(2500, { locale: "uk" }),
         weeks: "4–8 тижнів",
         includes: {
           heading: "Все з лендінгу +",

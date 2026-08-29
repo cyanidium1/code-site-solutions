@@ -4,6 +4,7 @@ import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { CALCULATOR_CONFIG_QUERY } from "@/lib/server/sanity-queries";
 import { loc } from "@/lib/shared/sanity-locale";
 import { buildConfigFromConstants } from "@/lib/shared/build-config-from-constants";
+import { projectBasePrice } from "@/constants/calculator-config";
 import type {
   CalculatorConfig,
   ConfigCheckboxOption,
@@ -43,7 +44,7 @@ import type {
  * a partial result.
  */
 export async function fetchCalculatorConfig(locale: Locale): Promise<CalculatorConfig> {
-  const fallback = buildConfigFromConstants();
+  const fallback = localizeBasePrices(buildConfigFromConstants(), locale);
   try {
     const result = await sanityFetch<CalculatorConfigQueryResult | null>({
       query: CALCULATOR_CONFIG_QUERY,
@@ -65,6 +66,23 @@ export async function fetchCalculatorConfig(locale: Locale): Promise<CalculatorC
   }
 }
 
+/**
+ * Applies the per-market base-price overrides to a constants-built config so
+ * the Sanity-less fallback quotes the same numbers as the CMS path.
+ */
+function localizeBasePrices(
+  config: CalculatorConfig,
+  locale: Locale,
+): CalculatorConfig {
+  return {
+    ...config,
+    projectTypes: config.projectTypes.map((p) => ({
+      ...p,
+      basePrice: projectBasePrice(p.key, locale, p.basePrice),
+    })),
+  };
+}
+
 function shapeConfig(
   locale: Locale,
   result: CalculatorConfigQueryResult,
@@ -75,7 +93,7 @@ function shapeConfig(
       key: p.projectKey,
       label: loc(p.label, locale),
       hint: loc(p.hint, locale),
-      basePrice: p.basePrice,
+      basePrice: projectBasePrice(p.projectKey, locale, p.basePrice),
       // Default unknown → legacy ecommerce rule, so a missing flag from
       // Sanity drafts doesn't quietly disable the product-complexity tier.
       hasProductComplexity: p.hasProductComplexity ?? p.projectKey === "ecommerce",

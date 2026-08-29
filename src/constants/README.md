@@ -35,7 +35,7 @@ export type TierKey = "landing" | "corporate" | "custom";
 
 export const TIER_AMOUNTS: Record<TierKey, number> = {
   landing: 800,
-  corporate: 3500,
+  corporate: 2500,
   custom: 6000,
 };
 ```
