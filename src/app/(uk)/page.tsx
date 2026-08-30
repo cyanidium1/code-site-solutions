@@ -126,13 +126,13 @@ export default async function HomePage() {
         stats={[
           { num: "50+", lbl: <>проєктів<br/>за 5 років</> },
           { num: "7", lbl: <>країн<br/>UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>більше заявок<br/>у середньому</> },
+          { num: "×3.2", lbl: <>більше заявок<br/>у кейсі клініки</> },
           { num: "30%", lbl: <>неустойка<br/>за зрив терміну</> },
         ]}
         deviceTags={[
           { kind: "default", primary: "Custom code" },
           { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "98" },
+          { kind: "good", primary: "Lighthouse", mini: "90+" },
         ]}
         deviceMockupSrc="/hero/hero-mockup.webp"
         deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"

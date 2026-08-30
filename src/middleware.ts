@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
+
+import { SITE_ORIGIN } from "@/constants/site";
 
 /**
  * Locale strategy: `/` ALWAYS renders Ukrainian and returns 200 — no
@@ -24,13 +26,36 @@ import { NextResponse } from "next/server";
  *
  * Deep links (`/en/...`, `/ru/...`) were never redirected and still are
  * not: language is carried by the URL prefix.
- *
- * The middleware is now a pass-through. It is kept (rather than deleted)
- * so the matcher and this rationale stay in one obvious place if locale
- * routing is ever revisited.
  */
-export function middleware() {
-  return NextResponse.next();
+
+const CANONICAL_HOST = new URL(SITE_ORIGIN).host;
+
+/**
+ * Everything the site serves on a host other than the canonical one is
+ * marked `noindex, nofollow`.
+ *
+ * Audit 31.08.2026: the whole site was reachable and indexable on Vercel
+ * preview hosts, and it was not theoretical — Clarity recorded 9 sessions
+ * on `code-site-frontend.vercel.app` in 30 days, and both it and
+ * `code-site-solution.vercel.app` showed up as referrers. A full duplicate
+ * of a 300-page site competing with the original is crawl budget taken
+ * from the pages that matter, on a site where Google already declined to
+ * index 46 of them.
+ *
+ * A header rather than a redirect: redirecting every preview host to
+ * production would make preview deploys useless for review. `X-Robots-Tag`
+ * keeps them browsable and keeps them out of the index.
+ *
+ * This only covers hosts served by THIS project. A mirror deployed from
+ * another repository has to be removed in its own Vercel project.
+ */
+export function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+  const host = request.headers.get("host");
+  if (host && host !== CANONICAL_HOST) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return response;
 }
 
 export const config = {

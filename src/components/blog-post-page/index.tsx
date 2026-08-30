@@ -92,12 +92,30 @@ const RU_MONTHS_SHORT = [
   "июл", "авг", "сен", "окт", "ноя", "дек",
 ];
 
-/** Short date per locale ("30 чер 2026" / "30 Jun 2026" / "30 июн 2026"). */
+/**
+ * Short date per locale ("30 чер 2026" / "30 Jun 2026" / "30 июн 2026").
+ *
+ * Read in UTC, deliberately. `getDate()` and `toLocaleDateString()` both use
+ * the runtime's timezone, so the server (UTC on Vercel) and the visitor's
+ * browser disagreed for any post whose timestamp sits near a day boundary —
+ * and a date-only value like `2026-06-04` parses as UTC midnight, which is
+ * the *previous* day for every visitor west of Greenwich.
+ *
+ * That mismatch is a hydration error, and Clarity was reporting it: React
+ * error #418 accounted for a quarter of the JavaScript errors on the site.
+ * Publication dates are editorial facts, not local times, so UTC is also the
+ * correct reading.
+ */
 const FORMAT_DATE: Record<Locale, (d: Date) => string> = {
-  uk: (d) => `${d.getDate()} ${UA_MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`,
+  uk: (d) => `${d.getUTCDate()} ${UA_MONTHS_SHORT[d.getUTCMonth()]} ${d.getUTCFullYear()}`,
   en: (d) =>
-    d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
-  ru: (d) => `${d.getDate()} ${RU_MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`,
+    d.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    }),
+  ru: (d) => `${d.getUTCDate()} ${RU_MONTHS_SHORT[d.getUTCMonth()]} ${d.getUTCFullYear()}`,
 };
 
 function formatDate(iso: string | undefined, locale: Locale): string | undefined {

@@ -133,13 +133,13 @@ export default async function HomePageEn() {
         stats={[
           { num: "50+", lbl: <>projects<br />across 5 years</> },
           { num: "7", lbl: <>countries<br />UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>more leads<br />on average</> },
+          { num: "×3.2", lbl: <>more leads<br />in the clinic case</> },
           { num: "30%", lbl: <>penalty if we<br />miss the deadline</> },
         ]}
         deviceTags={[
           { kind: "default", primary: "Custom code" },
           { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "98" },
+          { kind: "good", primary: "Lighthouse", mini: "90+" },
         ]}
         deviceMockupSrc="/hero/hero-mockup.webp"
         deviceMockupAlt="Custom business website mockup built by Code-Site.Art"

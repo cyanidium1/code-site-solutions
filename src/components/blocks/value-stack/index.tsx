@@ -112,7 +112,7 @@ const UK: Copy = {
     },
   ],
   small: [
-    { icon: Gauge, title: "Відкривається за 0,5 с", desc: "0,5 секунди проти 3–5 у типового сайту на конструкторі. Поки їхній ще вантажиться, ваш уже показав форму заявки.", img: IMG.performance },
+    { icon: Gauge, title: "Сервер відповідає за 0,2–0,5 с", desc: "Стільки триває відповідь сервера цього сайту — сторінка починає малюватися одразу, а не після паузи. Сайти на конструкторах віддають перший байт помітно довше.", img: IMG.performance },
     { icon: Network, title: "Готовий рости разом із вами", desc: "Нові сторінки, локації та інтеграції додаються поверх наявного — без переробки з нуля.", img: IMG.scalable },
     { icon: BarChart3, title: "Звідки приходять гроші", desc: "Аналітика з першого дня: джерела трафіку, заявки, результати.", img: IMG.analytics },
     { icon: Rocket, title: "Запуск — на нас", desc: "Хостинг, безпека, DNS, деплой — усю технічну частину робимо ми. Ви просто отримуєте ключі.", img: IMG.launch },
@@ -121,15 +121,15 @@ const UK: Copy = {
   stats: [
     {
       icon: Zap,
-      num: "0,5 с",
-      title: "час завантаження",
-      desc: "Швидше, ніж відвідувач встигне закрити вкладку. Сайти на конструкторах вантажаться 3–5 секунд — частина людей іде, не дочекавшись.",
+      num: "2,4 с",
+      title: "до першого екрана",
+      desc: "Це LCP цього сайту, зміряний на реальних відвідувачах, а не в лабораторному тесті. Зелена зона Google — до 2,5 с. Перевірте самі, ми не проти.",
     },
     {
       icon: Gauge,
-      num: "95+",
-      title: "оцінка PageSpeed",
-      desc: "Google ранжує швидкі сайти вище. Ваш — у зеленій зоні, де конкуренти зазвичай у червоній.",
+      num: "0",
+      title: "зсувів макета",
+      desc: "CLS нуль: нічого не стрибає під пальцем, поки сторінка вантажиться. Це один із трьох показників, за якими Google оцінює сайт, — і єдиний, де буває ідеальний результат.",
     },
   ],
   designHeading: (
@@ -188,7 +188,7 @@ const EN: Copy = {
     },
   ],
   small: [
-    { icon: Gauge, title: "Opens in 0.5 seconds", desc: "0.5 seconds versus 3–5 on a typical builder-made site. While theirs is still loading, yours has already shown the contact form.", img: IMG.performance },
+    { icon: Gauge, title: "Server responds in 0.2–0.5s", desc: "That is this site's own server response time — the page starts painting immediately rather than after a pause. Builder-made sites take noticeably longer to send the first byte.", img: IMG.performance },
     { icon: Network, title: "Ready to grow with you", desc: "New pages, locations, and integrations are added on top of what’s there — no rebuild from scratch.", img: IMG.scalable },
     { icon: BarChart3, title: "You see where the money comes from", desc: "Analytics set up from day one: traffic sources, leads, results.", img: IMG.analytics },
     { icon: Rocket, title: "Launch is on us", desc: "Hosting, security, DNS, deployment — we handle all the technical side. You just pick up the keys.", img: IMG.launch },
@@ -197,15 +197,15 @@ const EN: Copy = {
   stats: [
     {
       icon: Zap,
-      num: "0.5s",
-      title: "load time",
-      desc: "Faster than a visitor can close the tab. Builder sites take 3–5 seconds, and some people leave before it loads.",
+      num: "2.4s",
+      title: "to first paint",
+      desc: "That is this site's LCP, measured on real visitors rather than in a lab test. Google's green zone is under 2.5s. Check it yourself — we don't mind.",
     },
     {
       icon: Gauge,
-      num: "95+",
-      title: "PageSpeed score",
-      desc: "Google ranks fast sites higher. Yours sits in the green zone, where competitors are usually in the red.",
+      num: "0",
+      title: "layout shift",
+      desc: "CLS of zero: nothing jumps under your thumb while the page loads. It is one of the three metrics Google scores a site on, and the only one where a perfect result is possible.",
     },
   ],
   designHeading: (
@@ -264,7 +264,7 @@ const RU: Copy = {
     },
   ],
   small: [
-    { icon: Gauge, title: "Открывается за 0,5 с", desc: "0,5 секунды против 3–5 у типичного сайта на конструкторе. Пока их ещё грузится, ваш уже показал форму заявки.", img: IMG.performance },
+    { icon: Gauge, title: "Сервер отвечает за 0,2–0,5 с", desc: "Столько занимает ответ сервера этого сайта — страница начинает рисоваться сразу, а не после паузы. Сайты на конструкторах отдают первый байт заметно дольше.", img: IMG.performance },
     { icon: Network, title: "Готов расти вместе с вами", desc: "Новые страницы, локации и интеграции добавляются поверх существующего — без переделки с нуля.", img: IMG.scalable },
     { icon: BarChart3, title: "Откуда приходят деньги", desc: "Аналитика с первого дня: источники трафика, заявки, результаты.", img: IMG.analytics },
     { icon: Rocket, title: "Запуск — на нас", desc: "Хостинг, безопасность, DNS, деплой — всю техническую часть делаем мы. Вы просто получаете ключи.", img: IMG.launch },
@@ -273,15 +273,15 @@ const RU: Copy = {
   stats: [
     {
       icon: Zap,
-      num: "0,5 с",
-      title: "время загрузки",
-      desc: "Быстрее, чем посетитель успеет закрыть вкладку. Сайты на конструкторах грузятся 3–5 секунд — часть людей уходит, не дождавшись.",
+      num: "2,4 с",
+      title: "до первого экрана",
+      desc: "Это LCP этого сайта, измеренный на реальных посетителях, а не в лабораторном тесте. Зелёная зона Google — до 2,5 с. Проверьте сами, мы не против.",
     },
     {
       icon: Gauge,
-      num: "95+",
-      title: "оценка PageSpeed",
-      desc: "Google ранжирует быстрые сайты выше. Ваш — в зелёной зоне, где конкуренты обычно в красной.",
+      num: "0",
+      title: "сдвигов макета",
+      desc: "CLS ноль: ничего не прыгает под пальцем, пока страница грузится. Это один из трёх показателей, по которым Google оценивает сайт, — и единственный, где бывает идеальный результат.",
     },
   ],
   designHeading: (
