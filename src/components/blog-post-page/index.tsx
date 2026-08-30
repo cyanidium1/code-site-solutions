@@ -396,17 +396,24 @@ export async function BlogPostPageView({
       <JsonLd data={jsonLd} />
       <HpHeader />
       <main>
-        {/* Hero cover — rendered above the H1. Full standard width; skipped
-            when the post has no cover of its own. */}
+        {/* Hero cover — rendered above the H1.
+            Width is capped at the H1 column (920px) rather than the full
+            1440px container: a 16:9 cover across the full width came out
+            810px tall, which is most of a laptop screen before a word of the
+            article is visible. Narrowing it also fixes the softness — the
+            same 1600px source now covers the display width about 1.7x
+            instead of being stretched past 1:1. The height cap trims the
+            band to roughly 2:1; these covers are abstract, so a centre crop
+            costs nothing. */}
         {!heroCover.generic ? (
           <section className="bg-bg px-5 pt-6 lg:px-12 lg:pt-10">
-            <div className="max-w-container mx-auto">
+            <div className="max-w-container-h1 mx-auto">
               <SanityImg
                 image={heroCover.image}
                 alt={heroCover.alt}
-                sizes={IMG_SIZES.container}
+                sizes={IMG_SIZES.prose}
                 priority
-                className="w-full h-auto rounded-2xl border border-line block"
+                className="w-full h-auto max-h-[300px] sm:max-h-[380px] lg:max-h-[440px] object-cover rounded-2xl border border-line block"
               />
             </div>
           </section>

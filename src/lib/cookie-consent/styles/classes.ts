@@ -4,11 +4,14 @@
  * another project, remap these to that project's tokens.
  */
 
+/* Vertical rhythm is tighter below sm: measured at 375x812 the banner took
+   267px — a third of the screen — and on /contacts it sat over the list of
+   contact channels, which is the one thing that page exists for. */
 export const bannerClass =
-  "fixed inset-x-0 bottom-0 z-[90] border-t border-line bg-bg-raised/95 backdrop-blur-md px-6 sm:px-8 lg:px-12 py-5";
+  "fixed inset-x-0 bottom-0 z-[90] border-t border-line bg-bg-raised/95 backdrop-blur-md px-5 sm:px-8 lg:px-12 py-4 sm:py-5";
 
 export const bannerInnerClass =
-  "mx-auto max-w-container flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between";
+  "mx-auto max-w-container flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-center lg:justify-between";
 
 export const bannerTitleClass = "font-sans text-[15px] font-bold text-ink";
 
@@ -18,10 +21,10 @@ export const bannerBodyClass =
 /* Mobile: two stacked rows — Customise on its own row, then Reject+Accept
    sharing one full-width row (equal halves). Desktop (lg+): one inline line. */
 export const bannerActionsClass =
-  "flex flex-col gap-3 shrink-0 lg:flex-row lg:items-center";
+  "flex flex-col gap-2.5 shrink-0 sm:gap-3 lg:flex-row lg:items-center";
 
 export const bannerChoiceRowClass =
-  "flex gap-3 w-full lg:w-auto [&>button]:flex-1 lg:[&>button]:flex-none";
+  "flex gap-2.5 w-full sm:gap-3 lg:w-auto [&>button]:flex-1 lg:[&>button]:flex-none";
 
 /* Buttons: Accept and Reject share size and weight — GDPR requires rejecting
    to be as easy and as prominent as accepting. */
@@ -33,8 +36,10 @@ export const buttonPrimaryClass = "bg-accent text-white hover:bg-accent-soft";
 export const buttonSecondaryClass =
   "border border-line-strong bg-[oklch(1_0_0/0.04)] text-ink hover:bg-[oklch(1_0_0/0.09)]";
 
+/* No underline: it sits in a row with two pill buttons and reads as a third
+   control, so an underline made it look like a link that had lost its styling. */
 export const buttonGhostClass =
-  "text-ink-dim hover:text-ink underline underline-offset-4 decoration-line-strong px-2";
+  "text-ink-dim hover:text-ink no-underline px-2";
 
 export const overlayClass =
   "fixed inset-0 z-[95] flex items-end sm:items-center justify-center bg-[oklch(0.06_0.005_300/0.6)] backdrop-blur-[6px] p-0 sm:p-6";

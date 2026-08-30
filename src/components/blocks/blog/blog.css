@@ -118,6 +118,12 @@
   transition: color 0.2s;
 }
 .blog-prose a:hover { @apply text-ink; }
+/* The CTA inside an article is a button, not a link in a sentence. Its own
+   `no-underline` lost to `.blog-prose a` on specificity (0,2,0 beats 0,1,0),
+   so the pill button rendered with an underline through its label. */
+.blog-prose a.blog-cta-btn {
+  text-decoration: none;
+}
 .blog-prose code {
   @apply font-mono;
   font-size: 14px;

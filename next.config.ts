@@ -98,6 +98,15 @@ const nextConfig: NextConfig = {
         destination: "/blog/nextjs-proty-wordpress-ta-konstruktoriv",
         statusCode: 301,
       },
+      // The UK-path twin of the slug above was covered; its /ru/ counterpart
+      // was not, and GSC still reports it as a hard 404. Points at the RU
+      // translation of the same article rather than the UK one.
+      {
+        source:
+          "/ru/blog/pochemu-saity-na-kode-rabotayut-bystree-i-prinosyat-bolshe-klientov",
+        destination: "/ru/blog/nextjs-protiv-wordpress-i-konstruktorov",
+        statusCode: 301,
+      },
       // SEO audit Aug 2026: /index served a byte-identical copy of the home
       // page with a 200. The canonical already pointed at /, so the duplicate
       // risk was low, but a redirect removes the ambiguity entirely.
