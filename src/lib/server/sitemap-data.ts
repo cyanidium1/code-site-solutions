@@ -74,6 +74,11 @@ const STATIC_ROUTES: {
     changeFrequency: "monthly",
     priority: 0.7,
   },
+  {
+    path: "/sites-for/medicine/seo",
+    changeFrequency: "monthly",
+    priority: 0.7,
+  },
   { path: "/vs-wordpress", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-constructors", changeFrequency: "monthly", priority: 0.8 },
   { path: "/vs-freelancers", changeFrequency: "monthly", priority: 0.8 },
