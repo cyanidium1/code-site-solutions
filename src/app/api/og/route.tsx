@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 
-import { OG_CONTENT_TYPE, OG_SIZE, renderOgCard } from "@/lib/server/og/card";
+import { OG_CONTENT_TYPE, renderOgCard } from "@/lib/server/og/card";
 
 /**
  * Stable social-card endpoint.
@@ -39,5 +39,3 @@ export async function GET(request: NextRequest) {
   image.headers.set("Content-Type", OG_CONTENT_TYPE);
   return image;
 }
-
-export const size = OG_SIZE;
