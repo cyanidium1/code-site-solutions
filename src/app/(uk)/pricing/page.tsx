@@ -7,6 +7,7 @@ import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { CtaBanner } from "@/components/blocks/cta-banner";
+import { ProseSections } from "@/components/blocks/prose-section";
 import { FAQ } from "@/components/blocks/final";
 import {
   HpHeader,
@@ -29,6 +30,7 @@ import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { SectionHead } from "@/components/shared/section-head";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { PRICING_PROSE_UK } from "@/content/uk/pricing-prose";
 
 const PRICING_TITLE = "Ціна створення сайту 2026 — фіксовані пакети | Code-Site.Art";
 const PRICING_DESCRIPTION =
@@ -289,6 +291,8 @@ export default async function PricingPage() {
       />
 
       {/* Section 7: Calculator promo */}
+      <ProseSections items={PRICING_PROSE_UK} />
+
       <CtaBanner
         heading={
           <>

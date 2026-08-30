@@ -7,6 +7,7 @@ import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { CtaBanner } from "@/components/blocks/cta-banner";
+import { ProseSections } from "@/components/blocks/prose-section";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter, Bento } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
@@ -29,6 +30,7 @@ import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
 import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { PRICING_PROSE_RU } from "@/content/ru/pricing-prose";
 
 const PRICING_TITLE =
   "Цена создания сайта 2026 — фиксированные пакеты | Code-Site.Art";
@@ -293,6 +295,8 @@ export default async function RuPricingPage() {
       />
 
       {/* Section 7: Calculator promo */}
+      <ProseSections items={PRICING_PROSE_RU} />
+
       <CtaBanner
         heading={
           <>

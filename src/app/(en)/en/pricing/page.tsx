@@ -7,6 +7,7 @@ import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { CtaBanner } from "@/components/blocks/cta-banner";
+import { ProseSections } from "@/components/blocks/prose-section";
 import { FAQ } from "@/components/blocks/final";
 import {
   HpHeader,
@@ -33,6 +34,7 @@ import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
 import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { PRICING_PROSE_EN } from "@/content/en/pricing-prose";
 
 export const metadata: Metadata = {
   title: "Website Development Pricing UK — Fixed Plans | Code-Site.Art",
@@ -288,6 +290,8 @@ export default async function EnPricingPage() {
       />
 
       {/* Section 7: Calculator promo */}
+      <ProseSections items={PRICING_PROSE_EN} />
+
       <CtaBanner
         heading={
           <>
