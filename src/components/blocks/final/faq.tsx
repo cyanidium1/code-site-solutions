@@ -178,9 +178,6 @@ export function FAQ({
   }
 
   const hasOverflow = resolvedItems.length > FAQ_INITIAL_VISIBLE;
-  const visible = expanded
-    ? resolvedItems
-    : resolvedItems.slice(0, FAQ_INITIAL_VISIBLE);
   const toggleLabel = expanded
     ? labels.showFewer
     : showAllLabel === undefined && labels.showAllCount
@@ -195,8 +192,22 @@ export function FAQ({
           {resolvedHeading}
         </H2>
         <div className="flex flex-col gap-3">
-          {visible.map((it, i) => (
-            <details key={i} className={FAQ_ITEM}>
+          {/* Every item is rendered, and the overflow is hidden with CSS rather
+              than sliced out of the array. Slicing kept the extras out of the
+              server HTML entirely: /pricing shipped 18 questions in its
+              FAQPage markup and only 5 in the document, so thirteen answers
+              written specifically for price queries were not indexable at all.
+              Content collapsed behind a control is still crawled; content that
+              never renders is not. */}
+          {resolvedItems.map((it, i) => (
+            <details
+              key={i}
+              className={
+                !expanded && i >= FAQ_INITIAL_VISIBLE
+                  ? `${FAQ_ITEM} hidden`
+                  : FAQ_ITEM
+              }
+            >
               <summary className={`group/trigger ${FAQ_ITEM_TRIGGER}`}>
                 <span className={FAQ_ITEM_TITLE}>{it.q}</span>
                 <span className={FAQ_PLUS} aria-hidden="true">
