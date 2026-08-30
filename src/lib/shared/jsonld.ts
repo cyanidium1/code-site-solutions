@@ -277,6 +277,19 @@ export function buildReviewNodes(
   raws: RawReview[],
   itemReviewedId: string,
 ): JsonLdNode[] {
+  // A site cannot publish reviews of itself. Google dropped support for
+  // self-serving reviews of Organization and LocalBusiness in 2019, and
+  // Organization is not among the types eligible for a review snippet at all —
+  // so a Review pointing at our own ORG_ID can never produce a rich result and
+  // is reported as an error instead. GSC flagged exactly this on
+  // /ru/sites-for/medicine ("Проверка кода: 1 элемент с ошибками"), and every
+  // homepage, industry page and case page emitted the same node.
+  //
+  // The testimonials still render for readers; only the markup goes. Pass a
+  // reviewable node's @id (Product, Course, SoftwareApplication…) and this
+  // builder works as before.
+  if (itemReviewedId === ORG_ID) return [];
+
   return raws.flatMap((r) => {
     const body = r.body?.trim();
     const authorName = r.authorName?.trim();
