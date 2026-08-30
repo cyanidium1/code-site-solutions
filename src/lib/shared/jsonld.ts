@@ -298,13 +298,31 @@ export function buildReviewNodes(
 
 /* ─── Graph composer ──────────────────────────────────────────────────────── */
 
+/** Does any value inside this node reference ORG_ID via `{ "@id": … }`? */
+function referencesOrg(value: unknown): boolean {
+  if (!value || typeof value !== "object") return false;
+  if (Array.isArray(value)) return value.some(referencesOrg);
+  const obj = value as Record<string, unknown>;
+  if (obj["@id"] === ORG_ID) return true;
+  return Object.values(obj).some(referencesOrg);
+}
+
 export function buildJsonLd(
   graph: (JsonLdNode | JsonLdNode[] | null | undefined)[],
 ): JsonLdNode {
+  const nodes = graph.flat().filter((n): n is JsonLdNode => Boolean(n));
+
+  // GSC, Aug 2026: industry and case pages emit Review nodes whose
+  // `itemReviewed` is `{ "@id": ORG_ID }`, but never declared the Organization
+  // itself — the reference dangled, so Google reported the review element as
+  // "no name" and disqualified the rich result. A referenced entity has to
+  // exist somewhere in the graph, so add it when something points at it and
+  // nothing declares it.
+  const declaresOrg = nodes.some((n) => n["@id"] === ORG_ID);
+  const needsOrg = !declaresOrg && nodes.some(referencesOrg);
+
   return {
     "@context": "https://schema.org",
-    "@graph": graph
-      .flat()
-      .filter((n): n is JsonLdNode => Boolean(n)),
+    "@graph": needsOrg ? [...nodes, organizationNode()] : nodes,
   };
 }
