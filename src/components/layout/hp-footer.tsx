@@ -161,6 +161,8 @@ export function HpFooter({
     { key: "corporateSite", href: resolveRootHref("/corporate-site", locale) },
     { key: "onlineStore", href: resolveRootHref("/online-store", locale) },
     { key: "seo", href: resolveRootHref("/seo", locale) },
+    { key: "audit", href: resolveRootHref("/audit", locale) },
+    { key: "redesign", href: resolveRootHref("/redesign", locale) },
     { key: "pricing", href: resolveRootHref("/pricing", locale) },
     { key: "calculator", href: resolveRootHref("/calculator", locale) },
     { key: "portfolio", href: resolveRootHref("/portfolio", locale) },

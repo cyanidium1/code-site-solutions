@@ -50,6 +50,10 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     "/portfolio",
     "/calculator",
     "/pricing",
+    // Ahrefs, Україна, 30.08.2026: «аудит сайта» — 350 запитів проти 200 в
+    // українського «аудит сайту», тож RU тут не для повноти локалі.
+    "/audit",
+    "/redesign",
   ]),
 };
 

@@ -461,6 +461,22 @@ const SIBLING_LINKS: { href: string; label: Record<Locale, string> }[] = [
     },
   },
   {
+    href: "/audit",
+    label: {
+      uk: "аудит сайту — $300",
+      en: "website audit",
+      ru: "аудит сайта — $300",
+    },
+  },
+  {
+    href: "/redesign",
+    label: {
+      uk: "редизайн сайту",
+      en: "website redesign",
+      ru: "редизайн сайта",
+    },
+  },
+  {
     href: "/process",
     label: {
       uk: "як проходить розробка сайту",

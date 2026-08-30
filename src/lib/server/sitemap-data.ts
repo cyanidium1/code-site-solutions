@@ -57,6 +57,8 @@ const STATIC_ROUTES: {
   { path: "/online-store", changeFrequency: "monthly", priority: 0.8 },
   { path: "/seo", changeFrequency: "monthly", priority: 0.8 },
   { path: "/support", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/audit", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/redesign", changeFrequency: "monthly", priority: 0.8 },
   {
     path: "/sites-for/medicine/stomatolohiia",
     changeFrequency: "monthly",
