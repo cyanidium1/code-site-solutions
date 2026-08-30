@@ -20,7 +20,7 @@ export const cookiePolicyEn: CookiePolicyCopy = {
     "Cookies are small text files stored in your browser. We only set analytics and marketing cookies after you allow them via the consent banner (Google Consent Mode v2). Your choice is kept for 12 months and can be changed at any time.",
   manage:
     "To change or withdraw consent, use “Cookie settings” in the site footer — the preferences window reopens instantly.",
-  updated: "Last updated: 2 July 2026",
+  updated: "Last updated: 31 August 2026",
   tableHead: { name: "Cookie", provider: "Provider", purpose: "Purpose", ttl: "Duration" },
   sections: [
     {
@@ -48,6 +48,18 @@ export const cookiePolicyEn: CookiePolicyCopy = {
           provider: "Google Analytics 4",
           purpose: "Keeps session state for usage statistics.",
           ttl: "2 years",
+        },
+        {
+          name: "_clck",
+          provider: "Microsoft Clarity",
+          purpose: "Tells visitors apart for anonymised session recording.",
+          ttl: "1 year",
+        },
+        {
+          name: "_clsk",
+          provider: "Microsoft Clarity",
+          purpose: "Stitches the events of one session into a single recording.",
+          ttl: "1 day",
         },
       ],
     },

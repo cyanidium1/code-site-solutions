@@ -39,6 +39,8 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
     errorBody: "Щось пішло не так. Спробуйте ще раз або пишіть в Telegram",
     privacy:
       "Не передаємо ваші дані третім особам. Зберігаємо тільки для відповіді на вашу заявку.",
+    privacyLink: "Політика конфіденційності",
+    privacyHref: "/policy",
   },
   en: {
     nameLabel: "How should we address you?",
@@ -73,6 +75,8 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
       "Something went wrong. Try again or message WhatsApp",
     privacy:
       "We don't share your data with third parties. We only store it to reply to your inquiry.",
+    privacyLink: "Privacy Policy",
+    privacyHref: "/en/policy",
   },
   ru: {
     nameLabel: "Как к вам обращаться",
@@ -106,5 +110,7 @@ export const LEAD_FORM_STRINGS_BY_LOCALE = {
     errorBody: "Что-то пошло не так. Попробуйте ещё раз или пишите в Telegram",
     privacy:
       "Не передаём ваши данные третьим лицам. Храним только для ответа на вашу заявку.",
+    privacyLink: "Политика конфиденциальности",
+    privacyHref: "/policy",
   },
 } as const satisfies Record<LeadFormLocale, Record<string, string>>;

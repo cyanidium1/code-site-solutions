@@ -8,7 +8,7 @@ export const cookiePolicyUk: CookiePolicyCopy = {
     "Cookies — це невеликі текстові файли, які зберігаються у вашому браузері. Аналітичні та маркетингові cookies ми встановлюємо лише після вашої згоди через банер (Google Consent Mode v2). Вибір зберігається 12 місяців, і його можна змінити будь-коли.",
   manage:
     "Щоб змінити або відкликати згоду, натисніть «Налаштування cookies» у футері сайту — вікно налаштувань відкриється одразу.",
-  updated: "Оновлено: 2 липня 2026",
+  updated: "Оновлено: 31 серпня 2026",
   tableHead: { name: "Cookie", provider: "Провайдер", purpose: "Призначення", ttl: "Строк" },
   sections: [
     {
@@ -36,6 +36,18 @@ export const cookiePolicyUk: CookiePolicyCopy = {
           provider: "Google Analytics 4",
           purpose: "Підтримує стан сесії для статистики.",
           ttl: "2 роки",
+        },
+        {
+          name: "_clck",
+          provider: "Microsoft Clarity",
+          purpose: "Розрізняє відвідувачів для знеособленого запису сесій.",
+          ttl: "1 рік",
+        },
+        {
+          name: "_clsk",
+          provider: "Microsoft Clarity",
+          purpose: "Зшиває події однієї сесії в один запис.",
+          ttl: "1 день",
         },
       ],
     },

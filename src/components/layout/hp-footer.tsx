@@ -210,8 +210,11 @@ export function HpFooter({
         </div>
         {/*
           Compare + Legal each get their own column on both locales (5-col
-          desktop grid). EN compare links get a `/en` prefix; legal pages
-          are locale-agnostic.
+          desktop grid). Both columns run through `resolveRootHref`, which
+          prefixes the locale only where a translated page exists. Legal
+          pages are NOT locale-agnostic: /cookies and /policy have EN twins,
+          while /offer, /public-contract and /legal are still UA-only and
+          fall back to the UA path.
         */}
         <div>
           <div className={footerColHClass}>{t("compareHeading")}</div>
@@ -228,7 +231,7 @@ export function HpFooter({
           <ul className={footerColListClass}>
             {LEGAL_HREFS.map(({ key, href }) => (
               <li key={key}>
-                <Link href={href}>{tLeg(key)}</Link>
+                <Link href={resolveRootHref(href, locale)}>{tLeg(key)}</Link>
               </li>
             ))}
             <li>

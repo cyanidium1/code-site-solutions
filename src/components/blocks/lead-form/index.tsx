@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useMemo, useState } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Formik, Form, Field, type FieldProps } from "formik";
 import { ChevronDown } from "lucide-react";
@@ -349,7 +350,17 @@ function LeadFormInner({
           )}
 
           <p className="font-mono text-[11px] leading-[1.55] tracking-[0.02em] text-ink-3 mt-1 mb-0">
-            {strings.privacy}
+            {strings.privacy}{" "}
+            {/*
+              GDPR Art. 13 wants the notice available where the data is
+              actually collected, not only in the footer. One line, one link.
+            */}
+            <Link
+              href={strings.privacyHref}
+              className="text-ink-3 underline underline-offset-[3px] hover:text-ink-dim"
+            >
+              {strings.privacyLink}
+            </Link>
           </p>
         </Form>
       )}
