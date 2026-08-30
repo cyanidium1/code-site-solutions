@@ -149,6 +149,28 @@ export default async function HomePageEn() {
 
       <ValueStack locale="en" />
 
+      <section className={hpSectionClass} id="pricing">
+        <div className={hpInnerClass}>
+          <div className={hpSectionHeadClass}>
+            <div className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
+              <span>PRICING</span>
+            </div>
+            <h2 className={hpH2Class}>
+              Transparent pricing — from <em>{range.min}</em>
+            </h2>
+            <p className={hpSubClass}>
+              You see the price up front and lock it in before we start.
+            </p>
+          </div>
+          <CmpPricingGrid>
+            {tiers.map((t, i) => (
+              <Tier key={i} {...t} />
+            ))}
+          </CmpPricingGrid>
+        </div>
+      </section>
+
       <Industries
         heading={
           <>
@@ -202,28 +224,6 @@ export default async function HomePageEn() {
       <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
 
       <PullQuoteSwiper slides={testimonialSlides} />
-
-      <section className={hpSectionClass} id="pricing">
-        <div className={hpInnerClass}>
-          <div className={hpSectionHeadClass}>
-            <div className={hpEyebrowClass}>
-              <span className={hpEyebrowDotClass} />
-              <span>PRICING</span>
-            </div>
-            <h2 className={hpH2Class}>
-              Transparent pricing — from <em>{range.min}</em>
-            </h2>
-            <p className={hpSubClass}>
-              You see the price up front and lock it in before we start.
-            </p>
-          </div>
-          <CmpPricingGrid>
-            {tiers.map((t, i) => (
-              <Tier key={i} {...t} />
-            ))}
-          </CmpPricingGrid>
-        </div>
-      </section>
 
       <Stack
         eyebrow="STACK"

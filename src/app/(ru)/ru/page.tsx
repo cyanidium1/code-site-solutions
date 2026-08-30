@@ -145,6 +145,26 @@ export default async function HomePageRu() {
       <PainPoints locale="ru" />
       <ValueStack locale="ru" />
 
+      <section className={hpSectionClass} id="pricing">
+        <div className={hpInnerClass}>
+          <div className={hpSectionHeadClass}>
+            <div className={hpEyebrowClass}>
+              <span className={hpEyebrowDotClass} />
+              <span>ЦЕНЫ</span>
+            </div>
+            <h2 className={hpH2Class}>
+              Прозрачный прайс — от <em>{range.min}</em>
+            </h2>
+            <p className={hpSubClass}>Вы видите цену заранее и фиксируете её до старта работ.</p>
+          </div>
+          <CmpPricingGrid>
+            {tiers.map((t, i) => (
+              <Tier key={i} {...t} />
+            ))}
+          </CmpPricingGrid>
+        </div>
+      </section>
+
       <Industries
         heading={
           <>
@@ -198,26 +218,6 @@ export default async function HomePageRu() {
       <Marquee label="50+ КОМПАНИЙ ДОВЕРИЛИСЬ · UA · EU · US · DK · ZA · UK · FR" />
 
       <PullQuoteSwiper slides={testimonialSlides} />
-
-      <section className={hpSectionClass} id="pricing">
-        <div className={hpInnerClass}>
-          <div className={hpSectionHeadClass}>
-            <div className={hpEyebrowClass}>
-              <span className={hpEyebrowDotClass} />
-              <span>ЦЕНЫ</span>
-            </div>
-            <h2 className={hpH2Class}>
-              Прозрачный прайс — от <em>{range.min}</em>
-            </h2>
-            <p className={hpSubClass}>Вы видите цену заранее и фиксируете её до старта работ.</p>
-          </div>
-          <CmpPricingGrid>
-            {tiers.map((t, i) => (
-              <Tier key={i} {...t} />
-            ))}
-          </CmpPricingGrid>
-        </div>
-      </section>
 
       <FAQ heading="Вопросы, которые возникают перед стартом" items={faqItems} locale="ru" />
       <LaunchCta locale="ru" />

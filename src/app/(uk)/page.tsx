@@ -140,14 +140,6 @@ export default async function HomePage() {
 
       <PainPoints />
       <ValueStack />
-      <Industries />
-      <BusinessValue />
-      <Process />
-      <Cases />
-
-      <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
-
-      <PullQuoteSwiper slides={testimonialSlides} />
 
       <section className={hpSectionClass} id="pricing">
         <div className={hpInnerClass}>
@@ -168,6 +160,15 @@ export default async function HomePage() {
           </CmpPricingGrid>
         </div>
       </section>
+
+      <Industries />
+      <BusinessValue />
+      <Process />
+      <Cases />
+
+      <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
+
+      <PullQuoteSwiper slides={testimonialSlides} />
 
       <section className={hpSectionClass} id="directions">
         <div className={hpInnerClass}>
