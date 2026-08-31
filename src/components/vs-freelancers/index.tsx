@@ -133,7 +133,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.rightChoice.heading}
             sub={c.rightChoice.sub}
           />
-          <ul className="list-none flex flex-col gap-3 max-w-[840px] mx-auto">
+          <ul className="list-none flex flex-col gap-3 max-w-[840px]">
             {c.rightChoice.items.map((it, i) => (
               <li
                 key={i}
@@ -153,7 +153,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-ink-3 max-w-[60ch] mx-auto">
+          <p className="mt-7 text-[13px] leading-[1.65] text-ink-3 max-w-[840px]">
             {c.rightChoice.foot}
           </p>
         </div>
@@ -430,7 +430,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.filter.heading}
             sub={c.filter.sub}
           />
-          <ul className="list-none flex flex-col gap-3 max-w-[840px] mx-auto">
+          <ul className="list-none flex flex-col gap-3 max-w-[840px]">
             {c.filter.items.map((it, i) => (
               <li
                 key={i}
@@ -450,7 +450,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-ink-3 max-w-[60ch] mx-auto">
+          <p className="mt-7 text-[13px] leading-[1.65] text-ink-3 max-w-[840px]">
             {c.filter.foot}
           </p>
         </div>

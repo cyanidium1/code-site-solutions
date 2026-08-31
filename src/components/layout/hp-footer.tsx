@@ -107,9 +107,42 @@ const footerColListClass =
   "list-none mt-3 p-0 flex flex-col gap-1 [&_li]:h-5 [&_a]:inline-flex [&_a]:items-center [&_a]:h-5 [&_a]:leading-5 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 const footerDisabledClass =
   "inline-flex h-5 items-center font-sans text-[13px] leading-5 text-ink-3 cursor-default";
+// Рядок міст. Міські сторінки мали лише одне вхідне посилання (FAQ на
+// /rozrobka-saitiv), і Search Console це прямо показував: «Ссылающаяся
+// страница — не найдено». Наскрізне посилання з підвалу дає їм вагу з усього
+// сайту і робить їх видимими для краулера.
+const footerCitiesClass =
+  "mx-auto max-w-container mt-10 pt-5 border-t border-line flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] text-ink-3 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 const footerBottomClass =
-  "mx-auto max-w-container mt-10 pt-5 border-t border-line flex justify-between items-center flex-wrap gap-4";
+  "mx-auto max-w-container mt-6 pt-5 border-t border-line flex justify-between items-center flex-wrap gap-4";
 const footerCopyClass = "font-mono text-[11px] text-ink-3";
+
+// Міські сторінки існують лише для uk і ru — під кожною є місцеві кейси.
+// В EN їх немає, тому в англійському підвалі рядок не рендериться взагалі:
+// вести англомовного читача на українську сторінку гірше, ніж не вести нікуди.
+const FOOTER_CITIES: Partial<
+  Record<Locale, { intro: string; items: { label: string; href: string }[] }>
+> = {
+  uk: {
+    intro: "Розробка сайтів у містах:",
+    items: [
+      { label: "Львів", href: "/rozrobka-saitiv-lviv" },
+      { label: "Київ", href: "/rozrobka-saitiv-kyiv" },
+      { label: "Одеса", href: "/rozrobka-saitiv-odesa" },
+      { label: "Дніпро", href: "/rozrobka-saitiv-dnipro" },
+    ],
+  },
+  ru: {
+    intro: "Разработка сайтов в городах:",
+    items: [
+      { label: "Львов", href: "/ru/rozrobka-saitiv-lviv" },
+      { label: "Киев", href: "/ru/rozrobka-saitiv-kyiv" },
+      { label: "Одесса", href: "/ru/rozrobka-saitiv-odesa" },
+      { label: "Днепр", href: "/ru/rozrobka-saitiv-dnipro" },
+    ],
+  },
+};
+
 // Social icon links: explicit `w-11 h-11 inline-flex` so each social anchor
 // hits 44×44 even though the icon glyph itself is only 18px. The visible
 // gap stays `gap-4` (16px) between siblings.
@@ -171,6 +204,8 @@ export function HpFooter({
     { key: "blog", href: resolveRootHref("/blog", locale) },
     { key: "contacts", href: resolveRootHref("/contacts", locale) },
   ];
+
+  const footerCities = FOOTER_CITIES[locale];
 
   return (
     <footer className={footerClass}>
@@ -242,6 +277,17 @@ export function HpFooter({
           </ul>
         </div>
       </div>
+      {footerCities ? (
+        <div className={footerCitiesClass}>
+          <span>{footerCities.intro}</span>
+          {footerCities.items.map((c, i) => (
+            <span key={c.href} className="inline-flex items-center gap-x-3">
+              {i > 0 ? <span aria-hidden="true">·</span> : null}
+              <Link href={c.href}>{c.label}</Link>
+            </span>
+          ))}
+        </div>
+      ) : null}
       <div className={footerBottomClass}>
         <span className={footerCopyClass}>{t("copy")}</span>
         <div className={footerSocialClass}>
