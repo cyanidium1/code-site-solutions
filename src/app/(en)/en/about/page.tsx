@@ -49,8 +49,8 @@ export const metadata: Metadata = {
 const FOUNDER_ID = `${pageUrl("/about")}#fedir-alpatov`;
 const FOUNDER_PROFILES = [
   "https://github.com/cyanidium1",
-  "https://www.linkedin.com/in/fediralpatov/",
-  "https://www.instagram.com/cyanidium/",
+  "https://uk.linkedin.com/in/fediralpatov",
+  "https://instagram.com/codesite.art",
 ];
 
 const jsonLd = buildJsonLd([

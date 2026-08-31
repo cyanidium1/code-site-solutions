@@ -3,6 +3,7 @@
 import type { KeyboardEvent } from "react";
 import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
+import { Maximize2 } from "lucide-react";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { SanityImg } from "@/lib/shared/sanity-image";
 
@@ -25,6 +26,11 @@ export type EfedraGalleryTile = {
 // Tailwind utility strings extracted to constants to keep the JSX readable.
 const FIGURE_CLASS =
   "relative m-0 aspect-[16/10] overflow-hidden rounded-[22px] border border-line bg-[oklch(0.08_0.02_280)] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2";
+
+// Плитку можна відкрити на весь екран, але без підказки вона читається як
+// частина декору — особливо коли зображення вписане і навколо є поля.
+const ZOOM_BADGE_CLASS =
+  "pointer-events-none absolute right-3 top-3 z-[2] inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-[oklch(0_0_0/0.55)] text-[oklch(1_0_0/0.85)] backdrop-blur-sm";
 
 const CAPTION_CLASS =
   "pointer-events-none absolute inset-x-0 bottom-0 z-[2] bg-[linear-gradient(transparent,oklch(0_0_0/0.65))] px-3.5 py-2.5 font-mono text-[11px] tracking-[0.06em] text-[oklch(1_0_0/0.92)]";
@@ -74,6 +80,9 @@ export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
                       : "pointer-events-none object-cover object-top"
                   }
                 />
+                <span className={ZOOM_BADGE_CLASS} aria-hidden="true">
+                  <Maximize2 size={13} strokeWidth={1.8} />
+                </span>
                 <figcaption className={CAPTION_CLASS}>{t.label}</figcaption>
               </figure>
             ))}

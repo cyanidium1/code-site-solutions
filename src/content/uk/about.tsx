@@ -86,13 +86,13 @@ export const ABOUT_UK: AboutContent = {
       {
         label: "LinkedIn",
         handle: "in/fediralpatov",
-        href: "https://linkedin.com/in/fediralpatov",
+        href: "https://uk.linkedin.com/in/fediralpatov",
         icon: Linkedin,
       },
       {
         label: "Instagram",
-        handle: "@cyanidium",
-        href: "https://instagram.com/cyanidium",
+        handle: "@codesite.art",
+        href: "https://instagram.com/codesite.art",
         icon: Instagram,
       },
     ],

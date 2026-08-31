@@ -288,6 +288,24 @@ function YouTubeSection({
 
 /* ─── mediaGalleryBlock rendering ─────────────────────────────────────── */
 
+/**
+ * Плитка галереї має фіксовані пропорції 16:10 (1.60) і за замовчуванням
+ * ріже зображення через `object-cover`. Для фотографій це прийнятно, для
+ * скріншотів — ні: у кейсі IceLab скріншот Search Console має 3076×1280,
+ * тобто 2.40, і при обрізанні з нього зникали саме цифри, заради яких він
+ * там стоїть.
+ *
+ * Поле `fit` у CMS існує, але його ніхто не заповнює вручну — та й не має:
+ * пропорції вже приходять у `metadata.dimensions`, тож вибір робиться сам.
+ * Явно заданий `fit` завжди має пріоритет.
+ */
+function autoFit(aspectRatio?: number): "cover" | "contain" {
+  if (!aspectRatio) return "cover";
+  // Ширше за панораму або вужче за майже-квадрат — вписуємо цілком.
+  if (aspectRatio >= 1.95 || aspectRatio <= 1.25) return "contain";
+  return "cover";
+}
+
 function GalleryRenderer({
   section,
   locale,
@@ -300,11 +318,12 @@ function GalleryRenderer({
       ?.map((img) => {
         const asset = img.asset;
         if (!asset?.url) return null;
+        const fit = img.fit ?? autoFit(asset.metadata?.dimensions?.aspectRatio);
         return {
           label: loc(img.caption, locale),
           src: asset.url,
           alt: loc(img.alt, locale),
-          ...(img.fit ? { fit: img.fit } : {}),
+          ...(fit ? { fit } : {}),
         } satisfies EfedraGalleryTile;
       })
       .filter((t): t is EfedraGalleryTile => t !== null) ?? [];
