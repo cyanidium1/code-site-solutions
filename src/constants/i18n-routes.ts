@@ -55,6 +55,9 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     // українського «аудит сайту», тож RU тут не для повноти локалі.
     "/audit",
     "/redesign",
+    // Ahrefs, 31.08.2026: «локальное seo» 150 запитів проти 100 в
+    // українського «локальне seo» — RU-версія тут не наздоганяльна.
+    "/lokalne-seo",
   ]),
 };
 

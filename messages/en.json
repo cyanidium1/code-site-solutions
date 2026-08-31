@@ -49,6 +49,7 @@
       "corporateSite": "Corporate website",
       "onlineStore": "Online store",
       "seo": "SEO services",
+      "localSeo": "Local SEO",
       "audit": "Website audit",
       "redesign": "Website redesign",
       "pricing": "Pricing",
@@ -105,10 +106,22 @@
       "sub": "No sales call, no “price on request”, no hidden lines. An honest range, and a clear breakdown of what drives it. Built for people deciding right now."
     },
     "stats": {
-      "projects": { "value": "50+", "label": "projects · last 5 years" },
-      "range": { "value": "£800–£10,000", "label": "typical price range" },
-      "weeks": { "value": "4–10 weeks", "label": "from brief to launch" },
-      "warranty": { "value": "1 year", "label": "warranty included" }
+      "projects": {
+        "value": "50+",
+        "label": "projects · last 5 years"
+      },
+      "range": {
+        "value": "£800–£10,000",
+        "label": "typical price range"
+      },
+      "weeks": {
+        "value": "4–10 weeks",
+        "label": "from brief to launch"
+      },
+      "warranty": {
+        "value": "1 year",
+        "label": "warranty included"
+      }
     },
     "howItWorks": {
       "eyebrow": "/ 01 HOW IT WORKS",
