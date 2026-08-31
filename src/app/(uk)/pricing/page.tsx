@@ -32,9 +32,13 @@ import { SectionHead } from "@/components/shared/section-head";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { PRICING_PROSE_UK } from "@/content/uk/pricing-prose";
 
-const PRICING_TITLE = "Ціна створення сайту 2026 — фіксовані пакети | Code-Site.Art";
+// GSC, 3 міс: «створити сайт ціна» 156 показів, «зробити сайт ціна» 134 —
+// дієслово попереду. Старий title починався з «Ціна створення», що збігається
+// лише з довшими формулюваннями. Гривня в сніпеті — паритет з топ-7 видачі:
+// webnauts.pro і seok.ua виносять грн, і саме вони стоять вище нас.
+const PRICING_TITLE = "Створити сайт — ціна 2026: від $800 (≈35 600 грн) | Code-Site.Art";
 const PRICING_DESCRIPTION =
-  "➤ Вартість розробки сайту за фіксованою ціною ✔️ Лендінг від $800 ✔️ Корпоративний сайт від $2 500 ✔️ Кастомна платформа від $6 000 ➡ Без «під запит».";
+  "➤ Скільки коштує зробити сайт у 2026 ✔️ Лендінг від $800 (≈35 600 грн) ✔️ Корпоративний від $2 500 ✔️ Платформа від $6 000 ➡ Ціна фіксується в договорі до старту.";
 
 export const metadata: Metadata = {
   title: PRICING_TITLE,
@@ -91,6 +95,24 @@ function buildUkPricingJsonLd(offers: UkPricingOffer[]) {
         "Custom-coded сайти на Next.js: лендинги, корпоративні сайти, спеціалізовані під галузь рішення, enterprise-платформи.",
       provider: { "@id": ORG_ID },
       areaServed: ["UA", "EU", "US", "DK"],
+      // GSC, 3 міс: 115 цінових запитів, 2 210 показів, нуль кликів. У видачі
+      // по «створити сайт ціна» перші місця беруть сторінки, у сніпеті яких
+      // видно діапазон — ifish.com.ua показує «15 000–400 000 грн». Такий
+      // сніпет Google будує з AggregateOffer, а не з переліку окремих Offer,
+      // який тут уже був. Межі рахуються з тих самих тарифів, тож розійтися
+      // з тим, що написано на сторінці, вони не можуть.
+      ...(offers.length
+        ? {
+            offers: {
+              "@type": "AggregateOffer",
+              priceCurrency: offers[0].currency,
+              lowPrice: Math.min(...offers.map((o) => Number(o.price))),
+              highPrice: Math.max(...offers.map((o) => Number(o.price))),
+              offerCount: offers.length,
+              url: PRICING_URL,
+            },
+          }
+        : {}),
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Code-Site.Art pricing tiers",
@@ -147,7 +169,7 @@ export default async function PricingPage() {
         eyebrow="ЦІНИ"
         headline={
           <>
-            Ціна створення сайту у 2026 — <em>фіксовані пакети від $800</em>
+            Створити сайт у 2026 — <em>ціна від $800, зафіксована в договорі</em>
           </>
         }
         sub="Ціна — це те, що ви отримаєте. Не «під запит». Фіксовано в договорі, у ціну входить все — копірайтинг, дизайн, верстка, код, домен, хостинг, запуск, рік підтримки. Ви платите і отримуєте готовий продукт."

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 import { HpFooter, HpHeader } from "@/components/homepage";
@@ -78,6 +79,25 @@ export default async function CalculatorPage() {
       />
 
       <StatsBar items={stats} />
+
+      {/*
+        GSC, 3 міс: калькулятор зібрав 2 313 показів, з них 1 061 — на цінових
+        запитах на кшталт «створити сайт ціна», і стоїть по них на 62-й позиції.
+        Причина в тому, що в HTML калькулятора немає жодної ціни, доки людина
+        нічого не обрала, — відповісти на «скільки коштує» він не може. Частині
+        відвідувачів потрібен не інструмент, а прайс; посилання відповідає і їм,
+        і Google, який має бачити, що сторінка цін на сайті інша.
+      */}
+      <div className="px-6 sm:px-8 lg:px-12">
+        <p className="mx-auto max-w-container-narrow text-center font-sans text-[14.5px] leading-[1.6] text-ink-dim">
+          Потрібні готові цифри без розрахунку?{" "}
+          <Link href="/pricing" className="text-ink underline underline-offset-[3px]">
+            Дивіться прайс із фіксованими пакетами
+          </Link>
+           — лендінг від $800, корпоративний сайт від $2 500.
+        </p>
+      </div>
+
 
       <WebsiteCalculator config={config} />
       <HpFooter />
