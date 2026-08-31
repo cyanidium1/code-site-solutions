@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { ChevronRight, Info } from "lucide-react";
 
 import { AppImage } from "@/lib/shared/app-image";
@@ -136,13 +137,16 @@ function Blocks({ blocks }: { blocks: GuideBlock[] }) {
                     // і правиться числами, без переекспорту картинки.
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute rounded-[8px] border-2 border-[oklch(0.75_0.19_25)] shadow-[0_0_0_4px_oklch(0.75_0.19_25/0.25)]"
-                      style={{
-                        left: `${b.highlight.x}%`,
-                        top: `${b.highlight.y}%`,
-                        width: `${b.highlight.w}%`,
-                        height: `${b.highlight.h}%`,
-                      }}
+                      className="pointer-events-none absolute left-[var(--hl-x)] top-[var(--hl-y)] h-[var(--hl-h)] w-[var(--hl-w)] rounded-[8px] border-2 border-[oklch(0.75_0.19_25)] shadow-[0_0_0_4px_oklch(0.75_0.19_25/0.25)]"
+                      // eslint-disable-next-line react/forbid-dom-props -- рамка позиціонується числами з контенту, класом Tailwind це не виражається
+                      style={
+                        {
+                          "--hl-x": `${b.highlight.x}%`,
+                          "--hl-y": `${b.highlight.y}%`,
+                          "--hl-w": `${b.highlight.w}%`,
+                          "--hl-h": `${b.highlight.h}%`,
+                        } as CSSProperties
+                      }
                     />
                   ) : null}
                 </div>
