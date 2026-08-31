@@ -55,6 +55,21 @@ const FOUNDER_PROFILES = [
   "https://instagram.com/codesite.art",
 ];
 
+/**
+ * Дві мовні версії одного ролика на Vimeo. Англійська позначена в описі
+ * «ENG» — саме її я спочатку помилково поставив на українську сторінку.
+ * Легасі-сайт використовує 1152026299 і для uk, і для ru.
+ * Дані — Vimeo oEmbed на 31.08.2026.
+ */
+const FOUNDER_VIDEO = {
+  id: "1152026299",
+  name: "Про студію Code-Site.Art — розповідає засновник",
+  description:
+    "Федір Алпатов про студію, підхід до роботи і задачі, з якими приходять клієнти.",
+  uploadDate: "2026-01-06",
+  duration: "PT35S",
+};
+
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/about",
@@ -69,6 +84,16 @@ const jsonLd = buildJsonLd([
     { name: "Про нас", path: "/about" },
   ]),
   organizationNode(),
+  {
+    "@type": "VideoObject",
+    name: FOUNDER_VIDEO.name,
+    description: FOUNDER_VIDEO.description,
+    uploadDate: FOUNDER_VIDEO.uploadDate,
+    duration: FOUNDER_VIDEO.duration,
+    thumbnailUrl: pageUrl("/team/fedir.jpg"),
+    embedUrl: `https://player.vimeo.com/video/${FOUNDER_VIDEO.id}`,
+    publisher: { "@id": ORG_ID },
+  },
   {
     "@type": "Person",
     "@id": FOUNDER_ID,
@@ -100,7 +125,7 @@ export default function AboutPage() {
             нього: людина щойно прочитала, хто це, і може подивитись на нього
             живого — це найсильніший сигнал довіри на сторінці. */}
         <FounderVideo
-          vimeoId="1151995135"
+          vimeoId={FOUNDER_VIDEO.id}
           eyebrow="ЗНАЙОМСТВО"
           heading={["Хто робитиме ваш сайт — ", "коротко, від першої особи"]}
           sub="Федір розповідає про студію, підхід до роботи і про те, з якими задачами до нас приходять. Дві хвилини — швидше, ніж читати сторінку цілком."

@@ -54,6 +54,17 @@ const FOUNDER_PROFILES = [
   "https://instagram.com/codesite.art",
 ];
 
+/** English cut of the founder intro (Vimeo marks it "ENG" in the description).
+ *  The Ukrainian cut is 1152026299 and lives on /about. */
+const FOUNDER_VIDEO = {
+  id: "1151995135",
+  name: "About Code-Site.Art — from the founder",
+  description:
+    "Fedir Alpatov on the studio, how we work and the problems clients bring us.",
+  uploadDate: "2026-01-06",
+  duration: "PT35S",
+};
+
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/en/about",
@@ -68,6 +79,16 @@ const jsonLd = buildJsonLd([
     { name: "About", path: "/en/about" },
   ]),
   organizationNode(),
+  {
+    "@type": "VideoObject",
+    name: FOUNDER_VIDEO.name,
+    description: FOUNDER_VIDEO.description,
+    uploadDate: FOUNDER_VIDEO.uploadDate,
+    duration: FOUNDER_VIDEO.duration,
+    thumbnailUrl: pageUrl("/team/fedir.jpg"),
+    embedUrl: `https://player.vimeo.com/video/${FOUNDER_VIDEO.id}`,
+    publisher: { "@id": ORG_ID },
+  },
   {
     "@type": "Person",
     "@id": FOUNDER_ID,
@@ -97,7 +118,7 @@ export default function EnAboutPage() {
 
         {/* Founder intro video, right after the section about him. */}
         <FounderVideo
-          vimeoId="1151995135"
+          vimeoId={FOUNDER_VIDEO.id}
           eyebrow="MEET THE FOUNDER"
           heading={["Who will build your site — ", "in his own words"]}
           sub="Fedir on the studio, how we work and the kind of problems clients bring us. Two minutes — faster than reading the whole page."
