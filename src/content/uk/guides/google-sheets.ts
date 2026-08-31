@@ -8,9 +8,9 @@ import type { GuideContent } from "@/types/guide";
  * посиланням, коли на проєкті потрібна інтеграція з таблицею.
  */
 export const GUIDE_GOOGLE_SHEETS_UK: GuideContent = {
-  metaTitle: "Як надати сайту доступ до Google Таблиці | Code-Site.Art",
+  metaTitle: "Інструкція: як надати сайту доступ до Google Таблиці | Code-Site.Art",
   metaDescription:
-    "Покрокова інструкція: створити проєкт у Google Cloud, увімкнути Google Sheets API, зробити сервісний акаунт і видати йому доступ до таблиці.",
+    "Покроково і з назвами кнопок: проєкт у Google Cloud, Google Sheets API, сервісний акаунт, ключ JSON і доступ до таблиці. Близько 10 хвилин, платити нічого не потрібно.",
   eyebrow: "ІНСТРУКЦІЯ ДЛЯ КЛІЄНТА",
   heading: "Як надати сайту доступ до Google Таблиці",
   lead:
