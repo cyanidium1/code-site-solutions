@@ -71,7 +71,7 @@ export function FounderVideo({
                 alt={posterAlt}
                 fill
                 sizes="(max-width: 960px) 92vw, 900px"
-                className="object-cover object-top opacity-70 transition-opacity duration-300 group-hover:opacity-85"
+                className="object-cover object-center opacity-70 transition-opacity duration-300 group-hover:opacity-85"
               />
               <span
                 aria-hidden="true"
