@@ -84,7 +84,7 @@ function buildRuPricingJsonLd(offers: RuPricingOffer[]) {
     {
       "@type": "Service",
       "@id": `${PRICING_URL}#service`,
-      name: "Разработка кастомных сайтов под ключ",
+      name: "Разработка сайтов под ключ",
       description:
         "Custom-coded сайты на Next.js: лендинги, корпоративные сайты, отраслевые решения, enterprise-платформы.",
       provider: { "@id": ORG_ID },

@@ -38,11 +38,11 @@ const HOMEPAGE_RU_DESCRIPTION =
   "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.";
 
 export const metadata: Metadata = {
-  title: "ᐈ Студия разработки кастомных сайтов под ключ | Code-Site.Art",
+  title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
   description: HOMEPAGE_RU_DESCRIPTION,
   alternates: buildAlternates({ locale: "ru", uaPath: "/" }),
   openGraph: {
-    title: "ᐈ Студия разработки кастомных сайтов под ключ | Code-Site.Art",
+    title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
     description: HOMEPAGE_RU_DESCRIPTION,
     type: "website",
     locale: "ru_UA",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Студия разработки кастомных сайтов под ключ | Code-Site.Art",
+    title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
     description: HOMEPAGE_RU_DESCRIPTION,
     images: [OG_DEFAULT_IMAGE.url],
   },
@@ -86,7 +86,7 @@ export default async function HomePageRu() {
     webPageNode({
       path: "/ru",
       locale: "ru",
-      title: "ᐈ Студия разработки кастомных сайтов под ключ | Code-Site.Art",
+      title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
       description: HOMEPAGE_RU_DESCRIPTION,
       speakableSelectors: [
         '[data-speakable="hero-title"]',

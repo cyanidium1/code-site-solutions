@@ -46,13 +46,13 @@ const actay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ᐈ Студия разработки кастомных сайтов под ключ | Code-Site.Art",
+  title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
   description:
     "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.",
   metadataBase: new URL(SITE_ORIGIN),
   alternates: buildAlternates({ locale: "ru", uaPath: "/" }),
   openGraph: {
-    title: "ᐈ Студия разработки кастомных сайтов под ключ | Code-Site.Art",
+    title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
     description:
       "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.",
     type: "website",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Студия разработки кастомных сайтов под ключ | Code-Site.Art",
+    title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
     description:
       "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.",
     images: [OG_DEFAULT_IMAGE.url],

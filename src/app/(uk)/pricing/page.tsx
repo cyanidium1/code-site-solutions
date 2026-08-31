@@ -90,7 +90,7 @@ function buildUkPricingJsonLd(offers: UkPricingOffer[]) {
       "@id": `${PRICING_URL}#service`,
       // SEO audit Aug 2026: was the English "Custom website development" on
       // the Ukrainian page, next to a Ukrainian description.
-      name: "Розробка кастомних сайтів під ключ",
+      name: "Розробка сайтів під ключ",
       description:
         "Custom-coded сайти на Next.js: лендинги, корпоративні сайти, спеціалізовані під галузь рішення, enterprise-платформи.",
       provider: { "@id": ORG_ID },
