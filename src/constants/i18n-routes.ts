@@ -61,6 +61,13 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     // Головний комерційний кластер: «розробка сайтів» 800 при KD 3,
     // «замовити сайт» 500 при KD 0 (Ahrefs, 31.08.2026).
     "/rozrobka-saitiv",
+    // Міські сторінки. Попит (Ahrefs, Україна, 31.08.2026): фасет `львів` +
+    // `львові` 1 610, `київ` + `києві` 1 020, `дніпро` + `дніпрі` 270,
+    // `одеса` 110. У російському ядрі «разработка сайтов киев» — 250 при KD 1.
+    "/rozrobka-saitiv-lviv",
+    "/rozrobka-saitiv-kyiv",
+    "/rozrobka-saitiv-odesa",
+    "/rozrobka-saitiv-dnipro",
   ]),
 };
 

@@ -204,8 +204,8 @@ export const WEB_DEVELOPMENT_RU: LandingPageContent = {
       "Стек — не самоцель. Это ответ на вопрос «почему ваш сайт должен грузиться быстрее и лучше ранжироваться, " +
       "чем такой же на конструкторе».",
     links: [
-      { label: "Сравнение с конструкторами", href: "/ru/vs-constructors" },
-      { label: "Сравнение с WordPress", href: "/ru/vs-wordpress" },
+      { label: "Сравнение с конструкторами", href: "/vs-constructors" },
+      { label: "Сравнение с WordPress", href: "/vs-wordpress" },
       { label: "Next.js против WordPress и конструкторов", href: "/ru/blog/nextjs-protiv-wordpress-i-konstruktorov" },
     ],
   },
@@ -274,6 +274,22 @@ export const WEB_DEVELOPMENT_RU: LandingPageContent = {
   faq: {
     heading: "Частые вопросы о разработке сайтов",
     items: [
+      {
+        q: "Вы работаете с бизнесом в конкретных городах?",
+        a: [
+          "Мы работаем удалённо по всей Украине, но в четырёх городах у нас достаточно сделанных проектов, чтобы собрать " +
+            "отдельные страницы с местными кейсами и цифрами: ",
+          { link: { href: "/ru/rozrobka-saitiv-lviv", text: "Львов" } },
+          ", ",
+          { link: { href: "/ru/rozrobka-saitiv-kyiv", text: "Киев" } },
+          ", ",
+          { link: { href: "/ru/rozrobka-saitiv-odesa", text: "Одесса" } },
+          " и ",
+          { link: { href: "/ru/rozrobka-saitiv-dnipro", text: "Днепр" } },
+          ". Городов, где мы ещё ничего не сделали, в этом списке нет — страница без единого местного проекта была бы " +
+            "пустой, а таких мы не делаем.",
+        ],
+      },
       {
         q: "Сколько стоит разработка сайта под ключ?",
         a: [

@@ -60,6 +60,12 @@ const STATIC_ROUTES: {
   { path: "/audit", changeFrequency: "monthly", priority: 0.8 },
   { path: "/lokalne-seo", changeFrequency: "monthly", priority: 0.8 },
   { path: "/rozrobka-saitiv", changeFrequency: "monthly", priority: 0.9 },
+  // Міські сторінки під сервісною. Пріоритет нижчий за головну послугу:
+  // вони спутники, а не окремий кластер.
+  { path: "/rozrobka-saitiv-lviv", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/rozrobka-saitiv-kyiv", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/rozrobka-saitiv-odesa", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/rozrobka-saitiv-dnipro", changeFrequency: "monthly", priority: 0.8 },
   { path: "/redesign", changeFrequency: "monthly", priority: 0.8 },
   {
     path: "/sites-for/medicine/stomatolohiia",
