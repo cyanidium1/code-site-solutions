@@ -58,6 +58,9 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     // Ahrefs, 31.08.2026: «локальное seo» 150 запитів проти 100 в
     // українського «локальне seo» — RU-версія тут не наздоганяльна.
     "/lokalne-seo",
+    // Головний комерційний кластер: «розробка сайтів» 800 при KD 3,
+    // «замовити сайт» 500 при KD 0 (Ahrefs, 31.08.2026).
+    "/rozrobka-saitiv",
   ]),
 };
 

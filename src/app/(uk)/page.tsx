@@ -50,7 +50,7 @@ const DIRECTION_LINKS: { href: string; label: string }[] = [
 ];
 
 const HOMEPAGE_DESCRIPTION =
-  "➤ Кастомні сайти під ключ для бізнесу та стартапів ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 тижнів ➤ Замовте безкоштовний дзвінок.";
+  "➤ Веб-студія: замовити сайт під ключ для бізнесу ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 1–8 тижнів ➤ Безкоштовний прорахунок за день.";
 
 export default async function HomePage() {
   const [cmsPlans, testimonialSlides] = await Promise.all([
@@ -82,7 +82,10 @@ export default async function HomePage() {
     webPageNode({
       path: "/",
       locale: "uk",
-      title: "ᐈ Студія розробки кастомних сайтів під ключ | Code-Site.Art",
+      // Ahrefs, 31.08.2026: «кастомний сайт» відсутній у базі повністю,
+      // а «замовити сайт» — 500 запитів при KD 0. Головна бере брендовий
+      // і найм-інтент, головний комерційний кластер тримає /rozrobka-saitiv.
+      title: "ᐈ Веб-студія Code-Site.Art — замовити сайт від $800",
       description: HOMEPAGE_DESCRIPTION,
       speakableSelectors: [
         '[data-speakable="hero-title"]',
