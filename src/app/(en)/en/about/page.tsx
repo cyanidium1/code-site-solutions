@@ -21,6 +21,7 @@ import {
   webPageNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
+import { FounderVideo } from "@/components/about/founder-video";
 import { ABOUT_EN as C } from "@/content/en/about";
 import { buildAlternates } from "@/lib/shared/alternates";
 
@@ -93,6 +94,16 @@ export default function EnAboutPage() {
 
         {/* 2 — Who is behind the studio */}
         <Founder c={C.founder} />
+
+        {/* Founder intro video, right after the section about him. */}
+        <FounderVideo
+          vimeoId="1151995135"
+          eyebrow="MEET THE FOUNDER"
+          heading={["Who will build your site — ", "in his own words"]}
+          sub="Fedir on the studio, how we work and the kind of problems clients bring us. Two minutes — faster than reading the whole page."
+          playLabel="Watch the studio intro"
+          posterAlt="Fedir Alpatov, founder of Code-Site.Art"
+        />
 
         {/* 2.5 — The team behind the studio */}
         <TeamSection

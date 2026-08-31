@@ -21,6 +21,7 @@ import {
   webPageNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
+import { FounderVideo } from "@/components/about/founder-video";
 import { ABOUT_UK as C } from "@/content/uk/about";
 import { buildAlternates } from "@/lib/shared/alternates";
 
@@ -94,6 +95,18 @@ export default function AboutPage() {
 
         {/* 2 — Who is behind the studio */}
         <Founder c={C.founder} />
+
+        {/* Відео-знайомство із засновником. Стоїть одразу після блоку про
+            нього: людина щойно прочитала, хто це, і може подивитись на нього
+            живого — це найсильніший сигнал довіри на сторінці. */}
+        <FounderVideo
+          vimeoId="1151995135"
+          eyebrow="ЗНАЙОМСТВО"
+          heading={["Хто робитиме ваш сайт — ", "коротко, від першої особи"]}
+          sub="Федір розповідає про студію, підхід до роботи і про те, з якими задачами до нас приходять. Дві хвилини — швидше, ніж читати сторінку цілком."
+          playLabel="Дивитися відео про студію"
+          posterAlt="Федір Алпатов, засновник Code-Site.Art"
+        />
 
         {/* 2.5 — The team behind the studio */}
         <TeamSection
