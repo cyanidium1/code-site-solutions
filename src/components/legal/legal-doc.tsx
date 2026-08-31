@@ -80,14 +80,17 @@ export function LegalDoc({ copy }: { copy: LegalDocCopy }) {
             </div>
           ))}
 
-          <p className={`${proseClass} mt-10`}>
-            {copy.cookiesNote}{" "}
-            <Link href={copy.cookiesHref} className="text-ink underline underline-offset-[3px]">
-              {copy.cookiesLinkLabel}
-            </Link>
-            {". "}
-            <CookieSettingsLink />
-          </p>
+          {/* Only the privacy policy carries the trailing cookies line. */}
+          {copy.cookiesNote && copy.cookiesHref && (
+            <p className={`${proseClass} mt-10`}>
+              {copy.cookiesNote}{" "}
+              <Link href={copy.cookiesHref} className="text-ink underline underline-offset-[3px]">
+                {copy.cookiesLinkLabel}
+              </Link>
+              {". "}
+              <CookieSettingsLink />
+            </p>
+          )}
 
           <p className="mt-6 font-mono text-[11px] text-ink-3">{copy.updated}</p>
         </div>

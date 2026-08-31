@@ -13,9 +13,10 @@ export type LegalDocCopy = {
   sub: string;
   intro: string;
   sections: LegalSection[];
-  cookiesNote: string;
-  cookiesHref: string;
-  cookiesLinkLabel: string;
+  /** Trailing "cookies are covered separately" line — privacy policy only. */
+  cookiesNote?: string;
+  cookiesHref?: string;
+  cookiesLinkLabel?: string;
   updated: string;
 };
 
