@@ -23,8 +23,22 @@ import { cn } from "./cn";
  * click dismissal, and a CSS exit transition (entry uses @starting-style via
  * the Tailwind `starting:` variant).
  *
- * Background scroll lock lives in globals.css: `html:has(dialog:modal)`.
+ * Background scroll lock lives in globals.css (`html.dialog-open`); the class
+ * is toggled here, ref-counted so nested dialogs cannot unlock each other.
  */
+
+/** Открытых модалок сейчас. Разблокируем скролл только когда закрылась последняя. */
+let openDialogs = 0;
+
+function lockScroll() {
+  openDialogs += 1;
+  document.documentElement.classList.add("dialog-open");
+}
+
+function unlockScroll() {
+  openDialogs = Math.max(0, openDialogs - 1);
+  if (openDialogs === 0) document.documentElement.classList.remove("dialog-open");
+}
 
 /** How long the exit transition runs; close() fires after this. */
 const EXIT_MS = 200;
@@ -35,6 +49,8 @@ function useDialogSync(
   onOpenChange: (open: boolean) => void,
 ) {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Блокировка скролла парная: снять её можно только если этот диалог её ставил.
+  const locked = useRef(false);
   // Children stay mounted from showModal() until the dialog actually closes,
   // so the exit animation never runs on an empty panel (isOpen can flip false
   // a whole animation-length before close() fires).
@@ -58,6 +74,10 @@ function useDialogSync(
     if (!dialog) return;
     if (isOpen && !dialog.open) {
       dialog.showModal();
+      if (!locked.current) {
+        locked.current = true;
+        lockScroll();
+      }
       setIsPresent(true);
     } else if (!isOpen && dialog.open) {
       requestClose();
@@ -74,6 +94,10 @@ function useDialogSync(
     };
     // Native close (any path) → report state up.
     const onClose = () => {
+      if (locked.current) {
+        locked.current = false;
+        unlockScroll();
+      }
       setIsPresent(false);
       onOpenChange(false);
     };
@@ -83,6 +107,10 @@ function useDialogSync(
       dialog.removeEventListener("cancel", onCancel);
       dialog.removeEventListener("close", onClose);
       if (closeTimer.current) clearTimeout(closeTimer.current);
+      if (locked.current) {
+        locked.current = false;
+        unlockScroll();
+      }
     };
   }, [ref, onOpenChange, requestClose]);
 
@@ -107,8 +135,12 @@ export type DialogClassNames = {
   closeButton?: string;
 };
 
+// Затемнение везде, размытие — только с md. На телефоне это размытие ложится
+// поверх страницы, где уже около тридцати слоёв backdrop-filter (шапка, карточки,
+// селекты), и мобильный GPU пересобирает всё это на открытии и на закрытии.
+// Затемнения достаточно: панель и так перекрывает фон.
 const BACKDROP_CLASS =
-  "backdrop:bg-[oklch(0.06_0.005_300/0.6)] backdrop:backdrop-blur-[6px]";
+  "backdrop:bg-[oklch(0.06_0.005_300/0.6)] md:backdrop:backdrop-blur-[6px]";
 
 const CLOSE_BUTTON_BASE =
   "absolute top-3 end-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full " +

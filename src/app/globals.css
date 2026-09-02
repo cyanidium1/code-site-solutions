@@ -172,8 +172,15 @@ body {
   /* Background scroll lock while any native modal dialog is open
      (src/components/ui/Dialog.tsx — Modal/Drawer). showModal() puts the
      dialog in the top layer but does not stop the page behind it from
-     scrolling; this does. */
-  html:has(dialog:modal) {
+     scrolling; this does.
+
+     The class is toggled from Dialog.tsx. It used to be `html:has(dialog:modal)`,
+     which reads better but puts :has() on the root element — the one position
+     where the browser has to re-evaluate the selector against the whole
+     document on every DOM mutation, and re-style the document when it flips.
+     On a 20 000px page over a phone GPU that is a full-document invalidation
+     twice per menu tap. A class costs nothing. */
+  html.dialog-open {
     overflow: hidden;
   }
 }
