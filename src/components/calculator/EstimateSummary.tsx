@@ -8,6 +8,8 @@ import type {
 } from "@/types/pricing";
 import type { CalculatorConfig } from "@/types/calculator-config";
 import { formatEur as formatEurRaw } from "@/lib/shared/format-eur";
+import { groupDigits } from "@/lib/shared/format-price";
+import { UAH_PER_USD, UAH_TWIN_LOCALES } from "@/constants/calculator-config";
 import { PriceBreakdown } from "./PriceBreakdown";
 import { H3 } from "@/components/ui";
 
@@ -40,10 +42,7 @@ export function EstimateSummary({
 
   const projectMeta = config.projectTypes.find((p) => p.key === input.projectType);
   const langMeta = config.languages.find((l) => l.key === input.languages);
-  const timelineMeta = config.timeline.find((tm) => tm.key === input.timeline);
-  const contentMeta = config.contentOptions.find((c) => c.key === input.contentOption);
   const designMeta = config.design.find((d) => d.key === input.designComplexity);
-  const productMeta = config.productComplexity.find((p) => p.key === input.productComplexity);
 
   const selectedFeatureOptions = config.features.filter(
     (feature) => !feature.included && input.featureIds.includes(feature.key),
@@ -129,14 +128,6 @@ export function EstimateSummary({
             <span>{t("summary.rowLanguages")}</span>
             <strong>{langMeta?.label}</strong>
           </li>
-          <li>
-            <span>{t("summary.rowTimeline")}</span>
-            <strong>{timelineMeta?.label}</strong>
-          </li>
-          <li>
-            <span>{t("summary.rowContent")}</span>
-            <strong>{contentMeta?.label}</strong>
-          </li>
         </ul>
       </div>
 
@@ -149,6 +140,20 @@ export function EstimateSummary({
         <h4 className="m-0 font-sans text-[28px] tracking-[-0.02em] font-bold bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] bg-clip-text text-transparent">
           {formatEur(estimate.oneTimeEstimate)}
         </h4>
+        {/*
+          Hryvnia twin for the UA/RU markets only: every Ukrainian competitor
+          quotes in UAH, so a dollar-only figure makes the visitor convert in
+          their head at the exact moment they decide whether we are affordable.
+          EN quotes GBP, where the conversion would be plain wrong.
+        */}
+        {UAH_TWIN_LOCALES.includes(locale) ? (
+          <p className="m-0 mt-[6px] text-ink-3 text-[12px] leading-[1.45]">
+            {t("summary.uahApprox", {
+              amount: groupDigits(estimate.oneTimeEstimate * UAH_PER_USD, locale),
+              rate: String(UAH_PER_USD),
+            })}
+          </p>
+        ) : null}
       </div>
 
       <div className={DIVIDER} />
@@ -159,10 +164,6 @@ export function EstimateSummary({
           {buildingItems.map((item, index) => (
             <li key={`${item}-${index}`}>{item}</li>
           ))}
-          {productMeta &&
-          (projectMeta?.hasProductComplexity ?? projectMeta?.key === "ecommerce") ? (
-            <li className="text-ink-3">{productMeta.label}</li>
-          ) : null}
         </ul>
       </div>
 

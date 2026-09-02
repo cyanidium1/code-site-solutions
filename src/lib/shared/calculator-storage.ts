@@ -5,7 +5,7 @@ import type { CalculatorInput } from "@/types/pricing";
  * Stored on every change, cleared on a manual reset or a successful lead
  * submit (see WebsiteCalculator). Bumped suffix invalidates old shapes.
  */
-const STORAGE_KEY = "cs-calculator-input-v3";
+const STORAGE_KEY = "cs-calculator-input-v4";
 
 function isValidInput(v: unknown): v is CalculatorInput {
   if (!v || typeof v !== "object") return false;

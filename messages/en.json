@@ -124,29 +124,10 @@
         "label": "warranty included"
       }
     },
-    "howItWorks": {
-      "eyebrow": "/ 01 HOW IT WORKS",
-      "title": "How this estimate <em>works</em>",
-      "sub": "Three layers shape every project. The calculator separates a simple site from a scalable business platform.",
-      "cards": {
-        "base": {
-          "title": "Base project",
-          "body": "Website type, CMS setup, responsive layout, and launch-ready structure."
-        },
-        "scope": {
-          "title": "Scope add-ons",
-          "body": "Pages, languages, design level, integrations, and content increase the project scope."
-        },
-        "final": {
-          "title": "Final review",
-          "body": "The calculator gives a realistic range. Final price is confirmed after scope review."
-        }
-      }
-    },
     "customizer": {
-      "eyebrow": "/ 03 CUSTOMISER",
-      "title": "Configure your <em>scope</em>",
-      "sub": "Set your scope below — every choice updates the estimate live."
+      "eyebrow": "/ 01 ESTIMATE",
+      "title": "Price <em>your project</em>",
+      "sub": "Five questions — the price updates as you go."
     },
     "social": {
       "line": "<strong>50+ companies</strong> ran this calculator and launched with us. Some of them:",
@@ -171,33 +152,17 @@
           "a": "The calculator gives a realistic range 9 times out of 10. If something falls outside it, we tell you before signing, never after. The contract carries a fixed sum: no surprises, no scope-creep invoices."
         },
         {
-          "q": "Can I start with one package and upgrade later?",
-          "a": "Yes. We design the architecture to scale. Launch as Starter; a year later, when traffic grows, add CMS, blog, or SEO, without rewriting from zero."
-        },
-        {
-          "q": "What if I need only one page?",
-          "a": "We do landings starting at £800. Anything below that is either a templated solution or we're the wrong fit, and we'll point you to who isn't."
-        },
-        {
-          "q": "Do I need to know exactly what I want?",
-          "a": "No. On the call we ask 10–15 questions and write the spec for you. Most clients arrive with a rough idea. That's normal."
+          "q": "What's NOT included in the price?",
+          "a": "Content copywriting, post-launch SEO promotion, and translation work. We can recommend trusted specialists for each, or quote them as add-ons. Everything else (design, code, CMS, hosting setup, 1-year warranty) is in the price."
         },
         {
           "q": "What if I have my own designer or brand book?",
           "a": "Then −10–15% off the price and a shorter timeline. We work directly from your Figma or design files."
-        },
-        {
-          "q": "Can I see the code before paying full?",
-          "a": "Yes. After the design phase we hand over the GitHub repo. You review, leave comments, then we continue. Transparent from day one, no code held hostage."
-        },
-        {
-          "q": "What's NOT included in the price?",
-          "a": "Content copywriting, post-launch SEO promotion, and translation work. We can recommend trusted specialists for each, or quote them as add-ons. Everything else (design, code, CMS, hosting setup, 1-year warranty) is in the price."
         }
       ]
     },
     "getFinal": {
-      "eyebrow": "/ 06 GET FINAL ESTIMATE",
+      "eyebrow": "/ 02 GET FINAL ESTIMATE",
       "title": "Send the brief — get a <em>final price</em>",
       "sub": "We'll review your calculator result and send a project plan, timeline, and confirmed price range. Custom-coded websites only. If you need a quick £300 template, we're not the right fit.",
       "altReady": "Not ready for the form?",
@@ -208,14 +173,12 @@
       "altEmail": "hi@code-site.art"
     },
     "controls": {
-      "customizeTitle": "Customise your estimate",
-      "customizeNote": "Adjust each option to match your project. The estimate updates as you go.",
       "resetBtn": "Reset to basic setup",
-      "section01": "/ 01 Project basics",
-      "section02": "/ 02 Design & languages",
-      "section03": "/ 03 CMS & SEO",
-      "section04": "/ 04 Features & integrations",
-      "section05": "/ 05 Content & timeline",
+      "q01": "/ 01 Site type",
+      "q02": "/ 02 Size",
+      "q03": "/ 03 Design",
+      "q04": "/ 04 Functionality",
+      "q05": "/ 05 Languages",
       "pagesLabel": "Number of pages",
       "sectionsLabel": "Number of sections",
       "contentPagesLabel": "Content pages",
@@ -224,31 +187,26 @@
       "sectionsHelp": "Typical landing page includes 6-8 sections: hero, benefits, services, process, cases, FAQ, and CTA.",
       "pagesIncludedTpl": "Included pages: {included}. Each extra page adds {extra}.",
       "sectionsIncludedTpl": "Included sections: {included}. Each extra section adds {extra}.",
-      "productStructLabel": "Product structure complexity",
-      "designLabel": "Design complexity",
-      "langLabel": "Multilingual support",
       "langNoteSeo": "Each language requires its own SEO structure, content, and CMS setup.",
-      "langNoteTranslations": "Translations themselves can be handled separately if the client provides content.",
-      "cmsSubgroup": "CMS / content management",
-      "seoSubgroup": "SEO architecture",
-      "leadCaptureLabel": "Lead capture",
-      "conversionLabel": "Conversion & tracking",
-      "advancedUxLabel": "Product / advanced UX",
-      "contentLabel": "Content / copywriting",
-      "timelineLabel": "Timeline / urgency",
-      "timelineHint": "Faster launches require parallel delivery, extra coordination, and priority production slots.",
       "fromPriceTpl": "from {price}",
-      "extraPerPageTpl": "+{price}",
-      "included": "Included",
-      "includedLower": "included"
+      "includedLower": "included",
+      "packages": {
+        "standard": {
+          "label": "Standard",
+          "hint": "CMS with blog and cases, enquiry forms, email and Telegram notifications, analytics, map, two languages — everything the tier promises."
+        },
+        "sales": {
+          "label": "Online sales",
+          "hint": "On-site payments and a CRM integration: enquiries and payments land in your pipeline without manual re-entry."
+        }
+      },
+      "packagesComplexNote": "Client accounts, catalogue filters, online booking, file uploads, ERP or 1C integrations are quoted separately — mention them in the brief."
     },
     "summary": {
       "title": "Estimate summary",
       "rowProjectType": "Project type",
       "rowBasePrice": "Base price",
       "rowLanguages": "Languages",
-      "rowTimeline": "Timeline",
-      "rowContent": "Content",
       "pageLabelPages": "Pages",
       "pageLabelSections": "Sections",
       "pageLabelContentPages": "Content pages",

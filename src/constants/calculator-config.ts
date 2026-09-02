@@ -79,9 +79,9 @@ export const DESIGN_COMPLEXITY_OPTIONS: Record<
 
 export const LANGUAGE_OPTIONS: Record<LanguageOption, { label: string; percent: number }> = {
   one: { label: "One language", percent: 0 },
-  two: { label: "Two languages", percent: 0.15 },
-  three: { label: "Three languages", percent: 0.25 },
-  fourPlus: { label: "Four+ languages", percent: 0.35 },
+  two: { label: "Two languages", percent: 0 },
+  three: { label: "Three languages", percent: 0.1 },
+  fourPlus: { label: "Four+ languages", percent: 0.2 },
 };
 
 export const CMS_UPGRADES: CheckboxOption[] = [
@@ -102,11 +102,12 @@ export const CMS_UPGRADES: CheckboxOption[] = [
   {
     id: "blogSystem",
     label: "Blog/news system",
-    price: 400,
+    price: 0,
+    included: true,
     hint: "Admin-managed posts, categories, SEO fields, cover images.",
   },
-  { id: "caseSystem", label: "Case studies/portfolio system", price: 350 },
-  { id: "teamServices", label: "Team/services dynamic sections", price: 300 },
+  { id: "caseSystem", label: "Case studies/portfolio system", price: 0, included: true },
+  { id: "teamServices", label: "Team/services dynamic sections", price: 0, included: true },
 ];
 
 export const SEO_OPTIONS: CheckboxOption[] = [
@@ -123,7 +124,7 @@ export const SEO_OPTIONS: CheckboxOption[] = [
     price: 1200,
     hint: "For scalable pages by service, city, language, category, or niche.",
   },
-  { id: "blogSeoSetup", label: "Blog SEO setup", price: 400 },
+  { id: "blogSeoSetup", label: "Blog SEO setup", price: 0, included: true },
   {
     id: "programmaticSeo",
     label: "Programmatic SEO structure",
@@ -134,22 +135,22 @@ export const SEO_OPTIONS: CheckboxOption[] = [
 
 export const FEATURE_OPTIONS: CheckboxOption[] = [
   { id: "contactForm", label: "Contact form", price: 0, included: true },
-  { id: "leadForm", label: "Lead form with custom fields", price: 250, hint: "Collect qualified leads with the right questions." },
-  { id: "email", label: "Email notifications", price: 150, hint: "Get new enquiries sent directly to your inbox." },
-  { id: "telegram", label: "Telegram notifications", price: 150, hint: "Receive new leads instantly in Telegram." },
+  { id: "leadForm", label: "Lead form with custom fields", price: 0, included: true, hint: "Collect qualified leads with the right questions." },
+  { id: "email", label: "Email notifications", price: 0, included: true, hint: "Get new enquiries sent directly to your inbox." },
+  { id: "telegram", label: "Telegram notifications", price: 0, included: true, hint: "Receive new leads instantly in Telegram." },
   { id: "crm", label: "CRM integration", price: 500, hint: "Push leads automatically into your sales pipeline." },
   { id: "booking", label: "Booking/calendar integration", price: 600, hint: "Let customers pick time slots and book faster." },
   { id: "payments", label: "Payment integration", price: 900, hint: "Accept payments online without manual follow-ups." },
   { id: "accounts", label: "User accounts/auth", price: 1200, hint: "Give users a personal area for repeat actions." },
   { id: "uploads", label: "File upload forms", price: 500, hint: "Allow clients to send briefs, docs, or media files." },
   { id: "search", label: "Advanced filters/search", price: 1000, hint: "Help visitors find products or services faster." },
-  { id: "mapBasic", label: "Basic map", price: 150, hint: "Simple location display for office or store." },
+  { id: "mapBasic", label: "Basic map", price: 0, included: true, hint: "Simple location display for office or store." },
   { id: "mapInteractive", label: "Interactive map", price: 600, hint: "Custom markers, filters, and advanced UX." },
   { id: "reviews", label: "Reviews/testimonials module", price: 250, hint: "Show social proof where users make decisions." },
   { id: "faqSchema", label: "FAQ module with schema markup", price: 250, hint: "Answer objections and improve search visibility." },
-  { id: "analytics", label: "Analytics/events setup", price: 500, hint: "Track key actions and improve conversion over time." },
-  { id: "adsTracking", label: "Meta Pixel / Google Ads conversion tracking", price: 500, hint: "Measure campaign ROI with conversion events." },
-  { id: "cookie", label: "Cookie banner/basic consent", price: 250, hint: "Cover basic consent requirements from launch day." },
+  { id: "analytics", label: "Analytics/events setup", price: 0, included: true, hint: "Track key actions and improve conversion over time." },
+  { id: "adsTracking", label: "Meta Pixel / Google Ads conversion tracking", price: 0, included: true, hint: "Measure campaign ROI with conversion events." },
+  { id: "cookie", label: "Cookie banner/basic consent", price: 0, included: true, hint: "Cover basic consent requirements from launch day." },
 ];
 
 export const CONTENT_OPTIONS: Record<ContentOption, { label: string; price: number }> = {
@@ -200,3 +201,66 @@ export function projectBasePrice(
 ): number {
   return PROJECT_BASE_PRICE_OVERRIDES[locale]?.[projectKey] ?? fallback;
 }
+
+/**
+ * Feature packages — question 04 of the calculator.
+ *
+ * The 27 individual checkboxes (CMS + SEO + features) asked visitors to decide
+ * things only we can determine: "Programmatic SEO structure, +$2,500?" is not a
+ * question a clinic owner can answer. The Ukrainian pages that actually win the
+ * price query ask 3–5 one-click questions in the client's own words
+ * (ifish.com.ua #1: five radio groups, zero checkboxes; web24 #7: type +
+ * plain-language features), so the calculator offers presets instead.
+ *
+ * Only one package is billable, and that is the point. The Corporate tier card
+ * promises "CMS, блог", "5+ інтеграцій" and "Багатомовність" inside $2,500,
+ * while the calculator used to charge $1,150 for the blog and +15% for a second
+ * language on top — the same brief came out at $4,200 on one page and $2,500 on
+ * the other. Everything the card promises is now priced at 0 (see the `included`
+ * flags above), so `standard` really is the tier price. What stays billable is
+ * only what the card never promised: payments and CRM here, and the heavier
+ * work — accounts, filters, booking, uploads — quoted in the brief.
+ *
+ * A package is nothing but a preset selection of existing option ids: the
+ * engine, the Sanity-driven config, the breakdown and the lead notification all
+ * keep working unchanged.
+ *
+ * NOTE: production reads these prices from the Sanity `calculatorConfig`
+ * document, not from this file — this is only the fallback. Both must move
+ * together or the live calculator keeps the old numbers.
+ */
+export type FeaturePackageKey = "standard" | "sales";
+
+export type FeaturePackage = {
+  key: FeaturePackageKey;
+  cmsUpgradeIds: string[];
+  seoOptionIds: string[];
+  featureIds: string[];
+};
+
+export const FEATURE_PACKAGES: FeaturePackage[] = [
+  { key: "standard", cmsUpgradeIds: [], seoOptionIds: [], featureIds: [] },
+  {
+    key: "sales",
+    cmsUpgradeIds: [],
+    seoOptionIds: [],
+    featureIds: ["crm", "payments"],
+  },
+];
+
+/**
+ * Hryvnia equivalent printed under the estimate on the uk/ru markets. Every
+ * Ukrainian competitor quotes in UAH (ifish, web24 — grn only), so a
+ * dollar-only figure makes the visitor convert in their head at the exact
+ * moment they are deciding whether we are affordable. Deliberately a plain
+ * constant with the rate shown next to the number: an approximation the reader
+ * can judge, not a live quote. Refresh when it drifts from the NBU rate.
+ */
+export const UAH_PER_USD = 42;
+
+/**
+ * Markets quoted in USD whose buyers nevertheless think in hryvnia. Kept as a
+ * list rather than a hardcoded locale comparison, so adding a locale is one
+ * edit here (see the tripwire in constants/locale-debt-guard.test.ts).
+ */
+export const UAH_TWIN_LOCALES: PriceLocale[] = ["uk", "ru"];

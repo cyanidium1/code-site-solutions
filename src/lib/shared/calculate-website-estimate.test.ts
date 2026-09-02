@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { calculateWebsiteEstimate } from "./calculate-website-estimate";
-import { DEFAULT_CALCULATOR_INPUT } from "@/constants/calculator-config";
+import { DEFAULT_CALCULATOR_INPUT, FEATURE_PACKAGES } from "@/constants/calculator-config";
+import { tierAmount } from "@/constants/pricing-tiers";
 import type { CalculatorInput } from "@/types/pricing";
 
 const baseInput: CalculatorInput = DEFAULT_CALCULATOR_INPUT;
@@ -35,14 +36,15 @@ test("design + language multipliers stack (timeline excluded)", () => {
   const r = calculateWebsiteEstimate({
     ...baseInput,
     designComplexity: "custom",
-    languages: "two",
+    // "two" is included in the Corporate tier (percent 0), so the first paid
+    // language step is "three".
+    languages: "three",
   });
   // Engine rounds the additive multiplier to 4 decimals to absorb IEEE-754
-  // drift (was 1.3499999999999999), so this now lands on the math-perfect
-  // $50 step instead of $50 lower.
-  assert.equal(r.breakdown.multiplier, 1.35);
+  // drift, so this lands on the math-perfect $50 step instead of $50 lower.
+  assert.equal(r.breakdown.multiplier, 1.3);
   assert.equal(r.breakdown.timelineCost, 0);
-  assert.equal(r.oneTimeEstimate, 3400);
+  assert.equal(r.oneTimeEstimate, 3250);
 });
 
 test("ecommerce includes product complexity cost", () => {
@@ -69,13 +71,31 @@ test("CMS, SEO, feature, content costs sum into subtotal", () => {
   const r = calculateWebsiteEstimate({
     ...baseInput,
     cmsUpgradeIds: ["advancedBuilder"],
-    seoOptionIds: ["blogSeoSetup"],
-    featureIds: ["leadForm", "analytics"],
+    seoOptionIds: ["advancedLandingSeo"],
+    featureIds: ["crm", "payments"],
     contentOption: "lightPolishing",
   });
   assert.equal(r.breakdown.cmsCost, 1200);
-  assert.equal(r.breakdown.seoCost, 400);
-  assert.equal(r.breakdown.featureCost, 750);
+  assert.equal(r.breakdown.seoCost, 1200);
+  assert.equal(r.breakdown.featureCost, 1400);
   assert.equal(r.breakdown.contentCost, 300);
-  assert.equal(r.breakdown.subtotal, 2500 + 1200 + 400 + 750 + 300);
+  assert.equal(r.breakdown.subtotal, 2500 + 1200 + 1200 + 1400 + 300);
+});
+
+/**
+ * The Corporate tier card sells "CMS, блог", "5+ інтеграцій" and
+ * "Багатомовність" inside one price. The calculator used to charge for all
+ * three on top, so the same brief came out at $4,200 on the calculator and
+ * $2,500 on the pricing card. Pin the two together.
+ */
+test("the standard package on two languages equals the Corporate tier price", () => {
+  const standard = FEATURE_PACKAGES.find((p) => p.key === "standard")!;
+  const r = calculateWebsiteEstimate({
+    ...baseInput,
+    languages: "two",
+    cmsUpgradeIds: standard.cmsUpgradeIds,
+    seoOptionIds: standard.seoOptionIds,
+    featureIds: standard.featureIds,
+  });
+  assert.equal(r.oneTimeEstimate, tierAmount("corporate", "uk"));
 });

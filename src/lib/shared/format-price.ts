@@ -48,17 +48,23 @@ export interface FormatPriceOptions {
   withPrefix?: boolean;
 }
 
+/**
+ * Locale-grouped digits with no currency symbol — for the currencies this
+ * market writes as a suffix ("105 000 грн"). Hand-rolled rather than Intl so
+ * server and client produce the identical separator and hydration stays clean.
+ */
+export function groupDigits(amount: number, locale: PriceLocale): string {
+  return Math.round(amount)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, GROUP_SEP[locale]);
+}
+
 export function formatPrice(amount: number, opts: FormatPriceOptions): string {
   const { locale, currency = LOCALE_CURRENCY[locale], withPrefix = false } = opts;
 
-  // Round to whole units; we don't show cents in marketing copy.
-  const whole = Math.round(amount);
-
   const symbol = CURRENCY_SYMBOL[currency];
-  const groupSep = GROUP_SEP[locale];
-  const grouped = whole
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, groupSep);
+  // Round to whole units; we don't show cents in marketing copy.
+  const grouped = groupDigits(amount, locale);
 
   const body = `${symbol}${grouped}`;
   return withPrefix ? `${FROM_LABEL[locale]} ${body}` : body;
