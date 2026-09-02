@@ -40,13 +40,17 @@ function unlockScroll() {
   if (openDialogs === 0) document.documentElement.classList.remove("dialog-open");
 }
 
-/** How long the exit transition runs; close() fires after this. */
-const EXIT_MS = 200;
+/** Скільки триває анімація виходу; close() викликається після неї.
+ *  Модалка згасає за 200 мс, шухляда їде за 300 — одна константа на двох
+ *  обрізала шухляді анімацію на третині. */
+const MODAL_EXIT_MS = 200;
+const DRAWER_EXIT_MS = 300;
 
 function useDialogSync(
   ref: RefObject<HTMLDialogElement | null>,
   isOpen: boolean,
   onOpenChange: (open: boolean) => void,
+  exitMs: number,
 ) {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Блокировка скролла парная: снять её можно только если этот диалог её ставил.
@@ -64,15 +68,21 @@ function useDialogSync(
     dialog.setAttribute("data-closing", "");
     closeTimer.current = setTimeout(() => {
       closeTimer.current = null;
-      dialog.removeAttribute("data-closing");
+      // `data-closing` НЕ знімаємо тут. У переході є `overlay` з
+      // allow-discrete, тож після close() елемент ще лишається у top layer
+      // на час анімації. Якщо зняти атрибут до close(), панель на цей час
+      // повертається у видимий стан — і користувач бачить, як меню блимає
+      // вже після того, як закрив його. Атрибут знімає обробник `close`,
+      // коли ховати вже нічого.
       dialog.close();
-    }, EXIT_MS);
-  }, [ref]);
+    }, exitMs);
+  }, [ref, exitMs]);
 
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
     if (isOpen && !dialog.open) {
+      dialog.removeAttribute("data-closing");
       dialog.showModal();
       if (!locked.current) {
         locked.current = true;
@@ -94,6 +104,7 @@ function useDialogSync(
     };
     // Native close (any path) → report state up.
     const onClose = () => {
+      dialog.removeAttribute("data-closing");
       if (locked.current) {
         locked.current = false;
         unlockScroll();
@@ -184,7 +195,9 @@ export function Modal({
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
-  const { onBackdropClick, requestClose, isPresent } = useDialogSync(ref, isOpen, onOpenChange);
+  const { onBackdropClick, requestClose, isPresent } = useDialogSync(
+    ref, isOpen, onOpenChange, MODAL_EXIT_MS,
+  );
 
   // Children mount while the dialog is actually open (isPresent) so closed
   // dialogs cost nothing (parity with HeroUI, which unmounts its portal) and
@@ -278,7 +291,9 @@ export function Drawer({
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
-  const { onBackdropClick, requestClose, isPresent } = useDialogSync(ref, isOpen, onOpenChange);
+  const { onBackdropClick, requestClose, isPresent } = useDialogSync(
+    ref, isOpen, onOpenChange, DRAWER_EXIT_MS,
+  );
 
   return (
     <dialog
