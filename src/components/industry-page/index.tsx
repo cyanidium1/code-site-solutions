@@ -1136,24 +1136,40 @@ export async function IndustryPageView({
           <MedBookingDemo locale={locale} />
           <MedPatientFlow locale={locale} />
           {locale === DEFAULT_LOCALE ? (
-            /* Specialization subpages exist in the default locale only. */
+            /* Підсторінки медицини існують лише в основній локалі.
+               Блок писався 21.08, коли їх було дві. Три наступні (дизайн,
+               верстка, SEO) вийшли 30.08 і сюди не потрапили — тобто
+               найсильніша сторінка кластера не передавала їм ваги взагалі,
+               а інших вхідних посилань у них майже немає. Розділено на два
+               рядки, бо це різні речі: спеціалізація замовника проти шару
+               роботи — саме так ці сторінки й розмежовані між собою. */
             <section className="bg-bg px-6 sm:px-8 lg:px-12 py-8">
-              <p className="max-w-container mx-auto m-0 font-sans text-[15.5px] leading-[1.65] text-ink-dim">
-                Окремі рішення під вашу спеціалізацію:{" "}
-                <Link
-                  href="/sites-for/medicine/stomatolohiia"
-                  className="rich-link"
-                >
-                  створення сайту для стоматології
-                </Link>
-                {" · "}
-                <Link
-                  href="/sites-for/medicine/medychnyi-tsentr"
-                  className="rich-link"
-                >
-                  розробка сайту для медичного центру
-                </Link>
-              </p>
+              <div className="max-w-container mx-auto flex flex-col gap-2.5">
+                <p className="m-0 font-sans text-[15.5px] leading-[1.65] text-ink-dim">
+                  Окремі рішення під вашу спеціалізацію:{" "}
+                  <Link href="/sites-for/medicine/stomatolohiia" className="rich-link">
+                    створення сайту для стоматології
+                  </Link>
+                  {" · "}
+                  <Link href="/sites-for/medicine/medychnyi-tsentr" className="rich-link">
+                    розробка сайту для медичного центру
+                  </Link>
+                </p>
+                <p className="m-0 font-sans text-[15.5px] leading-[1.65] text-ink-dim">
+                  Окремі етапи роботи:{" "}
+                  <Link href="/sites-for/medicine/dyzain" className="rich-link">
+                    дизайн сайту медичного центру
+                  </Link>
+                  {" · "}
+                  <Link href="/sites-for/medicine/verstka" className="rich-link">
+                    верстка медичних сайтів
+                  </Link>
+                  {" · "}
+                  <Link href="/sites-for/medicine/seo" className="rich-link">
+                    SEO для медичних сайтів
+                  </Link>
+                </p>
+              </div>
             </section>
           ) : null}
         </>
