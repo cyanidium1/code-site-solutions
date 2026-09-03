@@ -64,12 +64,15 @@ const nextConfig: NextConfig = {
         destination: "/blog/vartist-rozrobky-saytu-2026",
         statusCode: 301,
       },
-      { source: "/services", destination: "/pricing", statusCode: 301 },
+      // /services* → /rozrobka-saitiv, а не /pricing і не головна: це були
+      // сторінки послуг, і сервісна сторінка з'явилась пізніше за ці правила.
+      // Ціни — окремий інтент, головна — взагалі не відповідь на /services.
+      { source: "/services", destination: "/rozrobka-saitiv", statusCode: 301 },
       { source: "/uk", destination: "/", statusCode: 301 },
       { source: "/uk/legal", destination: "/legal", statusCode: 301 },
       { source: "/uk/offer", destination: "/offer", statusCode: 301 },
-      { source: "/uk/services", destination: "/pricing", statusCode: 301 },
-      { source: "/ru/services", destination: "/ru", statusCode: 301 },
+      { source: "/uk/services", destination: "/rozrobka-saitiv", statusCode: 301 },
+      { source: "/ru/services", destination: "/ru/rozrobka-saitiv", statusCode: 301 },
       {
         source: "/ru/public-contract",
         destination: "/public-contract",
