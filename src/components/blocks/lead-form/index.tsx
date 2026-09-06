@@ -188,7 +188,11 @@ function LeadFormInner({
         setFieldValue,
         isSubmitting,
       }) => (
-        <Form className={`flex flex-col ${isCompact || isDemo ? "gap-[18px]" : "gap-[22px]"}`}>
+        // noValidate: the `required` contact field otherwise triggers the
+        // browser's own bubble ("Please fill out this field.") in the UI
+        // language of the browser, not the page — Formik + Yup render the
+        // localized error below the field instead (audit 2026-09-06, C9).
+        <Form noValidate className={`flex flex-col ${isCompact || isDemo ? "gap-[18px]" : "gap-[22px]"}`}>
           <HoneypotField
             value={values.hp}
             onChange={(v) => setFieldValue("hp", v)}

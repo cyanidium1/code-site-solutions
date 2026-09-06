@@ -14,7 +14,9 @@
     "contact": "Contact",
     "cta": "Discuss a project",
     "menuLabel": "Main menu",
-    "allServicesFooter": "All industries →"
+    "allServicesFooter": "All industries →",
+    "servicesHeading": "Services",
+    "industriesHeading": "Industries"
   },
   "ServiceNav": {
     "medicine": "Healthcare",
@@ -25,6 +27,16 @@
     "auto": "Motor industry",
     "realEstate": "Property",
     "courses": "Courses & Landings"
+  },
+  "ServicePages": {
+    "webDevelopment": "Web development",
+    "landing": "Landing page",
+    "corporateSite": "Corporate website",
+    "onlineStore": "Online store",
+    "seo": "SEO",
+    "localSeo": "Local SEO",
+    "audit": "Website audit",
+    "redesign": "Redesign"
   },
   "Footer": {
     "brandDesc": "Boutique custom website studio — 50+ projects over 5 years across 7 regions: UA · EU · US · DK · ZA · UK · FR.",

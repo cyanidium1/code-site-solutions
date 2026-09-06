@@ -61,7 +61,7 @@ export function Newsletter() {
               required
               aria-label={t("placeholder")}
               placeholder={t("placeholder")}
-              className="min-w-[260px] flex-1 rounded-full border border-line-strong bg-[oklch(1_0_0_/_0.04)] px-[18px] py-3 font-sans text-[14px] text-ink outline-none transition-colors duration-200 placeholder:text-ink-3 focus:border-accent aria-[invalid=true]:border-[oklch(0.65_0.18_25)]"
+              className="min-w-[260px] flex-1 rounded-full border border-line-strong bg-[oklch(1_0_0_/_0.04)] px-[18px] py-3 font-sans text-[16px] md:text-[14px] text-ink outline-none transition-colors duration-200 placeholder:text-ink-3 focus:border-accent aria-[invalid=true]:border-[oklch(0.65_0.18_25)]"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               aria-invalid={status === "error"}

@@ -3,13 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, type CSSProperties } from "react";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronDown, ChevronRight, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Drawer } from "@/components/ui";
-import { localizePath, resolveRootHref, resolveServiceHref } from "@/constants/i18n-routes";
+import {
+  LOCALIZED_ROOTS,
+  localizePath,
+  resolveRootHref,
+  resolveServiceHref,
+} from "@/constants/i18n-routes";
 import type { Locale } from "@/constants/locales";
-import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
+import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS, SERVICE_PAGE_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
@@ -50,6 +55,15 @@ const drawerLinkDisabledClass =
 
 const drawerDividerClass = "h-px bg-line my-1.5";
 
+// Industries collapse behind a <details> so the primary nav and the service
+// pages fit the first screen (audit 2026-09-06, C4: with eight industries
+// listed first, «Контакти» sat at 874px on an 844px viewport).
+const drawerDetailsSummaryClass =
+  "flex items-center justify-between gap-3 min-h-11 px-3.5 py-3 rounded-xl cursor-pointer select-none list-none " +
+  "font-mono text-[12px] tracking-[0.12em] uppercase text-ink " +
+  "hover:bg-[oklch(1_0_0/0.05)] [&::-webkit-details-marker]:hidden " +
+  "[&_svg]:text-ink-3 [&_svg]:transition-transform [&_svg]:duration-200 group-open/ind:[&_svg]:rotate-180";
+
 const drawerFootClass =
   "px-[22px] pt-4 pb-[calc(20px+env(safe-area-inset-bottom))] border-t border-line shrink-0";
 const drawerCtaClass =
@@ -81,6 +95,7 @@ export function MobileMenuDrawer({
 
   const t = useTranslations("Nav");
   const tServices = useTranslations("ServiceNav");
+  const tPages = useTranslations("ServicePages");
 
   // Close on route change. Track the pathname we opened on; when it changes,
   // close. Without this, clicking a link inside the drawer would navigate
@@ -113,12 +128,22 @@ export function MobileMenuDrawer({
     key: link.key,
   }));
 
+  // Service pages: secondary locales only list the ones that exist there.
+  const servicePages = SERVICE_PAGE_LINKS.filter(
+    (link) => locale === "uk" || LOCALIZED_ROOTS[locale].has(link.uaHref),
+  ).map((link) => ({
+    href: localizePath(link.uaHref, locale),
+    label: tPages(link.key),
+    key: link.key,
+  }));
+
   // Stagger indices, statically computed so DrawerContent's render-prop
   // can be invoked multiple times per cycle without accumulating a counter.
-  const SERVICES_EYEBROW_I = 0;
-  const SERVICES_BASE_I = 1;
-  const ALL_SERVICES_I = SERVICES_BASE_I + SERVICE_NAV_LINKS.length;
-  const NAV_BASE_I = ALL_SERVICES_I + 1;
+  // Order: primary nav → service pages → industries (collapsed).
+  const NAV_BASE_I = 0;
+  const SERVICES_EYEBROW_I = NAV_BASE_I + navLinks.length;
+  const SERVICES_BASE_I = SERVICES_EYEBROW_I + 1;
+  const INDUSTRIES_I = SERVICES_BASE_I + servicePages.length;
 
   const close = onClose;
 
@@ -140,59 +165,6 @@ export function MobileMenuDrawer({
         </button>
       </div>
       <div className={drawerBodyClass}>
-        <div className={drawerSectionClass}>
-          <div
-            className={`${drawerEyebrowClass} ${drawerStaggerClass}`}
-            // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-            style={{ "--i": SERVICES_EYEBROW_I } as CSSProperties}
-          >
-            {t("services")}
-          </div>
-          <ul className={drawerListClass}>
-            {SERVICE_NAV_LINKS.map((s, idx) => (
-              <li
-                key={s.href}
-                className={drawerStaggerClass}
-                // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-                style={{ "--i": SERVICES_BASE_I + idx } as CSSProperties}
-              >
-                {s.published ? (
-                  <Link
-                    href={resolveServiceHref(s.href, locale, registry)}
-                    className={drawerLinkBaseClass}
-                    onClick={close}
-                  >
-                    <span>{tServices(s.key)}</span>
-                    <ChevronRight size={14} strokeWidth={1.8} />
-                  </Link>
-                ) : (
-                  <span
-                    className={`${drawerLinkBaseClass} ${drawerLinkDisabledClass}`}
-                    aria-disabled="true"
-                  >
-                    <span>{tServices(s.key)}</span>
-                  </span>
-                )}
-              </li>
-            ))}
-            <li
-              className={drawerStaggerClass}
-              // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-              style={{ "--i": ALL_SERVICES_I } as CSSProperties}
-            >
-              <Link
-                href={allServicesHref}
-                className={`${drawerLinkBaseClass} ${drawerLinkMutedClass}`}
-                onClick={close}
-              >
-                <span>{t("allServicesFooter")}</span>
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className={drawerDividerClass} />
-
         <ul className={drawerListClass}>
           {navLinks.map((l, idx) => (
             <li
@@ -214,6 +186,78 @@ export function MobileMenuDrawer({
             </li>
           ))}
         </ul>
+
+        <div className={drawerDividerClass} />
+
+        <div className={drawerSectionClass}>
+          <div
+            className={`${drawerEyebrowClass} ${drawerStaggerClass}`}
+            // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+            style={{ "--i": SERVICES_EYEBROW_I } as CSSProperties}
+          >
+            {t("servicesHeading")}
+          </div>
+          <ul className={drawerListClass}>
+            {servicePages.map((s, idx) => (
+              <li
+                key={s.key}
+                className={drawerStaggerClass}
+                // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+                style={{ "--i": SERVICES_BASE_I + idx } as CSSProperties}
+              >
+                <Link href={s.href} className={drawerLinkBaseClass} onClick={close}>
+                  <span>{s.label}</span>
+                  <ChevronRight size={14} strokeWidth={1.8} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className={drawerDividerClass} />
+
+        <details
+          className={`group/ind ${drawerStaggerClass}`}
+          // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
+          style={{ "--i": INDUSTRIES_I } as CSSProperties}
+        >
+          <summary className={drawerDetailsSummaryClass}>
+            <span>{t("industriesHeading")}</span>
+            <ChevronDown size={14} strokeWidth={1.8} />
+          </summary>
+          <ul className={`${drawerListClass} mt-1`}>
+            {SERVICE_NAV_LINKS.map((s) => (
+              <li key={s.href}>
+                {s.published ? (
+                  <Link
+                    href={resolveServiceHref(s.href, locale, registry)}
+                    className={drawerLinkBaseClass}
+                    onClick={close}
+                  >
+                    <span>{tServices(s.key)}</span>
+                    <ChevronRight size={14} strokeWidth={1.8} />
+                  </Link>
+                ) : (
+                  <span
+                    className={`${drawerLinkBaseClass} ${drawerLinkDisabledClass}`}
+                    aria-disabled="true"
+                  >
+                    <span>{tServices(s.key)}</span>
+                  </span>
+                )}
+              </li>
+            ))}
+            <li>
+              <Link
+                href={allServicesHref}
+                className={`${drawerLinkBaseClass} ${drawerLinkMutedClass}`}
+                onClick={close}
+              >
+                <span>{t("allServicesFooter")}</span>
+              </Link>
+            </li>
+          </ul>
+        </details>
       </div>
 
       <div className={drawerFootClass}>

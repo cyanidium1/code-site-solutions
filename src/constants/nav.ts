@@ -36,6 +36,28 @@ export const HEADER_NAV_LINKS: readonly HeaderNavLink[] = [
   { uaHref: "/contacts", key: "contact" },
 ] as const;
 
+/**
+ * Service PAGES (what we sell) — the left column of the header dropdown and
+ * the first list in the mobile drawer. Distinct from `SERVICE_NAV_LINKS`,
+ * which despite its name lists INDUSTRIES (who we sell to). Until the
+ * 2026-09-06 design audit the "Послуги" menu showed only industries and the
+ * actual service pages were reachable from the footer alone (finding C4).
+ *
+ * `uaHref` is the bare UA path; secondary locales show an entry only when
+ * `LOCALIZED_ROOTS[locale]` has it (checked at the call site). Labels live
+ * under `messages/{uk,en,ru}.json` → `ServicePages`.
+ */
+export const SERVICE_PAGE_LINKS: readonly HeaderNavLink[] = [
+  { uaHref: "/rozrobka-saitiv", key: "webDevelopment" },
+  { uaHref: "/landing", key: "landing" },
+  { uaHref: "/corporate-site", key: "corporateSite" },
+  { uaHref: "/online-store", key: "onlineStore" },
+  { uaHref: "/seo", key: "seo" },
+  { uaHref: "/lokalne-seo", key: "localSeo" },
+  { uaHref: "/audit", key: "audit" },
+  { uaHref: "/redesign", key: "redesign" },
+] as const;
+
 export type ServiceNavLink = {
   href: string;
   key: string;

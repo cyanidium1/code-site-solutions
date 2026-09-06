@@ -52,9 +52,12 @@ interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
  */
 const sizes: Record<Level, Record<Variant, string>> = {
   1: {
-    default: "font-actay text-[64px] leading-[1.05] tracking-[-0.02em] font-bold",
-    hp: "font-actay font-bold text-[clamp(26px,7vw,40px)] leading-[0.98] tracking-[-0.035em] uppercase sm:leading-[0.96] md:text-[clamp(36px,5vw,64px)]",
-    case: "font-actay text-[56px] leading-[1.05] tracking-[-0.02em] font-bold",
+    // Mobile clamp on the fixed desktop sizes: Actay Wide uppercase Ukrainian
+    // words ("КОРПОРАТИВНИЙ") overflow a 342px column at 44–64px — design
+    // audit 2026-09-06, finding C2 (real horizontal scroll on 390px).
+    default: "font-actay text-[clamp(28px,7vw,40px)] leading-[1.05] tracking-[-0.02em] font-bold md:text-[64px]",
+    hp: "font-actay font-bold text-[clamp(28px,7.4vw,40px)] leading-[0.98] tracking-[-0.035em] uppercase sm:leading-[0.96] md:text-[clamp(36px,5vw,64px)]",
+    case: "font-actay text-[clamp(28px,7vw,40px)] leading-[1.05] tracking-[-0.02em] font-bold md:text-[56px]",
     "page-hero": "font-actay text-[clamp(26px,7vw,36px)] leading-[1.05] tracking-[-0.02em] font-bold md:text-[clamp(36px,4.6vw,60px)]",
     "image-text": "font-actay text-[clamp(28px,3.4vw,44px)] leading-[1.05] tracking-[-0.02em] font-bold",
     comparison: "font-actay text-[clamp(34px,4.4vw,56px)] leading-none tracking-[-0.035em] font-bold",
@@ -69,14 +72,16 @@ const sizes: Record<Level, Record<Variant, string>> = {
     "calc-lead": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink",
   },
   2: {
-    default: "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
+    // Fixed 44px only from md (700): below that the section H2s on the
+    // service pages clipped at the viewport edge (audit 2026-09-06, C2).
+    default: "font-actay text-[clamp(24px,6vw,32px)] leading-[1.1] tracking-[-0.01em] font-bold md:text-[44px]",
     // Keep the clamp sizes in sync with `hpH2Class` in
     // `@/components/homepage/shared` (the class-constant twin used when the
     // legacy `.hp-h2` layout props are also needed); that constant deliberately
     // omits this variant's `tracking-[-0.02em]`.
     hp: "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-[1.05] tracking-[-0.02em] md:text-[clamp(34px,4vw,56px)]",
     case: "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-none tracking-[-0.035em] max-w-full text-balance md:text-[clamp(30px,5vw,44px)] md:max-w-[14ch] xl:text-[clamp(34px,4.6vw,60px)]",
-    "page-hero": "font-actay text-[44px] leading-[1.1] tracking-[-0.01em] font-bold",
+    "page-hero": "font-actay text-[clamp(24px,6vw,32px)] leading-[1.1] tracking-[-0.01em] font-bold md:text-[44px]",
     "image-text": "font-actay text-[clamp(24px,6vw,36px)] leading-[1.1] tracking-[-0.02em] font-bold lg:text-[clamp(28px,3.4vw,44px)]",
     comparison:
       "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-none tracking-[-0.035em] md:text-[clamp(28px,5vw,44px)] xl:text-[clamp(34px,4.4vw,56px)]",

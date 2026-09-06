@@ -124,7 +124,7 @@ const CMP_H2_EXTRA =
   "[&_.upper-em]:text-accent-soft [&_.upper-em]:uppercase [&_.upper-em]:not-italic [&_.upper-em]:font-bold";
 
 const CMP_INPUT_BASE =
-  "w-full px-[18px] py-[13px] bg-[oklch(0.13_0.005_300_/_0.7)] border border-line-strong text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.13_0.005_300_/_0.9)] md:px-5 md:py-3.5 md:text-[14px]";
+  "w-full px-[18px] py-[13px] bg-[oklch(0.13_0.005_300_/_0.7)] border border-line-strong text-ink text-[16px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.13_0.005_300_/_0.9)] md:px-5 md:py-3.5 md:text-[14px]";
 
 // Section + contact-card relative-color OKLCH backdrops. Both were `.cmp-bg`
 // and `.cmp-contact` in the legacy CSS; reproduced here as arbitrary `bg-[...]`
@@ -301,6 +301,7 @@ export function Comparison({
                 className={`${CMP_INPUT_BASE} rounded-full`}
                 type="text"
                 placeholder={contactName}
+                aria-label={contactName}
                 value={form.name}
                 onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                 required
@@ -310,6 +311,7 @@ export function Comparison({
                 className={`${CMP_INPUT_BASE} rounded-full`}
                 type="text"
                 placeholder={contactChannel}
+                aria-label={contactChannel}
                 value={form.channel}
                 onChange={(e) => setForm((p) => ({ ...p, channel: e.target.value }))}
                 required
@@ -318,6 +320,7 @@ export function Comparison({
               <textarea
                 className={`${CMP_INPUT_BASE} rounded-[22px] resize-none min-h-[110px] md:py-4`}
                 placeholder={contactBrief}
+                aria-label={contactBrief}
                 value={form.brief}
                 onChange={(e) => setForm((p) => ({ ...p, brief: e.target.value }))}
                 disabled={busy}

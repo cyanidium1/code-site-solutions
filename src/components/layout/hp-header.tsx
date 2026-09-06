@@ -5,10 +5,15 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { localizePath, resolveRootHref, resolveServiceHref } from "@/constants/i18n-routes";
+import {
+  LOCALIZED_ROOTS,
+  localizePath,
+  resolveRootHref,
+  resolveServiceHref,
+} from "@/constants/i18n-routes";
 import type { Locale } from "@/constants/locales";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
-import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS } from "@/constants/nav";
+import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS, SERVICE_PAGE_LINKS } from "@/constants/nav";
 import { useLeadModal } from "@/components/blocks/lead-modal";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
@@ -62,8 +67,14 @@ const navDdChevronClass =
 // Panel offset clears the 60px pill: the <details> anchor is only as tall as
 // the 17px nav row centered in the pill, so 100% + 34px lands the panel 12px
 // below the pill's bottom edge (was +12px on the old flush bar).
+// Two columns — service PAGES left, industries right (audit 2026-09-06, C4:
+// the menu labelled "Послуги" listed only industries; the service pages
+// were reachable from the footer alone).
 const navDdPanelClass =
-  "absolute top-[calc(100%+34px)] left-0 min-w-[232px] p-2 rounded-[14px] border border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60]";
+  "absolute top-[calc(100%+34px)] left-0 w-[max-content] min-w-[520px] p-2 rounded-[14px] border border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60] grid grid-cols-2 gap-x-2";
+const navDdColClass = "flex min-w-[240px] flex-col";
+const navDdColHeadClass =
+  "px-3 pt-1.5 pb-1 font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3";
 const navDdLinkBaseClass =
   "block px-3 py-2.5 rounded-[10px] font-sans text-[13px] font-medium normal-case text-ink-dim no-underline transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
 const navDdLinkActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.1)] text-ink";
@@ -77,6 +88,7 @@ export function HpHeader() {
   const pathname = normalizePathname(usePathname());
   const t = useTranslations("Nav");
   const tServices = useTranslations("ServiceNav");
+  const tPages = useTranslations("ServicePages");
   const locale = useLocale() as Locale;
   const registry = useI18nRegistry();
   const { open: openLeadModal } = useLeadModal();
@@ -102,9 +114,21 @@ export function HpHeader() {
   // page this triggers a full navigation to home + scroll.
   const allServicesHref = `${localizePath("/", locale)}#solutions`;
 
-  const servicesActive = SERVICE_NAV_LINKS.filter((s) => s.published).some((s) =>
-    isActive(pathname, localizePath(s.href, locale)),
-  );
+  // Service pages exist per locale only where LOCALIZED_ROOTS says so — a
+  // UA-only page (audit, redesign, …) is simply omitted on /en rather than
+  // linked to its UA twin.
+  const servicePages = SERVICE_PAGE_LINKS.filter(
+    (link) => locale === "uk" || LOCALIZED_ROOTS[locale].has(link.uaHref),
+  ).map((link) => ({
+    href: localizePath(link.uaHref, locale),
+    label: tPages(link.key),
+    key: link.key,
+  }));
+
+  const servicesActive =
+    SERVICE_NAV_LINKS.filter((s) => s.published).some((s) =>
+      isActive(pathname, localizePath(s.href, locale)),
+    ) || servicePages.some((s) => isActive(pathname, s.href));
 
   return (
     <header className={headerWrapClass}>
@@ -123,6 +147,25 @@ export function HpHeader() {
                   <ChevronDown className={navDdChevronClass} size={14} strokeWidth={2} aria-hidden />
                 </summary>
                 <div className={navDdPanelClass}>
+                  <div className={navDdColClass}>
+                    <div className={navDdColHeadClass}>{t("servicesHeading")}</div>
+                    {servicePages.map((item) => {
+                      const active = isActive(pathname, item.href);
+                      return (
+                        <Link
+                          key={item.key}
+                          href={item.href}
+                          className={`${navDdLinkBaseClass}${active ? ` ${navDdLinkActiveClass}` : ""}`}
+                          aria-current={active ? "page" : undefined}
+                          onClick={closeDd}
+                        >
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                  <div className={navDdColClass}>
+                  <div className={navDdColHeadClass}>{t("industriesHeading")}</div>
                   {SERVICE_NAV_LINKS.map((item) => {
                     if (!item.published) {
                       // No Sanity page yet — show the label but make it
@@ -155,6 +198,7 @@ export function HpHeader() {
                   <Link href={allServicesHref} className={navDdFooterClass} onClick={closeDd}>
                     {t("allServicesFooter")}
                   </Link>
+                  </div>
                 </div>
               </details>
               {navLinks.map((item) => {

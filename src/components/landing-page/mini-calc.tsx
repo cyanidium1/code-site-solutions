@@ -229,10 +229,13 @@ export function MiniCalc({
           </p>
         ) : (
           <>
+            {/* Placeholder-only fields: aria-label gives them an accessible
+                name without adding visible labels to the compact hero card. */}
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder={content.form.namePlaceholder}
+              aria-label={content.form.namePlaceholder}
               autoComplete="name"
               required
             />
@@ -240,6 +243,7 @@ export function MiniCalc({
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               placeholder={content.form.contactPlaceholder}
+              aria-label={content.form.contactPlaceholder}
               autoComplete="email"
               required
             />

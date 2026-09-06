@@ -59,9 +59,12 @@ const WRAPPER_BASE =
   "focus-within:hover:border-accent-soft " +
   "data-[invalid=true]:border-[oklch(0.65_0.18_25)]";
 
+// 16px / 48px below md: iOS Safari auto-zooms the page on focus when an
+// input's font-size is under 16px (audit 2026-09-06, C9). Desktop keeps the
+// 14px / 40px lead-form spec.
 const INPUT_BASE =
-  "w-full min-h-10 bg-transparent border-none outline-none px-3 py-2 " +
-  "text-ink font-sans text-[14px] tracking-[0.005em] " +
+  "w-full min-h-12 bg-transparent border-none outline-none px-3 py-2 md:min-h-10 " +
+  "text-ink font-sans text-[16px] md:text-[14px] tracking-[0.005em] " +
   "placeholder:text-ink-3 placeholder:font-sans";
 
 const DESCRIPTION_BASE = "text-ink-3 text-[12px] leading-[1.4]";

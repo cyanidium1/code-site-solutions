@@ -57,7 +57,9 @@ const PUNCH_TEXT_CLASS =
 // Flanking rules — Figma #1729:2068, 294px wide. The shared `GradientRule`
 // carries the art (dot caps + `#111111 → #7C54CD`); the right side mirrors
 // via its `flip` prop.
-const PUNCH_RULE_CLASS = "hidden lg:flex w-[294px]";
+// xl only: at 800–1100 two 294px rules + gaps left the punch line a
+// 150–270px column, 8–9 lines tall (audit 2026-09-06, C1).
+const PUNCH_RULE_CLASS = "hidden xl:flex w-[clamp(160px,14vw,294px)]";
 
 type PainCopy = {
   eyebrow: string;
@@ -189,7 +191,7 @@ export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} />
         <ScrollReveal>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {c.pains.map(({ icon: Icon, text }) => (
               <div key={text} className={CARD_CLASS}>
                 <span className="inline-flex size-11 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.04)] text-ink-dim">

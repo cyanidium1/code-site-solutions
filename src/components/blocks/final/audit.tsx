@@ -10,7 +10,7 @@ import { btnClass } from "@/components/ui";
 // 250+ char Tailwind string; extracting prevents the React reconciler
 // from re-allocating an identical literal on every render.
 const AUDIT_INPUT_CLASS =
-  "w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-line-strong rounded-full text-ink text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]";
+  "w-full px-[18px] py-[13px] bg-[oklch(0.16_0.005_300)] border border-line-strong rounded-full text-ink text-[16px] md:text-[13px] outline-none transition-[border-color,background] duration-200 placeholder:text-ink-3 focus:border-accent-soft focus:bg-[oklch(0.18_0.01_300)]";
 
 // Gradient submit pill via the `gradient` Btn variant; overrides are this
 // button's own padding/size + always-uppercase (see Btn.tsx `gradient` note).
@@ -142,6 +142,7 @@ export function Audit({
             className={AUDIT_INPUT_CLASS}
             type="text"
             placeholder={inputName}
+            aria-label={inputName}
             value={form.name}
             onChange={set("name")}
             required
@@ -151,6 +152,7 @@ export function Audit({
             className={AUDIT_INPUT_CLASS}
             type="text"
             placeholder={inputContact}
+            aria-label={inputContact}
             value={form.contact}
             onChange={set("contact")}
             required
@@ -160,6 +162,7 @@ export function Audit({
             className={AUDIT_INPUT_CLASS}
             type="tel"
             placeholder={inputPhone}
+            aria-label={inputPhone}
             value={form.phone}
             onChange={set("phone")}
             disabled={busy}
@@ -168,6 +171,7 @@ export function Audit({
             className={AUDIT_INPUT_CLASS}
             type="url"
             placeholder={inputUrl}
+            aria-label={inputUrl}
             value={form.url}
             onChange={set("url")}
             disabled={busy}

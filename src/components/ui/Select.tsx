@@ -65,7 +65,7 @@ export type SelectProps = {
 const LABEL_BASE = "text-ink-dim font-medium text-[13px] tracking-[0.005em]";
 
 const TRIGGER_BASE =
-  "flex w-full items-center justify-between gap-2 rounded-xl min-h-10 px-3 py-2 " +
+  "flex w-full items-center justify-between gap-2 rounded-xl min-h-12 md:min-h-10 px-3 py-2 " +
   "border border-line-strong bg-[oklch(0.16_0.005_300/0.7)] cursor-pointer " +
   "transition-[border-color,background-color] duration-200 " +
   "hover:border-ink-3 hover:bg-[oklch(0.16_0.005_300/0.9)] " +
@@ -73,8 +73,9 @@ const TRIGGER_BASE =
   "aria-expanded:border-accent-soft aria-expanded:bg-[oklch(0.18_0.01_300/0.95)] " +
   "data-[invalid=true]:border-[oklch(0.65_0.18_25)]";
 
+// 16px below md mirrors Field.tsx (iOS focus-zoom guard, audit C9).
 const VALUE_BASE =
-  "truncate text-left text-ink font-sans text-[14px] tracking-[0.005em]";
+  "truncate text-left text-ink font-sans text-[16px] md:text-[14px] tracking-[0.005em]";
 
 const PLACEHOLDER_CLASS = "text-ink-3";
 

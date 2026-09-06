@@ -25,15 +25,23 @@ const HERO_BG_CLASS =
 const HERO_SHELL_CLASS =
   "relative z-[5] pt-0 pb-9 px-6 sm:px-8 sm:pt-8 sm:pb-14 lg:px-12 2xl:pt-6 2xl:pb-[60px]";
 
+// sm–xl: a 3fr/2fr split. The Figma `minmax(0,1000px)` text track only
+// leaves the mockup a real column from ~1200px up; below that it starved the
+// device stage to ~50px and the laptop rendered off-screen (audit C1).
 const HERO_GRID_CLASS =
   "grid grid-cols-1 grid-rows-[auto_auto] gap-0 items-center max-w-container mx-auto min-h-0 " +
-  "sm:grid-cols-[minmax(0,1000px)_minmax(0,1fr)] sm:grid-rows-none sm:gap-[22px] sm:min-h-[clamp(560px,80vh,720px)] " +
-  "min-[1081px]:gap-7 2xl:gap-12";
+  "sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] sm:grid-rows-none sm:gap-[22px] sm:min-h-[clamp(560px,80vh,720px)] " +
+  "min-[1081px]:gap-7 xl:grid-cols-[minmax(0,1000px)_minmax(0,1fr)] 2xl:gap-12";
 
-const HERO_LEFT_CLASS = "relative z-[4]";
+// Mobile (< sm) is a flex column so the children can be re-ordered with
+// `order-*`: eyebrow → H1 → lede → CTAs → footnote → features → stats, then
+// the device mockup (grid row 2). Audit 2026-09-06, C3: with the mockup
+// first the H1 started at 395px and the first CTA at 837px on a 844px
+// viewport — nothing actionable above the fold.
+const HERO_LEFT_CLASS = "relative z-[4] flex flex-col sm:block";
 
 const EYEBROW_CLASS =
-  "inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 border border-line-strong rounded-full text-[9px] font-medium tracking-[0.1em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] backdrop-blur-[8px] mb-[18px] " +
+  "self-start inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 border border-line-strong rounded-full text-[10px] font-medium tracking-[0.1em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] backdrop-blur-[8px] mb-[18px] " +
   "sm:gap-2.5 sm:pl-3 sm:pr-3.5 sm:py-2 sm:text-[11px] sm:tracking-[0.12em] sm:mb-8";
 
 const EYEBROW_DOT_CLASS =
@@ -49,11 +57,11 @@ const LEDE_CLASS =
   "text-sm leading-[1.55] text-ink-dim max-w-full m-0 mb-[22px] text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "sm:leading-[1.6] sm:mb-6 " +
-  "min-[1081px]:max-w-[460px] " +
+  "lg:max-w-[440px] min-[1081px]:max-w-[460px] " +
   "2xl:mb-8";
 
 const FEATURES_CLASS =
-  "grid grid-cols-1 gap-2.5 mb-[22px] max-w-full px-4 py-3.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
+  "order-4 sm:order-none grid grid-cols-1 gap-2.5 mb-[22px] max-w-full px-4 py-3.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
   "sm:grid-cols-2 sm:gap-x-3.5 sm:gap-y-2 sm:mb-[26px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
   "min-[1081px]:max-w-[460px] min-[1081px]:gap-x-[18px] min-[1081px]:gap-y-2.5 " +
   "2xl:max-w-[480px] 2xl:gap-x-6 2xl:gap-y-3 2xl:mb-9";
@@ -71,15 +79,15 @@ const FEAT_SUB_CLASS =
   "text-[10px] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[11px]";
 
 const CTA_ROW_CLASS =
-  "flex flex-col flex-wrap gap-2.5 items-stretch mb-6 " +
+  "order-2 sm:order-none flex flex-col flex-wrap gap-2.5 items-stretch mb-6 " +
   "sm:flex-row sm:gap-3 sm:items-center sm:mb-7 " +
   "2xl:mb-3.5";
 
 const CTA_FOOTNOTE_CLASS =
-  "text-[12.5px] tracking-[0.01em] text-ink-3 m-0 mb-[30px] leading-[1.5]";
+  "order-3 sm:order-none text-[12.5px] tracking-[0.01em] text-ink-3 m-0 mb-6 sm:mb-[30px] leading-[1.5]";
 
 const STATS_CLASS =
-  "flex items-center gap-3 px-4 py-3.5 border border-line rounded-[14px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
+  "order-5 sm:order-none flex items-center gap-3 px-4 py-3.5 border border-line rounded-[14px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
   "sm:gap-3.5 " +
   "min-[1081px]:gap-[18px] min-[1081px]:px-5 min-[1081px]:py-4 " +
   "2xl:gap-6 2xl:px-7 2xl:py-5 2xl:rounded-[18px]";
@@ -135,20 +143,28 @@ const DT_MINI_CLASS = "font-mono text-[10px] text-ink-3";
 const DT_GOOD_CLASS = "text-accent";
 
 const MOCKUP_CLASS =
-  "absolute w-[134%] top-[-65px] left-[-54px] lg:inset-0 flex items-center justify-center z-[2] pointer-events-none overflow-visible";
+  "absolute w-[134%] top-[-40px] left-[-54px] lg:inset-0 flex items-center justify-center z-[2] pointer-events-none overflow-visible";
 
 const MOCKUP_IMG_CLASS =
   "w-full max-w-full max-h-full h-auto -translate-x-[10%] " +
   "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))] " +
   "sm:w-[clamp(420px,50vw,1000px)] sm:max-w-none sm:max-h-none";
 
+// Between sm and xl the 1440-design placement (100vw wide, −272px left)
+// pushed the laptop and its pills past the right edge on 900–1200px
+// viewports (audit 2026-09-06, C1); the mid ladder keeps the mockup
+// inside its column and the Figma numbers return at xl.
 const MOCKUP_IMG_HOMEPAGE_CLASS =
   "relative w-full max-w-none max-h-none !translate-x-[10%] top-[unset] left-[unset] " +
-  "sm:absolute sm:w-[clamp(420px,100vw,1200px)] sm:-top-[136px] sm:-left-[272px] sm:!-translate-x-[10%]";
+  // `!w-*` beats MOCKUP_IMG_CLASS's `sm:w-[clamp(420px,…)]` floor, which
+  // otherwise forces 420px into a ~280px column at 640–800 and overlaps the H1.
+  "sm:absolute sm:!w-[120%] sm:-top-[20px] sm:-left-[10%] sm:!translate-x-0 " +
+  "lg:!w-[50vw] lg:-top-[40px] lg:-left-[12%] lg:!-translate-x-[6%] " +
+  "xl:!w-[clamp(420px,100vw,1200px)] xl:-top-[136px] xl:-left-[272px] xl:!-translate-x-[10%]";
 
 const HERO_RIGHT_CLASS =
-  "relative min-w-0 -order-1 [aspect-ratio:auto] z-[-1] h-[320px] min-h-[320px] overflow-visible [contain:layout] -mx-6 -mb-10 w-[calc(100%+48px)] " +
-  "sm:order-none sm:z-10 sm:h-full sm:mx-0 sm:mb-0 sm:w-full " +
+  "relative min-w-0 [aspect-ratio:auto] z-[-1] h-[260px] min-h-[260px] overflow-visible [contain:layout] -mx-6 mt-2 -mb-6 w-[calc(100%+48px)] " +
+  "sm:z-10 sm:h-full sm:mx-0 sm:mt-0 sm:mb-0 sm:w-full " +
   "md:min-h-[420px]";
 
 const ARROW_ICON = (

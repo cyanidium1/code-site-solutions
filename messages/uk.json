@@ -14,7 +14,9 @@
     "contact": "Контакти",
     "cta": "Обговорити проєкт",
     "menuLabel": "Головне меню",
-    "allServicesFooter": "Усі галузі →"
+    "allServicesFooter": "Усі галузі →",
+    "servicesHeading": "Послуги",
+    "industriesHeading": "Галузі"
   },
   "ServiceNav": {
     "medicine": "Медицина",
@@ -25,6 +27,16 @@
     "auto": "Авто-індустрія",
     "realEstate": "Нерухомість",
     "courses": "Курси і лендинги"
+  },
+  "ServicePages": {
+    "webDevelopment": "Розробка сайтів",
+    "landing": "Лендінг — від $800",
+    "corporateSite": "Корпоративний сайт — від $2 500",
+    "onlineStore": "Інтернет-магазин — від $6 000",
+    "seo": "SEO-просування",
+    "localSeo": "Локальне SEO",
+    "audit": "Аудит сайту — $300",
+    "redesign": "Редизайн сайту"
   },
   "Footer": {
     "brandDesc": "Бутик-студія з розробки сайтів на замовлення — 50+ проєктів за 5 років у 7 країнах: UA · EU · US · DK · ZA · UK · FR.",

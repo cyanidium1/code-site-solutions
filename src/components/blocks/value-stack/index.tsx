@@ -414,9 +414,13 @@ export function ValueStack({
       </div>
       <div className={hpInnerClass}>
         {/* Header row: heading left (880), support paragraph + sparkles right */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,880px)_minmax(0,1fr)] lg:gap-12 lg:items-start">
+        {/* Two columns only from xl: at 800–1100 the 880px heading track
+            left the paragraph a ~50px column, one word per line, with a
+            512px hole above the cards (audit 2026-09-06, C1). The second
+            track has a 300px floor so 1100–1280 still reads. */}
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,880px)_minmax(300px,1fr)] xl:gap-12 xl:items-start">
           <SectionHead eyebrow={eyebrow ?? c.eyebrow} heading={heading ?? c.heading} />
-          <div className="hidden lg:flex flex-col self-stretch pt-[70px]">
+          <div className="hidden xl:flex flex-col self-stretch pt-[70px]">
             <p className="max-w-[508px] text-[16px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
             {/* Figma: trio bottom-aligned with the header block, sitting 46px
                 clear of the cards (sparkles end y299.75, cards start y346.19).
@@ -426,7 +430,7 @@ export function ValueStack({
             <SparkleTrio className="mt-auto flex justify-end pt-14 pb-[46px]" />
           </div>
           {/* Mobile: support paragraph in flow (sparkles are desktop decor) */}
-          <p className="lg:hidden -mt-4 mb-2 text-[15px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
+          <p className="xl:hidden -mt-4 mb-2 max-w-[640px] text-[15px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
         </div>
 
         <ScrollReveal className="group/vs-reveal">
