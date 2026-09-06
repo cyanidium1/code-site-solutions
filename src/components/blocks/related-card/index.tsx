@@ -47,7 +47,8 @@ function hashSeed(seed: string): number {
   return h;
 }
 
-function GeneratedCover({
+/** Exported for the blog's featured card, which lays the same cover out wide. */
+export function GeneratedCover({
   title,
   category,
   brand = "CODE-SITE.ART",

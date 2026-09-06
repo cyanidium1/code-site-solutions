@@ -157,7 +157,7 @@ function renderBlogTable(
   const headers = block.headers ?? [];
   const rows = block.rows ?? [];
   return (
-    <div key={key} className="overflow-x-auto my-7">
+    <div key={key} className="blog-table-wrap overflow-x-auto my-7">
       <table className="blog-table">
         {headers.length > 0 ? (
           <thead>

@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { FeaturedPost } from "@/components/blocks/blog/featured-post";
+import { Pagination } from "@/components/shared/pagination";
+import { listingHref, paginate, paginatedMetadata } from "@/lib/shared/paginate";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
@@ -56,7 +59,7 @@ const jsonLd = buildJsonLd([
   },
 ]);
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: BLOG_TITLE,
   description: BLOG_DESCRIPTION,
   alternates: buildAlternates({ locale: "ru", uaPath: "/blog" }),
@@ -76,6 +79,20 @@ export const metadata: Metadata = {
   },
 };
 
+/** Page 2+ gets a numbered title and a self-referencing canonical. */
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<Metadata> {
+  const { page } = readFilterValues(await searchParams, ["page"] as const);
+  return paginatedMetadata(baseMetadata, {
+    path: "/ru/blog",
+    page: Number.parseInt(page ?? "1", 10) || 1,
+    suffix: (n) => ` — страница ${n}`,
+  });
+}
+
 const RU_MONTHS_SHORT = [
   "янв", "фев", "мар", "апр", "мая", "июн",
   "июл", "авг", "сен", "окт", "ноя", "дек",
@@ -94,7 +111,7 @@ export default async function RuBlogPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const { category } = readFilterValues(params, ["category"] as const);
+  const { category, page } = readFilterValues(params, ["category", "page"] as const);
 
   const posts = await sanityFetch<BlogPostListItem[]>({
     query: BLOG_POSTS_LIST_QUERY,
@@ -110,6 +127,15 @@ export default async function RuBlogPage({
   const filtered = category
     ? ruPosts.filter((p) => p.category?.slug === category)
     : ruPosts;
+
+  // 12 на страницу. Свежий пост на первой странице — широкой карточкой,
+  // поэтому там одна featured плюс 11 в сетке.
+  const { items, page: current, totalPages } = paginate(filtered, page);
+  const featured = current === 1 ? items[0] : undefined;
+  const gridItems = featured ? items.slice(1) : items;
+  const featuredCover = featured ? resolveBlogCover(featured, "ru") : undefined;
+  const featuredSlug = featured?.slugs?.ru?.current ?? "";
+  const featuredTitle = featured?.title?.ru ?? featuredSlug;
 
   return (
     <>
@@ -136,6 +162,7 @@ export default async function RuBlogPage({
               <div className="mb-10">
                 <FilterPills
                   paramKey="category"
+                  resetParams={["page"]}
                   items={pillItems}
                   allLabel="Все"
                   ariaLabel="Фильтр по категории"
@@ -143,9 +170,36 @@ export default async function RuBlogPage({
               </div>
             ) : null}
 
+            {featured && featuredCover ? (
+              <FeaturedPost
+                title={featuredTitle}
+                sub={featured.lede?.ru}
+                href={`/ru/blog/${featuredSlug}`}
+                chips={[
+                  featured.category?.name?.ru,
+                  formatRuDate(featured.publishedAt),
+                  featured.readingTimeMinutes
+                    ? `${featured.readingTimeMinutes} мин чтения`
+                    : undefined,
+                ]}
+                coverImage={
+                  featuredCover.generic
+                    ? undefined
+                    : { src: featuredCover.image, alt: featuredCover.alt }
+                }
+                generatedCover={
+                  featuredCover.generic
+                    ? { title: featuredTitle, category: featured.category?.name?.ru }
+                    : undefined
+                }
+                badge="Свежая статья"
+                readLabel="Читать статью"
+              />
+            ) : null}
+
             {filtered.length > 0 ? (
               <div className={casesGridClass}>
-                {filtered.map((p) => {
+                {gridItems.map((p) => {
                   const slug = p.slugs?.ru?.current ?? "";
                   const date = formatRuDate(p.publishedAt);
                   const reading = p.readingTimeMinutes
@@ -179,6 +233,18 @@ export default async function RuBlogPage({
                   : "Скоро здесь появятся статьи. Первый материал уже готовится."}
               </p>
             )}
+
+            <Pagination
+              page={current}
+              totalPages={totalPages}
+              hrefFor={(n) => listingHref("/ru/blog", n, category)}
+              labels={{
+                ariaLabel: "Страницы блога",
+                previous: "Назад",
+                next: "Далее",
+                page: (n) => `Страница ${n}`,
+              }}
+            />
           </div>
         </section>
       </main>

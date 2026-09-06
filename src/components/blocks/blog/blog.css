@@ -23,14 +23,26 @@
 
 /* ─── Single-column layout ────────────────────────────────────────────────
    Every direct child of .blog-prose — prose elements AND custom blocks
-   (tldrBox, ctaCallout, blogTable, blogImage) — spans the full article
-   width (1240px / --container-max) so widths don't alternate. No
-   per-element max-width caps.
+   (tldrBox, ctaCallout, blogTable, blogImage) — shares ONE width, so widths
+   don't alternate down the article.
+
+   That width is a reading measure, not the container. Running the body at
+   the full 1240px container put 158 characters on a line at 1440 (design
+   audit 2026-09-06, C6) — roughly twice the readable maximum. 760px at 18px
+   lands near 80 characters, and the token for it already existed
+   (--container-prose) but was never applied here.
    ─────────────────────────────────────────────────────────────────────── */
 .blog-prose > * {
-  max-width: none;
+  max-width: var(--container-prose);
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Tables are data, not prose: they get the extra width they need (and their
+   renderer wraps them in an overflow-x container, so a wide table scrolls
+   rather than squeezing its columns). */
+.blog-prose > .blog-table-wrap {
+  max-width: 920px;
 }
 
 .blog-prose .blog-p {
@@ -39,6 +51,18 @@
   line-height: 1.7;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+@media (min-width: 701px) {
+  .blog-prose .blog-p,
+  .blog-prose .blog-ul .blog-li,
+  .blog-prose .blog-ol .blog-li,
+  .blog-prose .blog-blockquote {
+    font-size: 18px;
+  }
+  .blog-prose .blog-p {
+    line-height: 1.65;
+  }
 }
 .blog-prose .blog-h2 {
   @apply font-actay text-ink font-bold uppercase;

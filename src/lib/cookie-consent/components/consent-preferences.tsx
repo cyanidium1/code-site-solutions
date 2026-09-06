@@ -9,7 +9,10 @@ import {
   categoryDescClass,
   categoryLabelClass,
   categoryRowClass,
+  dialogBodyClass,
   dialogFooterClass,
+  dialogFooterPrimaryClass,
+  dialogHeadClass,
   dialogSubClass,
   dialogTitleClass,
 } from "../styles/classes";
@@ -48,12 +51,14 @@ export function ConsentPreferences({
 
   return (
     <ConsentDialog open={open} onClose={onClose} labelledBy="consent-prefs-title">
-      <h2 id="consent-prefs-title" className={dialogTitleClass}>
-        {copy.preferences.title}
-      </h2>
-      <p className={dialogSubClass}>{copy.preferences.sub}</p>
+      <div className={dialogHeadClass}>
+        <h2 id="consent-prefs-title" className={dialogTitleClass}>
+          {copy.preferences.title}
+        </h2>
+        <p className={dialogSubClass}>{copy.preferences.sub}</p>
+      </div>
 
-      <div className="mt-5">
+      <div className={dialogBodyClass}>
         <div className={categoryRowClass}>
           <div>
             <p id="consent-cat-necessary" className={categoryLabelClass}>
@@ -92,7 +97,11 @@ export function ConsentPreferences({
         <ConsentButton variant="secondary" onClick={onAcceptAll}>
           {copy.preferences.acceptAll}
         </ConsentButton>
-        <ConsentButton variant="primary" onClick={() => onSave(choices)}>
+        <ConsentButton
+          variant="primary"
+          className={dialogFooterPrimaryClass}
+          onClick={() => onSave(choices)}
+        >
           {copy.preferences.save}
         </ConsentButton>
       </div>

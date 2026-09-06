@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { FeaturedPost } from "@/components/blocks/blog/featured-post";
+import { Pagination } from "@/components/shared/pagination";
+import { listingHref, paginate, paginatedMetadata } from "@/lib/shared/paginate";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
@@ -54,7 +57,7 @@ const jsonLd = buildJsonLd([
     },
   },
 ]);
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
   description:
     "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
@@ -77,6 +80,20 @@ export const metadata: Metadata = {
   },
 };
 
+/** Page 2+ gets a numbered title and a self-referencing canonical. */
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<Metadata> {
+  const { page } = readFilterValues(await searchParams, ["page"] as const);
+  return paginatedMetadata(baseMetadata, {
+    path: "/blog",
+    page: Number.parseInt(page ?? "1", 10) || 1,
+    suffix: (n) => ` — сторінка ${n}`,
+  });
+}
+
 const UA_MONTHS_SHORT = [
   "січ", "лют", "бер", "кві", "тра", "чер",
   "лип", "сер", "вер", "жов", "лис", "гру",
@@ -95,7 +112,7 @@ export default async function BlogPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const { category } = readFilterValues(params, ["category"] as const);
+  const { category, page } = readFilterValues(params, ["category", "page"] as const);
 
   const allPosts = await sanityFetch<BlogPostListItem[]>({
     query: BLOG_POSTS_LIST_QUERY,
@@ -113,6 +130,15 @@ export default async function BlogPage({
   const filtered = category
     ? posts.filter((p) => p.category?.slug === category)
     : posts;
+
+  // 12 per page. The newest post on page 1 is featured, so that page shows
+  // one wide card plus 11 in the grid.
+  const { items, page: current, totalPages } = paginate(filtered, page);
+  const featured = current === 1 ? items[0] : undefined;
+  const gridItems = featured ? items.slice(1) : items;
+  const featuredCover = featured ? resolveBlogCover(featured, "uk") : undefined;
+  const featuredSlug = featured?.slugs?.uk?.current ?? "";
+  const featuredTitle = featured?.title?.uk ?? featuredSlug;
 
   return (
     <>
@@ -139,6 +165,7 @@ export default async function BlogPage({
               <div className="mb-10">
                 <FilterPills
                   paramKey="category"
+                  resetParams={["page"]}
                   items={pillItems}
                   allLabel="Усі"
                   ariaLabel="Фільтр за категорією"
@@ -146,9 +173,36 @@ export default async function BlogPage({
               </div>
             ) : null}
 
+            {featured && featuredCover ? (
+              <FeaturedPost
+                title={featuredTitle}
+                sub={featured.lede?.uk}
+                href={`/blog/${featuredSlug}`}
+                chips={[
+                  featured.category?.name?.uk,
+                  formatUkDate(featured.publishedAt),
+                  featured.readingTimeMinutes
+                    ? `${featured.readingTimeMinutes} хв читання`
+                    : undefined,
+                ]}
+                coverImage={
+                  featuredCover.generic
+                    ? undefined
+                    : { src: featuredCover.image, alt: featuredCover.alt }
+                }
+                generatedCover={
+                  featuredCover.generic
+                    ? { title: featuredTitle, category: featured.category?.name?.uk }
+                    : undefined
+                }
+                badge="Свіжа стаття"
+                readLabel="Читати статтю"
+              />
+            ) : null}
+
             {filtered.length > 0 ? (
               <div className={casesGridClass}>
-                {filtered.map((p) => {
+                {gridItems.map((p) => {
                   const slug = p.slugs?.uk?.current ?? "";
                   const date = formatUkDate(p.publishedAt);
                   const reading = p.readingTimeMinutes
@@ -183,6 +237,18 @@ export default async function BlogPage({
                   : "Поки що порожньо. Перший допис уже готується."}
               </p>
             )}
+
+            <Pagination
+              page={current}
+              totalPages={totalPages}
+              hrefFor={(n) => listingHref("/blog", n, category)}
+              labels={{
+                ariaLabel: "Сторінки блогу",
+                previous: "Назад",
+                next: "Далі",
+                page: (n) => `Сторінка ${n}`,
+              }}
+            />
           </div>
         </section>
       </main>

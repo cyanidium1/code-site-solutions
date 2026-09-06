@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { PageHero } from "@/components/blocks/page-hero";
 import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { FeaturedPost } from "@/components/blocks/blog/featured-post";
+import { Pagination } from "@/components/shared/pagination";
+import { listingHref, paginate, paginatedMetadata } from "@/lib/shared/paginate";
 
 import { sanityFetch } from "@/lib/server/sanity-fetch";
 import { BLOG_POSTS_LIST_QUERY } from "@/lib/server/sanity-queries";
@@ -55,7 +58,7 @@ const jsonLd = buildJsonLd([
   },
 ]);
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
   description:
     "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
@@ -78,6 +81,20 @@ export const metadata: Metadata = {
   },
 };
 
+/** Page 2+ gets a numbered title and a self-referencing canonical. */
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<Metadata> {
+  const { page } = readFilterValues(await searchParams, ["page"] as const);
+  return paginatedMetadata(baseMetadata, {
+    path: "/en/blog",
+    page: Number.parseInt(page ?? "1", 10) || 1,
+    suffix: (n) => ` — page ${n}`,
+  });
+}
+
 function formatEnDate(iso?: string): string | undefined {
   if (!iso) return undefined;
   const d = new Date(iso);
@@ -95,7 +112,7 @@ export default async function EnBlogPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const { category } = readFilterValues(params, ["category"] as const);
+  const { category, page } = readFilterValues(params, ["category", "page"] as const);
 
   const posts = await sanityFetch<BlogPostListItem[]>({
     query: BLOG_POSTS_LIST_QUERY,
@@ -112,6 +129,15 @@ export default async function EnBlogPage({
   const filteredEnPosts = category
     ? enPosts.filter((p) => p.category?.slug === category)
     : enPosts;
+
+  // 12 per page. The newest post on page 1 is featured, so that page shows
+  // one wide card plus 11 in the grid.
+  const { items, page: current, totalPages } = paginate(filteredEnPosts, page);
+  const featured = current === 1 ? items[0] : undefined;
+  const gridItems = featured ? items.slice(1) : items;
+  const featuredCover = featured ? resolveBlogCover(featured, "en") : undefined;
+  const featuredSlug = featured?.slugs?.en?.current ?? "";
+  const featuredTitle = featured?.title?.en ?? featuredSlug;
 
   return (
     <>
@@ -138,6 +164,7 @@ export default async function EnBlogPage({
               <div className="mb-10">
                 <FilterPills
                   paramKey="category"
+                  resetParams={["page"]}
                   items={pillItems}
                   allLabel="All"
                   ariaLabel="Filter by category"
@@ -145,9 +172,36 @@ export default async function EnBlogPage({
               </div>
             ) : null}
 
+            {featured && featuredCover ? (
+              <FeaturedPost
+                title={featuredTitle}
+                sub={featured.lede?.en}
+                href={`/en/blog/${featuredSlug}`}
+                chips={[
+                  featured.category?.name?.en,
+                  formatEnDate(featured.publishedAt),
+                  featured.readingTimeMinutes
+                    ? `${featured.readingTimeMinutes} min read`
+                    : undefined,
+                ]}
+                coverImage={
+                  featuredCover.generic
+                    ? undefined
+                    : { src: featuredCover.image, alt: featuredCover.alt }
+                }
+                generatedCover={
+                  featuredCover.generic
+                    ? { title: featuredTitle, category: featured.category?.name?.en }
+                    : undefined
+                }
+                badge="Latest"
+                readLabel="Read the article"
+              />
+            ) : null}
+
             {filteredEnPosts.length > 0 ? (
               <div className={casesGridClass}>
-                {filteredEnPosts.map((p) => {
+                {gridItems.map((p) => {
                   const slug = p.slugs?.en?.current ?? "";
                   const date = formatEnDate(p.publishedAt);
                   const reading = p.readingTimeMinutes
@@ -181,6 +235,18 @@ export default async function EnBlogPage({
                   : "Coming soon. First post is on its way."}
               </p>
             )}
+
+            <Pagination
+              page={current}
+              totalPages={totalPages}
+              hrefFor={(n) => listingHref("/en/blog", n, category)}
+              labels={{
+                ariaLabel: "Blog pages",
+                previous: "Previous",
+                next: "Next",
+                page: (n) => `Page ${n}`,
+              }}
+            />
           </div>
         </section>
       </main>

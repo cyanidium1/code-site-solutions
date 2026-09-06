@@ -450,7 +450,10 @@ export async function BlogPostPageView({
 
         {/* Meta strip — author + date + updated */}
         <section className="bg-bg px-5 md:px-12">
-          <div className="max-w-container mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-ink-3 border-b border-line">
+          {/* Byline sits on the prose measure, not the page container: it
+              belongs to the article, and its bottom rule now reads as the
+              line the body starts under (audit 2026-09-06, C6). */}
+          <div className="max-w-container-prose mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-ink-3 border-b border-line">
             {post.author?.name ? (
               <span className="flex items-center gap-2.5">
                 {post.author.photoUrl ? (

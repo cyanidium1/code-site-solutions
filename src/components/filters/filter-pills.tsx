@@ -26,6 +26,12 @@ export type FilterPillItem = FilterOption & {
 export type FilterPillsProps = {
   /** URL search-param key to read/write (e.g. "category"). */
   paramKey: string;
+  /**
+   * Params to clear whenever the filter changes. Pagination belongs here:
+   * "page=4" of the unfiltered blog is not a page that exists once a
+   * category narrows the list to six posts.
+   */
+  resetParams?: readonly string[];
   /** Pills to render, in display order. */
   items: FilterPillItem[];
   /** Label for the implicit "all" reset pill (locale-resolved by caller). */
@@ -39,6 +45,7 @@ export type FilterPillsProps = {
 
 export function FilterPills({
   paramKey,
+  resetParams,
   items,
   allLabel,
   ariaLabel,
@@ -54,13 +61,14 @@ export function FilterPills({
     (next: string) => {
       const qs = updateSearchParams(searchParams, {
         [paramKey]: next || null,
+        ...Object.fromEntries((resetParams ?? []).map((k) => [k, null])),
       });
       const href = qs ? `${pathname}?${qs}` : pathname;
       startTransition(() => {
         router.replace(href, { scroll: false });
       });
     },
-    [paramKey, pathname, router, searchParams],
+    [paramKey, resetParams, pathname, router, searchParams],
   );
 
   return (
