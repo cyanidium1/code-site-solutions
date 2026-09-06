@@ -93,7 +93,7 @@ export default function ProcessPage() {
           { label: "Головна", href: "/" },
           { label: "Процес" },
         ]}
-        eyebrow="/ PROCESS · 4-10 WEEKS END-TO-END"
+        eyebrow="/ ПРОЦЕС · 4–10 ТИЖНІВ ПІД КЛЮЧ"
         headline={
           <>
             <em>9 речей</em>, які ми зробимо за вас. Без вашої участі більше ніж 5 годин.
@@ -119,7 +119,7 @@ export default function ProcessPage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
-        eyebrow="/ COMMUNICATION"
+        eyebrow="/ КОМУНІКАЦІЯ"
         heading={
           <>
             Як ми <em>спілкуємось</em> протягом проекту
@@ -153,7 +153,7 @@ export default function ProcessPage() {
 
       {/* Section 6: Final CTA */}
       <CtaBanner
-        eyebrow="/ READY?"
+        eyebrow="/ ГОТОВІ ПОЧАТИ?"
         heading={
           <>
             Готові пройти <em>процес</em> з нами?

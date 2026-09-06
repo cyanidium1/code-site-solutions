@@ -26,7 +26,10 @@
   overflow: hidden;
   border-radius: 24px;
   border: 1px solid var(--color-line);
-  padding: calc(var(--spacing) * 7);
+  /* 20px below sm: the card is a row there (icon left, copy right), and the
+     Figma 28/37px insets left six cards eating 2 135px of the mobile
+     homepage (design audit 2026-09-06, H1). */
+  padding: calc(var(--spacing) * 5);
   background:
     radial-gradient(440px 240px at 0% 0%, oklch(from var(--card-accent) l c h / 0.10), transparent 70%),
     oklch(1 0 0 / 0.02);
@@ -47,6 +50,12 @@
     border-color 0.3s,
     box-shadow 0.3s;
   transition-delay: calc(var(--i, 0) * 0.08s);
+}
+
+@media (min-width: 640px) {
+  .hp-biz-card {
+    padding: calc(var(--spacing) * 7);
+  }
 }
 
 @media (min-width: 800px) {
@@ -110,23 +119,35 @@
    `a.hp-ind-card` so the disabled variant needs no suppression rules.
    Per-industry tint arrives via --accent-color. */
 
+/* Mobile is a compact two-up tile: icon, industry, price. Eight 300px photo
+   cards in one column cost 2 512px of the homepage on a 390px screen
+   (design audit 2026-09-06, H1) for content that reads as a menu. The
+   description and the tech tags are hidden below sm in industries.tsx; the
+   Figma card returns whole from 640. */
 .hp-ind-card {
   position: relative;
   isolation: isolate;
   display: flex;
-  min-height: 300px;
+  min-height: 132px;
   flex-direction: column;
   overflow: hidden;
   border-radius: 18px;
   border: 1px solid var(--color-line);
   background-color: oklch(1 0 0 / 0.02);
-  /* 25px per Figma #1729:2135 (was spacing*6 = 24px). */
-  padding: 25px;
+  padding: 16px;
   color: inherit;
   text-decoration-line: none;
   transition-property: translate, border-color;
   transition-duration: 0.5s;
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 640px) {
+  .hp-ind-card {
+    min-height: 300px;
+    /* 25px per Figma #1729:2135 (was spacing*6 = 24px). */
+    padding: 25px;
+  }
 }
 
 /* ::before radial overlay + ::after top gradient line (both hover-revealed).
@@ -168,17 +189,20 @@
 
 /* ── value-stack cards (were: 1183 B × 3 + 660 B × 5 in blocks/value-stack) ── */
 
+/* Below sm the three big cards lay out as rows (icon left, copy right — see
+   value-stack/index.tsx), so the 300px floor that the Figma card needs would
+   only add dead space. Restored at 640 with the design padding. */
 .hp-vs-card {
   position: relative;
   isolation: isolate;
   display: flex;
-  min-height: 300px;
+  min-height: 0;
   flex-direction: column;
   overflow: hidden;
   border-radius: 26px;
   border: 1px solid var(--color-line);
   background-color: var(--color-surface);
-  padding: calc(var(--spacing) * 7);
+  padding: calc(var(--spacing) * 5);
   opacity: 0;
   translate: 0 calc(var(--spacing) * 6);
   filter: blur(6px);
@@ -189,6 +213,13 @@
     border-color 0.3s,
     box-shadow 0.3s;
   transition-delay: calc(var(--i, 0) * 0.08s);
+}
+
+@media (min-width: 640px) {
+  .hp-vs-card {
+    min-height: 300px;
+    padding: calc(var(--spacing) * 7);
+  }
 }
 
 @media (min-width: 800px) {
@@ -230,17 +261,19 @@
   }
 }
 
+/* Two-up below sm (see the grid in value-stack/index.tsx), so the card sizes
+   to its own copy instead of holding a 170px floor in a single column. */
 .hp-vs-card-sm {
   position: relative;
   isolation: isolate;
   display: flex;
-  min-height: 170px;
+  min-height: 0;
   flex-direction: column;
   overflow: hidden;
   border-radius: 20px;
   border: 1px solid var(--color-line);
   background-color: var(--color-surface);
-  padding: calc(var(--spacing) * 5);
+  padding: calc(var(--spacing) * 4);
   opacity: 0;
   translate: 0 calc(var(--spacing) * 5);
   transition:
@@ -249,6 +282,13 @@
     border-color 0.3s,
     box-shadow 0.3s;
   transition-delay: calc(var(--i, 0) * 0.06s + 0.2s);
+}
+
+@media (min-width: 640px) {
+  .hp-vs-card-sm {
+    min-height: 170px;
+    padding: calc(var(--spacing) * 5);
+  }
 }
 
 [data-visible="true"] .hp-vs-card-sm {

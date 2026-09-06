@@ -47,7 +47,7 @@ const TIME_FEATURED_CLASS = "!text-accent-soft";
 
 const CHROME = {
   uk: {
-    channelsEyebrow: "/ CHANNELS",
+    channelsEyebrow: "/ КАНАЛИ",
     channelsHeading: (
       <>
         Виберіть зручний <em>канал</em>
@@ -55,7 +55,7 @@ const CHROME = {
     ),
     channelsSub:
       "Telegram — найшвидше. Решта — fallback. Жодного бота — пише сам Fedir.",
-    briefEyebrow: "/ BRIEF",
+    briefEyebrow: "/ БРИФ",
     briefHeading: (
       <>
         Або надішліть <em>бриф</em>
@@ -81,7 +81,7 @@ const CHROME = {
     briefSub: "4 fields. Details — if you want. Everything here is confidential.",
   },
   ru: {
-    channelsEyebrow: "/ CHANNELS",
+    channelsEyebrow: "/ КАНАЛЫ",
     channelsHeading: (
       <>
         Выберите удобный <em>канал</em>
@@ -89,7 +89,7 @@ const CHROME = {
     ),
     channelsSub:
       "Telegram — быстрее всего. Остальное — fallback. Никаких ботов — пишет сам Fedir.",
-    briefEyebrow: "/ BRIEF",
+    briefEyebrow: "/ БРИФ",
     briefHeading: (
       <>
         Или отправьте <em>бриф</em>

@@ -42,14 +42,14 @@ const ELLIPSE_RIGHT_CLASS = // #1729:2074 — violet, right edge
 //      corner (sampled ~white-25% there), fading out along top/left —
 //      done with the shared `glass-ring` masked-overlay utility
 const CARD_CLASS =
-  "glass-ring rounded-2xl border border-line px-[25px] pt-[25px] pb-[49px] " +
+  "glass-ring rounded-2xl border border-line px-5 pt-5 pb-6 sm:px-[25px] sm:pt-[25px] sm:pb-[49px] " +
   "bg-[linear-gradient(135deg,oklch(1_0_0/0.05)_0%,oklch(1_0_0/0.018)_45%,oklch(1_0_0/0.025)_100%)] " +
   "backdrop-blur-[12px] lg:backdrop-blur-[22px] " +
   "[--glass-ring-bg:linear-gradient(135deg,rgba(255,255,255,0.25)_0%,rgba(255,255,255,0.04)_45%,rgba(255,255,255,0)_70%)]";
 
 // Punch line — Figma #1729:2119: Actay Wide Bold 24/31.2, tracking −0.24px,
 // uppercase, Whisper, single colour (the copy's <em> is neutralized).
-const PUNCH_ROW_CLASS = "mt-10 lg:mt-[81px] flex items-center justify-center gap-8";
+const PUNCH_ROW_CLASS = "mt-7 sm:mt-10 lg:mt-[81px] flex items-center justify-center gap-8";
 const PUNCH_TEXT_CLASS =
   "max-w-[789px] text-center font-actay text-[20px] font-bold uppercase leading-[1.3] tracking-[-0.01em] text-ink md:text-[24px] " +
   "[&_em]:not-italic [&_em]:text-inherit";
@@ -191,7 +191,7 @@ export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} />
         <ScrollReveal>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
             {c.pains.map(({ icon: Icon, text }) => (
               <div key={text} className={CARD_CLASS}>
                 <span className="inline-flex size-11 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.04)] text-ink-dim">

@@ -31,6 +31,7 @@ import {
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { cn } from "@/components/ui";
 import Link from "next/link";
 
 /**
@@ -188,10 +189,15 @@ export default async function HomePage() {
               ціни і процес роботи.
             </p>
           </div>
-          <ul className="m-0 flex list-none flex-wrap gap-x-8 gap-y-1 p-0">
+          {/* `hpLinkClass` carries a 36px top margin for standalone
+              "see all" links; in a list of eight it stacked to 550px on a
+              phone (design audit 2026-09-06, H10). Here the gap does the
+              spacing and the margin only returns at lg, where the links wrap
+              into rows. */}
+          <ul className="m-0 grid list-none grid-cols-1 gap-x-8 gap-y-2 p-0 lg:flex lg:flex-wrap lg:gap-y-1">
             {DIRECTION_LINKS.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className={hpLinkClass}>
+                <Link href={l.href} className={cn(hpLinkClass, "mt-0 lg:mt-9")}>
                   {l.label}
                 </Link>
               </li>

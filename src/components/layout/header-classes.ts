@@ -67,9 +67,10 @@ export const headerCtaPillClass =
   "cursor-pointer transition-transform duration-200 hover:-translate-y-px " +
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
 
-/** CTA label — Figma #1729:1919: Montserrat 12px, tracking 0.48px, uppercase. */
+/** CTA label — Figma #1729:1919 set this in Montserrat 12px; now Manrope
+ * 600 at the same size, matching the nav row (audit 2026-09-06, H5). */
 export const headerCtaTextClass =
-  "font-nav text-[12px] leading-[18px] tracking-[0.48px] uppercase text-ink whitespace-nowrap";
+  "font-nav text-[12px] font-semibold leading-[18px] tracking-[0.04em] uppercase text-ink whitespace-nowrap";
 
 /** ↗ circle inside the CTA pill — 2xl+ only (space ladder). */
 export const headerCtaArrowClass = "hidden 2xl:block size-9 shrink-0";

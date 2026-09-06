@@ -467,7 +467,7 @@ export function BusinessValue({
           heading={heading ?? copy.heading}
           sub={sub ?? copy.sub}
         />
-        <ScrollReveal className="group/biz-reveal grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ScrollReveal className="group/biz-reveal grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {resolvedCards.map((c, i) => {
             const Icon = c.icon;
             const Ghost = c.ghost ?? c.icon;
@@ -486,7 +486,7 @@ export function BusinessValue({
                 />
 
                 <div className="relative flex items-center gap-3">
-                  <span className="inline-flex size-14 items-center justify-center rounded-2xl border border-[oklch(from_var(--card-accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.12)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)]">
+                  <span className="inline-flex size-11 items-center justify-center rounded-2xl border border-[oklch(from_var(--card-accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.12)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)] sm:size-14">
                     <Icon size={26} strokeWidth={1.6} />
                   </span>
                   {c.label ? (
@@ -496,10 +496,10 @@ export function BusinessValue({
                   ) : null}
                 </div>
 
-                <h3 className="relative mt-6 font-actay text-[22px] font-bold uppercase leading-[1.1] tracking-[-0.01em] text-ink lg:text-[26px]">
+                <h3 className="relative mt-4 font-actay text-[19px] font-bold uppercase leading-[1.1] tracking-[-0.01em] text-ink sm:mt-6 sm:text-[22px] lg:text-[26px]">
                   {c.title}
                 </h3>
-                <p className="relative mt-3 max-w-[42ch] text-[15px] leading-[1.6] text-ink-dim [text-wrap:pretty]">
+                <p className="relative mt-2 max-w-[42ch] text-[14px] leading-[1.55] text-ink-dim [text-wrap:pretty] sm:mt-3 sm:text-[15px] sm:leading-[1.6]">
                   {c.body}
                 </p>
 

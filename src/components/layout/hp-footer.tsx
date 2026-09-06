@@ -102,7 +102,7 @@ const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[3
 const footerContactsClass =
   "mt-5 font-mono text-[12px] leading-5 flex flex-col gap-1.5 [&>a]:inline-flex [&>a]:items-center [&>a]:gap-2 [&>a]:h-5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 [&>a:hover]:text-ink [&_svg]:shrink-0 [&_svg]:text-ink-3 [&>a:hover_svg]:text-accent-soft [&_svg]:transition-colors [&_svg]:duration-200";
 const footerColHClass =
-  "font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3";
+  "font-mono text-[12px] tracking-[0.12em] uppercase text-ink-3";
 const footerColListClass =
   "list-none mt-3 p-0 flex flex-col gap-1 [&_li]:h-5 [&_a]:inline-flex [&_a]:items-center [&_a]:h-5 [&_a]:leading-5 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 const footerDisabledClass =

@@ -25,7 +25,7 @@ export const hpInnerClass = "relative max-w-container mx-auto z-[1]";
 // `hpEyebrowClass` (the pill) with `hpEyebrowDotClass` (the dot) inside it.
 export const hpEyebrowClass =
   "inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full " +
-  "bg-[oklch(1_0_0/0.03)] font-mono text-[11px] tracking-[0.14em] text-ink-3 uppercase";
+  "bg-[oklch(1_0_0/0.03)] font-mono text-[12px] tracking-[0.12em] text-ink-3 uppercase";
 export const hpEyebrowDotClass =
   "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h/0.6)]";
 
@@ -57,7 +57,7 @@ export const hpSubClass =
 // colour on hover. Arrow icons inside translate-x on hover via Tailwind
 // group-hover.
 export const hpLinkClass =
-  "inline-flex items-center gap-2 mt-9 font-mono text-[12px] uppercase tracking-[0.1em] " +
+  "inline-flex items-center gap-2 mt-9 font-mono text-[12px] uppercase tracking-[0.08em] " +
   "text-ink-dim no-underline border-b border-line pb-2 " +
   "transition-[color,border-color] duration-200 hover:text-ink hover:border-accent " +
   "[&_svg]:transition-transform [&_svg]:duration-[0.25s] [&_svg]:ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
@@ -65,7 +65,7 @@ export const hpLinkClass =
 
 // Section header wrapper — column layout, items at flex-start, 40px bottom
 // margin. The `SectionHead` shared component renders this layout.
-export const hpSectionHeadClass = "flex flex-col items-start gap-4 mb-10";
+export const hpSectionHeadClass = "flex flex-col items-start gap-3 mb-7 sm:gap-4 sm:mb-10";
 
 /**
  * Full-width wrapper for a section's decor layer, with a horizontal

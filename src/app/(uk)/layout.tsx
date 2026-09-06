@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, JetBrains_Mono, Montserrat } from "next/font/google";
+import { Manrope, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -28,12 +28,6 @@ const manrope = Manrope({
 const jetbrains = JetBrains_Mono({
   subsets: ["latin", "cyrillic"],
   variable: "--font-jetbrains",
-  display: "swap",
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -108,7 +102,7 @@ export default async function UkRootLayout({
     <html
       lang={LOCALE_CONFIG.uk.htmlLang}
       suppressHydrationWarning
-      className={`${manrope.variable} ${jetbrains.variable} ${actay.variable} ${montserrat.variable}`}
+      className={`${manrope.variable} ${jetbrains.variable} ${actay.variable}`}
     >
       <body className="font-sans bg-bg text-ink antialiased overflow-x-clip">
         <ConsentBootstrap />

@@ -116,9 +116,52 @@
   --font-sans: var(--font-manrope), system-ui, sans-serif;
   --font-actay: var(--font-actay), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
-  /* Header/nav chrome — Montserrat per the 2026 home redesign (Figma «код
-     сайт арт», header node 1729:1911). Generates the `font-nav` utility. */
-  --font-nav: var(--font-montserrat), system-ui, sans-serif;
+  /* Header/nav chrome. Was Montserrat (2026 home redesign, Figma «код сайт
+     арт», header node 1729:1911) — a fourth family loaded for the nav row
+     alone, set at 10–11px where it was barely legible (design audit
+     2026-09-06, H5/H6). The utility name stays so call sites keep reading as
+     "nav chrome"; the family is now the body face at a nav weight. */
+  --font-nav: var(--font-manrope), system-ui, sans-serif;
+
+  /* ─────────────────────────────────────────────────────────────────────
+     TYPE SCALE — the eight steps every new block should pick from.
+
+     The site had grown 20 distinct sizes on the homepage alone, 16 for H3
+     across the site and 30+ font-size/line-height pairings in body copy
+     (design audit 2026-09-06, H5). These tokens are that scale written
+     down once; they generate `text-h1` … `text-nav` utilities, each
+     carrying its own line-height and tracking.
+
+     MIGRATION: existing blocks still hold their own arbitrary values and
+     are NOT being rewritten wholesale — a size-by-size sweep of every
+     call site is its own job. New blocks use these; a block being
+     reworked for another reason moves onto them at the same time.
+     Mobile sizes are the caller's job via a clamp or an sm: step, in the
+     way `Heading.tsx` already does it.
+     ───────────────────────────────────────────────────────────────────── */
+  --text-h1: 56px;
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: 44px;
+  --text-h2--line-height: 1.08;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: 22px;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h4: 17px;
+  --text-h4--line-height: 1.3;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body: 16px;
+  --text-body--line-height: 1.6;
+  --text-small: 14px;
+  --text-small--line-height: 1.5;
+  --text-caption: 12px;
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: 0.02em;
+  --text-nav: 13px;
+  --text-nav--line-height: 1.38;
+  --text-nav--letter-spacing: 0.04em;
 
   /* Animations — keyframes are defined in keyframes.css; hero-pulse
      and float keyframes live in src/components/blocks/hero/hero-effects.css

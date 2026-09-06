@@ -118,7 +118,7 @@ export default function ContactsPage() {
           { label: "Головна", href: "/" },
           { label: "Контакти" },
         ]}
-        eyebrow="/ CONTACTS"
+        eyebrow="/ КОНТАКТИ"
         headline={
           <>
             Обговоримо ваш <em>проєкт</em>?

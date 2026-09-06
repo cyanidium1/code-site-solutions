@@ -45,25 +45,25 @@ const SPARKLES_CLASS = "hidden xl:flex";
 const DEFAULT_INDUSTRIES: Industry[] = [
   {
     icon: Stethoscope,
-    title: "Healthcare / Medicine",
+    title: "Медицина",
     description: "Сайти для клінік, стоматологій, діагностичних центрів",
-    tags: ["Helsi", "Medesk", "Online booking"],
+    tags: ["Helsi", "Medesk", "Онлайн-запис"],
     price: "Від $2 500 · 4-10 тижнів",
     href: "/sites-for/medicine",
   },
   {
     icon: Building,
-    title: "Construction / Renovation",
+    title: "Будівництво / ремонт",
     description: "Сайти для будівельних і ремонтних компаній",
-    tags: ["CRM", "Calculator", "Local SEO"],
+    tags: ["CRM", "Калькулятор", "Локальне SEO"],
     price: "Від $2 500 · 4-8 тижнів",
     href: "/sites-for/renovation",
   },
   {
     icon: Scale,
-    title: "Legal & Attorneys",
+    title: "Юристи і адвокати",
     description: "Сайти для юр. фірм, адвокатських бюро, приватних юристів",
-    tags: ["Clio", "Diia.Sign", "Online consult"],
+    tags: ["Clio", "Diia.Sign", "Онлайн-консультація"],
     price: "Від $2 500 · 4-8 тижнів",
     href: "/sites-for/legal",
   },
@@ -77,8 +77,8 @@ const DEFAULT_INDUSTRIES: Industry[] = [
   },
   {
     icon: ShoppingCart,
-    title: "E-commerce",
-    description: "Інтернет-магазини, маркетплейси, B2B-каталоги",
+    title: "Інтернет-магазини",
+    description: "Магазини, маркетплейси, B2B-каталоги",
     tags: ["Stripe", "LiqPay", "Нова Пошта"],
     price: "Від $6 000 · 6-10 тижнів",
     href: "/sites-for/ecommerce",
@@ -87,7 +87,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     icon: Car,
     title: "Авто-індустрія",
     description: "Сайти для імпорту авто, автодилерів, СТО і сервісних послуг",
-    tags: ["Copart", "PDF-invoice", "Multi-lang"],
+    tags: ["Copart", "PDF-інвойс", "Мультимовність"],
     price: "Від $3 000 · 6-10 тижнів",
     href: "/sites-for/auto",
   },
@@ -95,7 +95,7 @@ const DEFAULT_INDUSTRIES: Industry[] = [
     icon: Home,
     title: "Нерухомість",
     description: "Сайти для агенцій нерухомості, забудовників, private listings",
-    tags: ["Multi-lang", "Multi-currency", "Mortgage"],
+    tags: ["Мультимовність", "Мультивалютність", "Іпотека"],
     price: "Від $4 000 · 6-10 тижнів",
     href: "/sites-for/real-estate",
   },
@@ -219,17 +219,20 @@ export function Industries({
             <SparkleTrio className={SPARKLES_CLASS} />
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-4">
+        {/* Two-up below sm — see `.hp-ind-card` in homepage-cards.css. */}
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-1 sm:gap-4 lg:grid-cols-2 xl:grid-cols-4">
           {items.map((ind, i) => {
             const Icon = ind.icon;
             const inner = (
               <>
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-[12px] border border-line bg-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.12)] text-[var(--accent-color,var(--color-accent))]">
+                <div className="mb-2.5 inline-flex h-9 w-9 items-center justify-center rounded-[12px] border border-line bg-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.12)] text-[var(--accent-color,var(--color-accent))] sm:mb-5 sm:h-11 sm:w-11">
                   <Icon size={20} strokeWidth={1.6} />
                 </div>
-                <h3 className="m-0 font-sans text-[17px] font-bold uppercase leading-[25.5px] text-ink">{ind.title}</h3>
-                <p className="mt-2 text-[13px] leading-[1.55] text-ink-dim">{ind.description}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
+                <h3 className="m-0 font-sans text-[13px] font-bold uppercase leading-[1.25] text-ink sm:text-[17px] sm:leading-[25.5px]">{ind.title}</h3>
+                {/* Description and stack tags are desktop-only: at a 163px
+                    tile they would wrap to six lines and bury the price. */}
+                <p className="mt-2 hidden text-[13px] leading-[1.55] text-ink-dim sm:block">{ind.description}</p>
+                <div className="mt-4 hidden flex-wrap gap-1.5 sm:flex">
                   {ind.tags.map((t) => (
                     <span
                       key={t}
@@ -239,8 +242,8 @@ export function Industries({
                     </span>
                   ))}
                 </div>
-                <div className="mt-auto flex items-center justify-between border-t border-line pt-5">
-                  <span className="font-mono text-[11px] text-ink-3">{ind.price}</span>
+                <div className="mt-auto flex items-center justify-between gap-2 border-t border-line pt-3 sm:pt-5">
+                  <span className="font-mono text-[10px] leading-[1.3] text-ink-3 sm:text-[11px]">{ind.price}</span>
                   {ind.href ? (
                     <ArrowUpRight
                       size={16}

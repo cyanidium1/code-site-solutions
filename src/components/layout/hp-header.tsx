@@ -45,15 +45,16 @@ function isActive(pathname: string | null, href: string): boolean {
 // offset. Below xl the nav + CTA pill hide; locale + burger stay in the
 // main pill and the CTA lives in the drawer.
 //
-// Figma 1729:1953 — Montserrat 400 uppercase, 11px links / 12px Services
-// trigger, tracking 1.32px, lh 16.5, white (92% base → 100% hover; the
-// active gradient underline is a kept deviation — mockup shows none).
+// Was Figma 1729:1953 — Montserrat 400 uppercase at 10–11px. The design
+// audit (2026-09-06, H6) measured that row as unreadable chrome with a 17px
+// tap target; it is now Manrope 500 at 12/13px, which is also narrower per
+// character, so the row still fits the xl pill.
 // Gap ladder compresses below the 1440 design width; 18px is the Figma value.
 // Nav appears at xl (1100), not lg — see the breakpoint note in
 // header-classes.ts: the Figma typography can't fit an 800px viewport.
 const headerNavClass = "hidden gap-1.5 xl:flex 2xl:gap-[18px]";
 const navLinkBaseClass =
-  "flex items-center font-nav text-[10px] tracking-[0.8px] 2xl:text-[11px] leading-[16.5px] 2xl:tracking-[1.32px] uppercase text-[oklch(1_0_0/0.92)] no-underline transition-colors duration-200 hover:text-ink";
+  "flex items-center font-nav text-[12px] font-medium tracking-[0.04em] 2xl:text-[13px] leading-[18px] uppercase text-[oklch(1_0_0/0.92)] no-underline transition-colors duration-200 hover:text-ink";
 const navLinkActiveClass =
   "text-ink relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-px after:bg-brand-gradient";
 
@@ -61,7 +62,7 @@ const navLinkActiveClass =
 // summary + hiding the marker. Chevron rotates 180° when [open].
 const navDdClass = "relative self-stretch flex items-center";
 const navDdTriggerClass =
-  "list-none flex items-center gap-1.5 cursor-pointer font-nav text-[11px] tracking-[0.8px] 2xl:text-[12px] leading-[16.5px] 2xl:tracking-[1.32px] uppercase text-[oklch(1_0_0/0.92)] transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink";
+  "list-none flex items-center gap-1.5 cursor-pointer font-nav text-[12px] font-medium tracking-[0.04em] 2xl:text-[13px] leading-[18px] uppercase text-[oklch(1_0_0/0.92)] transition-colors duration-200 select-none hover:text-ink [&::-webkit-details-marker]:hidden group-open/dd:text-ink";
 const navDdChevronClass =
   "shrink-0 opacity-75 transition-transform duration-200 group-open/dd:rotate-180";
 // Panel offset clears the 60px pill: the <details> anchor is only as tall as
@@ -74,14 +75,14 @@ const navDdPanelClass =
   "absolute top-[calc(100%+34px)] left-0 w-[max-content] min-w-[520px] p-2 rounded-[14px] border border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60] grid grid-cols-2 gap-x-2";
 const navDdColClass = "flex min-w-[240px] flex-col";
 const navDdColHeadClass =
-  "px-3 pt-1.5 pb-1 font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3";
+  "px-3 pt-1.5 pb-1 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3";
 const navDdLinkBaseClass =
   "block px-3 py-2.5 rounded-[10px] font-sans text-[13px] font-medium normal-case text-ink-dim no-underline transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
 const navDdLinkActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.1)] text-ink";
 const navDdLinkDisabledClass =
   "text-ink-3 cursor-default opacity-55 hover:bg-transparent hover:text-ink-3";
 const navDdFooterClass =
-  "block mt-1 px-3 py-2.5 rounded-[10px] border-t border-line font-mono text-[10px] tracking-[0.1em] uppercase font-semibold text-accent-soft no-underline hover:bg-[oklch(from_var(--color-accent)_l_c_h/0.12)]";
+  "block mt-1 px-3 py-2.5 rounded-[10px] border-t border-line font-mono text-[11px] tracking-[0.08em] uppercase font-semibold text-accent-soft no-underline hover:bg-[oklch(from_var(--color-accent)_l_c_h/0.12)]";
 
 export function HpHeader() {
   const ddRef = useRef<HTMLDetailsElement>(null);

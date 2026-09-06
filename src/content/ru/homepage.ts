@@ -71,9 +71,9 @@ export const RU_TIERS: TierProps[] = [
       items: [
         "Без лимита страниц",
         "Архитектурная сессия",
-        "Dedicated team",
-        "SLA + 24/7 support",
-        "Custom integrations",
+        "Выделенная команда",
+        "SLA + поддержка 24/7",
+        "Кастомные интеграции",
       ],
     },
     ctaLabel: "Связаться",

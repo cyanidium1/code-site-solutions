@@ -446,23 +446,29 @@ export function ValueStack({
                 >
                   {CARD_DIVIDER}
                   <CardMedia src={card.img} sizes="(min-width:1100px) 33vw, (min-width:768px) 50vw, 92vw" />
-                  <div className="relative z-[1] flex flex-1 flex-col">
-                    <span className={cn(accentIconBox, "size-12")}>
+                  {/* Below md the card is a row: icon left, copy right. The
+                      inner wrapper dissolves at md (`md:contents`) so the
+                      Figma column — icon on top, title pushed to the bottom
+                      by mt-auto — comes back untouched. */}
+                  <div className="relative z-[1] flex flex-1 flex-row gap-3.5 md:flex-col md:gap-0">
+                    <span className={cn(accentIconBox, "size-10 shrink-0 md:size-12")}>
                       <Icon size={22} strokeWidth={1.7} />
                     </span>
-                    <h3 className="mt-auto pt-10 font-actay text-[24px] font-bold uppercase leading-[1.1] tracking-[-0.01em] text-ink lg:text-[28px]">
-                      {card.title}
-                    </h3>
-                    <p className="mt-3 max-w-[42ch] text-[14.5px] leading-[1.6] text-ink-dim [text-wrap:pretty]">
-                      {card.desc}
-                    </p>
+                    <div className="min-w-0 md:contents">
+                      <h3 className="font-actay text-[18px] font-bold uppercase leading-[1.1] tracking-[-0.01em] text-ink md:mt-auto md:pt-10 md:text-[24px] lg:text-[28px]">
+                        {card.title}
+                      </h3>
+                      <p className="mt-2 max-w-[42ch] text-[13.5px] leading-[1.55] text-ink-dim [text-wrap:pretty] md:mt-3 md:text-[14.5px] md:leading-[1.6]">
+                        {card.desc}
+                      </p>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          <div className="mt-2.5 grid grid-cols-2 gap-2.5 sm:mt-4 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
             {c.small.map((card, i) => {
               const Icon = card.icon;
               return (
@@ -474,13 +480,13 @@ export function ValueStack({
                 >
                   {CARD_DIVIDER}
                   <CardMedia src={card.img} sizes="(min-width:1100px) 20vw, (min-width:768px) 33vw, (min-width:640px) 50vw, 92vw" />
-                  <span className={cn(accentIconBox, "size-10")}>
+                  <span className={cn(accentIconBox, "size-9 sm:size-10")}>
                     <Icon size={18} strokeWidth={1.7} />
                   </span>
-                  <h4 className="relative z-[1] mt-4 font-actay text-[15.5px] font-semibold uppercase leading-[1.2] tracking-[0.01em] text-ink">
+                  <h4 className="relative z-[1] mt-3 font-actay text-[13.5px] font-semibold uppercase leading-[1.2] tracking-[0.01em] text-ink sm:mt-4 sm:text-[15.5px]">
                     {card.title}
                   </h4>
-                  <p className="relative z-[1] mt-1.5 text-[13px] leading-[1.5] text-ink-dim [text-wrap:pretty]">
+                  <p className="relative z-[1] mt-1.5 text-[12.5px] leading-[1.45] text-ink-dim [text-wrap:pretty] sm:text-[13px] sm:leading-[1.5]">
                     {card.desc}
                   </p>
                 </div>
@@ -489,7 +495,7 @@ export function ValueStack({
           </div>
 
           {/* Stats band — the former PerformanceProof panels (Figma §1.4) */}
-          <div className="mt-16 grid grid-cols-1 gap-4 lg:mt-[90px] lg:grid-cols-2">
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-16 lg:mt-[90px] lg:grid-cols-2">
             {c.stats.map((s) => {
               const Icon = s.icon;
               return (
