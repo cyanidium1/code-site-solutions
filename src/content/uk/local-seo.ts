@@ -202,6 +202,26 @@ export const LOCAL_SEO_UK: LandingPageContent = {
     ],
   },
 
+  /* Photo grid of shipped work. These pages carried 4-5 images across
+     8-9 screens, with 3 000-4 500px stretches of unbroken text (design
+     audit 2026-09-07); the same block already carries /landing,
+     /corporate-site and /online-store. Covers come from Sanity by slug. */
+  gallery: {
+    eyebrow: "КЕЙСИ",
+    heading: ["Проєкти, де ", "географія вирішувала"],
+    sub: "Виробник сухого льоду з десятьма містами, клініка в Одесі з локальним пошуком «стоматолог + район» і будівельна " +
+      "компанія в Данії з двома локаціями.",
+    slugs: [
+      "icelab",
+      "efedra-clinic",
+      "nbyg-kobenhavn",
+      "boulevard-salon",
+      "raul-avto",
+      "mono-pools",
+    ],
+    allLabel: "Всі кейси",
+    allHref: "/portfolio",
+  },
   calcCta: {
     heading: ["Подивимося ваші міста ", "безкоштовно"],
     sub:

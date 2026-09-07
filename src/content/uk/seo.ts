@@ -180,6 +180,25 @@ export const SEO_UK: LandingPageContent = {
       { label: "vs конструктори", href: "/vs-constructors" },
     ],
   },
+  /* Photo grid of shipped work. These pages carried 4-5 images across
+     8-9 screens, with 3 000-4 500px stretches of unbroken text (design
+     audit 2026-09-07); the same block already carries /landing,
+     /corporate-site and /online-store. Covers come from Sanity by slug. */
+  gallery: {
+    eyebrow: "КЕЙСИ",
+    heading: ["Сайти, які вже ", "ростуть у пошуку"],
+    sub: "Будівельна компанія в Данії, клініка в Одесі, ремонтна компанія у Франції — трафік із Google як основний канал заявок.",
+    slugs: [
+      "nbyg-kobenhavn",
+      "efedra-clinic",
+      "solide-renovation",
+      "oleksandr-sitnikov",
+      "grontland",
+      "rich-tour",
+    ],
+    allLabel: "Всі кейси",
+    allHref: "/portfolio",
+  },
   calcCta: {
     heading: ["Почніть з аудиту ", "за $300"],
     sub: "Розбір вашого сайту зі списком правок за пріоритетами і чесною відповіддю: чи потрібна вам кампанія взагалі. Результат — за 5 робочих днів.",

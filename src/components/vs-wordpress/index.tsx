@@ -8,6 +8,8 @@ import { Tier, CmpTable, CmpThead, CmpTh, CmpTd, CmpPricingGrid } from "@/compon
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
+import { CaseStrip } from "@/components/blocks/case-strip";
+import { AppImage } from "@/lib/shared/app-image";
 import { SectionHead } from "@/components/shared/section-head";
 import {
   type Content,
@@ -242,6 +244,20 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
         </div>
       </section>
 
+      {/* Portfolio strip — this page argued from cases in prose while
+          carrying almost no imagery (design audit 2026-09-07). */}
+      <CaseStrip
+        locale={locale}
+        slugs={[
+          "nbyg-kobenhavn",
+          "solide-renovation",
+          "efedra-clinic",
+          "webbond",
+          "domlivo",
+          "rich-tour",
+        ]}
+      />
+
       {/* 05 — SEO myth-buster */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
@@ -284,6 +300,39 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             heading={c.admin.heading}
             sub={c.admin.sub}
           />
+          {/* The page spent 2 268 characters describing this admin without
+              showing it (design audit 2026-09-07). Same figure pair as
+              /vs-constructors and /vs-freelancers, same screenshots. */}
+          <div className="grid grid-cols-1 gap-6 mb-12 min-[901px]:grid-cols-[1.5fr_1fr]">
+            <figure className="m-0 flex flex-col">
+              <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
+                <AppImage
+                  src="/sanity-studio/admin-desktop.png"
+                  alt={c.admin.desktopAlt}
+                  fill
+                  sizes="(min-width: 901px) 55vw, 92vw"
+                  className="object-cover object-top"
+                />
+              </div>
+              <figcaption className="mt-3 text-[12px] leading-[1.5] text-ink-3 text-center">
+                {c.admin.desktopCaption}
+              </figcaption>
+            </figure>
+            <figure className="m-0 flex flex-col">
+              <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[9/16] max-w-[280px] mx-auto w-full">
+                <AppImage
+                  src="/sanity-studio/admin-mobile.png"
+                  alt={c.admin.mobileAlt}
+                  fill
+                  sizes="280px"
+                  className="object-cover object-top"
+                />
+              </div>
+              <figcaption className="mt-3 text-[12px] leading-[1.5] text-ink-3 text-center">
+                {c.admin.mobileCaption}
+              </figcaption>
+            </figure>
+          </div>
           {/* Mobile-safe table — horizontal scroll wrapper for narrow viewports */}
           <div className="border border-line rounded-[18px] overflow-x-auto bg-[oklch(0.155_0.005_300)] mb-12 md:overflow-hidden">
             <CmpTable className="min-w-[600px]">

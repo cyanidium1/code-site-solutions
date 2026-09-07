@@ -199,6 +199,25 @@ export const AUDIT_UK: LandingPageContent = {
       { label: "кастомний сайт замість WordPress", href: "/vs-wordpress" },
     ],
   },
+  /* Photo grid of shipped work. These pages carried 4-5 images across
+     8-9 screens, with 3 000-4 500px stretches of unbroken text (design
+     audit 2026-09-07); the same block already carries /landing,
+     /corporate-site and /online-store. Covers come from Sanity by slug. */
+  gallery: {
+    eyebrow: "КЕЙСИ",
+    heading: ["Сайти, які ми ", "розбирали і виправляли"],
+    sub: "Клініка в Одесі, будівельна компанія в Данії, виробник обладнання — у всіх трьох роботі передував розбір того, що вже було.",
+    slugs: [
+      "efedra-clinic",
+      "nbyg-kobenhavn",
+      "icelab",
+      "webbond",
+      "co2lab",
+      "clarion-solutions",
+    ],
+    allLabel: "Всі кейси",
+    allHref: "/portfolio",
+  },
   calcCta: {
     heading: ["Почніть з безкоштовної ", "експрес-перевірки"],
     sub: "Напишіть адресу сайту — за один робочий день скажемо, що видно ззовні, і чи є сенс у повному аудиті за $300. Без зобов'язань.",

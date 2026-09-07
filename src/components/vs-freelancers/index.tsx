@@ -8,6 +8,7 @@ import { CmpTable, CmpThead, CmpTh, CmpTd } from "@/components/blocks/comparison
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
+import { CaseStrip } from "@/components/blocks/case-strip";
 import { SectionHead } from "@/components/shared/section-head";
 import { AppImage } from "@/lib/shared/app-image";
 import {
@@ -195,6 +196,20 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           </div>
         </div>
       </section>
+
+      {/* Portfolio strip — this page argued from cases in prose while
+          carrying almost no imagery (design audit 2026-09-07). */}
+      <CaseStrip
+        locale={locale}
+        slugs={[
+          "oleksandr-sitnikov",
+          "clarion-solutions",
+          "co2lab",
+          "icelab",
+          "right-cars",
+          "grontland",
+        ]}
+      />
 
       {/* 05 — 12 people on your project */}
       <section className={hpSectionClass}>

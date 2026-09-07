@@ -191,6 +191,25 @@ export const AUDIT_RU: LandingPageContent = {
       { label: "кастомный сайт вместо WordPress", href: "/vs-wordpress" },
     ],
   },
+  /* Photo grid of shipped work. These pages carried 4-5 images across
+     8-9 screens, with 3 000-4 500px stretches of unbroken text (design
+     audit 2026-09-07); the same block already carries /landing,
+     /corporate-site and /online-store. Covers come from Sanity by slug. */
+  gallery: {
+    eyebrow: "КЕЙСЫ",
+    heading: ["Сайты, которые мы ", "разбирали и чинили"],
+    sub: "Клиника в Одессе, строительная компания в Дании, производитель оборудования — во всех трёх работе предшествовал разбор того, что уже было.",
+    slugs: [
+      "efedra-clinic",
+      "nbyg-kobenhavn",
+      "icelab",
+      "webbond",
+      "co2lab",
+      "clarion-solutions",
+    ],
+    allLabel: "Все кейсы",
+    allHref: "/ru/portfolio",
+  },
   calcCta: {
     heading: ["Начните с бесплатной ", "экспресс-проверки"],
     sub: "Напишите адрес сайта — за один рабочий день скажем, что видно снаружи, и есть ли смысл в полном аудите за $300. Без обязательств.",

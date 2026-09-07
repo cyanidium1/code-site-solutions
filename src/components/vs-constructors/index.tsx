@@ -8,6 +8,7 @@ import { Tier, CmpTable, CmpThead, CmpTh, CmpTd, CmpPricingGrid } from "@/compon
 import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
+import { CaseStrip } from "@/components/blocks/case-strip";
 import { SectionHead } from "@/components/shared/section-head";
 import { AppImage } from "@/lib/shared/app-image";
 import {
@@ -227,6 +228,20 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           </div>
         </div>
       </section>
+
+      {/* Portfolio strip — this page argued from cases in prose while
+          carrying almost no imagery (design audit 2026-09-07). */}
+      <CaseStrip
+        locale={locale}
+        slugs={[
+          "tatarka-franchise",
+          "aleko-course",
+          "boulevard-salon",
+          "glenn-garbo",
+          "urmodels",
+          "mono-pools",
+        ]}
+      />
 
       {/* 05 — Each builder honest */}
       <section className={hpSectionClass}>

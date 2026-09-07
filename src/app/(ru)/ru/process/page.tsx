@@ -7,6 +7,7 @@ import { StatsBar } from "@/components/blocks/stats-bar";
 import { ImageText } from "@/components/blocks/image-text";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
+import { CaseStrip } from "@/components/blocks/case-strip";
 import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import {
@@ -102,6 +103,21 @@ export default function RuProcessPage() {
       />
 
       <VerticalTimeline steps={STEPS} />
+
+      {/* Portfolio strip — the page ran seven text-only steps with a
+          single photo on it (design audit 2026-09-07). */}
+      <CaseStrip
+        locale="ru"
+        slugs={[
+          "efedra-clinic",
+          "nbyg-kobenhavn",
+          "solide-renovation",
+          "aleko-course",
+          "glimmer",
+          "mono-pools",
+        ]}
+        sub="Семь шагов выше — это то, как сделаны все проекты ниже."
+      />
 
       <ImageText
         variant="side-with-list"

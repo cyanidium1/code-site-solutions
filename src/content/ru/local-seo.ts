@@ -189,6 +189,26 @@ export const LOCAL_SEO_RU: LandingPageContent = {
     ],
   },
 
+  /* Photo grid of shipped work. These pages carried 4-5 images across
+     8-9 screens, with 3 000-4 500px stretches of unbroken text (design
+     audit 2026-09-07); the same block already carries /landing,
+     /corporate-site and /online-store. Covers come from Sanity by slug. */
+  gallery: {
+    eyebrow: "КЕЙСЫ",
+    heading: ["Проекты, где ", "география решала"],
+    sub: "Производитель сухого льда с десятью городами, клиника в Одессе с локальным поиском «стоматолог + район» и строительная " +
+      "компания в Дании с двумя локациями.",
+    slugs: [
+      "icelab",
+      "efedra-clinic",
+      "nbyg-kobenhavn",
+      "boulevard-salon",
+      "raul-avto",
+      "mono-pools",
+    ],
+    allLabel: "Все кейсы",
+    allHref: "/ru/portfolio",
+  },
   calcCta: {
     heading: ["Посмотрим ваши города ", "бесплатно"],
     sub:

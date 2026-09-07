@@ -586,8 +586,12 @@ export async function LandingPageView({
     "price",
     ...(content.priceTable ? ["priceTable"] : []),
     ...(content.stories ? ["stories"] : []),
-    ...(content.platforms ? ["platforms"] : []),
+    // Gallery before platforms: on /seo, /audit and /redesign the prose
+    // "platforms" block sits at the end of a 3 900-4 500px stretch with no
+    // image in it (design audit 2026-09-07). The three pages that have no
+    // platforms block are unaffected by the swap.
     ...(content.gallery ? ["gallery"] : []),
+    ...(content.platforms ? ["platforms"] : []),
   ];
   const num = (k: string) => `0${numberedKeys.indexOf(k) + 1}`;
 
@@ -886,60 +890,7 @@ export async function LandingPageView({
         </section>
       )}
 
-      {/* 4.5 — Optional platform-limitations prose section */}
-      {content.platforms && (
-        <section className={hpSectionClass}>
-          <div className={hpInnerClass}>
-            <SectionHead
-              index={num("platforms")}
-              eyebrow={content.platforms.eyebrow}
-              heading={content.platforms.heading}
-            />
-            <div className="max-w-[760px] flex flex-col gap-4">
-              {content.platforms.paragraphs.map((p) => (
-                <p
-                  key={p.slice(0, 24)}
-                  className="m-0 font-sans text-[15px] leading-[1.65] text-ink-dim"
-                >
-                  {p}
-                </p>
-              ))}
-              <ul className="list-none m-0 mt-2 p-0 flex flex-col gap-2.5">
-                {content.platforms.bullets.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-2.5 text-[13.5px] leading-[1.55] text-ink-dim"
-                  >
-                    <Minus
-                      size={16}
-                      strokeWidth={2.2}
-                      className="mt-0.5 shrink-0 text-ink-3"
-                      aria-hidden="true"
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="m-0 mt-2 text-[13px] leading-[1.6] text-ink-3 italic">
-                {content.platforms.foot}
-              </p>
-              <div className="mt-3 flex flex-wrap gap-3">
-                {content.platforms.links.map((l) => (
-                  <Link key={l.href} href={l.href} className={ALL_CASES_LINK_CLASS}>
-                    {l.label}
-                    <ArrowUpRight size={15} aria-hidden="true" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 5 — Calculator CTA */}
-      <CtaBand content={content.calcCta} />
-
-      {/* 5.5 — Photo gallery of works */}
+      {/* 4.5 — Photo gallery of works */}
       {content.gallery && (
         <section className={`${hpSectionClass} overflow-hidden`}>
           <div
@@ -998,6 +949,61 @@ export async function LandingPageView({
           </div>
         </section>
       )}
+
+      {/* 4.6 — Optional platform-limitations prose section */}
+      {content.platforms && (
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <SectionHead
+              index={num("platforms")}
+              eyebrow={content.platforms.eyebrow}
+              heading={content.platforms.heading}
+            />
+            {/* 560px, not 760: at 15px the wider column held ~100 characters
+                per line — see blocks/prose-section (design audit 2026-09-07). */}
+            <div className="flex max-w-[560px] flex-col gap-4">
+              {content.platforms.paragraphs.map((p) => (
+                <p
+                  key={p.slice(0, 24)}
+                  className="m-0 font-sans text-[15px] leading-[1.65] text-ink-dim"
+                >
+                  {p}
+                </p>
+              ))}
+              <ul className="list-none m-0 mt-2 p-0 flex flex-col gap-2.5">
+                {content.platforms.bullets.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5 text-[13.5px] leading-[1.55] text-ink-dim"
+                  >
+                    <Minus
+                      size={16}
+                      strokeWidth={2.2}
+                      className="mt-0.5 shrink-0 text-ink-3"
+                      aria-hidden="true"
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="m-0 mt-2 text-[13px] leading-[1.6] text-ink-3 italic">
+                {content.platforms.foot}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-3">
+                {content.platforms.links.map((l) => (
+                  <Link key={l.href} href={l.href} className={ALL_CASES_LINK_CLASS}>
+                    {l.label}
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 5 — Calculator CTA */}
+      <CtaBand content={content.calcCta} />
 
       {/* 6 — Example landing pages from the portfolio (hidden when the
           gallery replaces it) */}

@@ -83,6 +83,10 @@ export type Content = {
     eyebrow: string;
     heading: React.ReactNode;
     sub: string;
+    desktopAlt: string;
+    desktopCaption: string;
+    mobileAlt: string;
+    mobileCaption: string;
     compareHeaders: { activity: string; wp: string; us: string };
     compareRows: { activity: string; wp: string; us: string }[];
     capabilitiesHeading: string;
@@ -379,6 +383,12 @@ export const VS_WORDPRESS_UK: Content = {
       </>
     ),
     sub: "Найчастіший страх перед міграцією — «а як я буду редагувати без WordPress?». Sanity не схожий на WP. Він кращий: drag-and-drop блоки, які не ламають верстку; повноцінне редагування з телефона; мовність і SEO «з коробки» — без жодного плагіна.",
+    desktopAlt:
+      "Адмінка Sanity Studio на десктопі — блоковий редактор сторінок",
+    desktopCaption: "Sanity Studio — блоки замість конструктора сторінок WordPress",
+    mobileAlt:
+      "Адмінка Sanity Studio на телефоні — повноцінне редагування контенту",
+    mobileCaption: "Та сама адмінка з телефона — без плагінів і оновлень",
     compareHeaders: { activity: "Що робите щодня", wp: "WordPress", us: "Sanity Studio" },
     compareRows: [
       {
@@ -929,6 +939,12 @@ export const VS_WORDPRESS_EN: Content = {
       </>
     ),
     sub: "The biggest fear before migration is “how will I edit without WordPress?” Sanity isn't WordPress. It's better: drag-and-drop blocks that can't break the layout, full mobile editing, multi-language and SEO out of the box — no plugins required.",
+    desktopAlt:
+      "Sanity Studio admin interface on desktop — block-based page editor",
+    desktopCaption: "Sanity Studio — blocks instead of the WordPress page builder",
+    mobileAlt:
+      "Sanity Studio admin interface on mobile phone — full content editing",
+    mobileCaption: "The same admin from your phone — no plugins, no updates",
     compareHeaders: { activity: "What you do daily", wp: "WordPress", us: "Sanity Studio" },
     compareRows: [
       {

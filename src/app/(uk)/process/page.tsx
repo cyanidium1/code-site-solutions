@@ -7,6 +7,7 @@ import { StatsBar } from "@/components/blocks/stats-bar";
 import { ImageText } from "@/components/blocks/image-text";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { FAQ } from "@/components/blocks/final";
+import { CaseStrip } from "@/components/blocks/case-strip";
 import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { OG_DEFAULT_IMAGE, pageUrl } from "@/constants/site";
@@ -114,6 +115,21 @@ export default function ProcessPage() {
 
       {/* Section 3: Vertical timeline (7 steps) */}
       <VerticalTimeline steps={STEPS} />
+
+      {/* Portfolio strip — the page ran seven text-only steps with a
+          single photo on it (design audit 2026-09-07). */}
+      <CaseStrip
+        locale="uk"
+        slugs={[
+          "efedra-clinic",
+          "nbyg-kobenhavn",
+          "solide-renovation",
+          "aleko-course",
+          "glimmer",
+          "mono-pools",
+        ]}
+        sub="Сім кроків вище — це те, як зроблені всі проєкти нижче."
+      />
 
       {/* Section 4: Communication */}
       <ImageText

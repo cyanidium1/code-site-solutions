@@ -185,6 +185,25 @@ export const REDESIGN_RU: LandingPageContent = {
       { label: "кастомный сайт вместо WordPress", href: "/vs-wordpress" },
     ],
   },
+  /* Photo grid of shipped work. These pages carried 4-5 images across
+     8-9 screens, with 3 000-4 500px stretches of unbroken text (design
+     audit 2026-09-07); the same block already carries /landing,
+     /corporate-site and /online-store. Covers come from Sanity by slug. */
+  gallery: {
+    eyebrow: "КЕЙСЫ",
+    heading: ["Уровень, на который ", "выходит сайт"],
+    sub: "Ремонтная компания во Франции, пригон авто из США, салон красоты — все три сделаны с нуля на собственном коде.",
+    slugs: [
+      "solide-renovation",
+      "raul-avto",
+      "boulevard-salon",
+      "domlivo",
+      "glenn-garbo",
+      "right-cars",
+    ],
+    allLabel: "Все кейсы",
+    allHref: "/ru/portfolio",
+  },
   calcCta: {
     heading: ["Посчитайте редизайн ", "под свой сайт"],
     sub: "Калькулятор даёт вилку за пару минут. Если нужна точная цифра — пришлите адрес сайта, посмотрим, что там внутри, и посчитаем предметно.",

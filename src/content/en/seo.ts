@@ -174,6 +174,25 @@ export const SEO_EN: LandingPageContent = {
       { label: "vs site builders", href: "/en/vs-constructors" },
     ],
   },
+  /* Photo grid of shipped work. These pages carried 4-5 images across
+     8-9 screens, with 3 000-4 500px stretches of unbroken text (design
+     audit 2026-09-07); the same block already carries /landing,
+     /corporate-site and /online-store. Covers come from Sanity by slug. */
+  gallery: {
+    eyebrow: "CASE STUDIES",
+    heading: ["Sites already ", "growing in search"],
+    sub: "A construction firm in Denmark, a clinic in Odesa, a renovation company in France — Google traffic as the main enquiry channel.",
+    slugs: [
+      "nbyg-kobenhavn",
+      "efedra-clinic",
+      "solide-renovation",
+      "oleksandr-sitnikov",
+      "grontland",
+      "rich-tour",
+    ],
+    allLabel: "All case studies",
+    allHref: "/en/portfolio",
+  },
   calcCta: {
     heading: ["Start with a £300 ", "audit"],
     sub: "A teardown of your site with a prioritised fix list and an honest answer on whether you need a retainer at all. Delivered within 5 working days.",
