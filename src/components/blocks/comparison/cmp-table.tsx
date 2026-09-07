@@ -155,7 +155,10 @@ export function CmpPricingGrid({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 gap-3.5 items-stretch xl:grid-cols-3 xl:gap-[18px]",
+        // md 2-up: below xl this was a single column, so /pricing ran
+        // 17 916px on a 744px tablet and 16 650px at 1024 — taller than the
+        // 390px phone build (design audit 2026-09-07).
+        "grid grid-cols-1 gap-3.5 items-stretch md:grid-cols-2 xl:grid-cols-3 xl:gap-[18px]",
         className,
       )}
     >

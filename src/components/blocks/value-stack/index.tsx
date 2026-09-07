@@ -434,7 +434,7 @@ export function ValueStack({
         </div>
 
         <ScrollReveal className="group/vs-reveal">
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {c.featured.map((card, i) => {
               const Icon = card.icon;
               return (

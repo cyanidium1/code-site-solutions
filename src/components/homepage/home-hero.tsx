@@ -25,20 +25,25 @@ const HERO_BG_CLASS =
 const HERO_SHELL_CLASS =
   "relative z-[5] pt-0 pb-9 px-6 sm:px-8 sm:pt-8 sm:pb-14 lg:px-12 2xl:pt-6 2xl:pb-[60px]";
 
-// sm–xl: a 3fr/2fr split. The Figma `minmax(0,1000px)` text track only
+// lg–xl: a 3fr/2fr split. The Figma `minmax(0,1000px)` text track only
 // leaves the mockup a real column from ~1200px up; below that it starved the
 // device stage to ~50px and the laptop rendered off-screen (audit C1).
+// The split starts at lg (800), not sm: at 640–800 the 2fr track is ~260px,
+// which cropped the laptop and left ~450px of empty column under it —
+// on the deployed build the stage collapsed to 0 and the hero mockup was
+// invisible on every iPad (design audit 2026-09-07). Below 800 the mobile
+// stack (text first, mockup as a full-bleed band) carries the hero instead.
 const HERO_GRID_CLASS =
   "grid grid-cols-1 grid-rows-[auto_auto] gap-0 items-center max-w-container mx-auto min-h-0 " +
-  "sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] sm:grid-rows-none sm:gap-[22px] sm:min-h-[clamp(560px,80vh,720px)] " +
-  "min-[1081px]:gap-7 xl:grid-cols-[minmax(0,1000px)_minmax(0,1fr)] 2xl:gap-12";
+  "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:grid-rows-none lg:gap-[22px] lg:min-h-[clamp(560px,80vh,720px)] " +
+  "min-[1081px]:gap-7 min-[1250px]:grid-cols-[minmax(0,1000px)_minmax(0,1fr)] 2xl:gap-12";
 
 // Mobile (< sm) is a flex column so the children can be re-ordered with
 // `order-*`: eyebrow → H1 → lede → CTAs → footnote → features → stats, then
 // the device mockup (grid row 2). Audit 2026-09-06, C3: with the mockup
 // first the H1 started at 395px and the first CTA at 837px on a 844px
 // viewport — nothing actionable above the fold.
-const HERO_LEFT_CLASS = "relative z-[4] flex flex-col sm:block";
+const HERO_LEFT_CLASS = "relative z-[4] flex flex-col lg:block";
 
 const EYEBROW_CLASS =
   "self-start inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 border border-line-strong rounded-full text-[10px] font-medium tracking-[0.1em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] backdrop-blur-[8px] mb-[18px] " +
@@ -51,7 +56,10 @@ const HERO_H1_CLASS =
   "text-ink m-0 mb-[18px] sm:mb-7 " +
   "[&_em]:italic [&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
 
-const H1_LINE_CLASS = "block md:max-w-[50vw]";
+// The 50vw cap keeps the headline clear of the mockup column, so it starts
+// with that column at lg — below it the hero is a single stack and the cap
+// only wasted half the width (design audit 2026-09-07).
+const H1_LINE_CLASS = "block lg:max-w-[50vw]";
 
 const LEDE_CLASS =
   "text-sm leading-[1.55] text-ink-dim max-w-full m-0 mb-[22px] text-pretty " +
@@ -61,7 +69,7 @@ const LEDE_CLASS =
   "2xl:mb-8";
 
 const FEATURES_CLASS =
-  "order-4 sm:order-none grid grid-cols-1 gap-2.5 mb-[22px] max-w-full px-4 py-3.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
+  "order-4 lg:order-none grid grid-cols-1 gap-2.5 mb-[22px] max-w-full px-4 py-3.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
   "sm:grid-cols-2 sm:gap-x-3.5 sm:gap-y-2 sm:mb-[26px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
   "min-[1081px]:max-w-[460px] min-[1081px]:gap-x-[18px] min-[1081px]:gap-y-2.5 " +
   "2xl:max-w-[480px] 2xl:gap-x-6 2xl:gap-y-3 2xl:mb-9";
@@ -79,15 +87,15 @@ const FEAT_SUB_CLASS =
   "text-[10px] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[11px]";
 
 const CTA_ROW_CLASS =
-  "order-2 sm:order-none flex flex-col flex-wrap gap-2.5 items-stretch mb-6 " +
+  "order-2 lg:order-none flex flex-col flex-wrap gap-2.5 items-stretch mb-6 " +
   "sm:flex-row sm:gap-3 sm:items-center sm:mb-7 " +
   "2xl:mb-3.5";
 
 const CTA_FOOTNOTE_CLASS =
-  "order-3 sm:order-none text-[12.5px] tracking-[0.01em] text-ink-3 m-0 mb-6 sm:mb-[30px] leading-[1.5]";
+  "order-3 lg:order-none text-[12.5px] tracking-[0.01em] text-ink-3 m-0 mb-6 sm:mb-[30px] leading-[1.5]";
 
 const STATS_CLASS =
-  "order-5 sm:order-none flex items-center gap-3 px-4 py-3.5 border border-line rounded-[14px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
+  "order-5 lg:order-none flex items-center gap-3 px-4 py-3.5 border border-line rounded-[14px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
   "sm:gap-3.5 " +
   "min-[1081px]:gap-[18px] min-[1081px]:px-5 min-[1081px]:py-4 " +
   "2xl:gap-6 2xl:px-7 2xl:py-5 2xl:rounded-[18px]";
@@ -103,7 +111,7 @@ const STAT_DIV_CLASS = "w-px h-[30px] bg-line sm:h-10";
 const DEVICE_STAGE_CLASS =
   "relative w-full h-full min-w-0 [perspective:2000px] overflow-hidden lg:overflow-visible " +
   "after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-[linear-gradient(180deg,transparent,var(--color-bg)_90%)] after:z-[3] after:pointer-events-none " +
-  "sm:after:content-none";
+  "lg:after:content-none";
 
 const DEVICE_GLOW_CLASS =
   "absolute -inset-[10%] pointer-events-none blur-[40px] " +
@@ -116,10 +124,15 @@ const DEVICE_GRID_CLASS =
   "[mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)] " +
   "[-webkit-mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)]";
 
+// The pills are positioned in percentages of the device stage, but the
+// mockup only fills that stage once the Figma placement kicks in. Below
+// that they floated on empty background — above the laptop on the sub-lg
+// band, under it at 800-1100, half off-screen at 1100-1250 (design audit
+// 2026-09-07).
 const DEVICE_TAG_CLASS =
   "hidden absolute z-[5] px-[11px] py-1.5 backdrop-blur-[12px] border border-line-strong rounded-full text-[10px] font-medium text-ink items-center gap-2 tracking-[0.02em] " +
   "bg-[oklch(0.22_0.008_60_/_0.85)] shadow-[0_4px_16px_oklch(0_0_0_/_0.4)] animate-float " +
-  "sm:inline-flex " +
+  "min-[1250px]:inline-flex " +
   "2xl:text-[11px] 2xl:px-3.5 2xl:py-2";
 
 const DEVICE_TAG_POSITIONS: { style: React.CSSProperties; className: string }[] = [
@@ -129,7 +142,7 @@ const DEVICE_TAG_POSITIONS: { style: React.CSSProperties; className: string }[] 
   },
   {
     style: { top: "22%", left: "60%", animationDelay: "-2s" },
-    className: "sm:!hidden 2xl:!inline-flex",
+    className: "min-[1250px]:!hidden 2xl:!inline-flex",
   },
   {
     style: { bottom: "28%", left: "40%", animationDelay: "-4s" },
@@ -150,22 +163,26 @@ const MOCKUP_IMG_CLASS =
   "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))] " +
   "sm:w-[clamp(420px,50vw,1000px)] sm:max-w-none sm:max-h-none";
 
-// Between sm and xl the 1440-design placement (100vw wide, −272px left)
-// pushed the laptop and its pills past the right edge on 900–1200px
-// viewports (audit 2026-09-06, C1); the mid ladder keeps the mockup
-// inside its column and the Figma numbers return at xl.
+// The 1440-design placement (100vw wide, −272px left, −10% translate) is
+// tuned for a 1000px text track and only composes once the viewport can
+// hold it: at 1100–1200 it blew the mockup up until the laptop and both
+// pills were cut off by the right edge (audit 2026-09-06 C1, re-measured
+// 2026-09-07 — iPad landscape is 1133 and iPad Pro 11" is 1194). The mid
+// ladder keeps the mockup inside its column up to 1250; the Figma numbers
+// return with the 1000px text track. Below lg the mockup is the full-bleed
+// band, so it stays in flow — `!w-*` also beats MOCKUP_IMG_CLASS's
+// `sm:w-[clamp(420px,…)]` floor there.
 const MOCKUP_IMG_HOMEPAGE_CLASS =
-  "relative w-full max-w-none max-h-none !translate-x-[10%] top-[unset] left-[unset] " +
-  // `!w-*` beats MOCKUP_IMG_CLASS's `sm:w-[clamp(420px,…)]` floor, which
-  // otherwise forces 420px into a ~280px column at 640–800 and overlaps the H1.
-  "sm:absolute sm:!w-[120%] sm:-top-[20px] sm:-left-[10%] sm:!translate-x-0 " +
-  "lg:!w-[50vw] lg:-top-[40px] lg:-left-[12%] lg:!-translate-x-[6%] " +
-  "xl:!w-[clamp(420px,100vw,1200px)] xl:-top-[136px] xl:-left-[272px] xl:!-translate-x-[10%]";
+  "relative w-full !max-w-none max-h-none !translate-x-[10%] top-[unset] left-[unset] " +
+  "sm:!w-[86%] sm:!translate-x-[8%] " +
+  "lg:absolute lg:!w-[50vw] lg:-top-[40px] lg:-left-[12%] lg:!-translate-x-[6%] " +
+  "min-[1250px]:!w-[clamp(420px,100vw,1200px)] min-[1250px]:-top-[136px] min-[1250px]:-left-[272px] min-[1250px]:!-translate-x-[10%]";
 
 const HERO_RIGHT_CLASS =
   "relative min-w-0 [aspect-ratio:auto] z-[-1] h-[260px] min-h-[260px] overflow-visible [contain:layout] -mx-6 mt-2 -mb-6 w-[calc(100%+48px)] " +
-  "sm:z-10 sm:h-full sm:mx-0 sm:mt-0 sm:mb-0 sm:w-full " +
-  "md:min-h-[420px]";
+  "sm:-mx-8 sm:w-[calc(100%+64px)] " +
+  "md:min-h-[420px] " +
+  "lg:z-10 lg:h-full lg:mx-0 lg:mt-0 lg:mb-0 lg:w-full";
 
 const ARROW_ICON = (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">

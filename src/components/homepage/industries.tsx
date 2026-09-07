@@ -219,8 +219,11 @@ export function Industries({
             <SparkleTrio className={SPARKLES_CLASS} />
           </div>
         </div>
-        {/* Two-up below sm — see `.hp-ind-card` in homepage-cards.css. */}
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-1 sm:gap-4 lg:grid-cols-2 xl:grid-cols-4">
+        {/* Two-up from the smallest screen — see `.hp-ind-card` in
+            homepage-cards.css. `sm:grid-cols-1` used to drop tablets to a
+            single 300px-tall column: eight tiles = 2 781px on a 744px iPad
+            against 1 400px on a 390px phone (design audit 2026-09-07). */}
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 xl:grid-cols-4">
           {items.map((ind, i) => {
             const Icon = ind.icon;
             const inner = (

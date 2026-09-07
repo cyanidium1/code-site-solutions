@@ -98,7 +98,10 @@ export function PageHero({
       <p
         className={cn(
           "mt-6 font-sans text-[15px] leading-[1.55] text-ink-dim lg:text-[17px]",
-          constrainText && "max-w-full min-[961px]:max-w-[600px]",
+          // Without a cap this lede ran 158 characters per line at 1440
+          // (design audit 2026-09-07); `constrainText` pages keep their
+          // tighter 600px column so the hero image still clears the text.
+          constrainText ? "max-w-full min-[961px]:max-w-[600px]" : "max-w-[620px]",
         )}
       >
         {sub}

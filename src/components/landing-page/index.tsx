@@ -777,7 +777,7 @@ export async function LandingPageView({
                 </tbody>
               </table>
             </div>
-            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[640px]">
+            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[480px]">
               {content.priceTable.foot}
             </p>
           </div>

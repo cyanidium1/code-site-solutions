@@ -104,8 +104,11 @@ const FAQ_ITEM_TRIGGER =
 const FAQ_ITEM_TITLE =
   "font-sans text-[13px] font-semibold text-ink leading-[1.35] md:text-[15px]";
 
+// max-w-[520px]: the answer column spans the whole section, so at 1440 a
+// 13px answer ran 192 characters per line (design audit 2026-09-07) —
+// roughly triple the 60-75 the eye tracks without losing the line.
 const FAQ_ITEM_CONTENT =
-  "px-[18px] pt-0 pb-[18px] text-[13px] leading-[1.65] text-ink-dim text-pretty " +
+  "px-[18px] pt-0 pb-[18px] max-w-[520px] text-[13px] leading-[1.65] text-ink-dim text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "[&_.rich-link]:text-accent-soft [&_.rich-link]:font-medium [&_.rich-link]:underline [&_.rich-link]:decoration-[oklch(0.7_0.14_295_/_0.4)] [&_.rich-link]:underline-offset-[3px] [&_.rich-link]:transition-[color,text-decoration-color] [&_.rich-link]:duration-200 [&_.rich-link:hover]:text-ink [&_.rich-link:hover]:decoration-ink " +
   "md:px-6 md:pb-[22px] md:text-[14px]";

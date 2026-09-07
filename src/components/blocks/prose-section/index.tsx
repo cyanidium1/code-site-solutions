@@ -9,9 +9,11 @@ import type { ProseSection } from "@/types/prose";
  * Long-form prose block: heading, paragraphs, optional bullet list, optional
  * table, optional closing line and cross-links.
  *
- * Deliberately narrow (`max-w-[760px]`) for the running text while the table
- * spans the container — a wide measure is unreadable, but a table squeezed
- * into 760px is worse.
+ * The running text is capped at 560px while the table spans the container —
+ * a wide measure is unreadable, but a table squeezed into the text column is
+ * worse. 760px sounded narrow but holds ~100 characters at 15px; 560px holds
+ * ~74, the top of the 60-75 band the eye reads without losing its place
+ * (measured, design audit 2026-09-07).
  */
 function Section({ section }: { section: ProseSection }) {
   return (
@@ -28,7 +30,7 @@ function Section({ section }: { section: ProseSection }) {
           sub={section.sub}
         />
 
-        <div className="max-w-[760px] flex flex-col gap-4">
+        <div className="flex max-w-[560px] flex-col gap-4">
           {section.paragraphs.map((p) => (
             <p
               key={p.slice(0, 32)}
@@ -88,7 +90,7 @@ function Section({ section }: { section: ProseSection }) {
         ) : null}
 
         {section.foot ? (
-          <p className="m-0 mt-5 max-w-[760px] text-[13px] italic leading-[1.6] text-ink-3">
+          <p className="m-0 mt-5 max-w-[520px] text-[13px] italic leading-[1.6] text-ink-3">
             {section.foot}
           </p>
         ) : null}
