@@ -2,7 +2,6 @@ import { ValueStack } from "@/components/blocks/value-stack";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
-  HomeHero,
   HpHeader,
   Marquee,
   Industries,
@@ -30,6 +29,7 @@ import {
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { HeroShowcase } from "@/components/homepage/hero-showcase";
 import { WorldReach } from "@/components/homepage/world-reach";
 import { cn } from "@/components/ui";
 import Link from "next/link";
@@ -101,40 +101,84 @@ export default async function HomePage() {
       <HpHeader />
 
       <main>
-      <HomeHero
-        eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДІЯ" }}
-        h1Lines={[
-          <>Сайти будь-якої складності,</>,
-          <>
-            що приводять <em>заявки 24/7.</em>
-          </>,
-        ]}
-        lede={
-          <>
-            Проєктуємо, пишемо, розробляємо й запускаємо сайт за 4–10 тижнів.
-            Вам — лише 5 годин на ключові рішення.
-          </>
-        }
-        features={[
-          { label: "Заявки 24/7", sub: "форма + Telegram" },
-          { label: "Гарантія 1 рік", sub: "неустойка 30%" },
-        ]}
+      {/* Hero: the colour-changing showcase from the previous code-site.art
+          build. Four arguments, four real projects, three counting figures
+          each — a single static hero had to pick one argument and drop the
+          rest. Slide 1 keeps the page h1 verbatim; the others are h2. */}
+      <HeroShowcase
+        locale="uk"
         ctaPrimaryLabel="Розрахувати вартість"
         ctaPrimaryHref="/calculator"
-        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 години"
+        ctaSecondaryLabel="Безкоштовний аудит за 24 години"
         ctaSecondaryHref="/contacts?source=hero-audit"
-        stats={[
-          { num: "50+", lbl: <>проєктів за 5 років</> },
-          { num: "7", lbl: <>країн на мапі нижче</> },
-          { num: "×3.2", lbl: <>більше заявок у кейсі клініки</> },
+        slideLabelTemplate="Перейти до слайда {n}"
+        slides={[
+          {
+            id: "leads",
+            slug: "efedra-clinic",
+            theme: "green",
+            title: (
+              <>
+                Сайти будь-якої складності, що приводять{" "}
+                <em className="not-italic text-accent-soft">заявки 24/7</em>
+              </>
+            ),
+            description:
+              "Проєктуємо, пишемо, розробляємо й запускаємо сайт за 4–10 тижнів. Вам — лише 5 годин на ключові рішення.",
+            subtitle: "Заявка падає в Telegram, а не в пошту",
+            figures: [
+              { value: "×3.2", label: "більше заявок у кейсі клініки" },
+              { value: "24/7", label: "онлайн-форма + Telegram-міст" },
+              { value: "1", label: "рік гарантії після запуску" },
+            ],
+            caseLabel: "Кейс: Efedra Clinic →",
+          },
+          {
+            id: "speed",
+            slug: "nbyg-kobenhavn",
+            theme: "amber",
+            title: <>Швидкість, яку видно в Core Web Vitals</>,
+            description:
+              "Власний код без зайвих залежностей: сторінка відкривається до того, як людина встигне передумати.",
+            subtitle: "Швидкість — це позиції в пошуку",
+            figures: [
+              { value: "90+", label: "Lighthouse на продакшені" },
+              { value: "0.8s", label: "LCP у кейсі клініки" },
+              { value: "100%", label: "адаптив mobile / tablet / desktop" },
+            ],
+            caseLabel: "Кейс: NBYG København →",
+          },
+          {
+            id: "price",
+            slug: "solide-renovation",
+            theme: "violet",
+            title: <>Фікс-ціна в договорі — від $800</>,
+            description:
+              "Ви бачите суму до старту робіт і фіксуєте її. Зрив терміну з нашого боку — неустойка 30%.",
+            subtitle: "Ціна не змінюється після старту",
+            figures: [
+              { value: "$800", label: "стартова ціна лендінга" },
+              { value: "4–10", label: "тижнів від брифу до запуску" },
+              { value: "30%", label: "неустойка за зрив терміну" },
+            ],
+            caseLabel: "Кейс: Solide Renovation →",
+          },
+          {
+            id: "reach",
+            slug: "aleko-course",
+            theme: "cyan",
+            title: <>50+ проєктів у семи країнах</>,
+            description:
+              "П’ять років роботи — від лендінга до платформи з CMS та інтеграціями. Команда в Україні, клієнти в ЄС і США.",
+            subtitle: "Від лендінга до платформи з CMS",
+            figures: [
+              { value: "50+", label: "проєктів за 5 років" },
+              { value: "7", label: "країн на мапі нижче" },
+              { value: "5", label: "років студії" },
+            ],
+            caseLabel: "Кейс: Aleko Course →",
+          },
         ]}
-        deviceTags={[
-          { kind: "default", primary: "Custom code" },
-          { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "90+" },
-        ]}
-        deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
       />
 
       {/* Put visible proof before the explanatory sections. The case cards

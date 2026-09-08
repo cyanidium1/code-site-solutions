@@ -3,7 +3,6 @@ import { ValueStack } from "@/components/blocks/value-stack";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
-  HomeHero,
   HpHeader,
   Marquee,
   Industries,
@@ -32,6 +31,7 @@ import {
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { HeroShowcase } from "@/components/homepage/hero-showcase";
 import { WorldReach } from "@/components/homepage/world-reach";
 
 const HOMEPAGE_RU_DESCRIPTION =
@@ -101,42 +101,83 @@ export default async function HomePageRu() {
       <HpHeader />
 
       <main>
-      <HomeHero
-        eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДИЯ" }}
-        h1Lines={[
-          <>Сайты любой сложности,</>,
-          <>
-            которые приводят <em>заявки 24/7.</em>
-          </>,
-        ]}
-        lede={
-          <>
-            За 4–10 недель вы получаете сайт, который быстро загружается,
-            вызывает доверие с первого экрана и ранжируется в Google и
-            AI-поиске. Ваше участие — 5 часов. Остальное берём на себя.
-          </>
-        }
-        features={[
-          { label: "Заявки 24/7", sub: "форма + Telegram" },
-          { label: "Гарантия 1 год", sub: "неустойка 30%" },
-        ]}
+      {/* Hero: the colour-changing showcase from the previous code-site.art
+          build - four arguments, four real projects, three counting figures
+          each. Slide 1 keeps the page h1 verbatim; the others are h2. */}
+      <HeroShowcase
+        locale="ru"
         ctaPrimaryLabel="Обсудить проект"
         ctaPrimaryHref="/ru/contacts"
-        ctaSecondaryLabel="Бесплатный аудит сайта за 24 часа"
+        ctaSecondaryLabel="Бесплатный аудит за 24 часа"
         ctaSecondaryHref="/ru/contacts?source=hero-audit"
-        ctaFootnote="В течение 24 часов пришлём разбор: что тормозит ваш сайт, почему нет заявок и что исправить первым."
-        stats={[
-          { num: "50+", lbl: <>проектов за 5 лет</> },
-          { num: "7", lbl: <>стран на карте ниже</> },
-          { num: "×3.2", lbl: <>больше заявок в кейсе клиники</> },
+        slideLabelTemplate="Перейти к слайду {n}"
+        slides={[
+          {
+            id: "leads",
+            slug: "efedra-clinic",
+            theme: "green",
+            title: (
+              <>
+                Сайты любой сложности, которые приводят{" "}
+                <em className="not-italic text-accent-soft">заявки 24/7</em>
+              </>
+            ),
+            description:
+              "Проектируем, пишем, разрабатываем и запускаем сайт за 4–10 недель. Вам — только 5 часов на ключевые решения.",
+            subtitle: "Заявка падает в Telegram, а не в почту",
+            figures: [
+              { value: "×3.2", label: "больше заявок в кейсе клиники" },
+              { value: "24/7", label: "онлайн-форма + Telegram-мост" },
+              { value: "1", label: "год гарантии после запуска" },
+            ],
+            caseLabel: "Кейс: Efedra Clinic →",
+          },
+          {
+            id: "speed",
+            slug: "nbyg-kobenhavn",
+            theme: "amber",
+            title: <>Скорость, которую видно в Core Web Vitals</>,
+            description:
+              "Собственный код без лишних зависимостей: страница открывается раньше, чем человек успеет передумать.",
+            subtitle: "Скорость — это позиции в поиске",
+            figures: [
+              { value: "90+", label: "Lighthouse на продакшене" },
+              { value: "0.8s", label: "LCP в кейсе клиники" },
+              { value: "100%", label: "адаптив mobile / tablet / desktop" },
+            ],
+            caseLabel: "Кейс: NBYG København →",
+          },
+          {
+            id: "price",
+            slug: "solide-renovation",
+            theme: "violet",
+            title: <>Фикс-цена в договоре — от $800</>,
+            description:
+              "Вы видите сумму до старта работ и фиксируете её. Срыв срока с нашей стороны — неустойка 30%.",
+            subtitle: "Цена не меняется после старта",
+            figures: [
+              { value: "$800", label: "стартовая цена лендинга" },
+              { value: "4–10", label: "недель от брифа до запуска" },
+              { value: "30%", label: "неустойка за срыв срока" },
+            ],
+            caseLabel: "Кейс: Solide Renovation →",
+          },
+          {
+            id: "reach",
+            slug: "aleko-course",
+            theme: "cyan",
+            title: <>50+ проектов в семи странах</>,
+            description:
+              "Пять лет работы — от лендинга до платформы с CMS и интеграциями. Команда в Украине, клиенты в ЕС и США.",
+            subtitle: "От лендинга до платформы с CMS",
+            figures: [
+              { value: "50+", label: "проектов за 5 лет" },
+              { value: "7", label: "стран на карте ниже" },
+              { value: "5", label: "лет студии" },
+            ],
+            caseLabel: "Кейс: Aleko Course →",
+          },
         ]}
-        deviceTags={[
-          { kind: "default", primary: "Custom code" },
-          { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "90+" },
-        ]}
-        deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Пример сайта для бизнеса, созданного Code-Site.Art"
       />
 
       <PainPoints locale="ru" />

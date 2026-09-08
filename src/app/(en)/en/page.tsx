@@ -4,7 +4,6 @@ import { ValueStack } from "@/components/blocks/value-stack";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
-  HomeHero,
   HpHeader,
   Marquee,
   Industries,
@@ -33,6 +32,7 @@ import {
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { HeroShowcase } from "@/components/homepage/hero-showcase";
 import { WorldReach } from "@/components/homepage/world-reach";
 
 export const metadata: Metadata = {
@@ -105,41 +105,83 @@ export default async function HomePageEn() {
       <HpHeader />
 
       <main>
-      <HomeHero
-        eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
-        h1Lines={[
-          <>Websites of any complexity,</>,
-          <>built to bring in</>,
-          <em key="hero-em">leads 24/7.</em>,
-        ]}
-        lede={
-          <>
-            In 4–10 weeks you get a site that loads fast, earns trust from
-            the first screen, and ranks in Google and AI search. Your part:
-            5 hours. We handle the rest.
-          </>
-        }
-        features={[
-          { label: "Leads 24/7", sub: "form + WhatsApp" },
-          { label: "1-year warranty", sub: "30% rebate" },
-        ]}
+      {/* Hero: the colour-changing showcase from the previous code-site.art
+          build - four arguments, four real projects, three counting figures
+          each. Slide 1 keeps the page h1 verbatim; the others are h2. */}
+      <HeroShowcase
+        locale="en"
         ctaPrimaryLabel="Calculate the cost"
         ctaPrimaryHref="/en/calculator"
         ctaSecondaryLabel="Free site audit in 24 hours"
         ctaSecondaryHref="/en/contacts?source=hero-audit"
-        ctaFootnote="Within 24 hours we’ll send you a breakdown: what’s slowing your site down, why you’re not getting leads, and what to fix first."
-        stats={[
-          { num: "50+", lbl: <>projects across 5 years</> },
-          { num: "7", lbl: <>countries, mapped below</> },
-          { num: "×3.2", lbl: <>more leads in the clinic case</> },
+        slideLabelTemplate="Go to slide {n}"
+        slides={[
+          {
+            id: "leads",
+            slug: "efedra-clinic",
+            theme: "green",
+            title: (
+              <>
+                Websites of any complexity, built to bring in{" "}
+                <em className="not-italic text-accent-soft">leads 24/7</em>
+              </>
+            ),
+            description:
+              "We plan, write, build and launch your site in 4–10 weeks. Your part is five hours of decisions.",
+            subtitle: "Leads land in a messenger, not in an inbox",
+            figures: [
+              { value: "×3.2", label: "more leads in the clinic case" },
+              { value: "24/7", label: "web form + WhatsApp bridge" },
+              { value: "1", label: "year of warranty after launch" },
+            ],
+            caseLabel: "Case: Efedra Clinic →",
+          },
+          {
+            id: "speed",
+            slug: "nbyg-kobenhavn",
+            theme: "amber",
+            title: <>Speed you can see in Core Web Vitals</>,
+            description:
+              "Custom code with no needless dependencies: the page opens before a visitor can change their mind.",
+            subtitle: "Speed is a ranking factor",
+            figures: [
+              { value: "90+", label: "Lighthouse in production" },
+              { value: "0.8s", label: "LCP in the clinic case" },
+              { value: "100%", label: "responsive mobile / tablet / desktop" },
+            ],
+            caseLabel: "Case: NBYG København →",
+          },
+          {
+            id: "price",
+            slug: "solide-renovation",
+            theme: "violet",
+            title: <>A fixed price in the contract — from £800</>,
+            description:
+              "You see the number before work starts and it is fixed there. If we miss the deadline, you get a 30% rebate.",
+            subtitle: "The price does not move after kickoff",
+            figures: [
+              { value: "£800", label: "landing page, starting price" },
+              { value: "4–10", label: "weeks from brief to launch" },
+              { value: "30%", label: "rebate if we miss the date" },
+            ],
+            caseLabel: "Case: Solide Renovation →",
+          },
+          {
+            id: "reach",
+            slug: "aleko-course",
+            theme: "cyan",
+            title: <>50+ projects across seven countries</>,
+            description:
+              "Five years of work - from a landing page to a platform with a CMS and integrations. Team in Ukraine, clients in the EU and the US.",
+            subtitle: "From a landing page to a CMS platform",
+            figures: [
+              { value: "50+", label: "projects across 5 years" },
+              { value: "7", label: "countries, mapped below" },
+              { value: "5", label: "years as a studio" },
+            ],
+            caseLabel: "Case: Aleko Course →",
+          },
         ]}
-        deviceTags={[
-          { kind: "default", primary: "Custom code" },
-          { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "90+" },
-        ]}
-        deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
       />
 
       <PainPoints locale="en" />
