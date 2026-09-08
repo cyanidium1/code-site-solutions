@@ -9,7 +9,6 @@ import {
   Industries,
   BusinessValue,
   PainPoints,
-  Process,
   Cases,
   PullQuoteSwiper,
   HpFooter,
@@ -33,6 +32,7 @@ import {
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { WorldReach } from "@/components/homepage/world-reach";
 
 const HOMEPAGE_RU_DESCRIPTION =
   "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.";
@@ -117,10 +117,8 @@ export default async function HomePageRu() {
           </>
         }
         features={[
-          { label: "Заявки 24/7", sub: "онлайн-форма + Telegram-мост" },
-          { label: "4-10 недель", sub: "от брифа до запуска" },
-          { label: "Гарантия 1 год", sub: "+ неустойка 30% за срыв" },
-          { label: "Всё под ключ", sub: "тексты + дизайн + код + хостинг" },
+          { label: "Заявки 24/7", sub: "форма + Telegram" },
+          { label: "Гарантия 1 год", sub: "неустойка 30%" },
         ]}
         ctaPrimaryLabel="Обсудить проект"
         ctaPrimaryHref="/ru/contacts"
@@ -128,10 +126,9 @@ export default async function HomePageRu() {
         ctaSecondaryHref="/ru/contacts?source=hero-audit"
         ctaFootnote="В течение 24 часов пришлём разбор: что тормозит ваш сайт, почему нет заявок и что исправить первым."
         stats={[
-          { num: "50+", lbl: <>проектов<br/>за 5 лет</> },
-          { num: "7", lbl: <>стран<br/>UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>больше заявок<br/>в кейсе клиники</> },
-          { num: "30%", lbl: <>неустойка<br/>за срыв срока</> },
+          { num: "50+", lbl: <>проектов за 5 лет</> },
+          { num: "7", lbl: <>стран на карте ниже</> },
+          { num: "×3.2", lbl: <>больше заявок в кейсе клиники</> },
         ]}
         deviceTags={[
           { kind: "default", primary: "Custom code" },
@@ -177,31 +174,10 @@ export default async function HomePageRu() {
 
       <BusinessValue locale="ru" />
 
-      <Process
-        eyebrow="ПРОЦЕСС · 4-10 НЕДЕЛЬ"
-        heading={
-          <>
-            Построить. Запустить. Расти.
-            <br />
-            <em>Без шести месяцев совещаний.</em>
-          </>
-        }
-        sub={
-          <>
-            Фиксированный объём. Фиксированный срок. Фиксированная цена.{" "}
-            <span className="text-ink-3">Вы заранее знаете, что получите, когда и за сколько.</span>
-          </>
-        }
-        steps={[
-          { n: "01", name: "Бриф", duration: "1 день", items: ["Цели бизнеса", "Структура", "Анализ конкурентов"] },
-          { n: "02", name: "Архитектура", duration: "1–2 недели", items: ["Страницы", "Воронки", "SEO-структура"] },
-          { n: "03", name: "Дизайн и разработка", duration: "2–6 недель", items: ["UI", "Настройка CMS", "Интеграции"] },
-          { n: "04", name: "Тестирование", duration: "~1 неделя", items: ["QA", "Аналитика", "Редиректы"] },
-          { n: "05", name: "Запуск и поддержка", duration: "год поддержки", items: ["Мониторинг", "Гарантия 1 год", "Постоянный рост"] },
-        ]}
-        ctaLabel="Весь процесс"
-        ctaHref="/ru/process"
-      />
+      {/* Process moved off the homepage: text-only steps with no image,
+          duplicating /process, which the header, the footer and the
+          "where to start" list all link to. The homepage now spends that
+          height on the reach map instead. */}
 
       <Cases
         eyebrow="КЕЙСЫ"
@@ -216,6 +192,16 @@ export default async function HomePageRu() {
       />
 
       <Marquee label="50+ КОМПАНИЙ ДОВЕРИЛИСЬ · UA · EU · US · DK · ZA · UK · FR" />
+
+      {/* The seven-countries claim used to be 10px of text inside a hero stat
+          cell. Here it is the graphic: every pin is a real project location. */}
+      <WorldReach
+        eyebrow="ГЕОГРАФИЯ"
+        heading={<>Запускаем проекты в <em>семи странах</em></>}
+        sub="Каждая точка на карте — сайт, который мы сделали и запустили: Одесса и Киев, Копенгаген и Борнхольм, Париж, Дублин, Лондон, Тирана, Нью-Йорк, Кейптаун."
+        countries={["Украина", "Дания", "Франция", "Ирландия", "Великобритания", "Албания", "США", "ЮАР"]}
+        foot="Разница в часовых поясах не мешает: ежедневная связь в Telegram, отчёт о прогрессе — раз в неделю."
+      />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 

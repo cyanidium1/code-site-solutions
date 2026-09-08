@@ -68,45 +68,66 @@ const LEDE_CLASS =
   "lg:max-w-[440px] min-[1081px]:max-w-[460px] " +
   "2xl:mb-8";
 
+// Lozenge badges, not a bordered checklist card. The hero used to stack an
+// eyebrow, four headline lines, a three-line lede, a 2x2 feature card, two
+// full-width CTAs, a footnote and a four-cell stats bar before the fold —
+// the "overloaded" read. Badges carry the same two promises in one line.
 const FEATURES_CLASS =
-  "order-4 lg:order-none grid grid-cols-1 gap-2.5 mb-[22px] max-w-full px-4 py-3.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
-  "sm:grid-cols-2 sm:gap-x-3.5 sm:gap-y-2 sm:mb-[26px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
-  "min-[1081px]:max-w-[460px] min-[1081px]:gap-x-[18px] min-[1081px]:gap-y-2.5 " +
-  "2xl:max-w-[480px] 2xl:gap-x-6 2xl:gap-y-3 2xl:mb-9";
+  "order-4 lg:order-none flex flex-wrap gap-2 mb-5 max-w-full " +
+  "sm:gap-2.5 sm:mb-6 " +
+  "min-[1081px]:max-w-[460px]";
 
-const FEAT_CLASS = "flex items-center gap-2.5 sm:gap-3";
+const FEAT_CLASS =
+  "inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 " +
+  "bg-[oklch(1_0_0_/_0.03)]";
 
 const FEAT_CHECK_CLASS =
-  "w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 text-accent " +
-  "bg-accent-12 border border-accent-20 " +
-  "[&_svg]:w-3 [&_svg]:h-3 sm:w-[26px] sm:h-[26px] [&_svg]:sm:w-[14px] [&_svg]:sm:h-[14px]";
+  "flex h-4 w-4 shrink-0 items-center justify-center text-accent " +
+  "[&_svg]:h-3.5 [&_svg]:w-3.5";
 
-const FEAT_LABEL_CLASS =
-  "text-xs font-semibold text-ink leading-[1.2] 2xl:text-[13px]";
+const FEAT_LABEL_CLASS = "text-[12.5px] font-semibold leading-none text-ink";
 const FEAT_SUB_CLASS =
-  "text-[10px] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[11px]";
+  "text-[11px] leading-none text-ink-3 tracking-[0.01em] before:mr-1.5 before:text-ink-3 before:content-['·']";
 
 const CTA_ROW_CLASS =
   "order-2 lg:order-none flex flex-col flex-wrap gap-2.5 items-stretch mb-6 " +
   "sm:flex-row sm:gap-3 sm:items-center sm:mb-7 " +
   "2xl:mb-3.5";
 
+// Ghost pill: transparent fill, 2px rule, same pill radius as the primary.
+// Two filled buttons of equal weight gave the fold no single next step.
+const CTA_GHOST_CLASS =
+  "inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full border-2 border-line-strong px-6 " +
+  "font-sans text-[14px] font-semibold text-ink no-underline transition-[border-color,color] duration-200 " +
+  "hover:border-accent-55 hover:text-accent-soft";
+
 const CTA_FOOTNOTE_CLASS =
   "order-3 lg:order-none text-[12.5px] tracking-[0.01em] text-ink-3 m-0 mb-6 sm:mb-[30px] leading-[1.5]";
 
+// Three bordered cells with the figure set in the marker face — the one
+// move carried over wholesale from the previous code-site.art hero, where
+// the three numbers were the first thing that read as brand rather than as
+// UI. Flat surfaces, no shadow: depth comes from the accent bloom behind
+// the mockup, never from elevation.
+// Capped at 660px from 1250 up: past that breakpoint the mockup takes the
+// Figma placement and bleeds left across the text track, and a full-width
+// stats row put the third figure behind the phone.
 const STATS_CLASS =
-  "order-5 lg:order-none flex items-center gap-3 px-4 py-3.5 border border-line rounded-[14px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
-  "sm:gap-3.5 " +
-  "min-[1081px]:gap-[18px] min-[1081px]:px-5 min-[1081px]:py-4 " +
-  "2xl:gap-6 2xl:px-7 2xl:py-5 2xl:rounded-[18px]";
+  "order-5 lg:order-none grid w-full max-w-full grid-cols-3 gap-2.5 " +
+  "sm:gap-3.5 min-[1081px]:gap-4 min-[1250px]:max-w-[660px]";
 
-const STAT_CLASS = "flex-1 flex flex-col gap-1.5";
+const STAT_CLASS =
+  "flex flex-col items-center gap-1 rounded-[14px] border border-line px-2 py-4 text-center " +
+  "bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
+  "sm:px-3 sm:py-5 2xl:rounded-[18px] 2xl:py-6";
+// Marker face, numerals only. Its cap height sits low, so leading is tight
+// and the label carries the baseline.
 const STAT_NUM_CLASS =
-  "font-sans font-bold text-[16px] tracking-[-0.03em] leading-none text-ink " +
-  "sm:text-[22px] min-[1081px]:text-2xl 2xl:text-[28px]";
+  "font-marker font-medium uppercase leading-[0.9] text-ink " +
+  "text-[clamp(34px,9vw,44px)] " +
+  "sm:text-[clamp(40px,5vw,56px)] 2xl:text-[64px]";
 const STAT_LBL_CLASS =
   "text-[9px] text-ink-3 uppercase tracking-[0.08em] leading-[1.3] sm:text-[10px]";
-const STAT_DIV_CLASS = "w-px h-[30px] bg-line sm:h-10";
 
 const DEVICE_STAGE_CLASS =
   "relative w-full h-full min-w-0 [perspective:2000px] overflow-hidden lg:overflow-visible " +
@@ -222,10 +243,8 @@ function FeatureChip({ label, sub }: { label: string; sub: string }) {
           />
         </svg>
       </div>
-      <div>
-        <div className={FEAT_LABEL_CLASS}>{label}</div>
-        <div className={FEAT_SUB_CLASS}>{sub}</div>
-      </div>
+      <span className={FEAT_LABEL_CLASS}>{label}</span>
+      <span className={FEAT_SUB_CLASS}>{sub}</span>
     </div>
   );
 }
@@ -239,7 +258,7 @@ export type HomeHeroProps = {
   ctaPrimaryHref: string;
   ctaSecondaryLabel: string;
   ctaSecondaryHref: string;
-  ctaFootnote: React.ReactNode;
+  ctaFootnote?: React.ReactNode;
   stats: { num: string; lbl: React.ReactNode }[];
   deviceTags: { kind: "default" | "good"; primary: string; mini?: string }[];
   deviceMockupSrc: string;
@@ -295,22 +314,19 @@ export function HomeHero({
                 <span>{ctaPrimaryLabel}</span>
                 {ARROW_ICON}
               </Link>
-              <Link href={ctaSecondaryHref} className={btnClass("primary")}>
+              <Link href={ctaSecondaryHref} className={CTA_GHOST_CLASS}>
                 <span>{ctaSecondaryLabel}</span>
                 {SECONDARY_ARROW_ICON}
               </Link>
             </div>
-            <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p>
+            {ctaFootnote && <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p>}
 
             <div className={STATS_CLASS}>
               {stats.map((s, i) => (
-                <span key={i} className="contents">
-                  {i > 0 && <div className={STAT_DIV_CLASS} />}
-                  <div className={STAT_CLASS}>
-                    <div className={STAT_NUM_CLASS}>{s.num}</div>
-                    <div className={STAT_LBL_CLASS}>{s.lbl}</div>
-                  </div>
-                </span>
+                <div key={i} className={STAT_CLASS}>
+                  <div className={STAT_NUM_CLASS}>{s.num}</div>
+                  <div className={STAT_LBL_CLASS}>{s.lbl}</div>
+                </div>
               ))}
             </div>
           </div>

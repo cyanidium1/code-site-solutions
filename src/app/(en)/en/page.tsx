@@ -10,7 +10,6 @@ import {
   Industries,
   BusinessValue,
   PainPoints,
-  Process,
   Cases,
   Stack,
   PullQuoteSwiper,
@@ -34,6 +33,7 @@ import {
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { WorldReach } from "@/components/homepage/world-reach";
 
 export const metadata: Metadata = {
   title: "ᐈ Custom Website Development Studio | Code-Site.Art",
@@ -120,10 +120,8 @@ export default async function HomePageEn() {
           </>
         }
         features={[
-          { label: "Leads 24/7", sub: "Web form + WhatsApp bridge" },
-          { label: "4–10 weeks", sub: "Brief to launch" },
-          { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
-          { label: "End-to-end", sub: "Copy + design + code + hosting" },
+          { label: "Leads 24/7", sub: "form + WhatsApp" },
+          { label: "1-year warranty", sub: "30% rebate" },
         ]}
         ctaPrimaryLabel="Calculate the cost"
         ctaPrimaryHref="/en/calculator"
@@ -131,10 +129,9 @@ export default async function HomePageEn() {
         ctaSecondaryHref="/en/contacts?source=hero-audit"
         ctaFootnote="Within 24 hours we’ll send you a breakdown: what’s slowing your site down, why you’re not getting leads, and what to fix first."
         stats={[
-          { num: "50+", lbl: <>projects<br />across 5 years</> },
-          { num: "7", lbl: <>countries<br />UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>more leads<br />in the clinic case</> },
-          { num: "30%", lbl: <>penalty if we<br />miss the deadline</> },
+          { num: "50+", lbl: <>projects across 5 years</> },
+          { num: "7", lbl: <>countries, mapped below</> },
+          { num: "×3.2", lbl: <>more leads in the clinic case</> },
         ]}
         deviceTags={[
           { kind: "default", primary: "Custom code" },
@@ -183,31 +180,10 @@ export default async function HomePageEn() {
 
       <BusinessValue locale="en" />
 
-      <Process
-        eyebrow="PROCESS · 4-10 WEEKS"
-        heading={
-          <>
-            Build. Launch. Grow.
-            <br />
-            <em>Without six months of meetings.</em>
-          </>
-        }
-        sub={
-          <>
-            Fixed scope. Fixed timeline. Fixed price.{" "}
-            <span className="text-ink-3">You know up front what you’ll get, when, and for how much.</span>
-          </>
-        }
-        steps={[
-          { n: "01", name: "Brief", duration: "1 day", items: ["Business goals", "Structure", "Competitor analysis"] },
-          { n: "02", name: "Architecture", duration: "1–2 weeks", items: ["Pages", "Funnels", "SEO structure"] },
-          { n: "03", name: "Design & development", duration: "2–6 weeks", items: ["UI", "CMS setup", "Integrations"] },
-          { n: "04", name: "Testing", duration: "~1 week", items: ["QA", "Analytics", "Redirects"] },
-          { n: "05", name: "Launch & support", duration: "1-year support", items: ["Monitoring", "1-year warranty", "Ongoing growth"] },
-        ]}
-        ctaLabel="Full process"
-        ctaHref="/en/process"
-      />
+      {/* Process moved off the homepage: text-only steps with no image,
+          duplicating /process, which the header, the footer and the
+          "where to start" list all link to. The homepage now spends that
+          height on the reach map instead. */}
 
       <Cases
         eyebrow="CASES"
@@ -222,6 +198,16 @@ export default async function HomePageEn() {
       />
 
       <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
+
+      {/* The seven-countries claim used to be 10px of text inside a hero stat
+          cell. Here it is the graphic: every pin is a real project location. */}
+      <WorldReach
+        eyebrow="REACH"
+        heading={<>Projects shipped across <em>seven countries</em></>}
+        sub="Every dot is a site we built and launched: Odesa and Kyiv, Copenhagen and Bornholm, Paris, Dublin, London, Tirana, New York, Cape Town."
+        countries={["Ukraine", "Denmark", "France", "Ireland", "United Kingdom", "Albania", "USA", "South Africa"]}
+        foot="Time zones have not been a problem: daily contact on Telegram, a written progress report once a week."
+      />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 

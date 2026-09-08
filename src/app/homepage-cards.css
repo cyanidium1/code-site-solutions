@@ -393,12 +393,53 @@
 }
 
 /* Merged static scrim layers — ValueStack cards (vignette + accent wash +
-   dark grade; none of the three has a hover state in this block). */
+   dark grade). The grade preserves legibility while leaving enough image
+   detail visible to turn these from text tiles into visual proof points. */
 .hp-vs-scrim {
   position: absolute;
   inset: 0;
   background-image:
     radial-gradient(125% 120% at 50% -10%, transparent 45%, oklch(0.07 0 0 / 0.55) 100%),
     linear-gradient(135deg, oklch(from var(--card-accent) l c h / 0.18), transparent 55%),
-    linear-gradient(180deg, oklch(0.13 0 0 / 0.74) 0%, oklch(0.11 0 0 / 0.86) 55%, oklch(0.1 0 0 / 0.95) 100%);
+    linear-gradient(180deg, oklch(0.13 0 0 / 0.46) 0%, oklch(0.11 0 0 / 0.62) 55%, oklch(0.1 0 0 / 0.8) 100%);
+}
+
+/* ─── World-reach map pins ────────────────────────────────────────────────
+   Ten real project locations pulsing on the dotted map (world-reach.tsx).
+   Pure CSS: a staggered keyframe per pin, no client component. The halo is
+   a bloom, not a shadow — same rule the hero mockup follows. */
+.hp-map-pin-core {
+  fill: var(--color-accent-soft);
+  animation: hp-pin-core 6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: calc(var(--i) * 0.45s);
+}
+
+.hp-map-pin-halo {
+  fill: var(--color-accent);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hp-pin-halo 6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation-delay: calc(var(--i) * 0.45s);
+}
+
+@keyframes hp-pin-core {
+  0%, 100% { fill: oklch(from var(--color-accent) l c h / 0.55); }
+  8% { fill: var(--color-ink); }
+  30% { fill: var(--color-accent-soft); }
+}
+
+@keyframes hp-pin-halo {
+  0% { opacity: 0; scale: 0.4; }
+  8% { opacity: 0.5; scale: 1; }
+  40%, 100% { opacity: 0; scale: 1.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-map-pin-core,
+  .hp-map-pin-halo {
+    animation: none;
+  }
+  .hp-map-pin-core { fill: var(--color-accent-soft); }
+  .hp-map-pin-halo { opacity: 0.25; }
 }

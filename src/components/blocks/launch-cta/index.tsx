@@ -29,9 +29,20 @@ export function LaunchCta({
 
   return (
     <section
-      className={cn(hpSectionClass, "overflow-hidden")}
+      className={cn(hpSectionClass, "relative overflow-hidden")}
       aria-labelledby="launch-cta-heading"
     >
+      {/* Brand wordmark set in the marker face at display scale, ghosted into
+          the background and clipped by the section — the same move the
+          previous code-site.art build used to close its pages. Decoration
+          only: aria-hidden, and the marker face never carries real copy. */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -bottom-[0.18em] left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-marker text-[clamp(120px,26vw,420px)] font-medium uppercase leading-none text-[oklch(1_0_0_/_0.035)]"
+      >
+        Code-site.art
+      </span>
+
       <div className="relative mx-auto max-w-container grid grid-cols-[minmax(0,1fr)] items-center gap-10 min-h-0 lg:min-h-[420px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-0 xl:min-h-[480px]">
         <div className="relative z-[2] flex max-w-none flex-col gap-[18px] md:gap-6 lg:max-w-[570px]">
           <div className="flex flex-col gap-7">

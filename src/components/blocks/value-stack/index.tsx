@@ -62,12 +62,14 @@ type Copy = {
   footnote: React.ReactNode;
 };
 
-// Shared image set (locale-independent) so UK + EN stay in sync. The design
-// uses its own photo fills at 6% opacity — these read equivalently dimmed.
+// Shared image set (locale-independent) so UK + EN stay in sync. These are
+// intentionally visible, not merely texture: the section explains less when
+// each promise has a tangible visual behind it. The control card uses the
+// product's own Sanity UI rather than a generic stock photograph.
 const IMG = {
   visibility: UNSPLASH("photo-1518773553398-650c184e0bb3"),
   enquiries: UNSPLASH("photo-1480694313141-fce5e697ee25"),
-  control: UNSPLASH("photo-1562034475-0292da13283a"),
+  control: "/sanity-studio/admin-desktop.png",
   performance: UNSPLASH("photo-1501290301209-7a0323622985"),
   scalable: UNSPLASH("photo-1518112166137-85f9979a43aa"),
   analytics: UNSPLASH("photo-1551288049-bebda4e38f71"),
@@ -322,7 +324,7 @@ function CardMedia({ src, sizes }: { src: string; sizes: string }) {
         loading="lazy"
         sizes={sizes}
         quality={55}
-        className="object-cover opacity-[0.06] saturate-[0.7] scale-[1.05] transition-[scale,opacity] duration-[0.9s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/vs:scale-[1.1] group-hover/vs:opacity-[0.12]"
+        className="object-cover opacity-[0.28] saturate-[0.72] scale-[1.05] transition-[scale,opacity] duration-[0.9s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/vs:scale-[1.1] group-hover/vs:opacity-[0.4]"
       />
       {/* merged static scrim: vignette (top) + accent wash + dark grade — see homepage-cards.css */}
       <div className="hp-vs-scrim" />
@@ -486,7 +488,7 @@ export function ValueStack({
                   <h4 className="relative z-[1] mt-3 font-actay text-[13.5px] font-semibold uppercase leading-[1.2] tracking-[0.01em] text-ink sm:mt-4 sm:text-[15.5px]">
                     {card.title}
                   </h4>
-                  <p className="relative z-[1] mt-1.5 text-[12.5px] leading-[1.45] text-ink-dim [text-wrap:pretty] sm:text-[13px] sm:leading-[1.5]">
+                  <p className="relative z-[1] mt-1.5 hidden text-[12.5px] leading-[1.45] text-ink-dim [text-wrap:pretty] md:block md:text-[13px] md:leading-[1.5]">
                     {card.desc}
                   </p>
                 </div>

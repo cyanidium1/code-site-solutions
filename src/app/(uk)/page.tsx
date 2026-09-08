@@ -8,7 +8,6 @@ import {
   Industries,
   BusinessValue,
   PainPoints,
-  Process,
   Cases,
   PullQuoteSwiper,
   HpFooter,
@@ -31,6 +30,7 @@ import {
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { WorldReach } from "@/components/homepage/world-reach";
 import { cn } from "@/components/ui";
 import Link from "next/link";
 
@@ -111,27 +111,22 @@ export default async function HomePage() {
         ]}
         lede={
           <>
-            За 4–10 тижнів ви отримуєте сайт, який швидко завантажується,
-            викликає довіру з першого екрана й ранжується в Google та
-            AI-пошуку. Ваша участь — 5 годин. Решту беремо на себе.
+            Проєктуємо, пишемо, розробляємо й запускаємо сайт за 4–10 тижнів.
+            Вам — лише 5 годин на ключові рішення.
           </>
         }
         features={[
-          { label: "Заявки 24/7", sub: "онлайн-форма + Telegram-міст" },
-          { label: "4-10 тижнів", sub: "від брифу до запуску" },
-          { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
-          { label: "Все під ключ", sub: "тексти + дизайн + код + хостинг" },
+          { label: "Заявки 24/7", sub: "форма + Telegram" },
+          { label: "Гарантія 1 рік", sub: "неустойка 30%" },
         ]}
         ctaPrimaryLabel="Розрахувати вартість"
         ctaPrimaryHref="/calculator"
         ctaSecondaryLabel="Безкоштовний аудит сайту за 24 години"
         ctaSecondaryHref="/contacts?source=hero-audit"
-        ctaFootnote="Протягом 24 годин надішлемо розбір: що гальмує ваш сайт, чому немає заявок і що виправити першим."
         stats={[
-          { num: "50+", lbl: <>проєктів<br/>за 5 років</> },
-          { num: "7", lbl: <>країн<br/>UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>більше заявок<br/>у кейсі клініки</> },
-          { num: "30%", lbl: <>неустойка<br/>за зрив терміну</> },
+          { num: "50+", lbl: <>проєктів за 5 років</> },
+          { num: "7", lbl: <>країн на мапі нижче</> },
+          { num: "×3.2", lbl: <>більше заявок у кейсі клініки</> },
         ]}
         deviceTags={[
           { kind: "default", primary: "Custom code" },
@@ -142,6 +137,10 @@ export default async function HomePage() {
         deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
       />
 
+      {/* Put visible proof before the explanatory sections. The case cards
+          already carry CMS cover images, so this breaks the long run of text
+          and lets a visitor judge the work before reading the rationale. */}
+      <Cases />
       <PainPoints />
       <ValueStack />
 
@@ -167,10 +166,22 @@ export default async function HomePage() {
 
       <Industries />
       <BusinessValue />
-      <Process />
-      <Cases />
+      {/* Process moved off the homepage: five text-only steps with no
+          image, duplicating /process, which the header, the footer and
+          the "where to start" list all link to. The homepage now spends
+          that height on the reach map instead. */}
 
       <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
+
+      {/* The seven-countries claim used to be 10px of text inside a hero stat
+          cell. Here it is the graphic: every pin is a real project location. */}
+      <WorldReach
+        eyebrow="ГЕОГРАФІЯ"
+        heading={<>Запускаємо проєкти в <em>семи країнах</em></>}
+        sub="Кожна крапка на мапі — сайт, який ми зробили і запустили: Одеса й Київ, Копенгаген і Борнгольм, Париж, Дублін, Лондон, Тирана, Нью-Йорк, Кейптаун."
+        countries={["Україна", "Данія", "Франція", "Ірландія", "Велика Британія", "Албанія", "США", "ПАР"]}
+        foot="Різниця в часових поясах не заважає: щоденний зв’язок у Telegram, звіт про прогрес — раз на тиждень."
+      />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 

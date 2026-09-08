@@ -42,14 +42,14 @@ const ELLIPSE_RIGHT_CLASS = // #1729:2074 — violet, right edge
 //      corner (sampled ~white-25% there), fading out along top/left —
 //      done with the shared `glass-ring` masked-overlay utility
 const CARD_CLASS =
-  "glass-ring rounded-2xl border border-line px-5 pt-5 pb-6 sm:px-[25px] sm:pt-[25px] sm:pb-[49px] " +
+  "glass-ring rounded-2xl border border-line px-5 py-5 sm:px-[25px] sm:py-6 " +
   "bg-[linear-gradient(135deg,oklch(1_0_0/0.05)_0%,oklch(1_0_0/0.018)_45%,oklch(1_0_0/0.025)_100%)] " +
   "backdrop-blur-[12px] lg:backdrop-blur-[22px] " +
   "[--glass-ring-bg:linear-gradient(135deg,rgba(255,255,255,0.25)_0%,rgba(255,255,255,0.04)_45%,rgba(255,255,255,0)_70%)]";
 
 // Punch line — Figma #1729:2119: Actay Wide Bold 24/31.2, tracking −0.24px,
 // uppercase, Whisper, single colour (the copy's <em> is neutralized).
-const PUNCH_ROW_CLASS = "mt-7 sm:mt-10 lg:mt-[81px] flex items-center justify-center gap-8";
+const PUNCH_ROW_CLASS = "mt-8 sm:mt-10 lg:mt-12 flex items-center justify-center gap-8";
 const PUNCH_TEXT_CLASS =
   "max-w-[789px] text-center font-actay text-[20px] font-bold uppercase leading-[1.3] tracking-[-0.01em] text-ink md:text-[24px] " +
   "[&_em]:not-italic [&_em]:text-inherit";
@@ -66,6 +66,7 @@ type PainCopy = {
   heading: React.ReactNode;
   pains: { icon: LucideIcon; text: string }[];
   punch: React.ReactNode;
+  graph: { label: string; before: string; after: string; caption: string };
 };
 
 const EN: PainCopy = {
@@ -99,6 +100,12 @@ const EN: PainCopy = {
       <em>It’s that the site isn’t doing its job — bringing in leads.</em>
     </>
   ),
+  graph: {
+    label: "THE SHIFT",
+    before: "Before",
+    after: "After launch",
+    caption: "Less friction. More confident action.",
+  },
 };
 
 
@@ -133,6 +140,12 @@ const UK: PainCopy = {
       <em>Просто сайт не виконує свою роботу — не приводить заявки.</em>
     </>
   ),
+  graph: {
+    label: "ЩО ЗМІНЮЄТЬСЯ",
+    before: "До",
+    after: "Після запуску",
+    caption: "Менше сумнівів. Більше дій.",
+  },
 };
 
 const RU: PainCopy = {
@@ -166,9 +179,50 @@ const RU: PainCopy = {
       <em>Дело в том, что сайт не выполняет свою работу — не приводит заявки.</em>
     </>
   ),
+  graph: {
+    label: "ЧТО МЕНЯЕТСЯ",
+    before: "До",
+    after: "После запуска",
+    caption: "Меньше сомнений. Больше действий.",
+  },
 };
 
 const COPY_BY_LOCALE: Record<Locale, PainCopy> = { uk: UK, en: EN, ru: RU };
+
+function OutcomeGraph({ copy }: { copy: PainCopy["graph"] }) {
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-line bg-[linear-gradient(135deg,oklch(0.15_0.03_290_/_0.8),oklch(0.1_0.015_300_/_0.4))] p-5 sm:p-6">
+      <div className="flex items-center justify-between gap-4">
+        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">{copy.label}</span>
+        <span className="rounded-full border border-accent-20 bg-accent-12 px-2.5 py-1 font-mono text-[10px] text-accent">↑</span>
+      </div>
+      <svg viewBox="0 0 360 126" className="mt-3 block h-auto w-full" aria-hidden="true">
+        <defs>
+          <linearGradient id="pain-graph-fill" x1="0" x2="0" y1="0" y2="1">
+            <stop stopColor="var(--color-accent)" stopOpacity="0.42" />
+            <stop offset="1" stopColor="var(--color-accent)" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="pain-graph-stroke" x1="0" x2="1" y1="1" y2="0">
+            <stop stopColor="#7c54cd" />
+            <stop offset="1" stopColor="#e6d9ff" />
+          </linearGradient>
+        </defs>
+        <path d="M0 105H360M0 65H360M0 25H360" stroke="currentColor" strokeOpacity="0.12" strokeDasharray="3 6" />
+        <path d="M0 110C42 109 55 102 84 98C120 92 138 104 168 80C208 48 235 65 266 35C295 8 326 23 360 10V126H0Z" fill="url(#pain-graph-fill)" />
+        <path d="M0 110C42 109 55 102 84 98C120 92 138 104 168 80C208 48 235 65 266 35C295 8 326 23 360 10" fill="none" stroke="url(#pain-graph-stroke)" strokeWidth="3" strokeLinecap="round" />
+        <circle cx="360" cy="10" r="5" fill="#e6d9ff" />
+        <circle cx="360" cy="10" r="10" fill="#e6d9ff" fillOpacity="0.16" />
+      </svg>
+      <div className="mt-1 flex items-end justify-between gap-4">
+        <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-ink-3">{copy.before}</span>
+        <div className="text-right">
+          <span className="block font-mono text-[10px] uppercase tracking-[0.1em] text-accent">{copy.after}</span>
+          <span className="mt-1 block text-[12px] text-ink-dim">{copy.caption}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
   const c = COPY_BY_LOCALE[locale];
@@ -181,7 +235,7 @@ export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
     // the DOWNWARD bleed; lifting this section lets the glow overlay the
     // neighbor's top — same paint order as the Figma canvas, where these
     // ellipses sit above the surrounding frames (job #142).
-    <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="pains">
+    <section className={`${hpSectionClass} !py-10 sm:!py-12 lg:!py-16 overflow-x-clip z-[2]`} id="pains">
       <div className={hpDecorFadeClass}>
         <div className={DECOR_STAGE_CLASS}>
           <div className={ELLIPSE_LEFT_CLASS} aria-hidden="true" />
@@ -189,26 +243,29 @@ export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
         </div>
       </div>
       <div className={hpInnerClass}>
-        <SectionHead eyebrow={c.eyebrow} heading={c.heading} />
-        <ScrollReveal>
-          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.2fr)] lg:gap-10 xl:gap-16">
+          <div className="flex flex-col">
+            <SectionHead eyebrow={c.eyebrow} heading={c.heading} />
+            <OutcomeGraph copy={c.graph} />
+          </div>
+          <ScrollReveal className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4">
             {c.pains.map(({ icon: Icon, text }) => (
               <div key={text} className={CARD_CLASS}>
-                <span className="inline-flex size-11 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.04)] text-ink-dim">
-                  <Icon size={20} strokeWidth={1.5} />
+                <span className="inline-flex size-10 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.04)] text-ink-dim">
+                  <Icon size={19} strokeWidth={1.5} />
                 </span>
-                <p className="mt-4 text-[15px] leading-[1.6] text-ink-dim [text-wrap:pretty]">
+                <p className="mt-3 text-[14px] leading-[1.55] text-ink-dim [text-wrap:pretty]">
                   {text}
                 </p>
               </div>
             ))}
-          </div>
-          <div className={PUNCH_ROW_CLASS}>
-            <GradientRule className={PUNCH_RULE_CLASS} />
-            <p className={PUNCH_TEXT_CLASS}>{c.punch}</p>
-            <GradientRule className={PUNCH_RULE_CLASS} flip />
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
+        <div className={PUNCH_ROW_CLASS}>
+          <GradientRule className={PUNCH_RULE_CLASS} />
+          <p className={PUNCH_TEXT_CLASS}>{c.punch}</p>
+          <GradientRule className={PUNCH_RULE_CLASS} flip />
+        </div>
       </div>
     </section>
   );

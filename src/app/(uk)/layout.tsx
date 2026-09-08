@@ -40,6 +40,19 @@ const actay = localFont({
   preload: true,
 });
 
+// Numerals only. The brand's marker face — same file the previous
+// code-site.art build used for its hero figures and prices — carries the
+// stat numbers so a headline number reads as a mark, not as body copy.
+// Never set prose or headings in it.
+const marker = localFont({
+  src: [
+    { path: "../../../public/fonts/GuanoApes.woff2", weight: "500", style: "normal" },
+  ],
+  variable: "--font-marker",
+  display: "swap",
+  preload: true,
+});
+
 export const metadata: Metadata = {
   title: "ᐈ Веб-студія Code-Site.Art — замовити сайт від $800",
   description:
@@ -102,7 +115,7 @@ export default async function UkRootLayout({
     <html
       lang={LOCALE_CONFIG.uk.htmlLang}
       suppressHydrationWarning
-      className={`${manrope.variable} ${jetbrains.variable} ${actay.variable}`}
+      className={`${manrope.variable} ${jetbrains.variable} ${actay.variable} ${marker.variable}`}
     >
       <body className="font-sans bg-bg text-ink antialiased overflow-x-clip">
         <ConsentBootstrap />

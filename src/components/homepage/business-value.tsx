@@ -13,11 +13,28 @@ import {
 } from "lucide-react";
 
 import type { PriceLocale } from "@/lib/shared/format-price";
+import { AppImage } from "@/lib/shared/app-image";
 import { SectionHead } from "@/components/shared/section-head";
 import { hpInnerClass, hpSectionClass, hpDecorFadeClass } from "@/components/homepage/shared";
 import { ScrollReveal } from "./scroll-reveal";
 
 type BizVisualKind = "deal" | "control" | "cms" | "seo" | "launch" | "support";
+
+const UNSPLASH = (id: string) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=60`;
+
+// The earlier version treated these as six text tiles. Each proof point now
+// gets a real, relevant visual; the CMS view is our own interface rather than
+// a stock substitute. A dark grade keeps the copy legible without flattening
+// the photography into decorative noise.
+const CARD_MEDIA: Record<BizVisualKind, string> = {
+  deal: UNSPLASH("photo-1521791055366-0d553872125f"),
+  control: UNSPLASH("photo-1556761175-b413da4baf72"),
+  cms: "/sanity-studio/admin-desktop.png",
+  seo: UNSPLASH("photo-1551288049-bebda4e38f71"),
+  launch: "/home/launch-cta-devices.webp",
+  support: UNSPLASH("photo-1521737711867-e3b97375f902"),
+};
 
 type BizCard = {
   icon: LucideIcon;
@@ -341,6 +358,23 @@ function BizVisual({ kind, locale }: { kind: BizVisualKind; locale: PriceLocale 
   }
 }
 
+function CardPhoto({ kind }: { kind: BizVisualKind }) {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <AppImage
+        src={CARD_MEDIA[kind]}
+        alt=""
+        fill
+        loading="lazy"
+        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        quality={60}
+        className="object-cover scale-[1.03] opacity-[0.26] saturate-[0.72] transition-[scale,opacity] duration-700 group-hover/biz-card:scale-[1.08] group-hover/biz-card:opacity-[0.38]"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(145deg,oklch(0.12_0_0_/_0.42)_0%,oklch(0.1_0_0_/_0.78)_75%,oklch(0.09_0_0_/_0.9)_100%)]" />
+    </div>
+  );
+}
+
 // ─── Decor (Figma #1729:2459's two overlapping siblings) ──────────────
 // Stage mirrors the content container so fixed-px design offsets hold at
 // every viewport (hero lesson, job #138). Coordinates are container-relative
@@ -478,6 +512,7 @@ export function BusinessValue({
                 // eslint-disable-next-line react/forbid-dom-props -- per-card accent + stagger-index CSS vars
                 style={{ "--card-accent": VIOLET, "--i": i } as React.CSSProperties}
               >
+                <CardPhoto kind={c.visual} />
                 <Ghost
                   size={120}
                   strokeWidth={1.1}
