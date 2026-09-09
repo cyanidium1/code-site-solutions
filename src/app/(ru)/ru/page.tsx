@@ -123,6 +123,11 @@ export default async function HomePageRu() {
         deviceMockupAlt="Пример сайта для бизнеса, созданного Code-Site.Art"
       />
 
+      {/* Second block on purpose: the fold no longer carries a stats bar,
+          so the reach claim lands here — a moving line of proof between
+          the offer and the first argument. */}
+      <Marquee label="50+ КОМПАНИЙ ДОВЕРИЛИСЬ · UA · EU · US · DK · ZA · UK · FR" />
+
       <PainPoints locale="ru" />
       <ValueStack locale="ru" />
 
@@ -195,8 +200,6 @@ export default async function HomePageRu() {
         ctaLabel="Все кейсы"
         ctaHref="/ru/portfolio"
       />
-
-      <Marquee label="50+ КОМПАНИЙ ДОВЕРИЛИСЬ · UA · EU · US · DK · ZA · UK · FR" />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 

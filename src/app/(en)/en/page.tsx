@@ -126,6 +126,11 @@ export default async function HomePageEn() {
         deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
       />
 
+      {/* Second block on purpose: the fold no longer carries a stats bar,
+          so the reach claim lands here — a moving line of proof between
+          the offer and the first argument. */}
+      <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
+
       <PainPoints locale="en" />
 
       <ValueStack locale="en" />
@@ -201,8 +206,6 @@ export default async function HomePageEn() {
         ctaLabel="All cases"
         ctaHref="/en/portfolio"
       />
-
-      <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 
