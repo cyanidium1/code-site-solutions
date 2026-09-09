@@ -106,41 +106,22 @@ export default async function HomePageEn() {
 
       <main>
       <HomeHero
-        eyebrow={{ label: "CODE-SITE.ART · BOUTIQUE STUDIO" }}
         h1Lines={[
           <>Websites of any complexity,</>,
           <>built to bring in</>,
           <em key="hero-em">leads 24/7.</em>,
         ]}
-        lede={
-          <>
-            In 4–10 weeks you get a site that loads fast, earns trust from
-            the first screen, and ranks in Google and AI search. Your part:
-            5 hours. We handle the rest.
-          </>
-        }
+        lede={<>A turnkey site in 4–10 weeks: design, build, SEO and launch.</>}
         features={[
-          { label: "Leads 24/7", sub: "Web form + WhatsApp bridge" },
+          { label: "Leads 24/7", sub: "Web forms + WhatsApp bridge" },
           { label: "4–10 weeks", sub: "Brief to launch" },
-          { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
-          { label: "End-to-end", sub: "Copy + design + code + hosting" },
+          { label: "1-year warranty", sub: "+ free support" },
         ]}
         ctaPrimaryLabel="Calculate the cost"
         ctaPrimaryHref="/en/calculator"
         ctaSecondaryLabel="Free site audit in 24 hours"
         ctaSecondaryHref="/en/contacts?source=hero-audit"
-        ctaFootnote="Within 24 hours we’ll send you a breakdown: what’s slowing your site down, why you’re not getting leads, and what to fix first."
-        stats={[
-          { num: "50+", lbl: <>projects<br />across 5 years</> },
-          { num: "7", lbl: <>countries<br />UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>more leads<br />in the clinic case</> },
-          { num: "30%", lbl: <>penalty if we<br />miss the deadline</> },
-        ]}
-        deviceTags={[
-          { kind: "default", primary: "Custom code" },
-          { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "90+" },
-        ]}
+        ctaFootnote="A site breakdown within 24 hours: what is broken, where the growth is, and what to fix first."
         deviceMockupSrc="/hero/hero-mockup.webp"
         deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
       />

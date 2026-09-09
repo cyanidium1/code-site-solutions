@@ -102,42 +102,23 @@ export default async function HomePage() {
 
       <main>
       <HomeHero
-        eyebrow={{ label: "CODE-SITE.ART · БУТИК-СТУДІЯ" }}
         h1Lines={[
           <>Сайти будь-якої складності,</>,
           <>
             що приводять <em>заявки 24/7.</em>
           </>,
         ]}
-        lede={
-          <>
-            За 4–10 тижнів ви отримуєте сайт, який швидко завантажується,
-            викликає довіру з першого екрана й ранжується в Google та
-            AI-пошуку. Ваша участь — 5 годин. Решту беремо на себе.
-          </>
-        }
+        lede={<>Сайт під ключ за 4–10 тижнів: дизайн, розробка, SEO та запуск.</>}
         features={[
-          { label: "Заявки 24/7", sub: "онлайн-форма + Telegram-міст" },
-          { label: "4-10 тижнів", sub: "від брифу до запуску" },
-          { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
-          { label: "Все під ключ", sub: "тексти + дизайн + код + хостинг" },
+          { label: "Заявки 24/7", sub: "Онлайн-форми + Telegram-міст" },
+          { label: "4–10 тижнів", sub: "Від брифу до запуску" },
+          { label: "Гарантія 1 рік", sub: "+ безкоштовна підтримка" },
         ]}
         ctaPrimaryLabel="Розрахувати вартість"
         ctaPrimaryHref="/calculator"
         ctaSecondaryLabel="Безкоштовний аудит сайту за 24 години"
         ctaSecondaryHref="/contacts?source=hero-audit"
-        ctaFootnote="Протягом 24 годин надішлемо розбір: що гальмує ваш сайт, чому немає заявок і що виправити першим."
-        stats={[
-          { num: "50+", lbl: <>проєктів<br/>за 5 років</> },
-          { num: "7", lbl: <>країн<br/>UA · EU · US · DK · ZA · UK · FR</> },
-          { num: "×3.2", lbl: <>більше заявок<br/>у кейсі клініки</> },
-          { num: "30%", lbl: <>неустойка<br/>за зрив терміну</> },
-        ]}
-        deviceTags={[
-          { kind: "default", primary: "Custom code" },
-          { kind: "default", primary: "TypeScript", mini: "5.7" },
-          { kind: "good", primary: "Lighthouse", mini: "90+" },
-        ]}
+        ctaFootnote="Розбір сайту протягом 24 годин: проблеми, точки росту та перші кроки."
         deviceMockupSrc="/hero/hero-mockup.webp"
         deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
       />

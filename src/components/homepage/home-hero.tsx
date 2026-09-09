@@ -8,11 +8,12 @@ import { btnClass, H1 } from "@/components/ui";
    redesign; audit: docs/home-hero-figma-audit.md, plan:
    docs/superpowers/plans/2026-08-01-home-hero-rebuild.md).
 
-   Phase 0 is a ZERO-VISUAL-CHANGE visual copy: every class string below is
-   verbatim from blocks/hero/index.tsx, with the home pages' fixed prop
-   values hardcoded (secondary CTA = primary style, homepage mockup
-   placement 1700×1674, no ticker/eyebrow-em/h1Num/compare/Sanity paths).
-   The Figma rebuild replaces this file's internals in the next PR.
+   2026-09-09 — the fold was carrying nine things: a studio badge, four
+   headline lines, a four-line lede, a 2x2 checklist, two identical filled
+   buttons, a footnote, a four-cell stats bar and three technical pills over
+   the mockup. Everything below is the same visual language with the noise
+   taken out: offer → one-line explanation → three proofs → one CTA → one
+   quiet fallback → the mockup. Nothing was added to replace what went.
    ─────────────────────────────────────────────────────────────────── */
 
 // Fixed page backdrop: dual accent radials + linear base, plus the grain
@@ -22,8 +23,12 @@ const HERO_BG_CLASS =
   "fixed inset-0 z-0 pointer-events-none " +
   "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg)_100%)]";
 
+// `pt-6` below sm replaces the clearance the studio badge used to provide:
+// with the badge gone the H1 is the first element of the column and its cap
+// line landed exactly on the floating header's bottom edge (measured at 375:
+// header bottom 68, H1 top 68).
 const HERO_SHELL_CLASS =
-  "relative z-[5] pt-0 pb-9 px-6 sm:px-8 sm:pt-8 sm:pb-14 lg:px-12 2xl:pt-6 2xl:pb-[60px]";
+  "relative z-[5] pt-6 pb-9 px-6 sm:px-8 sm:pt-10 sm:pb-14 lg:px-12 2xl:pt-6 2xl:pb-[60px]";
 
 // lg–xl: a 3fr/2fr split. The Figma `minmax(0,1000px)` text track only
 // leaves the mockup a real column from ~1200px up; below that it starved the
@@ -38,19 +43,12 @@ const HERO_GRID_CLASS =
   "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:grid-rows-none lg:gap-[22px] lg:min-h-[clamp(560px,80vh,720px)] " +
   "min-[1081px]:gap-7 min-[1250px]:grid-cols-[minmax(0,1000px)_minmax(0,1fr)] 2xl:gap-12";
 
-// Mobile (< sm) is a flex column so the children can be re-ordered with
-// `order-*`: eyebrow → H1 → lede → CTAs → footnote → features → stats, then
-// the device mockup (grid row 2). Audit 2026-09-06, C3: with the mockup
-// first the H1 started at 395px and the first CTA at 837px on a 844px
-// viewport — nothing actionable above the fold.
+// Mobile (< lg) is a flex column so the children can be re-ordered with
+// `order-*`: H1 → lede → CTA → footnote → features, then the device mockup
+// (grid row 2). Audit 2026-09-06, C3: with the mockup first the H1 started
+// at 395px and the first CTA at 837px on a 844px viewport — nothing
+// actionable above the fold.
 const HERO_LEFT_CLASS = "relative z-[4] flex flex-col lg:block";
-
-const EYEBROW_CLASS =
-  "self-start inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 border border-line-strong rounded-full text-[10px] font-medium tracking-[0.1em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] backdrop-blur-[8px] mb-[18px] " +
-  "sm:gap-2.5 sm:pl-3 sm:pr-3.5 sm:py-2 sm:text-[11px] sm:tracking-[0.12em] sm:mb-8";
-
-const EYEBROW_DOT_CLASS =
-  "w-[5px] h-[5px] rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] sm:w-1.5 sm:h-1.5";
 
 const HERO_H1_CLASS =
   "text-ink m-0 mb-[18px] sm:mb-7 " +
@@ -68,45 +66,55 @@ const LEDE_CLASS =
   "lg:max-w-[440px] min-[1081px]:max-w-[460px] " +
   "2xl:mb-8";
 
+// Three proofs in one row, not four in a 2x2 block. The fourth ("everything
+// end-to-end") only restated the lede, and the square grid read as a second
+// paragraph rather than as evidence. Mobile keeps the bordered card: it is
+// what groups three short facts on a narrow screen.
+// The margin lives at lg only — below it `order-4` makes this the last block
+// of the column, where a bottom margin is just trailing air.
 const FEATURES_CLASS =
-  "order-4 lg:order-none grid grid-cols-1 gap-2.5 mb-[22px] max-w-full px-4 py-3.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
-  "sm:grid-cols-2 sm:gap-x-3.5 sm:gap-y-2 sm:mb-[26px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
-  "min-[1081px]:max-w-[460px] min-[1081px]:gap-x-[18px] min-[1081px]:gap-y-2.5 " +
-  "2xl:max-w-[480px] 2xl:gap-x-6 2xl:gap-y-3 2xl:mb-9";
+  "order-4 lg:order-none grid grid-cols-1 gap-2 mb-0 max-w-full px-3.5 py-3 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
+  "sm:grid-cols-3 sm:gap-x-3.5 sm:gap-y-0 sm:max-w-[560px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
+  "lg:mb-7 " +
+  "min-[1081px]:max-w-[480px] min-[1081px]:gap-x-4 " +
+  "2xl:max-w-[520px] 2xl:gap-x-5 2xl:mb-9";
 
-const FEAT_CLASS = "flex items-center gap-2.5 sm:gap-3";
+// Top-aligned from sm up: in three columns the sub line wraps, and centring
+// then floated the tick against a two-line block.
+const FEAT_CLASS = "flex items-center gap-2.5 sm:items-start sm:gap-2.5";
 
 const FEAT_CHECK_CLASS =
-  "w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 text-accent " +
+  "w-[18px] h-[18px] rounded-full flex items-center justify-center shrink-0 text-accent " +
   "bg-accent-12 border border-accent-20 " +
-  "[&_svg]:w-3 [&_svg]:h-3 sm:w-[26px] sm:h-[26px] [&_svg]:sm:w-[14px] [&_svg]:sm:h-[14px]";
+  "[&_svg]:w-2.5 [&_svg]:h-2.5 sm:w-5 sm:h-5 sm:mt-px [&_svg]:sm:w-3 [&_svg]:sm:h-3";
 
 const FEAT_LABEL_CLASS =
   "text-xs font-semibold text-ink leading-[1.2] 2xl:text-[13px]";
 const FEAT_SUB_CLASS =
-  "text-[10px] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[11px]";
+  "text-[10px] leading-[1.35] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[11px]";
 
 const CTA_ROW_CLASS =
-  "order-2 lg:order-none flex flex-col flex-wrap gap-2.5 items-stretch mb-6 " +
-  "sm:flex-row sm:gap-3 sm:items-center sm:mb-7 " +
-  "2xl:mb-3.5";
+  "order-2 lg:order-none flex flex-col flex-wrap gap-3 items-stretch mb-4 " +
+  "sm:flex-row sm:gap-5 sm:items-center " +
+  "2xl:mb-5";
 
+// Text link, not a second pill. Two filled buttons of equal weight gave the
+// fold two "next steps" and therefore none — the audit is the fallback for a
+// visitor who is not ready to price a project yet. `min-h-11` keeps the 44px
+// touch target the pill gets from btnClass.
+const CTA_SECONDARY_CLASS =
+  "inline-flex min-h-11 items-center gap-2 self-start " +
+  "font-sans text-[13px] font-medium text-ink-dim no-underline " +
+  "transition-colors duration-200 hover:text-ink " +
+  "[&_svg]:transition-transform [&_svg]:duration-[0.25s] [&_svg]:ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
+  "hover:[&_svg]:translate-x-1";
+
+// Sits directly under the CTA pair and explains only the audit offer, so it
+// keeps a short measure. Last block of the column at lg — no bottom margin
+// there; below lg `order-3` puts the features after it.
 const CTA_FOOTNOTE_CLASS =
-  "order-3 lg:order-none text-[12.5px] tracking-[0.01em] text-ink-3 m-0 mb-6 sm:mb-[30px] leading-[1.5]";
-
-const STATS_CLASS =
-  "order-5 lg:order-none flex items-center gap-3 px-4 py-3.5 border border-line rounded-[14px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
-  "sm:gap-3.5 " +
-  "min-[1081px]:gap-[18px] min-[1081px]:px-5 min-[1081px]:py-4 " +
-  "2xl:gap-6 2xl:px-7 2xl:py-5 2xl:rounded-[18px]";
-
-const STAT_CLASS = "flex-1 flex flex-col gap-1.5";
-const STAT_NUM_CLASS =
-  "font-sans font-bold text-[16px] tracking-[-0.03em] leading-none text-ink " +
-  "sm:text-[22px] min-[1081px]:text-2xl 2xl:text-[28px]";
-const STAT_LBL_CLASS =
-  "text-[9px] text-ink-3 uppercase tracking-[0.08em] leading-[1.3] sm:text-[10px]";
-const STAT_DIV_CLASS = "w-px h-[30px] bg-line sm:h-10";
+  "order-3 lg:order-none max-w-[440px] text-[12px] tracking-[0.01em] text-ink-3 m-0 mb-6 leading-[1.5] " +
+  "sm:mb-7 lg:mb-0";
 
 const DEVICE_STAGE_CLASS =
   "relative w-full h-full min-w-0 [perspective:2000px] overflow-hidden lg:overflow-visible " +
@@ -123,37 +131,6 @@ const DEVICE_GRID_CLASS =
   "bg-[size:24px_24px] " +
   "[mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)] " +
   "[-webkit-mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)]";
-
-// The pills are positioned in percentages of the device stage, but the
-// mockup only fills that stage once the Figma placement kicks in. Below
-// that they floated on empty background — above the laptop on the sub-lg
-// band, under it at 800-1100, half off-screen at 1100-1250 (design audit
-// 2026-09-07).
-const DEVICE_TAG_CLASS =
-  "hidden absolute z-[5] px-[11px] py-1.5 backdrop-blur-[12px] border border-line-strong rounded-full text-[10px] font-medium text-ink items-center gap-2 tracking-[0.02em] " +
-  "bg-[oklch(0.22_0.008_60_/_0.85)] shadow-[0_4px_16px_oklch(0_0_0_/_0.4)] animate-float " +
-  "min-[1250px]:inline-flex " +
-  "2xl:text-[11px] 2xl:px-3.5 2xl:py-2";
-
-const DEVICE_TAG_POSITIONS: { style: React.CSSProperties; className: string }[] = [
-  {
-    style: { top: "12%", left: "2%", animationDelay: "0s" },
-    className: "!top-[8%] !left-[2%] min-[1081px]:!left-[4%] 2xl:!top-[12%] 2xl:!left-[2%]",
-  },
-  {
-    style: { top: "22%", left: "60%", animationDelay: "-2s" },
-    className: "min-[1250px]:!hidden 2xl:!inline-flex",
-  },
-  {
-    style: { bottom: "28%", left: "40%", animationDelay: "-4s" },
-    className: "!bottom-[22%] !left-[36%] min-[1081px]:!left-[38%] 2xl:!bottom-[28%] 2xl:!left-[40%]",
-  },
-];
-
-const DT_DOT_CLASS =
-  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_6px_var(--color-accent)]";
-const DT_MINI_CLASS = "font-mono text-[10px] text-ink-3";
-const DT_GOOD_CLASS = "text-accent";
 
 const MOCKUP_CLASS =
   "absolute w-[134%] top-[-40px] left-[-54px] lg:inset-0 flex items-center justify-center z-[2] pointer-events-none overflow-visible";
@@ -231,7 +208,6 @@ function FeatureChip({ label, sub }: { label: string; sub: string }) {
 }
 
 export type HomeHeroProps = {
-  eyebrow: { label: string };
   h1Lines: React.ReactNode[];
   lede: React.ReactNode;
   features: { label: string; sub: string }[];
@@ -240,14 +216,11 @@ export type HomeHeroProps = {
   ctaSecondaryLabel: string;
   ctaSecondaryHref: string;
   ctaFootnote: React.ReactNode;
-  stats: { num: string; lbl: React.ReactNode }[];
-  deviceTags: { kind: "default" | "good"; primary: string; mini?: string }[];
   deviceMockupSrc: string;
   deviceMockupAlt: string;
 };
 
 export function HomeHero({
-  eyebrow,
   h1Lines,
   lede,
   features,
@@ -256,8 +229,6 @@ export function HomeHero({
   ctaSecondaryLabel,
   ctaSecondaryHref,
   ctaFootnote,
-  stats,
-  deviceTags,
   deviceMockupSrc,
   deviceMockupAlt,
 }: HomeHeroProps) {
@@ -269,11 +240,6 @@ export function HomeHero({
       <div className={HERO_SHELL_CLASS}>
         <div className={HERO_GRID_CLASS}>
           <div className={HERO_LEFT_CLASS}>
-            <div className={EYEBROW_CLASS}>
-              <span className={EYEBROW_DOT_CLASS} />
-              <span>{eyebrow.label}</span>
-            </div>
-
             <H1 variant="hp" className={HERO_H1_CLASS} data-speakable="hero-title">
               {h1Lines.map((line, i) => (
                 <span key={i} className={H1_LINE_CLASS}>
@@ -295,24 +261,12 @@ export function HomeHero({
                 <span>{ctaPrimaryLabel}</span>
                 {ARROW_ICON}
               </Link>
-              <Link href={ctaSecondaryHref} className={btnClass("primary")}>
+              <Link href={ctaSecondaryHref} className={CTA_SECONDARY_CLASS}>
                 <span>{ctaSecondaryLabel}</span>
                 {SECONDARY_ARROW_ICON}
               </Link>
             </div>
             <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p>
-
-            <div className={STATS_CLASS}>
-              {stats.map((s, i) => (
-                <span key={i} className="contents">
-                  {i > 0 && <div className={STAT_DIV_CLASS} />}
-                  <div className={STAT_CLASS}>
-                    <div className={STAT_NUM_CLASS}>{s.num}</div>
-                    <div className={STAT_LBL_CLASS}>{s.lbl}</div>
-                  </div>
-                </span>
-              ))}
-            </div>
           </div>
 
           <div className={HERO_RIGHT_CLASS}>
@@ -332,27 +286,6 @@ export function HomeHero({
                   className={`${MOCKUP_IMG_CLASS} ${MOCKUP_IMG_HOMEPAGE_CLASS}`}
                 />
               </div>
-              {deviceTags.map((t, i) => {
-                const pos = DEVICE_TAG_POSITIONS[i] ?? DEVICE_TAG_POSITIONS[0];
-                return (
-                  <div
-                    key={i}
-                    className={`${DEVICE_TAG_CLASS} ${pos.className}`}
-                    // eslint-disable-next-line react/forbid-dom-props -- per-pill top/left/animation-delay are dynamic position offsets that cannot be expressed as static utilities
-                    style={pos.style}
-                  >
-                    {i === 0 && <span className={DT_DOT_CLASS} />}
-                    <span>{t.primary}</span>
-                    {t.mini && (
-                      <span
-                        className={`${DT_MINI_CLASS}${t.kind === "good" ? ` ${DT_GOOD_CLASS}` : ""}`}
-                      >
-                        {t.mini}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
             </div>
           </div>
         </div>
