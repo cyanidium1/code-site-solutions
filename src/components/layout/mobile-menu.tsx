@@ -52,9 +52,11 @@ export function MobileMenu() {
   const [hasOpened, setHasOpened] = useState(false);
   const t = useTranslations("Nav");
 
-  const openMenu = useCallback(() => {
+  // Кнопка перемикає: іконка морфиться у хрестик, тож тап по ній при
+  // відкритому меню має закривати, а не «відкривати ще раз».
+  const toggleMenu = useCallback(() => {
     setHasOpened(true);
-    setIsOpen(true);
+    setIsOpen((v) => !v);
   }, []);
   const closeMenu = useCallback(() => setIsOpen(false), []);
 
@@ -65,7 +67,7 @@ export function MobileMenu() {
         className={burgerBtnClass}
         aria-label={t("menuLabel")}
         aria-expanded={isOpen}
-        onClick={openMenu}
+        onClick={toggleMenu}
       >
         <BurgerIcon open={isOpen} />
       </button>
