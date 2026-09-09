@@ -68,12 +68,13 @@ function useDialogSync(
     dialog.setAttribute("data-closing", "");
     closeTimer.current = setTimeout(() => {
       closeTimer.current = null;
-      // `data-closing` НЕ знімаємо тут. У переході є `overlay` з
-      // allow-discrete, тож після close() елемент ще лишається у top layer
-      // на час анімації. Якщо зняти атрибут до close(), панель на цей час
-      // повертається у видимий стан — і користувач бачить, як меню блимає
-      // вже після того, як закрив його. Атрибут знімає обробник `close`,
-      // коли ховати вже нічого.
+      // `data-closing` тримається аж до наступного showModal() — знімати його
+      // тут (чи в обробнику `close`) не можна. У transition-property є
+      // `display` і `overlay` з allow-discrete, тож після close() елемент
+      // лишається у top layer ще на весь exitMs. Без атрибута панель на цей
+      // час повертається у translate-x-0 і в'їжджає назад — уже порожня, бо
+      // дітей знято разом з isPresent. Саме це й виглядало як «меню
+      // закрилося, блимнуло без тексту й закрилося ще раз».
       dialog.close();
     }, exitMs);
   }, [ref, exitMs]);
@@ -81,15 +82,28 @@ function useDialogSync(
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
-    if (isOpen && !dialog.open) {
-      dialog.removeAttribute("data-closing");
-      dialog.showModal();
+    if (isOpen) {
+      if (dialog.open) {
+        // Відкрили назад посеред анімації виходу: скасовуємо відкладений
+        // close(), інакше він спрацює вже поверх нового відкриття.
+        if (closeTimer.current) {
+          clearTimeout(closeTimer.current);
+          closeTimer.current = null;
+        }
+        dialog.removeAttribute("data-closing");
+      } else {
+        dialog.removeAttribute("data-closing");
+        dialog.showModal();
+      }
+      // Замок перевіряємо окремо від showModal(): у StrictMode ефект
+      // монтується двічі, і його cleanup встигає зняти замок з уже
+      // відкритого діалогу. Друге проходження по гілці showModal не йде.
       if (!locked.current) {
         locked.current = true;
         lockScroll();
       }
       setIsPresent(true);
-    } else if (!isOpen && dialog.open) {
+    } else if (dialog.open) {
       requestClose();
     }
   }, [isOpen, ref, requestClose]);
@@ -104,7 +118,6 @@ function useDialogSync(
     };
     // Native close (any path) → report state up.
     const onClose = () => {
-      dialog.removeAttribute("data-closing");
       if (locked.current) {
         locked.current = false;
         unlockScroll();
@@ -117,7 +130,12 @@ function useDialogSync(
     return () => {
       dialog.removeEventListener("cancel", onCancel);
       dialog.removeEventListener("close", onClose);
-      if (closeTimer.current) clearTimeout(closeTimer.current);
+      if (closeTimer.current) {
+        clearTimeout(closeTimer.current);
+        // Обнуляємо: інакше requestClose назавжди вилітає на перевірці
+        // `closeTimer.current` і діалог більше не закриється.
+        closeTimer.current = null;
+      }
       if (locked.current) {
         locked.current = false;
         unlockScroll();
@@ -175,7 +193,7 @@ const MODAL_BASE =
   // Entry/exit: fade + slight scale. @starting-style drives the entry.
   "opacity-100 scale-100 transition-[opacity,transform,display,overlay] duration-200 transition-discrete " +
   "starting:opacity-0 starting:scale-95 " +
-  "data-[closing]:opacity-0 data-[closing]:scale-95 " +
+  "data-[closing]:opacity-0 data-[closing]:scale-95 data-[closing]:pointer-events-none " +
   "backdrop:transition-opacity backdrop:duration-200 starting:backdrop:opacity-0 data-[closing]:backdrop:opacity-0 " +
   "motion-reduce:transition-none motion-reduce:backdrop:transition-none";
 
@@ -273,7 +291,7 @@ const DRAWER_BASE =
   "open:flex " +
   "translate-x-0 transition-[translate,transform,display,overlay] duration-300 ease-out transition-discrete " +
   "starting:translate-x-full " +
-  "data-[closing]:translate-x-full " +
+  "data-[closing]:translate-x-full data-[closing]:pointer-events-none " +
   "backdrop:transition-opacity backdrop:duration-300 starting:backdrop:opacity-0 data-[closing]:backdrop:opacity-0 " +
   "motion-reduce:transition-none motion-reduce:backdrop:transition-none";
 
