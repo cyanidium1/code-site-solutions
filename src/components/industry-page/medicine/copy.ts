@@ -237,3 +237,92 @@ export const MED_COPY: Record<Locale, MedCopy> = {
     },
   },
 };
+
+/* ─── Pricing sheet ───────────────────────────────────────────────────────
+   What the base price actually buys. The numbers themselves are NOT here —
+   they come from `industryCalcContent("medicine", locale)`, the same source
+   the calculator reads, so the sheet and the calculator can never disagree.
+   This list only names the scope; every line is covered by the calculator's
+   own base note or by the turnkey scope text further down the page. */
+
+export type MedPricingCopy = {
+  label: string;
+  heading: string;
+  lede: string;
+  baseCaption: string;
+  includedCaption: string;
+  optionsCaption: string;
+  extraPageNote: (unit: string, max: number) => string;
+  included: string[];
+  foot: string;
+  ctaLabel: string;
+};
+
+export const MED_PRICING: Record<Locale, MedPricingCopy> = {
+  uk: {
+    label: "ЦІНА",
+    heading: "Скільки коштує сайт клініки",
+    lede: "Ціна фіксується в договорі до старту робіт. Ось із чого вона складається.",
+    baseCaption: "БАЗА",
+    includedCaption: "ЩО ВХОДИТЬ У БАЗУ",
+    optionsCaption: "ОПЦІЇ — КОЛИ КЛІНІЦІ ЦЕ ПОТРІБНО",
+    extraPageNote: (unit, max) => `Кожна сторінка понад вісім — ${unit}, до ${max} штук`,
+    included: [
+      "Дизайн під вашу клініку, не шаблон",
+      "До 8 сторінок",
+      "Онлайн-запис: послуга, лікар, час",
+      "Каталог лікарів із профілями",
+      "Прайс на послуги",
+      "Адмінка — редагуєте самі, без розробника",
+      "Адаптив: телефон, планшет, десктоп",
+      "Технічне SEO і підключена аналітика",
+      "Рік гарантії після запуску",
+    ],
+    foot: "Це орієнтир, не рахунок. Точну цифру рахуємо після розмови і фіксуємо в договорі.",
+    ctaLabel: "Порахувати свою конфігурацію",
+  },
+  ru: {
+    label: "ЦЕНА",
+    heading: "Сколько стоит сайт клиники",
+    lede: "Цена фиксируется в договоре до старта работ. Вот из чего она складывается.",
+    baseCaption: "БАЗА",
+    includedCaption: "ЧТО ВХОДИТ В БАЗУ",
+    optionsCaption: "ОПЦИИ — КОГДА КЛИНИКЕ ЭТО НУЖНО",
+    extraPageNote: (unit, max) => `Каждая страница сверх восьми — ${unit}, до ${max} штук`,
+    included: [
+      "Дизайн под вашу клинику, не шаблон",
+      "До 8 страниц",
+      "Онлайн-запись: услуга, врач, время",
+      "Каталог врачей с профилями",
+      "Прайс на услуги",
+      "Админка — редактируете сами, без разработчика",
+      "Адаптив: телефон, планшет, десктоп",
+      "Техническое SEO и подключённая аналитика",
+      "Год гарантии после запуска",
+    ],
+    foot: "Это ориентир, не счёт. Точную цифру считаем после разговора и фиксируем в договоре.",
+    ctaLabel: "Посчитать свою конфигурацию",
+  },
+  en: {
+    label: "PRICE",
+    heading: "What a clinic website costs",
+    lede: "The price is fixed in the contract before work starts. Here is what makes it up.",
+    baseCaption: "BASE",
+    includedCaption: "INCLUDED IN THE BASE",
+    optionsCaption: "OPTIONS — WHEN YOUR CLINIC NEEDS THEM",
+    extraPageNote: (unit, max) => `Each page beyond eight — ${unit}, up to ${max}`,
+    included: [
+      "Designed for your clinic, not a template",
+      "Up to 8 pages",
+      "Online booking: service, clinician, time",
+      "Clinician directory with profiles",
+      "Price list",
+      "CMS — you edit it yourself, no developer",
+      "Responsive: phone, tablet, desktop",
+      "Technical SEO and analytics wired up",
+      "One-year warranty after launch",
+    ],
+    foot: "A guide, not an invoice. We price it exactly after one conversation and fix it in the contract.",
+    ctaLabel: "Price your own configuration",
+  },
+};

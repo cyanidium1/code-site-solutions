@@ -45,6 +45,7 @@ import type {
 import { loc } from "@/lib/shared/sanity-locale";
 import { MedBookingDemo } from "@/components/industry-page/medicine/med-booking-demo";
 import { MedPatientFlow } from "@/components/industry-page/medicine/med-patient-flow";
+import { MedPricing } from "@/components/industry-page/medicine/med-pricing";
 import { MedHero } from "@/components/industry-page/medicine/med-hero";
 import { MedVitals } from "@/components/industry-page/medicine/med-vitals";
 import { MedDiagnosis } from "@/components/industry-page/medicine/med-diagnosis";
@@ -933,12 +934,17 @@ export async function IndustryPageView({
   // the last CMS section.
   const calcContent = industryCalcContent(page.slug, locale);
   const calcHeading = industryCalcHeading(page.slug, locale);
-  const hasComparison = Boolean(
-    page.sections?.some((sct) => sct._type === "comparisonBlock"),
+  // Where the calculator lands. Everywhere else it follows the comparison
+  // table; on medicine the comparison is gone from the document and the
+  // calculator belongs straight after the capability list, while the reader
+  // still has the scope in mind. `#calc` is what the price sheet links to.
+  const calcAfterType = page.slug === "medicine" ? "servicesBlock" : "comparisonBlock";
+  const hasCalcAnchor = Boolean(
+    page.sections?.some((sct) => sct._type === calcAfterType),
   );
   const calcSection =
     calcContent && calcHeading ? (
-      <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
+      <section id="calc" className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
         <div className="absolute inset-0 pointer-events-none [background:radial-gradient(ellipse_44%_40%_at_20%_80%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%)]" />
         <div className="relative max-w-container mx-auto">
           <div className="mx-auto max-w-[640px] text-center mb-8">
@@ -1134,6 +1140,10 @@ export async function IndustryPageView({
         <>
           <MedVitals locale={locale} />
           <MedBookingDemo locale={locale} />
+          {/* Price before the argument, not after it: the demo shows what the
+              clinic gets, the sheet says what it costs, and only then does the
+              page start making its case. */}
+          <MedPricing locale={locale} calcHref="#calc" />
           <MedPatientFlow locale={locale} />
           {locale === DEFAULT_LOCALE ? (
             /* Підсторінки медицини існують лише в основній локалі.
@@ -1182,10 +1192,10 @@ export async function IndustryPageView({
             locale={locale}
             slug={page.slug}
           />
-          {section._type === "comparisonBlock" ? calcSection : null}
+          {section._type === calcAfterType ? calcSection : null}
         </Fragment>
       ))}
-      {!hasComparison ? calcSection : null}
+      {!hasCalcAnchor ? calcSection : null}
 
       {nicheCases.length > 0 ? (
         <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
