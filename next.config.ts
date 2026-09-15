@@ -78,14 +78,6 @@ const nextConfig: NextConfig = {
         destination: "/ru/sites-for/medicine",
         statusCode: 301,
       },
-      // GSC «Не найдено (404)», 15.09.2026: an old English-slug article under
-      // /blog that no longer exists. Its topic is the head-cluster page.
-      {
-        source:
-          "/blog/custom-code-website-development-what-it-is-what-it-costs-and-why-it-is-the-best-fit-for-business",
-        destination: "/rozrobka-saitiv",
-        statusCode: 301,
-      },
       // /services* → /rozrobka-saitiv, а не /pricing і не головна: це були
       // сторінки послуг, і сервісна сторінка з'явилась пізніше за ці правила.
       // Ціни — окремий інтент, головна — взагалі не відповідь на /services.
