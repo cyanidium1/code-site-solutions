@@ -24,7 +24,7 @@ import type { LandingPageContent } from "@/types/landing";
  * Плюс «юзабилити аудит сайта» — ещё 100.
  */
 export const AUDIT_RU: LandingPageContent = {
-  metaTitle: "Аудит сайта: комплексный разбор за $300 | Code-Site.Art",
+  metaTitle: "Полный аудит сайта: цена $300, список правок за 5 дней | Code-Site.Art",
   metaDescription:
     "➤ Аудит сайта — технический, юзабилити и SEO в одном отчёте ✔️ Цена $300, срок 5 рабочих дней ✔️ Список правок по приоритетам, а не 80 страниц воды ➡ Экспресс-проверка бесплатно.",
   breadcrumbHome: "Главная",

@@ -15,6 +15,8 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { OG_DEFAULT_IMAGE } from "@/constants/site";
+import { ProseSections } from "@/components/blocks/prose-section";
+import { CALCULATOR_PROSE_RU } from "@/content/ru/calculator-prose";
 
 const T = ruMessages.Calculator;
 
@@ -98,7 +100,7 @@ export default async function CalculatorPageRu() {
       <div className="px-6 sm:px-8 lg:px-12">
         <p className="mx-auto max-w-container-narrow text-center font-sans text-[14.5px] leading-[1.6] text-ink-dim">
           Нужны готовые цифры без расчёта?{" "}
-          <Link href="/pricing" className="text-ink underline underline-offset-[3px]">
+          <Link href="/ru/pricing" className="text-ink underline underline-offset-[3px]">
             Смотрите прайс с фиксированными пакетами
           </Link>
            — лендинг от $800, корпоративный сайт от $2 500.
@@ -107,6 +109,7 @@ export default async function CalculatorPageRu() {
 
 
       <WebsiteCalculator config={config} />
+      <ProseSections items={CALCULATOR_PROSE_RU} />
       <HpFooter />
     </>
   );

@@ -32,7 +32,7 @@ import type { LandingPageContent } from "@/types/landing";
  * за міграцію. Нових обіцянок тут не вигадано.
  */
 export const AUDIT_UK: LandingPageContent = {
-  metaTitle: "Аудит сайту: комплексний розбір за $300 | Code-Site.Art",
+  metaTitle: "Повний аудит сайту: ціна $300, список правок за 5 днів | Code-Site.Art",
   metaDescription:
     "➤ Аудит сайту — технічний, юзабіліті та SEO в одному звіті ✔️ Ціна $300, термін 5 робочих днів ✔️ Список правок за пріоритетами, а не 80 сторінок води ➡ Експрес-перевірка безкоштовно.",
   breadcrumbHome: "Головна",

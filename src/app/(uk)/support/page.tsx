@@ -23,7 +23,9 @@ import { Wrench, ShieldCheck, Gauge, FileText, ArrowRightLeft, Search } from "lu
 const PATH = "/support";
 const URL = pageUrl(PATH);
 
-const TITLE = "Обслуговування сайту: вартість від $200/міс | Code-Site.Art";
+// SEO system 2026-09-15: «адміністрування сайту ціна» і «ціна підтримки сайту»
+// (48 показів за 14 днів) Google віддавав /calculator — у title не було цих слів.
+const TITLE = "Обслуговування і адміністрування сайту: ціна від $200/міс | Code-Site.Art";
 const DESCRIPTION =
   "➤ Обслуговування сайтів — вартість від $200/міс або $40/год ✔️ Оновлення, бекапи, моніторинг, правки ✔️ Перший рік підтримки — у ціні розробки ➡ Чесний прайс.";
 
@@ -207,7 +209,7 @@ export default function SupportPage() {
         eyebrow="ЦІНИ"
         heading={
           <>
-            Обслуговування сайту: <em>вартість за форматами</em>
+            Скільки коштує підтримка сайту: <em>вартість за форматами</em>
           </>
         }
         cells={[
