@@ -14,6 +14,8 @@ import { buildJsonLd, breadcrumbNode, webPageNode } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { ProseSections } from "@/components/blocks/prose-section";
+import { MED_VERSTKA_PROSE_UK } from "@/content/uk/medicine-children-prose";
 import { Code2, Keyboard, Gauge, Printer, ShieldCheck, Braces } from "lucide-react";
 
 /**
@@ -272,6 +274,8 @@ export default function MedicineFrontendPage() {
           />
         }
       />
+
+      <ProseSections items={MED_VERSTKA_PROSE_UK} />
 
       <CtaBanner
         heading={

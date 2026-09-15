@@ -64,6 +64,20 @@ const nextConfig: NextConfig = {
         destination: "/blog/vartist-rozrobky-saytu-2026",
         statusCode: 301,
       },
+      // SEO system 2026-09-15: the medical-SEO article held the same service
+      // intent as /sites-for/medicine/seo («послуги seo для медичних сайтів»)
+      // and Google flipped between them. Content merged into the service page;
+      // uk/ru slugs removed from the Sanity doc, the EN guide stays live.
+      {
+        source: "/blog/seo-dlia-medychnykh-saitiv",
+        destination: "/sites-for/medicine/seo",
+        statusCode: 301,
+      },
+      {
+        source: "/ru/blog/seo-dlya-medicinskih-saytov",
+        destination: "/ru/sites-for/medicine",
+        statusCode: 301,
+      },
       // /services* → /rozrobka-saitiv, а не /pricing і не головна: це були
       // сторінки послуг, і сервісна сторінка з'явилась пізніше за ці правила.
       // Ціни — окремий інтент, головна — взагалі не відповідь на /services.

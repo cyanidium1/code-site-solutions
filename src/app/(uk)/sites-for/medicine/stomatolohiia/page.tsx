@@ -18,6 +18,8 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { ProseSections } from "@/components/blocks/prose-section";
+import { MED_STOMATOLOHIIA_PROSE_UK } from "@/content/uk/medicine-children-prose";
 import {
   CalendarCheck,
   Users,
@@ -328,6 +330,8 @@ export default function StomatolohiiaPage() {
           </div>
         </div>
       </section>
+
+      <ProseSections items={MED_STOMATOLOHIIA_PROSE_UK} />
 
       <CtaBanner
         heading={

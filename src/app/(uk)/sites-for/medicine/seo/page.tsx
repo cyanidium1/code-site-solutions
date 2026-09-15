@@ -14,6 +14,8 @@ import { buildJsonLd, breadcrumbNode, webPageNode } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
+import { ProseSections } from "@/components/blocks/prose-section";
+import { MEDICINE_SEO_PROSE_UK } from "@/content/uk/medicine-seo-prose";
 import { MapPin, ShieldCheck, LayoutList, Star, Gauge, BarChart3 } from "lucide-react";
 
 /**
@@ -24,8 +26,9 @@ import { MapPin, ShieldCheck, LayoutList, Star, Gauge, BarChart3 } from "lucide-
  * 46 / 37,8, «послуги seo для медичних сайтів» 40 / 31,5, «просування сайтів
  * медичних клінік» 28 / 50,1), і жодної сторінки під них.
  *
- * Інтенти розведені: `/seo` — послуга загалом, `/blog/seo-dlia-medychnykh-saitiv`
- * — як робити самому, ця сторінка — замовити просування клініки. Матеріал теж
+ * Інтенти розведені: `/seo` — послуга загалом, ця сторінка — замовити просування
+ * клініки. 15.09.2026 сюди злито статтю `/blog/seo-dlia-medychnykh-saitiv`
+ * (301): вона забирала той самий сервісний інтент — див. medicine-seo-prose.ts. Матеріал теж
  * різний: тут локальний пошук, YMYL і обмеження реклами меддіяльності, чого
  * на загальній сторінці SEO немає.
  */
@@ -33,7 +36,7 @@ import { MapPin, ShieldCheck, LayoutList, Star, Gauge, BarChart3 } from "lucide-
 const PATH = "/sites-for/medicine/seo";
 const URL = pageUrl(PATH);
 
-const TITLE = "SEO для медичних сайтів: просування клінік | Code-Site.Art";
+const TITLE = "Просування медичних сайтів: SEO для клінік від $300/міс | Code-Site.Art";
 const DESCRIPTION =
   "➤ Просування медичних сайтів — від $300/міс ✔️ Локальний пошук і Google Maps ✔️ Сторінки під «лікар + район» ✔️ E-E-A-T для YMYL ➡ Разовий аудит $300.";
 
@@ -99,8 +102,8 @@ const MED_SEO_FAQ: { q: string; a: RichText }[] = [
   {
     q: "Скільки сторінок треба клініці для пошуку?",
     a: [
-      "Одна сторінка «Послуги» не працює. Кожна процедура, яку шукають окремо, потребує власної сторінки: імплантація, вініри, чистка — це різні запити з різними цінами й різними сумнівами пацієнта. Як це влаштувати без перетворення на дорвеї, розібрано ",
-      { link: { href: "/blog/seo-dlia-medychnykh-saitiv", text: "у матеріалі про SEO для медичних сайтів" } },
+      "Одна сторінка «Послуги» не працює. Кожна процедура, яку шукають окремо, потребує власної сторінки: імплантація, вініри, чистка — це різні запити з різними цінами й різними сумнівами пацієнта. Як це влаштувати без перетворення на дорвеї, розібрано вище, а для кількох філій — на сторінці ",
+      { link: { href: "/lokalne-seo", text: "локального SEO" } },
       ".",
     ],
   },
@@ -253,6 +256,8 @@ export default function MedicineSeoPage() {
           },
         ]}
       />
+
+      <ProseSections items={MEDICINE_SEO_PROSE_UK} />
 
       <ImageText
         variant="side-with-list"
