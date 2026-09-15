@@ -333,4 +333,15 @@ export const CITY_KYIV_UK: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: the city article now answers «як обрати студію» and
+  // links here first; this is the return link.
+  related: {
+    heading: "Перед тим як обирати студію в Києві",
+    sub: "Огляд місцевого ринку: попит, ціни і на що дивитися в пропозиціях.",
+    links: [
+      { label: "Як обрати студію в Києві: ціни і розкид оцінок", href: "/blog/rozrobka-saitu-kyiv" },
+      { label: "ціни на створення сайту", href: "/pricing" },
+      { label: "розробка сайтів під ключ", href: "/rozrobka-saitiv" },
+    ],
+  },
 };

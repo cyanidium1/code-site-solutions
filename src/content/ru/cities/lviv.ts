@@ -312,4 +312,15 @@ export const CITY_LVIV_RU: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: the city article now answers «як обрати студію» and
+  // links here first; this is the return link.
+  related: {
+    heading: "Перед тем как выбирать студию во Львове",
+    sub: "Обзор местного рынка: спрос, цены и на что смотреть в предложениях.",
+    links: [
+      { label: "Как выбрать подрядчика для сайта во Львове", href: "/ru/blog/razrabotka-sayta-lvov" },
+      { label: "цены на создание сайта", href: "/ru/pricing" },
+      { label: "разработка сайтов под ключ", href: "/ru/rozrobka-saitiv" },
+    ],
+  },
 };

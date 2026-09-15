@@ -333,4 +333,15 @@ export const CORPORATE_UK: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: niche articles without an industry page had no
+  // in-body inbound links; the service page they sell is their hub.
+  related: {
+    heading: "Корпоративні сайти для ніш — розбори",
+    sub: "Структура, функції і ціни для бізнесу, якому однієї сторінки замало.",
+    links: [
+      { label: "сайт готелю з бронюванням", href: "/blog/sait-dlia-hotelyu-z-bronyuvannyam" },
+      { label: "сайт турагентства", href: "/blog/sait-dlia-turahentstva" },
+      { label: "сайт компанії вантажоперевезень", href: "/blog/sait-dlia-vantazhoperevezen" },
+    ],
+  },
 };

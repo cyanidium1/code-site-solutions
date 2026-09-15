@@ -336,4 +336,18 @@ export const LANDING_EN: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: niche articles without an industry page had no
+  // in-body inbound links; the service page they sell is their hub.
+  related: {
+    heading: "Landing pages by niche",
+    sub: "What a site in your niche needs, what it costs and which mistakes lose enquiries.",
+    links: [
+      { label: "therapist website", href: "/en/blog/therapist-website-guide" },
+      { label: "beauty salon website", href: "/en/blog/beauty-salon-website" },
+      { label: "photographer portfolio website", href: "/en/blog/photographer-portfolio-website" },
+      { label: "restaurant website with delivery", href: "/en/blog/restaurant-website-with-delivery" },
+      { label: "fitness club website", href: "/en/blog/fitness-club-website" },
+      { label: "bakery website", href: "/en/blog/bakery-website" },
+    ],
+  },
 };

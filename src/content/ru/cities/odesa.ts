@@ -325,4 +325,15 @@ export const CITY_ODESA_RU: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: the city article now answers «як обрати студію» and
+  // links here first; this is the return link.
+  related: {
+    heading: "Перед тем как выбирать студию в Одессе",
+    sub: "Обзор местного рынка: спрос, цены и на что смотреть в предложениях.",
+    links: [
+      { label: "Спрос, цены и сезонность в Одессе", href: "/ru/blog/razrabotka-sayta-odessa" },
+      { label: "цены на создание сайта", href: "/ru/pricing" },
+      { label: "разработка сайтов под ключ", href: "/ru/rozrobka-saitiv" },
+    ],
+  },
 };

@@ -333,4 +333,15 @@ export const CITY_DNIPRO_UK: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: the city article now answers «як обрати студію» and
+  // links here first; this is the return link.
+  related: {
+    heading: "Перед тим як обирати студію у Дніпрі",
+    sub: "Огляд місцевого ринку: попит, ціни і на що дивитися в пропозиціях.",
+    links: [
+      { label: "Попит і ціни на сайти в Дніпрі", href: "/blog/rozrobka-saitu-dnipro" },
+      { label: "ціни на створення сайту", href: "/pricing" },
+      { label: "розробка сайтів під ключ", href: "/rozrobka-saitiv" },
+    ],
+  },
 };

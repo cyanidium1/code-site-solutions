@@ -331,4 +331,15 @@ export const CORPORATE_EN: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: niche articles without an industry page had no
+  // in-body inbound links; the service page they sell is their hub.
+  related: {
+    heading: "Company websites by niche",
+    sub: "Structure, features and prices for businesses that have outgrown a single page.",
+    links: [
+      { label: "hotel website with booking", href: "/en/blog/hotel-website-with-booking" },
+      { label: "travel agency website", href: "/en/blog/travel-agency-website" },
+      { label: "logistics company website", href: "/en/blog/logistics-company-website" },
+    ],
+  },
 };

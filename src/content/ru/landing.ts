@@ -336,4 +336,18 @@ export const LANDING_RU: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: niche articles without an industry page had no
+  // in-body inbound links; the service page they sell is their hub.
+  related: {
+    heading: "Лендинги для ниш — разборы",
+    sub: "Что должно быть на сайте в вашей нише, сколько это стоит и какие ошибки забирают заявки.",
+    links: [
+      { label: "сайт для психолога", href: "/ru/blog/sayt-dlya-psihologa" },
+      { label: "сайт для салона красоты", href: "/ru/blog/sayt-dlya-salona-krasoty" },
+      { label: "сайт фотографа", href: "/ru/blog/sayt-dlya-fotografa" },
+      { label: "сайт ресторана с доставкой", href: "/ru/blog/sayt-dlya-restorana-i-dostavki-edy" },
+      { label: "сайт фитнес-клуба", href: "/ru/blog/sayt-fitnes-kluba" },
+      { label: "сайт кондитера", href: "/ru/blog/sayt-dlya-konditera" },
+    ],
+  },
 };

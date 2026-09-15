@@ -320,4 +320,15 @@ export const CITY_DNIPRO_RU: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: the city article now answers «як обрати студію» and
+  // links here first; this is the return link.
+  related: {
+    heading: "Перед тем как выбирать студию в Днепре",
+    sub: "Обзор местного рынка: спрос, цены и на что смотреть в предложениях.",
+    links: [
+      { label: "Спрос и цены на сайты в Днепре", href: "/ru/blog/razrabotka-sayta-dnepr" },
+      { label: "цены на создание сайта", href: "/ru/pricing" },
+      { label: "разработка сайтов под ключ", href: "/ru/rozrobka-saitiv" },
+    ],
+  },
 };

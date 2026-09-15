@@ -336,4 +336,18 @@ export const LANDING_UK: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: niche articles without an industry page had no
+  // in-body inbound links; the service page they sell is their hub.
+  related: {
+    heading: "Лендінги для ніш — розбори",
+    sub: "Що має бути на сайті у вашій ніші, скільки це коштує і які помилки забирають заявки.",
+    links: [
+      { label: "сайт для психолога", href: "/blog/sait-dlia-psykholoha" },
+      { label: "сайт для салону краси", href: "/blog/sait-dlia-salonu-krasy" },
+      { label: "сайт фотографа", href: "/blog/sait-dlia-fotohrafa" },
+      { label: "сайт ресторану з доставкою", href: "/blog/sait-dlia-restoranu-kafe-dostavky" },
+      { label: "сайт фітнес-клубу", href: "/blog/sait-dlia-fitnes-klubu" },
+      { label: "сайт кондитера", href: "/blog/sait-dlia-kondytera" },
+    ],
+  },
 };

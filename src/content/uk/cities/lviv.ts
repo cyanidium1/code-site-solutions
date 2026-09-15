@@ -329,4 +329,15 @@ export const CITY_LVIV_UK: LandingPageContent = {
       },
     ],
   },
+  // SEO system 2026-09-15: the city article now answers «як обрати студію» and
+  // links here first; this is the return link.
+  related: {
+    heading: "Перед тим як обирати студію у Львові",
+    sub: "Огляд місцевого ринку: попит, ціни і на що дивитися в пропозиціях.",
+    links: [
+      { label: "Як обрати підрядника для сайту у Львові", href: "/blog/rozrobka-saitu-lviv" },
+      { label: "ціни на створення сайту", href: "/pricing" },
+      { label: "розробка сайтів під ключ", href: "/rozrobka-saitiv" },
+    ],
+  },
 };

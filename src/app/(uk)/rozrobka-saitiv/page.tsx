@@ -76,7 +76,7 @@ export default function WebDevelopmentPage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="uk" content={CONTENT} source="web-development-page" />
+      <LandingPageView locale="uk" content={CONTENT} source="web-development-page" selfPath="/rozrobka-saitiv" />
       <HpFooter />
     </>
   );
