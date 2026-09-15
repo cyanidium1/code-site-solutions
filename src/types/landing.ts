@@ -48,6 +48,20 @@ export type LandingPageContent = {
       summaryTitle: string;
     };
   };
+  /** Render the price grid (and price table) straight after the hero, before
+   *  "when". For pages whose search intent is the price itself (/seo). */
+  priceFirst?: boolean;
+  /** Hub navigation rendered right after the hero: grouped links to child
+   *  pages (site types, industries, cities). Used by /rozrobka-saitiv. */
+  hub?: {
+    eyebrow: string;
+    heading: [string, string];
+    sub?: string;
+    groups: {
+      title: string;
+      links: { label: string; href: string; note?: string }[];
+    }[];
+  };
   when: {
     eyebrow: string;
     heading: [string, string];
@@ -133,5 +147,12 @@ export type LandingPageContent = {
   faq: {
     heading: string;
     items: { q: string; a: RichText }[];
+  };
+  /** Plain link list before the sibling services: articles for niches that
+   *  have no industry page of their own point here and get linked back. */
+  related?: {
+    heading: string;
+    sub?: string;
+    links: { label: string; href: string }[];
   };
 };

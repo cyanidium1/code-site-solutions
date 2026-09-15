@@ -15,7 +15,12 @@ import { loc } from "@/lib/shared/sanity-locale";
 import { fetchCaseStudies } from "@/components/case-page/data";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
-import { hasLocaleCase, localizePath, resolveRootHref } from "@/constants/i18n-routes";
+import {
+  LOCALIZED_ROOTS,
+  hasLocaleCase,
+  localizePath,
+  resolveRootHref,
+} from "@/constants/i18n-routes";
 import { DEFAULT_LOCALE } from "@/constants/locales";
 import type { Locale } from "@/constants/locales";
 import type { LandingPageContent } from "@/types/landing";
@@ -358,6 +363,129 @@ function PriceGrid({
   );
 }
 
+/** Hub navigation: grouped links to the pages this hub stands above (site
+    types, industries, cities). Real navigation for the visitor and the only
+    in-body route that gives those pages weight from the head-cluster page. */
+function HubSection({
+  content,
+  index,
+}: {
+  content: NonNullable<LandingPageContent["hub"]>;
+  index: string;
+}) {
+  return (
+    <section className={hpSectionClass}>
+      <div className={hpInnerClass}>
+        <SectionHead
+          index={index}
+          eyebrow={content.eyebrow}
+          heading={content.heading}
+          sub={content.sub}
+        />
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-8">
+          {content.groups.map((g) => (
+            <div key={g.title}>
+              <h3 className="m-0 mb-4 font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 font-medium">
+                {g.title}
+              </h3>
+              <ul className="list-none m-0 p-0 flex flex-col gap-2.5">
+                {g.links.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="group flex items-start justify-between gap-4 rounded-xl border border-line px-4 py-3 no-underline transition-colors duration-200 hover:border-accent-40"
+                    >
+                      <span>
+                        <span className="block font-sans font-semibold text-[14.5px] leading-[1.35] text-ink">
+                          {nb(l.label)}
+                        </span>
+                        {l.note ? (
+                          <span className="mt-0.5 block font-sans text-[12.5px] leading-[1.5] text-ink-dim">
+                            {nb(l.note)}
+                          </span>
+                        ) : null}
+                      </span>
+                      <ArrowUpRight
+                        size={16}
+                        className="mt-0.5 shrink-0 text-ink-3 transition-colors duration-200 group-hover:text-accent-soft"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Ready-made configuration price table. */
+function PriceTable({
+  table,
+  index,
+}: {
+  table: NonNullable<LandingPageContent["priceTable"]>;
+  index: string;
+}) {
+  return (
+    <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <SectionHead
+              index={index}
+              eyebrow={table.eyebrow}
+              heading={table.heading}
+            />
+            <div className="overflow-x-auto rounded-2xl border border-line bg-[oklch(1_0_0_/_0.015)]">
+              <table className="w-full min-w-[640px] border-collapse text-left">
+                <thead>
+                  <tr className="bg-accent-6">
+                    {table.headers.map((h) => (
+                      <th
+                        key={h}
+                        className="py-3.5 px-5 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3 font-medium border-b border-line"
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {table.rows.map((row) => (
+                    <tr
+                      key={row[0]}
+                      className="border-b border-line last:border-b-0 transition-colors duration-150 hover:bg-accent-6"
+                    >
+                      {row.map((cell, ci) => (
+                        <td
+                          key={ci}
+                          className={
+                            "py-3.5 px-5 font-sans text-[13.5px] leading-[1.5] " +
+                            (ci === 0
+                              ? "font-semibold text-ink"
+                              : ci === row.length - 2
+                                ? "font-mono text-[13.5px] font-semibold text-accent-soft whitespace-nowrap"
+                                : "text-ink-dim")
+                          }
+                        >
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[480px]">
+              {table.foot}
+            </p>
+          </div>
+        </section>
+  );
+}
+
 /** Calculator CTA — full gradient band with light-beam texture and the
     devices mockup (local variant; the shared CtaBanner stays untouched). */
 function CtaBand({ content }: { content: LandingPageContent["calcCta"] }) {
@@ -428,6 +556,24 @@ function CtaBand({ content }: { content: LandingPageContent["calcCta"] }) {
  * filler copy. Anchors are the keyword phrases each target ranks for.
  */
 const SIBLING_LINKS: { href: string; label: Record<Locale, string> }[] = [
+  // SEO system 2026-09-15: the head-cluster hub had 6 in-body inbound links
+  // against 90 for /pricing. Filtered out on locales without the page.
+  {
+    href: "/rozrobka-saitiv",
+    label: {
+      uk: "розробка сайтів під ключ",
+      en: "website development",
+      ru: "разработка сайтов под ключ",
+    },
+  },
+  {
+    href: "/pricing",
+    label: {
+      uk: "ціни на створення сайту",
+      en: "website pricing",
+      ru: "цены на создание сайта",
+    },
+  },
   {
     href: "/landing",
     label: {
@@ -524,7 +670,13 @@ function SiblingServices({ locale, self }: { locale: Locale; self: string }) {
           {SIBLING_HEADING[locale]}
         </h2>
         <ul className="mt-5 flex list-none flex-wrap gap-x-7 gap-y-2 p-0">
-          {SIBLING_LINKS.filter((l) => l.href !== self).map((l) => (
+          {/* A sibling missing on this locale used to fall back to the UA
+              page (EN → /audit, /redesign, /support): skip it instead. */}
+          {SIBLING_LINKS.filter(
+            (l) =>
+              l.href !== self &&
+              (locale === DEFAULT_LOCALE || LOCALIZED_ROOTS[locale].has(l.href)),
+          ).map((l) => (
             <li key={l.href}>
               <Link href={resolveRootHref(l.href, locale)} className="rich-link">
                 {l.label[locale]}
@@ -546,6 +698,7 @@ export async function LandingPageView({
   locale,
   content,
   source = "landing-page",
+  selfPath,
 }: {
   locale: Locale;
   content: LandingPageContent;
@@ -553,6 +706,9 @@ export async function LandingPageView({
       /corporate-site, /online-store and /seo aren't attributed to /landing.
       The hero mini-calc tags itself separately (`${tier}-mini-calc-${locale}`). */
   source?: string;
+  /** Root path of this page when it can't be derived from `source`
+      (/rozrobka-saitiv renders with source "web-development-page"). */
+  selfPath?: string;
 }) {
   const [cases, registry] = await Promise.all([
     fetchCaseStudies(),
@@ -580,11 +736,13 @@ export async function LandingPageView({
 
   // Section numbering for the ghost numerals — only sections present in
   // this page's content participate, so the sequence never skips.
+  const priceKeys = ["price", ...(content.priceTable ? ["priceTable"] : [])];
   const numberedKeys = [
+    ...(content.hub ? ["hub"] : []),
+    ...(content.priceFirst ? priceKeys : []),
     "when",
     "included",
-    "price",
-    ...(content.priceTable ? ["priceTable"] : []),
+    ...(content.priceFirst ? [] : priceKeys),
     ...(content.stories ? ["stories"] : []),
     // Gallery before platforms: on /seo, /audit and /redesign the prose
     // "platforms" block sits at the end of a 3 900-4 500px stretch with no
@@ -723,6 +881,13 @@ export async function LandingPageView({
         />
       )}
 
+      {content.hub && <HubSection content={content.hub} index={num("hub")} />}
+
+      {content.priceFirst && <PriceGrid content={content.price} index={num("price")} />}
+      {content.priceFirst && content.priceTable && (
+        <PriceTable table={content.priceTable} index={num("priceTable")} />
+      )}
+
       {/* 2 — When a landing page fits / when it doesn't */}
       <WhenSection content={content.when} index={num("when")} />
 
@@ -730,62 +895,11 @@ export async function LandingPageView({
       <IncludedSection content={content.included} index={num("included")} />
 
       {/* 4 — How the price is built (calculator-style option grid) */}
-      <PriceGrid content={content.price} index={num("price")} />
+      {!content.priceFirst && <PriceGrid content={content.price} index={num("price")} />}
 
       {/* 4.2 — Ready-made configuration price table */}
-      {content.priceTable && (
-        <section className={hpSectionClass}>
-          <div className={hpInnerClass}>
-            <SectionHead
-              index={num("priceTable")}
-              eyebrow={content.priceTable.eyebrow}
-              heading={content.priceTable.heading}
-            />
-            <div className="overflow-x-auto rounded-2xl border border-line bg-[oklch(1_0_0_/_0.015)]">
-              <table className="w-full min-w-[640px] border-collapse text-left">
-                <thead>
-                  <tr className="bg-accent-6">
-                    {content.priceTable.headers.map((h) => (
-                      <th
-                        key={h}
-                        className="py-3.5 px-5 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3 font-medium border-b border-line"
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {content.priceTable.rows.map((row) => (
-                    <tr
-                      key={row[0]}
-                      className="border-b border-line last:border-b-0 transition-colors duration-150 hover:bg-accent-6"
-                    >
-                      {row.map((cell, ci) => (
-                        <td
-                          key={ci}
-                          className={
-                            "py-3.5 px-5 font-sans text-[13.5px] leading-[1.5] " +
-                            (ci === 0
-                              ? "font-semibold text-ink"
-                              : ci === row.length - 2
-                                ? "font-mono text-[13.5px] font-semibold text-accent-soft whitespace-nowrap"
-                                : "text-ink-dim")
-                          }
-                        >
-                          {cell}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[480px]">
-              {content.priceTable.foot}
-            </p>
-          </div>
-        </section>
+      {!content.priceFirst && content.priceTable && (
+        <PriceTable table={content.priceTable} index={num("priceTable")} />
       )}
 
       {/* 4.3 — Case stories with photos */}
@@ -1067,9 +1181,33 @@ export async function LandingPageView({
       {/* 7.5 — Sibling services: in-body cross-links (see SIBLING_LINKS).
           `source` is "landing-page" | "corporate-site-page" | ... so the
           page's own href derives from it without a new prop at 12 call sites. */}
+      {content.related ? (
+        <section className="bg-bg px-6 sm:px-8 lg:px-12 pt-12">
+          <div className="max-w-container mx-auto">
+            <h2 className="m-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.15] text-ink">
+              {content.related.heading}
+            </h2>
+            {content.related.sub ? (
+              <p className="mt-3 mb-0 max-w-[640px] font-sans text-[14.5px] leading-[1.6] text-ink-dim">
+                {content.related.sub}
+              </p>
+            ) : null}
+            <ul className="mt-5 flex list-none flex-wrap gap-x-7 gap-y-2 p-0">
+              {content.related.links.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="rich-link">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
       <SiblingServices
         locale={locale}
-        self={`/${source.replace(/-page$/, "")}`}
+        self={selfPath ?? `/${source.replace(/-page$/, "")}`}
       />
 
       {/* 8 — Lead form. Compact: name + contact, details fold out on demand —

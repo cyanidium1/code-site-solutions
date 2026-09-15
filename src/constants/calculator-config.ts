@@ -259,6 +259,17 @@ export const FEATURE_PACKAGES: FeaturePackage[] = [
 export const UAH_PER_USD = 42;
 
 /**
+ * "≈12 600 грн" for static copy (titles, price tables) — rounded to the
+ * hundred at the same rate the calculator prints, so the page and the
+ * calculator can't quote two different hryvnia figures for one price.
+ */
+export function uahApprox(usd: number): string {
+  const n = Math.round((usd * UAH_PER_USD) / 100) * 100;
+  const digits = String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return `≈${digits} грн`;
+}
+
+/**
  * Markets quoted in USD whose buyers nevertheless think in hryvnia. Kept as a
  * list rather than a hardcoded locale comparison, so adding a locale is one
  * edit here (see the tripwire in constants/locale-debt-guard.test.ts).
