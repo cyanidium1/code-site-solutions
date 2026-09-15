@@ -879,6 +879,10 @@ export async function LandingPageView({
           eyebrow={content.hero.eyebrow}
           headline={em(content.hero.headline)}
           sub={content.hero.sub}
+          actions={{
+            primary: { label: content.calcCta.primaryLabel, href: content.calcCta.primaryHref },
+            secondary: { label: content.calcCta.secondaryLabel, href: content.calcCta.secondaryHref },
+          }}
         />
       )}
 

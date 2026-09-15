@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { cn, H1 } from "@/components/ui";
+import { btnClass, cn, H1 } from "@/components/ui";
 
 // React-hoisted style (see blocks/case/index.tsx for the rationale): costs
 // bytes only on routes that render this hero, no extra request.
@@ -13,6 +13,7 @@ const PAGE_HERO_CSS = `
 export type Crumb = { label: string; href?: string };
 
 export type PageHeroStat = { value: ReactNode; label: string };
+export type PageHeroAction = { label: string; href: string };
 
 export function PageHero({
   breadcrumbs = [],
@@ -21,6 +22,7 @@ export function PageHero({
   sub,
   image,
   stats,
+  actions,
 }: {
   breadcrumbs?: Crumb[];
   eyebrow: string;
@@ -28,6 +30,9 @@ export function PageHero({
   sub: ReactNode;
   image?: ReactNode;
   stats?: PageHeroStat[];
+  /** First-screen CTAs. Service pages had none above the fold: the only
+      action sat after three to five sections (SEO system 2026-09-15). */
+  actions?: { primary: PageHeroAction; secondary?: PageHeroAction };
 }) {
   const statsCard = stats?.length ? (
     <div className="mt-8 lg:mt-10 flex flex-wrap items-center gap-3.5 px-[18px] py-4 border border-line rounded-[18px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] lg:flex-nowrap lg:gap-6 lg:px-7 lg:py-5">
@@ -106,6 +111,18 @@ export function PageHero({
       >
         {sub}
       </p>
+      {actions ? (
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <Link href={actions.primary.href} className={btnClass("primary")}>
+            <span>{actions.primary.label}</span>
+          </Link>
+          {actions.secondary ? (
+            <Link href={actions.secondary.href} className={btnClass("ghost")}>
+              <span>{actions.secondary.label}</span>
+            </Link>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 
