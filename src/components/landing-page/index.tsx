@@ -8,6 +8,7 @@ import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
 import { H2 } from "@/components/ui";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { MiniCalc } from "@/components/landing-page/mini-calc";
+import { ProseSections } from "@/components/blocks/prose-section";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import { AppImage } from "@/lib/shared/app-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
@@ -1115,6 +1116,10 @@ export async function LandingPageView({
           </div>
         </section>
       )}
+
+      {/* 4.7 — Long-form prose (process, structure) for pages whose depth
+          fell short of the pages ranking above them. */}
+      {content.prose?.length ? <ProseSections items={content.prose} /> : null}
 
       {/* 5 — Calculator CTA */}
       <CtaBand content={content.calcCta} />

@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import type { LandingPageContent } from "@/types/landing";
+import { CORPORATE_PROSE_RU } from "@/content/ru/service-prose";
 
 export const CORPORATE_RU: LandingPageContent = {
   metaTitle: "ᐈ Корпоративный сайт под ключ от $2 500 | Code-Site.Art",
@@ -264,6 +265,7 @@ export const CORPORATE_RU: LandingPageContent = {
     allLabel: "Все кейсы",
     allHref: "/ru/portfolio",
   },
+  prose: CORPORATE_PROSE_RU,
   calcCta: {
     heading: ["Рассчитайте свой сайт ", "за 60 секунд"],
     sub: "Страницы, языки, интеграции — калькулятор сразу покажет вилку с разбивкой. Без email и звонка с менеджером.",

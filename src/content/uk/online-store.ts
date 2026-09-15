@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import type { LandingPageContent } from "@/types/landing";
+import { STORE_PROSE_UK } from "@/content/uk/service-prose";
 
 export const ONLINE_STORE_UK: LandingPageContent = {
   metaTitle: "ᐈ Інтернет-магазин під ключ від $6 000 | Code-Site.Art",
@@ -265,6 +266,7 @@ export const ONLINE_STORE_UK: LandingPageContent = {
     allLabel: "Всі кейси",
     allHref: "/portfolio",
   },
+  prose: STORE_PROSE_UK,
   calcCta: {
     heading: ["Порахуйте свій магазин ", "за 60 секунд"],
     sub: "Кількість товарів, оплата, мови — калькулятор одразу покаже вилку з розбивкою. Без email і дзвінка з менеджером.",

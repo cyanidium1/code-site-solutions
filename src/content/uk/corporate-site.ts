@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import type { LandingPageContent } from "@/types/landing";
+import { CORPORATE_PROSE_UK } from "@/content/uk/service-prose";
 
 export const CORPORATE_UK: LandingPageContent = {
   metaTitle:
@@ -266,6 +267,7 @@ export const CORPORATE_UK: LandingPageContent = {
     allLabel: "Всі кейси",
     allHref: "/portfolio",
   },
+  prose: CORPORATE_PROSE_UK,
   calcCta: {
     heading: ["Порахуйте свій сайт ", "за 60 секунд"],
     sub: "Сторінки, мови, інтеграції — калькулятор одразу покаже вилку з розбивкою. Без email і дзвінка з менеджером.",

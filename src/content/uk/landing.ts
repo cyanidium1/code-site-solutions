@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import type { LandingPageContent } from "@/types/landing";
+import { LANDING_PROSE_UK } from "@/content/uk/service-prose";
 
 export const LANDING_UK: LandingPageContent = {
   metaTitle: "ᐈ Лендінг під ключ від $800 | Розробка лендінгів | Code-Site.Art",
@@ -267,6 +268,7 @@ export const LANDING_UK: LandingPageContent = {
     allLabel: "Всі кейси",
     allHref: "/portfolio",
   },
+  prose: LANDING_PROSE_UK,
   calcCta: {
     heading: ["Порахуйте свій лендінг ", "за 60 секунд"],
     sub: "Мови, інтеграції, дизайн — калькулятор одразу покаже вилку з розбивкою. Без email і дзвінка з менеджером.",

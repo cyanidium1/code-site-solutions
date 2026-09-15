@@ -1,6 +1,7 @@
 import type { TurnkeyItem } from "@/components/blocks/turnkey-list";
 import type { BentoCell } from "@/types/homepage";
 import type { RichText } from "@/lib/shared/rich-text";
+import type { ProseSection } from "@/types/prose";
 
 /**
  * Content shape for the site-type page "Landing" (`/landing`, `/en/landing`,
@@ -127,6 +128,8 @@ export type LandingPageContent = {
     foot: string;
     links: { label: string; href: string }[];
   };
+  /** Long-form prose sections rendered before the calculator CTA. */
+  prose?: ProseSection[];
   calcCta: {
     heading: [string, string];
     sub: string;
