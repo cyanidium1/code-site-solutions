@@ -39,7 +39,7 @@ test("localizePath prefixes secondary locales only", () => {
 test("resolveRootHref localizes only roots the locale actually has", () => {
   assert.equal(resolveRootHref("/blog", "ru"), "/ru/blog");
   assert.equal(resolveRootHref("/contacts", "ru"), "/ru/contacts");
-  assert.equal(resolveRootHref("/about", "ru"), "/about");
+  assert.equal(resolveRootHref("/about", "ru"), "/ru/about");
   assert.equal(resolveRootHref("/pricing", "ru"), "/ru/pricing");
   assert.equal(resolveRootHref("/portfolio", "ru"), "/ru/portfolio");
   assert.equal(resolveRootHref("/vs-wordpress", "ru"), "/vs-wordpress");
@@ -79,10 +79,10 @@ test("localized top-level root maps to every locale that ships it", () => {
 });
 
 test("root present on EN but not RU leaves the RU twin disabled", () => {
-  // /about has no content/ru page yet, so the RU switch stays off.
-  assert.deepEqual(resolveLocaleAlternate("/about", reg), {
-    uk: "/about",
-    en: "/en/about",
+  // /vs-wordpress has no content/ru page yet, so the RU switch stays off.
+  assert.deepEqual(resolveLocaleAlternate("/vs-wordpress", reg), {
+    uk: "/vs-wordpress",
+    en: "/en/vs-wordpress",
     ru: null,
   });
 });

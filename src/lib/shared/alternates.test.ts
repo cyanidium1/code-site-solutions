@@ -4,10 +4,14 @@ import assert from "node:assert/strict";
 import { buildAlternates } from "./alternates";
 
 test("default availability follows LOCALIZED_ROOTS per locale", () => {
-  // /about exists in EN but not (yet) in RU.
-  assert.deepEqual(buildAlternates({ locale: "uk", uaPath: "/about" }), {
-    canonical: "/about",
-    languages: { uk: "/about", "en-GB": "/en/about", "x-default": "/about" },
+  // /vs-wordpress exists in EN but not (yet) in RU.
+  assert.deepEqual(buildAlternates({ locale: "uk", uaPath: "/vs-wordpress" }), {
+    canonical: "/vs-wordpress",
+    languages: {
+      uk: "/vs-wordpress",
+      "en-GB": "/en/vs-wordpress",
+      "x-default": "/vs-wordpress",
+    },
   });
   // /blog exists in both secondary locales.
   assert.deepEqual(
