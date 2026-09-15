@@ -13,7 +13,7 @@ import {
   resolveRootHref,
   resolveServiceHref,
 } from "@/constants/i18n-routes";
-import type { Locale } from "@/constants/locales";
+import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS, SERVICE_PAGE_LINKS } from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
@@ -130,7 +130,7 @@ export function MobileMenuDrawer({
 
   // Service pages: secondary locales only list the ones that exist there.
   const servicePages = SERVICE_PAGE_LINKS.filter(
-    (link) => locale === "uk" || LOCALIZED_ROOTS[locale].has(link.uaHref),
+    (link) => locale === DEFAULT_LOCALE || LOCALIZED_ROOTS[locale].has(link.uaHref),
   ).map((link) => ({
     href: localizePath(link.uaHref, locale),
     label: tPages(link.key),

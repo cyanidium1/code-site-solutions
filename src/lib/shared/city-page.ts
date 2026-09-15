@@ -5,6 +5,8 @@ import { buildJsonLd, breadcrumbNode, webPageNode } from "@/lib/shared/jsonld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 import type { LandingPageContent } from "@/types/landing";
+import { LOCALE_CONFIG } from "@/constants/locales";
+import { localizePath } from "@/constants/i18n-routes";
 
 /**
  * Shared metadata + JSON-LD builder for the city pages
@@ -39,7 +41,7 @@ type CityPageParams = {
 
 /** Absolute path as served, i.e. `/ru`-prefixed for the RU locale. */
 export function cityPath(uaPath: string, locale: CityLocale): string {
-  return locale === "uk" ? uaPath : `/ru${uaPath}`;
+  return localizePath(uaPath, locale);
 }
 
 export function buildCityMetadata({
@@ -56,7 +58,7 @@ export function buildCityMetadata({
       title: content.metaTitle,
       description: content.metaDescription,
       type: "website",
-      locale: locale === "uk" ? "uk_UA" : "ru_RU",
+      locale: LOCALE_CONFIG[locale].ogLocale,
       url,
       images: [OG_DEFAULT_IMAGE],
     },
@@ -79,7 +81,7 @@ export function buildCityJsonLd({
 }: CityPageParams) {
   const path = cityPath(uaPath, locale);
   const url = pageUrl(path);
-  const parentPath = locale === "uk" ? "/rozrobka-saitiv" : "/ru/rozrobka-saitiv";
+  const parentPath = localizePath("/rozrobka-saitiv", locale);
 
   return buildJsonLd([
     webPageNode({
@@ -89,7 +91,7 @@ export function buildCityJsonLd({
       description: content.metaDescription,
     }),
     breadcrumbNode([
-      { name: content.breadcrumbHome, path: locale === "uk" ? "/" : "/ru" },
+      { name: content.breadcrumbHome, path: localizePath("/", locale) },
       { name: parentLabel, path: parentPath },
       { name: content.breadcrumbSelf, path },
     ]),

@@ -11,7 +11,7 @@ import {
   resolveRootHref,
   resolveServiceHref,
 } from "@/constants/i18n-routes";
-import type { Locale } from "@/constants/locales";
+import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
 import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS, SERVICE_PAGE_LINKS } from "@/constants/nav";
 import { useLeadModal } from "@/components/blocks/lead-modal";
@@ -119,7 +119,7 @@ export function HpHeader() {
   // UA-only page (audit, redesign, …) is simply omitted on /en rather than
   // linked to its UA twin.
   const servicePages = SERVICE_PAGE_LINKS.filter(
-    (link) => locale === "uk" || LOCALIZED_ROOTS[locale].has(link.uaHref),
+    (link) => locale === DEFAULT_LOCALE || LOCALIZED_ROOTS[locale].has(link.uaHref),
   ).map((link) => ({
     href: localizePath(link.uaHref, locale),
     label: tPages(link.key),
