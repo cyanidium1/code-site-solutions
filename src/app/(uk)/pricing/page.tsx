@@ -6,7 +6,6 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
-import { CtaBanner } from "@/components/blocks/cta-banner";
 import { ProseSections } from "@/components/blocks/prose-section";
 import { FAQ } from "@/components/blocks/final";
 import {
@@ -30,15 +29,18 @@ import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { SectionHead } from "@/components/shared/section-head";
 import { buildAlternates } from "@/lib/shared/alternates";
-import { PRICING_PROSE_UK } from "@/content/uk/pricing-prose";
+import { PRICING_PROSE_UK, PRICING_TYPES_UK } from "@/content/uk/pricing-prose";
+import { uahApprox } from "@/constants/calculator-config";
 
 // GSC, 3 міс: «створити сайт ціна» 156 показів, «зробити сайт ціна» 134 —
 // дієслово попереду. Старий title починався з «Ціна створення», що збігається
 // лише з довшими формулюваннями. Гривня в сніпеті — паритет з топ-7 видачі:
 // webnauts.pro і seok.ua виносять грн, і саме вони стоять вище нас.
-const PRICING_TITLE = "Створити сайт — ціна 2026: від $800 (≈35 600 грн) | Code-Site.Art";
+// Гривня рахується тим самим курсом, що й у калькуляторі (UAH_PER_USD): раніше
+// title обіцяв ≈35 600 грн, а калькулятор під тим самим лендінгом друкував 33 600.
+const PRICING_TITLE = `Створити сайт — ціна 2026: від $800 (${uahApprox(800)}) | Code-Site.Art`;
 const PRICING_DESCRIPTION =
-  "➤ Скільки коштує зробити сайт у 2026 ✔️ Лендінг від $800 (≈35 600 грн) ✔️ Корпоративний від $2 500 ✔️ Платформа від $6 000 ➡ Ціна фіксується в договорі до старту.";
+  `➤ Скільки коштує зробити сайт у 2026 ✔️ Лендінг від $800 (${uahApprox(800)}) ✔️ Корпоративний від $2 500 ✔️ Інтернет-магазин і платформа від $6 000 ➡ Ціна фіксується в договорі до старту.`;
 
 export const metadata: Metadata = {
   title: PRICING_TITLE,
@@ -203,6 +205,10 @@ export default async function PricingPage() {
         </div>
       </section>
 
+      {/* Section 2.5: price per site type + standalone services, each row
+          linking to the page that owns that intent */}
+      <ProseSections items={PRICING_TYPES_UK} />
+
       {/* Section 3: What's included (side-with-list, без CTA) */}
       <ImageText
         variant="side-with-list"
@@ -314,23 +320,6 @@ export default async function PricingPage() {
 
       {/* Section 7: Calculator promo */}
       <ProseSections items={PRICING_PROSE_UK} />
-
-      <CtaBanner
-        heading={
-          <>
-            Не впевнені, який <em>пакет</em> підходить?
-          </>
-        }
-        sub="Калькулятор за 60 секунд порахує вилку вартості під ваш проект і пришле детальний прайс на email."
-        ctaPrimary={{
-          label: "Спробувати калькулятор",
-          href: "/calculator",
-        }}
-        ctaSecondary={{
-          label: "Або обговорити з нами",
-          href: "/contacts",
-        }}
-      />
 
       {/* Section 8: FAQ */}
       <section className="bg-bg">

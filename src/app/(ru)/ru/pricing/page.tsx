@@ -6,7 +6,6 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
-import { CtaBanner } from "@/components/blocks/cta-banner";
 import { ProseSections } from "@/components/blocks/prose-section";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter, Bento } from "@/components/homepage";
@@ -30,12 +29,13 @@ import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
 import { TIER_AMOUNTS, TIER_NAMES } from "@/constants/pricing-tiers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
-import { PRICING_PROSE_RU } from "@/content/ru/pricing-prose";
+import { PRICING_PROSE_RU, PRICING_TYPES_RU } from "@/content/ru/pricing-prose";
+import { uahApprox } from "@/constants/calculator-config";
 
-const PRICING_TITLE =
-  "Цена создания сайта 2026 — фиксированные пакеты | Code-Site.Art";
-const PRICING_DESCRIPTION =
-  "➤ Стоимость разработки сайта по фиксированной цене ✔️ Лендинг от $800 ✔️ Корпоративный сайт от $2 500 ✔️ Кастомная платформа от $6 000 ➡ Без «по запросу».";
+// SEO system 2026-09-15: «создание сайта цена», «стоимость сайта» — глагол и
+// гривна в сниппете, как у страниц, которые стоят выше в украинской выдаче.
+const PRICING_TITLE = `Создание сайта — цена 2026: от $800 (${uahApprox(800)}) | Code-Site.Art`;
+const PRICING_DESCRIPTION = `➤ Сколько стоит сайт в 2026 ✔️ Лендинг от $800 (${uahApprox(800)}) ✔️ Корпоративный сайт от $2 500 ✔️ Интернет-магазин и платформа от $6 000 ➡ Цена фиксируется в договоре до старта.`;
 
 export const metadata: Metadata = {
   title: PRICING_TITLE,
@@ -184,6 +184,9 @@ export default async function RuPricingPage() {
         </div>
       </section>
 
+      {/* Section 2.5: price per site type + standalone services */}
+      <ProseSections items={PRICING_TYPES_RU} />
+
       {/* Section 3: What's included */}
       <ImageText
         variant="side-with-list"
@@ -296,17 +299,6 @@ export default async function RuPricingPage() {
 
       {/* Section 7: Calculator promo */}
       <ProseSections items={PRICING_PROSE_RU} />
-
-      <CtaBanner
-        heading={
-          <>
-            Не уверены, какой <em>пакет</em> подходит?
-          </>
-        }
-        sub="Калькулятор за 60 секунд посчитает вилку стоимости под ваш проект и пришлёт детальный прайс на email."
-        ctaPrimary={{ label: "Попробовать калькулятор", href: "/ru/calculator" }}
-        ctaSecondary={{ label: "Или обсудить с нами", href: "/ru/contacts" }}
-      />
 
       {/* Section 8: FAQ */}
       <section className="bg-bg">
