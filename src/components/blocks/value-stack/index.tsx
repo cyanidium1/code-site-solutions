@@ -11,7 +11,6 @@ import {
   Rocket,
   LifeBuoy,
   Zap,
-  Check,
   Smartphone,
   type LucideIcon,
 } from "lucide-react";
@@ -355,22 +354,9 @@ const CARD_DIVIDER = (
 // `.hp-vs-card` (r26) / `.hp-vs-card-sm` (r20) — both already match the
 // design radii. `group/vs` stays as the marker for descendant group-hovers.
 const featuredBase = "group/vs hp-vs-card";
-const smallBase = "group/vs hp-vs-card-sm";
 
 const accentIconBox =
   "relative z-[1] inline-flex items-center justify-center rounded-2xl border border-[oklch(from_var(--card-accent)_l_c_h_/_0.35)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.14)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)]";
-
-// ─── Glass panels (stats band #1729:2890/2900 + checklist #1729:2911) ──
-
-const GLASS_PANEL_CLASS =
-  "relative rounded-2xl border border-line bg-[oklch(1_0_0/0.02)] p-[29px]";
-const STAT_CHIP_CLASS =
-  "inline-flex size-12 shrink-0 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0/0.04)] text-ink-dim";
-const STAT_NUM_CLASS = "font-actay text-[28px] font-bold leading-none text-ink lg:text-[34px]";
-const STAT_SUFFIX_CLASS = "text-[15px] lg:text-[16px] text-ink-dim";
-const STAT_DESC_CLASS = "mt-4 text-[15px] leading-[1.6] text-ink-dim [text-wrap:pretty]";
-const CHECK_CHIP_CLASS =
-  "mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-md border border-line bg-[oklch(1_0_0/0.04)] text-ink-dim";
 
 // ─── Decor (container-anchored stage, pattern-doc rules) ───────────────
 

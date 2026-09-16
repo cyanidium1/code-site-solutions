@@ -203,13 +203,8 @@ export function Reasons({
                   >
                     {r.n}
                   </div>
-                  {/* English tag chips (TRANSPARENCY / TRUST) removed from
-                      non-English pages — plan 2026-09-16, П8. */}
-                  {locale === "en" ? (
-                    <span className="font-mono text-[9px] font-medium text-ink-3 tracking-[0.08em] px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] shrink-0 sm:text-[10px]">
-                      {r.tag}
-                    </span>
-                  ) : null}
+                  {/* Tag chips (TRANSPARENCY / TRUST…) removed: English
+                      decoration on uk/ru pages — plan 2026-09-16, П8. */}
                 </header>
                 <div className="flex-1 min-w-0">
                   <h3
