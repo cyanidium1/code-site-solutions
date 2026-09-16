@@ -15,6 +15,7 @@ import {
 import { cn } from "@/components/ui";
 import { SparkleTrio } from "@/components/homepage/sparkle-trio";
 import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass, hpDecorFadeClass } from "@/components/homepage/shared";
+import { PhoneMore } from "@/components/shared/phone-more";
 
 /* 2026 redesign restyle (Figma «код сайт арт» #1729:2937 + CTA #1729:3085;
    audit: docs/home-process-figma-audit.md). The step grid, timeline, chevrons,
@@ -92,6 +93,7 @@ export function Process({
   steps = DEFAULT_PROCESS,
   ctaLabel = "Детальний процес",
   ctaHref = "/process",
+  moreLabel = "Що входить у кожен етап",
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
@@ -99,6 +101,8 @@ export function Process({
   steps?: ProcessStep[];
   ctaLabel?: string;
   ctaHref?: string;
+  /** Phone toggle that opens the per-step tags. */
+  moreLabel?: string;
 } = {}) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -167,6 +171,7 @@ export function Process({
               </span>
             </div>
           </div>
+          <PhoneMore label={moreLabel}>
           <ol className="relative m-0 grid list-none grid-cols-1 items-start gap-4 p-0 before:absolute before:top-6 before:bottom-6 before:left-6 before:w-px before:bg-[linear-gradient(180deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.4)_15%,oklch(from_var(--color-accent)_l_c_h_/_0.4)_85%,transparent)] before:content-[''] lg:grid-cols-5 lg:gap-6 lg:before:content-none">
             {steps.map((s, i) => {
               const isLast = i === steps.length - 1;
@@ -205,7 +210,7 @@ export function Process({
                       {s.name}
                     </div>
 
-                    <ul className="mt-2 flex list-none flex-col items-start gap-1 p-0 max-lg:hidden lg:mt-2.5 lg:items-stretch">
+                    <ul className="pm-extra mt-2 flex list-none flex-col items-start gap-1 p-0 lg:mt-2.5 lg:items-stretch">
                       {s.items.map((it) => (
                         <li
                           key={it}
@@ -226,6 +231,7 @@ export function Process({
               );
             })}
           </ol>
+          </PhoneMore>
         </div>
         {/* CTA row — Figma #1729:3085: link left, sparkle trio right-aligned
             to the container edge (#1729:3092). */}

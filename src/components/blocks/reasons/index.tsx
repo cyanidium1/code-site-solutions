@@ -1,4 +1,4 @@
-import { cn, btnClass } from "@/components/ui";
+import { btnClass } from "@/components/ui";
 import { LeadCtaButton } from "@/components/blocks/lead-modal/lead-cta-button";
 import type { LeadFormLocale } from "@/constants/form-options";
 // React-hoisted style (see blocks/case/index.tsx for the rationale): costs
@@ -114,7 +114,6 @@ export function Reasons({
       <em>не записуються</em> з вашого сайту
     </>
   ),
-  metaRows = ["аналіз 47 клінік · 2024–25", "розділ 02 / 06"],
   items = DEFAULT_REASONS,
   footText = (
     <>
@@ -129,6 +128,7 @@ export function Reasons({
   eyebrow?: string;
   eyebrowNum?: string;
   heading?: React.ReactNode;
+  /** Accepted for CMS compatibility; not rendered (plan 2026-09-16, П8). */
   metaRows?: string[];
   items?: Reason[];
   footText?: React.ReactNode;
@@ -158,22 +158,8 @@ export function Reasons({
               {heading}
             </h2>
           </div>
-          {/* metaRows ("аналіз 47 сайтів · розділ 02/06") dropped: unverifiable
-              claims and decoration (plan 2026-09-16, П8). */}
-          <div className="hidden">
-            {metaRows.map((row, i) => (
-              <div
-                className={cn(
-                  "flex items-center gap-2 justify-start sm:justify-end",
-                  i > 0 && "mt-1.5"
-                )}
-                key={i}
-              >
-                <span className="text-accent-soft">·</span>
-                <span>{row}</span>
-              </div>
-            ))}
-          </div>
+          {/* metaRows ("аналіз 47 сайтів · розділ 02/06") are not rendered:
+              unverifiable claims and decoration (plan 2026-09-16, П8). */}
         </header>
 
         {/* Asymmetric layout: first reason as a large hero card on the

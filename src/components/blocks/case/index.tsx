@@ -5,6 +5,7 @@ import { H2, btnClass } from "@/components/ui";
 import { ARROW_ICON, CheckIcon, CrossIcon } from "./icons";
 import { CaseShot } from "./case-shot";
 import { resolveCaseLayout, type CaseLayout } from "./resolve-layout";
+import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
 // Heavy gradient/shadow styles are delivered as a React-hoisted <style
 // href precedence> tag (see CASE_CSS below) instead of Tailwind utilities or
 // a CSS module: utilities ship in the global stylesheet on every page, and
@@ -53,7 +54,7 @@ const LEDE_CLASS =
   "xl:text-[15px]";
 
 const META_CLASS =
-  "max-md:hidden flex flex-wrap gap-x-6 gap-y-[18px] mt-6 pt-[18px] border-t border-dashed border-line " +
+  "pm-extra flex flex-wrap gap-x-6 gap-y-[18px] mt-6 pt-[18px] border-t border-dashed border-line " +
   "md:gap-x-9 md:gap-y-6";
 
 const META_ITEM_CLASS =
@@ -108,7 +109,7 @@ const TAGLINE_CLASS =
 // Checklist <ul>: 12px-gap column. <li> rows have 14px body / 13px @700px,
 // pretty-wrap, and emphasised <em> spans use ink + medium weight.
 const LIST_CLASS =
-  "flex flex-col gap-3 m-0 p-0 list-none max-md:[&>li:nth-child(n+4)]:hidden " +
+  "pm-cap-3 flex flex-col gap-3 m-0 p-0 list-none " +
   "[&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.5] [&>li]:text-ink-dim [&>li]:text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "md:[&>li]:text-[14px]";
@@ -124,7 +125,7 @@ const LIST_ICN_GOOD_CLASS =
   "bg-accent-15 text-accent-soft border-accent-30";
 
 const CARD_FOOT_CLASS =
-  "max-md:hidden mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";
+  "pm-extra mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";
 
 // Results strip: 4-col grid on desktop, 2-col @1100px and @700px, with the
 // 1px-gap-as-border trick (gap background colour shows through). Legacy used
@@ -146,7 +147,7 @@ const RESULT_LBL_CLASS =
   "text-[11px] text-ink-dim leading-[1.4] mt-1 md:text-[12px]";
 
 const RESULT_TAG_CLASS =
-  "max-md:hidden font-mono text-[9px] text-ink-3 tracking-[0.08em] uppercase";
+  "pm-extra font-mono text-[9px] text-ink-3 tracking-[0.08em] uppercase";
 
 // CTA strip: pill on desktop, stacked rounded card on mobile.
 const CTA_CLASS =
@@ -285,6 +286,7 @@ export function Case({
       <div className={SECTION_BG_CLASS} />
 
       <div className={INNER_CLASS}>
+        <PhoneMore label={SHOW_MORE_LABEL[locale]}>
         <header className={HEADER_CLASS}>
           <div>
             {(eyebrow || eyebrowEm) && (
@@ -433,6 +435,8 @@ export function Case({
             ))}
           </div>
         ) : null}
+
+        </PhoneMore>
 
         <div className={CTA_CLASS}>
           <div className={CTA_TEXT_CLASS}>

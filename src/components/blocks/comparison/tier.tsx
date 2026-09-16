@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 import type { TierProps } from "@/types/pricing";
 import { useLeadModal } from "@/components/blocks/lead-modal";
+import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
 
 function TierCheck() {
   return (
@@ -99,6 +100,7 @@ export function Tier({
           {popularLabel}
         </div>
       )}
+      <PhoneMore label={SHOW_MORE_LABEL[locale]} className="flex flex-col gap-5 md:gap-6">
       <div className="flex flex-col gap-3.5">
         <div className="font-display font-bold text-[12px] tracking-[0.14em] uppercase text-ink leading-[1.2] md:text-[13px]">
           {name}
@@ -111,7 +113,7 @@ export function Tier({
           {weeks}
         </div>
         {bestFor ? (
-          <div className={`mt-1 pt-3 border-t border-line ${compact ? "max-md:hidden" : ""}`}>
+          <div className={`mt-1 pt-3 border-t border-line ${compact ? "pm-extra" : ""}`}>
             <div className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-1.5">
               {bestForLabel}
             </div>
@@ -126,7 +128,7 @@ export function Tier({
         <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-3">
           {includes.heading}
         </h4>
-        <ul className={`${TIER_LIST_BASE} ${TIER_LIST_DEFAULT} ${compact ? "max-md:[&>li:nth-child(n+4)]:hidden" : ""}`}>
+        <ul className={`${TIER_LIST_BASE} ${TIER_LIST_DEFAULT} ${compact ? "pm-cap-3" : ""}`}>
           {includes.items.map((it, i) => (
             <li key={i}>
               <TierCheck />
@@ -136,12 +138,11 @@ export function Tier({
         </ul>
       </div>
 
-      {!compact && excludes && excludes.items.length > 0 && (
+      {excludes && excludes.items.length > 0 && (
         <>
-          {/* Phones skip the "not included" list: every page that shows
-              full tiers also has its own "not included" section. */}
-          <div className="h-px bg-line m-0 max-md:hidden" />
-          <div className="max-md:hidden">
+          {/* Phones fold the "not included" list behind "show more". */}
+          <div className="pm-extra h-px bg-line m-0" />
+          <div className="pm-extra">
             <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-ink-3 mb-3">
               {excludes.heading ?? "Не входить"}
             </h4>
@@ -156,6 +157,8 @@ export function Tier({
           </div>
         </>
       )}
+
+      </PhoneMore>
 
       <div className="mt-auto pt-2">
         {discountLine ? (

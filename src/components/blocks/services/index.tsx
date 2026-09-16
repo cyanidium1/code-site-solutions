@@ -1,6 +1,7 @@
 import { SanityImg } from "@/lib/shared/sanity-image";
 import type { SanityImage } from "@/types/sanity";
 import { type Feature, FeatureCard } from "./feature-card";
+import { PhoneMore } from "@/components/shared/phone-more";
 
 // React-hoisted style (see blocks/case/index.tsx for the rationale): costs
 // bytes only on routes that render this block, no extra request.
@@ -144,7 +145,8 @@ export function Services({
               </header>
             ) : null}
 
-            <div className="grid grid-cols-2 gap-2 max-md:[&>*:nth-child(n+7)]:hidden md:gap-2.5 md:grid-cols-4 xl:gap-3.5">
+            <PhoneMore>
+            <div className="pm-cap-6 grid grid-cols-2 gap-2 md:gap-2.5 md:grid-cols-4 xl:gap-3.5">
               {integrations.map((name, i) => (
                 <div
                   key={i}
@@ -154,6 +156,7 @@ export function Services({
                 </div>
               ))}
             </div>
+            </PhoneMore>
           </>
         ) : null}
       </div>

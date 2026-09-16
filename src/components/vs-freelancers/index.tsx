@@ -18,6 +18,7 @@ import {
 } from "@/content/comparisons/vs-freelancers";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { localizePath } from "@/constants/i18n-routes";
+import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
 
 export type VfLocale = Locale;
 
@@ -68,6 +69,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       {/* 02 — 6 freelancer horror stories */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[locale]}>
           <SectionHead
             eyebrow={c.horrorStories.eyebrow}
             heading={c.horrorStories.heading}
@@ -101,7 +103,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             })}
           </div>
           {c.horrorStories.items.length > 3 ? (
-            <div className="max-md:hidden mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div className="pm-extra mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.horrorStories.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -123,7 +125,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <p className="mt-8 max-w-[68ch] mx-auto text-center text-[14px] leading-[1.65] text-ink-dim [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.horrorStories.foot}
           </p>
-        </div>
+        </PhoneMore>
+</div>
       </section>
 
       {/* 03 — When a freelancer is the right choice */}
@@ -214,6 +217,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
       {/* 05 — 12 people on your project */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[locale]}>
           <SectionHead
             eyebrow={c.team.eyebrow}
             heading={c.team.heading}
@@ -252,7 +256,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           </h3>
           {/* Phones: the heading and foot line carry the point; eight partner
               cards were most of the 2.8-screen team section (plan 2026-09-16). */}
-          <div className="max-md:hidden grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <div className="pm-extra grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
             {c.team.partners.map((p) => {
               const Icon = p.icon;
               return (
@@ -277,18 +281,20 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <p className="mt-8 text-center text-[13px] leading-[1.65] text-ink-dim max-w-[60ch] mx-auto">
             {c.team.foot}
           </p>
-        </div>
+        </PhoneMore>
+</div>
       </section>
 
       {/* 06 — What you actually pay for */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[locale]}>
           <SectionHead
             eyebrow={c.payFor.eyebrow}
             heading={c.payFor.heading}
             sub={c.payFor.sub}
           />
-          <div className="grid grid-cols-1 gap-4 max-md:[&>*:nth-child(n+5)]:hidden md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 pm-cap-4 md:grid-cols-2 xl:grid-cols-4">
             {c.payFor.items.map((it) => {
               const Icon = it.icon;
               return (
@@ -314,12 +320,14 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               );
             })}
           </div>
-        </div>
+        </PhoneMore>
+</div>
       </section>
 
       {/* 07 — After launch (Sanity Studio) */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[locale]}>
           <SectionHead
             eyebrow={c.admin.eyebrow}
             heading={c.admin.heading}
@@ -360,7 +368,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-1 gap-4 max-md:[&>*:nth-child(n+4)]:hidden md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 pm-cap-3 md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
@@ -382,12 +390,14 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <p className="mt-8 max-w-[68ch] mx-auto text-center text-[13px] leading-[1.65] text-ink-dim [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.admin.foot}
           </p>
-        </div>
+        </PhoneMore>
+</div>
       </section>
 
       {/* 08 — Real case (rescue pattern) */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[locale]}>
           <SectionHead
             eyebrow={c.caseStudy.eyebrow}
             heading={c.caseStudy.heading}
@@ -414,7 +424,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 >
                   {col.heading}
                 </h3>
-                <ul className="list-none flex flex-col gap-2.5 max-md:[&>li:nth-child(n+4)]:hidden">
+                <ul className="list-none flex flex-col gap-2.5 pm-cap-3">
                   {col.items.map((item, j) => (
                     <li key={j} className="flex gap-2.5 text-[13px] leading-[1.55] text-ink-dim">
                       <span
@@ -436,7 +446,8 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <p className="mt-8 max-w-[68ch] mx-auto text-center text-[14px] leading-[1.65] text-ink-dim [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.caseStudy.foot}
           </p>
-        </div>
+        </PhoneMore>
+</div>
       </section>
 
       {/* 09 — What we don't do */}

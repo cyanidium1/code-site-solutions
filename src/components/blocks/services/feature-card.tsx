@@ -1,4 +1,5 @@
 import { CheckIcon } from "./icons";
+import { PhoneMore } from "@/components/shared/phone-more";
 
 // React-hoisted style (see blocks/case/index.tsx for the rationale): costs
 // bytes only on routes that render this card, no extra request.
@@ -56,7 +57,8 @@ export function FeatureCard({ icon, title, items, bg }: Feature) {
       <h3 className="font-display font-bold text-[13px] tracking-[0.05em] uppercase leading-[1.2] text-ink text-balance md:text-[15px]">
         {title}
       </h3>
-      <ul className="flex flex-col gap-2.5 max-md:[&>li:nth-child(n+3)]:hidden [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[12px] [&>li]:leading-[1.5] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[13px]">
+      <PhoneMore>
+      <ul className="pm-cap-2 flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[12px] [&>li]:leading-[1.5] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[13px]">
         {items.map((it, i) => (
           <li key={i}>
             <span className="w-4 h-4 rounded-full bg-accent-18 text-accent-soft border border-accent-25 mt-0.5 inline-flex items-center justify-center shrink-0">
@@ -66,6 +68,7 @@ export function FeatureCard({ icon, title, items, bg }: Feature) {
           </li>
         ))}
       </ul>
+      </PhoneMore>
     </div>
   );
 }

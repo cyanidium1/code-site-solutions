@@ -28,6 +28,7 @@ import { DEFAULT_LOCALE } from "@/constants/locales";
 import type { Locale } from "@/constants/locales";
 import type { LandingPageContent } from "@/types/landing";
 import type { BentoCell } from "@/types/homepage";
+import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
 
 /* Local copies of the eyebrow / em-heading treatments used by turnkey-list —
    those constants are module-private there, so the strings live here too. */
@@ -119,15 +120,17 @@ function SectionHead({
 
 /* Phones read the three strongest points per column (plan 2026-09-16). */
 const WHEN_LIST_CLASS =
-  "list-none m-0 p-0 flex flex-col gap-2.5 max-lg:[&>li:nth-child(n+4)]:hidden";
+  "pm-cap-3 list-none m-0 p-0 flex flex-col gap-2.5";
 
 /** Fit / not-fit editorial columns ("when is a landing page the right tool"). */
 function WhenSection({
   content,
   index,
+  locale,
 }: {
   content: LandingPageContent["when"];
   index: string;
+  locale: Locale;
 }) {
   return (
     <section className={`${hpSectionClass} overflow-hidden`}>
@@ -146,6 +149,7 @@ function WhenSection({
           aria-hidden
           className="h-px [background:linear-gradient(90deg,var(--color-accent-40),oklch(1_0_0_/_0.08)_45%,transparent)]"
         />
+        <PhoneMore label={SHOW_MORE_LABEL[locale]}>
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="pt-7 md:pr-10 lg:pr-14">
             <h3 className="font-actay uppercase font-semibold text-[15.5px] text-ink leading-[1.2] m-0 mb-4">
@@ -190,9 +194,10 @@ function WhenSection({
             </ul>
           </div>
         </div>
-        <p className="mt-6 text-[13px] leading-[1.6] text-ink-3 italic max-w-[640px] max-lg:hidden">
+        <p className="pm-extra mt-6 text-[13px] leading-[1.6] text-ink-3 italic max-w-[640px]">
           {content.foot}
         </p>
+        </PhoneMore>
       </div>
     </section>
   );
@@ -205,7 +210,7 @@ function NotIncludedFooter({
   content: LandingPageContent["included"];
 }) {
   return (
-    <div className="p-[22px_26px_24px] border border-dashed border-line-strong rounded-2xl bg-[oklch(1_0_0_/_0.02)] max-lg:hidden">
+    <div className="pm-extra p-[22px_26px_24px] border border-dashed border-line-strong rounded-2xl bg-[oklch(1_0_0_/_0.02)] max-lg:mt-4">
       <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim mb-[14px]">
         {content.notIncludedTitle}
       </div>
@@ -232,9 +237,11 @@ function NotIncludedFooter({
 function IncludedSection({
   content,
   index,
+  locale,
 }: {
   content: LandingPageContent["included"];
   index: string;
+  locale: Locale;
 }) {
   return (
     <section className={`${hpSectionClass} overflow-hidden`}>
@@ -274,7 +281,9 @@ function IncludedSection({
             );
           })}
         </div>
-        <NotIncludedFooter content={content} />
+        <PhoneMore label={SHOW_MORE_LABEL[locale]}>
+          <NotIncludedFooter content={content} />
+        </PhoneMore>
       </div>
     </section>
   );
@@ -322,15 +331,13 @@ function PriceGrid({
         className="absolute bottom-[-160px] left-1/2 -translate-x-1/2 h-[420px] w-[720px] rounded-full bg-accent-8 blur-[120px] pointer-events-none"
       />
       <div className={hpInnerClass}>
-        <div className={folded ? "max-lg:hidden" : undefined}>
-          <SectionHead index={index} eyebrow={content.eyebrow} heading={content.heading} />
-        </div>
         <MobileFold
           disabled={!folded}
           label={chrome.options}
           labelClassName={FOLD_BUTTON_CLASS}
-          bodyClassName="max-lg:mt-4"
+          bodyClassName="max-lg:mt-6"
         >
+        <SectionHead index={index} eyebrow={content.eyebrow} heading={content.heading} />
         <div className={PRICE_GRID_CLASS}>
           {content.cells.map((cell, ci) => {
             const Icon = cell.icon;
@@ -422,12 +429,20 @@ const STORY_PARA_CLASS = "mt-4 mb-0 font-sans text-[14.5px] leading-[1.65] text-
 /** Hub navigation: grouped links to the pages this hub stands above (site
     types, industries, cities). Real navigation for the visitor and the only
     in-body route that gives those pages weight from the head-cluster page. */
+const HUB_MORE_LABEL: Record<Locale, string> = {
+  uk: "Ціни і строки по кожному",
+  ru: "Цены и сроки по каждому",
+  en: "Prices and timelines for each",
+};
+
 function HubSection({
   content,
   index,
+  locale,
 }: {
   content: NonNullable<LandingPageContent["hub"]>;
   index: string;
+  locale: Locale;
 }) {
   return (
     <section className={hpSectionClass}>
@@ -438,6 +453,7 @@ function HubSection({
           heading={content.heading}
           sub={content.sub}
         />
+        <PhoneMore label={HUB_MORE_LABEL[locale]}>
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
           {content.groups.map((g) => (
             <div key={g.title}>
@@ -456,7 +472,7 @@ function HubSection({
                           {nb(l.label)}
                         </span>
                         {l.note ? (
-                          <span className="mt-0.5 block font-sans text-[12.5px] leading-[1.5] text-ink-dim max-lg:hidden">
+                          <span className="pm-extra mt-0.5 block font-sans text-[12.5px] leading-[1.5] text-ink-dim">
                             {nb(l.note)}
                           </span>
                         ) : null}
@@ -473,6 +489,7 @@ function HubSection({
             </div>
           ))}
         </div>
+        </PhoneMore>
       </div>
     </section>
   );
@@ -501,7 +518,7 @@ function PriceTable({
               rows={table.rows}
               accentCol={table.headers.length - 2}
             />
-            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[480px] max-lg:hidden">
+            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[480px]">
               {table.foot}
             </p>
           </div>
@@ -972,7 +989,7 @@ export async function LandingPageView({
         </div>
       ) : null}
 
-      {content.hub && <HubSection content={content.hub} index={num("hub")} />}
+      {content.hub && <HubSection content={content.hub} index={num("hub")} locale={locale} />}
 
       {/* Price: the configuration table first, then the option grid folded
           on phones, then (phones) the configurator — one block where there
@@ -980,10 +997,10 @@ export async function LandingPageView({
       {content.priceFirst && priceBlock}
 
       {/* 2 — When a landing page fits / when it doesn't */}
-      <WhenSection content={content.when} index={num("when")} />
+      <WhenSection content={content.when} index={num("when")} locale={locale} />
 
       {/* 3 — Checklist: what the base price includes */}
-      <IncludedSection content={content.included} index={num("included")} />
+      <IncludedSection content={content.included} index={num("included")} locale={locale} />
 
       {/* 4 — How the price is built (calculator-style option grid) */}
       {!content.priceFirst && priceBlock}
@@ -997,10 +1014,9 @@ export async function LandingPageView({
               eyebrow={content.stories.eyebrow}
               heading={content.stories.heading}
             />
+            <PhoneMore label={SHOW_MORE_LABEL[locale]}>
             <div
-              className={`flex flex-col gap-12 lg:gap-16 ${
-                content.gallery ? "max-lg:[&>div:nth-child(n+2)]:hidden" : ""
-              }`}
+              className={`flex flex-col gap-12 lg:gap-16 ${content.gallery ? "pm-cap-1" : ""}`}
             >
               {content.stories.items.map((story, i) => {
                 const c = cases.find((x) => x.slug === story.slug);
@@ -1096,6 +1112,7 @@ export async function LandingPageView({
                 );
               })}
             </div>
+            </PhoneMore>
           </div>
         </section>
       )}
@@ -1297,7 +1314,7 @@ export async function LandingPageView({
               {content.related.heading}
             </h2>
             {content.related.sub ? (
-              <p className="mt-3 mb-0 max-w-[640px] font-sans text-[14.5px] leading-[1.6] text-ink-dim max-lg:hidden">
+              <p className="mt-3 mb-0 max-w-[640px] font-sans text-[14.5px] leading-[1.6] text-ink-dim">
                 {content.related.sub}
               </p>
             ) : null}

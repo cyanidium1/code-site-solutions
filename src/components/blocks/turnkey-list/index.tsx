@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { H2 } from "@/components/ui";
+import { PhoneMore } from "@/components/shared/phone-more";
 
 // React-hoisted style (see blocks/case/index.tsx for the rationale): costs
 // bytes only on routes that render this block, no extra request.
@@ -130,12 +131,15 @@ export function TurnkeyList({
   sub = "Ви платите фіксовану суму і отримуєте готовий сайт. Не пишете ТЗ. Не шукаєте референси. Не ловите фотографа. Ось що входить у проєкт без додаткової плати:",
   items = DEFAULT_ITEMS,
   footer = DEFAULT_FOOTER,
+  phoneMoreLabel,
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
   sub?: React.ReactNode;
   items?: TurnkeyItem[];
   footer?: React.ReactNode;
+  /** Phones: first three items, the rest behind this toggle label. */
+  phoneMoreLabel?: string;
 } = {}) {
   return (
     <section
@@ -147,7 +151,7 @@ export function TurnkeyList({
         className={`absolute inset-0 z-0 pointer-events-none ${TURNKEY_BG}`}
       />
       <div className="relative z-[1] max-w-container mx-auto">
-        <div className="flex flex-col items-start mb-14 max-w-[840px]">
+        <div className="flex flex-col items-start mb-8 lg:mb-14 max-w-[840px]">
           <span className={EYEBROW_CLASS}>{eyebrow}</span>
           <H2
             variant="turnkey"
@@ -161,7 +165,8 @@ export function TurnkeyList({
             </p>
           ) : null}
         </div>
-        <div className="grid grid-cols-1 gap-[14px] min-[561px]:grid-cols-2 min-[1001px]:grid-cols-3">
+        <PhoneMore label={phoneMoreLabel} className={phoneMoreLabel ? undefined : "contents"}>
+        <div className={`grid grid-cols-1 gap-[14px] min-[561px]:grid-cols-2 min-[1001px]:grid-cols-3 ${phoneMoreLabel ? "pm-cap-3" : ""}`}>
           {items.map((it, i) => {
             const Icon = it.icon;
             const num = String(i + 1).padStart(2, "0");
@@ -189,7 +194,8 @@ export function TurnkeyList({
             );
           })}
         </div>
-        {footer ? <div className="mt-8 font-sans">{footer}</div> : null}
+        {footer ? <div className={`mt-8 font-sans ${phoneMoreLabel ? "pm-extra" : ""}`}>{footer}</div> : null}
+        </PhoneMore>
       </div>
     </section>
   );

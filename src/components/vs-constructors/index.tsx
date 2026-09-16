@@ -18,6 +18,7 @@ import {
 } from "@/content/comparisons/vs-constructors";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { localizePath } from "@/constants/i18n-routes";
+import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
 
 export type VcLocale = Locale;
 
@@ -68,6 +69,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       {/* 02 — 5 outgrew signs */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[locale]}>
           <SectionHead
             eyebrow={c.outgrew.eyebrow}
             heading={c.outgrew.heading}
@@ -101,7 +103,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             })}
           </div>
           {c.outgrew.items.length > 3 ? (
-            <div className="max-md:hidden mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div className="pm-extra mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.outgrew.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -123,7 +125,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           <p className="mt-8 text-center text-[14px] leading-[1.65] text-ink-dim max-w-[60ch] mx-auto">
             {c.outgrew.foot}
           </p>
-        </div>
+        </PhoneMore>
+</div>
       </section>
 
       {/* 03 — Hidden costs */}
@@ -317,6 +320,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
       {/* 06 — Admin after migration (Sanity Studio reassurance) */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[locale]}>
           <SectionHead
             eyebrow={c.admin.eyebrow}
             heading={c.admin.heading}
@@ -357,7 +361,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-1 gap-4 max-md:[&>*:nth-child(n+4)]:hidden md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 pm-cap-3 md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
@@ -379,7 +383,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           <p className="mt-8 max-w-[64ch] mx-auto text-center text-[13px] leading-[1.65] text-ink-dim [&_em]:not-italic [&_em]:font-bold [&_em]:text-ink [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.admin.foot}
           </p>
-        </div>
+        </PhoneMore>
+</div>
       </section>
 
       {/* 07 — Migration patterns */}

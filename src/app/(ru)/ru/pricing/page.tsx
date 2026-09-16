@@ -20,6 +20,8 @@ import { plainRich } from "@/lib/shared/rich-text";
 import {
   ADDONS_CELLS,
   PRICING_FAQ,
+  TURNKEY_FOOTER_RU,
+  TURNKEY_ITEMS_RU,
 } from "@/content/ru/pricing";
 import { RU_TIERS } from "@/content/ru/homepage";
 import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
@@ -28,6 +30,7 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { PRICING_PROSE_RU, PRICING_TYPES_RU } from "@/content/ru/pricing-prose";
 import { uahApprox } from "@/constants/calculator-config";
+import { TurnkeyList } from "@/components/blocks/turnkey-list";
 
 // SEO system 2026-09-15: «создание сайта цена», «стоимость сайта» — глагол и
 // гривна в сниппете, как у страниц, которые стоят выше в украинской выдаче.
@@ -154,7 +157,21 @@ export default async function RuPricingPage() {
             Цена создания сайта в 2026 — <em>фиксированные пакеты от $800</em>
           </>
         }
-        sub="Цена фиксируется в договоре. Тексты, дизайн, код, хостинг и год поддержки — уже в ней."
+        sub="Цена — это то, что вы получите. Не «по запросу». Фиксируется в договоре, и в неё входит всё: копирайтинг, дизайн, вёрстка, код, домен, хостинг, запуск, год поддержки. Вы платите и получаете готовый продукт."
+      />
+
+      {/* Section 1.5: Turnkey list — folded to three on phones */}
+      <TurnkeyList
+        phoneMoreLabel="Показать все 9"
+        eyebrow="ПОД КЛЮЧ"
+        heading={
+          <>
+            <em>9 вещей</em>, которые входят в любой пакет
+          </>
+        }
+        sub="Вы платите фиксированную сумму и получаете готовый сайт. Не нужно писать бриф, искать референсы и договариваться с фотографом. Вот что входит в каждый проект — без доплат."
+        items={TURNKEY_ITEMS_RU}
+        footer={TURNKEY_FOOTER_RU}
       />
 
       {/* Section 2: pricing tiers */}

@@ -30,6 +30,7 @@ import { SectionHead } from "@/components/shared/section-head";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { PRICING_PROSE_UK, PRICING_TYPES_UK } from "@/content/uk/pricing-prose";
 import { uahApprox } from "@/constants/calculator-config";
+import { TurnkeyList } from "@/components/blocks/turnkey-list";
 
 // GSC, 3 міс: «створити сайт ціна» 156 показів, «зробити сайт ціна» 134 —
 // дієслово попереду. Старий title починався з «Ціна створення», що збігається
@@ -173,7 +174,17 @@ export default async function PricingPage() {
             Створити сайт у 2026 — <em>ціна від $800, зафіксована в договорі</em>
           </>
         }
-        sub="Ціна фіксується в договорі. Тексти, дизайн, код, хостинг і рік підтримки — вже в ній."
+        sub="Ціна — це те, що ви отримаєте. Не «під запит». Фіксовано в договорі, у ціну входить все — копірайтинг, дизайн, верстка, код, домен, хостинг, запуск, рік підтримки. Ви платите і отримуєте готовий продукт."
+      />
+
+      {/* Section 1.5: Turnkey list — folded to three on phones */}
+      <TurnkeyList
+        phoneMoreLabel="Показати всі 9"
+        heading={
+          <>
+            <em>9 речей</em>, які входять у будь-який пакет
+          </>
+        }
       />
 
       {/* Section 2: pricing tiers */}

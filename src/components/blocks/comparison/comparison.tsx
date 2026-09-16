@@ -13,6 +13,7 @@ import { H2, btnClass } from "@/components/ui";
 import { Tier } from "./tier";
 import { TableRow } from "./table-row";
 import { CmpTable, CmpThead, CmpTh, CmpPricingGrid } from "./cmp-table";
+import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
 
 /** Contact-form status strings, per locale. */
 const FORM_STATUS: Record<Locale, { success: string; error: string }> = {
@@ -239,7 +240,8 @@ export function Comparison({
 
         {/* Phones: first four rows (the table was 4–5 screens); the full
             comparison lives one tap away on /vs-wordpress. */}
-        <div className="border border-line rounded-[14px] overflow-hidden mb-8 bg-[oklch(0.155_0.005_300)] md:rounded-[18px] max-md:[&_tbody>tr:nth-child(n+5)]:hidden">
+        <PhoneMore label={SHOW_MORE_LABEL[locale]} className="mb-8" labelClassName="mt-0 rounded-t-none border-t-0">
+        <div className="border border-line rounded-[14px] overflow-hidden bg-[oklch(0.155_0.005_300)] md:rounded-[18px]">
           <CmpTable>
             <CmpThead>
               <tr>
@@ -249,13 +251,14 @@ export function Comparison({
                 <CmpTh good>{tableLabels[3]}</CmpTh>
               </tr>
             </CmpThead>
-            <tbody>
+            <tbody className="pm-cap-4">
               {rows.map((r, i) => (
                 <TableRow key={i} {...r} labels={tableLabels} />
               ))}
             </tbody>
           </CmpTable>
         </div>
+        </PhoneMore>
 
         <div className="flex flex-col gap-2.5 flex-wrap mb-14 md:flex-row md:gap-3 md:mb-20 xl:mb-[120px]">
           {tableCtaPrimaryHref ? (

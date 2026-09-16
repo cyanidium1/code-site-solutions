@@ -6,6 +6,7 @@ import { MedAdminArt } from "./med-admin-art";
 import { MED_COPY } from "./copy";
 
 import "./medicine.css";
+import { PhoneMore } from "@/components/shared/phone-more";
 
 /**
  * What we build for clinics + which systems it plugs into.
@@ -124,7 +125,8 @@ export function MedCapabilities({
                     {cap.title}
                   </h3>
                 </div>
-                <ul className="m-0 flex list-none flex-col gap-2 p-0 max-md:[&>li:nth-child(n+3)]:hidden">
+                <PhoneMore>
+<ul className="pm-cap-2 m-0 flex list-none flex-col gap-2 p-0">
                   {cap.items.map((it, j) => (
                     <li
                       key={j}
@@ -134,6 +136,7 @@ export function MedCapabilities({
                     </li>
                   ))}
                 </ul>
+</PhoneMore>
               </ScrollReveal>
             ))}
           </div>
@@ -225,7 +228,8 @@ function BusColumn({
       >
         {label}
       </span>
-      <ul className="m-0 flex list-none flex-col gap-2 p-0 max-md:[&>li:nth-child(n+5)]:hidden">
+      <PhoneMore>
+<ul className="pm-cap-4 m-0 flex list-none flex-col gap-2 p-0">
         {items.map((name) => (
           <li
             key={name}
@@ -243,6 +247,7 @@ function BusColumn({
           </li>
         ))}
       </ul>
+</PhoneMore>
     </div>
   );
 }

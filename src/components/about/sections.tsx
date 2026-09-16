@@ -8,6 +8,9 @@ import { ArrowUpRight, ArrowRight, type LucideIcon } from "lucide-react";
 import type { RichText } from "@/lib/shared/rich-text";
 import { cn, btnClass } from "@/components/ui";
 import { SectionHead } from "@/components/shared/section-head";
+import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
+import { useLocale } from "next-intl";
+import type { Locale } from "@/constants/locales";
 
 // React-hoisted styles (see blocks/case/index.tsx for the rationale): cost
 // bytes only on the about pages, no extra request, and — unlike CSS modules —
@@ -431,6 +434,7 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
   return (
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[useLocale() as Locale]}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
         <div className="grid grid-cols-1 gap-4 max-[700px]:gap-0 min-[701px]:grid-cols-2 lg:grid-cols-4">
           {c.pillars.map((p) => {
@@ -452,7 +456,7 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
         </div>
 
         {/* Warning panel */}
-        <div className="max-[700px]:hidden mt-4 flex flex-col items-start gap-3 rounded-[22px] border border-[oklch(0.65_0.18_25_/_0.3)] bg-[oklch(0.65_0.18_25_/_0.06)] p-7 min-[701px]:flex-row min-[701px]:gap-4">
+        <div className="pm-extra mt-4 flex flex-col items-start gap-3 rounded-[22px] border border-[oklch(0.65_0.18_25_/_0.3)] bg-[oklch(0.65_0.18_25_/_0.06)] p-7 min-[701px]:flex-row min-[701px]:gap-4">
           <span
             aria-hidden="true"
             className="mt-0.5 inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-[oklch(0.7_0.18_25)] shadow-[0_0_10px_oklch(0.7_0.18_25_/_0.6)]"
@@ -466,7 +470,8 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
             </p>
           </div>
         </div>
-      </div>
+      </PhoneMore>
+</div>
     </section>
   );
 }
@@ -571,8 +576,9 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
   return (
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
+<PhoneMore label={SHOW_MORE_LABEL[useLocale() as Locale]}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-1 gap-4 max-[700px]:gap-0 max-[700px]:[&>*:nth-child(n+4)]:hidden min-[601px]:grid-cols-2 min-[961px]:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 pm-cap-3 max-[700px]:gap-0 min-[601px]:grid-cols-2 min-[961px]:grid-cols-3">
           {c.items.map((it) => {
             const Icon = it.icon;
             return (
@@ -633,7 +639,8 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
             />
           </div>
         </div>
-      </div>
+      </PhoneMore>
+</div>
     </section>
   );
 }

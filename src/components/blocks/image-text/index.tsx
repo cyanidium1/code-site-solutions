@@ -1,5 +1,6 @@
 import { cn } from "@/components/ui";
 import { H2 } from "@/components/ui";
+import { PhoneMore } from "@/components/shared/phone-more";
 
 export type ImageTextCta = { label: string; href: string };
 
@@ -121,7 +122,7 @@ export function ImageText({
 
   const listClass = `mt-7 flex flex-col gap-3 ${
     isCentered ? "self-center text-left" : ""
-  } ${phoneBulletCap ? "max-md:[&>li:nth-child(n+6)]:hidden" : ""}`;
+  } ${phoneBulletCap ? "pm-cap-5" : ""}`;
 
   const checkBaseClass =
     "inline-flex items-center justify-center w-5 h-5 shrink-0 rounded-full mt-px";
@@ -163,6 +164,7 @@ export function ImageText({
         ))}
       </div>
       {showList ? (
+        <PhoneMore>
         <ul className={listClass}>
           {bullets.map((it, i) => (
             <li
@@ -174,6 +176,7 @@ export function ImageText({
             </li>
           ))}
         </ul>
+</PhoneMore>
       ) : null}
       {showCta ? (
         <div className="mt-8">
@@ -238,7 +241,8 @@ export function ImageText({
                 ))}
               </div>
               {showList ? (
-                <ul className={listClass}>
+                <PhoneMore>
+        <ul className={listClass}>
                   {bullets.map((it, i) => (
                     <li
                       key={i}
@@ -249,6 +253,7 @@ export function ImageText({
                     </li>
                   ))}
                 </ul>
+</PhoneMore>
               ) : null}
             </div>
             <div className={cn(mockupBase, "right-[-5%] 2xl:right-[-10%]")}>
