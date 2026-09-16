@@ -87,7 +87,7 @@ function Section({ section, locale }: { section: ProseSection; locale: Locale })
               width={section.image.width}
               height={section.image.height}
               sizes="(min-width: 800px) 40vw, 92vw"
-              className="block h-auto w-full rounded-[22px] border border-line"
+              className={`block h-auto w-full rounded-[22px] border border-line ${section.image.height > section.image.width ? "max-w-[340px] mx-auto lg:max-w-[420px]" : ""}`}
             />
           ) : null}
         </div>

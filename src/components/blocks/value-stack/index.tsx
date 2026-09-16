@@ -467,7 +467,7 @@ export function ValueStack({
                 width={VALUE_PHOTO.width}
                 height={VALUE_PHOTO.height}
                 sizes="(min-width: 800px) 40vw, 92vw"
-                className="relative block h-auto w-full rounded-[22px]"
+                className="relative block h-auto w-full rounded-[22px] lg:mx-auto lg:max-h-[540px] lg:w-auto"
               />
             </div>
             <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 sm:gap-4 lg:order-1">
