@@ -101,7 +101,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             })}
           </div>
           {c.outgrew.items.length > 3 ? (
-            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div className="max-md:hidden mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.outgrew.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -357,7 +357,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 max-md:[&>*:nth-child(n+4)]:hidden md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
@@ -466,7 +466,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           />
           <CmpPricingGrid>
             {c.pricing.tiers.map((t, i) => (
-              <Tier key={i} {...t} />
+              <Tier key={i} {...t} compact />
             ))}
           </CmpPricingGrid>
           <p className="mt-7 text-center text-[13px] leading-[1.65] text-ink-dim max-w-[68ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">

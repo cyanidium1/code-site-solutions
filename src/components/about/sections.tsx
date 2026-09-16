@@ -1,5 +1,7 @@
 import type * as React from "react";
 import { AppImage } from "@/lib/shared/app-image";
+import { SanityImg, type SanityImageLike } from "@/lib/shared/sanity-image";
+import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight, type LucideIcon } from "lucide-react";
 
@@ -153,6 +155,10 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 
 const cardBase =
   "relative overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] p-7";
+/* Phones: cards become ruled rows (plan 2026-09-16, П4). */
+const PHONE_ROW_CLASS =
+  "max-[700px]:rounded-none max-[700px]:border-0 max-[700px]:border-b max-[700px]:border-line max-[700px]:bg-transparent max-[700px]:px-0 max-[700px]:py-4 max-[700px]:[&>span:first-child]:hidden max-[700px]:[&>h3]:mt-0";
+
 const accentIconBox =
   "inline-flex h-11 w-11 items-center justify-center rounded-[12px] border border-accent-30 bg-accent-10 text-accent-soft";
 
@@ -426,11 +432,11 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-1 gap-4 min-[701px]:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 max-[700px]:gap-0 min-[701px]:grid-cols-2 lg:grid-cols-4">
           {c.pillars.map((p) => {
             const Icon = p.icon;
             return (
-              <div key={p.title} className={cn(cardBase, "flex flex-col")}>
+              <div key={p.title} className={cn(cardBase, "flex flex-col", PHONE_ROW_CLASS)}>
                 <span className={accentIconBox}>
                   <Icon size={20} strokeWidth={1.7} />
                 </span>
@@ -446,7 +452,7 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
         </div>
 
         {/* Warning panel */}
-        <div className="mt-4 flex flex-col items-start gap-3 rounded-[22px] border border-[oklch(0.65_0.18_25_/_0.3)] bg-[oklch(0.65_0.18_25_/_0.06)] p-7 min-[701px]:flex-row min-[701px]:gap-4">
+        <div className="max-[700px]:hidden mt-4 flex flex-col items-start gap-3 rounded-[22px] border border-[oklch(0.65_0.18_25_/_0.3)] bg-[oklch(0.65_0.18_25_/_0.06)] p-7 min-[701px]:flex-row min-[701px]:gap-4">
           <span
             aria-hidden="true"
             className="mt-0.5 inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-[oklch(0.7_0.18_25)] shadow-[0_0_10px_oklch(0.7_0.18_25_/_0.6)]"
@@ -467,7 +473,20 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
 
 /* ─── 5. Real projects ────────────────────────────────────────────────────── */
 
-export function RealProjects({ c }: { c: AboutContent["projects"] }) {
+export function RealProjects({
+  c,
+  covers = {},
+}: {
+  c: AboutContent["projects"];
+  /** Case cover by portfolio slug. The section was seven text cards and
+      the longest stretch of the page without an image (plan 2026-09-16). */
+  covers?: Record<string, { image: SanityImageLike; alt: string }>;
+}) {
+  // Covers are keyed by case slug; hrefs carry a locale prefix on ru/en.
+  const coverOf = (href?: string) => {
+    const slug = href?.split("/portfolio/")[1];
+    return slug ? covers[slug] : undefined;
+  };
   return (
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
@@ -484,6 +503,17 @@ export function RealProjects({ c }: { c: AboutContent["projects"] }) {
                   className="pointer-events-none absolute inset-0 csb-about-proj-glow opacity-70 transition-opacity duration-300 group-hover/proj:opacity-100"
                 />
                 <div className="relative z-[1] flex h-full flex-col">
+                  {coverOf(p.href) ? (
+                    <div className="relative -mx-7 -mt-7 mb-5 aspect-[16/10] overflow-hidden border-b border-line">
+                      <SanityImg
+                        image={coverOf(p.href)!.image}
+                        alt={coverOf(p.href)!.alt}
+                        fill
+                        sizes={IMG_SIZES.cardThird}
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  ) : null}
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="font-actay text-[20px] font-bold uppercase leading-[1.1] tracking-[-0.01em] text-ink">
                       {p.name}
@@ -542,11 +572,11 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-1 gap-4 min-[601px]:grid-cols-2 min-[961px]:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 max-[700px]:gap-0 max-[700px]:[&>*:nth-child(n+4)]:hidden min-[601px]:grid-cols-2 min-[961px]:grid-cols-3">
           {c.items.map((it) => {
             const Icon = it.icon;
             return (
-              <div key={it.title} className={cn(cardBase, "flex flex-col")}>
+              <div key={it.title} className={cn(cardBase, "flex flex-col", PHONE_ROW_CLASS)}>
                 <span className={accentIconBox}>
                   <Icon size={20} strokeWidth={1.7} />
                 </span>

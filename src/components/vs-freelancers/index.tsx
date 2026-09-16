@@ -101,7 +101,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             })}
           </div>
           {c.horrorStories.items.length > 3 ? (
-            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div className="max-md:hidden mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.horrorStories.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -250,7 +250,9 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <h3 className="font-display text-[12px] font-bold tracking-[0.16em] uppercase text-ink-3 mb-4 text-center max-w-[64ch] mx-auto">
             {c.team.partnersHeading}
           </h3>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {/* Phones: the heading and foot line carry the point; eight partner
+              cards were most of the 2.8-screen team section (plan 2026-09-16). */}
+          <div className="max-md:hidden grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
             {c.team.partners.map((p) => {
               const Icon = p.icon;
               return (
@@ -286,7 +288,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.payFor.heading}
             sub={c.payFor.sub}
           />
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 max-md:[&>*:nth-child(n+5)]:hidden md:grid-cols-2 xl:grid-cols-4">
             {c.payFor.items.map((it) => {
               const Icon = it.icon;
               return (
@@ -358,7 +360,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 max-md:[&>*:nth-child(n+4)]:hidden md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
@@ -412,7 +414,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 >
                   {col.heading}
                 </h3>
-                <ul className="list-none flex flex-col gap-2.5">
+                <ul className="list-none flex flex-col gap-2.5 max-md:[&>li:nth-child(n+4)]:hidden">
                   {col.items.map((item, j) => (
                     <li key={j} className="flex gap-2.5 text-[13px] leading-[1.55] text-ink-dim">
                       <span

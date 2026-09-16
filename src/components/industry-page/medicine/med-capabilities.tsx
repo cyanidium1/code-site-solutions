@@ -124,7 +124,7 @@ export function MedCapabilities({
                     {cap.title}
                   </h3>
                 </div>
-                <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                <ul className="m-0 flex list-none flex-col gap-2 p-0 max-md:[&>li:nth-child(n+3)]:hidden">
                   {cap.items.map((it, j) => (
                     <li
                       key={j}
@@ -225,7 +225,7 @@ function BusColumn({
       >
         {label}
       </span>
-      <ul className="m-0 flex list-none flex-col gap-2 p-0">
+      <ul className="m-0 flex list-none flex-col gap-2 p-0 max-md:[&>li:nth-child(n+5)]:hidden">
         {items.map((name) => (
           <li
             key={name}

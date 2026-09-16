@@ -392,8 +392,8 @@ const E822_CLASS =
 
 const COPY_BY_LOCALE: Record<Locale, Copy> = { uk: UK, en: EN, ru: RU };
 
-/* Real screen of the CMS on a phone. Swapped for the photographed/generated
-   scene once it exists (plan 2026-09-16, §10 prompt A). */
+/* Real screen of the CMS (Sanity Studio) composited into a generated scene —
+   the scene is AI-made, the screen is not (plan 2026-09-16, §10 prompt A). */
 const VALUE_PHOTO = {
   src: "/home/admin-phone.webp",
   width: 1080,

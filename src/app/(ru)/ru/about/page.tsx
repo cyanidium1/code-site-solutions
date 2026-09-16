@@ -1,3 +1,5 @@
+import { fetchCaseStudies } from "@/components/case-page/data";
+import { loc } from "@/lib/shared/sanity-locale";
 import type { Metadata } from "next";
 
 import {
@@ -103,7 +105,17 @@ const jsonLd = buildJsonLd([
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
-export default function RuAboutPage() {
+export default async function RuAboutPage() {
+  // Case covers for the "real projects" cards (plan 2026-09-16).
+  const cases = await fetchCaseStudies();
+  const covers = Object.fromEntries(
+    cases
+      .filter((cs) => cs.coverImage?.asset?.url)
+      .map((cs) => [
+        cs.slug,
+        { image: cs.coverImage!, alt: loc(cs.coverImage!.alt, "ru") || cs.slug },
+      ]),
+  );
   return (
     <>
       <JsonLd data={jsonLd} />
@@ -145,14 +157,14 @@ export default function RuAboutPage() {
         <Philosophy c={C.philosophy} />
 
         {/* 5 — Real projects + partner logos + client testimonial */}
-        <RealProjects c={C.projects} />
+        <RealProjects c={C.projects} covers={covers} />
         <Marquee label="КОМПАНИИ, КОТОРЫЕ ДОВЕРИЛИ НАМ САЙТ · UA · EU · DK" />
         <PullQuote
           quote={
             <>
               Строительство на Борнхольме — плотная ниша. Боялись потерять даже
               ту скромную выдачу, что была. Через 30 дней после переезда трафик
-              не просел, через 60 — вышли на <em>№1</em>. Теперь новые страницы
+              не просел, через 60 — пошёл <em>вверх</em>. Теперь новые страницы
               услуг я делаю сам — с телефона.
             </>
           }

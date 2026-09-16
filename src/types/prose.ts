@@ -22,4 +22,7 @@ export type ProseSection = {
   foot?: string;
   /** Cross-links out of the section. Hrefs are written per locale. */
   links?: { label: string; href: string }[];
+  /** Photo beside the text (below it on phones). Long prose runs were the
+      longest image-free stretches on several pages (plan 2026-09-16). */
+  image?: { src: string; width: number; height: number; alt: string };
 };

@@ -213,6 +213,12 @@ export function buildEnHomepageFaq(
       "We pay a penalty. So hitting the deadline matters to us just as much as it does to you.",
     ],
   },
+  {
+    q: "Do you guarantee #1 on Google?",
+    a: [
+      "No, and nobody honestly can. We guarantee the technical base Google rewards: structure, speed, markup. The rest is content and time.",
+    ],
+  },
   // Retained from the previous FAQ — not in the 2026-07 landing doc.
   {
     q: "How long from brief to launch?",

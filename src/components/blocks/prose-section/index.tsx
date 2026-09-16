@@ -6,6 +6,7 @@ import { MobileFold, READ_MORE_LABEL } from "@/components/shared/mobile-fold";
 import { StackTable } from "@/components/shared/stack-table";
 import type { Locale } from "@/constants/locales";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { AppImage } from "@/lib/shared/app-image";
 import type { ProseSection } from "@/types/prose";
 
 /**
@@ -56,27 +57,39 @@ function Section({ section, locale }: { section: ProseSection; locale: Locale })
 
         {/* Phones get the lead paragraph and the table; the rest of the
             running text folds behind "Read more" (plan 2026-09-16, П5). */}
+        <div className={section.image ? "grid grid-cols-1 items-start gap-6 lg:grid-cols-[560px_1fr] lg:gap-12" : undefined}>
         <div className="flex max-w-[560px] flex-col gap-4">
-          {section.paragraphs.slice(0, 1).map((p) => (
-            <p key={p.slice(0, 32)} className={PARA_CLASS}>
-              {p}
-            </p>
-          ))}
-          {section.paragraphs.length > 1 ? (
-            <MobileFold
-              label={READ_MORE_LABEL[locale]}
-              bodyClassName="flex-col gap-4 lg:flex max-lg:peer-checked:flex"
-            >
-              {section.paragraphs.slice(1).map((p) => (
-                <p key={p.slice(0, 32)} className={PARA_CLASS}>
-                  {p}
-                </p>
-              ))}
-              {bullets}
-            </MobileFold>
-          ) : (
-            bullets
-          )}
+            {section.paragraphs.slice(0, 1).map((p) => (
+              <p key={p.slice(0, 32)} className={PARA_CLASS}>
+                {p}
+              </p>
+            ))}
+            {section.paragraphs.length > 1 ? (
+              <MobileFold
+                label={READ_MORE_LABEL[locale]}
+                bodyClassName="flex-col gap-4 lg:flex max-lg:peer-checked:flex"
+              >
+                {section.paragraphs.slice(1).map((p) => (
+                  <p key={p.slice(0, 32)} className={PARA_CLASS}>
+                    {p}
+                  </p>
+                ))}
+                {bullets}
+              </MobileFold>
+            ) : (
+              bullets
+            )}
+          </div>
+          {section.image ? (
+            <AppImage
+              src={section.image.src}
+              alt={section.image.alt}
+              width={section.image.width}
+              height={section.image.height}
+              sizes="(min-width: 800px) 40vw, 92vw"
+              className="block h-auto w-full rounded-[22px] border border-line"
+            />
+          ) : null}
         </div>
 
         {section.table ? (

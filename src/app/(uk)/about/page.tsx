@@ -1,3 +1,5 @@
+import { fetchCaseStudies } from "@/components/case-page/data";
+import { loc } from "@/lib/shared/sanity-locale";
 import type { Metadata } from "next";
 
 import {
@@ -108,7 +110,17 @@ const jsonLd = buildJsonLd([
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // Case covers for the "real projects" cards (plan 2026-09-16).
+  const cases = await fetchCaseStudies();
+  const covers = Object.fromEntries(
+    cases
+      .filter((cs) => cs.coverImage?.asset?.url)
+      .map((cs) => [
+        cs.slug,
+        { image: cs.coverImage!, alt: loc(cs.coverImage!.alt, "uk") || cs.slug },
+      ]),
+  );
   return (
     <>
       <JsonLd data={jsonLd} />
@@ -151,14 +163,14 @@ export default function AboutPage() {
         <Philosophy c={C.philosophy} />
 
         {/* 5 — Real projects + partner logos + client testimonial */}
-        <RealProjects c={C.projects} />
+        <RealProjects c={C.projects} covers={covers} />
         <Marquee label="КОМПАНІЇ, ЩО ДОВІРИЛИ НАМ САЙТ · UA · EU · DK" />
         <PullQuote
           quote={
             <>
               Будівництво на Борнгольмі — щільна ніша. Боялись втратити навіть ту
               мізерну видачу, що мали. Через 30 днів після переходу трафік не
-              впав, через 60 — стали <em>№1</em>. Тепер я роблю нові сторінки
+              впав, через 60 — пішов <em>угору</em>. Тепер я роблю нові сторінки
               послуг сам — з телефона.
             </>
           }

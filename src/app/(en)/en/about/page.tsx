@@ -1,3 +1,5 @@
+import { fetchCaseStudies } from "@/components/case-page/data";
+import { loc } from "@/lib/shared/sanity-locale";
 import type { Metadata } from "next";
 
 import {
@@ -103,7 +105,17 @@ const jsonLd = buildJsonLd([
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
-export default function EnAboutPage() {
+export default async function EnAboutPage() {
+  // Case covers for the "real projects" cards (plan 2026-09-16).
+  const cases = await fetchCaseStudies();
+  const covers = Object.fromEntries(
+    cases
+      .filter((cs) => cs.coverImage?.asset?.url)
+      .map((cs) => [
+        cs.slug,
+        { image: cs.coverImage!, alt: loc(cs.coverImage!.alt, "en") || cs.slug },
+      ]),
+  );
   return (
     <>
       <JsonLd data={jsonLd} />
@@ -145,14 +157,14 @@ export default function EnAboutPage() {
         <Philosophy c={C.philosophy} />
 
         {/* 5 — Real projects + partner logos + client testimonial */}
-        <RealProjects c={C.projects} />
+        <RealProjects c={C.projects} covers={covers} />
         <Marquee label="COMPANIES THAT TRUSTED US WITH THEIR SITE · UA · EU · DK" />
         <PullQuote
           quote={
             <>
               Construction on Bornholm is a tight niche. We were afraid of losing
               even the little visibility we had. 30 days after the switch traffic
-              held, after 60 we were <em>#1</em>. Now I create new service pages
+              held, after 60 it was <em>climbing</em>. Now I create new service pages
               myself — from my phone.
             </>
           }

@@ -1,4 +1,5 @@
 import { cn } from "@/components/ui";
+import { MobileFold } from "@/components/shared/mobile-fold";
 
 export type TimelineColumn = {
   heading: string;
@@ -72,11 +73,14 @@ export function VerticalTimeline({
   heading,
   sub,
   steps,
+  detailsLabel = "Що робимо і що отримаєте",
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
   sub?: React.ReactNode;
   steps: TimelineStep[];
+  /** Phone toggle for the per-step checklists. */
+  detailsLabel?: string;
 }) {
   return (
     <section className="relative py-14 lg:py-[100px] px-6 bg-bg lg:px-12">
@@ -118,7 +122,7 @@ export function VerticalTimeline({
                 </div>
 
                 {/* Content */}
-                <div className={cn("pt-1", isLast ? "pb-0" : "pb-10 lg:pb-14")}>
+                <div className={cn("pt-1", isLast ? "pb-0" : "pb-7 lg:pb-14")}>
                   {/* Heading row */}
                   <div className="flex flex-wrap items-center gap-3 mb-4">
                     {/* Mobile inline marker */}
@@ -133,15 +137,19 @@ export function VerticalTimeline({
                     </span>
                   </div>
 
-                  <p className="font-sans text-[14px] leading-[1.6] text-ink-dim max-w-[760px] mb-7 lg:text-[15px] [&_em]:italic [&_em]:text-ink">
+                  <p className="font-sans text-[14px] leading-[1.6] text-ink-dim max-w-[760px] mb-2 lg:mb-7 lg:text-[15px] [&_em]:italic [&_em]:text-ink">
                     {s.body}
                   </p>
 
+                  {/* Phones: three checklists per step made the timeline 6.4
+                      screens; they fold under one toggle (plan 2026-09-16). */}
+                  <MobileFold label={detailsLabel} bodyClassName="max-lg:mt-3">
                   <div className="grid grid-cols-1 gap-5 px-5 py-6 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] md:grid-cols-2 md:gap-6 lg:px-6 lg:py-7 lg:rounded-[18px] min-[1080px]:grid-cols-3 min-[1080px]:gap-7">
                     <ColumnList col={s.weDo} />
                     <ColumnList col={s.youDo} />
                     <ColumnList col={s.deliverable} />
                   </div>
+                  </MobileFold>
                 </div>
               </li>
             );

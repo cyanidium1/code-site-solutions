@@ -1202,9 +1202,11 @@ export async function LandingPageView({
                   </li>
                 ))}
               </ul>
-              <p className="m-0 mt-2 text-[13px] leading-[1.6] text-ink-3 italic">
-                {content.platforms.foot}
-              </p>
+              {content.platforms.foot ? (
+                <p className="m-0 mt-2 text-[13px] leading-[1.6] text-ink-3 italic">
+                  {content.platforms.foot}
+                </p>
+              ) : null}
               </MobileFold>
               <div className="mt-3 flex flex-wrap gap-3">
                 {content.platforms.links.map((l) => (

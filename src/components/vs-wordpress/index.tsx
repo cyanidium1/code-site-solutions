@@ -105,7 +105,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             })}
           </div>
           {c.costs.items.length > 3 ? (
-            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div className="max-md:hidden mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {c.costs.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -364,7 +364,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 max-md:[&>*:nth-child(n+4)]:hidden md:grid-cols-2 xl:grid-cols-3">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
@@ -464,7 +464,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           />
           <CmpPricingGrid>
             {c.pricing.tiers.map((t, i) => (
-              <Tier key={i} {...t} />
+              <Tier key={i} {...t} compact />
             ))}
           </CmpPricingGrid>
           <p className="mt-7 text-center text-[13px] text-ink-3 max-w-[64ch] mx-auto">

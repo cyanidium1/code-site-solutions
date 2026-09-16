@@ -102,7 +102,7 @@ export default function EnProcessPage() {
         ]}
       />
 
-      <VerticalTimeline steps={STEPS} />
+      <VerticalTimeline steps={STEPS} detailsLabel="What we do and what you get" />
 
       {/* Portfolio strip — the page ran seven text-only steps with a
           single photo on it (design audit 2026-09-07). */}

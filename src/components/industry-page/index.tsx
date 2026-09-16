@@ -56,7 +56,7 @@ import {
   industryCalcHeading,
 } from "@/components/industry-page/industry-calcs";
 import { RelatedCard, casesRailClass } from "@/components/blocks/related-card";
-import { MobileFold } from "@/components/shared/mobile-fold";
+import { MobileFold, READ_MORE_LABEL } from "@/components/shared/mobile-fold";
 import { resolveBlogCover } from "@/lib/shared/blog-cover";
 import {
   BLOG_POSTS_BY_CATEGORY_QUERY,
@@ -874,9 +874,15 @@ function SectionBlock({
       const richText = pickLocalized(section.content, locale);
       if (!richText?.length) return null;
       return (
-        <section className="py-16 px-5 bg-bg md:px-12">
+        <section className="py-11 sm:py-16 px-5 bg-bg md:px-12">
           <div className="max-w-container-narrow mx-auto [&_p]:text-[16px] [&_p]:leading-[1.7] [&_p]:text-ink-dim [&_h2]:font-display [&_h2]:text-[clamp(24px,3vw,36px)] [&_h2]:font-bold [&_h2]:text-ink [&_h2]:mb-4 [&_h3]:font-display [&_h3]:font-semibold [&_h3]:text-ink [&_h3]:mb-3">
-            <PortableText value={richText} />
+            {/* Phones: first block visible, the rest folds (plan 2026-09-16, П5). */}
+            <PortableText value={richText.slice(0, 2)} />
+            {richText.length > 2 ? (
+              <MobileFold label={READ_MORE_LABEL[locale]} bodyClassName="max-lg:mt-2">
+                <PortableText value={richText.slice(2)} />
+              </MobileFold>
+            ) : null}
           </div>
         </section>
       );

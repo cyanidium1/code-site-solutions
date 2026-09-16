@@ -102,7 +102,7 @@ export default function RuProcessPage() {
         ]}
       />
 
-      <VerticalTimeline steps={STEPS} />
+      <VerticalTimeline steps={STEPS} detailsLabel="Что делаем и что получите" />
 
       {/* Portfolio strip — the page ran seven text-only steps with a
           single photo on it (design audit 2026-09-07). */}
