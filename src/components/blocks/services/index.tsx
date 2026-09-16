@@ -58,7 +58,7 @@ export function Services({
           .toUpperCase()
       : "");
   return (
-    <section className="relative py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
+    <section className="relative py-11 sm:py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
       <style href="csb-services" precedence="csb">{SERVICES_CSS}</style>
       <div className="absolute inset-0 z-0 pointer-events-none csb-services-bg" />
       <div className="relative z-[2] max-w-container mx-auto">
@@ -122,7 +122,7 @@ export function Services({
 
         {/* All services rendered as full cards. */}
         {features.length > 0 ? (
-          <div className="grid grid-cols-1 gap-3 mb-14 md:grid-cols-2 md:gap-4 md:mb-20 xl:grid-cols-3 xl:gap-5 xl:mb-[120px]">
+          <div className="mb-12 -mx-[18px] flex snap-x snap-mandatory gap-3 overflow-x-auto px-[18px] pb-2 [scrollbar-width:none] [&>*]:w-[82%] [&>*]:shrink-0 [&>*]:snap-start md:mx-0 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:px-0 md:pb-0 md:mb-20 md:[&>*]:w-auto xl:grid-cols-3 xl:gap-5 xl:mb-[120px]">
             {features.map((f, i) => (
               <FeatureCard key={`feature-${i}`} {...f} />
             ))}
@@ -144,7 +144,7 @@ export function Services({
               </header>
             ) : null}
 
-            <div className="grid grid-cols-2 gap-2 md:gap-2.5 md:grid-cols-4 xl:gap-3.5">
+            <div className="grid grid-cols-2 gap-2 max-md:[&>*:nth-child(n+7)]:hidden md:gap-2.5 md:grid-cols-4 xl:gap-3.5">
               {integrations.map((name, i) => (
                 <div
                   key={i}

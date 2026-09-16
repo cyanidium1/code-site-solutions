@@ -4,7 +4,6 @@ import { IMG_SIZES } from "@/lib/shared/image-sizes";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
-import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { ProseSections } from "@/components/blocks/prose-section";
 import { FAQ } from "@/components/blocks/final";
@@ -21,8 +20,6 @@ import { plainRich } from "@/lib/shared/rich-text";
 import {
   ADDONS_CELLS,
   PRICING_FAQ,
-  TURNKEY_FOOTER_RU,
-  TURNKEY_ITEMS_RU,
 } from "@/content/ru/pricing";
 import { RU_TIERS } from "@/content/ru/homepage";
 import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
@@ -157,20 +154,7 @@ export default async function RuPricingPage() {
             Цена создания сайта в 2026 — <em>фиксированные пакеты от $800</em>
           </>
         }
-        sub="Цена — это то, что вы получите. Не «по запросу». Фиксируется в договоре, и в неё входит всё: копирайтинг, дизайн, вёрстка, код, домен, хостинг, запуск, год поддержки. Вы платите и получаете готовый продукт."
-      />
-
-      {/* Section 1.5: Turnkey list — promise of "everything included" */}
-      <TurnkeyList
-        eyebrow="ПОД КЛЮЧ"
-        heading={
-          <>
-            <em>9 вещей</em>, которые входят в любой пакет
-          </>
-        }
-        sub="Вы платите фиксированную сумму и получаете готовый сайт. Не нужно писать бриф, искать референсы и договариваться с фотографом. Вот что входит в каждый проект — без доплат."
-        items={TURNKEY_ITEMS_RU}
-        footer={TURNKEY_FOOTER_RU}
+        sub="Цена фиксируется в договоре. Тексты, дизайн, код, хостинг и год поддержки — уже в ней."
       />
 
       {/* Section 2: pricing tiers */}
@@ -190,6 +174,7 @@ export default async function RuPricingPage() {
       {/* Section 3: What's included */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageRight"
         eyebrow="ВХОДИТ"
         heading={
@@ -224,6 +209,7 @@ export default async function RuPricingPage() {
       {/* Section 4: What's NOT included */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageRight"
         eyebrow="НЕ ВХОДИТ"
         heading={
@@ -268,6 +254,7 @@ export default async function RuPricingPage() {
       {/* Section 6: Payment */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageLeft"
         eyebrow="ОПЛАТА"
         heading={

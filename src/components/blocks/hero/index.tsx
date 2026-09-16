@@ -267,7 +267,7 @@ const MOCKUP_PLACEHOLDER_BAR_CLASS =
 // in/out instead of cutting off hard. The mask uses a linear-gradient
 // — Tailwind cannot model the 8%/92% transparent stops with a token.
 const TICKER_CLASS =
-  "relative z-[5] mt-6 border-t border-b border-line py-3 overflow-hidden " +
+  "max-sm:hidden relative z-[5] mt-6 border-t border-b border-line py-3 overflow-hidden " +
   "[mask:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)] " +
   "[-webkit-mask:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)] " +
   "sm:mt-10 sm:py-5";

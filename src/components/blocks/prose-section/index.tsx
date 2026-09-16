@@ -18,6 +18,12 @@ import type { ProseSection } from "@/types/prose";
  * ~74, the top of the 60-75 band the eye reads without losing its place
  * (measured, design audit 2026-09-07).
  */
+const MORE_ROWS: Record<Locale, (n: number) => string> = {
+  uk: (n) => `Ще ${n} рядки`,
+  ru: (n) => `Ещё ${n} строки`,
+  en: (n) => `${n} more rows`,
+};
+
 const PARA_CLASS = "m-0 font-sans text-[15px] leading-[1.7] text-ink-dim";
 
 function Section({ section, locale }: { section: ProseSection; locale: Locale }) {
@@ -78,6 +84,7 @@ function Section({ section, locale }: { section: ProseSection; locale: Locale })
             className="mt-8"
             headers={section.table.headers}
             rows={section.table.rows}
+            moreLabel={MORE_ROWS[locale]}
           />
         ) : null}
 

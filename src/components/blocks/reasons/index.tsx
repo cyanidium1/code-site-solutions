@@ -140,7 +140,7 @@ export function Reasons({
   locale?: LeadFormLocale;
 }) {
   return (
-    <section className="relative py-[72px] lg:py-[120px] px-[18px] sm:px-8 xl:px-12 bg-bg overflow-hidden">
+    <section className="relative py-11 sm:py-[72px] lg:py-[120px] px-[18px] sm:px-8 xl:px-12 bg-bg overflow-hidden">
       <style href="csb-reasons" precedence="csb">{REASONS_CSS}</style>
       <div className={REASONS_BG_CLASS} />
 
@@ -158,7 +158,9 @@ export function Reasons({
               {heading}
             </h2>
           </div>
-          <div className="font-mono text-[11px] text-ink-3 tracking-[0.04em] text-left whitespace-nowrap pb-2 sm:text-right">
+          {/* metaRows ("аналіз 47 сайтів · розділ 02/06") dropped: unverifiable
+              claims and decoration (plan 2026-09-16, П8). */}
+          <div className="hidden">
             {metaRows.map((row, i) => (
               <div
                 className={cn(
@@ -187,9 +189,9 @@ export function Reasons({
                 key={r.n}
                 className={`reason relative ${
                   isPrimary
-                    ? "row-span-1 p-5 sm:p-7 xl:row-span-2 xl:p-9"
-                    : "p-5 sm:p-6 xl:p-7"
-                } border border-line rounded-[20px] bg-[oklch(1_0_0_/_0.02)] flex flex-col gap-5`}
+                    ? "row-span-1 p-4 sm:p-7 xl:row-span-2 xl:p-9"
+                    : "p-4 sm:p-6 xl:p-7"
+                } border border-line rounded-[20px] bg-[oklch(1_0_0_/_0.02)] flex flex-col gap-3 sm:gap-5`}
               >
                 <header className="flex items-start justify-between gap-4">
                   <div
@@ -201,9 +203,13 @@ export function Reasons({
                   >
                     {r.n}
                   </div>
-                  <span className="font-mono text-[9px] font-medium text-ink-3 tracking-[0.08em] px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] shrink-0 sm:text-[10px]">
-                    {r.tag}
-                  </span>
+                  {/* English tag chips (TRANSPARENCY / TRUST) removed from
+                      non-English pages — plan 2026-09-16, П8. */}
+                  {locale === "en" ? (
+                    <span className="font-mono text-[9px] font-medium text-ink-3 tracking-[0.08em] px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.02)] shrink-0 sm:text-[10px]">
+                      {r.tag}
+                    </span>
+                  ) : null}
                 </header>
                 <div className="flex-1 min-w-0">
                   <h3

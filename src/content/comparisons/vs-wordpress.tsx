@@ -303,9 +303,9 @@ export const VS_WORDPRESS_UK: Content = {
       { label: "LCP", value: "0.8 секунди", lift: "×5 швидше" },
       { label: "Заявок/міс", value: "24", lift: "×8" },
       {
-        label: "Локальний пошук",
-        value: "№1",
-        lift: "×6 органічного трафіку",
+        label: "Переходи з Google",
+        value: "1 100",
+        lift: "за 6 місяців, було 677",
       },
       { label: "Місячні витрати", value: "$0", lift: "Vercel hobby tier" },
     ],
@@ -313,7 +313,7 @@ export const VS_WORDPRESS_UK: Content = {
       <>
         Будівництво на Борнгольмі — щільна ніша. Боялись втратити навіть ту
         мізерну видачу, що мали. Через 30 днів після переходу трафік не впав,
-        через 60 — стали №1. З 3 заявок на місяць вийшли на 24 в перший же місяць. Команда написала контент, провела QA,
+        через 60 — пішов угору. З 3 заявок на місяць вийшли на 24. Команда написала контент, провела QA,
         запустила. Ми просто отримали ключі.
       </>
     ),
@@ -860,16 +860,15 @@ export const VS_WORDPRESS_EN: Content = {
     after: [
       { label: "LCP", value: "0.8 seconds", lift: "5× faster" },
       { label: "Inquiries/month", value: "24", lift: "8×" },
-      { label: "Local search", value: "#1", lift: "6× organic traffic" },
+      { label: "Google clicks", value: "1,100", lift: "in 6 months, up from 677" },
       { label: "Monthly cost", value: "£0", lift: "Vercel hobby tier" },
     ],
     quote: (
       <>
         Construction on Bornholm is a tight niche. We were nervous about
         losing even the small Google traction we had. Thirty days after the
-        move, traffic held. Sixty days in, we were #1 locally.
-        Inquiries jumped from 3 a month to 24 in our first month
-        live. The team wrote the content, ran the QA, and shipped. We just
+        move, traffic held. Sixty days in, it was climbing.
+        Inquiries went from 3 a month to 24. The team wrote the content, ran the QA, and shipped. We just
         got the keys.
       </>
     ),

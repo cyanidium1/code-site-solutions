@@ -26,7 +26,9 @@ export function caseRefToCardItem(
 ): CaseCardItem {
   const pres = presentationForCase(c.industry?.slug ?? c.industrySlug);
   const name = loc(c.title, locale) || c.client || c.slug;
-  const industryLabel = loc(c.industry?.title, locale) || pres.label;
+  // No English fallback label ("Other", "Construction") on the card: the
+  // localized industry line already sits in the eyebrow (plan 2026-09-16, 0.5).
+  const industryLabel = loc(c.industry?.title, locale);
   const region = loc(c.region, locale);
   const year = c.year ? String(c.year) : "";
   // Secondary-locale listings deep-link into the localized case URL only
@@ -41,7 +43,7 @@ export function caseRefToCardItem(
     industry: industryLabel,
     region,
     year,
-    chips: [pres.label, pres.tech],
+    chips: [pres.tech],
     metrics: loc(c.metricsLine, locale) || "",
     gradient: pres.gradient,
     href,

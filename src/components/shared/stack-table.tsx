@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 
 import { cn } from "@/components/ui";
 
@@ -13,20 +13,36 @@ import { cn } from "@/components/ui";
  * repeated through a `data-label` attribute, not a second copy of the table,
  * so the content is not duplicated for search engines.
  */
+const PHONE_ROWS = 4;
+
 export function StackTable({
   headers,
   rows,
   className,
   /** Index of a column rendered as an accent figure (usually the price). */
   accentCol,
+  moreLabel,
 }: {
   headers: string[];
   rows: ReactNode[][];
   className?: string;
   accentCol?: number;
+  /** When set, phones show the first four rows and the rest open with this
+      label (the class below hard-codes the four). */
+  moreLabel?: (hidden: number) => string;
 }) {
+  const id = useId();
+  const capped = Boolean(moreLabel) && rows.length > PHONE_ROWS + 1;
   return (
-    <div className={cn("md:overflow-x-auto md:rounded-2xl md:border md:border-line", className)}>
+    <div
+      className={cn(
+        "md:overflow-x-auto md:rounded-2xl md:border md:border-line",
+        capped &&
+          "max-md:[&_tbody>tr:nth-child(n+5)]:hidden max-md:[&:has(>input:checked)_tbody>tr]:!block max-md:[&:has(>input:checked)>label]:hidden",
+        className,
+      )}
+    >
+      {capped ? <input id={id} type="checkbox" className="peer sr-only" /> : null}
       <table
         className="w-full border-collapse text-left max-md:block md:min-w-[560px]"
       >
@@ -67,6 +83,14 @@ export function StackTable({
           ))}
         </tbody>
       </table>
+      {capped ? (
+        <label
+          htmlFor={id}
+          className="md:hidden mt-2.5 flex min-h-11 cursor-pointer items-center justify-center rounded-xl border border-dashed border-line-strong font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-accent"
+        >
+          {moreLabel!(rows.length - PHONE_ROWS)}
+        </label>
+      ) : null}
     </div>
   );
 }

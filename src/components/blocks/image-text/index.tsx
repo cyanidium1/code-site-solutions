@@ -27,6 +27,8 @@ export type ImageTextProps = {
   secondImage?: React.ReactNode;
   /** Додаткові класи для `<section>` (наприклад, зменшений верхній відступ після галереї). */
   sectionClassName?: string;
+  /** Phones show the first five bullets only (plan 2026-09-16). */
+  phoneBulletCap?: boolean;
 };
 
 const ARROW = (
@@ -78,6 +80,7 @@ export function ImageText({
   image,
   secondImage,
   sectionClassName,
+  phoneBulletCap = false,
 }: ImageTextProps) {
   const bodyArr = Array.isArray(body) ? body : [body];
   const bullets = bulletList?.filter(Boolean) ?? [];
@@ -118,7 +121,7 @@ export function ImageText({
 
   const listClass = `mt-7 flex flex-col gap-3 ${
     isCentered ? "self-center text-left" : ""
-  }`;
+  } ${phoneBulletCap ? "max-md:[&>li:nth-child(n+6)]:hidden" : ""}`;
 
   const checkBaseClass =
     "inline-flex items-center justify-center w-5 h-5 shrink-0 rounded-full mt-px";

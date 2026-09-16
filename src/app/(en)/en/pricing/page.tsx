@@ -4,7 +4,6 @@ import { IMG_SIZES } from "@/lib/shared/image-sizes";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
-import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { CtaBanner } from "@/components/blocks/cta-banner";
 import { ProseSections } from "@/components/blocks/prose-section";
@@ -26,8 +25,6 @@ import { plainRich } from "@/lib/shared/rich-text";
 import {
   ADDONS_CELLS,
   PRICING_FAQ,
-  TURNKEY_FOOTER_EN,
-  TURNKEY_ITEMS_EN,
 } from "@/content/en/pricing";
 import { EN_TIERS } from "@/content/en/homepage";
 import { fetchPricingPlans } from "@/lib/server/fetch-pricing-plans";
@@ -152,20 +149,7 @@ export default async function EnPricingPage() {
             Pricing is what you get. Not <em>&ldquo;on request.&rdquo;</em>
           </>
         }
-        sub='From £800, fixed in the contract. The price includes everything — copywriting, design, frontend, code, domain, hosting, launch, one year of support. You pay once, you get a finished product.'
-      />
-
-      {/* Section 1.5: Turnkey list */}
-      <TurnkeyList
-        eyebrow="TURNKEY"
-        heading={
-          <>
-            <em>9 things</em> included in every tier
-          </>
-        }
-        sub="You pay a fixed sum and get a finished site. No briefs to write. No references to hunt down. No photographer to chase. Here's what's in every project — no extra charges."
-        items={TURNKEY_ITEMS_EN}
-        footer={TURNKEY_FOOTER_EN}
+        sub="From £800, fixed in the contract. Copy, design, code, hosting and a year of support are already in it."
       />
 
       {/* Section 2: pricing tiers */}
@@ -182,6 +166,7 @@ export default async function EnPricingPage() {
       {/* Section 3: What's included */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageRight"
         eyebrow="INCLUDED"
         heading={
@@ -216,6 +201,7 @@ export default async function EnPricingPage() {
       {/* Section 4: What's NOT included */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageRight"
         eyebrow="NOT INCLUDED"
         heading={
@@ -260,6 +246,7 @@ export default async function EnPricingPage() {
       {/* Section 6: Payment */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageLeft"
         eyebrow="PAYMENT"
         heading={

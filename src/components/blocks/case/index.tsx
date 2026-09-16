@@ -21,7 +21,7 @@ const HEADING_EM_CLASS =
   "[&_em]:not-italic [&_em]:font-light [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const SECTION_CLASS =
-  "relative overflow-hidden bg-bg py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
+  "relative overflow-hidden bg-bg py-11 sm:py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
 
 // Values byte-identical to the arbitrary-value utilities they replaced.
 const CASE_CSS = `
@@ -53,7 +53,7 @@ const LEDE_CLASS =
   "xl:text-[15px]";
 
 const META_CLASS =
-  "flex flex-wrap gap-x-6 gap-y-[18px] mt-6 pt-[18px] border-t border-dashed border-line " +
+  "max-md:hidden flex flex-wrap gap-x-6 gap-y-[18px] mt-6 pt-[18px] border-t border-dashed border-line " +
   "md:gap-x-9 md:gap-y-6";
 
 const META_ITEM_CLASS =
@@ -108,7 +108,7 @@ const TAGLINE_CLASS =
 // Checklist <ul>: 12px-gap column. <li> rows have 14px body / 13px @700px,
 // pretty-wrap, and emphasised <em> spans use ink + medium weight.
 const LIST_CLASS =
-  "flex flex-col gap-3 m-0 p-0 list-none " +
+  "flex flex-col gap-3 m-0 p-0 list-none max-md:[&>li:nth-child(n+4)]:hidden " +
   "[&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.5] [&>li]:text-ink-dim [&>li]:text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "md:[&>li]:text-[14px]";
@@ -124,7 +124,7 @@ const LIST_ICN_GOOD_CLASS =
   "bg-accent-15 text-accent-soft border-accent-30";
 
 const CARD_FOOT_CLASS =
-  "mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";
+  "max-md:hidden mt-[22px] pt-[18px] border-t border-dashed border-line text-[12px] leading-[1.6] text-ink-3 italic [&>strong]:text-ink-dim [&>strong]:not-italic [&>strong]:font-medium";
 
 // Results strip: 4-col grid on desktop, 2-col @1100px and @700px, with the
 // 1px-gap-as-border trick (gap background colour shows through). Legacy used
@@ -146,7 +146,7 @@ const RESULT_LBL_CLASS =
   "text-[11px] text-ink-dim leading-[1.4] mt-1 md:text-[12px]";
 
 const RESULT_TAG_CLASS =
-  "font-mono text-[9px] text-ink-3 tracking-[0.08em] uppercase";
+  "max-md:hidden font-mono text-[9px] text-ink-3 tracking-[0.08em] uppercase";
 
 // CTA strip: pill on desktop, stacked rounded card on mobile.
 const CTA_CLASS =

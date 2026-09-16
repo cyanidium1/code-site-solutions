@@ -18,7 +18,8 @@ export function TableRow({
       <CmpTd kind="bad" data-label={labels[1]}>
         {wp}
       </CmpTd>
-      <CmpTd kind="bad" data-label={labels[2]}>
+      {/* Phones compare the template against our build only. */}
+      <CmpTd kind="bad" data-label={labels[2]} className="max-md:!hidden">
         {wix}
       </CmpTd>
       <CmpTd kind="good" data-label={labels[3]}>

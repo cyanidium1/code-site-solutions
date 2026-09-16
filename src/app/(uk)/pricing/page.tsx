@@ -4,7 +4,6 @@ import { IMG_SIZES } from "@/lib/shared/image-sizes";
 
 import { PageHero } from "@/components/blocks/page-hero";
 import { ImageText } from "@/components/blocks/image-text";
-import { TurnkeyList } from "@/components/blocks/turnkey-list";
 import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { ProseSections } from "@/components/blocks/prose-section";
 import { FAQ } from "@/components/blocks/final";
@@ -174,16 +173,7 @@ export default async function PricingPage() {
             Створити сайт у 2026 — <em>ціна від $800, зафіксована в договорі</em>
           </>
         }
-        sub="Ціна — це те, що ви отримаєте. Не «під запит». Фіксовано в договорі, у ціну входить все — копірайтинг, дизайн, верстка, код, домен, хостинг, запуск, рік підтримки. Ви платите і отримуєте готовий продукт."
-      />
-
-      {/* Section 1.5: Turnkey list — promise of "everything included" */}
-      <TurnkeyList
-        heading={
-          <>
-            <em>9 речей</em>, які входять у будь-який пакет
-          </>
-        }
+        sub="Ціна фіксується в договорі. Тексти, дизайн, код, хостинг і рік підтримки — вже в ній."
       />
 
       {/* Section 2: pricing tiers */}
@@ -212,6 +202,7 @@ export default async function PricingPage() {
       {/* Section 3: What's included (side-with-list, без CTA) */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageRight"
         eyebrow="ВХОДИТЬ"
         heading={
@@ -246,6 +237,7 @@ export default async function PricingPage() {
       {/* Section 4: What's NOT included (side-with-list з CTA) */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageRight"
         eyebrow="НЕ ВХОДИТЬ"
         heading={
@@ -289,6 +281,7 @@ export default async function PricingPage() {
       {/* Section 6: Payment (side-with-list, imageLeft) */}
       <ImageText
         variant="side-with-list"
+        phoneBulletCap
         imageVariant="imageLeft"
         eyebrow="ОПЛАТА"
         heading={

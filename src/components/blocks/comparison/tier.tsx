@@ -138,8 +138,10 @@ export function Tier({
 
       {!compact && excludes && excludes.items.length > 0 && (
         <>
-          <div className="h-px bg-line m-0" />
-          <div>
+          {/* Phones skip the "not included" list: every page that shows
+              full tiers also has its own "not included" section. */}
+          <div className="h-px bg-line m-0 max-md:hidden" />
+          <div className="max-md:hidden">
             <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-ink-3 mb-3">
               {excludes.heading ?? "Не входить"}
             </h4>

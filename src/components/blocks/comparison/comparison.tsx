@@ -232,12 +232,14 @@ export function Comparison({
   };
 
   return (
-    <section className="relative py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
+    <section className="relative py-11 sm:py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
       <div className={`absolute inset-0 z-0 pointer-events-none ${CMP_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className={CMP_H2_EXTRA}>{tableHeading}</H2>
 
-        <div className="border border-line rounded-[14px] overflow-hidden mb-8 bg-[oklch(0.155_0.005_300)] md:rounded-[18px]">
+        {/* Phones: first four rows (the table was 4–5 screens); the full
+            comparison lives one tap away on /vs-wordpress. */}
+        <div className="border border-line rounded-[14px] overflow-hidden mb-8 bg-[oklch(0.155_0.005_300)] md:rounded-[18px] max-md:[&_tbody>tr:nth-child(n+5)]:hidden">
           <CmpTable>
             <CmpThead>
               <tr>
@@ -282,7 +284,7 @@ export function Comparison({
           )}
         </div>
 
-        <div className={`relative px-[22px] py-9 mb-14 border border-line-strong rounded-[18px] overflow-hidden text-center md:px-8 md:py-12 md:mb-20 md:rounded-3xl xl:px-12 xl:py-16 xl:mb-[120px] ${CMP_CONTACT_BG}`}>
+        <div className={`max-lg:hidden relative px-[22px] py-9 mb-14 border border-line-strong rounded-[18px] overflow-hidden text-center md:px-8 md:py-12 md:mb-20 md:rounded-3xl xl:px-12 xl:py-16 xl:mb-[120px] ${CMP_CONTACT_BG}`}>
           <div className="max-w-[560px] mx-auto">
             <H2
               variant="comparison-contact"
@@ -352,7 +354,7 @@ export function Comparison({
 
         <CmpPricingGrid>
           {tiers.map((t, i) => (
-            <Tier key={i} {...t} />
+            <Tier key={i} {...t} compact />
           ))}
         </CmpPricingGrid>
       </div>

@@ -79,7 +79,7 @@ export function Outcome({
     benefitHeroValue || benefitHeroLede || benefitHeroBullets.length > 0,
   );
   return (
-    <section className="relative py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
+    <section className="relative py-11 sm:py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
       <style href="csb-outcome" precedence="csb">{OUTCOME_CSS}</style>
       <div className="absolute inset-0 z-0 pointer-events-none csb-outcome-bg" />
       <div className="relative z-[2] max-w-container mx-auto">
@@ -119,7 +119,7 @@ export function Outcome({
                 <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.65_0.05_60)]" />
                 {replaceLabel}
               </h4>
-              <ul className="list-none flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[14px]">
+              <ul className="list-none flex flex-col gap-3 max-md:[&>li:nth-child(n+4)]:hidden [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[14px]">
                 {replaceItems.map((it, i) => (
                   <li key={i}>
                     <span className="w-[18px] h-[18px] rounded-full shrink-0 mt-px inline-flex items-center justify-center text-[4px] text-ink-3 border border-line-strong">
@@ -135,7 +135,7 @@ export function Outcome({
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-soft shadow-[0_0_8px_var(--color-accent-soft)]" />
                 {allowedLabel}
               </h4>
-              <ul className="list-none flex flex-col gap-3 [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[14px]">
+              <ul className="list-none flex flex-col gap-3 max-md:[&>li:nth-child(n+4)]:hidden [&>li]:flex [&>li]:items-start [&>li]:gap-3 [&>li]:text-[13px] [&>li]:leading-[1.55] [&>li]:text-ink-dim [&>li_em]:not-italic [&>li_em]:text-ink [&>li_em]:font-medium md:[&>li]:text-[14px]">
                 {allowedItems.map((it, i) => (
                   <li key={i}>
                     <span className={CHECK_PILL}><CheckIcon /></span>

@@ -56,6 +56,7 @@ import {
   industryCalcHeading,
 } from "@/components/industry-page/industry-calcs";
 import { RelatedCard, casesRailClass } from "@/components/blocks/related-card";
+import { MobileFold } from "@/components/shared/mobile-fold";
 import { resolveBlogCover } from "@/lib/shared/blog-cover";
 import {
   BLOG_POSTS_BY_CATEGORY_QUERY,
@@ -886,6 +887,12 @@ function SectionBlock({
   }
 }
 
+const FOLD_CALC_LABEL: Record<Locale, string> = {
+  uk: "Зібрати свою конфігурацію",
+  ru: "Собрать свою конфигурацию",
+  en: "Build your configuration",
+};
+
 export async function IndustryPageView({
   slug,
   locale,
@@ -944,7 +951,7 @@ export async function IndustryPageView({
   );
   const calcSection =
     calcContent && calcHeading ? (
-      <section id="calc" className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
+      <section id="calc" className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
         <div className="absolute inset-0 pointer-events-none [background:radial-gradient(ellipse_44%_40%_at_20%_80%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%)]" />
         <div className="relative max-w-container mx-auto">
           <div className="mx-auto max-w-[640px] text-center mb-8">
@@ -955,13 +962,18 @@ export async function IndustryPageView({
               {calcHeading.sub}
             </p>
           </div>
-          <div className="mx-auto max-w-[620px]">
+          <MobileFold
+            className="mx-auto max-w-[620px] text-center lg:text-left"
+            label={FOLD_CALC_LABEL[locale]}
+            labelClassName="w-full justify-center rounded-full border border-accent-40 bg-accent-10 px-5 font-sans text-[14px] normal-case tracking-normal text-ink"
+            bodyClassName="max-lg:mt-4 text-left"
+          >
             <MiniCalc
               content={calcContent}
               locale={locale}
               source={`${page.slug}-calc-${locale}`}
             />
-          </div>
+          </MobileFold>
         </div>
       </section>
     ) : null;
@@ -1198,7 +1210,7 @@ export async function IndustryPageView({
       {!hasCalcAnchor ? calcSection : null}
 
       {nicheCases.length > 0 ? (
-        <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
+        <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
           <div className="max-w-container mx-auto">
             <div className="mb-10">
               <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
@@ -1246,7 +1258,7 @@ export async function IndustryPageView({
       ) : null}
 
       {clusterPostsForLocale.length > 0 ? (
-        <section className="relative py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
+        <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
           <div className="max-w-container mx-auto">
             <div className="mb-10">
               <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
