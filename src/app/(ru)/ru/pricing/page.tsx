@@ -185,7 +185,7 @@ export default async function RuPricingPage() {
       </section>
 
       {/* Section 2.5: price per site type + standalone services */}
-      <ProseSections items={PRICING_TYPES_RU} />
+      <ProseSections items={PRICING_TYPES_RU} locale="ru" />
 
       {/* Section 3: What's included */}
       <ImageText
@@ -298,7 +298,7 @@ export default async function RuPricingPage() {
       />
 
       {/* Section 7: Calculator promo */}
-      <ProseSections items={PRICING_PROSE_RU} />
+      <ProseSections items={PRICING_PROSE_RU} locale="ru" />
 
       {/* Section 8: FAQ */}
       <section className="bg-bg">

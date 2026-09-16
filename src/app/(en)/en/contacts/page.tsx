@@ -125,7 +125,7 @@ export default function EnContactsPage() {
         sub="WhatsApp chat within 30 minutes, or send a detailed brief, whichever suits you."
       />
 
-      <ContactSplit source="contacts" variant="compact" locale="en" />
+      <ContactSplit source="contacts" variant="compact" foldBrief={false} locale="en" />
 
       <section className="bg-bg">
         <FAQ

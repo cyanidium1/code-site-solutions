@@ -121,6 +121,14 @@ export const caseMetricsClass = "mt-4 text-[13px] leading-[1.55] text-ink-dim li
 // against 15 004px on a 390px phone (design audit 2026-09-07).
 export const casesGridClass =
   "grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-4";
+// Same grid from 640 up; on phones a sideways swipe rail instead of a column
+// of full-height cards. Six cases were 3.8 screens on /process and the /vs-*
+// pages (plan 2026-09-16, П7). Not for listings (/portfolio, /blog) — there
+// the column is the page. Assumes the parent's 24px gutter (hpSectionClass).
+export const casesRailClass =
+  "mb-4 -mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden " +
+  "[&>*]:w-[80%] [&>*]:shrink-0 [&>*]:snap-start " +
+  "sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 sm:[&>*]:w-auto lg:grid-cols-3";
 
 export function RelatedCard({
   eyebrow,

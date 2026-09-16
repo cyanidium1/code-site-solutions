@@ -8,7 +8,6 @@ import {
   HpHeader,
   Marquee,
   Industries,
-  BusinessValue,
   PainPoints,
   Process,
   Cases,
@@ -17,6 +16,7 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
+import { FounderNote, TrustStrip } from "@/components/homepage/founder-note";
 import { OG_DEFAULT_IMAGE, ORG_ID, SITE_ORIGIN } from "@/constants/site";
 import {
   buildJsonLd,
@@ -151,9 +151,10 @@ export default async function HomePageEn() {
           </div>
           <CmpPricingGrid>
             {tiers.map((t, i) => (
-              <Tier key={i} {...t} />
+              <Tier key={i} {...t} compact />
             ))}
           </CmpPricingGrid>
+          <TrustStrip locale="en" />
         </div>
       </section>
 
@@ -166,8 +167,6 @@ export default async function HomePageEn() {
         sub="A full solution with the integrations and compliance your sector expects."
         items={EN_INDUSTRIES}
       />
-
-      <BusinessValue locale="en" />
 
       <Process
         eyebrow="PROCESS · 4-10 WEEKS"
@@ -208,6 +207,8 @@ export default async function HomePageEn() {
       />
 
       <PullQuoteSwiper slides={testimonialSlides} />
+
+      <FounderNote locale="en" />
 
       <Stack
         eyebrow="STACK"

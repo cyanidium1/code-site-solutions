@@ -45,11 +45,13 @@ const CARD_CLASS =
   "glass-ring rounded-2xl border border-line px-5 pt-5 pb-6 sm:px-[25px] sm:pt-[25px] sm:pb-[49px] " +
   "bg-[linear-gradient(135deg,oklch(1_0_0/0.05)_0%,oklch(1_0_0/0.018)_45%,oklch(1_0_0/0.025)_100%)] " +
   "backdrop-blur-[12px] lg:backdrop-blur-[22px] " +
-  "[--glass-ring-bg:linear-gradient(135deg,rgba(255,255,255,0.25)_0%,rgba(255,255,255,0.04)_45%,rgba(255,255,255,0)_70%)]";
+  "[--glass-ring-bg:linear-gradient(135deg,rgba(255,255,255,0.25)_0%,rgba(255,255,255,0.04)_45%,rgba(255,255,255,0)_70%)] " +
+  // Phones: a plain row, not a glass card — four cards were 1.3 screens.
+  "max-sm:flex max-sm:items-center max-sm:gap-3.5 max-sm:rounded-none max-sm:border-0 max-sm:border-b max-sm:border-line max-sm:bg-none max-sm:px-0 max-sm:py-3.5 max-sm:backdrop-blur-none max-sm:before:hidden";
 
 // Punch line — Figma #1729:2119: Actay Wide Bold 24/31.2, tracking −0.24px,
 // uppercase, Whisper, single colour (the copy's <em> is neutralized).
-const PUNCH_ROW_CLASS = "mt-7 sm:mt-10 lg:mt-[81px] flex items-center justify-center gap-8";
+const PUNCH_ROW_CLASS = "mt-6 sm:mt-10 lg:mt-[81px] flex items-center justify-center gap-8";
 const PUNCH_TEXT_CLASS =
   "max-w-[789px] text-center font-actay text-[20px] font-bold uppercase leading-[1.3] tracking-[-0.01em] text-ink md:text-[24px] " +
   "[&_em]:not-italic [&_em]:text-inherit";
@@ -95,8 +97,7 @@ const EN: PainCopy = {
   ],
   punch: (
     <>
-      Nine times out of ten it’s not the ads or the price.{" "}
-      <em>It’s that the site isn’t doing its job — bringing in leads.</em>
+      Usually the problem isn’t the ads. <em>It’s the site.</em>
     </>
   ),
 };
@@ -129,8 +130,7 @@ const UK: PainCopy = {
   ],
   punch: (
     <>
-      У дев’яти випадках із десяти справа не в рекламі й не в ціні.{" "}
-      <em>Просто сайт не виконує свою роботу — не приводить заявки.</em>
+      Зазвичай проблема не в рекламі, <em>а в сайті.</em>
     </>
   ),
 };
@@ -162,8 +162,7 @@ const RU: PainCopy = {
   ],
   punch: (
     <>
-      В девяти случаях из десяти дело не в рекламе и не в цене.{" "}
-      <em>Дело в том, что сайт не выполняет свою работу — не приводит заявки.</em>
+      Обычно проблема не в рекламе, <em>а в сайте.</em>
     </>
   ),
 };
@@ -191,13 +190,13 @@ export function PainPoints({ locale = "uk" }: { locale?: PriceLocale } = {}) {
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} />
         <ScrollReveal>
-          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
             {c.pains.map(({ icon: Icon, text }) => (
               <div key={text} className={CARD_CLASS}>
-                <span className="inline-flex size-11 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.04)] text-ink-dim">
+                <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.04)] text-ink-dim sm:size-11">
                   <Icon size={20} strokeWidth={1.5} />
                 </span>
-                <p className="mt-4 text-[15px] leading-[1.6] text-ink-dim [text-wrap:pretty]">
+                <p className="mt-0 text-[14.5px] leading-[1.5] text-ink-dim [text-wrap:pretty] sm:mt-4 sm:text-[15px] sm:leading-[1.6]">
                   {text}
                 </p>
               </div>

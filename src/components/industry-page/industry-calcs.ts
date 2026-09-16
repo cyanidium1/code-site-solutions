@@ -133,7 +133,7 @@ const CALCS: Record<string, IndustryCalcDef> = {
       { id: "blog", label: { uk: "Блог і SEO-сторінки", ru: "Блог и SEO-страницы", en: "Blog & SEO pages" }, price: 400 },
       { id: "branch", label: { uk: "Друга локація / філія", ru: "Вторая локация / филиал", en: "Second location" }, price: 500 },
       { id: "lang3", label: { uk: "Третя мова", ru: "Третий язык", en: "Third language" }, price: 250 },
-      { id: "payments", label: { uk: "Онлайн-оплата послуг", ru: "Онлайн-оплата услуг", en: "Online payments" }, price: 250 },
+      { id: "payments", label: { uk: "Онлайн-оплата послуг", ru: "Онлайн-оплата услуг", en: "Online payments" }, price: 900 },
     ],
     heading: {
       uk: "Порахуйте сайт своєї клініки",
@@ -164,10 +164,10 @@ const CALCS: Record<string, IndustryCalcDef> = {
     options: [
       { id: "estimator", label: { uk: "Калькулятор кошторису для клієнтів", ru: "Калькулятор сметы для клиентов", en: "Client-facing estimate calculator" }, price: 400 },
       { id: "cases", label: { uk: "Портфоліо-система «до/після»", ru: "Портфолио-система «до/после»", en: "Before/after portfolio system" }, price: 350 },
-      { id: "crm", label: { uk: "CRM-інтеграція", ru: "CRM-интеграция", en: "CRM integration" }, price: 300 },
+      { id: "crm", label: { uk: "CRM-інтеграція", ru: "CRM-интеграция", en: "CRM integration" }, price: 500 },
       { id: "lang", label: { uk: "Друга мова (робота за кордоном)", ru: "Второй язык (работа за рубежом)", en: "Second language (cross-border work)" }, price: 250 },
       { id: "gallery", label: { uk: "Галерея обʼєктів із фільтрами", ru: "Галерея объектов с фильтрами", en: "Filterable project gallery" }, price: 300 },
-      { id: "payments", label: { uk: "Онлайн-оплата авансів", ru: "Онлайн-оплата авансов", en: "Online deposit payments" }, price: 250 },
+      { id: "payments", label: { uk: "Онлайн-оплата авансів", ru: "Онлайн-оплата авансов", en: "Online deposit payments" }, price: 900 },
     ],
     heading: {
       uk: "Порахуйте сайт своєї компанії",
@@ -196,12 +196,12 @@ const CALCS: Record<string, IndustryCalcDef> = {
     },
     blocks: pagesBlock(),
     options: [
-      { id: "booking", label: { uk: "Запис на консультацію", ru: "Запись на консультацию", en: "Consultation booking" }, price: 300 },
-      { id: "payments", label: { uk: "Онлайн-оплата консультацій", ru: "Онлайн-оплата консультаций", en: "Online consultation payments" }, price: 250 },
+      { id: "booking", label: { uk: "Запис на консультацію", ru: "Запись на консультацию", en: "Consultation booking" }, price: 600 },
+      { id: "payments", label: { uk: "Онлайн-оплата консультацій", ru: "Онлайн-оплата консультаций", en: "Online consultation payments" }, price: 900 },
       { id: "esign", label: { uk: "Інтеграція e-sign / Clio", ru: "Интеграция e-sign / Clio", en: "E-sign / Clio integration" }, price: 300 },
       { id: "blog", label: { uk: "Блог і правові публікації", ru: "Блог и правовые публикации", en: "Blog & legal publications" }, price: 400 },
       { id: "lang", label: { uk: "Друга мова", ru: "Второй язык", en: "Second language" }, price: 250 },
-      { id: "crm", label: { uk: "CRM-інтеграція", ru: "CRM-интеграция", en: "CRM integration" }, price: 300 },
+      { id: "crm", label: { uk: "CRM-інтеграція", ru: "CRM-интеграция", en: "CRM integration" }, price: 500 },
     ],
     heading: {
       uk: "Порахуйте сайт своєї фірми",
@@ -232,10 +232,10 @@ const CALCS: Record<string, IndustryCalcDef> = {
     options: [
       { id: "xero", label: { uk: "Інтеграція Xero / QuickBooks", ru: "Интеграция Xero / QuickBooks", en: "Xero / QuickBooks integration" }, price: 300 },
       { id: "calc", label: { uk: "Калькулятори (податки, кредити)", ru: "Калькуляторы (налоги, кредиты)", en: "Tax / loan calculators" }, price: 400 },
-      { id: "booking", label: { uk: "Запис на консультацію", ru: "Запись на консультацию", en: "Consultation booking" }, price: 300 },
+      { id: "booking", label: { uk: "Запис на консультацію", ru: "Запись на консультацию", en: "Consultation booking" }, price: 600 },
       { id: "blog", label: { uk: "Блог і SEO-сторінки", ru: "Блог и SEO-страницы", en: "Blog & SEO pages" }, price: 400 },
       { id: "lang", label: { uk: "Друга мова", ru: "Второй язык", en: "Second language" }, price: 250 },
-      { id: "payments", label: { uk: "Онлайн-оплата послуг", ru: "Онлайн-оплата услуг", en: "Online payments" }, price: 250 },
+      { id: "payments", label: { uk: "Онлайн-оплата послуг", ru: "Онлайн-оплата услуг", en: "Online payments" }, price: 900 },
     ],
     heading: {
       uk: "Порахуйте свій сайт",
@@ -299,9 +299,9 @@ const CALCS: Record<string, IndustryCalcDef> = {
       { id: "catalog", label: { uk: "Каталог авто з фільтрами", ru: "Каталог авто с фильтрами", en: "Filterable vehicle catalogue" }, price: 500 },
       { id: "auctions", label: { uk: "Інтеграція аукціонів (Copart)", ru: "Интеграция аукционов (Copart)", en: "Auction integration (BCA/Copart)" }, price: 400 },
       { id: "customs", label: { uk: "Калькулятор розмитнення", ru: "Калькулятор растаможки", en: "Import cost calculator" }, price: 400 },
-      { id: "crm", label: { uk: "CRM-інтеграція", ru: "CRM-интеграция", en: "CRM integration" }, price: 300 },
+      { id: "crm", label: { uk: "CRM-інтеграція", ru: "CRM-интеграция", en: "CRM integration" }, price: 500 },
       { id: "lang", label: { uk: "Друга мова", ru: "Второй язык", en: "Second language" }, price: 250 },
-      { id: "payments", label: { uk: "Онлайн-оплата депозитів", ru: "Онлайн-оплата депозитов", en: "Online deposit payments" }, price: 250 },
+      { id: "payments", label: { uk: "Онлайн-оплата депозитів", ru: "Онлайн-оплата депозитов", en: "Online deposit payments" }, price: 900 },
     ],
     heading: {
       uk: "Порахуйте свій сайт",
@@ -332,7 +332,7 @@ const CALCS: Record<string, IndustryCalcDef> = {
       { id: "listings", label: { uk: "Каталог обʼєктів із фільтрами", ru: "Каталог объектов с фильтрами", en: "Filterable listings catalogue" }, price: 500 },
       { id: "map", label: { uk: "Інтерактивна карта обʼєктів", ru: "Интерактивная карта объектов", en: "Interactive listings map" }, price: 300 },
       { id: "mortgage", label: { uk: "Іпотечний калькулятор", ru: "Ипотечный калькулятор", en: "Mortgage calculator" }, price: 400 },
-      { id: "crm", label: { uk: "CRM-інтеграція", ru: "CRM-интеграция", en: "CRM integration" }, price: 300 },
+      { id: "crm", label: { uk: "CRM-інтеграція", ru: "CRM-интеграция", en: "CRM integration" }, price: 500 },
       { id: "lang", label: { uk: "Друга мова", ru: "Второй язык", en: "Second language" }, price: 250 },
       { id: "currency", label: { uk: "Багатовалютність", ru: "Мультивалютность", en: "Multi-currency" }, price: 200 },
     ],

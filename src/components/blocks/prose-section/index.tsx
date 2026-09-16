@@ -2,6 +2,9 @@ import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
 
 import { SectionHead } from "@/components/shared/section-head";
+import { MobileFold, READ_MORE_LABEL } from "@/components/shared/mobile-fold";
+import { StackTable } from "@/components/shared/stack-table";
+import type { Locale } from "@/constants/locales";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import type { ProseSection } from "@/types/prose";
 
@@ -15,7 +18,22 @@ import type { ProseSection } from "@/types/prose";
  * ~74, the top of the 60-75 band the eye reads without losing its place
  * (measured, design audit 2026-09-07).
  */
-function Section({ section }: { section: ProseSection }) {
+const PARA_CLASS = "m-0 font-sans text-[15px] leading-[1.7] text-ink-dim";
+
+function Section({ section, locale }: { section: ProseSection; locale: Locale }) {
+  const bullets = section.bullets?.length ? (
+    <ul className="m-0 mt-2 flex list-none flex-col gap-2.5 p-0">
+      {section.bullets.map((item) => (
+        <li
+          key={item}
+          className="flex items-start gap-2.5 text-[14px] leading-[1.6] text-ink-dim"
+        >
+          <Check size={15} className="mt-1 shrink-0 text-accent" aria-hidden="true" />
+          {item}
+        </li>
+      ))}
+    </ul>
+  ) : null;
   return (
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
@@ -30,63 +48,37 @@ function Section({ section }: { section: ProseSection }) {
           sub={section.sub}
         />
 
+        {/* Phones get the lead paragraph and the table; the rest of the
+            running text folds behind "Read more" (plan 2026-09-16, П5). */}
         <div className="flex max-w-[560px] flex-col gap-4">
-          {section.paragraphs.map((p) => (
-            <p
-              key={p.slice(0, 32)}
-              className="m-0 font-sans text-[15px] leading-[1.7] text-ink-dim"
-            >
+          {section.paragraphs.slice(0, 1).map((p) => (
+            <p key={p.slice(0, 32)} className={PARA_CLASS}>
               {p}
             </p>
           ))}
-
-          {section.bullets?.length ? (
-            <ul className="m-0 mt-2 flex list-none flex-col gap-2.5 p-0">
-              {section.bullets.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2.5 text-[14px] leading-[1.6] text-ink-dim"
-                >
-                  <Check size={15} className="mt-1 shrink-0 text-accent" aria-hidden="true" />
-                  {item}
-                </li>
+          {section.paragraphs.length > 1 ? (
+            <MobileFold
+              label={READ_MORE_LABEL[locale]}
+              bodyClassName="flex-col gap-4 lg:flex max-lg:peer-checked:flex"
+            >
+              {section.paragraphs.slice(1).map((p) => (
+                <p key={p.slice(0, 32)} className={PARA_CLASS}>
+                  {p}
+                </p>
               ))}
-            </ul>
-          ) : null}
+              {bullets}
+            </MobileFold>
+          ) : (
+            bullets
+          )}
         </div>
 
         {section.table ? (
-          // Wide content scrolls inside its own box so the page body never does.
-          <div className="mt-8 -mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0">
-            <table className="w-full min-w-[560px] border-collapse overflow-hidden rounded-[14px] border border-line text-left">
-              <thead>
-                <tr>
-                  {section.table.headers.map((h) => (
-                    <th
-                      key={h}
-                      className="border-b border-line bg-surface px-3 py-2.5 text-[13px] font-semibold uppercase tracking-wide text-ink"
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {section.table.rows.map((row) => (
-                  <tr key={row.join("|")}>
-                    {row.map((cell, i) => (
-                      <td
-                        key={i}
-                        className="border-b border-line px-3 py-2.5 align-top text-[14px] leading-[1.5] text-ink-dim last:border-b-0"
-                      >
-                        {cell}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <StackTable
+            className="mt-8"
+            headers={section.table.headers}
+            rows={section.table.rows}
+          />
         ) : null}
 
         {section.foot ? (
@@ -115,11 +107,17 @@ function Section({ section }: { section: ProseSection }) {
 }
 
 /** Renders a run of prose sections in order. */
-export function ProseSections({ items }: { items: ProseSection[] }) {
+export function ProseSections({
+  items,
+  locale = "uk",
+}: {
+  items: ProseSection[];
+  locale?: Locale;
+}) {
   return (
     <>
       {items.map((section) => (
-        <Section key={section.heading.join(" ")} section={section} />
+        <Section key={section.heading.join(" ")} section={section} locale={locale} />
       ))}
     </>
   );

@@ -4,11 +4,13 @@ import { ArrowUpRight, Check, Minus } from "lucide-react";
 import { PageHero } from "@/components/blocks/page-hero";
 import { FAQ } from "@/components/blocks/final";
 import { ContactSplit } from "@/components/blocks/contact-split";
-import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { RelatedCard, casesRailClass } from "@/components/blocks/related-card";
 import { H2 } from "@/components/ui";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { MiniCalc } from "@/components/landing-page/mini-calc";
 import { ProseSections } from "@/components/blocks/prose-section";
+import { MobileFold, READ_MORE_LABEL } from "@/components/shared/mobile-fold";
+import { StackTable } from "@/components/shared/stack-table";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import { AppImage } from "@/lib/shared/app-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
@@ -54,6 +56,18 @@ const HERO_LOGOS = [
   { src: "/partners/uneed.webp", alt: "Uneed", w: 342, h: 92 },
 ];
 
+/* Labels for the phone-only controls added by the simplification plan
+   (2026-09-16): the price anchor in the hero, the folded option grid and the
+   folded configurator. */
+const MOBILE_CHROME: Record<Locale, { price: string; options: string; configure: string }> = {
+  uk: { price: "Порахувати ціну", options: "Доплати за опції", configure: "Зібрати свою конфігурацію" },
+  ru: { price: "Посчитать цену", options: "Доплаты за опции", configure: "Собрать свою конфигурацию" },
+  en: { price: "Get a price", options: "Optional extras", configure: "Build your configuration" },
+};
+
+const FOLD_BUTTON_CLASS =
+  "w-full justify-center rounded-full border border-line-strong px-5 font-sans text-[14px] normal-case tracking-normal text-ink";
+
 /** Digit groups separated by a plain space ("$6 000") must never wrap. */
 function nb(s: string) {
   return s.replace(/(\d) (\d)/g, "$1 $2");
@@ -83,7 +97,7 @@ function SectionHead({
   sub?: string;
 }) {
   return (
-    <div className="relative flex flex-col items-start mb-12 max-w-[840px]">
+    <div className="relative flex flex-col items-start mb-8 lg:mb-12 max-w-[840px]">
       {index ? (
         <span
           aria-hidden
@@ -102,6 +116,10 @@ function SectionHead({
     </div>
   );
 }
+
+/* Phones read the three strongest points per column (plan 2026-09-16). */
+const WHEN_LIST_CLASS =
+  "list-none m-0 p-0 flex flex-col gap-2.5 max-lg:[&>li:nth-child(n+4)]:hidden";
 
 /** Fit / not-fit editorial columns ("when is a landing page the right tool"). */
 function WhenSection({
@@ -133,7 +151,7 @@ function WhenSection({
             <h3 className="font-actay uppercase font-semibold text-[15.5px] text-ink leading-[1.2] m-0 mb-4">
               {content.fitTitle}
             </h3>
-            <ul className="list-none m-0 p-0 flex flex-col gap-2.5">
+            <ul className={WHEN_LIST_CLASS}>
               {content.fit.map((item) => (
                 <li
                   key={item}
@@ -154,7 +172,7 @@ function WhenSection({
             <h3 className="font-actay uppercase font-semibold text-[15.5px] text-ink-dim leading-[1.2] m-0 mb-4">
               {content.notFitTitle}
             </h3>
-            <ul className="list-none m-0 p-0 flex flex-col gap-2.5">
+            <ul className={WHEN_LIST_CLASS}>
               {content.notFit.map((item) => (
                 <li
                   key={item}
@@ -172,7 +190,7 @@ function WhenSection({
             </ul>
           </div>
         </div>
-        <p className="mt-6 text-[13px] leading-[1.6] text-ink-3 italic max-w-[640px]">
+        <p className="mt-6 text-[13px] leading-[1.6] text-ink-3 italic max-w-[640px] max-lg:hidden">
           {content.foot}
         </p>
       </div>
@@ -187,7 +205,7 @@ function NotIncludedFooter({
   content: LandingPageContent["included"];
 }) {
   return (
-    <div className="p-[22px_26px_24px] border border-dashed border-line-strong rounded-2xl bg-[oklch(1_0_0_/_0.02)]">
+    <div className="p-[22px_26px_24px] border border-dashed border-line-strong rounded-2xl bg-[oklch(1_0_0_/_0.02)] max-lg:hidden">
       <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim mb-[14px]">
         {content.notIncludedTitle}
       </div>
@@ -233,15 +251,15 @@ function IncludedSection({
         />
         <div
           className={
-            "grid grid-cols-1 md:grid-cols-2 rounded-2xl border border-line overflow-hidden mb-6 " +
+            "grid grid-cols-1 md:grid-cols-2 rounded-2xl border border-line overflow-hidden mb-0 lg:mb-6 " +
             "[&>*]:border-line [&>*]:border-t [&>*:first-child]:border-t-0 md:[&>*:nth-child(2)]:border-t-0 md:[&>*:nth-child(2n)]:border-l"
           }
         >
           {content.items.map((it) => {
             const Icon = it.icon;
             return (
-              <div key={it.title} className="flex items-start gap-4 p-5 lg:p-6">
-                <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-accent-25 bg-accent-10 text-accent-soft">
+              <div key={it.title} className="flex items-start gap-3.5 px-4 py-3.5 lg:gap-4 lg:p-6">
+                <span className="inline-flex h-8 w-8 lg:h-9 lg:w-9 shrink-0 items-center justify-center rounded-full border border-accent-25 bg-accent-10 text-accent-soft">
                   <Icon size={16} strokeWidth={1.8} aria-hidden="true" />
                 </span>
                 <span>
@@ -267,10 +285,22 @@ function IncludedSection({
 function PriceGrid({
   content,
   index,
+  locale,
+  folded = false,
+  miniCalc,
+  id,
 }: {
   content: LandingPageContent["price"];
   index: string;
+  locale: Locale;
+  /** Phones: the grid follows the configuration table, so it folds behind
+      "Optional extras" and the section header is dropped. */
+  folded?: boolean;
+  /** Phones: the hero configurator moves here, folded. */
+  miniCalc?: LandingPageContent["miniCalc"];
+  id?: string;
 }) {
+  const chrome = MOBILE_CHROME[locale];
   const spanClass = (s: BentoCell["span"]) =>
     s === "2x1"
       ? "sm:col-span-2"
@@ -286,29 +316,37 @@ function PriceGrid({
   const totalUnits = content.cells.reduce((n, c) => n + unitsOf(c.span), 0);
   const featureLast = totalUnits % 4 === 1;
   return (
-    <section className={`${hpSectionClass} overflow-hidden`}>
+    <section id={id} className={`${hpSectionClass} overflow-hidden scroll-mt-20 ${folded ? "max-lg:pt-0" : ""}`}>
       <div
         aria-hidden
         className="absolute bottom-[-160px] left-1/2 -translate-x-1/2 h-[420px] w-[720px] rounded-full bg-accent-8 blur-[120px] pointer-events-none"
       />
       <div className={hpInnerClass}>
-        <SectionHead index={index} eyebrow={content.eyebrow} heading={content.heading} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[14px]">
+        <div className={folded ? "max-lg:hidden" : undefined}>
+          <SectionHead index={index} eyebrow={content.eyebrow} heading={content.heading} />
+        </div>
+        <MobileFold
+          disabled={!folded}
+          label={chrome.options}
+          labelClassName={FOLD_BUTTON_CLASS}
+          bodyClassName="max-lg:mt-4"
+        >
+        <div className={PRICE_GRID_CLASS}>
           {content.cells.map((cell, ci) => {
             const Icon = cell.icon;
             if (featureLast && ci === content.cells.length - 1) {
               return (
                 <div
                   key={cell.title}
-                  className="relative overflow-hidden rounded-2xl border border-accent-25 col-span-full p-6 lg:px-8 [background:linear-gradient(100deg,var(--color-accent-12),oklch(1_0_0_/_0.015)_55%)]"
+                  className="relative overflow-hidden col-span-full max-lg:border-b max-lg:border-line max-lg:py-3.5 lg:rounded-2xl lg:border lg:border-accent-25 lg:p-6 lg:px-8 lg:[background:linear-gradient(100deg,var(--color-accent-12),oklch(1_0_0_/_0.015)_55%)]"
                 >
                   <div
                     aria-hidden
                     className="absolute -left-16 top-1/2 -translate-y-1/2 h-40 w-40 rounded-full bg-accent-20 blur-[70px] pointer-events-none"
                   />
-                  <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="relative flex flex-col gap-1 lg:gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-start gap-4">
-                      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent-30 bg-accent-12 text-accent-soft">
+                      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent-30 bg-accent-12 text-accent-soft max-lg:hidden">
                         <Icon size={18} strokeWidth={1.8} aria-hidden="true" />
                       </span>
                       <span>
@@ -321,7 +359,7 @@ function PriceGrid({
                       </span>
                     </div>
                     {cell.stat ? (
-                      <div className="shrink-0 font-actay font-bold text-[clamp(26px,3vw,36px)] leading-none whitespace-nowrap bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
+                      <div className="shrink-0 font-actay font-bold text-[17px] lg:text-[clamp(26px,3vw,36px)] leading-none whitespace-nowrap bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
                         {nb(cell.stat)}
                       </div>
                     ) : null}
@@ -332,7 +370,7 @@ function PriceGrid({
             return (
               <div
                 key={cell.title}
-                className={`group relative overflow-hidden rounded-2xl border border-line bg-[oklch(1_0_0_/_0.015)] p-6 transition-colors duration-300 hover:border-accent-40 ${spanClass(cell.span)}`}
+                className={`group relative overflow-hidden border-line transition-colors duration-300 hover:border-accent-40 max-lg:grid max-lg:grid-cols-[1fr_auto] max-lg:gap-x-4 max-lg:border-b max-lg:py-3.5 lg:rounded-2xl lg:border lg:bg-[oklch(1_0_0_/_0.015)] lg:p-6 ${spanClass(cell.span)}`}
               >
                 <div
                   aria-hidden
@@ -341,28 +379,45 @@ function PriceGrid({
                 <Icon
                   size={18}
                   strokeWidth={1.8}
-                  className="text-accent-soft"
+                  className="text-accent-soft max-lg:hidden"
                   aria-hidden="true"
                 />
-                <div className="mt-4 font-actay uppercase font-semibold text-[13.5px] text-ink leading-[1.25]">
+                <div className="lg:mt-4 font-actay uppercase font-semibold text-[13.5px] text-ink leading-[1.25]">
                   {cell.title}
                 </div>
                 {cell.stat ? (
-                  <div className="mt-2 font-actay font-bold text-[26px] leading-none bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
+                  <div className="lg:mt-2 font-actay font-bold text-[17px] lg:text-[26px] leading-none whitespace-nowrap max-lg:col-start-2 max-lg:row-start-1 max-lg:text-right bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
                     {nb(cell.stat)}
                   </div>
                 ) : null}
-                <div className="mt-2 font-sans text-[13px] leading-[1.55] text-ink-dim">
+                <div className="mt-1 lg:mt-2 font-sans text-[13px] leading-[1.55] text-ink-dim max-lg:col-span-2">
                   {cell.body}
                 </div>
               </div>
             );
           })}
         </div>
+        </MobileFold>
+        {miniCalc ? (
+          <MobileFold
+            className="mt-3 lg:hidden"
+            label={chrome.configure}
+            labelClassName={`${FOLD_BUTTON_CLASS} border-accent-40 bg-accent-10`}
+            bodyClassName="max-lg:mt-4"
+          >
+            <MiniCalc content={miniCalc} locale={locale} />
+          </MobileFold>
+        ) : null}
       </div>
     </section>
   );
 }
+
+const PRICE_GRID_CLASS =
+  "grid grid-cols-1 max-lg:border-t max-lg:border-line lg:grid-cols-4 lg:gap-[14px]";
+
+const PLATFORM_PARA_CLASS = "m-0 font-sans text-[15px] leading-[1.65] text-ink-dim";
+const STORY_PARA_CLASS = "mt-4 mb-0 font-sans text-[14.5px] leading-[1.65] text-ink-dim";
 
 /** Hub navigation: grouped links to the pages this hub stands above (site
     types, industries, cities). Real navigation for the visitor and the only
@@ -383,32 +438,32 @@ function HubSection({
           heading={content.heading}
           sub={content.sub}
         />
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
           {content.groups.map((g) => (
             <div key={g.title}>
               <h3 className="m-0 mb-4 font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 font-medium">
                 {g.title}
               </h3>
-              <ul className="list-none m-0 p-0 flex flex-col gap-2.5">
+              <ul className="list-none m-0 p-0 flex gap-2 max-lg:flex-wrap lg:flex-col lg:gap-2.5">
                 {g.links.map((l) => (
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="group flex items-start justify-between gap-4 rounded-xl border border-line px-4 py-3 no-underline transition-colors duration-200 hover:border-accent-40"
+                      className="group flex items-start justify-between gap-4 border border-line no-underline transition-colors duration-200 hover:border-accent-40 max-lg:rounded-full max-lg:px-3.5 max-lg:py-2 lg:rounded-xl lg:px-4 lg:py-3"
                     >
                       <span>
-                        <span className="block font-sans font-semibold text-[14.5px] leading-[1.35] text-ink">
+                        <span className="block font-sans font-semibold text-[13.5px] lg:text-[14.5px] leading-[1.35] text-ink">
                           {nb(l.label)}
                         </span>
                         {l.note ? (
-                          <span className="mt-0.5 block font-sans text-[12.5px] leading-[1.5] text-ink-dim">
+                          <span className="mt-0.5 block font-sans text-[12.5px] leading-[1.5] text-ink-dim max-lg:hidden">
                             {nb(l.note)}
                           </span>
                         ) : null}
                       </span>
                       <ArrowUpRight
                         size={16}
-                        className="mt-0.5 shrink-0 text-ink-3 transition-colors duration-200 group-hover:text-accent-soft"
+                        className="mt-0.5 shrink-0 text-ink-3 transition-colors duration-200 group-hover:text-accent-soft max-lg:hidden"
                         aria-hidden="true"
                       />
                     </Link>
@@ -427,59 +482,26 @@ function HubSection({
 function PriceTable({
   table,
   index,
+  id,
 }: {
   table: NonNullable<LandingPageContent["priceTable"]>;
   index: string;
+  id?: string;
 }) {
   return (
-    <section className={hpSectionClass}>
+    <section id={id} className={`${hpSectionClass} scroll-mt-20 max-lg:pb-6`}>
           <div className={hpInnerClass}>
             <SectionHead
               index={index}
               eyebrow={table.eyebrow}
               heading={table.heading}
             />
-            <div className="overflow-x-auto rounded-2xl border border-line bg-[oklch(1_0_0_/_0.015)]">
-              <table className="w-full min-w-[640px] border-collapse text-left">
-                <thead>
-                  <tr className="bg-accent-6">
-                    {table.headers.map((h) => (
-                      <th
-                        key={h}
-                        className="py-3.5 px-5 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3 font-medium border-b border-line"
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {table.rows.map((row) => (
-                    <tr
-                      key={row[0]}
-                      className="border-b border-line last:border-b-0 transition-colors duration-150 hover:bg-accent-6"
-                    >
-                      {row.map((cell, ci) => (
-                        <td
-                          key={ci}
-                          className={
-                            "py-3.5 px-5 font-sans text-[13.5px] leading-[1.5] " +
-                            (ci === 0
-                              ? "font-semibold text-ink"
-                              : ci === row.length - 2
-                                ? "font-mono text-[13.5px] font-semibold text-accent-soft whitespace-nowrap"
-                                : "text-ink-dim")
-                          }
-                        >
-                          {cell}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[480px]">
+            <StackTable
+              headers={table.headers}
+              rows={table.rows}
+              accentCol={table.headers.length - 2}
+            />
+            <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-3 italic max-w-[480px] max-lg:hidden">
               {table.foot}
             </p>
           </div>
@@ -489,9 +511,16 @@ function PriceTable({
 
 /** Calculator CTA — full gradient band with light-beam texture and the
     devices mockup (local variant; the shared CtaBanner stays untouched). */
-function CtaBand({ content }: { content: LandingPageContent["calcCta"] }) {
+function CtaBand({
+  content,
+  hideOnPhones = false,
+}: {
+  content: LandingPageContent["calcCta"];
+  /** The configurator already sits in the price block on phones. */
+  hideOnPhones?: boolean;
+}) {
   return (
-    <section className={hpSectionClass}>
+    <section className={`${hpSectionClass} ${hideOnPhones ? "max-lg:hidden" : ""}`}>
       <div className={hpInnerClass}>
         <div className="relative overflow-hidden rounded-[28px] px-7 py-12 lg:px-16 lg:py-16 [background:linear-gradient(115deg,oklch(0.32_0.13_290),oklch(0.45_0.2_285)_45%,oklch(0.5_0.19_320))]">
           <div
@@ -657,6 +686,10 @@ const SIBLING_LINKS: { href: string; label: Record<Locale, string> }[] = [
   },
 ];
 
+/* Phones: one swipeable row instead of a wrapped paragraph of links. */
+const LINK_RAIL_CLASS =
+  "mt-4 lg:mt-5 flex list-none gap-x-5 lg:gap-x-7 gap-y-2 p-0 lg:flex-wrap max-lg:-mx-6 max-lg:overflow-x-auto max-lg:px-6 max-lg:pb-2 max-lg:[scrollbar-width:none] max-lg:[&>li]:shrink-0 max-lg:[&>li]:whitespace-nowrap";
+
 const SIBLING_HEADING: Record<Locale, string> = {
   uk: "Суміжні послуги",
   en: "Related services",
@@ -665,12 +698,12 @@ const SIBLING_HEADING: Record<Locale, string> = {
 
 function SiblingServices({ locale, self }: { locale: Locale; self: string }) {
   return (
-    <section className="bg-bg px-6 sm:px-8 lg:px-12 py-12">
+    <section className="bg-bg px-6 sm:px-8 lg:px-12 py-8 lg:py-12">
       <div className="max-w-container mx-auto">
         <h2 className="m-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.15] text-ink">
           {SIBLING_HEADING[locale]}
         </h2>
-        <ul className="mt-5 flex list-none flex-wrap gap-x-7 gap-y-2 p-0">
+        <ul className={LINK_RAIL_CLASS}>
           {/* A sibling missing on this locale used to fall back to the UA
               page (EN → /audit, /redesign, /support): skip it instead. */}
           {SIBLING_LINKS.filter(
@@ -729,7 +762,7 @@ export async function LandingPageView({
     .map((c) => caseRefToCardItem(c, locale, registry));
 
   // Case covers for the tilted auto-scrolling reel across the hero bottom.
-  const reel = (content.gallery?.slugs ?? [])
+  const reel = (content.gallery?.slugs ?? content.examples.slugs)
     .map((slug) => cases.find((c) => c.slug === slug))
     .filter((c): c is NonNullable<typeof c> =>
       Boolean(c?.coverImage?.asset?.url),
@@ -737,7 +770,7 @@ export async function LandingPageView({
 
   // Section numbering for the ghost numerals — only sections present in
   // this page's content participate, so the sequence never skips.
-  const priceKeys = ["price", ...(content.priceTable ? ["priceTable"] : [])];
+  const priceKeys = [...(content.priceTable ? ["priceTable"] : []), "price"];
   const numberedKeys = [
     ...(content.hub ? ["hub"] : []),
     ...(content.priceFirst ? priceKeys : []),
@@ -753,6 +786,58 @@ export async function LandingPageView({
     ...(content.platforms ? ["platforms"] : []),
   ];
   const num = (k: string) => `0${numberedKeys.indexOf(k) + 1}`;
+
+  const reelStrip =
+    // Tilted auto-scrolling reel of real project screens — full bleed,
+    // pauses on hover, every frame links to its case.
+    reel.length >= 4 ? (
+            <div className="relative mt-10 lg:mt-20 -mx-6 sm:-mx-8 lg:-mx-12 rotate-[-2deg]">
+              <div className="[mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)] [-webkit-mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
+                <div className="flex w-max items-stretch gap-5 pr-5 [animation:marquee_55s_linear_infinite] hover:[animation-play-state:paused]">
+                  {[...reel, ...reel].map((c, idx) => (
+                    <Link
+                      key={`${c.slug}-${idx}`}
+                      href={casePath(c.slug)}
+                      tabIndex={idx >= reel.length ? -1 : undefined}
+                      aria-hidden={idx >= reel.length ? true : undefined}
+                      className="relative block w-[240px] sm:w-[290px] shrink-0 overflow-hidden rounded-xl border border-line-strong bg-surface transition-[border-color] duration-300 hover:border-accent-40"
+                    >
+                      <div className="relative aspect-[16/10]">
+                        <SanityImg
+                          image={c.coverImage!}
+                          alt={loc(c.coverImage!.alt, locale) || loc(c.title, locale) || c.slug}
+                          sizes={IMG_SIZES.cardThird}
+                          fill
+                          className="object-cover object-top"
+                        />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+    ) : null;
+
+  const priceBlock = content.priceTable ? (
+        <>
+          <PriceTable table={content.priceTable} index={num("priceTable")} id="price" />
+          <PriceGrid
+            content={content.price}
+            index={num("price")}
+            locale={locale}
+            folded
+            miniCalc={content.miniCalc}
+          />
+        </>
+      ) : (
+        <PriceGrid
+          content={content.price}
+          index={num("price")}
+          locale={locale}
+          miniCalc={content.miniCalc}
+          id="price"
+        />
+      );
 
   return (
     <>
@@ -785,7 +870,26 @@ export async function LandingPageView({
                 {content.hero.sub}
               </p>
               {content.hero.badges?.length ? (
-                <div className="mt-9 grid grid-cols-2 gap-x-7 gap-y-6 max-w-[520px]">
+                <p className="lg:hidden mt-4 mb-0 font-mono text-[11px] uppercase tracking-[0.06em] text-ink-3">
+                  {content.hero.badges.map((b) => b.label).join(" · ")}
+                </p>
+              ) : null}
+              <div className="lg:hidden mt-7 flex flex-col gap-2.5">
+                <a
+                  href="#price"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[oklch(0.98_0.005_300)] px-6 font-sans text-[14px] font-semibold text-[oklch(0.22_0.06_295)] no-underline"
+                >
+                  {MOBILE_CHROME[locale].price}
+                </a>
+                <Link
+                  href={content.calcCta.secondaryHref === "/calculator" ? content.calcCta.primaryHref : content.calcCta.secondaryHref}
+                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-line-strong px-6 font-sans text-[14px] font-medium text-ink no-underline"
+                >
+                  {content.calcCta.secondaryHref === "/calculator" ? content.calcCta.primaryLabel : content.calcCta.secondaryLabel}
+                </Link>
+              </div>
+              {content.hero.badges?.length ? (
+                <div className="max-lg:hidden mt-9 grid grid-cols-2 gap-x-7 gap-y-6 max-w-[520px]">
                   {content.hero.badges.map((b, i) => (
                     <div
                       key={b.label}
@@ -802,7 +906,9 @@ export async function LandingPageView({
                 </div>
               ) : null}
             </div>
-            <div className="relative isolate">
+            {/* Phones get the configurator folded inside the price block
+                instead: here it pushed the first photo to screen two. */}
+            <div className="relative isolate max-lg:hidden">
               {/* Ultraviolet pool of light the calculator stands in. */}
               <div
                 aria-hidden
@@ -813,35 +919,7 @@ export async function LandingPageView({
               </div>
             </div>
           </div>
-          {/* Tilted auto-scrolling reel of real project screens — full bleed,
-              pauses on hover, every frame links to its case. */}
-          {reel.length >= 4 ? (
-            <div className="relative mt-14 lg:mt-20 -mx-6 sm:-mx-8 lg:-mx-12 rotate-[-2deg]">
-              <div className="[mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)] [-webkit-mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]">
-                <div className="flex w-max items-stretch gap-5 pr-5 [animation:marquee_55s_linear_infinite] hover:[animation-play-state:paused]">
-                  {[...reel, ...reel].map((c, idx) => (
-                    <Link
-                      key={`${c.slug}-${idx}`}
-                      href={casePath(c.slug)}
-                      tabIndex={idx >= reel.length ? -1 : undefined}
-                      aria-hidden={idx >= reel.length ? true : undefined}
-                      className="relative block w-[240px] sm:w-[290px] shrink-0 overflow-hidden rounded-xl border border-line-strong bg-surface transition-[border-color] duration-300 hover:border-accent-40"
-                    >
-                      <div className="relative aspect-[16/10]">
-                        <SanityImg
-                          image={c.coverImage!}
-                          alt={loc(c.coverImage!.alt, locale) || loc(c.title, locale) || c.slug}
-                          sizes={IMG_SIZES.cardThird}
-                          fill
-                          className="object-cover object-top"
-                        />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ) : null}
+          {reelStrip}
           {/* Client-logo rail: real projects as social proof, separated from
               the hero by a glowing horizon hairline. */}
           <div className="relative max-w-container mx-auto mt-12 lg:mt-16">
@@ -885,13 +963,21 @@ export async function LandingPageView({
           }}
         />
       )}
+      {/* Pages without the configurator hero had no image for the first
+          6–8 phone screens (/seo, /audit, /rozrobka-saitiv — plan
+          2026-09-16). The same reel of real case covers closes the gap. */}
+      {!content.miniCalc && reelStrip ? (
+        <div className="relative overflow-hidden bg-bg px-6 pb-6 sm:px-8 lg:px-12 lg:pb-10">
+          {reelStrip}
+        </div>
+      ) : null}
 
       {content.hub && <HubSection content={content.hub} index={num("hub")} />}
 
-      {content.priceFirst && <PriceGrid content={content.price} index={num("price")} />}
-      {content.priceFirst && content.priceTable && (
-        <PriceTable table={content.priceTable} index={num("priceTable")} />
-      )}
+      {/* Price: the configuration table first, then the option grid folded
+          on phones, then (phones) the configurator — one block where there
+          used to be three (plan 2026-09-16). */}
+      {content.priceFirst && priceBlock}
 
       {/* 2 — When a landing page fits / when it doesn't */}
       <WhenSection content={content.when} index={num("when")} />
@@ -900,12 +986,7 @@ export async function LandingPageView({
       <IncludedSection content={content.included} index={num("included")} />
 
       {/* 4 — How the price is built (calculator-style option grid) */}
-      {!content.priceFirst && <PriceGrid content={content.price} index={num("price")} />}
-
-      {/* 4.2 — Ready-made configuration price table */}
-      {!content.priceFirst && content.priceTable && (
-        <PriceTable table={content.priceTable} index={num("priceTable")} />
-      )}
+      {!content.priceFirst && priceBlock}
 
       {/* 4.3 — Case stories with photos */}
       {content.stories && (
@@ -916,7 +997,11 @@ export async function LandingPageView({
               eyebrow={content.stories.eyebrow}
               heading={content.stories.heading}
             />
-            <div className="flex flex-col gap-12 lg:gap-16">
+            <div
+              className={`flex flex-col gap-12 lg:gap-16 ${
+                content.gallery ? "max-lg:[&>div:nth-child(n+2)]:hidden" : ""
+              }`}
+            >
               {content.stories.items.map((story, i) => {
                 const c = cases.find((x) => x.slug === story.slug);
                 const image = c?.coverImage?.asset?.url ? c.coverImage : null;
@@ -975,14 +1060,20 @@ export async function LandingPageView({
                       <h3 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.2] text-ink">
                         {story.title}
                       </h3>
-                      {story.paragraphs.map((p) => (
-                        <p
-                          key={p.slice(0, 24)}
-                          className="mt-4 mb-0 font-sans text-[14.5px] leading-[1.65] text-ink-dim"
-                        >
+                      {story.paragraphs.slice(0, 1).map((p) => (
+                        <p key={p.slice(0, 24)} className={STORY_PARA_CLASS}>
                           {p}
                         </p>
                       ))}
+                      {story.paragraphs.length > 1 ? (
+                        <MobileFold label={READ_MORE_LABEL[locale]} className="max-lg:mt-2">
+                          {story.paragraphs.slice(1).map((p) => (
+                            <p key={p.slice(0, 24)} className={STORY_PARA_CLASS}>
+                              {p}
+                            </p>
+                          ))}
+                        </MobileFold>
+                      ) : null}
                       <div className="mt-6 flex items-end gap-5 flex-wrap">
                         <div>
                           <div className="font-actay font-bold text-[34px] leading-none bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
@@ -1023,7 +1114,7 @@ export async function LandingPageView({
               heading={content.gallery.heading}
               sub={content.gallery.sub}
             />
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8 lg:pb-8 lg:[&>a:nth-child(3n+2)]:translate-y-8">
+            <div className={`${casesRailClass} mb-8 lg:pb-8 lg:[&>a:nth-child(3n+2)]:translate-y-8`}>
               {content.gallery.slugs
                 .map((slug) => cases.find((c) => c.slug === slug))
                 .filter((c): c is NonNullable<typeof c> =>
@@ -1081,11 +1172,17 @@ export async function LandingPageView({
             {/* 560px, not 760: at 15px the wider column held ~100 characters
                 per line — see blocks/prose-section (design audit 2026-09-07). */}
             <div className="flex max-w-[560px] flex-col gap-4">
-              {content.platforms.paragraphs.map((p) => (
-                <p
-                  key={p.slice(0, 24)}
-                  className="m-0 font-sans text-[15px] leading-[1.65] text-ink-dim"
-                >
+              {content.platforms.paragraphs.slice(0, 1).map((p) => (
+                <p key={p.slice(0, 24)} className={PLATFORM_PARA_CLASS}>
+                  {p}
+                </p>
+              ))}
+              <MobileFold
+                label={READ_MORE_LABEL[locale]}
+                bodyClassName="flex-col gap-4 lg:flex max-lg:peer-checked:flex"
+              >
+              {content.platforms.paragraphs.slice(1).map((p) => (
+                <p key={p.slice(0, 24)} className={PLATFORM_PARA_CLASS}>
                   {p}
                 </p>
               ))}
@@ -1108,6 +1205,7 @@ export async function LandingPageView({
               <p className="m-0 mt-2 text-[13px] leading-[1.6] text-ink-3 italic">
                 {content.platforms.foot}
               </p>
+              </MobileFold>
               <div className="mt-3 flex flex-wrap gap-3">
                 {content.platforms.links.map((l) => (
                   <Link key={l.href} href={l.href} className={ALL_CASES_LINK_CLASS}>
@@ -1123,10 +1221,10 @@ export async function LandingPageView({
 
       {/* 4.7 — Long-form prose (process, structure) for pages whose depth
           fell short of the pages ranking above them. */}
-      {content.prose?.length ? <ProseSections items={content.prose} /> : null}
+      {content.prose?.length ? <ProseSections items={content.prose} locale={locale} /> : null}
 
       {/* 5 — Calculator CTA */}
-      <CtaBand content={content.calcCta} />
+      <CtaBand content={content.calcCta} hideOnPhones={Boolean(content.miniCalc)} />
 
       {/* 6 — Example landing pages from the portfolio (hidden when the
           gallery replaces it) */}
@@ -1143,7 +1241,7 @@ export async function LandingPageView({
             </p>
           </div>
           {examples.length > 0 && (
-            <div className={casesGridClass}>
+            <div className={casesRailClass}>
               {examples.map((item) => {
                 const metaLine = [item.industry, item.region, item.year]
                   .filter(Boolean)
@@ -1191,17 +1289,17 @@ export async function LandingPageView({
           `source` is "landing-page" | "corporate-site-page" | ... so the
           page's own href derives from it without a new prop at 12 call sites. */}
       {content.related ? (
-        <section className="bg-bg px-6 sm:px-8 lg:px-12 pt-12">
+        <section className="bg-bg px-6 sm:px-8 lg:px-12 pt-8 lg:pt-12">
           <div className="max-w-container mx-auto">
             <h2 className="m-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.15] text-ink">
               {content.related.heading}
             </h2>
             {content.related.sub ? (
-              <p className="mt-3 mb-0 max-w-[640px] font-sans text-[14.5px] leading-[1.6] text-ink-dim">
+              <p className="mt-3 mb-0 max-w-[640px] font-sans text-[14.5px] leading-[1.6] text-ink-dim max-lg:hidden">
                 {content.related.sub}
               </p>
             ) : null}
-            <ul className="mt-5 flex list-none flex-wrap gap-x-7 gap-y-2 p-0">
+            <ul className={LINK_RAIL_CLASS}>
               {content.related.links.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="rich-link">

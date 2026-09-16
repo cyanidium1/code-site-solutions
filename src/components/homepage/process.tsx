@@ -167,7 +167,7 @@ export function Process({
               </span>
             </div>
           </div>
-          <ol className="relative m-0 grid list-none grid-cols-1 items-start gap-8 p-0 before:absolute before:top-6 before:bottom-6 before:left-6 before:w-px before:bg-[linear-gradient(180deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.4)_15%,oklch(from_var(--color-accent)_l_c_h_/_0.4)_85%,transparent)] before:content-[''] lg:grid-cols-5 lg:gap-6 lg:before:content-none">
+          <ol className="relative m-0 grid list-none grid-cols-1 items-start gap-4 p-0 before:absolute before:top-6 before:bottom-6 before:left-6 before:w-px before:bg-[linear-gradient(180deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.4)_15%,oklch(from_var(--color-accent)_l_c_h_/_0.4)_85%,transparent)] before:content-[''] lg:grid-cols-5 lg:gap-6 lg:before:content-none">
             {steps.map((s, i) => {
               const isLast = i === steps.length - 1;
               const StepIcon = STEP_ICONS[Math.min(i, STEP_ICONS.length - 1)];
@@ -180,7 +180,7 @@ export function Process({
                 >
                   <div
                     className={cn(
-                      "inline-flex col-start-1 row-span-3 h-12 w-12 self-start items-center justify-center rounded-full border border-line-strong bg-surface font-mono text-xs tracking-[0.06em] text-ink lg:col-auto lg:row-auto lg:h-14 lg:w-14 lg:self-auto lg:text-sm",
+                      "inline-flex col-start-1 row-span-3 h-12 w-12 self-center lg:self-start items-center justify-center rounded-full border border-line-strong bg-surface font-mono text-xs tracking-[0.06em] text-ink lg:col-auto lg:row-auto lg:h-14 lg:w-14 lg:self-auto lg:text-sm",
                       !isLast && RING[Math.min(i, RING.length - 1)],
                       !isLast && "font-semibold text-accent-soft [border-color:oklch(from_var(--color-accent)_l_c_h_/_0.35)] [box-shadow:0_0_0_4px_var(--color-bg)] lg:font-normal lg:text-ink lg:[box-shadow:none]",
                       isLast &&
@@ -205,7 +205,7 @@ export function Process({
                       {s.name}
                     </div>
 
-                    <ul className="mt-2 flex list-none flex-col items-start gap-1 p-0 lg:mt-2.5 lg:items-stretch">
+                    <ul className="mt-2 flex list-none flex-col items-start gap-1 p-0 max-lg:hidden lg:mt-2.5 lg:items-stretch">
                       {s.items.map((it) => (
                         <li
                           key={it}
@@ -217,7 +217,7 @@ export function Process({
                       ))}
                     </ul>
 
-                    <div className="mt-3 inline-flex h-[25.75px] items-center gap-1.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 font-mono text-[10.5px] tracking-[0.04em] text-ink-3">
+                    <div className="mt-1.5 lg:mt-3 inline-flex h-[25.75px] items-center gap-1.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 font-mono text-[10.5px] tracking-[0.04em] text-ink-3">
                       <StepIcon size={12} strokeWidth={1.8} className="text-accent-soft" />
                       {s.duration}
                     </div>

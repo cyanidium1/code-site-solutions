@@ -109,7 +109,7 @@ export default async function CalculatorPageRu() {
 
 
       <WebsiteCalculator config={config} />
-      <ProseSections items={CALCULATOR_PROSE_RU} />
+      <ProseSections items={CALCULATOR_PROSE_RU} locale="ru" />
       <HpFooter />
     </>
   );

@@ -6,7 +6,6 @@ import {
   HpHeader,
   Marquee,
   Industries,
-  BusinessValue,
   PainPoints,
   Process,
   Cases,
@@ -14,6 +13,7 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
+import { FounderNote, TrustStrip } from "@/components/homepage/founder-note";
 import { ORG_ID } from "@/constants/site";
 import {
   buildJsonLd,
@@ -145,18 +145,20 @@ export default async function HomePage() {
           </div>
           <CmpPricingGrid>
             {tiers.map((t, i) => (
-              <Tier key={i} {...t} />
+              <Tier key={i} {...t} compact />
             ))}
           </CmpPricingGrid>
+          <TrustStrip />
         </div>
       </section>
 
       <Industries />
-      <BusinessValue />
       <Process />
       <Cases />
 
       <PullQuoteSwiper slides={testimonialSlides} />
+
+      <FounderNote />
 
       <section className={hpSectionClass} id="directions">
         <div className={hpInnerClass}>
@@ -178,10 +180,10 @@ export default async function HomePage() {
               phone (design audit 2026-09-06, H10). Here the gap does the
               spacing and the margin only returns at lg, where the links wrap
               into rows. */}
-          <ul className="m-0 grid list-none grid-cols-1 gap-x-8 gap-y-2 p-0 lg:flex lg:flex-wrap lg:gap-y-1">
+          <ul className="m-0 flex list-none flex-wrap gap-2 p-0 lg:gap-x-8 lg:gap-y-1">
             {DIRECTION_LINKS.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className={cn(hpLinkClass, "mt-0 lg:mt-9")}>
+                <Link href={l.href} className={cn(hpLinkClass, "mt-0 lg:mt-9 max-lg:rounded-full max-lg:border max-lg:border-line max-lg:px-3.5 max-lg:py-2 max-lg:text-[11px] max-lg:[&]:border-b")}>
                   {l.label}
                 </Link>
               </li>

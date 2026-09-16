@@ -55,7 +55,7 @@ import {
   industryCalcContent,
   industryCalcHeading,
 } from "@/components/industry-page/industry-calcs";
-import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { RelatedCard, casesRailClass } from "@/components/blocks/related-card";
 import { resolveBlogCover } from "@/lib/shared/blog-cover";
 import {
   BLOG_POSTS_BY_CATEGORY_QUERY,
@@ -1208,7 +1208,7 @@ export async function IndustryPageView({
                 {LABELS[locale].nicheCasesHeading}
               </h2>
             </div>
-            <div className={casesGridClass}>
+            <div className={casesRailClass}>
               {nicheCases.map((r) => {
                 const item = caseRefToCardItem(r, locale, registry);
                 const metaLine = [item.industry, item.region, item.year]
@@ -1256,7 +1256,7 @@ export async function IndustryPageView({
                 {LABELS[locale].articlesHeading}
               </h2>
             </div>
-            <div className={casesGridClass}>
+            <div className={casesRailClass}>
               {clusterPostsForLocale.slice(0, 3).map((p) => {
                 const pSlug = p.slugs?.[locale]?.current ?? "";
                 const cover = resolveBlogCover(p, locale);

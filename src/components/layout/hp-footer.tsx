@@ -9,6 +9,7 @@ import { hasLocaleIndustry, localizePath, resolveRootHref } from "@/constants/i1
 import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { CookieSettingsLink } from "@/lib/cookie-consent";
 import { SITE_CONTACT } from "@/constants/site";
+import { MobileFold } from "@/components/shared/mobile-fold";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
@@ -97,7 +98,12 @@ const footerClass =
 // Compare / Legal each get their own 1fr column. Mobile stacks to 2 cols
 // with the brand cell spanning both.
 const footerInnerClass =
-  "mx-auto max-w-container grid grid-cols-2 [&>:first-child]:col-span-2 gap-6 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] lg:[&>:first-child]:col-span-1";
+  "mx-auto max-w-container grid grid-cols-1 [&>:first-child]:mb-5 gap-x-6 lg:gap-6 lg:[&>:first-child]:mb-0 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr]";
+// Phones: the four link columns fold into disclosure rows — the footer was
+// 1.3 screens of links under every page (plan 2026-09-16, П7).
+const footerColWrapClass = "max-lg:border-t max-lg:border-line";
+const footerFoldLabelClass =
+  "flex w-full justify-between text-ink-3 text-[12px] tracking-[0.12em]";
 const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[320px]";
 const footerContactsClass =
   "mt-5 font-mono text-[12px] leading-5 flex flex-col gap-1.5 [&>a]:inline-flex [&>a]:items-center [&>a]:gap-2 [&>a]:h-5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 [&>a:hover]:text-ink [&_svg]:shrink-0 [&_svg]:text-ink-3 [&>a:hover_svg]:text-accent-soft [&_svg]:transition-colors [&_svg]:duration-200";
@@ -112,7 +118,7 @@ const footerDisabledClass =
 // страница — не найдено». Наскрізне посилання з підвалу дає їм вагу з усього
 // сайту і робить їх видимими для краулера.
 const footerCitiesClass =
-  "mx-auto max-w-container mt-10 pt-5 border-t border-line flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] text-ink-3 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
+  "mx-auto max-w-container lg:mt-10 pt-5 border-t border-line flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] text-ink-3 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 const footerBottomClass =
   "mx-auto max-w-container mt-6 pt-5 border-t border-line flex justify-between items-center flex-wrap gap-4";
 const footerCopyClass = "font-mono text-[11px] text-ink-3";
@@ -227,16 +233,19 @@ export function HpFooter({
             ))}
           </div>
         </div>
-        <div>
-          <div className={footerColHClass}>{t("solutionsHeading")}</div>
+        <div className={footerColWrapClass}>
+          <div className={`${footerColHClass} max-lg:hidden`}>{t("solutionsHeading")}</div>
+          <MobileFold label={t("solutionsHeading")} labelClassName={footerFoldLabelClass} bodyClassName="max-lg:pb-4">
           <ul className={footerColListClass}>
             {SOLUTIONS_HREFS.map(({ key, href, published }) => (
               <li key={key}>{renderSolutionItem(key, href, published)}</li>
             ))}
           </ul>
+          </MobileFold>
         </div>
-        <div>
-          <div className={footerColHClass}>{t("companyHeading")}</div>
+        <div className={footerColWrapClass}>
+          <div className={`${footerColHClass} max-lg:hidden`}>{t("companyHeading")}</div>
+          <MobileFold label={t("companyHeading")} labelClassName={footerFoldLabelClass} bodyClassName="max-lg:pb-4">
           <ul className={footerColListClass}>
             {companyLinks.map((l) => (
               <li key={l.key}>
@@ -244,6 +253,7 @@ export function HpFooter({
               </li>
             ))}
           </ul>
+          </MobileFold>
         </div>
         {/*
           Compare + Legal each get their own column on both locales (5-col
@@ -253,8 +263,9 @@ export function HpFooter({
           while /offer, /public-contract and /legal are still UA-only and
           fall back to the UA path.
         */}
-        <div>
-          <div className={footerColHClass}>{t("compareHeading")}</div>
+        <div className={footerColWrapClass}>
+          <div className={`${footerColHClass} max-lg:hidden`}>{t("compareHeading")}</div>
+          <MobileFold label={t("compareHeading")} labelClassName={footerFoldLabelClass} bodyClassName="max-lg:pb-4">
           <ul className={footerColListClass}>
             {COMPARE_HREFS.map(({ key, href }) => (
               <li key={key}>
@@ -262,9 +273,11 @@ export function HpFooter({
               </li>
             ))}
           </ul>
+          </MobileFold>
         </div>
-        <div>
-          <div className={footerColHClass}>{t("legalHeading")}</div>
+        <div className={footerColWrapClass}>
+          <div className={`${footerColHClass} max-lg:hidden`}>{t("legalHeading")}</div>
+          <MobileFold label={t("legalHeading")} labelClassName={footerFoldLabelClass} bodyClassName="max-lg:pb-4">
           <ul className={footerColListClass}>
             {LEGAL_HREFS.map(({ key, href }) => (
               <li key={key}>
@@ -275,6 +288,7 @@ export function HpFooter({
               <CookieSettingsLink />
             </li>
           </ul>
+          </MobileFold>
         </div>
       </div>
       {footerCities ? (

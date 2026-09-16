@@ -290,7 +290,7 @@ export default async function EnPricingPage() {
       />
 
       {/* Section 7: Calculator promo */}
-      <ProseSections items={PRICING_PROSE_EN} />
+      <ProseSections items={PRICING_PROSE_EN} locale="en" />
 
       <CtaBanner
         heading={

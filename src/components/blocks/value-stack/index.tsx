@@ -12,6 +12,7 @@ import {
   LifeBuoy,
   Zap,
   Check,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -79,16 +80,12 @@ const UK: Copy = {
   eyebrow: "ЩО ВИ ОТРИМУЄТЕ",
   heading: (
     <>
-      Наші сайти створені, щоб приводити заявки.
-      <br />
-      <em>Краса — за замовчуванням.</em>
+      Що входить <em>у кожен сайт</em>
     </>
   ),
   sub: (
     <>
-      Не потрібно окремо наймати дизайнера, копірайтера, SEO-фахівця,
-      розробника, хостинг і команду підтримки. Усе необхідне для запуску й
-      розвитку сайту вже включено.
+      Дизайн, тексти, SEO, хостинг і рік підтримки — в одній ціні.
     </>
   ),
   featured: [
@@ -103,6 +100,12 @@ const UK: Copy = {
       title: "Відвідувачі стають заявками",
       desc: "Чіткі меседжі, шлях до дії за 1–2 кроки та mobile-first верстка — бо саме звідти приходить більшість ваших клієнтів.",
       img: IMG.enquiries,
+    },
+    {
+      icon: Smartphone,
+      title: "Керуєте з телефона",
+      desc: "Тексти, ціни, послуги й кейси змінюєте самі в адмінці — розробник для цього не потрібен.",
+      img: IMG.launch,
     },
     {
       icon: ShieldCheck,
@@ -155,16 +158,12 @@ const EN: Copy = {
   eyebrow: "WHAT YOU GET",
   heading: (
     <>
-      Our sites are built to bring in leads.
-      <br />
-      <em>Good looks come as standard.</em>
+      What comes <em>with every site</em>
     </>
   ),
   sub: (
     <>
-      No need to separately hire a designer, copywriter, SEO specialist,
-      developer, hosting, or a support team. Everything you need to launch
-      and grow the site is already included.
+      Design, copy, SEO, hosting and a year of support — in one price.
     </>
   ),
   featured: [
@@ -179,6 +178,12 @@ const EN: Copy = {
       title: "Visitors turn into leads",
       desc: "Clear messaging, a path to action in 1–2 steps, and a mobile-first layout — because that’s where most of your clients come from.",
       img: IMG.enquiries,
+    },
+    {
+      icon: Smartphone,
+      title: "You run it from your phone",
+      desc: "Copy, prices, services and case studies — you change them yourself in the CMS, no developer needed.",
+      img: IMG.launch,
     },
     {
       icon: ShieldCheck,
@@ -231,16 +236,12 @@ const RU: Copy = {
   eyebrow: "ЧТО ВЫ ПОЛУЧАЕТЕ",
   heading: (
     <>
-      Наши сайты созданы, чтобы приводить заявки.
-      <br />
-      <em>Красота — по умолчанию.</em>
+      Что входит <em>в каждый сайт</em>
     </>
   ),
   sub: (
     <>
-      Не нужно отдельно нанимать дизайнера, копирайтера, SEO-специалиста,
-      разработчика, хостинг и команду поддержки. Всё необходимое для запуска и
-      развития сайта уже включено.
+      Дизайн, тексты, SEO, хостинг и год поддержки — в одной цене.
     </>
   ),
   featured: [
@@ -255,6 +256,12 @@ const RU: Copy = {
       title: "Посетители становятся заявками",
       desc: "Чёткие сообщения, путь к действию за 1–2 шага и mobile-first вёрстка — ведь именно оттуда приходит большинство ваших клиентов.",
       img: IMG.enquiries,
+    },
+    {
+      icon: Smartphone,
+      title: "Управляете с телефона",
+      desc: "Тексты, цены, услуги и кейсы меняете сами в админке — разработчик для этого не нужен.",
+      img: IMG.launch,
     },
     {
       icon: ShieldCheck,
@@ -385,6 +392,19 @@ const E822_CLASS =
 
 const COPY_BY_LOCALE: Record<Locale, Copy> = { uk: UK, en: EN, ru: RU };
 
+/* Real screen of the CMS on a phone. Swapped for the photographed/generated
+   scene once it exists (plan 2026-09-16, §10 prompt A). */
+const VALUE_PHOTO = {
+  src: "/home/admin-phone.webp",
+  width: 1080,
+  height: 1350,
+  alt: {
+    uk: "Адмінка сайту на телефоні: редагування послуги і ціни",
+    ru: "Админка сайта на телефоне: редактирование услуги и цены",
+    en: "The site's CMS on a phone: editing a service and its price",
+  } as Record<Locale, string>,
+};
+
 export function ValueStack({
   locale = "uk",
   eyebrow,
@@ -433,32 +453,46 @@ export function ValueStack({
           <p className="xl:hidden -mt-4 mb-2 max-w-[640px] text-[15px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
         </div>
 
+        {/* Plan 2026-09-16: four points and a real screen instead of eight
+            cards, two Core Web Vitals panels and a checklist (3.2 phone
+            screens). The small cards, stats and bullets stay in the copy
+            objects for now but are no longer rendered. */}
         <ScrollReveal className="group/vs-reveal">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10">
+            <div className="relative mx-auto w-full max-w-[420px] lg:order-2 lg:max-w-none">
+              <div aria-hidden className="absolute inset-x-6 top-1/4 bottom-0 rounded-full bg-accent-20 blur-[70px] pointer-events-none" />
+              <AppImage
+                src={VALUE_PHOTO.src}
+                alt={VALUE_PHOTO.alt[locale]}
+                width={VALUE_PHOTO.width}
+                height={VALUE_PHOTO.height}
+                sizes="(min-width: 800px) 40vw, 92vw"
+                className="relative block h-auto w-full rounded-[22px]"
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 sm:gap-4 lg:order-1">
             {c.featured.map((card, i) => {
               const Icon = card.icon;
               return (
                 <div
                   key={card.title}
-                  className={featuredBase}
+                  className={cn(featuredBase, "max-sm:!min-h-0 max-sm:!rounded-none max-sm:!border-0 max-sm:!border-b max-sm:!border-line max-sm:!bg-transparent max-sm:!px-0 max-sm:!py-4 max-sm:before:!hidden sm:min-h-[240px]")}
                   // eslint-disable-next-line react/forbid-dom-props -- per-card accent + stagger CSS vars
                   style={{ "--card-accent": VIOLET, "--i": i } as React.CSSProperties}
                 >
                   {CARD_DIVIDER}
-                  <CardMedia src={card.img} sizes="(min-width:1100px) 33vw, (min-width:768px) 50vw, 92vw" />
-                  {/* Below md the card is a row: icon left, copy right. The
-                      inner wrapper dissolves at md (`md:contents`) so the
-                      Figma column — icon on top, title pushed to the bottom
-                      by mt-auto — comes back untouched. */}
+                  <div className="max-sm:hidden">
+                    <CardMedia src={card.img} sizes="(min-width:1100px) 25vw, (min-width:640px) 50vw, 1px" />
+                  </div>
                   <div className="relative z-[1] flex flex-1 flex-row gap-3.5 md:flex-col md:gap-0">
                     <span className={cn(accentIconBox, "size-10 shrink-0 md:size-12")}>
                       <Icon size={22} strokeWidth={1.7} />
                     </span>
                     <div className="min-w-0 md:contents">
-                      <h3 className="font-actay text-[18px] font-bold uppercase leading-[1.1] tracking-[-0.01em] text-ink md:mt-auto md:pt-10 md:text-[24px] lg:text-[28px]">
+                      <h3 className="font-actay text-[16px] font-bold uppercase leading-[1.15] tracking-[-0.01em] text-ink md:mt-auto md:pt-8 md:text-[20px] xl:text-[22px]">
                         {card.title}
                       </h3>
-                      <p className="mt-2 max-w-[42ch] text-[13.5px] leading-[1.55] text-ink-dim [text-wrap:pretty] md:mt-3 md:text-[14.5px] md:leading-[1.6]">
+                      <p className="mt-1.5 max-w-[42ch] text-[13.5px] leading-[1.55] text-ink-dim [text-wrap:pretty] md:mt-3 md:text-[14.5px] md:leading-[1.6]">
                         {card.desc}
                       </p>
                     </div>
@@ -466,71 +500,7 @@ export function ValueStack({
                 </div>
               );
             })}
-          </div>
-
-          <div className="mt-2.5 grid grid-cols-2 gap-2.5 sm:mt-4 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
-            {c.small.map((card, i) => {
-              const Icon = card.icon;
-              return (
-                <div
-                  key={card.title}
-                  className={smallBase}
-                  // eslint-disable-next-line react/forbid-dom-props -- per-card accent + stagger CSS vars
-                  style={{ "--card-accent": VIOLET, "--i": i } as React.CSSProperties}
-                >
-                  {CARD_DIVIDER}
-                  <CardMedia src={card.img} sizes="(min-width:1100px) 20vw, (min-width:768px) 33vw, (min-width:640px) 50vw, 92vw" />
-                  <span className={cn(accentIconBox, "size-9 sm:size-10")}>
-                    <Icon size={18} strokeWidth={1.7} />
-                  </span>
-                  <h4 className="relative z-[1] mt-3 font-actay text-[13.5px] font-semibold uppercase leading-[1.2] tracking-[0.01em] text-ink sm:mt-4 sm:text-[15.5px]">
-                    {card.title}
-                  </h4>
-                  <p className="relative z-[1] mt-1.5 text-[12.5px] leading-[1.45] text-ink-dim [text-wrap:pretty] sm:text-[13px] sm:leading-[1.5]">
-                    {card.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Stats band — the former PerformanceProof panels (Figma §1.4) */}
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-16 lg:mt-[90px] lg:grid-cols-2">
-            {c.stats.map((s) => {
-              const Icon = s.icon;
-              return (
-                <div key={s.num + s.title} className={GLASS_PANEL_CLASS}>
-                  <div className="flex items-center gap-4">
-                    <span className={STAT_CHIP_CLASS}>
-                      <Icon size={22} strokeWidth={1.7} />
-                    </span>
-                    <p className="m-0 flex items-baseline gap-2.5">
-                      <span className={STAT_NUM_CLASS}>{s.num}</span>
-                      <span className={STAT_SUFFIX_CLASS}>— {s.title}</span>
-                    </p>
-                  </div>
-                  <p className={STAT_DESC_CLASS}>{s.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* "Design that sells" checklist panel (Figma §1.5) */}
-          <div className={cn(GLASS_PANEL_CLASS, "mt-4")}>
-            <h3 className="m-0 font-actay text-[20px] font-bold uppercase leading-[1.2] tracking-[-0.01em] text-ink lg:text-[26px] [&_em]:not-italic [&_em]:text-inherit">
-              {c.designHeading}
-            </h3>
-            <ul className="m-0 mt-5 grid list-none grid-cols-1 gap-x-6 gap-y-3 p-0 lg:grid-cols-2">
-              {c.bullets.map((b) => (
-                <li key={b} className="flex items-start gap-2.5">
-                  <span className={CHECK_CHIP_CLASS}>
-                    <Check size={12} strokeWidth={2.4} />
-                  </span>
-                  <span className="text-[15px] leading-[1.6] text-ink-dim">{b}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="m-0 mt-6 text-[13.9px] leading-[1.5] text-ink-3">{c.footnote}</p>
+            </div>
           </div>
         </ScrollReveal>
       </div>

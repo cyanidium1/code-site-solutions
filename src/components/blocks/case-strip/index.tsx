@@ -1,7 +1,7 @@
 import { fetchCaseStudies } from "@/components/case-page/data";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
-import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { RelatedCard, casesRailClass } from "@/components/blocks/related-card";
 import { SectionHead } from "@/components/shared/section-head";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { resolveRootHref } from "@/constants/i18n-routes";
@@ -65,7 +65,7 @@ export async function CaseStrip({
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <SectionHead eyebrow={l.eyebrow} heading={l.heading} sub={sub} />
-        <div className={casesGridClass}>
+        <div className={casesRailClass}>
           {items.map((item) => (
             <RelatedCard
               key={item.href}

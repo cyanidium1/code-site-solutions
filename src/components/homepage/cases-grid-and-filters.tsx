@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { btnClass, cn } from "@/components/ui";
-import { RelatedCard, casesGridClass } from "@/components/blocks/related-card";
+import { RelatedCard, casesRailClass } from "@/components/blocks/related-card";
 import type { CaseCardItem } from "@/lib/shared/case-card-item";
 
 export type IndustryKey = "legal" | "medicine" | "real-estate";
@@ -71,7 +71,7 @@ const INDUSTRY_ORDER: readonly IndustryKey[] = [
 
 function CardGrid({ items }: { items: CaseCardItem[] }) {
   return (
-    <div className={casesGridClass}>
+    <div className={casesRailClass}>
       {items.map((c) => {
         const metaLine = [c.industry, c.region, c.year]
           .filter(Boolean)

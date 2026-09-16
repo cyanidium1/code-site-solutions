@@ -84,7 +84,12 @@ export function Tier({
   ctaSource,
   tierKey,
   discountLine,
-}: TierProps) {
+  compact = false,
+}: TierProps & {
+  /** Homepage / comparison pages: no "not included" list, and phones see
+      the first three inclusions only (plan 2026-09-16). */
+  compact?: boolean;
+}) {
   const { open } = useLeadModal();
   const locale = useLocale() as Locale;
   return (
@@ -106,7 +111,7 @@ export function Tier({
           {weeks}
         </div>
         {bestFor ? (
-          <div className="mt-1 pt-3 border-t border-line">
+          <div className={`mt-1 pt-3 border-t border-line ${compact ? "max-md:hidden" : ""}`}>
             <div className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-1.5">
               {bestForLabel}
             </div>
@@ -121,7 +126,7 @@ export function Tier({
         <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-3">
           {includes.heading}
         </h4>
-        <ul className={`${TIER_LIST_BASE} ${TIER_LIST_DEFAULT}`}>
+        <ul className={`${TIER_LIST_BASE} ${TIER_LIST_DEFAULT} ${compact ? "max-md:[&>li:nth-child(n+4)]:hidden" : ""}`}>
           {includes.items.map((it, i) => (
             <li key={i}>
               <TierCheck />
@@ -131,7 +136,7 @@ export function Tier({
         </ul>
       </div>
 
-      {excludes && excludes.items.length > 0 && (
+      {!compact && excludes && excludes.items.length > 0 && (
         <>
           <div className="h-px bg-line m-0" />
           <div>

@@ -125,7 +125,7 @@ export default function RuContactsPage() {
         sub="Ответ в Telegram за 30 минут — или отправьте подробный бриф, как вам удобнее."
       />
 
-      <ContactSplit source="contacts" variant="compact" locale="ru" />
+      <ContactSplit source="contacts" variant="compact" foldBrief={false} locale="ru" />
 
       <section className="bg-bg">
         <FAQ
