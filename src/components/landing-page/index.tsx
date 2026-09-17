@@ -6,6 +6,7 @@ import { FAQ } from "@/components/blocks/final";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { RelatedCard, casesRailClass } from "@/components/blocks/related-card";
 import { H2 } from "@/components/ui";
+import { CmpPricingGrid, Tier } from "@/components/blocks/comparison";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { MiniCalc } from "@/components/landing-page/mini-calc";
 import { ProseSections } from "@/components/blocks/prose-section";
@@ -622,9 +623,9 @@ const SIBLING_LINKS: { href: string; label: Record<Locale, string> }[] = [
   {
     href: "/audit",
     label: {
-      uk: "аудит сайту — $300",
+      uk: "аудит сайту — від $150",
       en: "website audit",
-      ru: "аудит сайта — $300",
+      ru: "аудит сайта — от $150",
     },
   },
   {
@@ -928,6 +929,24 @@ export async function LandingPageView({
       ) : null}
 
       {content.hub && <HubSection content={content.hub} locale={locale} />}
+
+      {content.offers ? (
+        <section className={hpSectionClass} id="offers">
+          <div className={hpInnerClass}>
+            <SectionHead heading={content.offers.heading} sub={content.offers.sub} />
+            <CmpPricingGrid>
+              {content.offers.tiers.map((t, i) => (
+                <Tier key={i} {...t} />
+              ))}
+            </CmpPricingGrid>
+            {content.offers.foot ? (
+              <p className="m-0 mt-6 max-w-[720px] font-sans text-[14px] leading-[1.6] text-ink-dim lg:mt-8">
+                {content.offers.foot}
+              </p>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
 
       {/* Price: the configuration table first, then the option grid folded
           on phones, then (phones) the configurator — one block where there

@@ -8,16 +8,16 @@ import type { Locale } from "@/constants/locales";
 
 const COPY: Record<Locale, { heading: string; body: string }> = {
   uk: {
-    heading: "Безкоштовний аудит сайту — за 24 години",
-    body: "Залиште посилання на ваш поточний сайт — повернемось з аудитом за 24 години.",
+    heading: "Аудит сайту — $150",
+    body: "Година розбору на відеодзвінку, запис і PDF. Перед оплатою — безкоштовний 30-хвилинний дзвінок-знайомство: скажемо, чи потрібен вам аудит.",
   },
   en: {
-    heading: "Free site audit — within 24 hours",
-    body: "Drop a link to your current site — we'll come back with an audit within 24 hours.",
+    heading: "Website audit — $150",
+    body: "An hour on a video call, the recording and a PDF. Before you pay, a free 30-minute intro call: we'll tell you whether you need the audit at all.",
   },
   ru: {
-    heading: "Бесплатный аудит сайта — за 24 часа",
-    body: "Оставьте ссылку на ваш текущий сайт — вернёмся с аудитом за 24 часа.",
+    heading: "Аудит сайта — $150",
+    body: "Час разбора на видеозвонке, запись и PDF. Перед оплатой — бесплатный 30-минутный звонок-знакомство: скажем, нужен ли вам аудит.",
   },
 };
 

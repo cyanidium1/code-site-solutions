@@ -18,7 +18,7 @@ import type { LandingPageContent } from "@/types/landing";
 export const SEO_EN: LandingPageContent = {
   metaTitle: "ᐈ SEO Services from £300/mo | Code-Site.Art",
   metaDescription:
-    "➤ SEO for service businesses from £300/mo, e-commerce from £500/mo ✔️ One-off audit £300 ✔️ No \"#1 guarantees\" ➡ Start with an audit.",
+    "➤ SEO for service businesses from £300/mo, e-commerce from £500/mo ✔️ Deep SEO audit £450 ✔️ No \"#1 guarantees\" ➡ Start with an audit.",
   breadcrumbHome: "Home",
   breadcrumbSelf: "SEO services",
   hero: {
@@ -44,7 +44,7 @@ export const SEO_EN: LandingPageContent = {
       "Expecting results in a month — SEO doesn't work that way, better to decline upfront",
       "A builder-platform site with a hard ceiling — see the section below",
     ],
-    foot: "Not sure? Order a £300 audit — we'll tell you honestly whether there's room to grow and what it would cost.",
+    foot: "Not sure? Order the £450 deep SEO audit — we'll tell you honestly whether there's room to grow and what it would cost.",
   },
   included: {
     eyebrow: "EVERY MONTH",
@@ -127,9 +127,9 @@ export const SEO_EN: LandingPageContent = {
       },
       {
         icon: Search,
-        title: "One-off SEO audit",
-        stat: "£300",
-        body: "A technical + content teardown with a prioritised fix list. Useful even without a retainer.",
+        title: "Deep SEO audit",
+        stat: "£450",
+        body: "A technical + content teardown, a developer-ready spec and growth points in 5 working days. Useful even without a retainer.",
         span: "1x1",
       },
       {
@@ -194,7 +194,7 @@ export const SEO_EN: LandingPageContent = {
     allHref: "/en/portfolio",
   },
   calcCta: {
-    heading: ["Start with a £300 ", "audit"],
+    heading: ["Start with the £450 ", "deep SEO audit"],
     sub: "A teardown of your site with a prioritised fix list and an honest answer on whether you need a retainer at all. Delivered within 5 working days.",
     primaryLabel: "Order an audit",
     primaryHref: "/en/contacts",
@@ -219,7 +219,7 @@ export const SEO_EN: LandingPageContent = {
           { em: "£300/mo" },
           ". E-commerce with a catalogue is ",
           { em: "£500/mo" },
-          " — there's objectively more work. A one-off audit with a fix list is £300. No hidden extras: the month's work list is in your report.",
+          " — there's objectively more work. The deep SEO audit with a developer-ready spec is £450. No hidden extras: the month's work list is in your report.",
         ],
       },
       {
@@ -237,7 +237,7 @@ export const SEO_EN: LandingPageContent = {
       {
         q: "Do you promote sites you didn't build?",
         a: [
-          "Yes — after a £300 audit. If the site runs on a builder or old WordPress, we'll show you the platform's ceiling honestly and price both routes: promote as-is, or migrate first (£500–2,000).",
+          "Yes — after the £450 deep SEO audit. If the site runs on a builder or old WordPress, we'll show you the platform's ceiling honestly and price both routes: promote as-is, or migrate first (£500–2,000).",
         ],
       },
       {

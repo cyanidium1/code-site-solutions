@@ -58,9 +58,9 @@ export const TURNKEY_FOOTER_RU = (
 export const ADDONS_CELLS: BentoCell[] = [
   {
     icon: Search,
-    title: "SEO-аудит",
-    body: "Технический + контентный аудит вашего текущего сайта. Список правок с приоритетами.",
-    stat: "$300",
+    title: "Аудит сайта",
+    body: "Час разбора вашего сайта на видеозвонке, запись и PDF со списком правок. Глубокий SEO-аудит с ТЗ — $450.",
+    stat: "$150",
     span: "1x1",
   },
   {

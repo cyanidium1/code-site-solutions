@@ -16,7 +16,7 @@ import { buildAlternates } from "@/lib/shared/alternates";
 
 const META_TITLE = "ᐈ Начать проект | Контакты веб-студии Code-Site.Art";
 const META_DESCRIPTION =
-  "➤ Бесплатная консультация за 24 часа ✔️ Без длинных брифов ✔️ 30-мин стратегический звонок ✔️ Фиксированная цена ➡ Telegram, email или звонок — отвечаем быстро.";
+  "➤ Бесплатный 30-мин звонок-знакомство ✔️ Без длинных брифов ✔️ Ответ за 24 часа ✔️ Стратегический звонок ✔️ Фиксированная цена ➡ Telegram, email или звонок — отвечаем быстро.";
 
 export const metadata: Metadata = {
   title: META_TITLE,

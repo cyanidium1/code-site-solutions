@@ -545,7 +545,7 @@ export const VS_FREELANCERS_UK: Content = {
     ],
     actionHeading: "Що робимо ми",
     action: [
-      "День 1: безкоштовний аудит — дивимось що є, що працює, що ні",
+      "День 1: дзвінок-знайомство 30 хвилин — безкоштовно, дивимось що є",
       "Тиждень 1: переписуємо проблемні частини, підключаємо інтеграції",
       "Тиждень 2–4: якщо стек «сирий» — мігруємо на наш custom code",
       "Тиждень 4–6: запуск + 30 днів моніторингу",
@@ -674,7 +674,7 @@ export const VS_FREELANCERS_UK: Content = {
     items: [
       {
         q: "Я вже працював із фрілансером, він зник. Що робити?",
-        a: "Безкоштовний аудит на тиждень. Дивимось що з кодом, що з SEO, скільки врятується. Запропонуємо два варіанти: rescue (зберігаємо що можна) або міграція з нуля (швидше і чистіше). Скажемо чесно, що дешевше.",
+        a: "Починаємо з безкоштовного 30-хвилинного дзвінка-знайомства: розкажете, що лишилось. Якщо треба розібратися глибше — аудит сайту за $150: година розбору коду і SEO, запис і PDF. Далі два варіанти: rescue (зберігаємо що можна) або міграція з нуля. Скажемо чесно, що дешевше.",
       },
       {
         q: "Можете продовжити незавершену роботу фрілансера?",
@@ -1144,7 +1144,7 @@ export const VS_FREELANCERS_EN: Content = {
     ],
     actionHeading: "What we do",
     action: [
-      "Day 1: free audit — what's there, what works, what doesn't",
+      "Day 1: a free 30-minute intro call — what's there, what works, what doesn't",
       "Week 1: rewrite the broken parts, hook up integrations",
       "Weeks 2–4: if the stack is rough, migrate to our custom code",
       "Weeks 4–6: launch + 30 days monitoring",
@@ -1269,7 +1269,7 @@ export const VS_FREELANCERS_EN: Content = {
     items: [
       {
         q: "I worked with a freelancer, they vanished. What now?",
-        a: "Free audit, takes a week. We look at the code, the SEO, what's salvageable. We'll propose two options: rescue (keep what works) or full rebuild (faster and cleaner). We'll tell you straight which is cheaper.",
+        a: "We start with a free 30-minute intro call: you tell us what is left. If it needs a closer look, the website audit is $150 — an hour on the code and the SEO, with the recording and a PDF. Then two options: rescue (keep what works) or a full rebuild. We'll tell you straight which is cheaper.",
       },
       {
         q: "Can you finish what a freelancer abandoned?",

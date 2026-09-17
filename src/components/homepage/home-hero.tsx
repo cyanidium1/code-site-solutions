@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AppImage } from "@/lib/shared/app-image";
+import { HeroGears } from "@/components/homepage/hero-gears";
 import { btnClass, H1 } from "@/components/ui";
 
 /* ───────────────────────────────────────────────────────────────────────
@@ -22,6 +23,22 @@ import { btnClass, H1 } from "@/components/ui";
 const HERO_BG_CLASS =
   "fixed inset-0 z-0 pointer-events-none " +
   "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg)_100%)]";
+
+// Gear mechanism (hero-gears.tsx) — placement only; the rotation, the mesh
+// and the neon strokes live in the component and hero-effects.css. The
+// cluster runs up-and-right (big wheel bottom-left, small ones top-right),
+// so it is anchored to the right edge and bleeds past it: the small fast
+// wheels are cut by the viewport and the big slow one stays whole (owner,
+// 2026-09-18 — "слегка вправо за край экрана", "поднять выше"). Body is
+// `overflow-x: clip`, so the overhang costs no scrollbar. z-[-2] keeps it
+// behind the device mockup, which is z-[-1] in the mobile stack.
+const HERO_GEARS_CLASS =
+  "z-[-2] -right-[30%] top-[2%] w-[330px] opacity-80 " +
+  "xs:-right-[26%] xs:w-[370px] " +
+  "sm:-right-[16%] sm:top-[1%] sm:w-[460px] " +
+  "lg:-right-[10%] lg:top-[-4%] lg:w-[560px] lg:opacity-100 " +
+  "xl:-right-[8%] xl:w-[640px] " +
+  "2xl:-right-[6%] 2xl:w-[720px]";
 
 // `pt-6` below sm replaces the clearance the studio badge used to provide:
 // with the badge gone the H1 is the first element of the column and its cap
@@ -48,23 +65,41 @@ const HERO_GRID_CLASS =
 // (grid row 2). Audit 2026-09-06, C3: with the mockup first the H1 started
 // at 395px and the first CTA at 837px on a 844px viewport — nothing
 // actionable above the fold.
-const HERO_LEFT_CLASS = "relative z-[4] flex flex-col lg:block";
+// `@container`: from lg the H1 is sized in `cqw` off THIS column, not off
+// the viewport — the column is the grid track, so the headline can never
+// grow past it into the mockup no matter the viewport/locale combination
+// (owner, 2026-09-18: "заголовок по сетке, он вылезает на картинку").
+const HERO_LEFT_CLASS = "@container relative z-[4] flex flex-col lg:block";
 
+// The `lg:text-[...cqw]` override is the one place in the codebase that
+// overrides a Heading variant size (Heading.tsx escape hatch): this H1 is
+// the only heading that shares its row with a bleeding image, so it is
+// sized by its column instead of by the viewport. 8cqw is set by the
+// widest unbreakable chunk across locales — RU "которые приводят" is
+// 11.2em wide, so anything above ~8.8cqw overflows the column at some
+// width. 60px cap = the old 64px desktop size minus the overflow.
 const HERO_H1_CLASS =
-  "text-ink m-0 mb-[18px] sm:mb-7 " +
+  "text-ink m-0 mb-[18px] sm:mb-7 lg:mb-8 lg:text-[clamp(32px,8cqw,60px)] 2xl:mb-9 " +
   "[&_em]:italic [&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
 
-// The 50vw cap keeps the headline clear of the mockup column, so it starts
-// with that column at lg — below it the hero is a single stack and the cap
-// only wasted half the width (design audit 2026-09-07).
-const H1_LINE_CLASS = "block lg:max-w-[50vw]";
+// The measure is in `em`, so it scales with the headline instead of with
+// the viewport and behaves the same in uk/ru/en: 12em wraps every locale's
+// two long lines into two visual lines each (uk 17.1em, ru 18.5em, en
+// 16.6em) and still clears the widest unbreakable chunk. `text-balance`
+// evens the two halves — the 50vw cap it replaces left "складності," alone
+// on a line at 1920 while the line above ran under the mockup.
+const H1_LINE_CLASS = "block max-w-[12em] text-balance";
 
+// Two of the column's three tracks (64cqw = ⅔ of the 96cqw headline
+// measure, 480px = ⅔ of its 720px cap), so the lede ends on a track edge
+// instead of on a hand-picked 440/460px. 15→17px: at a 60px headline the
+// old 14px lede read as a caption.
 const LEDE_CLASS =
-  "text-sm leading-[1.55] text-ink-dim max-w-full m-0 mb-[22px] text-pretty " +
+  "text-[15px] leading-[1.55] text-ink-dim max-w-full m-0 mb-[22px] text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
-  "sm:leading-[1.6] sm:mb-6 " +
-  "lg:max-w-[440px] min-[1081px]:max-w-[460px] " +
-  "2xl:mb-8";
+  "sm:text-base sm:leading-[1.6] sm:mb-6 " +
+  "lg:text-[16px] lg:mb-7 lg:max-w-[min(64cqw,480px)] " +
+  "2xl:text-[17px] 2xl:mb-8";
 
 // Three proofs in one row, not four in a 2x2 block. The fourth ("everything
 // end-to-end") only restated the lede, and the square grid read as a second
@@ -74,10 +109,13 @@ const LEDE_CLASS =
 // of the column, where a bottom margin is just trailing air.
 const FEATURES_CLASS =
   "order-4 lg:order-none grid grid-cols-1 gap-2 mb-0 max-w-full px-3.5 py-3 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
-  "sm:grid-cols-3 sm:gap-x-3.5 sm:gap-y-0 sm:max-w-[560px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
-  "lg:mb-7 " +
-  "min-[1081px]:max-w-[480px] min-[1081px]:gap-x-4 " +
-  "2xl:max-w-[520px] 2xl:gap-x-5 2xl:mb-9";
+  "sm:grid-cols-3 sm:gap-x-4 sm:gap-y-0 sm:max-w-[560px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
+  // Three equal tracks across the full headline measure: the row ends on
+  // the same line the H1 box ends on, and each proof gets ~224px instead
+  // of the 150px that used to wrap "+ безкоштовна підтримка" onto a
+  // second line while its two neighbours stayed on one.
+  "lg:mb-8 lg:gap-x-6 lg:max-w-[min(96cqw,720px)] " +
+  "2xl:mb-9";
 
 // Top-aligned from sm up: in three columns the sub line wraps, and centring
 // then floated the tick against a two-line block.
@@ -88,10 +126,12 @@ const FEAT_CHECK_CLASS =
   "bg-accent-12 border border-accent-20 " +
   "[&_svg]:w-2.5 [&_svg]:h-2.5 sm:w-5 sm:h-5 sm:mt-px [&_svg]:sm:w-3 [&_svg]:sm:h-3";
 
+// 10px sub-labels were under the readability floor the design audit set
+// (docs/design-audit-2026-09-06.md); the wider tracks pay for 11→12px.
 const FEAT_LABEL_CLASS =
-  "text-xs font-semibold text-ink leading-[1.2] 2xl:text-[13px]";
+  "text-xs font-semibold text-ink leading-[1.2] lg:text-[13px] 2xl:text-sm";
 const FEAT_SUB_CLASS =
-  "text-[10px] leading-[1.35] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[11px]";
+  "text-[11px] leading-[1.35] text-ink-3 mt-0.5 tracking-[0.02em] lg:text-[11px] 2xl:text-xs";
 
 const CTA_ROW_CLASS =
   "order-2 lg:order-none flex flex-col flex-wrap gap-3 items-stretch mb-4 " +
@@ -103,7 +143,7 @@ const CTA_ROW_CLASS =
 // there; below lg `order-3` puts the features after it.
 const CTA_FOOTNOTE_CLASS =
   "order-3 lg:order-none max-w-[440px] text-[12px] tracking-[0.01em] text-ink-3 m-0 mb-6 leading-[1.5] " +
-  "sm:mb-7 lg:mb-0";
+  "sm:mb-7 lg:text-[13px] lg:mb-0 lg:max-w-[min(64cqw,480px)]";
 
 const DEVICE_STAGE_CLASS =
   "relative w-full h-full min-w-0 [perspective:2000px] overflow-hidden lg:overflow-visible " +
@@ -227,6 +267,7 @@ export function HomeHero({
       <div className="hero-grain" />
 
       <div className={HERO_SHELL_CLASS}>
+        <HeroGears className={HERO_GEARS_CLASS} />
         <div className={HERO_GRID_CLASS}>
           <div className={HERO_LEFT_CLASS}>
             <H1 variant="hp" className={HERO_H1_CLASS} data-speakable="hero-title">

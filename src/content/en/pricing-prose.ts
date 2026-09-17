@@ -4,7 +4,7 @@ import type { ProseSection } from "@/types/prose";
  * Long-form sections for `/en/pricing`. See the uk file for why they exist.
  *
  * Figures here are the UK market prices already published across /en/pricing
- * and /en/seo — £800 / £3,500 / £6,000, £300 audit, £300/mo SEO, £200/mo
+ * and /en/seo — £800 / £3,500 / £6,000, £450 deep SEO audit, £300/mo SEO, £200/mo
  * support, £40/h, £500–2,000 migration. This is a separate market, not a
  * currency conversion of the Ukrainian one, so nothing here should be
  * "corrected" to match the uk/ru pages.

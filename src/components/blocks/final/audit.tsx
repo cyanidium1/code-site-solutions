@@ -39,20 +39,21 @@ const DEFAULT_AUDIT_LIST: React.ReactNode[] = [
 ];
 
 export function Audit({
-  heading = "Отримайте безкоштовний розбір сайту вашої клініки",
+  heading = "Аудит сайту вашої клініки — $150",
   sub = (
     <>
-      Залиште посилання на ваш поточний сайт. Протягом 24 годин надішлемо розбір.
+      Година розбору на відеодзвінку, запис і PDF зі списком правок. Залиште
+      посилання на сайт — узгодимо час.
     </>
   ),
   list = DEFAULT_AUDIT_LIST,
-  foot = "Жодних зобов'язань. Корисно, навіть якщо вирішите працювати з іншим підрядником.",
+  foot = "Не впарюємо: звіт можна віддати будь-якому підряднику. Перед оплатою — безкоштовний 30-хвилинний дзвінок-знайомство.",
   inputName = "Як до вас звертатися",
   inputContact = "Імейл або нік у Telegram",
   inputPhone = "+380 (__) ___-__-__",
   inputUrl = "https://...",
-  submit = "Отримати розбір за 24 години",
-  disclaim = "Не надсилаємо нічого, окрім розбору і одного листа з прикладами наших робіт. Без спаму.",
+  submit = "Замовити аудит сайту",
+  disclaim = "Спершу узгодимо час дзвінка. Не надсилаємо нічого, окрім аудиту і одного листа з прикладами наших робіт. Без спаму.",
   source = "audit",
 }: Partial<{
   heading: string;
@@ -91,7 +92,7 @@ export function Audit({
         body: JSON.stringify({
           name: form.name || undefined,
           contact: form.contact || form.phone || undefined,
-          description: description || "Запит на безкоштовний аудит сайту",
+          description: description || "Запит на аудит сайту",
           source,
           hp,
           attribution: getAttribution(),

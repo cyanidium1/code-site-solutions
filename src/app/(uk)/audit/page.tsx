@@ -9,6 +9,7 @@ import { plainRich } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { AUDIT_UK as CONTENT } from "@/content/uk/audit";
 
+const IMPL_OFFER_NAME = "Впровадження правок за звітом (година)";
 const PATH = "/audit";
 const URL = pageUrl(PATH);
 
@@ -46,21 +47,23 @@ const jsonLd = buildJsonLd([
   {
     "@type": "Service",
     "@id": `${URL}#service`,
-    name: "Комплексний аудит сайту",
+    name: "Аудит сайту і бізнесу",
     description: CONTENT.metaDescription,
     provider: { "@id": ORG_ID },
     areaServed: ["UA", "EU", "US", "DK"],
+    // Offers mirror the product cards on the page, so a price change in the
+    // content file cannot drift away from the structured data.
     offers: [
-      {
+      ...(CONTENT.offers?.tiers ?? []).map((t) => ({
         "@type": "Offer",
-        name: "Комплексний аудит сайту: техніка, юзабіліті, SEO",
-        price: "300",
+        name: String(t.name),
+        price: t.price.replace(/[^\d]/g, ""),
         priceCurrency: "USD",
         url: URL,
-      },
+      })),
       {
         "@type": "Offer",
-        name: "Впровадження правок за звітом (година)",
+        name: IMPL_OFFER_NAME,
         price: "40",
         priceCurrency: "USD",
         url: URL,

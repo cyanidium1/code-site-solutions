@@ -2,6 +2,7 @@ import type { TurnkeyItem } from "@/components/blocks/turnkey-list";
 import type { BentoCell } from "@/types/homepage";
 import type { RichText } from "@/lib/shared/rich-text";
 import type { ProseSection } from "@/types/prose";
+import type { TierProps } from "@/types/pricing";
 
 /**
  * Content shape for the site-type page "Landing" (`/landing`, `/en/landing`,
@@ -52,6 +53,16 @@ export type LandingPageContent = {
   /** Render the price grid (and price table) straight after the hero, before
    *  "when". For pages whose search intent is the price itself (/seo). */
   priceFirst?: boolean;
+  /** Product cards rendered right after the hero — used by /audit, where the
+   *  page sells three separate products (site, business, deep SEO audit)
+   *  rather than one configurable build. */
+  offers?: {
+    heading: [string, string];
+    sub?: string;
+    tiers: TierProps[];
+    /** One line under the cards (e.g. the free intro call). */
+    foot?: string;
+  };
   /** Hub navigation rendered right after the hero: grouped links to child
    *  pages (site types, industries, cities). Used by /rozrobka-saitiv. */
   hub?: {

@@ -17,12 +17,12 @@ import { buildAlternates } from "@/lib/shared/alternates";
 export const metadata: Metadata = {
   title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
   description:
-    "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+    "➤ Book a free 30-min intro call ✔️ No lengthy briefs ✔️ Reply within 24 hours ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
   alternates: buildAlternates({ locale: "en", uaPath: "/contacts" }),
   openGraph: {
     title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
-      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+      "➤ Book a free 30-min intro call ✔️ No lengthy briefs ✔️ Reply within 24 hours ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
     type: "website",
     locale: "en_GB",
     url: "/en/contacts",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
-      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+      "➤ Book a free 30-min intro call ✔️ No lengthy briefs ✔️ Reply within 24 hours ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
@@ -84,7 +84,7 @@ const jsonLd = buildJsonLd([
     locale: "en",
     title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
     description:
-      "➤ Get a free consultation in 24 hours ✔️ No lengthy briefs ✔️ 30-min strategy call ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+      "➤ Book a free 30-min intro call ✔️ No lengthy briefs ✔️ Reply within 24 hours ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
     type: "ContactPage",
     extra: { about: { "@id": ORG_ID } },
   }),

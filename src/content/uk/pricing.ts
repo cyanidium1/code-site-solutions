@@ -17,9 +17,9 @@ import { uahApprox } from "@/constants/calculator-config";
 export const ADDONS_CELLS: BentoCell[] = [
   {
     icon: Search,
-    title: "SEO-аудит",
-    body: "Технічний + контентний аудит вашого поточного сайту. Список правок з пріоритетами.",
-    stat: "$300",
+    title: "Аудит сайту",
+    body: "Година розбору вашого сайту на відеодзвінку, запис і PDF зі списком правок. Глибокий SEO-аудит із ТЗ — $450.",
+    stat: "$150",
     span: "1x1",
   },
   {
