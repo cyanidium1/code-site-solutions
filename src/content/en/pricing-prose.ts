@@ -17,7 +17,7 @@ export const PRICING_PROSE_EN: ProseSection[] = [
     eyebrow: "WHAT DRIVES IT",
     heading: ["Why website cost ", "is a range, not a number"],
     sub: "Six factors actually move the figure. Everything else follows from them.",
-    image: { src: "/services/phone-calc-en.webp", width: 1000, height: 1250, alt: "The Code-Site.Art website cost calculator on a phone" },
+    image: { src: "/services/phone-calc-en-v2.webp", width: 1000, height: 1250, alt: "The Code-Site.Art website cost calculator on a phone" },
     paragraphs: [
       "When a studio quotes a range rather than a single number, it is not dodging the question. A website is not an item off a shelf: two projects with the same page count differ threefold in effort if one pulls its catalogue from an inventory system and the other has pages filled in by hand twice a year.",
       "The commonest mistake when comparing quotes is to look at the total without asking what sits inside it. A cheap estimate usually assumes a template, your copy, your photos, one language and no support after handover. An expensive one assumes bespoke design, copywriting, integrations and ongoing care. Both can be honest. Comparing them as if they were the same thing is not.",

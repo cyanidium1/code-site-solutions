@@ -381,7 +381,7 @@ const COPY_BY_LOCALE: Record<Locale, Copy> = { uk: UK, en: EN, ru: RU };
 /* Real screen of the CMS (Sanity Studio) composited into a generated scene —
    the scene is AI-made, the screen is not (plan 2026-09-16, §10 prompt A). */
 const VALUE_PHOTO = {
-  src: "/home/admin-phone.webp",
+  src: "/home/admin-phone-v2.webp",
   width: 1080,
   height: 1350,
   alt: {
