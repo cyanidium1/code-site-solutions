@@ -181,6 +181,10 @@ export function HeroGears({ className = "" }: { className?: string }) {
           <g
             key={g.id}
             className="hero-gear"
+            // Per-gear duration, direction and centre of rotation: three
+            // values that differ for every wheel and are computed from the
+            // gear train above, so they cannot be Tailwind utilities.
+            // eslint-disable-next-line react/forbid-dom-props
             style={
               {
                 "--gear-dur": `${g.durationSec}s`,

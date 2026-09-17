@@ -784,6 +784,117 @@ export async function LandingPageView({
             </div>
     ) : null;
 
+  // Case stories with photos. Rendered right after the offer cards when the
+  // page has them (/audit), otherwise in its usual place after the price.
+  const storiesBlock = !content.stories ? null : (
+        <section className={hpSectionClass}>
+          <div className={hpInnerClass}>
+            <SectionHead
+              heading={content.stories.heading}
+            />
+            <PhoneMore label={SHOW_MORE_LABEL[locale]}>
+            <div
+              className={`flex flex-col gap-12 lg:gap-16 ${content.gallery ? "pm-cap-1" : ""}`}
+            >
+              {content.stories.items.map((story, i) => {
+                const c = cases.find((x) => x.slug === story.slug);
+                const image = c?.coverImage?.asset?.url ? c.coverImage : null;
+                return (
+                  <div
+                    key={story.slug}
+                    className={`grid grid-cols-1 gap-7 lg:grid-cols-2 lg:gap-12 items-center ${
+                      i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+                    }`}
+                  >
+                    <Link
+                      href={casePath(story.slug)}
+                      className="group relative block"
+                    >
+                      {/* Underglow pool beneath the framed screenshot. */}
+                      <div
+                        aria-hidden
+                        className="absolute -inset-x-8 top-1/2 -bottom-10 rounded-[50%] bg-accent-18 blur-[64px] pointer-events-none"
+                      />
+                      {/* Browser-window frame: we sell websites, so the case
+                          photo is shown as a website — chrome bar with the
+                          real portfolio URL, screenshot below. */}
+                      <div
+                        className={
+                          "relative overflow-hidden rounded-2xl border border-line-strong bg-surface transition-transform duration-500 group-hover:rotate-0 " +
+                          (i % 2 === 1 ? "lg:rotate-[1.2deg]" : "lg:rotate-[-1.2deg]")
+                        }
+                      >
+                        <div className="flex items-center gap-1.5 h-8 px-3.5 border-b border-line bg-[oklch(1_0_0_/_0.03)]">
+                          <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
+                          <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
+                          <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
+                          <span className="ml-2 font-mono text-[10px] tracking-[0.02em] text-ink-3 truncate">
+                            code-site.art/portfolio/{story.slug}
+                          </span>
+                        </div>
+                        {image ? (
+                          <div className="relative aspect-[16/10]">
+                            <SanityImg
+                              image={image}
+                              alt={loc(image.alt, locale) || story.title}
+                              sizes={IMG_SIZES.half}
+                              fill
+                              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                            />
+                          </div>
+                        ) : (
+                          <div className="aspect-[16/10] bg-[oklch(1_0_0_/_0.02)]" />
+                        )}
+                      </div>
+                    </Link>
+                    <div>
+                      <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
+                        {story.kicker}
+                      </div>
+                      <h3 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.2] text-ink">
+                        {story.title}
+                      </h3>
+                      {story.paragraphs.slice(0, 1).map((p) => (
+                        <p key={p.slice(0, 24)} className={STORY_PARA_CLASS}>
+                          {p}
+                        </p>
+                      ))}
+                      {story.paragraphs.length > 1 ? (
+                        <MobileFold label={READ_MORE_LABEL[locale]} className="max-lg:mt-2">
+                          {story.paragraphs.slice(1).map((p) => (
+                            <p key={p.slice(0, 24)} className={STORY_PARA_CLASS}>
+                              {p}
+                            </p>
+                          ))}
+                        </MobileFold>
+                      ) : null}
+                      <div className="mt-6 flex items-end gap-5 flex-wrap">
+                        <div>
+                          <div className="font-actay font-bold text-[34px] leading-none bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
+                            {story.stat.value}
+                          </div>
+                          <div className="mt-1.5 font-mono text-[11px] tracking-[0.06em] text-ink-3">
+                            {story.stat.label}
+                          </div>
+                        </div>
+                        <Link
+                          href={casePath(story.slug)}
+                          className={ALL_CASES_LINK_CLASS}
+                        >
+                          {story.ctaLabel}
+                          <ArrowUpRight size={15} aria-hidden="true" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            </PhoneMore>
+          </div>
+        </section>
+  );
+
   const priceBlock = content.priceTable ? (
         <>
           <PriceTable table={content.priceTable} id="price" />
@@ -953,6 +1064,8 @@ export async function LandingPageView({
           used to be three (plan 2026-09-16). */}
       {content.priceFirst && priceBlock}
 
+{content.offers ? storiesBlock : null}
+
       {/* 2 — When a landing page fits / when it doesn't */}
       <WhenSection content={content.when} locale={locale} />
 
@@ -962,115 +1075,7 @@ export async function LandingPageView({
       {/* 4 — How the price is built (calculator-style option grid) */}
       {!content.priceFirst && priceBlock}
 
-      {/* 4.3 — Case stories with photos */}
-      {content.stories && (
-        <section className={hpSectionClass}>
-          <div className={hpInnerClass}>
-            <SectionHead
-              heading={content.stories.heading}
-            />
-            <PhoneMore label={SHOW_MORE_LABEL[locale]}>
-            <div
-              className={`flex flex-col gap-12 lg:gap-16 ${content.gallery ? "pm-cap-1" : ""}`}
-            >
-              {content.stories.items.map((story, i) => {
-                const c = cases.find((x) => x.slug === story.slug);
-                const image = c?.coverImage?.asset?.url ? c.coverImage : null;
-                return (
-                  <div
-                    key={story.slug}
-                    className={`grid grid-cols-1 gap-7 lg:grid-cols-2 lg:gap-12 items-center ${
-                      i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-                    }`}
-                  >
-                    <Link
-                      href={casePath(story.slug)}
-                      className="group relative block"
-                    >
-                      {/* Underglow pool beneath the framed screenshot. */}
-                      <div
-                        aria-hidden
-                        className="absolute -inset-x-8 top-1/2 -bottom-10 rounded-[50%] bg-accent-18 blur-[64px] pointer-events-none"
-                      />
-                      {/* Browser-window frame: we sell websites, so the case
-                          photo is shown as a website — chrome bar with the
-                          real portfolio URL, screenshot below. */}
-                      <div
-                        className={
-                          "relative overflow-hidden rounded-2xl border border-line-strong bg-surface transition-transform duration-500 group-hover:rotate-0 " +
-                          (i % 2 === 1 ? "lg:rotate-[1.2deg]" : "lg:rotate-[-1.2deg]")
-                        }
-                      >
-                        <div className="flex items-center gap-1.5 h-8 px-3.5 border-b border-line bg-[oklch(1_0_0_/_0.03)]">
-                          <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
-                          <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
-                          <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
-                          <span className="ml-2 font-mono text-[10px] tracking-[0.02em] text-ink-3 truncate">
-                            code-site.art/portfolio/{story.slug}
-                          </span>
-                        </div>
-                        {image ? (
-                          <div className="relative aspect-[16/10]">
-                            <SanityImg
-                              image={image}
-                              alt={loc(image.alt, locale) || story.title}
-                              sizes={IMG_SIZES.half}
-                              fill
-                              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-                            />
-                          </div>
-                        ) : (
-                          <div className="aspect-[16/10] bg-[oklch(1_0_0_/_0.02)]" />
-                        )}
-                      </div>
-                    </Link>
-                    <div>
-                      <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
-                        {story.kicker}
-                      </div>
-                      <h3 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.2] text-ink">
-                        {story.title}
-                      </h3>
-                      {story.paragraphs.slice(0, 1).map((p) => (
-                        <p key={p.slice(0, 24)} className={STORY_PARA_CLASS}>
-                          {p}
-                        </p>
-                      ))}
-                      {story.paragraphs.length > 1 ? (
-                        <MobileFold label={READ_MORE_LABEL[locale]} className="max-lg:mt-2">
-                          {story.paragraphs.slice(1).map((p) => (
-                            <p key={p.slice(0, 24)} className={STORY_PARA_CLASS}>
-                              {p}
-                            </p>
-                          ))}
-                        </MobileFold>
-                      ) : null}
-                      <div className="mt-6 flex items-end gap-5 flex-wrap">
-                        <div>
-                          <div className="font-actay font-bold text-[34px] leading-none bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
-                            {story.stat.value}
-                          </div>
-                          <div className="mt-1.5 font-mono text-[11px] tracking-[0.06em] text-ink-3">
-                            {story.stat.label}
-                          </div>
-                        </div>
-                        <Link
-                          href={casePath(story.slug)}
-                          className={ALL_CASES_LINK_CLASS}
-                        >
-                          {story.ctaLabel}
-                          <ArrowUpRight size={15} aria-hidden="true" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            </PhoneMore>
-          </div>
-        </section>
-      )}
+      {content.offers ? null : storiesBlock}
 
       {/* 4.5 — Photo gallery of works */}
       {content.gallery && (

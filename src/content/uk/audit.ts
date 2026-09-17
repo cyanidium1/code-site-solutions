@@ -266,6 +266,37 @@ export const AUDIT_UK: LandingPageContent = {
       { label: "кастомний сайт замість WordPress", href: "/vs-wordpress" },
     ],
   },
+  /* Two real projects that started with a teardown of what the client
+     already had — the page had a 6.6-screen stretch without a picture
+     between the offer cards and the gallery (density check 2026-09-18). */
+  stories: {
+    eyebrow: "/ ІСТОРІЇ",
+    heading: ["З чого почалися ", "два реальні проєкти"],
+    items: [
+      {
+        slug: "nbyg-kobenhavn",
+        kicker: "КЕЙС · БУДІВНИЦТВО",
+        title: "NBYG: розбір показав, що ламало заявки",
+        paragraphs: [
+          "Будівельна компанія з Копенгагена і Борнгольма. Старий WordPress 2018 року з пʼятьма платними плагінами приносив 3 заявки на місяць — і ніхто не міг сказати, чому саме.",
+          "Почали з розбору: структура послуг, швидкість, індексація, шлях до заявки. Далі — новий сайт за $4 000. За рік: 300+ звернень і 302 000 показів у Google.",
+        ],
+        stat: { value: "×8", label: "зростання заявок на місяць" },
+        ctaLabel: "Дивитись кейс",
+      },
+      {
+        slug: "efedra-clinic",
+        kicker: "КЕЙС · МЕДИЦИНА",
+        title: "Efedra: спочатку розбір, потім переробка",
+        paragraphs: [
+          "Клініка з Одеси з двома напрямами — стоматологія й естетична медицина. Сайт був, заявок не було, а будь-яка правка вимагала розробника.",
+          "Розбір показав головне: два напрями конкурували між собою в пошуку, а запис був у три кроки. Після переробки за 6 місяців — 1 460 переходів із Google проти 340.",
+        ],
+        stat: { value: "×3.2", label: "більше заявок із сайту" },
+        ctaLabel: "Дивитись кейс",
+      },
+    ],
+  },
   /* Photo grid of shipped work: covers come from Sanity by slug. */
   gallery: {
     eyebrow: "КЕЙСИ",

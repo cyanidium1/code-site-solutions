@@ -107,11 +107,20 @@ export default async function HomePageEn() {
       <main>
       <HomeHero
         h1Lines={[
-          <>Websites of any complexity,</>,
-          <>built to bring in</>,
-          <em key="hero-em">leads 24/7.</em>,
+          <>Website development</>,
+          <>
+            {/* `nowrap` keeps "in" off the start of the next line: balanced
+                wrapping otherwise set "THAT BRINGS" / "IN LEADS 24/7." */}
+            that <span className="whitespace-nowrap">brings in</span>{" "}
+            <em>leads 24/7.</em>
+          </>,
         ]}
-        lede={<>A turnkey site in 4–10 weeks: design, build, SEO and launch.</>}
+        lede={
+          <>
+            Sites of any complexity, turnkey in 4–10 weeks: design, build, SEO
+            and launch.
+          </>
+        }
         features={[
           { label: "Leads 24/7", sub: "Web forms + WhatsApp bridge" },
           { label: "4–10 weeks", sub: "Brief to launch" },

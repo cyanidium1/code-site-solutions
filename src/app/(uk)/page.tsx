@@ -102,13 +102,23 @@ export default async function HomePage() {
 
       <main>
       <HomeHero
+        /* Owner, 2026-09-18: the head keyword ("розробка сайтів", ~2950 SV
+           at KD 0–3) was missing from the H1 entirely, and "будь-якої
+           складності" pushed the headline onto a fourth line with a short
+           "СКЛАДНОСТІ," orphan. The claim moves into the lede, which still
+           sets as a single line at the hero's measure. */
         h1Lines={[
-          <>Сайти будь-якої складності,</>,
+          <>Розробка сайтів,</>,
           <>
             що приводять <em>заявки 24/7.</em>
           </>,
         ]}
-        lede={<>Сайт під ключ за 4–10 тижнів: дизайн, розробка, SEO та запуск.</>}
+        lede={
+          <>
+            Сайти будь-якої складності під ключ за 4–10 тижнів: дизайн,
+            розробка, SEO та запуск.
+          </>
+        }
         features={[
           { label: "Заявки 24/7", sub: "Онлайн-форми + Telegram-міст" },
           { label: "4–10 тижнів", sub: "Від брифу до запуску" },

@@ -33,12 +33,12 @@ const HERO_BG_CLASS =
 // `overflow-x: clip`, so the overhang costs no scrollbar. z-[-2] keeps it
 // behind the device mockup, which is z-[-1] in the mobile stack.
 const HERO_GEARS_CLASS =
-  "z-[-2] -right-[30%] top-[2%] w-[330px] opacity-80 " +
+  "z-[-2] -right-[34%] top-[2%] w-[330px] opacity-70 " +
   "xs:-right-[26%] xs:w-[370px] " +
   "sm:-right-[16%] sm:top-[1%] sm:w-[460px] " +
-  "lg:-right-[10%] lg:top-[-4%] lg:w-[560px] lg:opacity-100 " +
-  "xl:-right-[8%] xl:w-[640px] " +
-  "2xl:-right-[6%] 2xl:w-[720px]";
+  "lg:-right-[14%] lg:top-[-4%] lg:w-[520px] lg:opacity-100 " +
+  "xl:-right-[10%] xl:w-[620px] " +
+  "2xl:-right-[7%] 2xl:w-[720px]";
 
 // `pt-6` below sm replaces the clearance the studio badge used to provide:
 // with the badge gone the H1 is the first element of the column and its cap
@@ -69,7 +69,13 @@ const HERO_GRID_CLASS =
 // the viewport — the column is the grid track, so the headline can never
 // grow past it into the mockup no matter the viewport/locale combination
 // (owner, 2026-09-18: "заголовок по сетке, он вылезает на картинку").
-const HERO_LEFT_CLASS = "@container relative z-[4] flex flex-col lg:block";
+// `--hero-measure` is the column's content width from lg up: 13em of the
+// headline at its 56px cap (8cqw × 13 = 104cqw), i.e. exactly the H1 box.
+// The lede, the proofs row and the footnote all cap at it, so the three
+// text blocks end on one line with the headline.
+const HERO_LEFT_CLASS =
+  "@container relative z-[4] flex flex-col lg:block " +
+  "lg:[--hero-measure:min(104cqw,728px)]";
 
 // The `lg:text-[...cqw]` override is the one place in the codebase that
 // overrides a Heading variant size (Heading.tsx escape hatch): this H1 is
@@ -79,26 +85,29 @@ const HERO_LEFT_CLASS = "@container relative z-[4] flex flex-col lg:block";
 // 11.2em wide, so anything above ~8.8cqw overflows the column at some
 // width. 60px cap = the old 64px desktop size minus the overflow.
 const HERO_H1_CLASS =
-  "text-ink m-0 mb-[18px] sm:mb-7 lg:mb-8 lg:text-[clamp(32px,8cqw,60px)] 2xl:mb-9 " +
+  "text-ink m-0 mb-[18px] sm:mb-7 lg:mb-8 lg:text-[clamp(32px,8cqw,56px)] 2xl:mb-9 " +
   "[&_em]:italic [&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
 
 // The measure is in `em`, so it scales with the headline instead of with
-// the viewport and behaves the same in uk/ru/en: 12em wraps every locale's
-// two long lines into two visual lines each (uk 17.1em, ru 18.5em, en
-// 16.6em) and still clears the widest unbreakable chunk. `text-balance`
-// evens the two halves — the 50vw cap it replaces left "складності," alone
-// on a line at 1920 while the line above ran under the mockup.
-const H1_LINE_CLASS = "block max-w-[12em] text-balance";
+// the viewport and behaves the same in uk/ru/en. 13em is set by the widest
+// first line across locales (en "Website development" = 12.8em, ru
+// "Разработка сайтов," = 12.1em): below it those two break in half and the
+// headline grows a fourth line that uk does not have. The second line is
+// longer than 13em in every locale, so it always sets as two balanced
+// lines — `text-balance` is what evens them; the 50vw cap this replaces
+// left "складності," alone on a line while the line above it ran under
+// the mockup.
+const H1_LINE_CLASS = "block max-w-[13em] text-balance";
 
-// Two of the column's three tracks (64cqw = ⅔ of the 96cqw headline
-// measure, 480px = ⅔ of its 720px cap), so the lede ends on a track edge
-// instead of on a hand-picked 440/460px. 15→17px: at a 60px headline the
-// old 14px lede read as a caption.
+// Same measure as the headline box, so the column's text blocks all end on
+// one line. At 16px every locale's lede is ~640px, so it sets as a single
+// line instead of the 440/460px two-liner it used to be. 15→17px: at a
+// 56px headline the old 14px lede read as a caption.
 const LEDE_CLASS =
   "text-[15px] leading-[1.55] text-ink-dim max-w-full m-0 mb-[22px] text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "sm:text-base sm:leading-[1.6] sm:mb-6 " +
-  "lg:text-[16px] lg:mb-7 lg:max-w-[min(64cqw,480px)] " +
+  "lg:text-[16px] lg:mb-7 lg:max-w-[var(--hero-measure)] " +
   "2xl:text-[17px] 2xl:mb-8";
 
 // Three proofs in one row, not four in a 2x2 block. The fourth ("everything
@@ -107,14 +116,20 @@ const LEDE_CLASS =
 // what groups three short facts on a narrow screen.
 // The margin lives at lg only — below it `order-4` makes this the last block
 // of the column, where a bottom margin is just trailing air.
+// `@min-[560px]` is a container query on the hero's own column, not on the
+// viewport: three proofs need ~180px each, and between lg and xl the text
+// track is only 410–580px wide, which is where the viewport-based `sm:`
+// rule used to squeeze all three into 128px columns and wrap every sub
+// line. Now the row falls back to the bordered card whenever its column is
+// too narrow, at any viewport.
 const FEATURES_CLASS =
   "order-4 lg:order-none grid grid-cols-1 gap-2 mb-0 max-w-full px-3.5 py-3 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
-  "sm:grid-cols-3 sm:gap-x-4 sm:gap-y-0 sm:max-w-[560px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
+  "@min-[560px]:grid-cols-3 @min-[560px]:gap-x-4 @min-[560px]:gap-y-0 @min-[560px]:px-0 @min-[560px]:py-0 @min-[560px]:border-0 @min-[560px]:rounded-none @min-[560px]:bg-transparent " +
   // Three equal tracks across the full headline measure: the row ends on
   // the same line the H1 box ends on, and each proof gets ~224px instead
   // of the 150px that used to wrap "+ безкоштовна підтримка" onto a
   // second line while its two neighbours stayed on one.
-  "lg:mb-8 lg:gap-x-6 lg:max-w-[min(96cqw,720px)] " +
+  "lg:mb-8 lg:gap-x-6 lg:max-w-[var(--hero-measure)] " +
   "2xl:mb-9";
 
 // Top-aligned from sm up: in three columns the sub line wraps, and centring
@@ -135,7 +150,7 @@ const FEAT_SUB_CLASS =
 
 const CTA_ROW_CLASS =
   "order-2 lg:order-none flex flex-col flex-wrap gap-3 items-stretch mb-4 " +
-  "sm:flex-row sm:gap-5 sm:items-center " +
+  "sm:flex-row sm:gap-5 sm:items-center lg:gap-6 " +
   "2xl:mb-5";
 
 // Sits directly under the CTA pair and explains only the audit offer, so it
@@ -143,7 +158,7 @@ const CTA_ROW_CLASS =
 // there; below lg `order-3` puts the features after it.
 const CTA_FOOTNOTE_CLASS =
   "order-3 lg:order-none max-w-[440px] text-[12px] tracking-[0.01em] text-ink-3 m-0 mb-6 leading-[1.5] " +
-  "sm:mb-7 lg:text-[13px] lg:mb-0 lg:max-w-[min(64cqw,480px)]";
+  "sm:mb-7 lg:text-[13px] lg:mb-0 lg:max-w-[var(--hero-measure)]";
 
 const DEVICE_STAGE_CLASS =
   "relative w-full h-full min-w-0 [perspective:2000px] overflow-hidden lg:overflow-visible " +
