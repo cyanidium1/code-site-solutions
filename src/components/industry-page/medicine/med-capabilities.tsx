@@ -39,7 +39,6 @@ export function MedCapabilities({
   testimonialQuote,
   testimonialAuthorName,
   testimonialAuthorRole,
-  testimonialEyebrow,
   integrationsHeading,
   integrationsSub,
   integrations,
@@ -72,9 +71,6 @@ export function MedCapabilities({
         {/* ── Client quote — an editorial pull-quote, not a floating card ── */}
         {testimonialQuote ? (
           <ScrollReveal className="med-reveal mb-14 border-l border-accent-40 pl-6 lg:mb-20 lg:pl-8">
-            {testimonialEyebrow ? (
-              <span className="med-label mb-4">{testimonialEyebrow}</span>
-            ) : null}
             <blockquote className="m-0 max-w-[46ch] font-actay text-[clamp(19px,2.3vw,30px)] font-bold uppercase leading-[1.2] text-ink [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent">
               {testimonialQuote}
             </blockquote>

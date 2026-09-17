@@ -33,7 +33,7 @@ import {
   toHomepagePlanOverride,
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
-import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title: "ᐈ Custom Website Development Studio | Code-Site.Art",
@@ -119,9 +119,8 @@ export default async function HomePageEn() {
         ]}
         ctaPrimaryLabel="Calculate the cost"
         ctaPrimaryHref="/en/calculator"
-        ctaSecondaryLabel="Free site audit in 24 hours"
+        ctaSecondaryLabel="Website or business audit"
         ctaSecondaryHref="/en/contacts?source=hero-audit"
-        ctaFootnote="A site breakdown within 24 hours: what is broken, where the growth is, and what to fix first."
         deviceMockupSrc="/hero/hero-mockup.webp"
         deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
       />
@@ -141,7 +140,7 @@ export default async function HomePageEn() {
         ctaHref="/en/portfolio"
       />
 
-      <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
+      <Marquee />
 
       <PainPoints locale="en" />
 
@@ -150,10 +149,6 @@ export default async function HomePageEn() {
       <section className={hpSectionClass} id="pricing">
         <div className={hpInnerClass}>
           <div className={hpSectionHeadClass}>
-            <div className={hpEyebrowClass}>
-              <span className={hpEyebrowDotClass} />
-              <span>PRICING</span>
-            </div>
             <h2 className={hpH2Class}>
               Transparent pricing — from <em>{range.min}</em>
             </h2>

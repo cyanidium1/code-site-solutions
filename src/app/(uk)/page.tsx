@@ -30,7 +30,7 @@ import {
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 import { cn } from "@/components/ui";
 import Link from "next/link";
 
@@ -116,9 +116,8 @@ export default async function HomePage() {
         ]}
         ctaPrimaryLabel="Розрахувати вартість"
         ctaPrimaryHref="/calculator"
-        ctaSecondaryLabel="Безкоштовний аудит сайту за 24 години"
-        ctaSecondaryHref="/contacts?source=hero-audit"
-        ctaFootnote="Розбір сайту протягом 24 годин: проблеми, точки росту та перші кроки."
+        ctaSecondaryLabel="Аудит сайту або бізнесу"
+        ctaSecondaryHref="/audit"
         deviceMockupSrc="/hero/hero-mockup.webp"
         deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
       />
@@ -128,7 +127,7 @@ export default async function HomePage() {
           logo line follows as the reach claim. */}
       <Cases />
 
-      <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
+      <Marquee />
 
       <PainPoints />
       <ValueStack />
@@ -136,10 +135,6 @@ export default async function HomePage() {
       <section className={hpSectionClass} id="pricing">
         <div className={hpInnerClass}>
           <div className={hpSectionHeadClass}>
-            <div className={hpEyebrowClass}>
-              <span className={hpEyebrowDotClass} />
-              <span>ЦІНИ</span>
-            </div>
             <h2 className={hpH2Class}>
               Прозорий прайс — від <em>{range.min}</em>
             </h2>
@@ -164,10 +159,6 @@ export default async function HomePage() {
       <section className={hpSectionClass} id="directions">
         <div className={hpInnerClass}>
           <div className={hpSectionHeadClass}>
-            <div className={hpEyebrowClass}>
-              <span className={hpEyebrowDotClass} />
-              <span>НАПРЯМКИ</span>
-            </div>
             <h2 className={hpH2Class}>
               З чого <em>почати</em>
             </h2>

@@ -29,8 +29,6 @@ export type DiagnosisItem = {
 };
 
 export function MedDiagnosis({
-  eyebrow,
-  eyebrowNum,
   heading,
   metaRows,
   items,
@@ -55,20 +53,6 @@ export function MedDiagnosis({
 
       <div className="relative mx-auto max-w-container">
         <ScrollReveal className="med-reveal">
-          <div className="mb-3 flex flex-wrap items-center gap-3">
-            {eyebrow ? (
-              <span className="med-label">
-                <span className="h-1 w-1 rounded-full bg-accent" />
-                {eyebrow}
-              </span>
-            ) : null}
-            {eyebrowNum ? (
-              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
-                {eyebrowNum}
-              </span>
-            ) : null}
-          </div>
-
           <div className="grid grid-cols-1 gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             {heading ? (
               <h2 className="m-0 max-w-[20ch] font-actay text-[clamp(24px,3.2vw,42px)] font-bold uppercase leading-[1.08] text-ink [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent">

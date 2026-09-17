@@ -19,9 +19,6 @@ const PRIMARY_KINDS = new Set(["telegram", "whatsapp", "phone"]);
 const HEADING_EM_CLASS =
   "[&_em]:italic [&_em]:bg-[linear-gradient(90deg,oklch(0.7_0.16_250),oklch(0.6_0.18_295),oklch(0.55_0.18_320))] [&_em]:bg-clip-text [&_em]:text-transparent";
 
-const EYEBROW_CLASS =
-  "inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 mb-[14px]";
-
 const SUB_CLASS =
   "text-[14px] leading-[1.6] text-ink-dim m-0 mb-7 max-w-[42ch]";
 
@@ -135,7 +132,6 @@ export function ContactSplit({
       <HeroAuditBanner />
       <div className="max-w-container mx-auto grid grid-cols-1 gap-5 md:gap-9 items-start min-[901px]:grid-cols-[minmax(0,4fr)_minmax(0,6fr)] min-[901px]:gap-14">
         <aside>
-          <div className={EYEBROW_CLASS}>{chrome.channelsEyebrow}</div>
           <H2
             variant="contact-split"
             className={`m-0 mb-[14px] text-ink ${HEADING_EM_CLASS}`}
@@ -200,7 +196,6 @@ export function ContactSplit({
           labelClassName="w-full justify-center rounded-full border border-line-strong px-5 font-sans text-[14px] normal-case tracking-normal text-ink"
         >
           <div className={`mb-6 ${foldBrief ? "max-lg:mt-5" : ""}`}>
-            <div className={`${EYEBROW_CLASS} ${foldBrief ? "max-lg:hidden" : ""}`}>{chrome.briefEyebrow}</div>
             <H2
               variant="contact-split"
               className={`m-0 mb-[14px] text-ink ${foldBrief ? "max-lg:hidden" : ""} ${HEADING_EM_CLASS}`}

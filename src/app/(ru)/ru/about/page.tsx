@@ -158,7 +158,7 @@ export default async function RuAboutPage() {
 
         {/* 5 — Real projects + partner logos + client testimonial */}
         <RealProjects c={C.projects} covers={covers} />
-        <Marquee label="КОМПАНИИ, КОТОРЫЕ ДОВЕРИЛИ НАМ САЙТ · UA · EU · DK" />
+        <Marquee />
         <PullQuote
           quote={
             <>

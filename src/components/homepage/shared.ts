@@ -21,13 +21,6 @@ export const hpSectionClass =
 // Max-width container, centred, with positioning context for inner overlays.
 export const hpInnerClass = "relative max-w-container mx-auto z-[1]";
 
-// Eyebrow pill — small uppercase mono label with a glowing dot. Pair
-// `hpEyebrowClass` (the pill) with `hpEyebrowDotClass` (the dot) inside it.
-export const hpEyebrowClass =
-  "inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full " +
-  "bg-[oklch(1_0_0/0.03)] font-mono text-[12px] tracking-[0.12em] text-ink-3 uppercase";
-export const hpEyebrowDotClass =
-  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h/0.6)]";
 
 // Section-level H2. Mirrors the FONT / SIZE / LEADING of `H2 variant="hp"` in
 // `@/components/ui` (Heading.tsx → `sizes[2].hp`) and adds the layout properties
@@ -45,7 +38,7 @@ export const hpEyebrowDotClass =
 //     it via GLOBAL_HEADING_STYLE, and globals.css uppercases raw headings).
 export const hpH2Class =
   "font-actay font-bold uppercase text-[clamp(24px,6vw,32px)] leading-[1.05] " +
-  "mt-6 max-w-container-narrow text-ink md:text-[clamp(34px,4vw,56px)] " +
+  "mt-0 max-w-container-narrow text-ink md:text-[clamp(34px,4vw,56px)] " +
   "[&_em]:not-italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent";
 
 // Standard sub-paragraph beneath an H2. 16px Manrope, ink-2 colour, capped

@@ -43,7 +43,9 @@ export function caseRefToCardItem(
     industry: industryLabel,
     region,
     year,
-    chips: [pres.tech],
+    // No chips: every card said "Next.js", which told the visitor nothing
+    // (decoration cleanup 2026-09-18).
+    chips: [],
     metrics: loc(c.metricsLine, locale) || "",
     gradient: pres.gradient,
     href,

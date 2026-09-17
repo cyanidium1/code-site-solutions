@@ -6,8 +6,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { Mail, PhoneCall } from "lucide-react"; // CalendarCheck removed — see docs/calendly-disabled.md
 import { SITE_CONTACT } from "@/constants/site";
 import {
-  hpEyebrowClass,
-  hpEyebrowDotClass,
   hpH2Class,
   hpInnerClass,
   hpSectionClass,
@@ -47,10 +45,6 @@ export function GetFinalCta({ config, input, estimate, onSubmitted }: GetFinalCt
     >
       <div className={hpInnerClass}>
         <div className="mb-8 flex flex-col items-start gap-0 md-wide:mb-14">
-          <span className={hpEyebrowClass}>
-            <span className={hpEyebrowDotClass} />
-            <span>{t("getFinal.eyebrow")}</span>
-          </span>
           <h2 className={hpH2Class}>{t.rich("getFinal.title", { em: emChunk })}</h2>
           <p className={hpSubClass}>{t("getFinal.sub")}</p>
         </div>

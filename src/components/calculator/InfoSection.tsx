@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import {
-  hpEyebrowClass,
-  hpEyebrowDotClass,
   hpH2Class,
   hpInnerClass,
   hpSectionClass,
@@ -18,7 +16,6 @@ type InfoSectionProps = {
 };
 
 export function InfoSection({
-  eyebrow,
   title,
   sub,
   padding = "py-16 md-wide:py-24",
@@ -28,10 +25,6 @@ export function InfoSection({
     <section className={`${hpSectionClass} ${padding}`}>
       <div className={hpInnerClass}>
         <div className="mb-8 flex flex-col items-start gap-0 md-wide:mb-14">
-          <span className={hpEyebrowClass}>
-            <span className={hpEyebrowDotClass} />
-            <span>{eyebrow}</span>
-          </span>
           <h2 className={hpH2Class}>{title}</h2>
           {sub ? <p className={hpSubClass}>{sub}</p> : null}
         </div>

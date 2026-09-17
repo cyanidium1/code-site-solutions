@@ -158,7 +158,7 @@ export default async function EnAboutPage() {
 
         {/* 5 — Real projects + partner logos + client testimonial */}
         <RealProjects c={C.projects} covers={covers} />
-        <Marquee label="COMPANIES THAT TRUSTED US WITH THEIR SITE · UA · EU · DK" />
+        <Marquee />
         <PullQuote
           quote={
             <>

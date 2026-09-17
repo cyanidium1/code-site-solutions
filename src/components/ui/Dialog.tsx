@@ -103,8 +103,12 @@ function useDialogSync(
       requestClose();
     };
     // Native close (any path) → report state up.
+    // `data-closing` stays on after close: the `overlay`/`display` exit
+    // transition keeps the panel in the top layer for another exitMs, and
+    // dropping the attribute here slid the drawer back into view for that
+    // long (owner report 2026-09-18: menu closes, reappears, vanishes). The
+    // open branch above clears it right before showModal().
     const onClose = () => {
-      dialog.removeAttribute("data-closing");
       if (locked.current) {
         locked.current = false;
         unlockScroll();

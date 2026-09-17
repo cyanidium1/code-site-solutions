@@ -61,7 +61,7 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { caseRefToCardItem } from "@/lib/shared/case-card-item";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import { pickLocalized } from "@/lib/shared/pick-localized";
-import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass } from "@/components/homepage/shared";
 
 /* ─── data layer ──────────────────────────────────────────────────────────
    Fetchers / metadata / locale helpers live in ./data.ts so data-only
@@ -634,10 +634,6 @@ export async function CasePageView({
         <section className={hpSectionClass}>
           <div className={hpInnerClass}>
             <div className={hpSectionHeadClass}>
-              <div className={hpEyebrowClass}>
-                <span className={hpEyebrowDotClass} />
-                <span>{labels.relatedEyebrow}</span>
-              </div>
               <h2 className={hpH2Class}>{relatedHeading}</h2>
             </div>
             <div className={casesGridClass}>

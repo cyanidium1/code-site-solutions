@@ -1,8 +1,6 @@
 import type * as React from "react";
 
 import {
-  hpEyebrowClass,
-  hpEyebrowDotClass,
   hpH2Class,
   hpSectionHeadClass,
   hpSubClass,
@@ -18,22 +16,18 @@ import {
  * `.hp-h2`, `.hp-sub` rules — see Session 7).
  */
 export function SectionHead({
-  eyebrow,
   heading,
   sub,
 }: {
+  /** Ignored since 2026-09-18: the eyebrow pill above section headings was
+      removed site-wide as decoration without information. Kept optional so
+      content objects that still carry the string keep compiling. */
   eyebrow?: string;
   heading: React.ReactNode;
   sub?: React.ReactNode;
 }) {
   return (
     <div className={hpSectionHeadClass}>
-      {eyebrow ? (
-        <div className={hpEyebrowClass}>
-          <span className={hpEyebrowDotClass} />
-          <span>{eyebrow}</span>
-        </div>
-      ) : null}
       <h2 className={hpH2Class}>{heading}</h2>
       {sub ? <p className={hpSubClass}>{sub}</p> : null}
     </div>

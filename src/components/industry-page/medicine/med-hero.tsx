@@ -51,8 +51,6 @@ const ARROW = (
 );
 
 export function MedHero({
-  eyebrow,
-  eyebrowEm,
   h1Lines,
   h1Accent,
   kpiValue,
@@ -99,20 +97,6 @@ export function MedHero({
         <div className="mx-auto grid max-w-container grid-cols-1 grid-rows-[auto_auto] items-center gap-0 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.92fr)] sm:grid-rows-none sm:gap-8 sm:min-h-[clamp(560px,78vh,720px)] xl:gap-14">
           {/* ── Text column ───────────────────────────────────────────── */}
           <div className="relative z-[4] min-w-0">
-            {eyebrow ? (
-              <div className="mb-6 flex flex-wrap items-center gap-2.5 sm:mb-8">
-                <span className="med-label">
-                  <span className="h-1 w-1 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
-                  {eyebrow}
-                </span>
-                {eyebrowEm ? (
-                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent-soft">
-                    {eyebrowEm}
-                  </span>
-                ) : null}
-              </div>
-            ) : null}
-
             <h1
               className="m-0 font-actay text-[clamp(34px,8.4vw,44px)] font-bold uppercase leading-[0.94] tracking-[-0.035em] text-ink sm:text-[clamp(38px,4.6vw,68px)]"
               data-speakable="hero-title"

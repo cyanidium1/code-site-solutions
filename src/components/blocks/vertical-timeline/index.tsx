@@ -87,11 +87,6 @@ export function VerticalTimeline({
       <div className="max-w-container mx-auto">
         {(eyebrow || heading || sub) && (
           <div className="mb-9 max-w-[840px] lg:mb-14">
-            {eyebrow ? (
-              <span className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 mb-6">
-                {eyebrow}
-              </span>
-            ) : null}
             {heading ? (
               <h2 className="font-display font-bold text-[clamp(24px,6vw,34px)] leading-[1.1] tracking-[-0.02em] text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent lg:text-[clamp(28px,3.4vw,44px)]">
                 {heading}

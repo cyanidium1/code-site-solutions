@@ -28,7 +28,7 @@ const INDUSTRY_COLORS: Record<IndustryKey, string> = {
 // via `oklch(from var(...) l c h / <alpha>)`.
 const INDUSTRY_PILL_BASE =
   "inline-flex items-center gap-2 rounded-full font-sans font-medium transition cursor-pointer no-underline min-h-11 " +
-  "text-[13px] px-[18px] py-[14px] sm:py-[13px] 2xl:px-[22px] 2xl:py-[15px] 2xl:text-sm " +
+  "shrink-0 whitespace-nowrap text-[13px] px-3.5 py-[12px] sm:px-[18px] sm:py-[13px] 2xl:px-[22px] 2xl:py-[15px] 2xl:text-sm " +
   "border focus:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(from_var(--pill-accent,var(--color-accent))_l_c_h_/_0.5)]";
 
 const INDUSTRY_PILL_INACTIVE =
@@ -118,11 +118,14 @@ export function CasesGridAndFilters({
   return (
     <>
       <CardGrid items={visibleItems} />
-      <div className="mt-10 flex flex-wrap items-center gap-3">
+      <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <Link href={ctaHref} className={btnClass("primary", "hp-section-cta")}>
           <span>{ctaLabel}</span>
           <ArrowRight size={18} strokeWidth={1.8} />
         </Link>
+        {/* Industry tags stay on one line (owner, 2026-09-18): on phones they
+            wrapped under the full-width button into two uneven rows. */}
+        <div className="-mx-6 flex gap-2 overflow-x-auto px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:gap-3 sm:overflow-visible sm:px-0">
         {visiblePills.map((key) => {
           const isActive = active === key;
           return (
@@ -145,6 +148,7 @@ export function CasesGridAndFilters({
             </button>
           );
         })}
+        </div>
       </div>
     </>
   );

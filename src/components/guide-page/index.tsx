@@ -168,10 +168,7 @@ export function GuidePage({ content }: { content: GuideContent }) {
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <div className="mx-auto max-w-[860px]">
-          <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-soft">
-            {content.eyebrow}
-          </div>
-          <h1 className="mt-3 font-display text-[clamp(26px,4vw,40px)] font-bold leading-[1.15] tracking-[-0.02em] text-ink">
+          <h1 className="mt-0 font-display text-[clamp(26px,4vw,40px)] font-bold leading-[1.15] tracking-[-0.02em] text-ink">
             {content.heading}
           </h1>
           {content.timeNote ? (

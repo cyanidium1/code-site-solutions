@@ -98,17 +98,6 @@ const CTA_ROW_CLASS =
   "sm:flex-row sm:gap-5 sm:items-center " +
   "2xl:mb-5";
 
-// Text link, not a second pill. Two filled buttons of equal weight gave the
-// fold two "next steps" and therefore none — the audit is the fallback for a
-// visitor who is not ready to price a project yet. `min-h-11` keeps the 44px
-// touch target the pill gets from btnClass.
-const CTA_SECONDARY_CLASS =
-  "inline-flex min-h-11 items-center gap-2 self-start " +
-  "font-sans text-[13px] font-medium text-ink-dim no-underline " +
-  "transition-colors duration-200 hover:text-ink " +
-  "[&_svg]:transition-transform [&_svg]:duration-[0.25s] [&_svg]:ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
-  "hover:[&_svg]:translate-x-1";
-
 // Sits directly under the CTA pair and explains only the audit offer, so it
 // keeps a short measure. Last block of the column at lg — no bottom margin
 // there; below lg `order-3` puts the features after it.
@@ -215,7 +204,7 @@ export type HomeHeroProps = {
   ctaPrimaryHref: string;
   ctaSecondaryLabel: string;
   ctaSecondaryHref: string;
-  ctaFootnote: React.ReactNode;
+  ctaFootnote?: React.ReactNode;
   deviceMockupSrc: string;
   deviceMockupAlt: string;
 };
@@ -261,12 +250,14 @@ export function HomeHero({
                 <span>{ctaPrimaryLabel}</span>
                 {ARROW_ICON}
               </Link>
-              <Link href={ctaSecondaryHref} className={CTA_SECONDARY_CLASS}>
+              {/* A bordered button, not a text link: as plain text the audit
+                  offer read as a caption (owner, 2026-09-18). */}
+              <Link href={ctaSecondaryHref} className={btnClass("ghost")}>
                 <span>{ctaSecondaryLabel}</span>
                 {SECONDARY_ARROW_ICON}
               </Link>
             </div>
-            <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p>
+            {ctaFootnote ? <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p> : null}
           </div>
 
           <div className={HERO_RIGHT_CLASS}>

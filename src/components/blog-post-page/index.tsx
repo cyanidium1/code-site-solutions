@@ -71,8 +71,6 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { glossaryTerms } from "@/constants/glossary";
 import {
-  hpEyebrowClass,
-  hpEyebrowDotClass,
   hpH2Class,
   hpInnerClass,
   hpLinkClass,
@@ -518,10 +516,7 @@ export async function BlogPostPageView({
           <div className={hpInnerClass}>
             <div className="mx-auto max-w-[760px]">
               <div className="mb-6 text-center">
-                <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
-                  {BLOG_FORM_COPY[locale].eyebrow}
-                </div>
-                <h2 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,32px)] leading-[1.15] text-ink">
+                <h2 className="mt-0 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,32px)] leading-[1.15] text-ink">
                   {BLOG_FORM_COPY[locale].heading}
                 </h2>
                 <p className="mt-3 mb-0 font-sans text-[14.5px] leading-[1.6] text-ink-dim">
@@ -546,10 +541,6 @@ export async function BlogPostPageView({
               {related.length > 0 ? (
               <>
               <div className={hpSectionHeadClass}>
-                <div className={hpEyebrowClass}>
-                  <span className={hpEyebrowDotClass} />
-                  <span>{labels.moreReadingEyebrow}</span>
-                </div>
                 <h2 className={hpH2Class}>{labels.relatedHeading}</h2>
               </div>
               <div className={casesGridClass}>

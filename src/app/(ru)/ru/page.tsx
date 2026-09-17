@@ -32,7 +32,7 @@ import {
   pricingRange,
 } from "@/lib/server/fetch-pricing-plans";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 const HOMEPAGE_RU_DESCRIPTION =
   "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.";
@@ -116,9 +116,8 @@ export default async function HomePageRu() {
         ]}
         ctaPrimaryLabel="Обсудить проект"
         ctaPrimaryHref="/ru/contacts"
-        ctaSecondaryLabel="Бесплатный аудит сайта за 24 часа"
-        ctaSecondaryHref="/ru/contacts?source=hero-audit"
-        ctaFootnote="Разбор сайта в течение 24 часов: проблемы, точки роста и первые шаги."
+        ctaSecondaryLabel="Аудит сайта или бизнеса"
+        ctaSecondaryHref="/ru/audit"
         deviceMockupSrc="/hero/hero-mockup.webp"
         deviceMockupAlt="Пример сайта для бизнеса, созданного Code-Site.Art"
       />
@@ -138,7 +137,7 @@ export default async function HomePageRu() {
         ctaHref="/ru/portfolio"
       />
 
-      <Marquee label="50+ КОМПАНИЙ ДОВЕРИЛИСЬ · UA · EU · US · DK · ZA · UK · FR" />
+      <Marquee />
 
       <PainPoints locale="ru" />
       <ValueStack locale="ru" />
@@ -146,10 +145,6 @@ export default async function HomePageRu() {
       <section className={hpSectionClass} id="pricing">
         <div className={hpInnerClass}>
           <div className={hpSectionHeadClass}>
-            <div className={hpEyebrowClass}>
-              <span className={hpEyebrowDotClass} />
-              <span>ЦЕНЫ</span>
-            </div>
             <h2 className={hpH2Class}>
               Прозрачный прайс — от <em>{range.min}</em>
             </h2>

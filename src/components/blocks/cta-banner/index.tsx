@@ -25,12 +25,7 @@ const CARD_BG =
 const TOP_ACCENT =
   "before:content-[''] before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.5),transparent)] before:pointer-events-none lg:before:inset-x-6";
 
-// Eyebrow dot pseudo-element (legacy .cta-banner-eyebrow::before).
-const EYEBROW_DOT =
-  "before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]";
-
 export function CtaBanner({
-  eyebrow,
   heading,
   sub,
   ctaPrimary,
@@ -48,13 +43,6 @@ export function CtaBanner({
         <div
           className={`relative flex flex-col items-center overflow-hidden rounded-[22px] border border-line px-6 py-11 text-center lg:rounded-[28px] lg:px-12 lg:py-16 ${CARD_BG} ${TOP_ACCENT}`}
         >
-          {eyebrow ? (
-            <span
-              className={`relative mb-6 inline-flex items-center gap-2.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3 ${EYEBROW_DOT}`}
-            >
-              {eyebrow}
-            </span>
-          ) : null}
           <h2 className="relative max-w-[780px] font-display text-[clamp(24px,6.5vw,34px)] font-bold leading-[1.1] tracking-[-0.02em] text-ink lg:text-[clamp(28px,3.6vw,48px)] [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:italic [&_em]:text-transparent">
             {heading}
           </h2>

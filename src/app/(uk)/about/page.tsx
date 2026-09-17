@@ -164,7 +164,7 @@ export default async function AboutPage() {
 
         {/* 5 — Real projects + partner logos + client testimonial */}
         <RealProjects c={C.projects} covers={covers} />
-        <Marquee label="КОМПАНІЇ, ЩО ДОВІРИЛИ НАМ САЙТ · UA · EU · DK" />
+        <Marquee />
         <PullQuote
           quote={
             <>

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/components/ui";
 import { SparkleTrio } from "@/components/homepage/sparkle-trio";
-import { hpEyebrowClass, hpEyebrowDotClass, hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass, hpDecorFadeClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass, hpDecorFadeClass } from "@/components/homepage/shared";
 import { PhoneMore } from "@/components/shared/phone-more";
 
 /* 2026 redesign restyle (Figma «код сайт арт» #1729:2937 + CTA #1729:3085;
@@ -76,7 +76,6 @@ const RING = [
 ];
 
 export function Process({
-  eyebrow = "ПРОЦЕС · 4-10 ТИЖНІВ",
   heading = (
     <>
       Будуємо. Запускаємо. Ростемо.
@@ -145,10 +144,6 @@ export function Process({
       </div>
       <div className={hpInnerClass}>
         <div className={hpSectionHeadClass}>
-          <div className={hpEyebrowClass}>
-            <span className={hpEyebrowDotClass} />
-            <span>{eyebrow}</span>
-          </div>
           {/* Figma #1729:2945: the second line is one 1105px run that deliberately
               overflows its 880px box — hpH2Class caps at max-w-container-narrow
               (880), which wrapped EN onto a third line. EN line 2 measures 1117px at

@@ -17,7 +17,6 @@ export type PageHeroAction = { label: string; href: string };
 
 export function PageHero({
   breadcrumbs = [],
-  eyebrow,
   headline,
   sub,
   image,
@@ -88,13 +87,10 @@ export function PageHero({
           })}
         </nav>
       )}
-      <span className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[12px] tracking-[0.12em] text-ink-3 uppercase before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]">
-        {eyebrow}
-      </span>
       <H1
         variant="page-hero"
         className={cn(
-          "mt-6 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent",
+          "mt-0 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent",
           constrainText && "max-w-full min-[961px]:max-w-[600px]",
         )}
       >

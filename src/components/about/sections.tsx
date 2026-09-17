@@ -28,8 +28,6 @@ function SectionsCss() {
   return <style href="csb-about-sections" precedence="csb">{SECTIONS_CSS}</style>;
 }
 import {
-  hpEyebrowClass,
-  hpEyebrowDotClass,
   hpInnerClass,
   hpSectionClass,
 } from "@/components/homepage/shared";
@@ -147,15 +145,6 @@ export type AboutContent = {
 
 /* ─── Small shared bits ───────────────────────────────────────────────────── */
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <span className={cn(hpEyebrowClass, "self-start")}>
-      <span className={hpEyebrowDotClass} />
-      <span>{children}</span>
-    </span>
-  );
-}
-
 const cardBase =
   "relative overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] p-7";
 /* Phones: cards become ruled rows (plan 2026-09-16, П4). */
@@ -189,9 +178,7 @@ export function AboutHero({ c }: { c: AboutContent["hero"] }) {
               <span>{c.breadcrumbs.about}</span>
             </nav>
 
-            <Eyebrow>{c.eyebrow}</Eyebrow>
-
-            <h1 className="mt-6 font-actay text-[clamp(34px,5.4vw,62px)] font-bold uppercase leading-[1.02] tracking-[-0.025em] text-ink [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:not-italic [&_em]:text-transparent">
+            <h1 className="mt-0 font-actay text-[clamp(34px,5.4vw,62px)] font-bold uppercase leading-[1.02] tracking-[-0.025em] text-ink [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:not-italic [&_em]:text-transparent">
               {c.headlineA}
               <br />
               {c.headlineB}
@@ -318,8 +305,7 @@ export function Founder({ c }: { c: AboutContent["founder"] }) {
 
           {/* Bio */}
           <div className="flex flex-col">
-            <Eyebrow>{c.eyebrow}</Eyebrow>
-            <h2 className="mt-6 max-w-[680px] font-actay text-[clamp(26px,3.4vw,42px)] font-bold uppercase leading-[1.08] tracking-[-0.02em] text-ink [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:not-italic [&_em]:text-transparent">
+            <h2 className="mt-0 max-w-[680px] font-actay text-[clamp(26px,3.4vw,42px)] font-bold uppercase leading-[1.08] tracking-[-0.02em] text-ink [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:not-italic [&_em]:text-transparent">
               {c.heading}
             </h2>
             <p className="mt-6 max-w-[640px] font-sans text-[17px] leading-[1.55] text-ink">

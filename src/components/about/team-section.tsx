@@ -351,13 +351,8 @@ export function TeamSection({
       <div className="max-w-container mx-auto">
         {(eyebrow || heading || sub) && (
           <header className="flex flex-col mb-10 lg:mb-16">
-            {eyebrow ? (
-              <span className="inline-flex items-center self-start gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
-                {eyebrow}
-              </span>
-            ) : null}
             {heading ? (
-              <h2 className="mt-6 font-display font-bold text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] text-ink max-w-[760px] [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+              <h2 className="mt-0 font-display font-bold text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] text-ink max-w-[760px] [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
                 {heading}
               </h2>
             ) : null}

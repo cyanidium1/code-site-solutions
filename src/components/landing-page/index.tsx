@@ -30,12 +30,8 @@ import type { LandingPageContent } from "@/types/landing";
 import type { BentoCell } from "@/types/homepage";
 import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
 
-/* Local copies of the eyebrow / em-heading treatments used by turnkey-list —
-   those constants are module-private there, so the strings live here too. */
-const EYEBROW_CLASS =
-  "inline-flex items-center gap-2.5 py-1.5 px-3 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-ink-3 uppercase " +
-  "before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]";
-
+/* Local copy of the em-heading treatment used by turnkey-list — that
+   constant is module-private there, so the string lives here too. */
 const HEADING_EM_CLASS =
   "[&_em]:not-italic [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
@@ -83,32 +79,20 @@ function em([plain, emphasized]: [string, string]) {
   );
 }
 
-/** Shared section header: eyebrow pill + H2 (+ optional sub), with a giant
-    outlined section numeral ghosted behind — the page reads as a numbered
-    spec sheet from top to bottom. */
+/** Shared section header: H2 (+ optional sub). The eyebrow pill and the
+    outlined section numeral behind it were removed on 2026-09-18 — neither
+    carried information the heading didn't (owner: "плашки не несуть
+    навантаження"). */
 function SectionHead({
-  index,
-  eyebrow,
   heading,
   sub,
 }: {
-  index?: string;
-  eyebrow: string;
   heading: [string, string];
   sub?: string;
 }) {
   return (
     <div className="relative flex flex-col items-start mb-8 lg:mb-12 max-w-[840px]">
-      {index ? (
-        <span
-          aria-hidden
-          className="absolute -top-9 -left-1 lg:-top-14 font-actay font-bold uppercase text-[clamp(76px,9vw,132px)] leading-none text-transparent select-none pointer-events-none [-webkit-text-stroke:1px_oklch(1_0_0_/_0.08)]"
-        >
-          {index}
-        </span>
-      ) : null}
-      <span className={EYEBROW_CLASS}>{eyebrow}</span>
-      <H2 className={`mt-6 mb-0 text-ink ${HEADING_EM_CLASS}`}>{em(heading)}</H2>
+      <H2 className={`mt-0 mb-0 text-ink ${HEADING_EM_CLASS}`}>{em(heading)}</H2>
       {sub ? (
         <p className="mt-5 font-sans text-base leading-[1.6] text-ink-dim max-w-[640px]">
           {sub}
@@ -125,11 +109,9 @@ const WHEN_LIST_CLASS =
 /** Fit / not-fit editorial columns ("when is a landing page the right tool"). */
 function WhenSection({
   content,
-  index,
   locale,
 }: {
   content: LandingPageContent["when"];
-  index: string;
   locale: Locale;
 }) {
   return (
@@ -140,8 +122,6 @@ function WhenSection({
       />
       <div className={hpInnerClass}>
         <SectionHead
-          index={index}
-          eyebrow={content.eyebrow}
           heading={content.heading}
           sub={content.sub}
         />
@@ -236,11 +216,9 @@ function NotIncludedFooter({
     the shared TurnkeyList stays untouched for other pages). */
 function IncludedSection({
   content,
-  index,
   locale,
 }: {
   content: LandingPageContent["included"];
-  index: string;
   locale: Locale;
 }) {
   return (
@@ -251,8 +229,6 @@ function IncludedSection({
       />
       <div className={hpInnerClass}>
         <SectionHead
-          index={index}
-          eyebrow={content.eyebrow}
           heading={content.heading}
           sub={content.sub}
         />
@@ -293,14 +269,12 @@ function IncludedSection({
     hover glow (local variant; the shared homepage Bento stays untouched). */
 function PriceGrid({
   content,
-  index,
   locale,
   folded = false,
   miniCalc,
   id,
 }: {
   content: LandingPageContent["price"];
-  index: string;
   locale: Locale;
   /** Phones: the grid follows the configuration table, so it folds behind
       "Optional extras" and the section header is dropped. */
@@ -337,7 +311,7 @@ function PriceGrid({
           labelClassName={FOLD_BUTTON_CLASS}
           bodyClassName="max-lg:mt-6"
         >
-        <SectionHead index={index} eyebrow={content.eyebrow} heading={content.heading} />
+        <SectionHead heading={content.heading} />
         <div className={PRICE_GRID_CLASS}>
           {content.cells.map((cell, ci) => {
             const Icon = cell.icon;
@@ -437,19 +411,15 @@ const HUB_MORE_LABEL: Record<Locale, string> = {
 
 function HubSection({
   content,
-  index,
   locale,
 }: {
   content: NonNullable<LandingPageContent["hub"]>;
-  index: string;
   locale: Locale;
 }) {
   return (
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
         <SectionHead
-          index={index}
-          eyebrow={content.eyebrow}
           heading={content.heading}
           sub={content.sub}
         />
@@ -498,19 +468,15 @@ function HubSection({
 /** Ready-made configuration price table. */
 function PriceTable({
   table,
-  index,
   id,
 }: {
   table: NonNullable<LandingPageContent["priceTable"]>;
-  index: string;
   id?: string;
 }) {
   return (
     <section id={id} className={`${hpSectionClass} scroll-mt-20 max-lg:pb-6`}>
           <div className={hpInnerClass}>
             <SectionHead
-              index={index}
-              eyebrow={table.eyebrow}
               heading={table.heading}
             />
             <StackTable
@@ -785,24 +751,6 @@ export async function LandingPageView({
       Boolean(c?.coverImage?.asset?.url),
     );
 
-  // Section numbering for the ghost numerals — only sections present in
-  // this page's content participate, so the sequence never skips.
-  const priceKeys = [...(content.priceTable ? ["priceTable"] : []), "price"];
-  const numberedKeys = [
-    ...(content.hub ? ["hub"] : []),
-    ...(content.priceFirst ? priceKeys : []),
-    "when",
-    "included",
-    ...(content.priceFirst ? [] : priceKeys),
-    ...(content.stories ? ["stories"] : []),
-    // Gallery before platforms: on /seo, /audit and /redesign the prose
-    // "platforms" block sits at the end of a 3 900-4 500px stretch with no
-    // image in it (design audit 2026-09-07). The three pages that have no
-    // platforms block are unaffected by the swap.
-    ...(content.gallery ? ["gallery"] : []),
-    ...(content.platforms ? ["platforms"] : []),
-  ];
-  const num = (k: string) => `0${numberedKeys.indexOf(k) + 1}`;
 
   const reelStrip =
     // Tilted auto-scrolling reel of real project screens — full bleed,
@@ -837,10 +785,9 @@ export async function LandingPageView({
 
   const priceBlock = content.priceTable ? (
         <>
-          <PriceTable table={content.priceTable} index={num("priceTable")} id="price" />
+          <PriceTable table={content.priceTable} id="price" />
           <PriceGrid
             content={content.price}
-            index={num("price")}
             locale={locale}
             folded
             miniCalc={content.miniCalc}
@@ -849,7 +796,6 @@ export async function LandingPageView({
       ) : (
         <PriceGrid
           content={content.price}
-          index={num("price")}
           locale={locale}
           miniCalc={content.miniCalc}
           id="price"
@@ -872,15 +818,7 @@ export async function LandingPageView({
           </div>
           <div className="relative max-w-container mx-auto grid grid-cols-1 gap-12 lg:grid-cols-[1fr_0.92fr] lg:gap-12 xl:grid-cols-[1.05fr_0.95fr] xl:gap-16 items-center">
             <div className="relative">
-              {/* Giant outlined eyebrow word ghosted behind the headline. */}
-              <span
-                aria-hidden
-                className="absolute -top-16 left-0 hidden lg:block font-actay font-bold uppercase whitespace-nowrap text-[clamp(64px,7vw,110px)] leading-none text-transparent select-none pointer-events-none [-webkit-text-stroke:1px_oklch(1_0_0_/_0.06)]"
-              >
-                {content.hero.eyebrow}
-              </span>
-              <span className={EYEBROW_CLASS}>{content.hero.eyebrow}</span>
-              <h1 className={`mt-6 mb-0 font-actay uppercase font-bold text-[clamp(30px,4.6vw,56px)] leading-[1.08] text-ink [text-wrap:balance] ${HEADING_EM_CLASS}`}>
+              <h1 className={`mt-0 mb-0 font-actay uppercase font-bold text-[clamp(30px,4.6vw,56px)] leading-[1.08] text-ink [text-wrap:balance] ${HEADING_EM_CLASS}`}>
                 {em(content.hero.headline)}
               </h1>
               <p className="mt-5 font-sans text-[15.5px] leading-[1.65] text-ink-dim max-w-[540px]">
@@ -989,7 +927,7 @@ export async function LandingPageView({
         </div>
       ) : null}
 
-      {content.hub && <HubSection content={content.hub} index={num("hub")} locale={locale} />}
+      {content.hub && <HubSection content={content.hub} locale={locale} />}
 
       {/* Price: the configuration table first, then the option grid folded
           on phones, then (phones) the configurator — one block where there
@@ -997,10 +935,10 @@ export async function LandingPageView({
       {content.priceFirst && priceBlock}
 
       {/* 2 — When a landing page fits / when it doesn't */}
-      <WhenSection content={content.when} index={num("when")} locale={locale} />
+      <WhenSection content={content.when} locale={locale} />
 
       {/* 3 — Checklist: what the base price includes */}
-      <IncludedSection content={content.included} index={num("included")} locale={locale} />
+      <IncludedSection content={content.included} locale={locale} />
 
       {/* 4 — How the price is built (calculator-style option grid) */}
       {!content.priceFirst && priceBlock}
@@ -1010,8 +948,6 @@ export async function LandingPageView({
         <section className={hpSectionClass}>
           <div className={hpInnerClass}>
             <SectionHead
-              index={num("stories")}
-              eyebrow={content.stories.eyebrow}
               heading={content.stories.heading}
             />
             <PhoneMore label={SHOW_MORE_LABEL[locale]}>
@@ -1126,8 +1062,6 @@ export async function LandingPageView({
           />
           <div className={hpInnerClass}>
             <SectionHead
-              index={num("gallery")}
-              eyebrow={content.gallery.eyebrow}
               heading={content.gallery.heading}
               sub={content.gallery.sub}
             />
@@ -1182,8 +1116,6 @@ export async function LandingPageView({
         <section className={hpSectionClass}>
           <div className={hpInnerClass}>
             <SectionHead
-              index={num("platforms")}
-              eyebrow={content.platforms.eyebrow}
               heading={content.platforms.heading}
             />
             {/* 560px, not 760: at 15px the wider column held ~100 characters
@@ -1251,8 +1183,7 @@ export async function LandingPageView({
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
           <div className="flex flex-col items-start mb-12 max-w-[840px]">
-            <span className={EYEBROW_CLASS}>{content.examples.eyebrow}</span>
-            <H2 className={`mt-6 mb-0 text-ink ${HEADING_EM_CLASS}`}>
+            <H2 className={`mt-0 mb-0 text-ink ${HEADING_EM_CLASS}`}>
               {em(content.examples.heading)}
             </H2>
             <p className="mt-5 font-sans text-base leading-[1.6] text-ink-dim max-w-[640px]">

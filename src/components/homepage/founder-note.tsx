@@ -56,8 +56,7 @@ export function FounderNote({ locale = "uk" }: { locale?: Locale }) {
             />
           </div>
           <div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">{c.eyebrow}</div>
-            <h2 className="mt-2 mb-0 font-actay text-[18px] font-bold uppercase leading-[1.15] text-ink sm:text-[24px] lg:text-[32px]">
+            <h2 className="mt-0 mb-0 font-actay text-[18px] font-bold uppercase leading-[1.15] text-ink sm:text-[24px] lg:text-[32px]">
               {c.title}
             </h2>
             <p className="mt-3 mb-0 max-w-[560px] text-[14px] leading-[1.6] text-ink-dim sm:text-[15px] max-sm:hidden">

@@ -84,10 +84,6 @@ const DEFAULT_NOT_DOING: string[] = [
 // of the global stylesheet.
 const TURNKEY_BG = "csb-turnkey-bg";
 
-const EYEBROW_CLASS =
-  "inline-flex items-center gap-2.5 py-1.5 px-3 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] text-ink-3 uppercase " +
-  "before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)]";
-
 // Brand-gradient italic em inside the H2 (cool→warm vertical sweep with text clip).
 const HEADING_EM_CLASS =
   "[&_em]:italic [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
@@ -122,7 +118,6 @@ const DEFAULT_FOOTER = (
 );
 
 export function TurnkeyList({
-  eyebrow = "ПІД КЛЮЧ",
   heading = (
     <>
       Все, <em>що ми робимо за вас</em>
@@ -152,10 +147,9 @@ export function TurnkeyList({
       />
       <div className="relative z-[1] max-w-container mx-auto">
         <div className="flex flex-col items-start mb-8 lg:mb-14 max-w-[840px]">
-          <span className={EYEBROW_CLASS}>{eyebrow}</span>
           <H2
             variant="turnkey"
-            className={`mt-6 mb-0 text-ink ${HEADING_EM_CLASS}`}
+            className={`mt-0 mb-0 text-ink ${HEADING_EM_CLASS}`}
           >
             {heading}
           </H2>

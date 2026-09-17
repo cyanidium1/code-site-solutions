@@ -47,16 +47,6 @@ export function MedPatientFlow({ locale }: { locale: Locale }) {
 
       <div className="relative mx-auto max-w-container">
         <ScrollReveal className="med-reveal">
-          <div className="mb-3 flex flex-wrap items-center gap-3">
-            <span className="med-label">
-              <span className="h-1 w-1 rounded-full bg-accent" />
-              {c.label}
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
-              {c.stepMeta}
-            </span>
-          </div>
-
           <div className="grid grid-cols-1 gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-end">
             <h2 className="m-0 font-actay text-[clamp(24px,3vw,40px)] font-bold uppercase leading-[1.1] text-ink">
               {c.heading.split("\n").map((line, i) => (

@@ -72,7 +72,6 @@ export function ImageText({
   imageVariant = "imageRight",
   imageFit = "cover",
   centeredLayout = "vertical",
-  eyebrow,
   heading,
   body,
   bulletList,
@@ -116,10 +115,6 @@ export function ImageText({
     ? "flex flex-col max-w-[720px] mx-auto items-center"
     : "flex flex-col";
 
-  const eyebrowClass = `inline-flex items-center gap-2.5 px-3 py-1.5 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-accent before:shadow-[0_0_8px_oklch(from_var(--color-accent)_l_c_h_/_0.6)] ${
-    isCentered ? "self-center" : "self-start"
-  }`;
-
   const listClass = `mt-7 flex flex-col gap-3 ${
     isCentered ? "self-center text-left" : ""
   } ${phoneBulletCap ? "pm-cap-5" : ""}`;
@@ -151,10 +146,9 @@ export function ImageText({
   ) : null;
   const contentBlock = (
     <div className={contentClass}>
-      {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
       <H2
         variant="image-text"
-        className="mt-6 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent"
+        className="mt-0 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent"
       >
         {heading}
       </H2>
@@ -228,10 +222,9 @@ export function ImageText({
               {image}
             </div>
             <div className="relative z-[2] flex flex-col items-center w-full max-w-container-prose text-center px-2 py-4 bg-[radial-gradient(ellipse_at_center,oklch(0.18_0.008_60_/_0.7)_0%,oklch(0.18_0.008_60_/_0)_70%)] sm:px-4 sm:py-8 min-[901px]:max-w-[400px] min-[1201px]:max-w-[560px] 2xl:max-w-[720px]">
-              {eyebrow ? <span className={eyebrowClass}>{eyebrow}</span> : null}
               <H2
                 variant="image-text"
-                className="mt-4 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent"
+                className="mt-0 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent"
               >
                 {heading}
               </H2>

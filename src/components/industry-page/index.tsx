@@ -1219,10 +1219,7 @@ export async function IndustryPageView({
         <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
           <div className="max-w-container mx-auto">
             <div className="mb-10">
-              <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
-                / {LABELS[locale].nicheCasesEyebrow}
-              </div>
-              <h2 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
+              <h2 className="mt-0 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
                 {LABELS[locale].nicheCasesHeading}
               </h2>
             </div>
@@ -1267,10 +1264,7 @@ export async function IndustryPageView({
         <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
           <div className="max-w-container mx-auto">
             <div className="mb-10">
-              <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
-                / {LABELS[locale].articlesEyebrow}
-              </div>
-              <h2 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
+              <h2 className="mt-0 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
                 {LABELS[locale].articlesHeading}
               </h2>
             </div>

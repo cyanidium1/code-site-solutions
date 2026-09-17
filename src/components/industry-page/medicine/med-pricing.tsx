@@ -41,8 +41,7 @@ export function MedPricing({
   return (
     <section className="med relative overflow-hidden bg-bg px-6 py-14 sm:px-8 lg:px-12 lg:py-[100px]">
       <div className="relative mx-auto max-w-container">
-        <span className="med-label">{c.label}</span>
-        <h2 className="mt-4 mb-0 font-actay text-[clamp(22px,2.6vw,34px)] font-bold uppercase leading-[1.15] tracking-[-0.01em] text-ink">
+        <h2 className="mt-0 mb-0 font-actay text-[clamp(22px,2.6vw,34px)] font-bold uppercase leading-[1.15] tracking-[-0.01em] text-ink">
           {c.heading}
         </h2>
         <p className="mt-3 mb-0 max-w-[58ch] font-sans text-[14.5px] leading-[1.6] text-ink-dim">

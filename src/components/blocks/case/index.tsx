@@ -43,12 +43,6 @@ const HEADER_CLASS =
   "md:mb-12 md:pb-8 " +
   "xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-[60px] xl:items-end xl:mb-16";
 
-const EYEBROW_CLASS =
-  "inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-line-strong rounded-full text-[11px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-[22px]";
-
-const EYEBROW_DOT_CLASS =
-  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]";
-
 const LEDE_CLASS =
   "text-[14px] leading-[1.7] text-ink-dim m-0 max-w-[56ch] pb-1.5 text-pretty [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "xl:text-[15px]";
@@ -219,8 +213,6 @@ const CASE_LABELS: Record<
 };
 
 export function Case({
-  eyebrow,
-  eyebrowEm,
   heading,
   lede,
   meta = [],
@@ -289,20 +281,6 @@ export function Case({
         <PhoneMore label={SHOW_MORE_LABEL[locale]}>
         <header className={HEADER_CLASS}>
           <div>
-            {(eyebrow || eyebrowEm) && (
-              <div className={EYEBROW_CLASS}>
-                <span className={EYEBROW_DOT_CLASS} />
-                {eyebrow ? <span>{eyebrow}</span> : null}
-                {eyebrow && eyebrowEm ? (
-                  <span className="text-ink-3">·</span>
-                ) : null}
-                {eyebrowEm ? (
-                  <span className="text-accent-soft font-semibold">
-                    {eyebrowEm}
-                  </span>
-                ) : null}
-              </div>
-            )}
             {heading ? (
               <H2 variant="case" className={HEADING_EM_CLASS}>
                 {heading}

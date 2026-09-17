@@ -105,8 +105,6 @@ const DEFAULT_REASONS: Reason[] = [
 ];
 
 export function Reasons({
-  eyebrow = "ДІАГНОСТИКА",
-  eyebrowNum = "/ 03 ПУНКТИ",
   heading = (
     <>
       3 причини, чому пацієнти
@@ -147,13 +145,6 @@ export function Reasons({
       <div className="relative z-[2] max-w-container mx-auto">
         <header className="grid grid-cols-1 gap-4 items-start mb-9 pb-5 border-b border-line sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-8 sm:items-end sm:mb-14 sm:pb-6 xl:gap-10 xl:mb-[72px] xl:pb-8">
           <div>
-            <div className="inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-line-strong rounded-full text-[11px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
-              <span>{eyebrow}</span>
-              <span className="font-mono text-[10px] text-ink-3">
-                {eyebrowNum}
-              </span>
-            </div>
             <h2 className="font-display font-bold text-[clamp(24px,6vw,32px)] leading-none tracking-[-0.035em] text-ink max-w-full text-balance sm:text-[clamp(30px,4.2vw,44px)] sm:max-w-[24ch] xl:text-[clamp(34px,4.6vw,60px)] [&_em]:italic [&_em]:font-light [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
               {heading}
             </h2>
