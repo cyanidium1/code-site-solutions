@@ -478,6 +478,8 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
 
 /* ─── 5. Real projects ────────────────────────────────────────────────────── */
 
+const STUDIO_SITE_COVER = "/about/code-site-home.webp";
+
 export function RealProjects({
   c,
   covers = {},
@@ -487,6 +489,10 @@ export function RealProjects({
       the longest stretch of the page without an image (plan 2026-09-16). */
   covers?: Record<string, { image: SanityImageLike; alt: string }>;
 }) {
+  // "This site" has no case in the CMS — its cover is a plain screenshot
+  // of the live homepage, so the last card is not the only one without a
+  // picture (it left an empty tile at 768–1440).
+  const isStudioSite = (href?: string) => href === "/" || href === "/ru" || href === "/en";
   // Covers are keyed by case slug; hrefs carry a locale prefix on ru/en.
   const coverOf = (href?: string) => {
     const slug = href?.split("/portfolio/")[1];
@@ -513,6 +519,16 @@ export function RealProjects({
                       <SanityImg
                         image={coverOf(p.href)!.image}
                         alt={coverOf(p.href)!.alt}
+                        fill
+                        sizes={IMG_SIZES.cardThird}
+                        className="object-cover object-top"
+                      />
+                    </div>
+                  ) : isStudioSite(p.href) ? (
+                    <div className="relative -mx-7 -mt-7 mb-5 aspect-[16/10] overflow-hidden border-b border-line">
+                      <AppImage
+                        src={STUDIO_SITE_COVER}
+                        alt={p.name}
                         fill
                         sizes={IMG_SIZES.cardThird}
                         className="object-cover object-top"

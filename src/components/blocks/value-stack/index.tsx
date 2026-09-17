@@ -444,25 +444,28 @@ export function ValueStack({
             screens). The small cards, stats and bullets stay in the copy
             objects for now but are no longer rendered. */}
         <ScrollReveal className="group/vs-reveal">
-          <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10">
-            <div className="relative mx-auto w-full max-w-[420px] lg:order-2 lg:max-w-none">
+          {/* Cards take the wide track, the phone photo the narrow one; side by side
+              only from xl: at 800–1100 the 7fr track left 260px cards with
+              three-line headings, so there the photo stacks above them. */}
+          <div className="grid grid-cols-1 items-center gap-6 xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] xl:gap-12">
+            <div className="relative mx-auto w-full max-w-[380px] xl:order-2 xl:max-w-[460px]">
               <div aria-hidden className="absolute inset-x-6 top-1/4 bottom-0 rounded-full bg-accent-20 blur-[70px] pointer-events-none" />
               <AppImage
                 src={VALUE_PHOTO.src}
                 alt={VALUE_PHOTO.alt[locale]}
                 width={VALUE_PHOTO.width}
                 height={VALUE_PHOTO.height}
-                sizes="(min-width: 800px) 40vw, 92vw"
-                className="relative block h-auto w-full rounded-[22px] lg:mx-auto lg:max-h-[540px] lg:w-auto"
+                sizes="(min-width: 1100px) 460px, 380px"
+                className="relative block h-auto w-full rounded-[22px]"
               />
             </div>
-            <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 sm:gap-4 lg:order-1">
+            <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 sm:gap-4 xl:order-1">
             {c.featured.map((card, i) => {
               const Icon = card.icon;
               return (
                 <div
                   key={card.title}
-                  className={cn(featuredBase, "max-sm:!min-h-0 max-sm:!rounded-none max-sm:!border-0 max-sm:!border-b max-sm:!border-line max-sm:!bg-transparent max-sm:!px-0 max-sm:!py-4 max-sm:before:!hidden sm:min-h-[240px]")}
+                  className={cn(featuredBase, "max-sm:!min-h-0 max-sm:!rounded-none max-sm:!border-0 max-sm:!border-b max-sm:!border-line max-sm:!bg-transparent max-sm:!px-0 max-sm:!py-4 max-sm:before:!hidden sm:min-h-[220px]")}
                   // eslint-disable-next-line react/forbid-dom-props -- per-card accent + stagger CSS vars
                   style={{ "--card-accent": VIOLET, "--i": i } as React.CSSProperties}
                 >

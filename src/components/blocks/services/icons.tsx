@@ -84,7 +84,15 @@ const INDUSTRY_FEATURE_ICONS: Record<string, React.ReactNode[]> = {
   // services catalog, warranty, location.  Reuses the same primitives —
   // they're already domain-neutral. Substitute domain-specific icons here
   // when commission-shooting them.
-  renovation: MEDICINE_FEATURE_ICONS,
+  // 3D design feature removed from the CMS on 17.09.2026 (the studio never
+  // shipped it), so the services icon drops out and the rest keep their slots.
+  renovation: [
+    <IcCalendar key="cal" />,
+    <IcDoctors key="doc" />,
+    <IcPrice key="price" />,
+    <IcShield key="shield" />,
+    <IcPin key="pin" />,
+  ],
   legal: MEDICINE_FEATURE_ICONS,
   accounting: MEDICINE_FEATURE_ICONS,
   ecommerce: MEDICINE_FEATURE_ICONS,

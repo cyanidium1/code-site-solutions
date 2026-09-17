@@ -77,7 +77,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           />
           {/* Top 3 hidden-costs as full cards, remaining as a compact
               secondary row so 6 uniform cards don't read as template. */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:[&>*:last-child:nth-child(odd)]:col-span-2 min-[960px]:grid-cols-3 min-[960px]:[&>*:last-child:nth-child(odd)]:col-span-1">
             {c.costs.items.slice(0, 3).map((it) => {
               const Icon = it.icon;
               return (
@@ -107,7 +107,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             })}
           </div>
           {c.costs.items.length > 3 ? (
-            <div className="pm-extra mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div className="pm-extra mt-3 grid grid-cols-1 gap-3 md:grid-cols-3">
               {c.costs.items.slice(3).map((it) => {
                 const Icon = it.icon;
                 return (
@@ -368,7 +368,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
           <h3 className="font-display font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-ink mb-6 text-center">
             {c.admin.capabilitiesHeading}
           </h3>
-          <div className="grid grid-cols-1 gap-4 pm-cap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 pm-cap-3 md:grid-cols-2 md:[&>*:last-child:nth-child(odd)]:col-span-2 min-[960px]:grid-cols-3 min-[960px]:[&>*:last-child:nth-child(odd)]:col-span-1">
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
