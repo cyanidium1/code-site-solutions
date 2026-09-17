@@ -123,9 +123,21 @@ export default async function HomePageRu() {
         deviceMockupAlt="Пример сайта для бизнеса, созданного Code-Site.Art"
       />
 
-      {/* Second block on purpose: the fold no longer carries a stats bar,
-          so the reach claim lands here — a moving line of proof between
-          the offer and the first argument. */}
+      {/* Cases right after the hero (owner, 2026-09-17): real sites are the
+          strongest proof we have, so they come before any argument. The
+          logo line follows as the reach claim. */}
+      <Cases
+        eyebrow="КЕЙСЫ"
+        heading={
+          <>
+            50+ клиентов <em>готовы нас рекомендовать</em>
+          </>
+        }
+        locale="ru"
+        ctaLabel="Все кейсы"
+        ctaHref="/ru/portfolio"
+      />
+
       <Marquee label="50+ КОМПАНИЙ ДОВЕРИЛИСЬ · UA · EU · US · DK · ZA · UK · FR" />
 
       <PainPoints locale="ru" />
@@ -186,18 +198,6 @@ export default async function HomePageRu() {
         ]}
         ctaLabel="Весь процесс"
         ctaHref="/ru/process"
-      />
-
-      <Cases
-        eyebrow="КЕЙСЫ"
-        heading={
-          <>
-            50+ клиентов <em>готовы нас рекомендовать</em>
-          </>
-        }
-        locale="ru"
-        ctaLabel="Все кейсы"
-        ctaHref="/ru/portfolio"
       />
 
       <PullQuoteSwiper slides={testimonialSlides} />

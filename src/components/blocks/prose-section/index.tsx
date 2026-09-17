@@ -57,8 +57,22 @@ function Section({ section, locale }: { section: ProseSection; locale: Locale })
 
         {/* Phones get the lead paragraph and the table; the rest of the
             running text folds behind "Read more" (plan 2026-09-16, П5). */}
-        <div className={section.image ? "grid grid-cols-1 items-start gap-6 lg:grid-cols-[560px_1fr] lg:gap-12" : undefined}>
-        <div className="flex max-w-[560px] flex-col gap-4">
+        {/* With an image the text and the picture share the container grid:
+            the picture always ends on the container's right edge and fills
+            its track instead of being capped and centred inside it (owner
+            feedback 2026-09-17, "не по сетці"). Landscape shots take half
+            the row from lg; portrait shots take a third from md, so a phone
+            photo stays phone-sized next to the text. */}
+        <div
+          className={
+            !section.image
+              ? undefined
+              : section.image.height > section.image.width
+                ? "grid grid-cols-1 items-start gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-10"
+                : "grid grid-cols-1 items-start gap-6 lg:grid-cols-2 lg:gap-10"
+          }
+        >
+        <div className="flex max-w-[640px] flex-col gap-4">
             {section.paragraphs.slice(0, 1).map((p) => (
               <p key={p.slice(0, 32)} className={PARA_CLASS}>
                 {p}
@@ -86,8 +100,8 @@ function Section({ section, locale }: { section: ProseSection; locale: Locale })
               alt={section.image.alt}
               width={section.image.width}
               height={section.image.height}
-              sizes="(min-width: 800px) 40vw, 92vw"
-              className={`block h-auto w-full rounded-[22px] border border-line ${section.image.height > section.image.width ? "max-w-[340px] mx-auto lg:max-w-[420px]" : ""}`}
+              sizes={section.image.height > section.image.width ? "(min-width: 700px) 33vw, 92vw" : "(min-width: 800px) 50vw, 92vw"}
+              className="block h-auto w-full rounded-[22px] border border-line"
             />
           ) : null}
         </div>

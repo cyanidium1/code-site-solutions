@@ -123,9 +123,11 @@ export default async function HomePage() {
         deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
       />
 
-      {/* Second block on purpose: the fold no longer carries a stats bar,
-          so the reach claim lands here — a moving line of proof between
-          the offer and the first argument. */}
+      {/* Cases right after the hero (owner, 2026-09-17): real sites are the
+          strongest proof we have, so they come before any argument. The
+          logo line follows as the reach claim. */}
+      <Cases />
+
       <Marquee label="50+ КОМПАНІЙ ДОВІРИЛИСЯ · UA · EU · US · DK · ZA · UK · FR" />
 
       <PainPoints />
@@ -154,7 +156,6 @@ export default async function HomePage() {
 
       <Industries />
       <Process />
-      <Cases />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 
@@ -177,13 +178,13 @@ export default async function HomePage() {
           </div>
           {/* `hpLinkClass` carries a 36px top margin for standalone
               "see all" links; in a list of eight it stacked to 550px on a
-              phone (design audit 2026-09-06, H10). Here the gap does the
-              spacing and the margin only returns at lg, where the links wrap
-              into rows. */}
-          <ul className="m-0 flex list-none flex-wrap gap-2 p-0 lg:gap-x-8 lg:gap-y-1">
+              phone (design audit 2026-09-06, H10). The gap does the spacing, and
+              the links are pills at every width: at lg they used to turn into
+              underlined text with 32px gaps and no edge to line up with. */}
+          <ul className="m-0 flex list-none flex-wrap gap-2 p-0 lg:gap-2.5">
             {DIRECTION_LINKS.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className={cn(hpLinkClass, "mt-0 lg:mt-9 max-lg:rounded-full max-lg:border max-lg:border-line max-lg:px-3.5 max-lg:py-2 max-lg:text-[11px] max-lg:[&]:border-b")}>
+                <Link href={l.href} className={cn(hpLinkClass, "mt-0 rounded-full border border-line px-3.5 py-2 text-[11px] [&]:border-b hover:border-accent-40 lg:px-4 lg:py-2.5 lg:text-[12px]")}>
                   {l.label}
                 </Link>
               </li>

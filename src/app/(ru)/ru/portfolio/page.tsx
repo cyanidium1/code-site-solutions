@@ -146,7 +146,7 @@ export default async function RuPortfolioPage({
 
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
-          <div className="mb-10">
+          <div className="mb-6 sm:mb-10">
             <PortfolioFilters
               locale="ru"
               industryOptions={industryOptions}

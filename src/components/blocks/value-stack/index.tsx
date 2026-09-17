@@ -419,47 +419,43 @@ export function ValueStack({
         </div>
       </div>
       <div className={hpInnerClass}>
-        {/* Header row: heading left (880), support paragraph + sparkles right */}
-        {/* Two columns only from xl: at 800–1100 the 880px heading track
-            left the paragraph a ~50px column, one word per line, with a
-            512px hole above the cards (audit 2026-09-06, C1). The second
-            track has a 300px floor so 1100–1280 still reads. */}
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,880px)_minmax(300px,1fr)] xl:gap-12 xl:items-start">
-          <SectionHead eyebrow={eyebrow ?? c.eyebrow} heading={heading ?? c.heading} />
+        {/* One column system for the header and the body: from 1100px both use
+            three equal tracks — heading and cards take two, the support line
+            and the photo take the third — so the paragraph, the sparkles and
+            the photo share edges with the grid below instead of floating in
+            their own track (owner feedback 2026-09-17: "картинка не по сетці"). */}
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3 xl:gap-x-4 xl:items-start">
+          <div className="xl:col-span-2">
+            <SectionHead eyebrow={eyebrow ?? c.eyebrow} heading={heading ?? c.heading} />
+          </div>
           <div className="hidden xl:flex flex-col self-stretch pt-[70px]">
             <p className="max-w-[508px] text-[16px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
-            {/* Figma: trio bottom-aligned with the header block, sitting 46px
-                clear of the cards (sparkles end y299.75, cards start y346.19).
-                The column stretches into SectionHead's 40px bottom margin, so
-                mt-auto alone pins the trio flush to the cards — pb-[46px]
-                restores the design gap; pt-14 keeps air on shorter locales. */}
-            <SparkleTrio className="mt-auto flex justify-end pt-14 pb-[46px]" />
+            {/* Sparkles sit on the right edge of the photo column, clear of
+                the cards by SectionHead's bottom margin. */}
+            <SparkleTrio className="mt-auto flex justify-end pt-10 pb-10" />
           </div>
-          {/* Mobile: support paragraph in flow (sparkles are desktop decor) */}
+          {/* Narrow screens: support paragraph in flow (sparkles are desktop decor) */}
           <p className="xl:hidden -mt-4 mb-2 max-w-[640px] text-[15px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
         </div>
 
         {/* Plan 2026-09-16: four points and a real screen instead of eight
-            cards, two Core Web Vitals panels and a checklist (3.2 phone
-            screens). The small cards, stats and bullets stay in the copy
-            objects for now but are no longer rendered. */}
+            cards, two Core Web Vitals panels and a checklist. The photo is a
+            grid cell, not a floating picture: it spans both card rows, so its
+            top and bottom edges are the cards' edges.
+            - phone: photo, then the four points as rows
+            - 640–1099: photo in the left track across two rows, cards fill the rest
+            - 1100+: cards 2×2 in two tracks, photo in the third */}
         <ScrollReveal className="group/vs-reveal">
-          {/* Cards take the wide track, the phone photo the narrow one; side by side
-              only from xl: at 800–1100 the 7fr track left 260px cards with
-              three-line headings, so there the photo stacks above them. */}
-          <div className="grid grid-cols-1 items-center gap-6 xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] xl:gap-12">
-            <div className="relative mx-auto w-full max-w-[380px] xl:order-2 xl:max-w-[460px]">
-              <div aria-hidden className="absolute inset-x-6 top-1/4 bottom-0 rounded-full bg-accent-20 blur-[70px] pointer-events-none" />
+          <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
+            <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[22px] border border-line sm:row-span-2 sm:mb-0 sm:aspect-auto sm:min-h-[440px] sm:rounded-[26px] xl:col-start-3 xl:row-start-1">
               <AppImage
                 src={VALUE_PHOTO.src}
                 alt={VALUE_PHOTO.alt[locale]}
-                width={VALUE_PHOTO.width}
-                height={VALUE_PHOTO.height}
-                sizes="(min-width: 1100px) 460px, 380px"
-                className="relative block h-auto w-full rounded-[22px]"
+                fill
+                sizes="(min-width: 1100px) 33vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover object-center"
               />
             </div>
-            <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 sm:gap-4 xl:order-1">
             {c.featured.map((card, i) => {
               const Icon = card.icon;
               return (
@@ -471,7 +467,7 @@ export function ValueStack({
                 >
                   {CARD_DIVIDER}
                   <div className="max-sm:hidden">
-                    <CardMedia src={card.img} sizes="(min-width:1100px) 25vw, (min-width:640px) 50vw, 1px" />
+                    <CardMedia src={card.img} sizes="(min-width:1100px) 33vw, (min-width:640px) 50vw, 1px" />
                   </div>
                   <div className="relative z-[1] flex flex-1 flex-row gap-3.5 md:flex-col md:gap-0">
                     <span className={cn(accentIconBox, "size-10 shrink-0 md:size-12")}>
@@ -489,7 +485,6 @@ export function ValueStack({
                 </div>
               );
             })}
-            </div>
           </div>
         </ScrollReveal>
       </div>

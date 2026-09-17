@@ -126,9 +126,21 @@ export default async function HomePageEn() {
         deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
       />
 
-      {/* Second block on purpose: the fold no longer carries a stats bar,
-          so the reach claim lands here — a moving line of proof between
-          the offer and the first argument. */}
+      {/* Cases right after the hero (owner, 2026-09-17): real sites are the
+          strongest proof we have, so they come before any argument. The
+          logo line follows as the reach claim. */}
+      <Cases
+        eyebrow="CASES"
+        heading={
+          <>
+            50+ clients <em>ready to recommend us</em>
+          </>
+        }
+        locale="en"
+        ctaLabel="All cases"
+        ctaHref="/en/portfolio"
+      />
+
       <Marquee label="50+ BUSINESSES TRUSTED · UA · EU · US · DK · ZA · UK · FR" />
 
       <PainPoints locale="en" />
@@ -192,18 +204,6 @@ export default async function HomePageEn() {
         ]}
         ctaLabel="Full process"
         ctaHref="/en/process"
-      />
-
-      <Cases
-        eyebrow="CASES"
-        heading={
-          <>
-            50+ clients <em>ready to recommend us</em>
-          </>
-        }
-        locale="en"
-        ctaLabel="All cases"
-        ctaHref="/en/portfolio"
       />
 
       <PullQuoteSwiper slides={testimonialSlides} />

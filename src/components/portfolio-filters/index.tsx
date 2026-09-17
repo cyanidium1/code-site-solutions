@@ -1,10 +1,10 @@
 "use client";
 
 import type { Locale } from "@/constants/locales";
-import { useCallback, useTransition } from "react";
+import { useCallback, useState, useTransition } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown, SlidersHorizontal } from "lucide-react";
 
 import { btnClass, Select } from "@/components/ui";
 import {
@@ -19,6 +19,14 @@ import {
 import { updateSearchParams } from "@/lib/shared/update-search-params";
 
 type FormLocale = Locale;
+
+// Phones get one "Filters" button instead of three stacked selects that
+// pushed the first case below the fold (owner, 2026-09-17).
+const FILTERS_TOGGLE_LABEL: Record<Locale, string> = {
+  uk: "Фільтри",
+  ru: "Фильтры",
+  en: "Filters",
+};
 
 export type PortfolioFiltersProps = {
   locale: FormLocale;
@@ -111,9 +119,36 @@ export function PortfolioFilters({
     ? industryOptions.find((o) => o.key === currentIndustry)?.label
     : undefined;
 
+  const activeCount = [currentIndustry, currentCountry, currentBudget].filter(Boolean).length;
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="flex flex-col gap-5">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls="portfolio-filters"
+        onClick={() => setOpen((v) => !v)}
+        className="inline-flex items-center gap-2.5 self-start rounded-full border border-line px-4 py-2.5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim transition-colors hover:border-accent-40 hover:text-ink sm:hidden"
+      >
+        <SlidersHorizontal size={15} strokeWidth={1.8} aria-hidden="true" />
+        {FILTERS_TOGGLE_LABEL[locale]}
+        {activeCount ? (
+          <span className="inline-flex size-5 items-center justify-center rounded-full bg-accent text-[11px] text-white">
+            {activeCount}
+          </span>
+        ) : null}
+        <ChevronDown
+          size={15}
+          strokeWidth={1.8}
+          aria-hidden="true"
+          className={open ? "rotate-180 transition-transform" : "transition-transform"}
+        />
+      </button>
+      <div
+        id="portfolio-filters"
+        className={`${open ? "grid" : "hidden"} grid-cols-1 gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3`}
+      >
         <FilterSelect
           label={labels.industry}
           placeholder={placeholder}

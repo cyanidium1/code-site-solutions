@@ -42,13 +42,16 @@ export function FounderNote({ locale = "uk" }: { locale?: Locale }) {
   return (
     <section className={hpSectionClass}>
       <div className={hpInnerClass}>
-        <div className="grid grid-cols-[96px_1fr] items-center gap-5 sm:grid-cols-[140px_1fr] sm:gap-8 lg:grid-cols-[200px_1fr] lg:gap-12 max-w-[880px]">
+        {/* A full-width panel on the container grid: the text block used to
+            stop at 880px and leave the right half of the row empty. The link
+            becomes a button on the panel's right edge from lg. */}
+        <div className="grid grid-cols-[96px_1fr] items-center gap-x-5 gap-y-4 rounded-[26px] border border-line bg-[oklch(1_0_0_/_0.02)] p-5 sm:grid-cols-[140px_1fr] sm:gap-x-8 sm:p-7 lg:grid-cols-[180px_1fr_auto] lg:gap-x-10 lg:p-8">
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line-strong">
             <AppImage
               src="/team/fedir.jpg"
               alt={c.alt}
               fill
-              sizes="(min-width: 800px) 200px, (min-width: 640px) 140px, 96px"
+              sizes="(min-width: 800px) 180px, (min-width: 640px) 140px, 96px"
               className="object-cover"
             />
           </div>
@@ -57,18 +60,32 @@ export function FounderNote({ locale = "uk" }: { locale?: Locale }) {
             <h2 className="mt-2 mb-0 font-actay text-[18px] font-bold uppercase leading-[1.15] text-ink sm:text-[24px] lg:text-[32px]">
               {c.title}
             </h2>
-            <p className="mt-3 mb-0 max-w-[520px] text-[14px] leading-[1.6] text-ink-dim sm:text-[15px] max-sm:hidden">
+            <p className="mt-3 mb-0 max-w-[560px] text-[14px] leading-[1.6] text-ink-dim sm:text-[15px] max-sm:hidden">
               {c.body}
             </p>
             <Link
               href={resolveRootHref("/about", locale)}
-              className="mt-3 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft no-underline hover:text-ink sm:mt-5"
+              className="mt-5 hidden items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft no-underline hover:text-ink sm:inline-flex lg:hidden"
             >
               {c.link}
               <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </div>
+          <Link
+            href={resolveRootHref("/about", locale)}
+            className="hidden items-center gap-2 self-center whitespace-nowrap rounded-full border border-line px-5 py-3 font-mono text-[12px] uppercase tracking-[0.08em] text-ink no-underline transition-[border-color,color] duration-200 hover:border-accent-40 hover:text-accent-soft lg:inline-flex"
+          >
+            {c.link}
+            <ArrowRight size={14} aria-hidden="true" />
+          </Link>
           <p className="col-span-2 m-0 text-[14px] leading-[1.6] text-ink-dim sm:hidden">{c.body}</p>
+          <Link
+            href={resolveRootHref("/about", locale)}
+            className="col-span-2 inline-flex items-center gap-2 whitespace-nowrap font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft no-underline hover:text-ink sm:hidden"
+          >
+            {c.link}
+            <ArrowRight size={14} aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>

@@ -145,7 +145,7 @@ export default async function EnPortfolioPage({
 
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
-          <div className="mb-10">
+          <div className="mb-6 sm:mb-10">
             <PortfolioFilters
               locale="en"
               industryOptions={industryOptions}
