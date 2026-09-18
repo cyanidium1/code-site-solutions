@@ -2,7 +2,6 @@ import Link from "next/link";
 import { AppImage } from "@/lib/shared/app-image";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import type { SanityImage } from "@/types/sanity";
-import { formatPrice } from "@/lib/shared/format-price";
 import { btnClass, H1, PLAY_ICON_CLASS } from "@/components/ui";
 
 /* ───────────────────────────────────────────────────────────────────────
@@ -38,22 +37,6 @@ const HERO_GRID_CLASS =
 
 // U — text column wrapper.
 const HERO_LEFT_CLASS = "relative z-[4]";
-
-// U — eyebrow pill above headline. Inline-flex with accent dot + label;
-// translucent white bg + 8px backdrop-blur. Grows from a 9px/tight
-// pill at mobile to an 11px pill with looser tracking at sm+.
-const EYEBROW_CLASS =
-  "inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 border border-line-strong rounded-full text-[9px] font-medium tracking-[0.1em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] backdrop-blur-[8px] mb-[18px] " +
-  "sm:gap-2.5 sm:pl-3 sm:pr-3.5 sm:py-2 sm:text-[11px] sm:tracking-[0.12em] sm:mb-8";
-
-// U — accent dot inside the eyebrow with subtle glow. 5px at mobile,
-// 6px at sm+.
-const EYEBROW_DOT_CLASS =
-  "w-[5px] h-[5px] rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)] sm:w-1.5 sm:h-1.5";
-
-// U — separator + emphasized text inside the eyebrow.
-const EYEBROW_SEP_CLASS = "text-ink-3 -mx-0.5";
-const EYEBROW_EM_CLASS = "text-accent font-semibold";
 
 // T — H1 sizing handled by <H1 variant="hp"> primitive. This class
 // covers ONLY the bits that aren't shared with other H1 variants:
@@ -101,11 +84,6 @@ const LEDE_CLASS =
 // U — features grid. Mobile is a single-column bordered card with
 // backdrop bg. From sm+ the card chrome strips off and the grid
 // becomes 2-col; gaps and width cap grow at >1080 / 2xl.
-const FEATURES_CLASS =
-  "grid grid-cols-1 gap-2.5 mb-[22px] max-w-full px-4 py-3.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
-  "sm:grid-cols-2 sm:gap-x-3.5 sm:gap-y-2 sm:mb-[26px] sm:px-0 sm:py-0 sm:border-0 sm:rounded-none sm:bg-transparent " +
-  "min-[1081px]:max-w-[460px] min-[1081px]:gap-x-[18px] min-[1081px]:gap-y-2.5 " +
-  "2xl:max-w-[480px] 2xl:gap-x-6 2xl:gap-y-3 2xl:mb-9";
 
 // U — individual feature row.
 const FEAT_CLASS =
@@ -180,42 +158,6 @@ const DEVICE_GRID_CLASS =
   "[mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)] " +
   "[-webkit-mask:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent_70%)]";
 
-// U — floating pill annotation on the device. Uses --animate-float
-// (keyframe in hero-effects.css). Hidden on mobile, smaller pill at
-// sm/lg/xl, full-size pill at 2xl. Per-pill positioning + animation
-// staggering applied via inline styles below.
-const DEVICE_TAG_CLASS =
-  "hidden absolute z-[5] px-[11px] py-1.5 backdrop-blur-[12px] border border-line-strong rounded-full text-[10px] font-medium text-ink items-center gap-2 tracking-[0.02em] " +
-  "bg-[oklch(0.22_0.008_60_/_0.85)] shadow-[0_4px_16px_oklch(0_0_0_/_0.4)] animate-float " +
-  "sm:inline-flex " +
-  "2xl:text-[11px] 2xl:px-3.5 2xl:py-2";
-
-// U — per-instance position + animation-delay for each of the 3 tags.
-// At <=1080 the two outer tags shift slightly inward; the middle tag
-// is hidden until 2xl.
-const DEVICE_TAG_POSITIONS: { style: React.CSSProperties; className: string }[] = [
-  {
-    style: { top: "12%", left: "2%", animationDelay: "0s" },
-    className: "!top-[8%] !left-[2%] min-[1081px]:!left-[4%] 2xl:!top-[12%] 2xl:!left-[2%]",
-  },
-  {
-    style: { top: "22%", left: "60%", animationDelay: "-2s" },
-    className: "sm:!hidden 2xl:!inline-flex",
-  },
-  {
-    style: { bottom: "28%", left: "40%", animationDelay: "-4s" },
-    className: "!bottom-[22%] !left-[36%] min-[1081px]:!left-[38%] 2xl:!bottom-[28%] 2xl:!left-[40%]",
-  },
-];
-
-// U — 6px accent dot inside a device-tag.
-const DT_DOT_CLASS =
-  "w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_6px_var(--color-accent)]";
-
-// U — small mono text suffix inside a device-tag; .dt-good variant
-// tints the same span accent.
-const DT_MINI_CLASS = "font-mono text-[10px] text-ink-3";
-const DT_GOOD_CLASS = "text-accent";
 
 // U — mockup wrapper: absolute, centered, transparent overflow for
 // the glow halo, no pointer events so floating tags above stay clickable.
@@ -430,7 +372,6 @@ export type HeroEditorialProps = {
 };
 
 export function HeroEditorial({
-  eyebrow = { label: "САЙТИ ДЛЯ МЕДИЧНОЇ ГАЛУЗІ", em: formatPrice(2500, { locale: "uk", withPrefix: true }) },
   h1Lines = [
     <>Клініка, до якої</>,
     <>
@@ -445,12 +386,6 @@ export function HeroEditorial({
       центрів. Запуск за <em>4–6 тижнів</em>, гарантія 1 рік.
     </>
   ),
-  features = [
-    { label: "Онлайн-запис", sub: "за 2 кліки" },
-    { label: "Локальне SEO", sub: "під район" },
-    { label: "Інтеграція CRM", sub: "Bitrix · AmoCRM" },
-    { label: "Юр. коректно", sub: "за вимогами МОЗ" },
-  ],
   ctaPrimaryLabel = "Обговорити мій проєкт",
   ctaPrimaryHref,
   ctaSecondaryLabel = "Подивитися кейси клінік",
@@ -472,11 +407,6 @@ export function HeroEditorial({
     "Реабілітація",
     "Лабораторії",
   ],
-  deviceTags = [
-    { kind: "default", primary: "Онлайн-запис" },
-    { kind: "default", primary: "Адаптив", mini: "100/100" },
-    { kind: "good", primary: "Lighthouse", mini: "98" },
-  ],
   deviceMockupSrc,
   deviceMockupWidth,
   deviceMockupHeight,
@@ -492,17 +422,6 @@ export function HeroEditorial({
       <div className={HERO_SHELL_CLASS}>
         <div className={HERO_GRID_CLASS} data-variant={variant}>
           <div className={HERO_LEFT_CLASS}>
-            <div className={EYEBROW_CLASS}>
-              <span className={EYEBROW_DOT_CLASS} />
-              <span>{eyebrow.label}</span>
-              {eyebrow.em ? (
-                <>
-                  <span className={EYEBROW_SEP_CLASS}>/</span>
-                  <span className={EYEBROW_EM_CLASS}>{eyebrow.em}</span>
-                </>
-              ) : null}
-            </div>
-
             <H1 variant="hp" className={HERO_H1_CLASS} data-speakable="hero-title">
               {h1Lines.map((line, i) => (
                 <span key={i} className={H1_LINE_CLASS}>
@@ -520,12 +439,6 @@ export function HeroEditorial({
             </H1>
 
             <p className={LEDE_CLASS} data-speakable="hero-description">{lede}</p>
-
-            <div className={FEATURES_CLASS}>
-              {features.map((f) => (
-                <FeatureChip key={f.label} label={f.label} sub={f.sub} />
-              ))}
-            </div>
 
             <div className={CTA_ROW_CLASS}>
               <Link href={ctaPrimaryHref} className={btnClass("primary")}>
@@ -578,27 +491,6 @@ export function HeroEditorial({
                 width={deviceMockupWidth}
                 height={deviceMockupHeight}
               />
-              {deviceTags.map((t, i) => {
-                const pos = DEVICE_TAG_POSITIONS[i] ?? DEVICE_TAG_POSITIONS[0];
-                return (
-                  <div
-                    key={i}
-                    className={`${DEVICE_TAG_CLASS} ${pos.className}`}
-                    // eslint-disable-next-line react/forbid-dom-props -- per-pill top/left/animation-delay are dynamic position offsets that cannot be expressed as static utilities
-                    style={pos.style}
-                  >
-                    {i === 0 && <span className={DT_DOT_CLASS} />}
-                    <span>{t.primary}</span>
-                    {t.mini && (
-                      <span
-                        className={`${DT_MINI_CLASS}${t.kind === "good" ? ` ${DT_GOOD_CLASS}` : ""}`}
-                      >
-                        {t.mini}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
             </div>
           </div>
         </div>

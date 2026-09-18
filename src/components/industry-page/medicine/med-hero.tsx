@@ -56,14 +56,12 @@ export function MedHero({
   kpiValue,
   kpiLabel,
   lede,
-  features,
   ctaPrimaryLabel,
   ctaPrimaryHref,
   ctaSecondaryLabel,
   ctaSecondaryHref,
   stats,
   tickerItems,
-  deviceTags,
   deviceMockupImage,
   deviceMockupAlt,
 }: {
@@ -107,7 +105,7 @@ export function MedHero({
                 </span>
               ))}
               {h1Accent ? (
-                <span className="block bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] bg-clip-text text-balance text-transparent">
+                <span className="mt-3 block bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] bg-clip-text text-[0.46em] leading-[1.1] tracking-[-0.02em] text-balance text-transparent sm:mt-4">
                   {h1Accent}
                 </span>
               ) : null}
@@ -133,30 +131,6 @@ export function MedHero({
               >
                 {lede}
               </p>
-            ) : null}
-
-            {/* Spec grid — ruled cells, mono captions. Replaces the four
-                identical check-chips. */}
-            {features?.length ? (
-              <dl className="mt-7 grid max-w-[560px] grid-cols-2 gap-x-6 gap-y-0 sm:mt-8">
-                {features.map((f, i) => (
-                  <div
-                    key={f.label}
-                    className={`border-line py-3 ${i < 2 ? "border-b" : ""} ${
-                      i % 2 === 0 ? "sm:pr-6" : ""
-                    }`}
-                  >
-                    <dt className="font-sans text-[13px] font-semibold leading-[1.25] text-ink">
-                      {f.label}
-                    </dt>
-                    {f.sub ? (
-                      <dd className="m-0 mt-1 font-mono text-[10.5px] leading-[1.35] text-ink-3">
-                        {f.sub}
-                      </dd>
-                    ) : null}
-                  </div>
-                ))}
-              </dl>
             ) : null}
 
             <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
@@ -206,28 +180,6 @@ export function MedHero({
 
               <DeviceMockup image={deviceMockupImage} alt={deviceMockupAlt} />
 
-              {deviceTags?.map((t, i) => (
-                <div
-                  key={i}
-                  className={`animate-float absolute z-[5] hidden items-center gap-2 rounded-full border border-line-strong bg-[oklch(0.22_0.008_60_/_0.85)] px-3 py-1.5 text-[10.5px] font-medium tracking-[0.02em] text-ink shadow-[0_4px_16px_oklch(0_0_0_/_0.4)] backdrop-blur-[12px] sm:inline-flex ${TAG_POS[i] ?? TAG_POS[0]}`}
-                  // eslint-disable-next-line react/forbid-dom-props -- per-pill float offset staggers the shared keyframe
-                  style={{ animationDelay: `${i * -2}s` }}
-                >
-                  {i === 0 ? (
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_6px_var(--color-accent)]" />
-                  ) : null}
-                  <span>{t.primary}</span>
-                  {t.mini ? (
-                    <span
-                      className={`font-mono text-[10px] ${
-                        t.kind === "good" ? "text-[var(--med-vital)]" : "text-ink-3"
-                      }`}
-                    >
-                      {t.mini}
-                    </span>
-                  ) : null}
-                </div>
-              ))}
             </div>
           </div>
         </div>
@@ -259,10 +211,3 @@ export function MedHero({
     </div>
   );
 }
-
-/** Float-pill placements over the device; the middle one waits for 2xl. */
-const TAG_POS = [
-  "top-[9%] left-[1%] xl:left-[3%]",
-  "top-[24%] left-[58%] sm:hidden 2xl:inline-flex",
-  "bottom-[24%] left-[38%]",
-];

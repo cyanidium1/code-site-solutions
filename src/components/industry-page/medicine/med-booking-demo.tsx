@@ -261,10 +261,6 @@ export function MedBookingDemo({ locale }: { locale: Locale }) {
       <div className="relative mx-auto max-w-container">
         {/* ── Heading, full width ─────────────────────────────────────── */}
         <div className="mb-3 flex flex-wrap items-center gap-3">
-          <span className="med-label">
-            <span className="h-1 w-1 rounded-full bg-accent" />
-            {c.eyebrow}
-          </span>
           <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
             {c.tryNote}
           </span>
