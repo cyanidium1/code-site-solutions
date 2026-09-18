@@ -106,12 +106,15 @@ export function MedCapabilities({
         </ScrollReveal>
 
         <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,470px)] lg:gap-14">
-          {/* Ruled specification list */}
+          {/* Ruled specification list. Phones: the first three capabilities
+              with two lines each, the rest behind ONE "show more" — it used
+              to be a "show more" under every item, six in a row. */}
+          <PhoneMore>
           <div className="border-t border-line">
-            {capabilities?.map((cap) => (
+            {capabilities?.map((cap, i) => (
               <ScrollReveal
                 key={cap.title}
-                className="med-reveal grid grid-cols-1 gap-x-8 gap-y-3 border-b border-line py-6 sm:grid-cols-[minmax(0,210px)_minmax(0,1fr)]"
+                className={`med-reveal grid grid-cols-1 gap-x-8 gap-y-3 border-b border-line py-6 sm:grid-cols-[minmax(0,210px)_minmax(0,1fr)] ${i >= 3 ? "pm-extra" : ""}`}
               >
                 <div className="flex items-start gap-3">
                   <span className="mt-px shrink-0 text-accent-soft [&_svg]:h-[18px] [&_svg]:w-[18px]">
@@ -121,8 +124,7 @@ export function MedCapabilities({
                     {cap.title}
                   </h3>
                 </div>
-                <PhoneMore>
-<ul className="pm-cap-2 m-0 flex list-none flex-col gap-2 p-0">
+                <ul className="pm-cap-2 m-0 flex list-none flex-col gap-2 p-0">
                   {cap.items.map((it, j) => (
                     <li
                       key={j}
@@ -132,13 +134,15 @@ export function MedCapabilities({
                     </li>
                   ))}
                 </ul>
-</PhoneMore>
               </ScrollReveal>
             ))}
           </div>
+          </PhoneMore>
 
           {/* The artwork the list is administered from */}
-          <div className="lg:sticky lg:top-24 lg:self-start">
+          {/* Decorative drawing of the admin — desktop only; on phones it was
+              a screen of skeleton bars between the list and the integrations. */}
+          <div className="max-lg:hidden lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-[18px] border border-line bg-[var(--med-panel)] p-3 shadow-[0_0_70px_oklch(from_var(--color-accent)_l_c_h_/_0.1)]">
               <MedAdminArt />
             </div>
@@ -152,7 +156,6 @@ export function MedCapabilities({
         {integrations?.length ? (
           <div className="mt-16 lg:mt-24">
             <ScrollReveal className="med-reveal">
-              <span className="med-label mb-4">{bus.label}</span>
               <div className="grid grid-cols-1 gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:items-end">
                 {integrationsHeading ? (
                   <h2 className="m-0 max-w-[18ch] font-actay text-[clamp(22px,2.8vw,36px)] font-bold uppercase leading-[1.1] text-ink [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent">

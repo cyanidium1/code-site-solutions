@@ -103,6 +103,7 @@ const LABELS: Record<
     articlesAll: string;
     nicheCasesEyebrow: string;
     nicheCasesHeading: string;
+    nicheCasesMixedHeading: string;
     nicheCasesAll: string;
     minRead: (n: number) => string;
   }
@@ -116,6 +117,7 @@ const LABELS: Record<
     articlesAll: "Всі статті",
     nicheCasesEyebrow: "ПОРТФОЛІО",
     nicheCasesHeading: "Кейси в цій ніші",
+    nicheCasesMixedHeading: "Наші кейси",
     nicheCasesAll: "Всі кейси",
     minRead: (n) => `${n} хв читання`,
   },
@@ -128,6 +130,7 @@ const LABELS: Record<
     articlesAll: "All articles",
     nicheCasesEyebrow: "PORTFOLIO",
     nicheCasesHeading: "Case studies in this niche",
+    nicheCasesMixedHeading: "Our case studies",
     nicheCasesAll: "All case studies",
     minRead: (n) => `${n} min read`,
   },
@@ -140,6 +143,7 @@ const LABELS: Record<
     articlesAll: "Все статьи",
     nicheCasesEyebrow: "ПОРТФОЛИО",
     nicheCasesHeading: "Кейсы в этой нише",
+    nicheCasesMixedHeading: "Наши кейсы",
     nicheCasesAll: "Все кейсы",
     minRead: (n) => `${n} мин чтения`,
   },
@@ -744,6 +748,9 @@ function SectionBlock({
       return (
         <Comparison
           locale={locale}
+          // Medicine shows its price twice above this block (MedPricing and
+          // the calculator); on phones the third copy folds away.
+          foldTiersOnPhones={slug === "medicine"}
           tableHeading={formatLine(loc(section.heading, locale)) || undefined}
           tableLabels={
             section.columns
@@ -957,10 +964,22 @@ export async function IndustryPageView({
     }).catch(() => null),
     getContentRegistrySafe(),
   ]);
-  const nicheCases = (allCaseRefs ?? [])
+  const ownCases = (allCaseRefs ?? [])
     .filter((c) => c.industrySlug === page.slug)
     .filter((c) => hasLocaleContent(c, locale))
     .slice(0, 3);
+  // A niche with one or two cases left a lone card and two empty columns on
+  // desktop. Top the row up to three with other niches' cases and drop the
+  // "in this niche" claim from the heading when we do.
+  const nicheCases = ownCases.length > 0 && ownCases.length < 3
+    ? [
+        ...ownCases,
+        ...(allCaseRefs ?? [])
+          .filter((c) => c.industrySlug !== page.slug && hasLocaleContent(c, locale))
+          .slice(0, 3 - ownCases.length),
+      ]
+    : ownCases;
+  const nicheCasesMixed = nicheCases.length > ownCases.length;
 
   // Industry mini-calculator (reuses the site-type MiniCalc). Rendered right
   // after the pricing/comparison section when one exists, otherwise after
@@ -1076,7 +1095,7 @@ export async function IndustryPageView({
           <div className="max-w-container mx-auto">
             <div className="mb-10">
               <h2 className="mt-0 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
-                {LABELS[locale].nicheCasesHeading}
+                {nicheCasesMixed ? LABELS[locale].nicheCasesMixedHeading : LABELS[locale].nicheCasesHeading}
               </h2>
             </div>
             <div className={casesRailClass}>

@@ -184,6 +184,7 @@ export function Comparison({
   tiers = DEFAULT_TIERS,
   contactSource = "comparison-contact",
   locale = "uk",
+  foldTiersOnPhones = false,
 }: Partial<{
   tableHeading: React.ReactNode;
   tableLabels: string[];
@@ -205,6 +206,9 @@ export function Comparison({
   tiers: TierProps[];
   contactSource: string;
   locale: Locale;
+  /** Fold the price tiers behind "show more" on phones — for pages that
+      already show the price higher up (medicine: MedPricing + calculator). */
+  foldTiersOnPhones: boolean;
 }> = {}) {
   const [form, setForm] = useState({ name: "", channel: "", brief: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -356,11 +360,21 @@ export function Comparison({
 
         <H2 variant="comparison" className={CMP_H2_EXTRA}>{pricingHeading}</H2>
 
-        <CmpPricingGrid>
-          {tiers.map((t, i) => (
-            <Tier key={i} {...t} compact />
-          ))}
-        </CmpPricingGrid>
+        {foldTiersOnPhones ? (
+          <PhoneMore label={SHOW_MORE_LABEL[locale]}>
+            <CmpPricingGrid className="pm-extra">
+              {tiers.map((t, i) => (
+                <Tier key={i} {...t} compact />
+              ))}
+            </CmpPricingGrid>
+          </PhoneMore>
+        ) : (
+          <CmpPricingGrid>
+            {tiers.map((t, i) => (
+              <Tier key={i} {...t} compact />
+            ))}
+          </CmpPricingGrid>
+        )}
       </div>
     </section>
   );
