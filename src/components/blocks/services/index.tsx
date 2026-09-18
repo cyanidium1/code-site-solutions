@@ -19,7 +19,6 @@ const SVC_SUB_BASE =
   "text-[13px] leading-[1.65] text-ink-dim text-pretty md:text-[15px] [&_em]:not-italic [&_em]:text-ink [&_em]:font-medium";
 
 export function Services({
-  testimonialEyebrow = "",
   testimonialQuote,
   testimonialAuthorInitials,
   testimonialAuthorName,
@@ -83,10 +82,6 @@ export function Services({
             </div>
           ) : null}
           <div className={hasVisual ? "flex flex-col" : "flex flex-col items-center"}>
-            <div className={`inline-flex ${hasVisual ? "self-start" : ""} items-center gap-2.5 pl-2.5 pr-[11px] py-1.5 border border-line-strong rounded-full text-[9px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-[22px] md:pl-3 md:pr-3.5 md:py-[7px] md:text-[11px] md:mb-7`}>
-              <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
-              <span>{testimonialEyebrow}</span>
-            </div>
             <div className="font-display font-bold text-[44px] leading-none text-accent-soft mb-[18px] md:text-[56px]">
               &quot;
             </div>

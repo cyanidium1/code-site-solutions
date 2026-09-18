@@ -238,9 +238,11 @@ export function Comparison({
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className={CMP_H2_EXTRA}>{tableHeading}</H2>
 
-        {/* Phones: first four rows (the table was 4–5 screens); the full
-            comparison lives one tap away on /vs-wordpress. */}
-        <PhoneMore label={SHOW_MORE_LABEL[locale]} className="mb-8" labelClassName="mt-0 rounded-t-none border-t-0">
+        {/* Phones: first three rows, and the two "full comparison" links fold
+            in with the rest of the table — on the niche pages this block was
+            the longest photo-less stretch (density check 2026-09-18). The
+            links stay in the HTML for crawlers. */}
+        <PhoneMore label={SHOW_MORE_LABEL[locale]} className="mb-14 md:mb-20 xl:mb-[120px]" labelClassName="mt-0 rounded-t-none border-t-0">
         <div className="border border-line rounded-[14px] overflow-hidden bg-[oklch(0.155_0.005_300)] md:rounded-[18px]">
           <CmpTable>
             <CmpThead>
@@ -251,16 +253,14 @@ export function Comparison({
                 <CmpTh good>{tableLabels[3]}</CmpTh>
               </tr>
             </CmpThead>
-            <tbody className="pm-cap-4">
+            <tbody className="pm-cap-3">
               {rows.map((r, i) => (
                 <TableRow key={i} {...r} labels={tableLabels} />
               ))}
             </tbody>
           </CmpTable>
         </div>
-        </PhoneMore>
-
-        <div className="flex flex-col gap-2.5 flex-wrap mb-14 md:flex-row md:gap-3 md:mb-20 xl:mb-[120px]">
+        <div className="pm-extra mt-8 flex flex-col gap-2.5 flex-wrap md:flex-row md:gap-3">
           {tableCtaPrimaryHref ? (
             <Link
               href={tableCtaPrimaryHref}
@@ -286,6 +286,7 @@ export function Comparison({
             </button>
           )}
         </div>
+        </PhoneMore>
 
         <div className={`max-lg:hidden relative px-[22px] py-9 mb-14 border border-line-strong rounded-[18px] overflow-hidden text-center md:px-8 md:py-12 md:mb-20 md:rounded-3xl xl:px-12 xl:py-16 xl:mb-[120px] ${CMP_CONTACT_BG}`}>
           <div className="max-w-[560px] mx-auto">

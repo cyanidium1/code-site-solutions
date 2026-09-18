@@ -71,6 +71,7 @@ import {
   plainPortable,
   formatLine,
 } from "@/lib/shared/sanity-portable";
+import { AppImage } from "@/lib/shared/app-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import { pickLocalized } from "@/lib/shared/pick-localized";
@@ -899,6 +900,25 @@ const FOLD_CALC_LABEL: Record<Locale, string> = {
   en: "Build your configuration",
 };
 
+/* Caption for the one photo on the medicine page (a real client site). */
+const MED_CASE_FIGURE: Record<Locale, { alt: string; caption: string; link: string }> = {
+  uk: {
+    alt: "Сайт клініки Efedra, зроблений Code-Site.Art, на ноутбуці",
+    caption: "Клініка Efedra в Одесі: два напрями, онлайн-запис і адмінка, якою користуються без розробника. За 6 місяців — 1 460 переходів із Google проти 340.",
+    link: "дивитись кейс",
+  },
+  ru: {
+    alt: "Сайт клиники Efedra, сделанный Code-Site.Art, на ноутбуке",
+    caption: "Клиника Efedra в Одессе: два направления, онлайн-запись и админка, которой пользуются без разработчика. За 6 месяцев — 1 460 переходов из Google против 340.",
+    link: "смотреть кейс",
+  },
+  en: {
+    alt: "The Efedra clinic website, built by Code-Site.Art, on a laptop",
+    caption: "Efedra clinic in Odesa: two service lines, online booking and a CMS the team runs without a developer. In 6 months — 1,460 Google clicks, up from 340.",
+    link: "see the case",
+  },
+};
+
 export async function IndustryPageView({
   slug,
   locale,
@@ -1046,6 +1066,57 @@ export async function IndustryPageView({
       }
     : undefined;
 
+  // Real case covers. On phones the niche pages ran 7+ screens of text
+  // (services → comparison → calculator → FAQ → audit) before the first
+  // photo, so the cases now sit right after the services block
+  // (density check 2026-09-18); pages without one keep them at the end.
+  const nicheCasesSection =
+    nicheCases.length > 0 ? (
+        <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
+          <div className="max-w-container mx-auto">
+            <div className="mb-10">
+              <h2 className="mt-0 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
+                {LABELS[locale].nicheCasesHeading}
+              </h2>
+            </div>
+            <div className={casesRailClass}>
+              {nicheCases.map((r) => {
+                const item = caseRefToCardItem(r, locale, registry);
+                const metaLine = [item.industry, item.region, item.year]
+                  .filter(Boolean)
+                  .join(" · ");
+                return (
+                  <RelatedCard
+                    key={r._id}
+                    metrics={item.chips}
+                    title={item.name}
+                    eyebrow={metaLine || undefined}
+                    sub={item.metrics || undefined}
+                    coverImage={
+                      item.coverImage
+                        ? {
+                            src: item.coverImage,
+                            alt: item.coverImageAlt ?? item.name,
+                          }
+                        : undefined
+                    }
+                    gradient={item.gradient}
+                    href={item.href}
+                  />
+                );
+              })}
+            </div>
+            <a
+              href={resolveRootHref("/portfolio", locale)}
+              className="inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40"
+            >
+              {LABELS[locale].nicheCasesAll}
+            </a>
+          </div>
+        </section>
+    ) : null;
+  const casesAfterServices = Boolean(page.sections?.some((x) => x._type === "servicesBlock"));
+
   return (
     <>
       <JsonLd data={jsonLd} />
@@ -1163,6 +1234,29 @@ export async function IndustryPageView({
               page start making its case. */}
           <MedPricing locale={locale} calcHref="#calc" />
           <MedPatientFlow locale={locale} />
+          {/* One real screenshot in the middle of the page: the medicine page
+              ran 10 phone screens of text and code-graphics without a photo
+              (density check 2026-09-18). Generated imagery is off-limits here
+              (medicine design lock), so this is the clinic site we built. */}
+          <section className="bg-bg px-6 sm:px-8 lg:px-12 py-10 lg:py-14">
+            <figure className="m-0 mx-auto flex max-w-container flex-col gap-4 lg:flex-row lg:items-center lg:gap-10">
+              <AppImage
+                src="/services/laptop-efedra-v2.webp"
+                alt={MED_CASE_FIGURE[locale].alt}
+                width={1600}
+                height={1000}
+                sizes={IMG_SIZES.half}
+                className="block h-auto w-full rounded-[22px] border border-line lg:w-1/2"
+              />
+              <figcaption className="m-0 font-sans text-[14.5px] leading-[1.6] text-ink-dim lg:w-1/2">
+                {MED_CASE_FIGURE[locale].caption}{" "}
+                <Link href={localizePath("/portfolio/efedra-clinic", locale)} className="rich-link">
+                  {MED_CASE_FIGURE[locale].link}
+                </Link>
+              </figcaption>
+            </figure>
+          </section>
+
           {locale === DEFAULT_LOCALE ? (
             /* Підсторінки медицини існують лише в основній локалі.
                Блок писався 21.08, коли їх було дві. Три наступні (дизайн,
@@ -1211,54 +1305,12 @@ export async function IndustryPageView({
             slug={page.slug}
           />
           {section._type === calcAfterType ? calcSection : null}
+          {casesAfterServices && section._type === "servicesBlock" ? nicheCasesSection : null}
         </Fragment>
       ))}
       {!hasCalcAnchor ? calcSection : null}
 
-      {nicheCases.length > 0 ? (
-        <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
-          <div className="max-w-container mx-auto">
-            <div className="mb-10">
-              <h2 className="mt-0 mb-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
-                {LABELS[locale].nicheCasesHeading}
-              </h2>
-            </div>
-            <div className={casesRailClass}>
-              {nicheCases.map((r) => {
-                const item = caseRefToCardItem(r, locale, registry);
-                const metaLine = [item.industry, item.region, item.year]
-                  .filter(Boolean)
-                  .join(" · ");
-                return (
-                  <RelatedCard
-                    key={r._id}
-                    metrics={item.chips}
-                    title={item.name}
-                    eyebrow={metaLine || undefined}
-                    sub={item.metrics || undefined}
-                    coverImage={
-                      item.coverImage
-                        ? {
-                            src: item.coverImage,
-                            alt: item.coverImageAlt ?? item.name,
-                          }
-                        : undefined
-                    }
-                    gradient={item.gradient}
-                    href={item.href}
-                  />
-                );
-              })}
-            </div>
-            <a
-              href={resolveRootHref("/portfolio", locale)}
-              className="inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40"
-            >
-              {LABELS[locale].nicheCasesAll}
-            </a>
-          </div>
-        </section>
-      ) : null}
+      {casesAfterServices ? null : nicheCasesSection}
 
       {clusterPostsForLocale.length > 0 ? (
         <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg">
