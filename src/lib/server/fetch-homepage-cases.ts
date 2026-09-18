@@ -21,12 +21,14 @@ const EMPTY: HomepageCasesData = {
 
 /**
  * Drops nulls produced by GROQ dereferencing an unpublished/deleted
- * case-study reference. Returns up to 3 entries, matching the schema's
- * Rule.max(3) (defensive in case validation is bypassed).
+ * case-study reference. Returns up to 4 entries: three are shown on phones
+ * and desktops, and the 4th only while the grid is two columns wide — a
+ * tablet in portrait, where three cards leave a lone card in the second row
+ * (owner, 2026-09-18). See `CardGrid` in homepage/cases-grid-and-filters.
  */
 function normalize(list: CaseStudyRef[] | null | undefined): CaseStudyRef[] {
   if (!list) return [];
-  return list.filter((c): c is CaseStudyRef => Boolean(c && c.slug)).slice(0, 3);
+  return list.filter((c): c is CaseStudyRef => Boolean(c && c.slug)).slice(0, 4);
 }
 
 /**
@@ -52,7 +54,7 @@ export async function fetchHomepageCases(): Promise<HomepageCasesData> {
   const def = normalize(raw?.default);
 
   const fallbackDefault =
-    def.length === 0 ? (await fetchCaseStudies()).slice(0, 3) : def;
+    def.length === 0 ? (await fetchCaseStudies()).slice(0, 4) : def;
 
   return {
     ...EMPTY,

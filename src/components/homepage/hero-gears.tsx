@@ -168,36 +168,49 @@ function GearGeometry({ gear }: { gear: Gear }) {
   );
 }
 
+// The clip layer is the hero shell's own box (inset-0), so the gears bleed
+// past the viewport edge visually but never contribute scrollable width.
+// The body's `overflow-x: clip` is not enough on phones: mobile browsers
+// grow the layout viewport to fit overflowing content before the body clip
+// applies — at 390px the page became 492px wide, scrolled sideways, and the
+// burger drawer opened 102px off to the right (owner report, 2026-09-19).
+// `overflow-x-clip`, not `hidden`: it clips one axis without turning the
+// layer into a scroll container, so the gears may still rise above it.
+const CLIP_LAYER_CLASS =
+  "pointer-events-none absolute inset-0 z-[-2] overflow-x-clip";
+
 export function HeroGears({ className = "" }: { className?: string }) {
   return (
-    <div className={`hero-gears ${className}`} aria-hidden="true">
-      <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} fill="none" focusable="false">
-        <defs>
+    <div className={CLIP_LAYER_CLASS} aria-hidden="true">
+      <div className={`hero-gears ${className}`}>
+        <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} fill="none" focusable="false">
+          <defs>
+            {GEARS.map((g) => (
+              <GearGeometry key={g.id} gear={g} />
+            ))}
+          </defs>
           {GEARS.map((g) => (
-            <GearGeometry key={g.id} gear={g} />
+            <g
+              key={g.id}
+              className="hero-gear"
+              // Per-gear duration, direction and centre of rotation: three
+              // values that differ for every wheel and are computed from the
+              // gear train above, so they cannot be Tailwind utilities.
+              // eslint-disable-next-line react/forbid-dom-props
+              style={
+                {
+                  "--gear-dur": `${g.durationSec}s`,
+                  animationDirection: g.reverse ? "reverse" : "normal",
+                  transformOrigin: `${r2(g.cx)}px ${r2(g.cy)}px`,
+                } as React.CSSProperties
+              }
+            >
+              <use href={`#hero-gear-${g.id}`} className="hero-gear-halo" />
+              <use href={`#hero-gear-${g.id}`} className="hero-gear-line" />
+            </g>
           ))}
-        </defs>
-        {GEARS.map((g) => (
-          <g
-            key={g.id}
-            className="hero-gear"
-            // Per-gear duration, direction and centre of rotation: three
-            // values that differ for every wheel and are computed from the
-            // gear train above, so they cannot be Tailwind utilities.
-            // eslint-disable-next-line react/forbid-dom-props
-            style={
-              {
-                "--gear-dur": `${g.durationSec}s`,
-                animationDirection: g.reverse ? "reverse" : "normal",
-                transformOrigin: `${r2(g.cx)}px ${r2(g.cy)}px`,
-              } as React.CSSProperties
-            }
-          >
-            <use href={`#hero-gear-${g.id}`} className="hero-gear-halo" />
-            <use href={`#hero-gear-${g.id}`} className="hero-gear-line" />
-          </g>
-        ))}
-      </svg>
+        </svg>
+      </div>
     </div>
   );
 }

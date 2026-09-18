@@ -68,12 +68,9 @@ function useDialogSync(
     dialog.setAttribute("data-closing", "");
     closeTimer.current = setTimeout(() => {
       closeTimer.current = null;
-      // `data-closing` НЕ знімаємо тут. У переході є `overlay` з
-      // allow-discrete, тож після close() елемент ще лишається у top layer
-      // на час анімації. Якщо зняти атрибут до close(), панель на цей час
-      // повертається у видимий стан — і користувач бачить, як меню блимає
-      // вже після того, як закрив його. Атрибут знімає обробник `close`,
-      // коли ховати вже нічого.
+      // `data-closing` stays until the next open (cleared right before
+      // showModal()), so nothing can put the panel back in view between
+      // close() and display:none. See EXIT_TRANSITION_NOTE.
       dialog.close();
     }, exitMs);
   }, [ref, exitMs]);
@@ -102,12 +99,8 @@ function useDialogSync(
       e.preventDefault();
       requestClose();
     };
-    // Native close (any path) → report state up.
-    // `data-closing` stays on after close: the `overlay`/`display` exit
-    // transition keeps the panel in the top layer for another exitMs, and
-    // dropping the attribute here slid the drawer back into view for that
-    // long (owner report 2026-09-18: menu closes, reappears, vanishes). The
-    // open branch above clears it right before showModal().
+    // Native close (any path) → report state up. `data-closing` is left on
+    // (see requestClose); the open branch clears it before showModal().
     const onClose = () => {
       if (locked.current) {
         locked.current = false;
@@ -141,6 +134,26 @@ function useDialogSync(
 
   return { onBackdropClick, requestClose, isPresent };
 }
+
+/* EXIT_TRANSITION_NOTE — why `display` / `overlay` are NOT in the transition
+   lists below (owner, repeatedly, last on 2026-09-19: "меню закрывается,
+   бликает, потом снова").
+
+   The exit already runs in full before close(): `data-closing` slides the
+   panel out (or fades the modal) and requestClose() calls close() only
+   after exitMs. Transitioning `display` + `overlay` with allow-discrete on
+   top of that made the element linger for ANOTHER exitMs after close(),
+   and what it looks like during that lingering phase depends on the
+   browser: Safari has no `overlay` property, so the dialog leaves the top
+   layer at once but keeps `display: flex` — it re-renders as an ordinary
+   positioned <dialog> in the page for 300ms, which is the second flash.
+   Earlier fixes (keeping data-closing on after close) patched one browser
+   and left the other.
+
+   Without them: the entry still animates (@starting-style needs no
+   discrete transition when display goes none → flex), and at close() the
+   panel — already off-screen / transparent — goes straight to
+   display:none. There is no post-close phase left to flash. */
 
 export type DialogClassNames = {
   base?: string;
@@ -176,8 +189,9 @@ const MODAL_BASE =
   "rounded-[22px] border border-line bg-[oklch(0.13_0.005_300)] text-ink p-0 " +
   // display:flex only while open — <dialog> must stay display:none when closed.
   "open:flex " +
-  // Entry/exit: fade + slight scale. @starting-style drives the entry.
-  "opacity-100 scale-100 transition-[opacity,transform,display,overlay] duration-200 transition-discrete " +
+  // Entry/exit: fade + slight scale. @starting-style drives the entry; the
+  // exit is timed in JS (see EXIT_TRANSITION_NOTE below the hook).
+  "opacity-100 scale-100 transition-[opacity,transform] duration-200 " +
   "starting:opacity-0 starting:scale-95 " +
   "data-[closing]:opacity-0 data-[closing]:scale-95 " +
   "backdrop:transition-opacity backdrop:duration-200 starting:backdrop:opacity-0 data-[closing]:backdrop:opacity-0 " +
@@ -275,7 +289,7 @@ const DRAWER_BASE =
   "me-0 ms-auto mt-0 mb-0 h-dvh max-h-dvh w-screen max-w-[420px] " +
   "flex-col rounded-none border-0 border-l border-line bg-bg text-ink p-0 " +
   "open:flex " +
-  "translate-x-0 transition-[translate,transform,display,overlay] duration-300 ease-out transition-discrete " +
+  "translate-x-0 transition-[translate,transform] duration-300 ease-out " +
   "starting:translate-x-full " +
   "data-[closing]:translate-x-full " +
   "backdrop:transition-opacity backdrop:duration-300 starting:backdrop:opacity-0 data-[closing]:backdrop:opacity-0 " +

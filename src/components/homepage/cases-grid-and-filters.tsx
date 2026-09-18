@@ -69,9 +69,30 @@ const INDUSTRY_ORDER: readonly IndustryKey[] = [
   "real-estate",
 ] as const;
 
+/* Homepage-only grid override (owner, 2026-09-18: "на планшетной версии 4
+   кейса, а на телефоне и компе по-прежнему 3").
+
+   The shared rail switches to three columns at lg (800), which lands every
+   portrait tablet — iPad mini 744, iPad 810/820, iPad Pro 11" 834 — in a
+   two-column grid holding an odd number of cards, i.e. a lone card in the
+   second row. Here the two-column band runs to 900 instead, and a 4th card
+   fills it out; from 900 up the row is three cards again and the 4th is
+   dropped, as it is on the phone rail. Nothing outside the homepage
+   changes: `case-strip`, the industry pages and the landing template keep
+   the shared class.
+
+   `cn` is what makes the override work — twMerge drops the shared
+   `lg:grid-cols-3` in favour of `lg:grid-cols-2`; plain concatenation would
+   lose to it on source order. */
+const HOMEPAGE_CASES_GRID_CLASS = cn(
+  casesRailClass,
+  "lg:grid-cols-2 min-[900px]:grid-cols-3",
+  "[&>*:nth-child(n+4)]:hidden sm:[&>*:nth-child(n+4)]:block min-[900px]:[&>*:nth-child(n+4)]:hidden",
+);
+
 function CardGrid({ items }: { items: CaseCardItem[] }) {
   return (
-    <div className={casesRailClass}>
+    <div className={HOMEPAGE_CASES_GRID_CLASS}>
       {items.map((c) => {
         const metaLine = [c.industry, c.region, c.year]
           .filter(Boolean)

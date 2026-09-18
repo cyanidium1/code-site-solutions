@@ -29,11 +29,12 @@ const HERO_BG_CLASS =
 // cluster runs up-and-right (big wheel bottom-left, small ones top-right),
 // so it is anchored to the right edge and bleeds past it: the small fast
 // wheels are cut by the viewport and the big slow one stays whole (owner,
-// 2026-09-18 — "слегка вправо за край экрана", "поднять выше"). Body is
-// `overflow-x: clip`, so the overhang costs no scrollbar. z-[-2] keeps it
-// behind the device mockup, which is z-[-1] in the mobile stack.
+// 2026-09-18 — "слегка вправо за край экрана", "поднять выше"). The
+// overhang is clipped by the component's own layer (see hero-gears.tsx),
+// which also carries the z-[-2] that keeps it behind the device mockup
+// (z-[-1] in the mobile stack).
 const HERO_GEARS_CLASS =
-  "z-[-2] -right-[34%] top-[2%] w-[330px] opacity-70 " +
+  "-right-[34%] top-[2%] w-[330px] opacity-70 " +
   "xs:-right-[26%] xs:w-[370px] " +
   "sm:-right-[16%] sm:top-[1%] sm:w-[460px] " +
   "lg:-right-[14%] lg:top-[-4%] lg:w-[520px] lg:opacity-100 " +
