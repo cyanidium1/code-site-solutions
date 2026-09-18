@@ -8,11 +8,6 @@ import { H2 } from "@/components/ui";
 import { HeroAuditBanner } from "./HeroAuditBanner";
 import { MobileFold } from "@/components/shared/mobile-fold";
 
-// Phones show these three as one row of buttons; the rest of the channels
-// stay in the footer (plan 2026-09-16, П7 — the block was 2.3 screens).
-const PRIMARY_KINDS = new Set(["telegram", "whatsapp", "phone"]);
-
-
 // Brand-gradient italic em (horizontal 3-stop blue→purple→magenta). Distinct
 // from the vertical accent-soft→accent gradient used elsewhere; preserved as
 // raw OKLCH stops because no @theme token captures this gradient yet.
@@ -22,35 +17,15 @@ const HEADING_EM_CLASS =
 const SUB_CLASS =
   "text-[14px] leading-[1.6] text-ink-dim m-0 mb-7 max-w-[42ch]";
 
-// Channel row: grid with icon | main | time. Hover bumps border + bg + nudges
-// right. Featured variant uses accent-tinted border/bg and a gradient icon.
-const ROW_BASE_CLASS =
-  "grid grid-cols-[32px_minmax(0,1fr)] grid-rows-[auto_auto] row-gap-1 items-center gap-[14px] py-3 px-[14px] border rounded-xl no-underline text-inherit " +
-  "transition-[border-color,background-color,transform] duration-200 " +
-  "hover:translate-x-[2px] " +
-  "min-[501px]:grid-cols-[36px_minmax(0,1fr)_auto] min-[501px]:grid-rows-none min-[501px]:row-gap-0";
+// Channels are one row of icon buttons; the phone number gets its own line
+// because it is the one channel people copy or dial rather than tap into an
+// app (owner, 2026-09-18 — the list of seven rows read as a wall).
+const ICON_BTN_CLASS =
+  "inline-flex h-12 w-12 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.03)] text-ink no-underline " +
+  "transition-[border-color,background-color,transform] duration-200 hover:-translate-y-px hover:border-line-strong hover:bg-[oklch(1_0_0_/_0.06)]";
 
-// Phones, compact mode: the three primary channels as one row of buttons.
-const ROW_PHONE_BUTTON_CLASS =
-  "max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-1.5 max-md:px-2 max-md:py-3 max-md:hover:translate-x-0";
-
-const ROW_DEFAULT_CLASS =
-  "border-line bg-[oklch(1_0_0_/_0.02)] hover:border-line-strong hover:bg-[oklch(1_0_0_/_0.04)]";
-
-// Featured row: accent-tinted, deeper bg on hover, gradient icon (via group).
-const ROW_FEATURED_CLASS =
-  "border-[oklch(from_var(--color-accent)_l_c_h_/_0.45)] bg-accent-6 hover:bg-accent-10";
-
-const ICON_BASE_CLASS =
-  "w-9 h-9 inline-flex items-center justify-center border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.03)] text-ink";
-
-const ICON_FEATURED_CLASS =
-  "!bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] !text-[oklch(1_0_0_/_0.98)] !border-transparent";
-
-const TIME_BASE_CLASS =
-  "font-mono text-[11px] tracking-[0.02em] text-ink-3 col-start-2 text-left whitespace-nowrap min-[501px]:col-auto min-[501px]:text-right";
-
-const TIME_FEATURED_CLASS = "!text-accent-soft";
+const ICON_BTN_FEATURED_CLASS =
+  "!border-transparent !bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] !text-[oklch(1_0_0_/_0.98)]";
 
 const CHROME = {
   uk: {
@@ -123,6 +98,8 @@ export function ContactSplit({
   foldBrief?: boolean;
 } = {}) {
   const channels = CHANNELS_BY_LOCALE[locale];
+  const phone = channels.find((c) => c.kind === "phone");
+  const icons = channels.filter((c) => c.kind !== "phone");
   const meta = CONTACT_META_BY_LOCALE[locale];
   const chrome = CHROME[locale];
   return (
@@ -139,43 +116,33 @@ export function ContactSplit({
             {chrome.channelsHeading}
           </H2>
           <p className={SUB_CLASS}>{chrome.channelsSub}</p>
-          <ul className={`list-none p-0 mt-0 mb-[26px] flex flex-col gap-1.5 ${foldBrief ? "max-md:mb-2 max-md:grid max-md:grid-cols-3 max-md:gap-2" : ""}`}>
-            {channels.map((c) => {
+          {phone ? (
+            <a
+              href={phone.href}
+              className="mb-5 flex flex-col gap-1 no-underline"
+            >
+              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+                {phone.label}
+              </span>
+              <span className="font-actay text-[clamp(22px,2.4vw,28px)] font-bold tracking-[-0.01em] text-ink transition-colors duration-200 hover:text-accent-soft">
+                {phone.handle}
+              </span>
+            </a>
+          ) : null}
+          <ul className="list-none p-0 m-0 mb-[26px] flex flex-wrap gap-2 max-md:mb-2">
+            {icons.map((c) => {
               const Icon = c.icon;
-              const isFeatured = c.featured;
               return (
-                <li key={c.kind} className={!foldBrief || PRIMARY_KINDS.has(c.kind) ? undefined : "max-md:hidden"}>
+                <li key={c.kind}>
                   <a
                     href={c.href}
                     target={c.external ? "_blank" : undefined}
                     rel={c.external ? "noreferrer" : undefined}
-                    className={`${ROW_BASE_CLASS} ${foldBrief ? ROW_PHONE_BUTTON_CLASS : ""} ${
-                      isFeatured ? ROW_FEATURED_CLASS : ROW_DEFAULT_CLASS
-                    }`}
+                    aria-label={`${c.label} — ${c.handle}`}
+                    title={`${c.label} · ${c.handle}`}
+                    className={`${ICON_BTN_CLASS}${c.featured ? ` ${ICON_BTN_FEATURED_CLASS}` : ""}`}
                   >
-                    <span
-                      className={`${ICON_BASE_CLASS}${
-                        isFeatured ? ` ${ICON_FEATURED_CLASS}` : ""
-                      }`}
-                      aria-hidden="true"
-                    >
-                      <Icon size={16} strokeWidth={1.7} />
-                    </span>
-                    <span className="flex flex-col gap-0.5 min-w-0">
-                      <span className={`font-sans text-[14px] font-semibold text-ink ${foldBrief ? "max-md:text-[13px]" : ""}`}>
-                        {c.label}
-                      </span>
-                      <span className={`font-mono text-[12px] text-ink-3 tracking-[0.02em] overflow-hidden text-ellipsis whitespace-nowrap ${foldBrief ? "max-md:hidden" : ""}`}>
-                        {c.handle}
-                      </span>
-                    </span>
-                    <span
-                      className={`${foldBrief ? "max-md:hidden" : ""} ${TIME_BASE_CLASS}${
-                        isFeatured ? ` ${TIME_FEATURED_CLASS}` : ""
-                      }`}
-                    >
-                      {c.responseTime}
-                    </span>
+                    <Icon size={20} strokeWidth={1.7} aria-hidden="true" />
                   </a>
                 </li>
               );
