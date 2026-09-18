@@ -7,15 +7,13 @@ import {
 import { H2 } from "@/components/ui";
 import { HeroAuditBanner } from "./HeroAuditBanner";
 import { MobileFold } from "@/components/shared/mobile-fold";
+import { BrandIcon } from "./brand-icons";
 
 // Brand-gradient italic em (horizontal 3-stop blue→purple→magenta). Distinct
 // from the vertical accent-soft→accent gradient used elsewhere; preserved as
 // raw OKLCH stops because no @theme token captures this gradient yet.
 const HEADING_EM_CLASS =
   "[&_em]:italic [&_em]:bg-[linear-gradient(90deg,oklch(0.7_0.16_250),oklch(0.6_0.18_295),oklch(0.55_0.18_320))] [&_em]:bg-clip-text [&_em]:text-transparent";
-
-const SUB_CLASS =
-  "text-[14px] leading-[1.6] text-ink-dim m-0 mb-7 max-w-[42ch]";
 
 // Channels are one row of icon buttons; the phone number gets its own line
 // because it is the one channel people copy or dial rather than tap into an
@@ -24,62 +22,29 @@ const ICON_BTN_CLASS =
   "inline-flex h-12 w-12 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.03)] text-ink no-underline " +
   "transition-[border-color,background-color,transform] duration-200 hover:-translate-y-px hover:border-line-strong hover:bg-[oklch(1_0_0_/_0.06)]";
 
-const ICON_BTN_FEATURED_CLASS =
-  "!border-transparent !bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] !text-[oklch(1_0_0_/_0.98)]";
-
 const CHROME = {
   uk: {
-    channelsEyebrow: "/ КАНАЛИ",
-    channelsHeading: (
-      <>
-        Виберіть зручний <em>канал</em>
-      </>
-    ),
-    channelsSub:
-      "Найшвидше — в Telegram. Відповідає Федір, не бот.",
-    briefEyebrow: "/ БРИФ",
     briefHeading: (
       <>
         Або надішліть <em>бриф</em>
       </>
     ),
-    briefSub: "4 поля. Деталі — за бажанням. Все що тут — конфіденційно.",
     briefToggle: "Або надішліть бриф — 4 поля",
   },
   en: {
-    channelsEyebrow: "/ CHANNELS",
-    channelsHeading: (
-      <>
-        Pick your <em>channel</em>
-      </>
-    ),
-    channelsSub:
-      "WhatsApp is fastest. Fedir replies himself, not a bot.",
-    briefEyebrow: "/ BRIEF",
     briefHeading: (
       <>
         Or send a <em>brief</em>
       </>
     ),
-    briefSub: "4 fields. Details — if you want. Everything here is confidential.",
     briefToggle: "Or send a brief — 4 fields",
   },
   ru: {
-    channelsEyebrow: "/ КАНАЛЫ",
-    channelsHeading: (
-      <>
-        Выберите удобный <em>канал</em>
-      </>
-    ),
-    channelsSub:
-      "Быстрее всего — в Telegram. Отвечает Федор, не бот.",
-    briefEyebrow: "/ БРИФ",
     briefHeading: (
       <>
         Или отправьте <em>бриф</em>
       </>
     ),
-    briefSub: "4 поля. Детали — по желанию. Всё, что здесь, — конфиденциально.",
     briefToggle: "Или отправьте бриф — 4 поля",
   },
 } as const;
@@ -109,13 +74,6 @@ export function ContactSplit({
       <HeroAuditBanner />
       <div className="max-w-container mx-auto grid grid-cols-1 gap-5 md:gap-9 items-start min-[901px]:grid-cols-[minmax(0,4fr)_minmax(0,6fr)] min-[901px]:gap-14">
         <aside>
-          <H2
-            variant="contact-split"
-            className={`m-0 mb-[14px] text-ink ${HEADING_EM_CLASS}`}
-          >
-            {chrome.channelsHeading}
-          </H2>
-          <p className={SUB_CLASS}>{chrome.channelsSub}</p>
           {phone ? (
             <a
               href={phone.href}
@@ -129,9 +87,8 @@ export function ContactSplit({
               </span>
             </a>
           ) : null}
-          <ul className="list-none p-0 m-0 mb-[26px] flex flex-wrap gap-2 max-md:mb-2">
+          <ul className="list-none p-0 m-0 mb-4 flex flex-wrap gap-2">
             {icons.map((c) => {
-              const Icon = c.icon;
               return (
                 <li key={c.kind}>
                   <a
@@ -140,21 +97,17 @@ export function ContactSplit({
                     rel={c.external ? "noreferrer" : undefined}
                     aria-label={`${c.label} — ${c.handle}`}
                     title={`${c.label} · ${c.handle}`}
-                    className={`${ICON_BTN_CLASS}${c.featured ? ` ${ICON_BTN_FEATURED_CLASS}` : ""}`}
+                    className={ICON_BTN_CLASS}
                   >
-                    <Icon size={20} strokeWidth={1.7} aria-hidden="true" />
+                    <BrandIcon kind={c.kind} />
                   </a>
                 </li>
               );
             })}
           </ul>
-          <div className={`flex flex-wrap gap-2 font-mono text-[11.5px] tracking-[0.02em] text-ink-3 ${foldBrief ? "max-md:hidden" : ""}`}>
-            <span>📍 {meta.city}</span>
-            <span className="opacity-50">·</span>
-            <span>🕒 {meta.hours}</span>
-            <span className="opacity-50">·</span>
-            <span>🌐 {meta.languages}</span>
-          </div>
+          <p className={`m-0 font-mono text-[11.5px] tracking-[0.02em] text-ink-3 ${foldBrief ? "max-md:hidden" : ""}`}>
+            {meta.hours}
+          </p>
         </aside>
 
         <MobileFold
@@ -169,7 +122,6 @@ export function ContactSplit({
             >
               {chrome.briefHeading}
             </H2>
-            <p className={SUB_CLASS}>{chrome.briefSub}</p>
           </div>
           <div className="p-5 border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] md:p-7 md:rounded-[22px]">
             <LeadForm source={source} variant={variant} locale={locale} />

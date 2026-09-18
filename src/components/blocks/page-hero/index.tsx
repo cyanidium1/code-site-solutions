@@ -26,7 +26,7 @@ export function PageHero({
   breadcrumbs?: Crumb[];
   eyebrow: string;
   headline: ReactNode;
-  sub: ReactNode;
+  sub?: ReactNode;
   image?: ReactNode;
   stats?: PageHeroStat[];
   /** First-screen CTAs. Service pages had none above the fold: the only
@@ -96,6 +96,7 @@ export function PageHero({
       >
         {headline}
       </H1>
+      {sub ? (
       <p
         className={cn(
           "mt-6 font-sans text-[15px] leading-[1.55] text-ink-dim lg:text-[17px]",
@@ -107,6 +108,7 @@ export function PageHero({
       >
         {sub}
       </p>
+      ) : null}
       {actions ? (
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
           <Link href={actions.primary.href} className={btnClass("primary")}>

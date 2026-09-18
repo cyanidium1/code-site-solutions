@@ -119,10 +119,9 @@ export default function RuContactsPage() {
         eyebrow="КОНТАКТЫ"
         headline={
           <>
-            Хотите обсудить свой <em>проект</em>?
+            Хотите обсудить свой проект?
           </>
         }
-        sub="Ответ в Telegram за 30 минут — или отправьте подробный бриф, как вам удобнее."
       />
 
       <ContactSplit source="contacts" variant="compact" foldBrief={false} locale="ru" />

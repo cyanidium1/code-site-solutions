@@ -121,10 +121,9 @@ export default function ContactsPage() {
         eyebrow="/ КОНТАКТИ"
         headline={
           <>
-            Обговоримо ваш <em>проєкт</em>?
+            Обговоримо ваш проєкт?
           </>
         }
-        sub="Telegram-чат за 30 хвилин або детальний бриф — як вам зручніше."
       />
 
       <ContactSplit source="contacts" variant="compact" foldBrief={false} />

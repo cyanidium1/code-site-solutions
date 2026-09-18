@@ -119,10 +119,9 @@ export default function EnContactsPage() {
         eyebrow="CONTACT"
         headline={
           <>
-            Want to discuss your <em>project</em>?
+            Want to discuss your project?
           </>
         }
-        sub="WhatsApp chat within 30 minutes, or send a detailed brief, whichever suits you."
       />
 
       <ContactSplit source="contacts" variant="compact" foldBrief={false} locale="en" />
