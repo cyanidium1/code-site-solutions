@@ -60,6 +60,8 @@ type Copy = {
   eyebrow: string;
   heading: [string, string];
   sub: string;
+  /** Same line for phones, where the demo stacks instead of sitting side by side. */
+  subStacked: string;
   tryNote: string;
   ctaLabel: string;
   patientSide: string;
@@ -93,6 +95,7 @@ const COPY: Record<Locale, Copy> = {
     eyebrow: "ЖИВЕ ДЕМО",
     heading: ["Потикайте віджет запису і подивіться, ", "що бачить клініка"],
     sub: "Ліворуч — те, що бачить пацієнт. Праворуч — те, що в цю саму секунду відбувається в адмінці, CRM і Telegram. Це той самий віджет, який ми вбудовуємо в сайти клінік.",
+    subStacked: "Зверху — те, що бачить пацієнт. Нижче — те, що в цю саму секунду відбувається в адмінці, CRM і Telegram. Це той самий віджет, який ми вбудовуємо в сайти клінік.",
     tryNote: "Інтерактивне демо — жодні дані нікуди не надсилаються.",
     ctaLabel: "Хочу такий на свій сайт",
     patientSide: "СТОРОНА ПАЦІЄНТА",
@@ -132,6 +135,7 @@ const COPY: Record<Locale, Copy> = {
     eyebrow: "ЖИВОЕ ДЕМО",
     heading: ["Потыкайте виджет записи и посмотрите, ", "что видит клиника"],
     sub: "Слева — то, что видит пациент. Справа — то, что в эту же секунду происходит в админке, CRM и Telegram. Это тот самый виджет, который мы встраиваем в сайты клиник.",
+    subStacked: "Сверху — то, что видит пациент. Ниже — то, что в эту же секунду происходит в админке, CRM и Telegram. Это тот самый виджет, который мы встраиваем в сайты клиник.",
     tryNote: "Интерактивное демо — никакие данные никуда не отправляются.",
     ctaLabel: "Хочу такой на свой сайт",
     patientSide: "СТОРОНА ПАЦИЕНТА",
@@ -171,6 +175,7 @@ const COPY: Record<Locale, Copy> = {
     eyebrow: "LIVE DEMO",
     heading: ["Poke the booking widget and watch ", "what the clinic sees"],
     sub: "On the left, what the patient sees. On the right, what happens that same second in the admin panel, the CRM and Telegram. It is the widget we build into clinic websites.",
+    subStacked: "At the top, what the patient sees. Below it, what happens that same second in the admin panel, the CRM and Telegram. It is the widget we build into clinic websites.",
     tryNote: "Interactive demo — nothing is sent anywhere.",
     ctaLabel: "I want this on my site",
     patientSide: "PATIENT SIDE",
@@ -272,7 +277,8 @@ export function MedBookingDemo({ locale }: { locale: Locale }) {
             <em>{c.heading[1]}</em>
           </h2>
           <p className="m-0 max-w-[56ch] font-sans text-[14.5px] leading-[1.65] text-ink-dim lg:pb-1.5">
-            {c.sub}
+            <span className="max-lg:hidden">{c.sub}</span>
+            <span className="lg:hidden">{c.subStacked}</span>
           </p>
         </div>
 

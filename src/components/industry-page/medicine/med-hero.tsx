@@ -96,7 +96,7 @@ export function MedHero({
           {/* ── Text column ───────────────────────────────────────────── */}
           <div className="relative z-[4] min-w-0">
             <h1
-              className="m-0 font-actay text-[clamp(34px,8.4vw,44px)] font-bold uppercase leading-[0.94] tracking-[-0.035em] text-ink sm:text-[clamp(38px,4.6vw,68px)]"
+              className="m-0 font-actay text-[clamp(26px,calc((100vw-48px)/10.8),44px)] font-bold uppercase leading-[0.94] tracking-[-0.035em] text-ink sm:text-[clamp(38px,4.6vw,68px)]"
               data-speakable="hero-title"
             >
               {h1Lines.map((line, i) => (
