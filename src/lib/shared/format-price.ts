@@ -2,8 +2,8 @@
  * Locale-aware price formatter.
  *
  * UA locale uses NBSP ( ) as thousands separator → "$1 000".
- * EN locale (UK market) uses comma and GBP → "£1,000".
- * Currency defaults to the locale market (en → GBP, uk → USD); pass an
+ * EN locale (international market) uses comma and EUR → "€1,000".
+ * Currency defaults to the locale market (en → EUR, uk/ru → USD); pass an
  * explicit `currency` to override. Currency symbol always leads. No trailing "+" or "до" — callers add
  * range prefixes via separate keys ("from", "від").
  */
@@ -20,10 +20,10 @@ const CURRENCY_SYMBOL: Record<PriceCurrency, string> = {
   GBP: "£",
 };
 
-/** Market currency per locale: EN targets the UK (£), UA stays on $. */
+/** Market currency per locale: EN is the international market (€), UA stays on $. */
 export const LOCALE_CURRENCY: Record<PriceLocale, PriceCurrency> = {
   uk: "USD",
-  en: "GBP",
+  en: "EUR",
   ru: "USD",
 };
 

@@ -4,10 +4,10 @@
  * payment terms. Pages, the calculator, FAQ builders, meta titles and
  * JSON-LD all read from here — never type a price into copy by hand.
  *
- * Amounts are stored for the USD market (uk, ru). The EN locale sells to the
- * UK in GBP at its own market prices; those live in MARKET_OVERRIDES and are
- * applied by `packagePrice()` / `addonPrice()`. Read amounts only through the
- * helpers, never from the tables directly.
+ * Amounts in the tables are the UA market (USD, uk + ru). The EN locale is a
+ * separate international market in EUR with its own list (INTL below).
+ * Read amounts only through the helpers (`packagePrice`, `addonPrice`, …),
+ * never from the tables directly.
  */
 
 import type { Locale } from "@/constants/locales";
@@ -35,7 +35,7 @@ export type DayRange = { min: number; max: number };
 export type PackageDef = {
   id: PackageId;
   name: L;
-  /** USD. For `industry` and `custom` this is the floor ("від"). */
+  /** UA market, USD. For `industry` and `custom` this is the floor ("від"). */
   price: number;
   /** Only `industry` and `custom` are sold "від"; everything else is fixed. */
   fromPrice: boolean;
@@ -550,49 +550,93 @@ export const PAYMENT_TERMS = {
 } as const;
 
 /* ------------------------------------------------------------------ */
-/* Market overrides (EN = UK market, GBP)                              */
+/* Markets                                                             */
 /* ------------------------------------------------------------------ */
 
-type MarketOverride = {
-  packages?: Partial<Record<PackageId, number>>;
-  industries?: Partial<Record<IndustryId, number>>;
-  addons?: Partial<Record<AddonId, number>>;
-  services?: Partial<Record<"hostingRenewalPerYear" | "seoServicesFrom" | "seoShopFrom", number>>;
+/**
+ * Two markets with their own price lists — never a currency conversion of
+ * one another (owner, 2026-09-20). uk/ru sell to Ukraine in USD (the tables
+ * above); en sells to European small businesses in EUR (INTL below).
+ */
+export type Market = "ua" | "intl";
+
+export const LOCALE_MARKET: Record<Locale, Market> = {
+  uk: "ua",
+  ru: "ua",
+  en: "intl",
+};
+
+type MarketPrices = {
+  packages: Record<PackageId, number>;
+  industries: Record<IndustryId, number>;
+  addons: Record<Exclude<AddonId, "rush">, number>;
+  services: Record<"hostingRenewalPerYear" | "seoServicesFrom" | "seoShopFrom", number>;
 };
 
 /**
- * TODO(owner): GBP figures for the UK market. Until the owner supplies
- * them, EN renders the USD numbers with a £ sign — do not deploy EN in that
- * state. `EN_PRICES_PENDING` lets a test / checklist catch it.
+ * EUR list for the international market. Package and most add-on figures
+ * are the owner's; the ones marked (×2) were not in the owner's list and
+ * follow the list's own UA×2 ratio — confirm before running ads on /en.
  */
-export const EN_PRICES_PENDING = true;
-
-export const MARKET_OVERRIDES: Partial<Record<Locale, MarketOverride>> = {
-  en: {},
+const INTL: MarketPrices = {
+  packages: { landing: 1200, business: 2500, shop: 3900, industry: 4500, custom: 9000 },
+  industries: {
+    medicine: 4500,
+    legal: 4500,
+    finance: 4500,
+    renovation: 4500,
+    auto: 5000, // (×UA ratio)
+    "real-estate": 5500, // (×UA ratio)
+  },
+  addons: {
+    extra_page: 300,
+    lang: 400,
+    blog: 400,
+    cases: 300, // (×2)
+    crm: 600,
+    booking: 600,
+    payments: 400,
+    sku_500: 600,
+    sku_1000: 1200, // (×2)
+    filters: 500,
+    copy_pro: 600,
+    photo_stock: 200, // (×2)
+    migration: 400,
+    ads_setup: 500, // (×2)
+  },
+  services: {
+    hostingRenewalPerYear: 120, // (×2)
+    seoServicesFrom: 800, // (×2)
+    seoShopFrom: 1200, // (×2)
+  },
 };
+
+const MARKET_PRICES: Partial<Record<Market, MarketPrices>> = { intl: INTL };
 
 /* ------------------------------------------------------------------ */
 /* Read helpers — always go through these                              */
 /* ------------------------------------------------------------------ */
 
+const market = (locale: Locale) => MARKET_PRICES[LOCALE_MARKET[locale]];
+
 export function packagePrice(id: PackageId, locale: Locale): number {
-  return MARKET_OVERRIDES[locale]?.packages?.[id] ?? PACKAGES[id].price;
+  return market(locale)?.packages[id] ?? PACKAGES[id].price;
 }
 
 export function industryPrice(id: IndustryId, locale: Locale): number {
-  return MARKET_OVERRIDES[locale]?.industries?.[id] ?? INDUSTRIES[id].price;
+  return market(locale)?.industries[id] ?? INDUSTRIES[id].price;
 }
 
 export function addonPrice(id: AddonId, locale: Locale): number {
-  if (ADDONS[id].kind === "percentOfPackage") return ADDONS[id].price;
-  return MARKET_OVERRIDES[locale]?.addons?.[id] ?? ADDONS[id].price;
+  if (id === "rush") return ADDONS.rush.price;
+  return market(locale)?.addons[id] ?? ADDONS[id].price;
 }
 
 export function servicePrice(
   key: "hostingRenewalPerYear" | "seoServicesFrom" | "seoShopFrom",
   locale: Locale,
 ): number {
-  return MARKET_OVERRIDES[locale]?.services?.[key] ?? SERVICES[key];
+  return market(locale)?.services[key] ?? SERVICES[key];
 }
 
 /** "$1 000", or "від $1 800" for packages sold from a floor. */

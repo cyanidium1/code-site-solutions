@@ -5,28 +5,33 @@ import type { LeadValues } from "@/types/lead";
 export const INITIAL_LEAD_VALUES: LeadValues = {
   name: "",
   contact: "",
-  business: "",
   tier: "",
-  description: "",
   budget: "",
-  timeline: "",
+  hasSite: "",
+  siteUrl: "",
+  description: "",
+  config: "",
   hp: "",
 };
 
 /**
- * Build the Yup schema for the lead form. Only the `contact` field is
- * required (and validated as a single string — phone / Telegram handle /
- * email — because users mix the three). The error message is provided by
- * the caller so it can stay localized.
+ * Contact and budget are required (TZ v2 §5). Contact is one free string —
+ * phone / Telegram handle / email — because people mix the three. Messages
+ * come from the caller so they stay localized.
  */
-export function buildValidationSchema(contactErr: string) {
+export function buildValidationSchema(
+  contactErr: string,
+  budgetErr: string,
+  opts: { requireBudget?: boolean } = {},
+) {
   return Yup.object({
     name: Yup.string(),
     contact: Yup.string().min(5, contactErr).required(contactErr),
-    business: Yup.string(),
     tier: Yup.string(),
+    budget: opts.requireBudget === false ? Yup.string() : Yup.string().required(budgetErr),
+    hasSite: Yup.string(),
+    siteUrl: Yup.string(),
     description: Yup.string(),
-    budget: Yup.string(),
-    timeline: Yup.string(),
+    config: Yup.string(),
   });
 }

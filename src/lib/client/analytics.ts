@@ -25,15 +25,40 @@ export const LEAD_EVENT = "generate_lead";
  * Telegram message; only the source and the channel that brought them travel
  * here.
  */
-export function trackLead(source: string | undefined, attribution?: LeadAttribution): void {
+export function trackLead(
+  source: string | undefined,
+  attribution?: LeadAttribution,
+  tier?: string,
+): void {
   if (typeof window === "undefined") return;
   const w = window as WindowWithDataLayer;
   const dl = (w.dataLayer = w.dataLayer ?? []);
   dl.push({
     event: LEAD_EVENT,
     lead_source: source || "unknown",
+    lead_tier: tier || undefined,
     lead_channel: attribution?.utm?.utm_source || attribution?.referrer || "direct",
     lead_medium: attribution?.utm?.utm_medium || (attribution?.referrer ? "referral" : "none"),
     lead_landing: attribution?.landingPage,
+    lead_gclid: attribution?.gclid,
+    // Google Ads conversion target for the GTM Ads tag ("AW-XXX/label").
+    // Placeholder until the owner creates the conversion action.
+    ads_send_to: ADS_LEAD_SEND_TO || undefined,
+  });
+}
+
+/** "AW-123456789/AbC-dEfGhIj" — set in Vercel env. Empty = no Ads conversion. */
+const ADS_LEAD_SEND_TO = process.env.NEXT_PUBLIC_GADS_LEAD_SEND_TO ?? "";
+
+/** Secondary conversion: a tap on the phone number or a messenger link. */
+export const CONTACT_CLICK_EVENT = "contact_click";
+
+export function trackContactClick(channel: string, page: string): void {
+  if (typeof window === "undefined") return;
+  const w = window as WindowWithDataLayer;
+  (w.dataLayer = w.dataLayer ?? []).push({
+    event: CONTACT_CLICK_EVENT,
+    contact_channel: channel,
+    contact_page: page,
   });
 }

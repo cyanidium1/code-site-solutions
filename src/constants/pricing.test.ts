@@ -42,3 +42,9 @@ test("formatting", () => {
   assert.equal(formatDays({ min: 14, max: 21 }, "uk"), "14–21 робочий день");
   assert.equal(formatPackageTerm("business", "ru"), "7 рабочих дней");
 });
+
+test("intl market is EUR with its own list", () => {
+  assert.equal(formatPackagePrice("business", "en"), "€2,500");
+  assert.equal(estimate({ pkg: "business", addons: { lang: 1, blog: 1 } }, "en").total, 3300);
+  assert.equal(estimate({ pkg: "landing", addons: { rush: 1 } }, "en").total, 1560);
+});

@@ -31,6 +31,11 @@ function readReferrer(): string {
   }
 }
 
+function readGclid(): string {
+  if (typeof window === "undefined") return "";
+  return new URLSearchParams(window.location.search).get("gclid") ?? "";
+}
+
 function readUtm(): Record<string, string> {
   if (typeof window === "undefined") return {};
   const params = new URLSearchParams(window.location.search);
@@ -58,10 +63,15 @@ export function recordPageView(path: string): void {
       utm: readUtm(),
       journey: [path],
       firstVisit: new Date().toISOString(),
+      gclid: readGclid() || undefined,
     };
     window.sessionStorage.setItem(KEY, JSON.stringify(seed));
     return;
   }
+
+  // A later ad click in the same session carries the id we must report back.
+  const gclid = readGclid();
+  if (gclid) existing.gclid = gclid;
 
   const journey = existing.journey ?? [];
   // Skip consecutive duplicates (e.g. shallow query-only changes).

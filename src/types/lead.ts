@@ -1,11 +1,18 @@
 export type LeadValues = {
   name: string;
   contact: string;
-  business: string;
+  /** Package the visitor needs — PackageId from `@/constants/pricing` or "unknown". */
   tier: string;
-  description: string;
   budget: string;
-  timeline: string;
+  /** "no" | "yes" — whether they already have a site. */
+  hasSite: string;
+  siteUrl: string;
+  description: string;
+  /** Calculator configuration text (package, add-ons, total, term). */
+  config: string;
+  /** Legacy fields still sent by older call sites. */
+  business?: string;
+  timeline?: string;
   /** Honeypot — stays empty for real users; the server drops filled submissions. */
   hp: string;
 };
@@ -26,4 +33,6 @@ export type LeadAttribution = {
   journey?: string[];
   /** ISO timestamp of the first page view this session. */
   firstVisit?: string;
+  /** Google Ads click id from the landing URL (latest one wins). */
+  gclid?: string;
 };

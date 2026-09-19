@@ -35,7 +35,7 @@ export type LocaleConfig = {
 
 export const LOCALE_CONFIG: Record<Locale, LocaleConfig> = {
   uk: { urlPrefix: "", htmlLang: "uk", hreflang: "uk", ogLocale: "uk_UA", bcp47: "uk-UA", autoDetect: true },
-  en: { urlPrefix: "/en", htmlLang: "en", hreflang: "en-GB", ogLocale: "en_GB", bcp47: "en-GB", autoDetect: true },
+  en: { urlPrefix: "/en", htmlLang: "en", hreflang: "en", ogLocale: "en_GB", bcp47: "en", autoDetect: true },
   ru: { urlPrefix: "/ru", htmlLang: "ru", hreflang: "ru", ogLocale: "ru_UA", bcp47: "ru", autoDetect: false },
 };
 
