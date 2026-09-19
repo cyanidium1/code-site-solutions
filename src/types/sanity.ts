@@ -385,6 +385,9 @@ export type TestimonialSection = BlockBase<"testimonialBlock"> & {
 export type Testimonial = {
   _id: string;
   authorName?: string;
+  company?: string;
+  country?: string;
+  photo?: SanityImage | null;
   authorRole?: LocalizedString;
   authorInitials?: string;
   linkedinUrl?: string;

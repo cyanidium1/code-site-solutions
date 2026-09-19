@@ -22,6 +22,9 @@ export type TestimonialSlide = {
   authorName: string;
   authorRole: string;
   authorInitials: string;
+  company?: string;
+  country?: string;
+  photo?: TestimonialAsset;
   linkedinUrl?: string;
   mockupLeft?: TestimonialAsset;
   mockupRight?: TestimonialAsset;
@@ -110,6 +113,9 @@ export async function fetchTestimonialSlides(
       authorName: t.authorName || "",
       authorRole: loc(t.authorRole, locale) || "",
       authorInitials: t.authorInitials || deriveInitials(t.authorName),
+      company: t.company || undefined,
+      country: t.country || undefined,
+      photo: toAsset(t.photo, locale),
       linkedinUrl: t.linkedinUrl,
       mockupLeft: toAsset(t.mockupLeft, locale),
       mockupRight: toAsset(t.mockupRight, locale),

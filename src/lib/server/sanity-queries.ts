@@ -399,9 +399,12 @@ export const INDUSTRY_PAGE_BY_SLUG_QUERY = /* groq */ `
  * most-recent first.
  */
 export const HOMEPAGE_TESTIMONIALS_QUERY = /* groq */ `
-*[_type == "testimonial" && featured == true]{
+*[_type == "testimonial" && featured == true && pending != true]{
   _id,
   authorName,
+  company,
+  country,
+  "photo": photo ${IMAGE_WITH_ALT},
   authorRole ${LOCALIZED_STRING},
   authorInitials,
   linkedinUrl,
