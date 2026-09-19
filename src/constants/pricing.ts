@@ -767,3 +767,26 @@ export function estimate(input: EstimateInput, locale: Locale): EstimateResult {
     lines,
   };
 }
+
+/* ------------------------------------------------------------------ */
+/* Hryvnia hint for the UA market                                      */
+/* ------------------------------------------------------------------ */
+
+/**
+ * UAH per USD for the "≈ … грн" hint next to UA-market prices. Every
+ * competitor quotes in hryvnia, so buyers convert in their head anyway.
+ * A fixed approximation, not a live quote — refresh when it drifts from NBU.
+ */
+export const UAH_PER_USD = 42;
+
+/** "≈42 000 грн" — rounded to the hundred. Only meaningful on the UA market. */
+export function uahApprox(usd: number): string {
+  const n = Math.round((usd * UAH_PER_USD) / 100) * 100;
+  const digits = String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0");
+  return `≈${digits}\u00a0грн`;
+}
+
+/** Whether a locale's market is quoted in USD with a hryvnia hint. */
+export function showsUahHint(locale: Locale): boolean {
+  return LOCALE_MARKET[locale] === "ua";
+}

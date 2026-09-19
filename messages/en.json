@@ -108,38 +108,15 @@
   },
   "Calculator": {
     "meta": {
-      "title": "Website Cost Calculator — Code-Site.Art",
-      "description": "Estimate your custom-coded website in 60 seconds. Honest range, no 'price on request', no sales pressure. See what drives the price."
+      "title": "Website cost calculator — a fixed price in a minute",
+      "description": "Pick a package and add-ons and see the price and timeline at once. Landing page €1,200, business website €2,500, online shop €3,900."
     },
     "pageHero": {
       "breadcrumbHome": "Home",
       "breadcrumbSelf": "Calculator",
       "eyebrow": "/ CALCULATOR",
-      "title": "Know your website price <em>in 60 seconds</em>",
-      "sub": "No sales call, no “price on request”, no hidden lines. An honest range, and a clear breakdown of what drives it. Built for people deciding right now."
-    },
-    "stats": {
-      "projects": {
-        "value": "50+",
-        "label": "projects · last 5 years"
-      },
-      "range": {
-        "value": "£800–£10,000",
-        "label": "typical price range"
-      },
-      "weeks": {
-        "value": "4–10 weeks",
-        "label": "from brief to launch"
-      },
-      "warranty": {
-        "value": "1 year",
-        "label": "warranty included"
-      }
-    },
-    "customizer": {
-      "eyebrow": "/ 01 ESTIMATE",
-      "title": "Price <em>your project</em>",
-      "sub": "Five questions — the price updates as you go."
+      "title": "Website calculator: <em>a fixed price in a minute</em>",
+      "sub": "Three steps: package, add-ons, price. No multipliers, no \"price on request\" — the figure you see is the figure in the contract."
     },
     "social": {
       "line": "<strong>50+ companies</strong> ran this calculator and launched with us. Some of them:",
@@ -153,129 +130,29 @@
       "testimonialRole": "Owner, NBYG København Aps"
     },
     "faq": {
-      "heading": "Questions before requesting an estimate",
+      "heading": "Questions about price",
       "items": [
         {
-          "q": "What if my budget is below the calculator's lowest price?",
-          "a": "If you have £800, we'll tell you straight that we can't deliver well at that price, and recommend someone we trust who can. We don't take projects we can't ship at the standard we want our name on."
+          "q": "Is the calculator price final?",
+          "a": "Yes. Packages and add-ons have fixed prices, and the total goes into the contract unchanged. It only changes if you add something to the scope yourself."
         },
         {
-          "q": "What if the final price is higher than the calculator shows?",
-          "a": "The calculator gives a realistic range 9 times out of 10. If something falls outside it, we tell you before signing, never after. The contract carries a fixed sum: no surprises, no scope-creep invoices."
+          "q": "Why does the timeline grow when I add add-ons?",
+          "a": "Every three add-ons take roughly two more business days to build and test. The calculator adds them for you. The rush option cuts the timeline by 40%."
         },
         {
-          "q": "What's NOT included in the price?",
-          "a": "Content copywriting, post-launch SEO promotion, and translation work. We can recommend trusted specialists for each, or quote them as add-ons. Everything else (design, code, CMS, hosting setup, 1-year warranty) is in the price."
+          "q": "What if my option isn't listed?",
+          "a": "Mention it in the comment. User accounts, complex logic or integrations with your own systems fall under the Custom package from €9,000, quoted after a call."
         },
         {
-          "q": "What if I have my own designer or brand book?",
-          "a": "Then −10–15% off the price and a shorter timeline. We work directly from your Figma or design files."
+          "q": "What's included besides the build?",
+          "a": "A year of hosting and SSL, a year of warranty and support, and basic SEO. No subscriptions. Search marketing after launch is a separate service:",
+          "link": {
+            "href": "/en/seo",
+            "text": "SEO from €800/month"
+          }
         }
       ]
-    },
-    "getFinal": {
-      "eyebrow": "/ 02 GET FINAL ESTIMATE",
-      "title": "Send the brief — get a <em>final price</em>",
-      "sub": "We'll review your calculator result and send a project plan, timeline, and confirmed price range. Custom-coded websites only. If you need a quick £300 template, we're not the right fit.",
-      "altReady": "Not ready for the form?",
-      "altCalendly": "Book a 30-min call instead",
-      "altOr": "or",
-      "altTelegram": "WhatsApp us",
-      "altOrSep": "·",
-      "altEmail": "hi@code-site.art"
-    },
-    "controls": {
-      "resetBtn": "Reset to basic setup",
-      "q01": "/ 01 Site type",
-      "q02": "/ 02 Size",
-      "q03": "/ 03 Design",
-      "q04": "/ 04 Functionality",
-      "q05": "/ 05 Languages",
-      "pagesLabel": "Number of pages",
-      "sectionsLabel": "Number of sections",
-      "contentPagesLabel": "Content pages",
-      "ecommercePagesHelp": "Product pages are handled by store structure. This counts static pages like Home, About, Contact, Delivery, Terms.",
-      "pagesHelp": "Not sure how many pages you need? Usually a business website starts with Home, Services, About, Cases, Blog, Contact.",
-      "sectionsHelp": "Typical landing page includes 6-8 sections: hero, benefits, services, process, cases, FAQ, and CTA.",
-      "pagesIncludedTpl": "Included pages: {included}. Each extra page adds {extra}.",
-      "sectionsIncludedTpl": "Included sections: {included}. Each extra section adds {extra}.",
-      "langNoteSeo": "Each language requires its own SEO structure, content, and CMS setup.",
-      "fromPriceTpl": "from {price}",
-      "includedLower": "included",
-      "packages": {
-        "standard": {
-          "label": "Standard",
-          "hint": "CMS with blog and cases, enquiry forms, email and Telegram notifications, analytics, map, two languages — everything the tier promises."
-        },
-        "sales": {
-          "label": "Online sales",
-          "hint": "On-site payments and a CRM integration: enquiries and payments land in your pipeline without manual re-entry."
-        }
-      },
-      "packagesComplexNote": "Client accounts, catalogue filters, online booking, file uploads, ERP or 1C integrations are quoted separately — mention them in the brief."
-    },
-    "summary": {
-      "title": "Estimate summary",
-      "rowProjectType": "Project type",
-      "rowBasePrice": "Base price",
-      "rowLanguages": "Languages",
-      "pageLabelPages": "Pages",
-      "pageLabelSections": "Sections",
-      "pageLabelContentPages": "Content pages",
-      "rangeLabel": "Estimated project cost",
-      "willInclude": "Your website will include",
-      "disclaimer": "This is an estimate, not an invoice. Final price depends on exact requirements, integrations, design references, and content volume.",
-      "primaryCta": "Get exact price & project plan",
-      "ctaMeta": "Takes less than 1 minute."
-    },
-    "breakdown": {
-      "show": "Show price breakdown",
-      "baseProject": "Base project",
-      "productStruct": "Product structure complexity",
-      "cmsUpgrades": "CMS upgrades",
-      "seoUpgrades": "SEO upgrades",
-      "featuresIntegrations": "Features & integrations",
-      "content": "Content",
-      "subtotal": "Subtotal",
-      "designMultiplier": "Design multiplier",
-      "languageMultiplier": "Language multiplier",
-      "timelineMultiplier": "Timeline surcharge",
-      "selectedAddons": "Selected add-ons",
-      "estimatedRange": "Estimated cost",
-      "cmsSetupIncluded": "CMS setup - included",
-      "basicSeoIncluded": "Basic technical SEO - included",
-      "coreFormsIncluded": "Core forms included",
-      "clientContentIncluded": "Client content included"
-    },
-    "leadForm": {
-      "title": "Project brief",
-      "sub": "We'll review your calculator result and reply with a confirmed range, timeline, and next steps.",
-      "name": "Name",
-      "namePlaceholder": "Your name",
-      "contact": "Contact: email / Telegram / WhatsApp",
-      "contactPlaceholder": "name@company.com or @username",
-      "company": "Company / project name",
-      "companyPlaceholder": "Company or product name",
-      "brief": "Short project description",
-      "briefPlaceholder": "Tell us goals, timeline, and required integrations",
-      "methodLabel": "Preferred contact method",
-      "methodPlaceholder": "Select preferred contact method",
-      "methodEmail": "Email",
-      "methodTelegram": "Telegram",
-      "methodWhatsapp": "WhatsApp",
-      "submit": "Get final estimate",
-      "trustLine": "No spam. You will receive a structured project response, not a generic sales script.",
-      "success": "Thanks! We received your brief and will reply with a confirmed range and next steps.",
-      "afterSubmitTitle": "What happens after you submit",
-      "after4hWhen": "Within 4 hours",
-      "after4hBody": "You get a reply with a confirmed price and clarifying questions.",
-      "after2dWhen": "Within 2 days",
-      "after2dBody": "30-minute call: we walk through the project and show relevant cases.",
-      "after1wWhen": "Within a week",
-      "after1wBody": "Final proposal — fixed price, fixed deadline, penalty clause for delays.",
-      "testimonialQuote": "Before the new site we got 3 enquiries a month. Now we get <strong>24</strong>.",
-      "testimonialName": "Søren Hansen",
-      "testimonialRole": "Owner, NBYG København Aps"
     }
   }
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Formik, Form, Field, type FieldProps } from "formik";
+import { Formik, Form, Field, useFormikContext, type FieldProps } from "formik";
 import { ChevronDown } from "lucide-react";
 
 import { Btn, Input, Select, Textarea } from "@/components/ui";
@@ -113,8 +113,8 @@ function LeadFormInner({
   const initialValues = useMemo<LeadValues>(() => {
     const urlTier = normalizeTier(searchParams?.get("tier") ?? null);
     const propTier = normalizeTier(tier ?? null);
-    return { ...INITIAL, tier: urlTier || propTier, config: config ?? "" };
-  }, [searchParams, tier, config]);
+    return { ...INITIAL, tier: urlTier || propTier };
+  }, [searchParams, tier]);
 
   // URL `?source=` overrides the prop when present so links like
   // /contacts?source=hero-audit get recorded as the real entry point
@@ -201,6 +201,7 @@ function LeadFormInner({
         // language of the browser, not the page — Formik + Yup render the
         // localized error below the field instead (audit 2026-09-06, C9).
         <Form id={id} noValidate className={`flex flex-col ${isCompact || isDemo ? "gap-[18px]" : "gap-[22px]"}`}>
+          <ConfigSync config={config} />
           <HoneypotField
             value={values.hp}
             onChange={(v) => setFieldValue("hp", v)}
@@ -395,6 +396,18 @@ function LeadFormInner({
       )}
     </Formik>
   );
+}
+
+/**
+ * Keeps the hidden `config` field in step with the calculator without
+ * reinitialising the form — a reinit would wipe what the visitor typed.
+ */
+function ConfigSync({ config }: { config?: string }) {
+  const { setFieldValue } = useFormikContext<LeadValues>();
+  useEffect(() => {
+    setFieldValue("config", config ?? "", false);
+  }, [config, setFieldValue]);
+  return null;
 }
 
 export function LeadForm(props: LeadFormProps = {}) {

@@ -12,6 +12,8 @@
 
 import type { Locale } from "@/types/sanity";
 import { LOCALE_CONFIG } from "@/constants/locales";
+import type { FAQItem } from "@/types/faq";
+import { plainRich } from "@/lib/shared/rich-text";
 import {
   ORG_ID,
   SITE_CONTACT,
@@ -318,6 +320,19 @@ function referencesOrg(value: unknown): boolean {
   const obj = value as Record<string, unknown>;
   if (obj["@id"] === ORG_ID) return true;
   return Object.values(obj).some(referencesOrg);
+}
+
+/** FAQPage from the same items the page renders. */
+export function faqNode(items: FAQItem[]): JsonLdNode | null {
+  if (!items.length) return null;
+  return {
+    "@type": "FAQPage",
+    mainEntity: items.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: { "@type": "Answer", text: plainRich(it.a) },
+    })),
+  };
 }
 
 export function buildJsonLd(
