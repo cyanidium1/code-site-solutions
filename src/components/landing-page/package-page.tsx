@@ -26,6 +26,7 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { localizePath, resolveRootHref } from "@/constants/i18n-routes";
 import type { Locale } from "@/constants/locales";
 import { PACKAGES, PACKAGE_ADDONS, packagePrice } from "@/constants/pricing";
+import { LOCALE_MARKET } from "@/constants/pricing";
 import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import { PACKAGES_UI } from "@/content/packages-ui";
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
@@ -87,7 +88,8 @@ function packagePageJsonLd(c: PackagePageContent, locale: Locale) {
       name: c.serviceName,
       description: c.metaDescription,
       provider: { "@id": ORG_ID },
-      areaServed: locale === "en" ? ["EU", "GB", "DK"] : ["UA"],
+      // Market, not locale: the international market sells across the EU.
+      areaServed: LOCALE_MARKET[locale] === "intl" ? ["EU", "GB", "DK"] : ["UA"],
       offers: {
         "@type": "Offer",
         name: c.offerName,
