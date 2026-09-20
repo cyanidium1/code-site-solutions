@@ -44,14 +44,19 @@ export const HOMEPAGE_EN: HomepageContent = {
     description: `Custom-coded websites for European small businesses: ${BUSINESS} fixed in the contract, live in ${formatPackageTerm("business", L)}. Online shop ${SHOP}. You own the code.`,
   },
   hero: {
-    h1Line1: "Custom-coded business website —",
-    h1Line2Lead: `in ${D} days for `,
-    h1Line2Em: BUSINESS,
+    h1Line1: "Turnkey coded site",
+    h1Line2Lead: `in ${D} days, `,
+    h1Line2Em: `from ${BUSINESS}`,
     lede: "For European small businesses. No subscriptions, no website builders. The code, domain and data are yours. A year of warranty and support included.",
     features: [
-      { label: formatPackageTerm("business", L), sub: "From brief to launch" },
-      { label: "Price fixed in the contract", sub: "Agreed before we start" },
-      { label: "1-year warranty, support included", sub: "Hosting and SSL too" },
+      {
+        label: "We write specs",
+        sub: "No 50-question briefs: we decide, present and defend it",
+      },
+      {
+        label: "1-year warranty",
+        sub: "No subscriptions, no lock-in: the code is yours, leave any time",
+      },
     ],
     ctaPrimary: "Get a free quote",
     ctaSecondary: "See prices",

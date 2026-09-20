@@ -12,7 +12,7 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { LeadFormCard, PackageCards, UspLine } from "@/components/blocks/packages";
+import { LeadFormSection, PackageCards, UspLine } from "@/components/blocks/packages";
 import { FounderNote } from "@/components/homepage/founder-note";
 import type { Metadata } from "next";
 import { OG_DEFAULT_IMAGE, ORG_ID, SITE_ORIGIN } from "@/constants/site";
@@ -88,9 +88,9 @@ export default async function HomePageRu() {
       <HpHeader />
 
       <main>
-      {/* TZ v2 §3.1: product + term + price in the H1, the lead form in the
-          first screen (right column from lg, straight under the proofs on
-          phones). */}
+      {/* TZ v2 §3.1: product + term + price in the H1. The lead form is NOT in
+          the hero (owner, 2026-09-20) — the first screen shows the work; every
+          "get a quote" CTA scrolls to <LeadFormSection> under the FAQ. */}
       <HomeHero
         h1Lines={[
           <>{C.hero.h1Line1}</>,
@@ -108,7 +108,6 @@ export default async function HomePageRu() {
         ctaFootnote={C.hero.footnote}
         deviceMockupSrc="/hero/hero-mockup.webp"
         deviceMockupAlt={C.hero.mockupAlt}
-        aside={<LeadFormCard locale="ru" source="home-hero" />}
       />
 
       {/* Cases right after the hero (owner, 2026-09-17): real sites are the
@@ -179,6 +178,7 @@ export default async function HomePageRu() {
       <Directions {...C.directions} />
 
       <FAQ heading={C.faqHeading} items={C.faq} locale="ru" />
+      <LeadFormSection locale="ru" source="home-form" />
       <LaunchCta locale="ru" />
       </main>
       <HpFooter />
