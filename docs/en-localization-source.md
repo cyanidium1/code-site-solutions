@@ -295,7 +295,7 @@ A: First year — included in warranty for bug fixes. New features — separate 
 3. **Olga Mykhalkova** — Senior Frontend
    Quote: `"A site that loads in 5 seconds loses half its visitors. So I push speed to 90+ on Lighthouse while others are still writing specs."`
 
-4. **Kristina Bondarenko** — SEO & Marketing Strategy
+4. **Dmytro Shevchenko** — SEO & Marketing Strategy
    Quote: `"A site without traffic is a shop in a back alley. I make sure clients find you on Google within 3 months of launch."`
 
 ### Section `/ 05 VALUES`

@@ -57,16 +57,49 @@ export async function generateBlogPostStaticParams(
     .map((slug) => ({ slug }));
 }
 
+/**
+ * Bylines that must not ship a real person's name, photo or bio any more
+ * (owner, 2026-09-20). Sanity still carries the old author object on ~40
+ * posts and this repo reads the CMS with no write token, so the byline is
+ * rewritten on read: replacement name per locale, no photo, no bio. The
+ * `/team` photo file is gone, so leaving photoUrl through would 404 the
+ * avatar on every one of those posts. Drop this once the Studio rows are
+ * updated — nothing else depends on it.
+ */
+const RETIRED_BYLINES = new Set(["Кристина Бондаренко"]);
+
+const RETIRED_BYLINE_REPLACEMENT: Record<Locale, string> = {
+  uk: "Дмитро Шевченко",
+  ru: "Дмитрий Шевченко",
+  en: "Dmytro Shevchenko",
+};
+
+function withCurrentByline(
+  post: BlogPostDoc | null,
+  locale: Locale,
+): BlogPostDoc | null {
+  const name = post?.author?.name?.trim();
+  if (!post || !name || !RETIRED_BYLINES.has(name)) return post;
+  return {
+    ...post,
+    author: {
+      role: post.author?.role,
+      name: RETIRED_BYLINE_REPLACEMENT[locale],
+    },
+  };
+}
+
 export async function fetchBlogPost(
   slug: string,
   locale: Locale,
 ): Promise<BlogPostDoc | null> {
-  return sanityFetch<BlogPostDoc | null>({
+  const post = await sanityFetch<BlogPostDoc | null>({
     query: BLOG_POST_BY_LOCALE_SLUG_QUERY,
     params: { slug, locale },
     revalidate: 300,
     tags: [`blogPost:${locale}:${slug}`],
   });
+  return withCurrentByline(post, locale);
 }
 
 export async function fetchRelated(

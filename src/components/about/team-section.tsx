@@ -21,10 +21,12 @@ export type TeamMember = {
 
 /**
  * Team copy stored by locale. EN mirrors UA with names transliterated where
- * standard (Fedir Alpatov, Diana Merkatun, Olga Mykhalkova, Kristina
- * Bondarenko). Full bios are translated to match the UA arc.
+ * standard (Fedir Alpatov, Diana Merkatun, Olga Mykhalkova, Dmytro
+ * Shevchenko). Full bios are translated to match the UA arc.
  *
- * Photos in `public/team/`. Missing file → card falls back to initials.
+ * Photos in `public/team/`. An empty `image` (or a missing file) falls the
+ * card back to the initials plate — that is the placeholder, not a stock
+ * portrait: a stock face next to a real name reads as a fake team member.
  * Tags stay in English on both locales (technical names).
  */
 const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
@@ -75,16 +77,16 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
       tags: ["Frontend", "React", "UI Logic", "Quality"],
     },
     {
-      id: "kristina",
-      name: "Кристина Бондаренко",
-      role: "Редакторка · SEO",
-      image: "/team/kristina.jpg",
+      id: "dmytro",
+      name: "Дмитро Шевченко",
+      role: "Редактор · SEO",
+      image: "",
       shortDescription:
         "«Текст на сайті має відповідати на питання клієнта раніше, ніж він його поставить. Тоді й Google розуміє, про що сторінка.»",
       fullDescription: [
-        "Кристина — редакторка і SEO-спеціалістка: тексти сторінок, структура, метадані.",
-        "Її робота — щоб кожна сторінка чесно й коротко пояснювала, що ви продаєте, скільки це коштує і як замовити.",
-        "Вона створює SEO і контент-стратегії з урахуванням бізнес-цілей, конкурентного середовища і поведінки цільової аудиторії.",
+        "Дмитро — редактор і SEO-спеціаліст: тексти сторінок, структура, метадані.",
+        "Його робота — щоб кожна сторінка чесно й коротко пояснювала, що ви продаєте, скільки це коштує і як замовити.",
+        "Він створює SEO і контент-стратегії з урахуванням бізнес-цілей, конкурентного середовища і поведінки цільової аудиторії.",
         "Основний фокус — європейські ринки, де важлива не тільки видимість у пошуку, а й правильне позиціонування продукту.",
       ],
       tags: ["SEO", "B2B", "Content Strategy", "Europe"],
@@ -134,15 +136,15 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
       tags: ["Frontend", "React", "UI Logic", "Quality"],
     },
     {
-      id: "kristina",
-      name: "Кристина Бондаренко",
+      id: "dmytro",
+      name: "Дмитрий Шевченко",
       role: "Редактор · SEO",
-      image: "/team/kristina.jpg",
+      image: "",
       shortDescription:
         "«Текст на сайте должен отвечать на вопрос клиента раньше, чем тот его задаст. Тогда и Google понимает, о чем страница.»",
       fullDescription: [
-        "Кристина — редактор и SEO-специалист: тексты страниц, структура, метаданные.",
-        "Ее задача — чтобы каждая страница честно и коротко объясняла, что вы продаете, сколько это стоит и как заказать.",
+        "Дмитрий — редактор и SEO-специалист: тексты страниц, структура, метаданные.",
+        "Его задача — чтобы каждая страница честно и коротко объясняла, что вы продаете, сколько это стоит и как заказать.",
       ],
       tags: ["SEO", "Copy", "Content Strategy"],
     },
@@ -194,16 +196,16 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
       tags: ["Frontend", "React", "UI Logic", "Quality"],
     },
     {
-      id: "kristina",
-      name: "Kristina Bondarenko",
+      id: "dmytro",
+      name: "Dmytro Shevchenko",
       role: "Editor · SEO",
-      image: "/team/kristina.jpg",
+      image: "",
       shortDescription:
         "\"Page copy should answer the client's question before they ask it. Then Google understands what the page is about, too.\"",
       fullDescription: [
-        "Kristina is our editor and SEO specialist: page copy, structure, metadata.",
-        "Her job is to make every page explain clearly and briefly what you sell, what it costs and how to order.",
-        "She creates SEO and content strategies grounded in business goals, competitive landscape, and audience behaviour.",
+        "Dmytro is our editor and SEO specialist: page copy, structure, metadata.",
+        "His job is to make every page explain clearly and briefly what you sell, what it costs and how to order.",
+        "He creates SEO and content strategies grounded in business goals, competitive landscape, and audience behaviour.",
         "Primary focus: European markets, where positioning matters as much as raw visibility.",
       ],
       tags: ["SEO", "B2B", "Content Strategy", "Europe"],
