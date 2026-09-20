@@ -91,6 +91,7 @@ export const ABOUT_EN: AboutContent = {
       { label: "Developing since", value: "2021" },
       { label: "Studio founded", value: "2023" },
       { label: "Stack", value: "Next.js · TS · Sanity" },
+      { label: "Legal entity", value: "Fedir Alpatov, sole trader (Ukraine), tax ID 3573202876" },
     ],
     profilesLabel: "FOUNDER",
     profiles: [

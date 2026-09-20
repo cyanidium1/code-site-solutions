@@ -90,6 +90,7 @@ export const ABOUT_RU: AboutContent = {
       { label: "В разработке с", value: "2021" },
       { label: "Студия основана", value: "2023" },
       { label: "Стек", value: "Next.js · TS · Sanity" },
+      { label: "Юрлицо", value: "ФЛП Алпатов Фёдор Михайлович, ИНН 3573202876" },
     ],
     profilesLabel: "ОСНОВАТЕЛЬ",
     profiles: [

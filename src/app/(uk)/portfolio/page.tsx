@@ -30,12 +30,12 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
-  title: "Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+  title: "Портфоліо: 25+ сайтів кодом | Code-Site.Art",
   description:
     "25+ сайтів кодом для клінік, юристів, нерухомості та магазинів. Результати з цифрами: заявки, швидкість, позиції в Google. Дивіться всі проєкти.",
   alternates: buildAlternates({ locale: "uk", uaPath: "/portfolio" }),
   openGraph: {
-    title: "Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+    title: "Портфоліо: 25+ сайтів кодом | Code-Site.Art",
     description:
       "25+ сайтів кодом для клінік, юристів, нерухомості та магазинів. Результати з цифрами: заявки, швидкість, позиції в Google. Дивіться всі проєкти.",
     type: "website",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+    title: "Портфоліо: 25+ сайтів кодом | Code-Site.Art",
     description:
       "25+ сайтів кодом для клінік, юристів, нерухомості та магазинів. Результати з цифрами: заявки, швидкість, позиції в Google. Дивіться всі проєкти.",
     images: [OG_DEFAULT_IMAGE.url],
@@ -94,7 +94,7 @@ export default async function PortfolioPage({
     webPageNode({
       path: "/portfolio",
       locale: "uk",
-      title: "Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+      title: "Портфоліо: 25+ сайтів кодом | Code-Site.Art",
       description:
         "25+ сайтів кодом для клінік, юристів, нерухомості та магазинів. Результати з цифрами: заявки, швидкість, позиції в Google. Дивіться всі проєкти.",
       type: "CollectionPage",

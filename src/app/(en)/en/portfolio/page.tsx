@@ -31,12 +31,12 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
-  title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
+  title: "Portfolio: 25+ custom-coded websites | Code-Site.Art",
   description:
     "25+ custom-coded websites for clinics, law firms, real estate and online shops. Results with numbers: leads, speed, Google rankings.",
   alternates: buildAlternates({ locale: "en", uaPath: "/portfolio" }),
   openGraph: {
-    title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
+    title: "Portfolio: 25+ custom-coded websites | Code-Site.Art",
     description:
       "25+ custom-coded websites for clinics, law firms, real estate and online shops. Results with numbers: leads, speed, Google rankings.",
     type: "website",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
+    title: "Portfolio: 25+ custom-coded websites | Code-Site.Art",
     description:
       "25+ custom-coded websites for clinics, law firms, real estate and online shops. Results with numbers: leads, speed, Google rankings.",
     images: [OG_DEFAULT_IMAGE.url],
@@ -95,7 +95,7 @@ export default async function EnPortfolioPage({
     webPageNode({
       path: "/en/portfolio",
       locale: "en",
-      title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
+      title: "Portfolio: 25+ custom-coded websites | Code-Site.Art",
       description:
         "25+ custom-coded websites for clinics, law firms, real estate and online shops. Results with numbers: leads, speed, Google rankings.",
       type: "CollectionPage",

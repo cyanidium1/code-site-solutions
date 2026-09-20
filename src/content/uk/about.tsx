@@ -29,8 +29,6 @@ const CAP = PAYMENT_TERMS.latePenaltyCapPercent;
 import type { AboutContent } from "@/components/about/sections";
 
 export const ABOUT_UK: AboutContent = {
-  // TODO(owner): ФОП / ЄДРПОУ (або ІПН) — юрособу не показуємо, доки власник
-  // не підтвердить, що ці дані можна публікувати (ТЗ §3.11). Не рендериться.
   meta: {
     title: "Про студію — Code Site Art | Кастомна веброзробка, Київ",
     description:
@@ -90,6 +88,8 @@ export const ABOUT_UK: AboutContent = {
       { label: "У розробці з", value: "2021" },
       { label: "Студію засновано", value: "2023" },
       { label: "Стек", value: "Next.js · TS · Sanity" },
+      // Ті самі реквізити вже опубліковані на /legal і в оферті.
+      { label: "Юрособа", value: "ФОП Алпатов Федір Михайлович, ІПН 3573202876" },
     ],
     profilesLabel: "ЗАСНОВНИК",
     profiles: [
