@@ -10,6 +10,13 @@ import { FAQ } from "@/components/blocks/final";
 import { CaseStrip } from "@/components/blocks/case-strip";
 import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
+import {
+  PACKAGES,
+  PAYMENT_TERMS,
+  formatPackagePrice,
+  formatPackageTerm,
+} from "@/constants/pricing";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -19,17 +26,23 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/en/process";
 import { buildAlternates } from "@/lib/shared/alternates";
-import { OG_DEFAULT_IMAGE } from "@/constants/site";
+
+const LOC = "en" as const;
+const BUSINESS_TERM = formatPackageTerm("business", LOC);
+const SHOP_TERM = formatPackageTerm("shop", LOC);
+const LANDING_TERM = formatPackageTerm("landing", LOC);
+const BUSINESS_PRICE = formatPackagePrice("business", LOC);
+
+const META_TITLE = `How we build a website in ${BUSINESS_TERM} | Code-Site.Art`;
+const META_DESCRIPTION = `A business website for ${BUSINESS_PRICE} in ${BUSINESS_TERM}, an online store in ${SHOP_TERM}. What happens each day, a fixed price in the contract, 1-year warranty.`;
 
 export const metadata: Metadata = {
-  title: "Process — 7 steps from brief to launch | Code-Site.Art",
-  description:
-    "4-10 weeks end-to-end. Your time: 5 hours total. Fixed price, fixed deadline, 30% rebate for delays. Here's how we work.",
-  alternates: buildAlternates({ locale: "en", uaPath: "/process" }),
+  title: META_TITLE,
+  description: META_DESCRIPTION,
+  alternates: buildAlternates({ locale: LOC, uaPath: "/process" }),
   openGraph: {
-    title: "Process — 7 steps from brief to launch | Code-Site.Art",
-    description:
-      "4-10 weeks end-to-end. Your time: 5 hours. Fixed price, 30% rebate for delays.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     type: "website",
     locale: "en_GB",
     url: "/en/process",
@@ -37,9 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Process — 7 steps from brief to launch | Code-Site.Art",
-    description:
-      "4-10 weeks end-to-end. Your time: 5 hours. Fixed price, 30% rebate for delays.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
@@ -49,15 +61,16 @@ export const metadata: Metadata = {
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/en/process",
-    locale: "en",
-    title: "Process — 7 steps from brief to launch | Code-Site.Art",
-    description:
-      "4-10 weeks end-to-end. Your time: 5 hours total. Fixed price, fixed deadline, 30% rebate for delays. Here's how we work.",
+    locale: LOC,
+    title: META_TITLE,
+    description: META_DESCRIPTION,
   }),
   breadcrumbNode([
     { name: "Home", path: "/en" },
     { name: "Process", path: "/en/process" },
   ]),
+  // SEO audit Aug 2026: the HowTo node was removed (Google retired the HowTo
+  // rich result in 2023). The on-page steps are untouched.
   {
     "@type": "FAQPage",
     mainEntity: PROCESS_FAQ.map((it) => ({
@@ -84,21 +97,24 @@ export default function EnProcessPage() {
           { label: "Home", href: "/en" },
           { label: "Process" },
         ]}
-        eyebrow="PROCESS · 4-10 WEEKS END-TO-END"
+        eyebrow={`PROCESS · ${BUSINESS_TERM.toUpperCase()}`}
         headline={
           <>
-            <em>9 things</em> we do for you. Your time: under 5 hours.
+            A business website in {BUSINESS_TERM}. <em>What happens each day</em>.
           </>
         }
-        sub="You don't write specs. You don't hunt for references. You don't chase a photographer. You spend 30 minutes telling us about your business — and 4-10 weeks later, you have a finished site."
+        sub={`You tell us about your business; we do the structure, copy, design, code and launch. Price and deadline are fixed in the contract before we start. Landing page: ${LANDING_TERM}. Online store: ${SHOP_TERM}.`}
       />
 
       <StatsBar
         items={[
-          { value: <>4-10</>, label: "weeks total timeline" },
-          { value: <>5 hrs</>, label: "of your time total" },
-          { value: <>100%</>, label: "fixed price" },
-          { value: <>30%</>, label: "rebate for delays" },
+          { value: <>{PACKAGES.business.days.min}</>, label: "working days — business website" },
+          { value: <>{PACKAGES.shop.days.min}</>, label: "working days — online store" },
+          { value: <>100%</>, label: "fixed price in the contract" },
+          {
+            value: <>{PAYMENT_TERMS.latePenaltyPercentPerDay}%</>,
+            label: `penalty per day late, up to ${PAYMENT_TERMS.latePenaltyCapPercent}%`,
+          },
         ]}
       />
 
@@ -107,16 +123,16 @@ export default function EnProcessPage() {
       {/* Portfolio strip — the page ran seven text-only steps with a
           single photo on it (design audit 2026-09-07). */}
       <CaseStrip
-        locale="en"
+        locale={LOC}
         slugs={[
-          "efedra-clinic",
           "nbyg-kobenhavn",
-          "solide-renovation",
-          "aleko-course",
-          "glimmer",
-          "mono-pools",
+          "grontland",
+          "webbond",
+          "domlivo",
+          "clarion-solutions",
+          "right-cars",
         ]}
-        sub="The seven steps above are how every project below was built."
+        sub="The steps above are how the projects below were built."
       />
 
       <ImageText
@@ -128,15 +144,13 @@ export default function EnProcessPage() {
             How we <em>communicate</em> during the project
           </>
         }
-        body="You don't disappear for 6 weeks and get the site &ldquo;out of nowhere.&rdquo; Every step is a checkpoint where you see and approve."
+        body="You never wait for the site blind. You see and approve every step."
         bulletList={[
-          "WhatsApp chat daily — replies within 30 minutes in business hours",
-          "Weekly screencast (3-5 minutes)",
-          "Email status report every week with milestone status",
-          "Zoom call once per sprint (optional, on your request)",
-          "GitHub commits visible daily — full transparency",
-          "Staging URL for real-time preview",
-          "If you're unreachable for a week — project pauses, the deadline shifts",
+          "One chat for the whole project — replies in business hours",
+          "A preview link from the first day of development",
+          "Code in your GitHub from the first commit",
+          "A call whenever you want one, never required",
+          "If you're unreachable, the deadline moves by the same number of days",
         ]}
         image={
           <AppImage
@@ -150,7 +164,7 @@ export default function EnProcessPage() {
       />
 
       <section className="bg-bg">
-        <FAQ heading="What if…?" items={PROCESS_FAQ} locale="en" />
+        <FAQ heading="What if…?" items={PROCESS_FAQ} locale={LOC} />
       </section>
 
       <CtaBanner
@@ -160,13 +174,13 @@ export default function EnProcessPage() {
             Ready to walk through the process <em>with us</em>?
           </>
         }
-        sub="First step is free. 30-min consult — and you know the price range and timeline."
+        sub="The first step is free: a quote within 24 hours — package, price and timeline."
         ctaPrimary={{
           label: "Calculate the price →",
           href: "/en/calculator",
         }}
         ctaSecondary={{
-          label: "Or talk to us",
+          label: "Get a quote",
           href: "/en/contacts",
         }}
       />

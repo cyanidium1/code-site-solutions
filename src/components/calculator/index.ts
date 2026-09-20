@@ -1,1 +1,1 @@
-export { WebsiteCalculator } from "./WebsiteCalculator";
+export { PackageCalculator } from "./PackageCalculator";

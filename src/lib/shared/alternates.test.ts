@@ -9,14 +9,14 @@ test("default availability follows LOCALIZED_ROOTS per locale", () => {
     canonical: "/vs-wordpress",
     languages: {
       uk: "/vs-wordpress",
-      "en-GB": "/en/vs-wordpress",
+      "en": "/en/vs-wordpress",
       "x-default": "/vs-wordpress",
     },
   });
   // /blog exists in both secondary locales.
   assert.deepEqual(
     buildAlternates({ locale: "uk", uaPath: "/blog" }).languages,
-    { uk: "/blog", "en-GB": "/en/blog", ru: "/ru/blog", "x-default": "/blog" },
+    { uk: "/blog", "en": "/en/blog", ru: "/ru/blog", "x-default": "/blog" },
   );
 });
 
@@ -40,5 +40,5 @@ test("path override for translated slugs", () => {
     available: ["en"],
     paths: { en: "/en/blog/en-slug" },
   });
-  assert.equal(a.languages!["en-GB"], "/en/blog/en-slug");
+  assert.equal(a.languages!["en"], "/en/blog/en-slug");
 });

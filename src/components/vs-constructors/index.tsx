@@ -9,6 +9,7 @@ import { FAQ } from "@/components/blocks/final";
 import type { FAQItem } from "@/types/faq";
 
 import { CaseStrip } from "@/components/blocks/case-strip";
+import { UspLine } from "@/components/blocks/packages";
 import { SectionHead } from "@/components/shared/section-head";
 import { AppImage } from "@/lib/shared/app-image";
 import {
@@ -171,6 +172,61 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
           </p>
         </div>
       </section>
+
+      {/* 03b — 3 years of subscription vs one payment (UA market) */}
+      {c.threeYears ? (
+        <section className={hpSectionClass} id="three-years">
+          <div className={hpInnerClass}>
+            <SectionHead
+              eyebrow={c.threeYears.eyebrow}
+              heading={c.threeYears.heading}
+              sub={c.threeYears.sub}
+            />
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {[c.threeYears.builder, c.threeYears.us].map((col, i) => (
+                <div
+                  key={col.title}
+                  className={
+                    "border rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3 " +
+                    (i === 1 ? "border-accent-25" : "border-line")
+                  }
+                >
+                  <h3 className="font-display font-bold text-[18px] tracking-[-0.01em] text-ink">
+                    {col.title}
+                  </h3>
+                  <dl className="flex flex-col gap-2">
+                    {col.lines.map((ln) => (
+                      <div
+                        key={ln.label}
+                        className="flex items-baseline justify-between gap-4 text-[13px] leading-[1.55]"
+                      >
+                        <dt className="text-ink-dim">{ln.label}</dt>
+                        <dd className="font-mono text-ink text-right">{ln.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="mt-auto pt-3 border-t border-line flex items-baseline justify-between gap-4">
+                    <span className="text-[12px] font-mono tracking-[0.04em] text-ink-3">
+                      {col.totalLabel}
+                    </span>
+                    <span
+                      className={
+                        "font-display font-bold text-[24px] " +
+                        (i === 1 ? "text-accent-soft" : "text-ink")
+                      }
+                    >
+                      {col.total}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-center text-[14px] leading-[1.65] text-ink-dim max-w-[60ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">
+              {c.threeYears.foot}
+            </p>
+          </div>
+        </section>
+      ) : null}
 
       {/* 04 — Wide side-by-side comparison (7 cols, horizontal scroll on mobile) */}
       <section className={hpSectionClass} id="compare-table">
@@ -474,7 +530,8 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               <Tier key={i} {...t} compact />
             ))}
           </CmpPricingGrid>
-          <p className="mt-7 text-center text-[13px] leading-[1.65] text-ink-dim max-w-[68ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">
+          <UspLine locale={locale} className="mt-7" />
+          <p className="mt-4 text-center text-[13px] leading-[1.65] text-ink-dim max-w-[68ch] mx-auto [&_strong]:text-accent-soft [&_strong]:font-semibold">
             {c.pricing.foot}
           </p>
         </div>

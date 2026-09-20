@@ -144,10 +144,10 @@ export default async function EnAboutPage() {
           eyebrow="TEAM"
           heading={
             <>
-              12 people. You&apos;ll hear from four <em>every day</em>.
+              A team of 4. You talk to each of us <em>directly</em>.
             </>
           }
-          sub="This is the core — the people you'll talk to directly: tech lead, designer, frontend, marketing. Behind them, 8 more work in the background: 4 developers, 2 designers, 2 QA engineers. You see results, not process."
+          sub="Fedir Alpatov, founder and tech lead, with a designer, a developer and an editor. No account managers between you and the people building your site."
         />
 
         {/* 3 — Public track record ("verify us yourself") */}

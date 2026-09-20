@@ -16,6 +16,7 @@ import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { ProseSections } from "@/components/blocks/prose-section";
 import { MED_VERSTKA_PROSE_UK } from "@/content/uk/medicine-children-prose";
+import { MED_OFFER_UK as M } from "@/components/industry-page/medicine/offer";
 import { Code2, Keyboard, Gauge, Printer, ShieldCheck, Braces } from "lucide-react";
 
 /**
@@ -36,9 +37,9 @@ import { Code2, Keyboard, Gauge, Printer, ShieldCheck, Braces } from "lucide-rea
 const PATH = "/sites-for/medicine/verstka";
 const URL = pageUrl(PATH);
 
-const TITLE = "Верстка і фронтенд медичних сайтів | Code-Site.Art";
+const TITLE = `Верстка медичних сайтів — у ціні сайту ${M.price}`;
 const DESCRIPTION =
-  "➤ Верстка медичних сайтів: семантика, доступність із клавіатури, Lighthouse 90+ ✔️ Інтеграція чужого віджета запису ✔️ Стилі друку для пам'яток пацієнту ➡ Входить у вартість розробки.";
+  `Верстка медичних сайтів: семантика, доступність із клавіатури, Lighthouse 90+, віджет запису. Входить у сайт клініки за ${M.price}.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -65,7 +66,7 @@ const VERSTKA_FAQ: { q: string; a: RichText }[] = [
     q: "Скільки коштує верстка медичного сайту окремо?",
     a: [
       "Окремо не продається — вона частина пакета, як і дизайн. Ми не беремо чужий макет у верстку і не віддаємо верстку без коду: адаптив під mobile, tablet і desktop, Lighthouse Performance 90+ і коректна семантика — базовий стандарт кожного проєкту, а не опція за доплату. Сайт клініки під ключ — ",
-      { link: { href: "/sites-for/medicine", text: "від $2 500" } },
+      { link: { href: "/sites-for/medicine", text: `${M.price} за ${M.term}` } },
       ".",
     ],
   },
@@ -123,7 +124,7 @@ const jsonLd = buildJsonLd([
       {
         "@type": "Offer",
         name: "Сайт клініки під ключ, верстка у вартості",
-        price: "2500",
+        price: String(M.priceNum),
         priceCurrency: "USD",
         url: URL,
       },
@@ -154,7 +155,7 @@ export default function MedicineFrontendPage() {
         eyebrow="ВЕРСТКА МЕДИЧНИХ САЙТІВ"
         headline={
           <>
-            Фронтенд медичного сайту — <em>шар, який видно лише коли він зламався</em>
+            Верстка медичного сайту — <em>у ціні сайту клініки {M.price}</em>
           </>
         }
         sub={
@@ -283,7 +284,7 @@ export default function MedicineFrontendPage() {
             Перевіримо ваш сайт <em>на цих пунктах</em>
           </>
         }
-        sub="На аудиті сайту ($150) пройдемо запис із клавіатури, подивимось швидкість на мобільному й покажемо, що ламається. Година розбору, запис і PDF. Перед оплатою — безкоштовний дзвінок-знайомство."
+        sub="На безкоштовному аудиті сайту пройдемо запис із клавіатури, подивимось швидкість на мобільному й покажемо, що ламається. Відповідь — за 24 години."
         ctaPrimary={{ label: "Замовити перевірку", href: "/contacts" }}
         ctaSecondary={{ label: "Дизайн медичного сайту", href: "/sites-for/medicine/dyzain" }}
       />

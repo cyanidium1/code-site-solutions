@@ -10,6 +10,8 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
+import { servicePrice } from "@/constants/pricing";
+import { LOCALE_CURRENCY } from "@/lib/shared/format-price";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { SEO_EN as CONTENT } from "@/content/en/seo";
 
@@ -58,15 +60,15 @@ const jsonLd = buildJsonLd([
       {
         "@type": "Offer",
         name: "SEO retainer: service business (monthly)",
-        price: "300",
-        priceCurrency: "GBP",
+        price: String(servicePrice("seoServicesFrom", "en")),
+        priceCurrency: LOCALE_CURRENCY.en,
         url: URL,
       },
       {
         "@type": "Offer",
         name: "SEO retainer: e-commerce (monthly)",
-        price: "500",
-        priceCurrency: "GBP",
+        price: String(servicePrice("seoShopFrom", "en")),
+        priceCurrency: LOCALE_CURRENCY.en,
         url: URL,
       },
     ],

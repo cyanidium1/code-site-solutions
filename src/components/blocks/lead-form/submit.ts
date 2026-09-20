@@ -18,8 +18,13 @@ export async function submitLead(
   const res = await fetch("/api/lead", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...values, source, attribution }),
+    body: JSON.stringify({
+      ...values,
+      source,
+      page: typeof window !== "undefined" ? window.location.pathname : undefined,
+      attribution,
+    }),
   });
   if (!res.ok) throw new Error("API error");
-  trackLead(source, attribution);
+  trackLead(source, attribution, values.tier);
 }

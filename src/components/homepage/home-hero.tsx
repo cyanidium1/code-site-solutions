@@ -81,12 +81,18 @@ const HERO_LEFT_CLASS =
 // The `lg:text-[...cqw]` override is the one place in the codebase that
 // overrides a Heading variant size (Heading.tsx escape hatch): this H1 is
 // the only heading that shares its row with a bleeding image, so it is
-// sized by its column instead of by the viewport. 8cqw is set by the
-// widest unbreakable chunk across locales — RU "которые приводят" is
-// 11.2em wide, so anything above ~8.8cqw overflows the column at some
-// width. 60px cap = the old 64px desktop size minus the overflow.
+// sized by its column instead of by the viewport. The coefficient is set
+// by the widest line across locales — ru "САЙТ ПОД КЛЮЧ КОДОМ" is 13.2em,
+// so above ~7.5cqw it breaks in half on the 800–1100 laptops where the
+// text track is at its narrowest. 56px cap = the Figma desktop size.
 const HERO_H1_CLASS =
-  "text-ink m-0 mb-[18px] sm:mb-7 lg:mb-8 lg:text-[clamp(32px,8cqw,56px)] 2xl:mb-9 " +
+  "text-ink m-0 mb-3.5 sm:mb-7 lg:mb-8 2xl:mb-9 " +
+  // Below md the headline is sized to hold the offer in exactly two lines
+  // (owner, 2026-09-20: "чтобы на телефонах две строчки"). The `hp` variant's
+  // 28px floor broke "САЙТ ПІД КЛЮЧ КОДОМ" in half at every phone width;
+  // 6.4vw keeps the longest locale line (en, 21 chars) inside the 24px
+  // gutters from 360 up, and the 20px floor holds the old 320px screens.
+  "max-md:text-[clamp(20px,6.4vw,40px)] lg:text-[clamp(30px,7.4cqw,56px)] " +
   "[&_em]:italic [&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
 
 // The measure is in `em`, so it scales with the headline instead of with
@@ -98,14 +104,18 @@ const HERO_H1_CLASS =
 // lines — `text-balance` is what evens them; the 50vw cap this replaces
 // left "складності," alone on a line while the line above it ran under
 // the mockup.
-const H1_LINE_CLASS = "block max-w-[13em] text-balance";
+// 14em from md up: at the 56px cap the longest first line (ru "САЙТ ПОД КЛЮЧ
+// КОДОМ", 13.2em) broke in half at the old 13em and the desktop headline grew
+// a third line. Below md the line is one whole phrase and any em measure would
+// re-wrap it, so there the box is the column.
+const H1_LINE_CLASS = "block max-w-full text-balance md:max-w-[14em]";
 
 // Same measure as the headline box, so the column's text blocks all end on
 // one line. At 16px every locale's lede is ~640px, so it sets as a single
 // line instead of the 440/460px two-liner it used to be. 15→17px: at a
 // 56px headline the old 14px lede read as a caption.
 const LEDE_CLASS =
-  "text-[15px] leading-[1.55] text-ink-dim max-w-full m-0 mb-[22px] text-pretty " +
+  "text-[15px] leading-[1.55] text-ink-dim max-w-full m-0 mb-4 text-pretty " +
   "[&_em]:not-italic [&_em]:text-ink [&_em]:font-medium " +
   "sm:text-base sm:leading-[1.6] sm:mb-6 " +
   "lg:text-[16px] lg:mb-7 lg:max-w-[var(--hero-measure)] " +
@@ -124,12 +134,13 @@ const LEDE_CLASS =
 // line. Now the row falls back to the bordered card whenever its column is
 // too narrow, at any viewport.
 const FEATURES_CLASS =
-  "order-4 lg:order-none grid grid-cols-1 gap-2 mb-0 max-w-full px-3.5 py-3 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
-  "@min-[560px]:grid-cols-3 @min-[560px]:gap-x-4 @min-[560px]:gap-y-0 @min-[560px]:px-0 @min-[560px]:py-0 @min-[560px]:border-0 @min-[560px]:rounded-none @min-[560px]:bg-transparent " +
-  // Three equal tracks across the full headline measure: the row ends on
-  // the same line the H1 box ends on, and each proof gets ~224px instead
-  // of the 150px that used to wrap "+ безкоштовна підтримка" onto a
-  // second line while its two neighbours stayed on one.
+  "order-4 lg:order-none grid grid-cols-2 items-start gap-x-3 gap-y-2 mb-0 max-w-full px-3 py-2.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
+  "@min-[560px]:gap-x-4 @min-[560px]:gap-y-0 @min-[560px]:px-0 @min-[560px]:py-0 @min-[560px]:border-0 @min-[560px]:rounded-none @min-[560px]:bg-transparent " +
+  // Equal tracks across the full headline measure: the row ends on the same
+  // line the H1 box ends on. Two proofs, not three — the pair below the CTA
+  // is the offer's only unconditional promise (owner, 2026-09-20), and on a
+  // phone they sit side by side rather than stacked, so the block costs one
+  // row instead of three.
   "lg:mb-8 lg:gap-x-6 lg:max-w-[var(--hero-measure)] " +
   "2xl:mb-9";
 
@@ -150,7 +161,7 @@ const FEAT_SUB_CLASS =
   "text-[11px] leading-[1.35] text-ink-3 mt-0.5 tracking-[0.02em] lg:text-[11px] 2xl:text-xs";
 
 const CTA_ROW_CLASS =
-  "order-2 lg:order-none flex flex-col flex-wrap gap-3 items-stretch mb-4 " +
+  "order-2 lg:order-none flex flex-col flex-wrap gap-2.5 items-stretch mb-3 " +
   "sm:flex-row sm:gap-5 sm:items-center lg:gap-6 " +
   "2xl:mb-5";
 
@@ -158,7 +169,7 @@ const CTA_ROW_CLASS =
 // keeps a short measure. Last block of the column at lg — no bottom margin
 // there; below lg `order-3` puts the features after it.
 const CTA_FOOTNOTE_CLASS =
-  "order-3 lg:order-none max-w-[440px] text-[12px] tracking-[0.01em] text-ink-3 m-0 mb-6 leading-[1.5] " +
+  "order-3 lg:order-none max-w-[440px] text-[12px] tracking-[0.01em] text-ink-3 m-0 mb-4 leading-[1.5] " +
   "sm:mb-7 lg:text-[13px] lg:mb-0 lg:max-w-[var(--hero-measure)]";
 
 const DEVICE_STAGE_CLASS =
@@ -199,6 +210,18 @@ const MOCKUP_IMG_HOMEPAGE_CLASS =
   "sm:!w-[86%] sm:!translate-x-[8%] " +
   "lg:absolute lg:!w-[50vw] lg:-top-[40px] lg:-left-[12%] lg:!-translate-x-[6%] " +
   "min-[1250px]:!w-[clamp(420px,100vw,1200px)] min-[1250px]:-top-[136px] min-[1250px]:-left-[272px] min-[1250px]:!-translate-x-[10%]";
+
+// With an `aside` (the lead form, TZ v2 §3.1 "form in the first screen") the
+// right track holds the form instead of the mockup: a fixed 360–440px column
+// at lg so the form never gets squeezed by the 1000px text track, and on
+// phones the form follows the proofs directly — the first thing under the
+// hero, before any other section.
+const HERO_GRID_ASIDE_CLASS =
+  "grid grid-cols-1 gap-8 items-center max-w-container mx-auto min-h-0 " +
+  "lg:grid-cols-[minmax(0,1fr)_minmax(360px,420px)] lg:gap-10 lg:min-h-[clamp(560px,80vh,720px)] " +
+  "2xl:grid-cols-[minmax(0,1fr)_440px] 2xl:gap-16";
+
+const HERO_ASIDE_CLASS = "relative z-10 min-w-0 w-full";
 
 const HERO_RIGHT_CLASS =
   "relative min-w-0 [aspect-ratio:auto] z-[-1] h-[260px] min-h-[260px] overflow-visible [contain:layout] -mx-6 mt-2 -mb-6 w-[calc(100%+48px)] " +
@@ -263,6 +286,8 @@ export type HomeHeroProps = {
   ctaFootnote?: React.ReactNode;
   deviceMockupSrc: string;
   deviceMockupAlt: string;
+  /** Replaces the device mockup with this node (e.g. `<LeadFormCard>`). */
+  aside?: React.ReactNode;
 };
 
 export function HomeHero({
@@ -276,6 +301,7 @@ export function HomeHero({
   ctaFootnote,
   deviceMockupSrc,
   deviceMockupAlt,
+  aside,
 }: HomeHeroProps) {
   return (
     <>
@@ -284,7 +310,7 @@ export function HomeHero({
 
       <div className={HERO_SHELL_CLASS}>
         <HeroGears className={HERO_GEARS_CLASS} />
-        <div className={HERO_GRID_CLASS}>
+        <div className={aside ? HERO_GRID_ASIDE_CLASS : HERO_GRID_CLASS}>
           <div className={HERO_LEFT_CLASS}>
             <H1 variant="hp" className={HERO_H1_CLASS} data-speakable="hero-title">
               {h1Lines.map((line, i) => (
@@ -317,6 +343,9 @@ export function HomeHero({
             {ctaFootnote ? <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p> : null}
           </div>
 
+          {aside ? (
+            <div className={HERO_ASIDE_CLASS}>{aside}</div>
+          ) : (
           <div className={HERO_RIGHT_CLASS}>
             <div className={DEVICE_STAGE_CLASS}>
               <div className={DEVICE_GLOW_CLASS} />
@@ -336,6 +365,7 @@ export function HomeHero({
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
     </>

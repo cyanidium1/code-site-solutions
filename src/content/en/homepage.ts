@@ -1,266 +1,205 @@
-import {
-  Stethoscope,
-  Scale,
-  Calculator,
-  ShoppingCart,
-  Building,
-  Car,
-  Home,
-  GraduationCap,
-} from "lucide-react";
-
-import type { Industry } from "@/types/homepage";
-import type { TierProps } from "@/types/pricing";
-import type { FAQItem } from "@/types/faq";
-import { formatPrice } from "@/lib/shared/format-price";
-import {
-  TIER_AMOUNTS,
-  TIER_NAMES,
-  TIER_WEEKS,
-  type HomepagePlanInfo,
-  type TierKey,
-} from "@/constants/pricing-tiers";
-
-export const EN_INDUSTRIES: Industry[] = [
-  {
-    icon: Stethoscope,
-    title: "Healthcare",
-    description: "Sites for clinics, dental practices, diagnostic centres",
-    tags: ["EPR", "UK GDPR", "Online booking"],
-    price: "From £3,500 · 4–10 weeks",
-    href: "/en/sites-for/medicine",
-  },
-  {
-    icon: Building,
-    title: "Construction / Renovation",
-    description: "Sites for construction and renovation companies",
-    tags: ["CRM", "Calculator", "Local SEO"],
-    price: "From £3,500 · 4–8 weeks",
-    href: "/en/sites-for/renovation",
-  },
-  {
-    icon: Scale,
-    title: "Legal & Solicitors",
-    description: "Sites for law firms, solicitors' offices, sole practitioners",
-    tags: ["Clio", "DocuSign", "Online consultations"],
-    price: "From £3,500 · 4–8 weeks",
-    href: "/en/sites-for/legal",
-  },
-  {
-    icon: Calculator,
-    title: "Finance & Accounting",
-    description:
-      "Sites for accounting firms, financial advisors, trading services",
-    tags: ["Xero", "Stripe", "Sage"],
-    price: "From £3,500 · 4–8 weeks",
-    href: "/en/sites-for/finance",
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-commerce",
-    description: "Online shops, marketplaces, B2B catalogues",
-    tags: ["Stripe", "GoCardless", "Royal Mail"],
-    price: "From £6,000 · 6–10 weeks",
-    href: "/en/sites-for/ecommerce",
-  },
-  {
-    icon: Car,
-    title: "Motor industry",
-    description:
-      "Sites for car importers, car dealers, garages, and motor services",
-    tags: ["BCA", "PDF invoice", "Multi-lang"],
-    price: "From £3,000 · 6–10 weeks",
-    href: "/en/sites-for/auto",
-  },
-  {
-    icon: Home,
-    title: "Property",
-    description:
-      "Sites for estate agencies, developers, private listings",
-    tags: ["Rightmove", "Zoopla", "Mortgage"],
-    price: "From £4,000 · 6–10 weeks",
-    href: "/en/sites-for/real-estate",
-  },
-  {
-    icon: GraduationCap,
-    title: "Courses & Landings",
-    description: "Sites for online courses, info-products, creator funnels",
-    tags: ["Stripe", "Teachable", "A/B"],
-    price: "From £800 · 4–8 weeks",
-    href: "/en/sites-for/courses",
-  },
-];
-
-export const EN_TIERS: TierProps[] = [
-  {
-    name: TIER_NAMES.landing.en,
-    price: formatPrice(TIER_AMOUNTS.landing, { locale: "en" }),
-    priceLabel: "from",
-    weeks: TIER_WEEKS.landing.en,
-    bestFor: "Fast launch of one offer, MVP, hypothesis testing.",
-    bestForLabel: "Best for:",
-    includes: {
-      heading: "Includes",
-      items: [
-        "One long-form page",
-        "Responsive build",
-        "SEO-first structure",
-        "Form integrations",
-        "1-year warranty",
-      ],
-    },
-    ctaLabel: "Choose Landing",
-  },
-  {
-    popular: true,
-    popularLabel: "★ MOST POPULAR",
-    name: TIER_NAMES.corporate.en,
-    price: formatPrice(TIER_AMOUNTS.corporate, { locale: "en" }),
-    priceLabel: "from",
-    weeks: TIER_WEEKS.corporate.en,
-    bestFor:
-      "Businesses with compliance needs (healthcare, legal, accounting) that need industry-specific integrations.",
-    bestForLabel: "Best for:",
-    includes: {
-      heading: "Everything in Landing, plus",
-      items: [
-        "5 pages included, then +£220/page",
-        "CMS, blog",
-        "5+ integrations",
-        "Local SEO",
-        "Compliance: UK GDPR / DPA 2018-ready",
-        "Multilingual (2+ languages)",
-      ],
-    },
-    ctaLabel: "Choose Corporate",
-  },
-  {
-    name: TIER_NAMES.custom.en,
-    price: formatPrice(TIER_AMOUNTS.custom, { locale: "en" }),
-    priceLabel: "from",
-    weeks: TIER_WEEKS.custom.en,
-    bestFor:
-      "Complex products with bespoke logic — SaaS, marketplace, B2B portal.",
-    bestForLabel: "Best for:",
-    includes: {
-      heading: "Everything in Corporate, plus",
-      items: [
-        "No page limit",
-        "Architectural session",
-        "Dedicated team",
-        "SLA + 24/7 support",
-        "Custom integrations",
-      ],
-    },
-    ctaLabel: "Talk to us",
-    ctaGhost: true,
-  },
-];
-
 /**
- * Build the homepage FAQ. Pass an `override` map (typically derived from CMS
- * pricingPlan docs) to substitute plan name/price/weeks per tier; missing
- * keys fall back to the static constants in `pricing-tiers.ts`.
+ * Homepage copy (en) — the international market (EUR), with its own
+ * positioning: custom-coded websites for European small businesses, fixed
+ * price, 7 working days, you own the code, no subscriptions (TZ v2 §3.1 +
+ * owner brief). Every price and term is read from `@/constants/pricing`.
  */
-export function buildEnHomepageFaq(
-  override?: Partial<Record<TierKey, HomepagePlanInfo>>,
-): FAQItem[] {
-  const get = (key: TierKey): HomepagePlanInfo =>
-    override?.[key] ?? {
-      name: TIER_NAMES[key].en,
-      priceFrom: TIER_AMOUNTS[key],
-      weeks: TIER_WEEKS[key].en,
-    };
-  const fmt = (n: number) => formatPrice(n, { locale: "en" });
-  const L = get("landing");
-  const C = get("corporate");
-  const X = get("custom");
 
-  return [
-  {
-    q: "How much will my site cost?",
-    a: [
-      "From ",
-      { em: fmt(L.priceFrom) },
-      " for a landing page to ",
-      { em: `${fmt(X.priceFrom)}+` },
-      " for a platform. We’ll give you the exact figure after a short conversation and lock it into the contract before we start. For a quick estimate, use the ",
-      { link: { href: "/en/calculator", text: "calculator" } },
-      ".",
+import type { FAQItem } from "@/types/faq";
+import type { Locale } from "@/constants/locales";
+import {
+  PACKAGES,
+  PAYMENT_TERMS,
+  SERVICES,
+  addonPrice,
+  formatDays,
+  formatPackagePrice,
+  formatPackageTerm,
+  servicePrice,
+} from "@/constants/pricing";
+import { formatPrice } from "@/lib/shared/format-price";
+import { resolveRootHref } from "@/constants/i18n-routes";
+import type { HomepageContent } from "@/content/uk/homepage";
+
+const L: Locale = "en";
+const fp = (n: number) => formatPrice(n, { locale: L });
+const href = (uaPath: string) => resolveRootHref(uaPath, L);
+
+const LANDING = formatPackagePrice("landing", L);
+const BUSINESS = formatPackagePrice("business", L);
+const SHOP = formatPackagePrice("shop", L);
+const INDUSTRY = formatPackagePrice("industry", L);
+const CUSTOM = formatPackagePrice("custom", L);
+const D = PACKAGES.business.days.min;
+const S = PACKAGES.shop.days.min;
+const HOURS = SERVICES.auditResponseHours;
+const HOSTING = fp(servicePrice("hostingRenewalPerYear", L));
+const EXTRA_PAGE = fp(addonPrice("extra_page", L));
+const NEW_PAGE_DAYS = formatDays(SERVICES.newPageDays, L);
+const PT = PAYMENT_TERMS;
+
+export const HOMEPAGE_EN: HomepageContent = {
+  meta: {
+    title: `Custom-coded website in ${D} days for ${BUSINESS} | Code-Site.Art`,
+    description: `Custom-coded websites for European small businesses: ${BUSINESS} fixed in the contract, live in ${formatPackageTerm("business", L)}. Online shop ${SHOP}. You own the code.`,
+  },
+  hero: {
+    h1Line1: "Turnkey coded site",
+    h1Line2Lead: `in ${D} days, `,
+    h1Line2Em: `from ${BUSINESS}`,
+    lede: "For European small businesses. No subscriptions, no website builders. The code, domain and data are yours. A year of warranty and support included.",
+    features: [
+      {
+        label: "We write specs",
+        sub: "No 50-question briefs: we decide, present and defend it",
+      },
+      {
+        label: "1-year warranty",
+        sub: "No subscriptions, no lock-in: the code is yours, leave any time",
+      },
+    ],
+    ctaPrimary: "Get a free quote",
+    ctaSecondary: "See prices",
+    footnote: `We reply with a price and a timeline within ${HOURS} hours. No obligation.`,
+    mockupAlt: "Custom business website mockup built by Code-Site.Art",
+  },
+  cases: {
+    eyebrow: "CASES",
+    headingLead: "Sites we have ",
+    headingEm: "already launched",
+    ctaLabel: "All cases",
+    ctaHref: href("/portfolio"),
+  },
+  pricing: {
+    headingLead: "Prices — ",
+    headingEm: "fixed in the contract",
+    sub: "Three packages with a set scope. Pick one and your quote request arrives with it preselected.",
+  },
+  industries: {
+    headingLead: "Built for ",
+    headingEm: "your industry",
+    sub: "The Business website package plus an industry integration and the rules your sector works under.",
+  },
+  process: {
+    headingLead: `${D} working days — `,
+    headingEm: "from brief to launch",
+    sub: "Scope, timeline and price are fixed in the contract. You know up front what you will get, when, and for how much.",
+    steps: [
+      { n: "01", name: "Brief and structure", duration: "Day 1", items: ["Goals and services", "Page structure", "Content list"] },
+      { n: "02", name: "Design on your content", duration: "Days 2–3", items: ["Your copy and photos", "Mobile version", "Sign-off"] },
+      { n: "03", name: "Build and content", duration: `Days 4–${D - 1}`, items: ["Code and CMS", "Forms + alerts", "SEO structure"] },
+      { n: "04", name: "Testing and launch", duration: `Day ${D}`, items: ["Checks on phones", "Analytics", "Domain and SSL"] },
+    ],
+    shopLine: `Online shop — ${formatPackageTerm("shop", L)}: days 1–2 brief and catalogue → days 3–5 design → days 6–${S - 2} build, payments, delivery and products → days ${S - 1}–${S} testing and launch.`,
+    ctaLabel: "Full process",
+    ctaHref: href("/process"),
+    moreLabel: "What each stage includes",
+  },
+  directions: {
+    headingLead: "Where to ",
+    headingEm: "start",
+    sub: "The pages most people start with: prices, case studies and packages.",
+    links: [
+      { href: href("/pricing"), label: "Prices" },
+      { href: href("/portfolio"), label: "Case studies" },
+      { href: href("/corporate-site"), label: "Business website" },
+      { href: href("/online-store"), label: "Online shop" },
+      { href: href("/vs-constructors"), label: "Compare with website builders" },
+      { href: href("/calculator"), label: "Price calculator" },
     ],
   },
-  {
-    q: "What if I don’t know exactly what I need?",
-    a: [
-      "That’s normal — and it’s our job. You tell us about your business; we propose the solution and explain what’s not worth spending money on.",
-    ],
-  },
-  {
-    q: "Can I see the code before I pay in full?",
-    a: [
-      "Yes. The code, access, and site are yours from the start. Look any time.",
-    ],
-  },
-  {
-    q: "What if something breaks after launch?",
-    a: [
-      "A year of support is included. Replies in under 4 hours. We fix issues and help you grow.",
-    ],
-  },
-  {
-    q: "What if you miss the deadline?",
-    a: [
-      "We pay a penalty. So hitting the deadline matters to us just as much as it does to you.",
-    ],
-  },
-  {
-    q: "Do you guarantee #1 on Google?",
-    a: [
-      "No, and nobody honestly can. We guarantee the technical base Google rewards: structure, speed, markup. The rest is content and time.",
-    ],
-  },
-  // Retained from the previous FAQ — not in the 2026-07 landing doc.
-  {
-    q: "How long from brief to launch?",
-    a: [
-      { em: L.name },
-      " — ",
-      { em: L.weeks },
-      ". ",
-      { em: C.name },
-      " — ",
-      { em: C.weeks },
-      ". ",
-      { em: X.name },
-      " — ",
-      { em: X.weeks },
-      ". That includes all revisions, content, and SEO. No surprises. The date is fixed in the contract.",
-    ],
-  },
-  {
-    q: "What if my budget is below your minimum?",
-    a: [
-      "We'll say up front that we can't deliver at that price, and point you toward someone who can. We don't take on projects we can't ship well at your budget.",
-    ],
-  },
-  {
-    q: "Can I start with a landing page and grow into a full site later?",
-    a: [
-      "Yes. The architecture we write ",
-      { em: "scales" },
-      ". Start with a Landing, and in a year we add CMS, blog, and extra verticals, no rewrite from scratch.",
-    ],
-  },
-  {
-    q: "What if I already have a designer / content / logo?",
-    a: [
-      "Then we work from your files or Figma. That's ",
-      { em: "-10-15% off the price" },
-      " and a shorter timeline. The contract spells out what you provide and when.",
-    ],
-  },
-  ];
+  faqHeading: "Questions that come up before you start",
+  faq: [
+    {
+      q: "How much will my website cost?",
+      a: [
+        "A landing page is ",
+        { em: LANDING },
+        ", a business website ",
+        { em: BUSINESS },
+        ", an online shop ",
+        { em: SHOP },
+        ". Industry solutions start ",
+        { em: INDUSTRY },
+        ", custom platforms ",
+        { em: CUSTOM },
+        ". The price is fixed in the contract before we start. The ",
+        { link: { href: href("/calculator"), text: "calculator" } },
+        " adds up the extras.",
+      ],
+    },
+    {
+      q: "How long from brief to launch?",
+      a: [
+        "Landing page — ",
+        { em: formatPackageTerm("landing", L) },
+        ", business website — ",
+        { em: formatPackageTerm("business", L) },
+        ", online shop — ",
+        { em: formatPackageTerm("shop", L) },
+        ", industry solution — ",
+        { em: formatPackageTerm("industry", L) },
+        ". The launch date goes into the contract.",
+      ],
+    },
+    {
+      q: "Why does hand-written code cost less than at an agency?",
+      a: [
+        "Because the site takes fewer hours. We build from tested templates and blocks, AI writes the routine code under a developer's review, and there are no account managers between you and the developer. You pay for the work, not for meetings.",
+      ],
+    },
+    {
+      q: "What happens after the one-year warranty?",
+      a: [
+        "The first year of hosting, SSL, fixes and updates is in the price. After that it is your call: keep hosting with us for ",
+        { em: `${HOSTING}/year` },
+        " or we move the site to your own account. The code is yours either way.",
+      ],
+    },
+    {
+      q: "What if I need a new page six months later?",
+      a: [
+        "A new page is ",
+        { em: EXTRA_PAGE },
+        " and takes ",
+        { em: NEW_PAGE_DAYS },
+        ". Copy, prices, photos and services you change yourself in the CMS, at no cost.",
+      ],
+    },
+    {
+      q: "How do payments work?",
+      a: [
+        `${PT.prepaymentPercent}% up front, ${100 - PT.prepaymentPercent}% after launch. Pay 100% up front and get ${PT.fullPrepaymentDiscountPercent}% off.`,
+      ],
+    },
+    {
+      q: "What if you miss the deadline?",
+      a: [
+        "We pay a penalty: ",
+        { em: `${PT.latePenaltyPercentPerDay}% for every working day` },
+        `, up to ${PT.latePenaltyCapPercent}% of the price. It is written into the contract.`,
+      ],
+    },
+    {
+      q: "Can I see the code before paying in full?",
+      a: ["Yes. The code, access and the site are yours from day one. Look any time."],
+    },
+    {
+      q: "What if I'm not sure what I need?",
+      a: [
+        `That's normal. Send a request and within ${HOURS} hours we reply with the package that fits, the price, and what you can skip.`,
+      ],
+    },
+    {
+      q: "Do you guarantee the #1 spot on Google?",
+      a: [
+        "No, and nobody honestly can. We build the technical base Google looks at: structure, speed, markup. The rest is content and time.",
+      ],
+    },
+  ],
+};
+
+export function buildEnHomepageFaq(): FAQItem[] {
+  return HOMEPAGE_EN.faq;
 }
 
-/** Back-compat constant export: equivalent to `buildEnHomepageFaq()`. */
-export const EN_HOMEPAGE_FAQ: FAQItem[] = buildEnHomepageFaq();

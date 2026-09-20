@@ -61,7 +61,7 @@ const jsonLd = buildJsonLd([
       "@type": "Offer",
       name: typeof t.name === "string" ? t.name : "Migration tier",
       price: t.price.replace(/[^\d]/g, ""),
-      priceCurrency: "GBP",
+      priceCurrency: "EUR",
       url: URL,
     })),
   },

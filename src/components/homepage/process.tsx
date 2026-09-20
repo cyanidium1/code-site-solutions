@@ -56,14 +56,10 @@ type ProcessStep = {
 // Supporting icons are tied to the step position (the system is a fixed
 // 5-stage pipeline), so callers only supply copy — no icon imports needed.
 const STEP_ICONS: LucideIcon[] = [Search, Workflow, LayoutTemplate, ShieldCheck, Rocket];
+// Four-step (day-based) pipeline: brief → design → build → launch.
+const STEP_ICONS_4: LucideIcon[] = [Search, LayoutTemplate, Workflow, Rocket];
+const GRID_COLS: Record<number, string> = { 4: "lg:grid-cols-4", 5: "lg:grid-cols-5" };
 
-const DEFAULT_PROCESS: ProcessStep[] = [
-  { n: "01", name: "Бриф", duration: "1 день", items: ["Бізнес-цілі", "Структура", "Аналіз конкурентів"] },
-  { n: "02", name: "Архітектура", duration: "1–2 тижні", items: ["Сторінки", "Воронки", "SEO-структура"] },
-  { n: "03", name: "Дизайн і розробка", duration: "2–6 тижнів", items: ["UI-дизайн", "Налаштування CMS", "Інтеграції"] },
-  { n: "04", name: "Тестування", duration: "~1 тиждень", items: ["QA", "Аналітика", "Redirects"] },
-  { n: "05", name: "Запуск і підтримка", duration: "Підтримка 1 рік", items: ["Моніторинг", "Гарантія 1 рік", "Розвиток"] },
-];
 
 // Progressive accent on the step circles — intensity climbs left→right so the
 // eye feels movement through the system; the final (launch) step is handled
@@ -89,20 +85,25 @@ export function Process({
       <span className="text-ink-3">Ви заздалегідь знаєте, що отримаєте, коли і за скільки.</span>
     </>
   ),
-  steps = DEFAULT_PROCESS,
+  steps,
   ctaLabel = "Детальний процес",
   ctaHref = "/process",
   moreLabel = "Що входить у кожен етап",
+  note,
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
   sub?: React.ReactNode;
-  steps?: ProcessStep[];
+  /** Day-based steps from the page content (terms come from the pricing config). */
+  steps: ProcessStep[];
   ctaLabel?: string;
   ctaHref?: string;
   /** Phone toggle that opens the per-step tags. */
   moreLabel?: string;
-} = {}) {
+  /** Second timeline line under the steps (e.g. the shop's longer term). */
+  note?: React.ReactNode;
+}) {
+  const icons = steps.length === 4 ? STEP_ICONS_4 : STEP_ICONS;
   const wrapRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -167,10 +168,10 @@ export function Process({
             </div>
           </div>
           <PhoneMore label={moreLabel}>
-          <ol className="relative m-0 grid list-none grid-cols-1 items-start gap-4 p-0 before:absolute before:top-6 before:bottom-6 before:left-6 before:w-px before:bg-[linear-gradient(180deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.4)_15%,oklch(from_var(--color-accent)_l_c_h_/_0.4)_85%,transparent)] before:content-[''] lg:grid-cols-5 lg:gap-6 lg:before:content-none">
+          <ol className={`relative m-0 grid list-none grid-cols-1 items-start gap-4 p-0 before:absolute before:top-6 before:bottom-6 before:left-6 before:w-px before:bg-[linear-gradient(180deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.4)_15%,oklch(from_var(--color-accent)_l_c_h_/_0.4)_85%,transparent)] before:content-[''] lg:gap-6 lg:before:content-none ${GRID_COLS[steps.length] ?? "lg:grid-cols-5"}`}>
             {steps.map((s, i) => {
               const isLast = i === steps.length - 1;
-              const StepIcon = STEP_ICONS[Math.min(i, STEP_ICONS.length - 1)];
+              const StepIcon = icons[Math.min(i, icons.length - 1)];
               return (
                 <li
                   key={s.n}
@@ -228,6 +229,11 @@ export function Process({
           </ol>
           </PhoneMore>
         </div>
+        {note ? (
+          <p className="mt-0 mb-[30px] rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] px-4 py-3 font-mono text-[12px] leading-[1.6] text-ink-dim sm:px-5 sm:text-[12.5px]">
+            {note}
+          </p>
+        ) : null}
         {/* CTA row — Figma #1729:3085: link left, sparkle trio right-aligned
             to the container edge (#1729:3092). */}
         <div className="flex items-center justify-between gap-8">

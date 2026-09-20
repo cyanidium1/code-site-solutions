@@ -32,12 +32,12 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     {
       id: "fedir",
       name: "Федір Алпатов",
-      role: "Tech Lead · Засновник",
+      role: "Засновник · Техлід",
       image: "/team/fedir.jpg",
       shortDescription:
         "«Кожен сайт — це інструмент продажів. Усе технічне має служити цьому, а не навпаки.»",
       fullDescription: [
-        "Федір — техлід і засновник студії. Працює з кодовими сайтами понад 6 років і спеціалізується на проєктах, де стандартні рішення не працюють.",
+        "Федір — техлід і засновник студії. Робить кодові сайти з 2021 року і спеціалізується на проєктах, де стандартні рішення не працюють.",
         "Його сильна сторона — вміння брати складні або розмиті вимоги і перетворювати їх у чітку технічну реалізацію.",
         "Він однаково добре розуміє бізнес, маркетинг і розробку, тому проєкти не просто виглядають добре, а вирішують конкретні задачі: заявки, продажі, масштабування і зручне керування контентом.",
         "Окремий скіл — пояснювати складні технічні речі простою мовою.",
@@ -47,7 +47,7 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     {
       id: "diana",
       name: "Діана Меркотун",
-      role: "Lead Designer",
+      role: "Дизайнерка",
       image: "/team/diana.jpg",
       shortDescription:
         "«Дизайн має продавати, а не отримувати лайки на Behance. Тому я думаю про конверсію раніше, ніж про сітку і кольори.»",
@@ -62,12 +62,12 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     {
       id: "olga",
       name: "Ольга Михалкова",
-      role: "Senior Frontend",
+      role: "Розробниця",
       image: "/team/olga.jpg",
       shortDescription:
-        "«Сайт, що вантажиться 5 секунд, втрачає половину клієнтів. Тому я доводжу швидкість до 90+ балів Lighthouse, поки інші ще пишуть TZ.»",
+        "«Повільний сайт втрачає відвідувачів. Тому швидкість і адаптивність я перевіряю на кожній сторінці, а не в кінці проєкту.»",
       fullDescription: [
-        "Ольга — senior frontend developer, яка уважно ставиться до деталей і якості реалізації.",
+        "Ольга — розробниця, яка уважно ставиться до деталей і якості реалізації.",
         "Вона не залишає дрібниць у стилі «потім доробимо», бо саме з дрібниць складається відчуття дорогого і стабільного продукту.",
         "Її зона відповідальності — чистий інтерфейс, коректна адаптивність, стабільна логіка і акуратна взаємодія користувача з сайтом.",
         "До кожного проєкту ставиться так, ніби це її власний продукт.",
@@ -77,32 +77,86 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     {
       id: "kristina",
       name: "Кристина Бондаренко",
-      role: "SEO & Marketing Strategy",
+      role: "Редакторка · SEO",
       image: "/team/kristina.jpg",
       shortDescription:
-        "«Сайт без трафіку — як магазин у глухому провулку. Я роблю так, щоб клієнти знаходили вас у Google за 3 місяці після релізу.»",
+        "«Текст на сайті має відповідати на питання клієнта раніше, ніж він його поставить. Тоді й Google розуміє, про що сторінка.»",
       fullDescription: [
-        "Кристина — SEO-спеціаліст і маркетолог з фокусом на B2B та складні ніші.",
-        "Її робота — не просто «просунути сайт», а побудувати систему, яка приводить релевантних клієнтів.",
+        "Кристина — редакторка і SEO-спеціалістка: тексти сторінок, структура, метадані.",
+        "Її робота — щоб кожна сторінка чесно й коротко пояснювала, що ви продаєте, скільки це коштує і як замовити.",
         "Вона створює SEO і контент-стратегії з урахуванням бізнес-цілей, конкурентного середовища і поведінки цільової аудиторії.",
         "Основний фокус — європейські ринки, де важлива не тільки видимість у пошуку, а й правильне позиціонування продукту.",
       ],
       tags: ["SEO", "B2B", "Content Strategy", "Europe"],
     },
   ],
-  // TODO(ru-translation): fill before shipping /ru/about (page not in
-  // LOCALIZED_ROOTS.ru yet, so this never renders today).
-  ru: [],
+  ru: [
+    {
+      id: "fedir",
+      name: "Федор Алпатов",
+      role: "Основатель · Техлид",
+      image: "/team/fedir.jpg",
+      shortDescription:
+        "«Каждый сайт — это инструмент продаж. Всё техническое должно служить этому, а не наоборот.»",
+      fullDescription: [
+        "Федор — техлид и основатель студии. Делает кодовые сайты с 2021 года и специализируется на проектах, где стандартные решения не работают.",
+        "Его сильная сторона — брать сложные или размытые требования и превращать их в четкую техническую реализацию.",
+        "Он одинаково хорошо понимает бизнес, маркетинг и разработку, поэтому проекты решают конкретные задачи: заявки, продажи, удобное управление контентом.",
+        "Отдельный навык — объяснять сложные технические вещи простым языком.",
+      ],
+      tags: ["Next.js", "Sanity", "Architecture", "Tech Lead"],
+    },
+    {
+      id: "diana",
+      name: "Диана Меркотун",
+      role: "Дизайнер",
+      image: "/team/diana.jpg",
+      shortDescription:
+        "«Дизайн должен продавать, а не собирать лайки на Behance. Поэтому я думаю о конверсии раньше, чем о сетке и цветах.»",
+      fullDescription: [
+        "Диана отвечает за визуальную часть и пользовательский опыт.",
+        "Ее подход — не просто сделать красиво, а построить дизайн, который помогает пользователю принять решение: оставить заявку, купить или перейти к следующему шагу.",
+        "Результат — сайты, которые выглядят как продуманный продукт, а не набор случайных блоков.",
+      ],
+      tags: ["UI/UX", "Visual Design", "Conversion", "Product Design"],
+    },
+    {
+      id: "olga",
+      name: "Ольга Михалкова",
+      role: "Разработчик",
+      image: "/team/olga.jpg",
+      shortDescription:
+        "«Медленный сайт теряет посетителей. Поэтому скорость и адаптивность я проверяю на каждой странице, а не в конце проекта.»",
+      fullDescription: [
+        "Ольга — разработчик, которая внимательно относится к деталям и качеству реализации.",
+        "Ее зона ответственности — чистый интерфейс, корректная адаптивность, стабильная логика и аккуратное взаимодействие пользователя с сайтом.",
+      ],
+      tags: ["Frontend", "React", "UI Logic", "Quality"],
+    },
+    {
+      id: "kristina",
+      name: "Кристина Бондаренко",
+      role: "Редактор · SEO",
+      image: "/team/kristina.jpg",
+      shortDescription:
+        "«Текст на сайте должен отвечать на вопрос клиента раньше, чем тот его задаст. Тогда и Google понимает, о чем страница.»",
+      fullDescription: [
+        "Кристина — редактор и SEO-специалист: тексты страниц, структура, метаданные.",
+        "Ее задача — чтобы каждая страница честно и коротко объясняла, что вы продаете, сколько это стоит и как заказать.",
+      ],
+      tags: ["SEO", "Copy", "Content Strategy"],
+    },
+  ],
   en: [
     {
       id: "fedir",
       name: "Fedir Alpatov",
-      role: "Tech Lead · Founder",
+      role: "Founder · Tech Lead",
       image: "/team/fedir.jpg",
       shortDescription:
         "\"Every site is a sales tool. Everything technical should serve that, not the other way around.\"",
       fullDescription: [
-        "Fedir is the tech lead and founder of the studio. He's been working with custom-coded sites for 6+ years and specializes in projects where standard solutions don't work.",
+        "Fedir is the tech lead and founder of the studio. He has been building custom-coded sites since 2021 and specializes in projects where standard solutions don't work.",
         "His strength is taking complex or fuzzy requirements and turning them into a clear technical implementation.",
         "He understands business, marketing, and engineering equally well, so projects don't just look good — they solve concrete tasks: leads, sales, scaling, and easy content management.",
         "A separate skill: explaining complex technical things in plain language.",
@@ -112,7 +166,7 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     {
       id: "diana",
       name: "Diana Merkotun",
-      role: "Lead Designer",
+      role: "Designer",
       image: "/team/diana.jpg",
       shortDescription:
         "\"Design should sell, not get likes on Behance. So I think about conversion before grid and colors.\"",
@@ -127,12 +181,12 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     {
       id: "olga",
       name: "Olga Mykhalkova",
-      role: "Senior Frontend",
+      role: "Developer",
       image: "/team/olga.jpg",
       shortDescription:
-        "\"A site that loads in 5 seconds loses half its visitors. So I push speed to 90+ on Lighthouse while others are still writing specs.\"",
+        "\"A slow site loses visitors. So I check speed and responsiveness on every page, not at the end of the project.\"",
       fullDescription: [
-        "Olga is a senior frontend developer who's careful with details and implementation quality.",
+        "Olga is a developer who's careful with details and implementation quality.",
         "She doesn't leave small things \"for later,\" because details are what create the feel of an expensive, stable product.",
         "Her zone: clean UI, correct responsiveness, stable logic, and careful user interaction.",
         "She treats every project as if it were her own product.",
@@ -142,13 +196,13 @@ const TEAM_BY_LOCALE: Record<TeamLocale, TeamMember[]> = {
     {
       id: "kristina",
       name: "Kristina Bondarenko",
-      role: "SEO & Marketing Strategy",
+      role: "Editor · SEO",
       image: "/team/kristina.jpg",
       shortDescription:
-        "\"A site without traffic is a shop in a back alley. I make sure clients find you on Google within 3 months of launch.\"",
+        "\"Page copy should answer the client's question before they ask it. Then Google understands what the page is about, too.\"",
       fullDescription: [
-        "Kristina is an SEO specialist and marketer focused on B2B and complex niches.",
-        "Her work isn't just \"promote the site\" — it's to build a system that brings in relevant clients.",
+        "Kristina is our editor and SEO specialist: page copy, structure, metadata.",
+        "Her job is to make every page explain clearly and briefly what you sell, what it costs and how to order.",
         "She creates SEO and content strategies grounded in business goals, competitive landscape, and audience behaviour.",
         "Primary focus: European markets, where positioning matters as much as raw visibility.",
       ],

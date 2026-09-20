@@ -12,6 +12,8 @@
 
 import type { Locale } from "@/types/sanity";
 import { LOCALE_CONFIG } from "@/constants/locales";
+import type { FAQItem } from "@/types/faq";
+import { plainRich } from "@/lib/shared/rich-text";
 import {
   ORG_ID,
   SITE_CONTACT,
@@ -146,7 +148,7 @@ export function organizationNode(): JsonLdNode {
       height: 512,
     },
     description:
-      "Бутик-студія з розробки кастомних сайтів для бізнесу. 50+ проєктів за 5 років у 7 країнах.",
+      "Студія кастомної веброзробки з Києва: сайти для малого бізнесу з фіксованою ціною і строком у договорі, код належить клієнту. Команда з 4 людей, 25+ проєктів у 4 країнах.",
     foundingDate: "2023",
     foundingLocation: {
       "@type": "Place",
@@ -158,7 +160,7 @@ export function organizationNode(): JsonLdNode {
     },
     numberOfEmployees: {
       "@type": "QuantitativeValue",
-      value: 12,
+      value: 4,
     },
     email: SITE_CONTACT.email,
     contactPoint: [
@@ -318,6 +320,19 @@ function referencesOrg(value: unknown): boolean {
   const obj = value as Record<string, unknown>;
   if (obj["@id"] === ORG_ID) return true;
   return Object.values(obj).some(referencesOrg);
+}
+
+/** FAQPage from the same items the page renders. */
+export function faqNode(items: FAQItem[]): JsonLdNode | null {
+  if (!items.length) return null;
+  return {
+    "@type": "FAQPage",
+    mainEntity: items.map((it) => ({
+      "@type": "Question",
+      name: it.q,
+      acceptedAnswer: { "@type": "Answer", text: plainRich(it.a) },
+    })),
+  };
 }
 
 export function buildJsonLd(

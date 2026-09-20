@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Code-Site.Art",
     short_name: "Code-Site",
     description:
-      "Custom-coded websites for business. Live in 4–10 weeks. Boutique studio in Kyiv.",
+      "Custom-coded websites for business. Fixed price, 7 business days, you own the code.",
     start_url: "/",
     display: "standalone",
     background_color: "#121212",

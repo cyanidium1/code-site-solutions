@@ -4,7 +4,6 @@ import { AppImage } from "@/lib/shared/app-image";
 import {
   TrendingUp,
   Target,
-  ShieldCheck,
   Gauge,
   Network,
   BarChart3,
@@ -103,14 +102,14 @@ const UK: Copy = {
     {
       icon: Smartphone,
       title: "Керуєте з телефона",
-      desc: "Тексти, ціни, послуги й кейси змінюєте самі в адмінці — розробник для цього не потрібен.",
+      desc: "Тексти, ціни, послуги й кейси змінюєте самі в адмінці. Код, домен і дані — ваші.",
       img: IMG.launch,
     },
     {
-      icon: ShieldCheck,
-      title: "Сайт належить вам",
-      desc: "Код, домен, хостинг, доступи, аналітика — все ваше. Вирішите змінити команду? Заберете сайт із собою.",
-      img: IMG.control,
+      icon: LifeBuoy,
+      title: "Підтримка включена",
+      desc: "Рік гарантії, хостингу і техпідтримки — в ціні. Жодних абонплат.",
+      img: IMG.support,
     },
   ],
   small: [
@@ -118,7 +117,7 @@ const UK: Copy = {
     { icon: Network, title: "Готовий рости разом із вами", desc: "Нові сторінки, локації та інтеграції додаються поверх наявного — без переробки з нуля.", img: IMG.scalable },
     { icon: BarChart3, title: "Звідки приходять гроші", desc: "Аналітика з першого дня: джерела трафіку, заявки, результати.", img: IMG.analytics },
     { icon: Rocket, title: "Запуск — на нас", desc: "Хостинг, безпека, DNS, деплой — усю технічну частину робимо ми. Ви просто отримуєте ключі.", img: IMG.launch },
-    { icon: LifeBuoy, title: "Рік підтримки після запуску", desc: "Виправлення, оновлення й відповіді до 4 годин. Ми поруч цілий рік.", img: IMG.support },
+    { icon: LifeBuoy, title: "Рік підтримки після запуску", desc: "Виправлення, оновлення, хостинг і SSL — рік у ціні сайту.", img: IMG.support },
   ],
   stats: [
     {
@@ -181,14 +180,14 @@ const EN: Copy = {
     {
       icon: Smartphone,
       title: "You run it from your phone",
-      desc: "Copy, prices, services and case studies — you change them yourself in the CMS, no developer needed.",
+      desc: "Copy, prices, services and case studies — you change them yourself in the CMS. The code, domain and data are yours.",
       img: IMG.launch,
     },
     {
-      icon: ShieldCheck,
-      title: "The site is yours",
-      desc: "Code, domain, hosting, access, analytics — all yours. Decide to switch teams? You take the site with you.",
-      img: IMG.control,
+      icon: LifeBuoy,
+      title: "Support included",
+      desc: "A year of warranty, hosting and technical support is in the price. No monthly fees.",
+      img: IMG.support,
     },
   ],
   small: [
@@ -196,7 +195,7 @@ const EN: Copy = {
     { icon: Network, title: "Ready to grow with you", desc: "New pages, locations, and integrations are added on top of what’s there — no rebuild from scratch.", img: IMG.scalable },
     { icon: BarChart3, title: "You see where the money comes from", desc: "Analytics set up from day one: traffic sources, leads, results.", img: IMG.analytics },
     { icon: Rocket, title: "Launch is on us", desc: "Hosting, security, DNS, deployment — we handle all the technical side. You just pick up the keys.", img: IMG.launch },
-    { icon: LifeBuoy, title: "A year of support after launch", desc: "Fixes, updates, and replies in under 4 hours. We’re with you the whole year.", img: IMG.support },
+    { icon: LifeBuoy, title: "A year of support after launch", desc: "Fixes, updates, hosting and SSL — a year included in the price.", img: IMG.support },
   ],
   stats: [
     {
@@ -259,14 +258,14 @@ const RU: Copy = {
     {
       icon: Smartphone,
       title: "Управляете с телефона",
-      desc: "Тексты, цены, услуги и кейсы меняете сами в админке — разработчик для этого не нужен.",
+      desc: "Тексты, цены, услуги и кейсы меняете сами в админке. Код, домен и данные — ваши.",
       img: IMG.launch,
     },
     {
-      icon: ShieldCheck,
-      title: "Сайт принадлежит вам",
-      desc: "Код, домен, хостинг, доступы, аналитика — всё ваше. Решите сменить команду? Заберёте сайт с собой.",
-      img: IMG.control,
+      icon: LifeBuoy,
+      title: "Поддержка включена",
+      desc: "Год гарантии, хостинга и техподдержки — в цене. Никаких абонплат.",
+      img: IMG.support,
     },
   ],
   small: [
@@ -274,7 +273,7 @@ const RU: Copy = {
     { icon: Network, title: "Готов расти вместе с вами", desc: "Новые страницы, локации и интеграции добавляются поверх существующего — без переделки с нуля.", img: IMG.scalable },
     { icon: BarChart3, title: "Откуда приходят деньги", desc: "Аналитика с первого дня: источники трафика, заявки, результаты.", img: IMG.analytics },
     { icon: Rocket, title: "Запуск — на нас", desc: "Хостинг, безопасность, DNS, деплой — всю техническую часть делаем мы. Вы просто получаете ключи.", img: IMG.launch },
-    { icon: LifeBuoy, title: "Год поддержки после запуска", desc: "Исправления, обновления и ответы до 4 часов. Мы рядом целый год.", img: IMG.support },
+    { icon: LifeBuoy, title: "Год поддержки после запуска", desc: "Исправления, обновления, хостинг и SSL — год в цене сайта.", img: IMG.support },
   ],
   stats: [
     {

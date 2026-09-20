@@ -7,6 +7,7 @@ import ruMessages from "../../../messages/ru.json";
 
 import { Providers } from "../providers";
 import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
+import { HOMEPAGE_RU } from "@/content/ru/homepage";
 import { LOCALE_CONFIG } from "@/constants/locales";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { getContentRegistrySafe, toWire } from "@/lib/server/i18n-registry";
@@ -40,15 +41,13 @@ const actay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
-  description:
-    "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.",
+  title: HOMEPAGE_RU.meta.title,
+  description: HOMEPAGE_RU.meta.description,
   metadataBase: new URL(SITE_ORIGIN),
   alternates: buildAlternates({ locale: "ru", uaPath: "/" }),
   openGraph: {
-    title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
-    description:
-      "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.",
+    title: HOMEPAGE_RU.meta.title,
+    description: HOMEPAGE_RU.meta.description,
     type: "website",
     locale: LOCALE_CONFIG.ru.ogLocale,
     url: `${SITE_ORIGIN}/ru`,
@@ -56,9 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
-    description:
-      "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.",
+    title: HOMEPAGE_RU.meta.title,
+    description: HOMEPAGE_RU.meta.description,
     images: [OG_DEFAULT_IMAGE.url],
   },
 };

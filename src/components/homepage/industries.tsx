@@ -5,13 +5,23 @@ import {
   Stethoscope,
   Scale,
   Calculator,
-  ShoppingCart,
   Building,
   Car,
   Home,
-  GraduationCap,
   ArrowUpRight,
+  type LucideIcon,
 } from "lucide-react";
+
+import type { Locale } from "@/constants/locales";
+import {
+  INDUSTRIES,
+  INDUSTRY_ORDER,
+  formatPackageTerm,
+  industryPrice,
+  type IndustryId,
+} from "@/constants/pricing";
+import { localizePath } from "@/constants/i18n-routes";
+import { formatPrice } from "@/lib/shared/format-price";
 
 import type { Industry } from "@/types/homepage";
 import { cn } from "@/components/ui";
@@ -41,73 +51,59 @@ const HEADER_RULE_CLASS = "hidden xl:flex flex-1 min-w-0";
 const SUB_ROW_CLASS = "mt-5 flex items-end justify-between gap-8";
 const SPARKLES_CLASS = "hidden xl:flex";
 
-// All 8 industries have published Sanity pages and live hrefs.
-const DEFAULT_INDUSTRIES: Industry[] = [
-  {
-    icon: Stethoscope,
-    title: "Медицина",
-    description: "Сайти для клінік, стоматологій, діагностичних центрів",
-    tags: ["Helsi", "Medesk", "Онлайн-запис"],
-    price: "Від $2 500 · 4-10 тижнів",
-    href: "/sites-for/medicine",
+// Six industry variants of the `industry` package (TZ v2 §3.6). Price and
+// term come from the pricing config; only the card copy lives here. Online
+// shops and landing pages are packages now, not industries.
+type IndustryCopy = { description: string; tags: string[] };
+
+const INDUSTRY_ICONS: Record<IndustryId, LucideIcon> = {
+  medicine: Stethoscope,
+  renovation: Building,
+  legal: Scale,
+  finance: Calculator,
+  auto: Car,
+  "real-estate": Home,
+};
+
+const INDUSTRY_COPY: Record<Locale, Record<IndustryId, IndustryCopy>> = {
+  uk: {
+    medicine: { description: "Сайти для клінік, стоматологій, діагностичних центрів", tags: ["Helsi", "Medesk", "Онлайн-запис"] },
+    renovation: { description: "Сайти для будівельних і ремонтних компаній", tags: ["Калькулятор кошторису", "CRM", "Локальне SEO"] },
+    legal: { description: "Сайти для юр. фірм, адвокатських бюро, приватних юристів", tags: ["Diia.Sign", "Онлайн-консультація"] },
+    finance: { description: "Сайти для бухгалтерських фірм і фінансових радників", tags: ["MEDoc", "BAS", "Онлайн-консультація"] },
+    auto: { description: "Сайти для імпорту авто, автодилерів, СТО", tags: ["Copart", "PDF-інвойс", "Мультимовність"] },
+    "real-estate": { description: "Сайти для агенцій нерухомості і забудовників", tags: ["Каталог об'єктів", "Мультимовність", "Мультивалютність"] },
   },
-  {
-    icon: Building,
-    title: "Будівництво / ремонт",
-    description: "Сайти для будівельних і ремонтних компаній",
-    tags: ["CRM", "Калькулятор", "Локальне SEO"],
-    price: "Від $2 500 · 4-8 тижнів",
-    href: "/sites-for/renovation",
+  ru: {
+    medicine: { description: "Сайты для клиник, стоматологий, диагностических центров", tags: ["Helsi", "Medesk", "Онлайн-запись"] },
+    renovation: { description: "Сайты для строительных и ремонтных компаний", tags: ["Калькулятор сметы", "CRM", "Локальное SEO"] },
+    legal: { description: "Сайты для юрфирм, адвокатских бюро, частных юристов", tags: ["Diia.Sign", "Онлайн-консультация"] },
+    finance: { description: "Сайты для бухгалтерских фирм и финансовых советников", tags: ["MEDoc", "BAS", "Онлайн-консультация"] },
+    auto: { description: "Сайты для импорта авто, автодилеров, СТО", tags: ["Copart", "PDF-инвойс", "Мультиязычность"] },
+    "real-estate": { description: "Сайты для агентств недвижимости и застройщиков", tags: ["Каталог объектов", "Мультиязычность", "Мультивалютность"] },
   },
-  {
-    icon: Scale,
-    title: "Юристи і адвокати",
-    description: "Сайти для юр. фірм, адвокатських бюро, приватних юристів",
-    tags: ["Clio", "Diia.Sign", "Онлайн-консультація"],
-    price: "Від $2 500 · 4-8 тижнів",
-    href: "/sites-for/legal",
+  en: {
+    medicine: { description: "Sites for clinics, dental practices and diagnostic centres", tags: ["Online booking", "GDPR"] },
+    renovation: { description: "Sites for builders and renovation companies", tags: ["Quote calculator", "CRM", "Local SEO"] },
+    legal: { description: "Sites for law firms, solicitors and independent lawyers", tags: ["E-signature", "Online consultation"] },
+    finance: { description: "Sites for accounting firms and financial advisers", tags: ["Accounting software", "Online consultation"] },
+    auto: { description: "Sites for car importers, dealers and garages", tags: ["Auction feeds", "PDF invoices", "Multilingual"] },
+    "real-estate": { description: "Sites for estate agents and developers", tags: ["Property catalogue", "Multilingual", "Multi-currency"] },
   },
-  {
-    icon: Calculator,
-    title: "Фінанси і бухгалтерія",
-    description: "Сайти для бух-фірм, фінансових радників, трейдинг-сервісів",
-    tags: ["MEDoc", "Stripe", "1С/BAS"],
-    price: "Від $2 500 · 4-8 тижнів",
-    href: "/sites-for/finance",
-  },
-  {
-    icon: ShoppingCart,
-    title: "Інтернет-магазини",
-    description: "Магазини, маркетплейси, B2B-каталоги",
-    tags: ["Stripe", "LiqPay", "Нова Пошта"],
-    price: "Від $6 000 · 6-10 тижнів",
-    href: "/sites-for/ecommerce",
-  },
-  {
-    icon: Car,
-    title: "Авто-індустрія",
-    description: "Сайти для імпорту авто, автодилерів, СТО і сервісних послуг",
-    tags: ["Copart", "PDF-інвойс", "Мультимовність"],
-    price: "Від $3 000 · 6-10 тижнів",
-    href: "/sites-for/auto",
-  },
-  {
-    icon: Home,
-    title: "Нерухомість",
-    description: "Сайти для агенцій нерухомості, забудовників, private listings",
-    tags: ["Мультимовність", "Мультивалютність", "Іпотека"],
-    price: "Від $4 000 · 6-10 тижнів",
-    href: "/sites-for/real-estate",
-  },
-  {
-    icon: GraduationCap,
-    title: "Курси і лендинги",
-    description: "Сайти для онлайн-курсів, інфо-продуктів, блогерських воронок",
-    tags: ["Stripe", "Teachable", "A/B"],
-    price: "Від $800 · 4-8 тижнів",
-    href: "/sites-for/courses",
-  },
-];
+};
+
+/** The six industry cards, priced from the config. */
+export function industryCards(locale: Locale): Industry[] {
+  const term = formatPackageTerm("industry", locale);
+  return INDUSTRY_ORDER.map((id) => ({
+    icon: INDUSTRY_ICONS[id],
+    title: INDUSTRIES[id].name[locale],
+    description: INDUSTRY_COPY[locale][id].description,
+    tags: INDUSTRY_COPY[locale][id].tags,
+    price: `${formatPrice(industryPrice(id, locale), { locale, withPrefix: true })} · ${term}`,
+    href: localizePath(`/sites-for/${id}`, locale),
+  }));
+}
 
 // Atmospheric background photo per industry, keyed by the trailing href slug
 // (e.g. "/sites-for/medicine" and "/en/sites-for/medicine" → "medicine") so the
@@ -122,10 +118,8 @@ const INDUSTRY_MEDIA: Record<string, string> = {
   renovation: UNSPLASH("photo-1721244653693-1d13e68b66c1"), // architectural elevation drawing
   legal: UNSPLASH("photo-1521791055366-0d553872125f"), // signing a document, close-up
   finance: UNSPLASH("photo-1554224154-26032ffc0d07"), // tax forms + calculator flat-lay
-  ecommerce: UNSPLASH("photo-1601598704991-eef6114775e0"), // warehouse fulfilment aisle
   auto: "/industries/auto.jpg", // orange 6th-gen Camaro SS (pre-facelift), alpine — local asset
   "real-estate": UNSPLASH("photo-1633449227338-45d2df8c37b7"), // architectural interior
-  courses: UNSPLASH("photo-1525373698358-041e3a460346"), // dark laptop, code/landing editor
 };
 
 // Per-card treatment overrides for photos that need to read more literally
@@ -160,7 +154,7 @@ function CardMedia({ src, imgClass, dimClass }: { src: string; imgClass?: string
         alt=""
         fill
         loading="lazy"
-        sizes="(min-width:1100px) 24vw, (min-width:768px) 48vw, 92vw"
+        sizes="(min-width:1100px) 32vw, (min-width:768px) 48vw, 92vw"
         quality={60}
         className={cn(
           "object-cover opacity-[0.55] saturate-[0.65] scale-[1.04] transition-[scale,opacity] duration-[0.9s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/ind:scale-[1.14] group-hover/ind:opacity-[0.7]",
@@ -200,10 +194,12 @@ export function Industries({
     </>
   ),
   sub = "Комплексне рішення під вашу галузь — з інтеграціями і compliance.",
-  items = DEFAULT_INDUSTRIES,
+  locale = "uk",
+  items = industryCards(locale),
 }: {
   heading?: React.ReactNode;
   sub?: React.ReactNode;
+  locale?: Locale;
   items?: Industry[];
 } = {}) {
   return (
@@ -223,7 +219,7 @@ export function Industries({
             homepage-cards.css. `sm:grid-cols-1` used to drop tablets to a
             single 300px-tall column: eight tiles = 2 781px on a 744px iPad
             against 1 400px on a 390px phone (design audit 2026-09-07). */}
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 xl:grid-cols-3">
           {items.map((ind, i) => {
             const Icon = ind.icon;
             const inner = (

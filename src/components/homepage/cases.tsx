@@ -37,13 +37,14 @@ export async function Cases({
   eyebrow = "КЕЙСИ",
   heading = (
     <>
-      50+ клієнтів <em>готові нас рекомендувати</em>
+      Сайти, які ми <em>вже запустили</em>
     </>
   ),
   items,
   locale = "uk",
   ctaLabel = "Всі кейси",
   ctaHref = "/portfolio",
+  lead,
 }: {
   eyebrow?: string;
   heading?: React.ReactNode;
@@ -56,14 +57,26 @@ export async function Cases({
   locale?: Locale;
   ctaLabel?: string;
   ctaHref?: string;
+  /**
+   * Case names (case-insensitive substring) to pull to the front, in order —
+   * e.g. EN leads with NBYG. Cases not in the curated set are ignored.
+   */
+  lead?: string[];
 } = {}) {
   const [curated, registry] = await Promise.all([
     fetchHomepageCases(),
     getContentRegistrySafe(),
   ]);
 
-  const defaultItems: CaseCardItem[] =
+  const curatedItems: CaseCardItem[] =
     items ?? curated.default.map((c) => caseRefToCardItem(c, locale, registry));
+  const rank = (name: string) => {
+    const i = (lead ?? []).findIndex((l) => name.toLowerCase().includes(l.toLowerCase()));
+    return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+  };
+  const defaultItems = lead?.length
+    ? [...curatedItems].sort((a, b) => rank(a.name) - rank(b.name))
+    : curatedItems;
 
   const setsByIndustry: Record<IndustryKey, CaseCardItem[]> = items
     ? { legal: [], medicine: [], "real-estate": [] }

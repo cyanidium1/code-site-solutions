@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 
 import type { BentoCell, BentoVisualKind } from "@/types/homepage";
-import { formatPrice, type PriceLocale } from "@/lib/shared/format-price";
-import { TIER_AMOUNTS, TIER_NAMES, TIER_ORDER } from "@/constants/pricing-tiers";
+import type { PriceLocale } from "@/lib/shared/format-price";
+import { CORE_PACKAGES, PACKAGES, formatPackagePrice } from "@/constants/pricing";
 import { SectionHead } from "@/components/shared/section-head";
 import { cn } from "@/components/ui";
 import { ScrollReveal } from "./scroll-reveal";
@@ -99,22 +99,22 @@ const STACK_LAYERS: Record<PriceLocale, string[]> = {
 
 const WEEK_STEPS: Record<PriceLocale, { name: string; wk: string; target?: boolean }[]> = {
   uk: [
-    { name: "Бриф", wk: "тижд. 1" },
-    { name: "Дизайн", wk: "тижд. 2" },
-    { name: "Розробка", wk: "тижд. 3" },
-    { name: "Запуск", wk: "тижд. 4", target: true },
+    { name: "Бриф", wk: "день 1" },
+    { name: "Дизайн", wk: "дні 2–3" },
+    { name: "Розробка", wk: "дні 4–6" },
+    { name: "Запуск", wk: "день 7", target: true },
   ],
   en: [
-    { name: "Brief", wk: "wk 1" },
-    { name: "Design", wk: "wk 2" },
-    { name: "Build", wk: "wk 3" },
-    { name: "Launch", wk: "wk 4", target: true },
+    { name: "Brief", wk: "day 1" },
+    { name: "Design", wk: "days 2–3" },
+    { name: "Build", wk: "days 4–6" },
+    { name: "Launch", wk: "day 7", target: true },
   ],
   ru: [
-    { name: "Бриф", wk: "нед. 1" },
-    { name: "Дизайн", wk: "нед. 2" },
-    { name: "Разработка", wk: "нед. 3" },
-    { name: "Запуск", wk: "нед. 4", target: true },
+    { name: "Бриф", wk: "день 1" },
+    { name: "Дизайн", wk: "дни 2–3" },
+    { name: "Разработка", wk: "дни 4–6" },
+    { name: "Запуск", wk: "день 7", target: true },
   ],
 };
 
@@ -236,12 +236,11 @@ function WeeksProgressVisual({ locale }: { locale: PriceLocale }) {
 }
 
 function PriceTableVisual({ locale }: { locale: PriceLocale }) {
-  // Trailing "+" is a "starting from" shorthand in this Bento visual.
-  // formatPrice handles the locale-aware number; we append the suffix.
-  const rows = TIER_ORDER.map((key) => ({
-    name: TIER_NAMES[key][locale],
-    price: `${formatPrice(TIER_AMOUNTS[key], { locale })}+`,
-    accent: key === "corporate",
+  // Fixed package prices straight from the pricing config.
+  const rows = CORE_PACKAGES.map((key) => ({
+    name: PACKAGES[key].name[locale],
+    price: formatPackagePrice(key, locale),
+    accent: Boolean(PACKAGES[key].popular),
   }));
   return (
     <div
@@ -388,18 +387,18 @@ const DEFAULT_BENTO: BentoCell[] = [
     visual: "commits",
   },
   {
-    title: "Запуск за 4 тижні",
+    title: `Запуск за ${PACKAGES.business.days.min} робочих днів`,
     icon: Rocket,
-    stat: "4 wk",
-    body: "Industry-сайт під ключ.",
+    stat: `${PACKAGES.business.days.min} днів`,
+    body: "Сайт для бізнесу під ключ.",
     span: "1x1",
     visual: "weeks",
   },
   {
     title: "Прозорий прайс",
     icon: DollarSign,
-    stat: "$3.5k+",
-    body: "Не «під запит». Цифра в брифі.",
+    stat: formatPackagePrice("business", "uk"),
+    body: "Не «під запит». Ціна в договорі.",
     span: "1x1",
     visual: "price",
   },
@@ -407,15 +406,15 @@ const DEFAULT_BENTO: BentoCell[] = [
     title: "Гарантія + неустойка",
     icon: Shield,
     stat: "1y",
-    body: "1 рік. За зрив — повертаємо 30%.",
+    body: "1 рік. За зрив строку — неустойка до 30%.",
     span: "1x1",
     visual: "warranty",
   },
   {
-    title: "Підтримка за 4 год",
+    title: "Підтримка включена",
     icon: Clock,
-    stat: "4h",
-    body: "Зламалось не з нашої вини — фіксимо за 4 робочі години.",
+    stat: "1 рік",
+    body: "Рік гарантії, хостингу і техпідтримки — в ціні. Жодних абонплат.",
     span: "1x1",
     visual: "support",
   },

@@ -1,9 +1,9 @@
 "use client";
 
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Formik, Form, Field, type FieldProps } from "formik";
+import { Formik, Form, Field, useFormikContext, type FieldProps } from "formik";
 import { ChevronDown } from "lucide-react";
 
 import { Btn, Input, Select, Textarea } from "@/components/ui";
@@ -13,9 +13,8 @@ import { SITE_CONTACT } from "@/constants/site";
 import type { LeadValues } from "@/types/lead";
 import {
   BUDGET_OPTS_BY_LOCALE,
-  BUSINESS_OPTS_BY_LOCALE,
+  HAS_SITE_OPTS_BY_LOCALE,
   TIER_OPTS_BY_LOCALE,
-  TIMELINE_OPTS_BY_LOCALE,
   type LeadFormLocale,
 } from "@/constants/form-options";
 import { LEAD_FORM_STRINGS_BY_LOCALE as STRINGS_BY_LOCALE } from "@/content/lead-form";
@@ -42,26 +41,29 @@ const TOGGLE_CLASS =
   "transition-[color,border-color,background-color] duration-200 " +
   "hover:text-accent-soft hover:border-accent-40 hover:bg-[oklch(from_var(--color-accent)_l_c_h_/_0.05)]";
 
-// Canonical keys are the CMS pricingPlan planKeys (landing / corporate /
-// custom). Deprecated keys from the old 4-tier ladder (starter, business,
-// industry, proplus, enterprise, …) stay as aliases so old emails and URLs
-// with ?tier=<old> still resolve to the closest current form option.
+// Canonical keys are PackageId from `@/constants/pricing`. Keys from the
+// old ladders (corporate, custom, starter, proplus, …) stay as aliases so
+// old links with ?tier=<old> still preselect the closest package.
 const TIER_ALIASES: Record<string, string> = {
+  landing: "landing",
   basic: "landing",
   starter: "landing",
-  landing: "landing",
-  business: "corporate",
-  multi: "corporate",
-  multipage: "corporate",
-  advanced: "corporate",
-  industry: "corporate",
-  industrypro: "corporate",
-  specialized: "corporate",
-  proplus: "corporate",
-  corporate: "corporate",
-  premium: "custom",
-  enterprise: "custom",
-  custom: "custom",
+  business: "business",
+  corporate: "business",
+  multi: "business",
+  multipage: "business",
+  advanced: "business",
+  shop: "shop",
+  store: "shop",
+  ecommerce: "shop",
+  industry: "industry",
+  industrypro: "industry",
+  specialized: "industry",
+  custom: "unknown",
+  proplus: "unknown",
+  premium: "unknown",
+  enterprise: "unknown",
+  unknown: "unknown",
 };
 
 function normalizeTier(raw: string | null): string {
@@ -77,8 +79,12 @@ type LeadFormProps = {
   source?: string;
   variant?: LeadFormVariant;
   locale?: LeadFormLocale;
-  /** Preselects the tier dropdown when not already set via `?tier=` in the URL. */
+  /** Preselects "Що потрібно" when not already set via `?tier=` in the URL. */
   tier?: string;
+  /** Calculator configuration text, sent as a hidden field. */
+  config?: string;
+  /** DOM id for in-page anchors ("#lead-form"). */
+  id?: string;
 };
 
 /** Primary chat channel per market: default locale leads with Telegram. */
@@ -93,16 +99,16 @@ function LeadFormInner({
   variant = "full",
   locale = "uk",
   tier,
+  config,
+  id,
 }: LeadFormProps) {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<Status>("idle");
 
   const strings = STRINGS_BY_LOCALE[locale];
-  const BUSINESS_OPTS = BUSINESS_OPTS_BY_LOCALE[locale];
   const TIER_OPTS = TIER_OPTS_BY_LOCALE[locale];
   const BUDGET_OPTS = BUDGET_OPTS_BY_LOCALE[locale];
-  const TIMELINE_OPTS = TIMELINE_OPTS_BY_LOCALE[locale];
-  const validationSchema = buildValidationSchema(strings.contactValidation);
+  const HAS_SITE_OPTS = HAS_SITE_OPTS_BY_LOCALE[locale];
 
   const initialValues = useMemo<LeadValues>(() => {
     const urlTier = normalizeTier(searchParams?.get("tier") ?? null);
@@ -119,13 +125,20 @@ function LeadFormInner({
   const isCompact = variant === "compact";
   // "demo" — trimmed request-demo-access form: name + contact only.
   const isDemo = variant === "demo";
-  const [showDetails, setShowDetails] = useState<boolean>(
-    isDemo ? false : !isCompact || Boolean(initialValues.tier),
+  const validationSchema = buildValidationSchema(
+    strings.contactValidation,
+    strings.budgetValidation,
+    { requireBudget: !isDemo },
   );
+  // The comment is the only optional free-text field; compact forms fold it.
+  const [showDetails, setShowDetails] = useState<boolean>(!isCompact);
+  // Unique per instance: a page can carry two forms (hero + bottom).
+  const detailsId = useId();
 
   if (status === "success") {
     return (
       <div
+        id={id}
         className="flex flex-col gap-3 p-8 border border-accent-40 rounded-[18px] bg-accent-6"
         role="status"
       >
@@ -149,17 +162,14 @@ function LeadFormInner({
         <p className="text-[14px] leading-[1.6] text-ink-dim m-0">
           {strings.successBody}
         </p>
-        <p className="text-[14px] leading-[1.6] text-ink-dim m-0">
-          {strings.successOrTg}{" "}
-          <a
-            href={PRIMARY_CHAT[locale].href}
-            target="_blank"
-            rel="noreferrer"
-            className="text-accent-soft no-underline font-semibold hover:underline"
-          >
-            {PRIMARY_CHAT[locale].label}
-          </a>
-        </p>
+        <a
+          href={PRIMARY_CHAT[locale].href}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-1 inline-flex min-h-11 items-center justify-center self-start rounded-full border border-accent-40 px-5 font-sans text-[14px] font-semibold text-accent-soft no-underline transition-colors duration-200 hover:bg-accent-6"
+        >
+          {strings.successOrTg}
+        </a>
       </div>
     );
   }
@@ -192,7 +202,8 @@ function LeadFormInner({
         // browser's own bubble ("Please fill out this field.") in the UI
         // language of the browser, not the page — Formik + Yup render the
         // localized error below the field instead (audit 2026-09-06, C9).
-        <Form noValidate className={`flex flex-col ${isCompact || isDemo ? "gap-[18px]" : "gap-[22px]"}`}>
+        <Form id={id} noValidate className={`flex flex-col ${isCompact || isDemo ? "gap-[18px]" : "gap-[22px]"}`}>
+          <ConfigSync config={config} />
           <HoneypotField
             value={values.hp}
             onChange={(v) => setFieldValue("hp", v)}
@@ -249,35 +260,70 @@ function LeadFormInner({
           )}
 
           {!isDemo && (
-            <Select
-              label={strings.businessLabel}
-              placeholder={strings.businessPlaceholder}
-              options={BUSINESS_OPTS}
-              value={values.business}
-              onChange={(v) => setFieldValue("business", v)}
-            />
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <Select
+                label={strings.tierLabel}
+                placeholder={strings.tierPlaceholder}
+                options={TIER_OPTS}
+                value={values.tier}
+                onChange={(v) => setFieldValue("tier", v)}
+              />
+              <Select
+                label={strings.budgetLabel}
+                placeholder={strings.budgetPlaceholder}
+                options={BUDGET_OPTS}
+                value={values.budget}
+                onChange={(v) => setFieldValue("budget", v)}
+                isRequired
+                isInvalid={Boolean(touched.budget && errors.budget)}
+                errorMessage={touched.budget ? errors.budget : undefined}
+              />
+            </div>
           )}
 
           {!isDemo && (
-            <Field name="description">
-              {({ field }: FieldProps) => (
-                <Textarea
-                  {...field}
-                  label={strings.descriptionLabel}
-                  placeholder={strings.descriptionPlaceholder}
-                  minRows={isCompact ? 3 : 5}
-                />
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <Select
+                label={strings.hasSiteLabel}
+                placeholder={strings.hasSitePlaceholder}
+                options={HAS_SITE_OPTS}
+                value={values.hasSite}
+                onChange={(v) => setFieldValue("hasSite", v)}
+              />
+              {values.hasSite === "yes" && (
+                <Field name="siteUrl">
+                  {({ field }: FieldProps) => (
+                    <Input
+                      {...field}
+                      type="url"
+                      inputMode="url"
+                      label={strings.siteUrlLabel}
+                      placeholder={strings.siteUrlPlaceholder}
+                    />
+                  )}
+                </Field>
               )}
-            </Field>
+            </div>
           )}
 
-          {isCompact && (
+          {!isDemo && values.config && (
+            <div className="flex flex-col gap-1.5 p-[14px] border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)]">
+              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+                {strings.configLabel}
+              </span>
+              <pre className="m-0 whitespace-pre-wrap font-sans text-[13px] leading-[1.55] text-ink-dim">
+                {values.config}
+              </pre>
+            </div>
+          )}
+
+          {isCompact && !isDemo && (
             <button
               type="button"
               className={TOGGLE_CLASS}
               onClick={() => setShowDetails((v) => !v)}
               aria-expanded={showDetails}
-              aria-controls="lead-form-details"
+              aria-controls={detailsId}
             >
               <ChevronDown
                 size={14}
@@ -295,35 +341,17 @@ function LeadFormInner({
           )}
 
           {!isDemo && showDetails && (
-            <div
-              className="flex flex-col gap-[18px] p-[18px] border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)]"
-              id="lead-form-details"
-            >
-              <Select
-                label={strings.tierLabel}
-                placeholder={strings.tierPlaceholder}
-                options={TIER_OPTS}
-                value={values.tier}
-                onChange={(v) => setFieldValue("tier", v)}
-              />
-
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <Select
-                  label={strings.budgetLabel}
-                  placeholder={strings.budgetPlaceholder}
-                  options={BUDGET_OPTS}
-                  value={values.budget}
-                  onChange={(v) => setFieldValue("budget", v)}
-                />
-
-                <Select
-                  label={strings.timelineLabel}
-                  placeholder={strings.timelinePlaceholder}
-                  options={TIMELINE_OPTS}
-                  value={values.timeline}
-                  onChange={(v) => setFieldValue("timeline", v)}
-                />
-              </div>
+            <div id={detailsId}>
+              <Field name="description">
+                {({ field }: FieldProps) => (
+                  <Textarea
+                    {...field}
+                    label={strings.descriptionLabel}
+                    placeholder={strings.descriptionPlaceholder}
+                    minRows={isCompact ? 3 : 4}
+                  />
+                )}
+              </Field>
             </div>
           )}
 
@@ -370,6 +398,18 @@ function LeadFormInner({
       )}
     </Formik>
   );
+}
+
+/**
+ * Keeps the hidden `config` field in step with the calculator without
+ * reinitialising the form — a reinit would wipe what the visitor typed.
+ */
+function ConfigSync({ config }: { config?: string }) {
+  const { setFieldValue } = useFormikContext<LeadValues>();
+  useEffect(() => {
+    setFieldValue("config", config ?? "", false);
+  }, [config, setFieldValue]);
+  return null;
 }
 
 export function LeadForm(props: LeadFormProps = {}) {

@@ -5,10 +5,16 @@ import Link from "next/link";
 import { Linkedin, Send, Instagram, Mail, Phone, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { hasLocaleIndustry, localizePath, resolveRootHref } from "@/constants/i18n-routes";
+import {
+  LOCALIZED_ROOTS,
+  hasLocaleIndustry,
+  localizePath,
+  resolveRootHref,
+} from "@/constants/i18n-routes";
 import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { CookieSettingsLink } from "@/lib/cookie-consent";
 import { SITE_CONTACT } from "@/constants/site";
+import { LOCALE_MARKET, formatPackagePrice } from "@/constants/pricing";
 import { MobileFold } from "@/components/shared/mobile-fold";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
@@ -61,7 +67,8 @@ const FOOTER_CONTACTS: Array<{
   { Icon: Phone, href: `tel:${SITE_CONTACT.phoneRaw}`, label: SITE_CONTACT.phone },
 ];
 
-// All 8 industries have published Sanity pages and live UA links.
+// Six industries (TZ v2, Sept 2026): ecommerce and courses were retired —
+// they 301 to /online-store and /landing (see RETIRED_INDUSTRY_SLUGS).
 // EN availability is gated by the i18n registry (Sanity-derived, see
 // — industries not yet translated render as disabled on EN.
 // Translation keys (`key`) live in `messages/{uk,en}.json` → `Footer.solutions`.
@@ -70,10 +77,8 @@ const SOLUTIONS_HREFS: Array<{ key: string; href: string; published: boolean }> 
   { key: "renovation", href: "/sites-for/renovation", published: true },
   { key: "legal", href: "/sites-for/legal", published: true },
   { key: "finance", href: "/sites-for/finance", published: true },
-  { key: "ecommerce", href: "/sites-for/ecommerce", published: true },
   { key: "auto", href: "/sites-for/auto", published: true },
   { key: "realEstate", href: "/sites-for/real-estate", published: true },
-  { key: "courses", href: "/sites-for/courses", published: true },
 ];
 
 // Only entries with a shipped page get rendered. Others would 404.
@@ -188,28 +193,37 @@ export function HpFooter({
     return <span className={footerDisabledClass}>{tSol(key)}</span>;
   };
 
-  // Company column: locale-aware via resolveRootHref — roots outside
-  // LOCALIZED_ROOTS for the active locale fall back to the UA page instead
-  // of linking to a 404 (RU phase-1 surface). Process is the one
-  // exception — it scrolls to the homepage #process section on all
-  // locales rather than the standalone page.
+  // Company column: locale-aware via resolveRootHref — on RU, roots outside
+  // LOCALIZED_ROOTS fall back to the UA page instead of a 404. On EN they
+  // are dropped: sending an English reader to a Ukrainian page is worse
+  // than no link (same rule as the city row below). TZ §3.16 links first.
   const companyLinks = [
-    { key: "about", href: resolveRootHref("/about", locale) },
-    { key: "process", href: `${localizePath("/", locale)}#process` },
-    { key: "webDevelopment", href: resolveRootHref("/rozrobka-saitiv", locale) },
-    { key: "landing", href: resolveRootHref("/landing", locale) },
-    { key: "corporateSite", href: resolveRootHref("/corporate-site", locale) },
-    { key: "onlineStore", href: resolveRootHref("/online-store", locale) },
-    { key: "seo", href: resolveRootHref("/seo", locale) },
-    { key: "localSeo", href: resolveRootHref("/lokalne-seo", locale) },
-    { key: "audit", href: resolveRootHref("/audit", locale) },
-    { key: "redesign", href: resolveRootHref("/redesign", locale) },
-    { key: "pricing", href: resolveRootHref("/pricing", locale) },
-    { key: "calculator", href: resolveRootHref("/calculator", locale) },
-    { key: "portfolio", href: resolveRootHref("/portfolio", locale) },
-    { key: "blog", href: resolveRootHref("/blog", locale) },
-    { key: "contacts", href: resolveRootHref("/contacts", locale) },
-  ];
+    { key: "pricing", root: "/pricing" },
+    { key: "calculator", root: "/calculator" },
+    { key: "audit", root: "/audit" },
+    { key: "support", root: "/support" },
+    { key: "portfolio", root: "/portfolio" },
+    { key: "blog", root: "/blog" },
+    { key: "about", root: "/about" },
+    { key: "process", root: "/process" },
+    { key: "webDevelopment", root: "/rozrobka-saitiv" },
+    { key: "landing", root: "/landing" },
+    { key: "corporateSite", root: "/corporate-site" },
+    { key: "onlineStore", root: "/online-store" },
+    { key: "seo", root: "/seo" },
+    { key: "localSeo", root: "/lokalne-seo" },
+    { key: "redesign", root: "/redesign" },
+    { key: "contacts", root: "/contacts" },
+  ]
+    .filter(
+      // The international market (en) must not link into UA-only pages;
+      // ru keeps its UA fallback as before.
+      (l) =>
+        locale === DEFAULT_LOCALE ||
+        LOCALE_MARKET[locale] !== "intl" ||
+        LOCALIZED_ROOTS[locale].has(l.root),
+    )
+    .map((l) => ({ key: l.key, href: resolveRootHref(l.root, locale) }));
 
   const footerCities = FOOTER_CITIES[locale];
 
@@ -249,7 +263,11 @@ export function HpFooter({
           <ul className={footerColListClass}>
             {companyLinks.map((l) => (
               <li key={l.key}>
-                <Link href={l.href}>{tCo(l.key)}</Link>
+                <Link href={l.href}>
+                  {l.key === "landing"
+                    ? tCo("landing", { price: formatPackagePrice("landing", locale) })
+                    : tCo(l.key)}
+                </Link>
               </li>
             ))}
           </ul>
@@ -303,7 +321,11 @@ export function HpFooter({
         </div>
       ) : null}
       <div className={footerBottomClass}>
-        <span className={footerCopyClass}>{t("copy")}</span>
+        <span className={footerCopyClass}>
+          {t("copy")}
+          {/* EN is a separate EUR market (owner, 2026-09-20). */}
+          {LOCALE_MARKET[locale] === "intl" ? <> · {t("currencyNote")}</> : null}
+        </span>
         <div className={footerSocialClass}>
           {socials.map((s) => {
             const Icon = s.icon;

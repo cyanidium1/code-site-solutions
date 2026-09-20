@@ -58,7 +58,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
         deviceTags={[
           { kind: "default", primary: "1 freelancer" },
           { kind: "default", primary: "→" },
-          { kind: "good", primary: "12 people", mini: "0 ghost" },
+          { kind: "good", primary: "4 people", mini: "0 ghost" },
         ]}
         variant="compare"
         deviceMockupSrc="/raw-design/assets/hero-devices.webp"
@@ -214,7 +214,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
         ]}
       />
 
-      {/* 05 — 12 people on your project */}
+      {/* 05 — the team on your project */}
       <section className={hpSectionClass}>
         <div className={hpInnerClass}>
 <PhoneMore label={SHOW_MORE_LABEL[locale]}>

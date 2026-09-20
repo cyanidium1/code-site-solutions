@@ -16,6 +16,7 @@ import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { ProseSections } from "@/components/blocks/prose-section";
 import { MEDICINE_SEO_PROSE_UK } from "@/content/uk/medicine-seo-prose";
+import { MED_OFFER_UK as M } from "@/components/industry-page/medicine/offer";
 import { MapPin, ShieldCheck, LayoutList, Star, Gauge, BarChart3 } from "lucide-react";
 
 /**
@@ -36,9 +37,9 @@ import { MapPin, ShieldCheck, LayoutList, Star, Gauge, BarChart3 } from "lucide-
 const PATH = "/sites-for/medicine/seo";
 const URL = pageUrl(PATH);
 
-const TITLE = "Просування медичних сайтів: SEO для клінік від $300/міс | Code-Site.Art";
+const TITLE = `SEO для медичних сайтів — ${M.seoFrom}/міс | Code-Site.Art`;
 const DESCRIPTION =
-  "➤ Просування медичних сайтів — від $300/міс ✔️ Локальний пошук і Google Maps ✔️ Сторінки під «лікар + район» ✔️ E-E-A-T для YMYL ➡ Разовий аудит $300.";
+  `Просування медичних сайтів — ${M.seoFrom}/міс: локальний пошук і Google Maps, сторінки під «лікар + район», E-E-A-T для YMYL. Аудит — безкоштовно.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -65,8 +66,8 @@ const MED_SEO_FAQ: { q: string; a: RichText }[] = [
     q: "Скільки коштує просування медичного сайту?",
     a: [
       "Сайт клініки — ",
-      { em: "від $300/міс" },
-      ": техніка, контент, локальний пошук, посилання, звіт щомісяця. Глибокий SEO-аудит із ТЗ — $450. Загальні умови й що входить у пакет — ",
+      { em: `${M.seoFrom}/міс` },
+      ": техніка, контент, локальний пошук, посилання, звіт щомісяця. SEO-аудит із точками росту — безкоштовно. Загальні умови й що входить у пакет — ",
       { link: { href: "/seo", text: "на сторінці просування" } },
       ".",
     ],
@@ -95,7 +96,7 @@ const MED_SEO_FAQ: { q: string; a: RichText }[] = [
     q: "Що робити, якщо сайт зроблений не вами?",
     a: [
       "Починаємо з ",
-      { link: { href: "/audit", text: "глибокого SEO-аудиту за $450" } },
+      { link: { href: "/audit", text: "безкоштовного SEO-аудиту" } },
       ": дивимось техніку, структуру й контент і чесно кажемо, чи є куди рости. Якщо сайт на конструкторі — покажемо стелю платформи до того, як ви заплатите за кампанію, половину рекомендацій якої неможливо впровадити.",
     ],
   },
@@ -127,14 +128,14 @@ const jsonLd = buildJsonLd([
       {
         "@type": "Offer",
         name: "Просування сайту клініки (за місяць)",
-        price: "300",
+        price: String(M.seoFromNum),
         priceCurrency: "USD",
         url: URL,
       },
       {
         "@type": "Offer",
-        name: "Разовий аудит медичного сайту",
-        price: "300",
+        name: "Аудит медичного сайту",
+        price: "0",
         priceCurrency: "USD",
         url: URL,
       },
@@ -165,7 +166,7 @@ export default function MedicineSeoPage() {
         eyebrow="SEO ДЛЯ МЕДИЧНИХ САЙТІВ"
         headline={
           <>
-            Просування медичних сайтів — <em>від $300/міс</em>
+            Просування медичних сайтів — <em>{M.seoFrom}/міс</em>
           </>
         }
         sub={
@@ -290,10 +291,10 @@ export default function MedicineSeoPage() {
       <CtaBanner
         heading={
           <>
-            Почніть із <em>SEO-аудиту за $450</em>
+            Почніть із <em>безкоштовного SEO-аудиту</em>
           </>
         }
-        sub="Розберемо сайт клініки й картку в Google, покажемо, за якими запитами вас зараз не видно і що з цього дожимається найшвидше. Термін — 5 робочих днів."
+        sub="Розберемо сайт клініки й картку в Google, покажемо, за якими запитами вас зараз не видно і що з цього дожимається найшвидше. Відповідь — за 24 години."
         ctaPrimary={{ label: "Замовити аудит", href: "/contacts" }}
         ctaSecondary={{ label: "Умови просування", href: "/seo" }}
       />

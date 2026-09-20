@@ -1,5 +1,8 @@
 import type { ProseSection } from "@/types/prose";
-import { uahApprox } from "@/constants/calculator-config";
+import { SERVICES, servicePrice, uahApprox } from "@/constants/pricing";
+import { formatPrice } from "@/lib/shared/format-price";
+
+const SEO_FROM = servicePrice("seoServicesFrom", "uk");
 
 /**
  * Розділи, перенесені зі статті `/blog/seo-dlia-medychnykh-saitiv` 15.09.2026.
@@ -73,9 +76,8 @@ export const MEDICINE_SEO_PROSE_UK: ProseSection[] = [
     table: {
       headers: ["Формат", "Ціна", "У гривнях", "Коли результат"],
       rows: [
-        ["Глибокий SEO-аудит сайту клініки", "$450", uahApprox(450), "ТЗ і точки росту за 5 робочих днів"],
-        ["Просування приватного кабінету", "$300/міс", uahApprox(300) + "/міс", "локальний пошук — за кілька тижнів"],
-        ["Просування клініки чи медцентру", "$300–500/міс", uahApprox(300) + " – " + uahApprox(500).slice(1) + "/міс", "органіка — 3–6 місяців"],
+        ["SEO-аудит сайту клініки", "безкоштовно", "—", `точки росту — за ${SERVICES.auditResponseHours} години`],
+        ["Просування сайту клініки чи кабінету", `${formatPrice(SEO_FROM, { locale: "uk", withPrefix: true })}/міс`, `${uahApprox(SEO_FROM)}/міс`, "локальний пошук — за кілька тижнів, органіка — 3–6 місяців"],
       ],
     },
     foot: "Загальні умови і що входить у щомісячний пакет — на сторінці просування сайту.",

@@ -14,16 +14,24 @@ import {
 } from "lucide-react";
 
 import type { LandingPageContent } from "@/types/landing";
+import { formatAddonPrice, servicePrice } from "@/constants/pricing";
+import { formatPrice } from "@/lib/shared/format-price";
+
+// EUR market (constants/pricing.ts INTL) — never type a figure here.
+const SVC = servicePrice("seoServicesFrom", "en");
+const SHOP = servicePrice("seoShopFrom", "en");
+const eur = (n: number) => formatPrice(n, { locale: "en" });
+const MIGRATION = formatAddonPrice("migration", "en");
+const EXTRA_PAGE = formatAddonPrice("extra_page", "en");
 
 export const SEO_EN: LandingPageContent = {
-  metaTitle: "ᐈ SEO Services from £300/mo | Code-Site.Art",
-  metaDescription:
-    "➤ SEO for service businesses from £300/mo, e-commerce from £500/mo ✔️ Deep SEO audit £450 ✔️ No \"#1 guarantees\" ➡ Start with an audit.",
+  metaTitle: `SEO Services from ${eur(SVC)}/mo | Code-Site.Art`,
+  metaDescription: `SEO for service businesses from ${eur(SVC)}/mo, online shops from ${eur(SHOP)}/mo. A report every month, no "#1 guarantees". Free site review within 24 hours.`,
   breadcrumbHome: "Home",
   breadcrumbSelf: "SEO services",
   hero: {
     eyebrow: "SEO SERVICES",
-    headline: ["SEO from £300/mo — ", "no magic, no \"#1 guarantees\""],
+    headline: [`SEO from ${eur(SVC)}/mo — `, "no magic, no \"#1 guarantees\""],
     sub: "Technical work, content, links and local SEO — monthly work with reports on rankings and traffic. First measurable results take 3–6 months, and we say that upfront.",
   },
   when: {
@@ -44,11 +52,11 @@ export const SEO_EN: LandingPageContent = {
       "Expecting results in a month — SEO doesn't work that way, better to decline upfront",
       "A builder-platform site with a hard ceiling — see the section below",
     ],
-    foot: "Not sure? Order the £450 deep SEO audit — we'll tell you honestly whether there's room to grow and what it would cost.",
+    foot: "Not sure? Ask for a free site review — within 24 hours we'll tell you honestly whether there's room to grow and what it would cost.",
   },
   included: {
     eyebrow: "EVERY MONTH",
-    heading: ["What the retainer includes ", "from £300/mo"],
+    heading: ["What the retainer includes ", `from ${eur(SVC)}/mo`],
     sub: "Not \"comprehensive SEO\" as one line on an invoice — a concrete list of work every month:",
     items: [
       {
@@ -114,43 +122,43 @@ export const SEO_EN: LandingPageContent = {
       {
         icon: Layers,
         title: "Service business site",
-        stat: "£300/mo",
+        stat: `from ${eur(SVC)}/mo`,
         body: "A multi-page services site: technical work, 1–2 content pieces, local SEO, links, a report. Clinics, builders, solicitors, B2B.",
         span: "2x1",
       },
       {
         icon: ShoppingCart,
         title: "E-commerce",
-        stat: "£500/mo",
+        stat: `from ${eur(SHOP)}/mo`,
         body: "A catalogue means more work: categories, product pages, filters, more content and technical upkeep monthly.",
         span: "1x1",
       },
       {
         icon: Search,
-        title: "Deep SEO audit",
-        stat: "£450",
-        body: "A technical + content teardown, a developer-ready spec and growth points in 5 working days. Useful even without a retainer.",
+        title: "Site review first",
+        stat: "free",
+        body: "The 5 main problems holding back enquiries and what to do about them. Answer within 24 hours, no obligation.",
         span: "1x1",
       },
       {
         icon: PenLine,
-        title: "Extra content",
-        stat: "£30–100/article",
-        body: "Depends on niche, languages and depth: a simple post is £30, a researched B2B piece in a narrow niche across 3 languages runs up to £100.",
+        title: "New service page",
+        stat: EXTRA_PAGE,
+        body: "If you lack pages for the searches you want, we add them on a separate invoice at list price — you know the figure before we start.",
         span: "1x1",
       },
       {
         icon: ArrowRightLeft,
-        title: "WordPress migration",
-        stat: "£500–2,000",
-        body: "Move to fast custom code without losing SEO history: 301 redirects, Search Console handoff.",
+        title: "Move to a new site",
+        stat: MIGRATION,
+        body: "The package price plus content migration: 301 redirects and Search Console handoff, so SEO history is kept.",
         span: "1x1",
       },
       {
         icon: Layers,
         title: "With a new site from us",
-        stat: "£0 first year",
-        body: "Every site we build is SEO-ready, with a year of technical support in the development price. A retainer comes when you're ready to grow faster.",
+        stat: `${eur(0)} first year`,
+        body: "Every site we build is SEO-ready, with a year of warranty and support in the package price. A retainer comes when you're ready to grow faster.",
         span: "2x1",
       },
     ],
@@ -168,7 +176,7 @@ export const SEO_EN: LandingPageContent = {
       "No code access — half the technical fixes from an audit are impossible",
       "Old WP: junk URLs, duplicates, hack risk — and a hacked site drops out of results",
     ],
-    foot: "It's often cheaper to migrate once than to keep paying for a platform's ceiling. Migration from WordPress or a builder is £500–2,000 with SEO history preserved.",
+    foot: `It's often cheaper to migrate once than to keep paying for a platform's ceiling. Moving to a new site costs the package price plus ${MIGRATION} for migration, with SEO history preserved.`,
     links: [
       { label: "vs WordPress", href: "/en/vs-wordpress" },
       { label: "vs site builders", href: "/en/vs-constructors" },
@@ -194,9 +202,9 @@ export const SEO_EN: LandingPageContent = {
     allHref: "/en/portfolio",
   },
   calcCta: {
-    heading: ["Start with the £450 ", "deep SEO audit"],
-    sub: "A teardown of your site with a prioritised fix list and an honest answer on whether you need a retainer at all. Delivered within 5 working days.",
-    primaryLabel: "Order an audit",
+    heading: ["Start with a ", "free site review"],
+    sub: "The 5 main problems on your site, what to fix and what it costs — within 24 hours. No obligation: you can take the result to any contractor.",
+    primaryLabel: "Get a free review",
     primaryHref: "/en/contacts",
     secondaryLabel: "Price a new site",
     secondaryHref: "/en/calculator",
@@ -216,10 +224,10 @@ export const SEO_EN: LandingPageContent = {
         q: "How much do your SEO services cost?",
         a: [
           "A service-business site is ",
-          { em: "£300/mo" },
+          { em: `from ${eur(SVC)}/mo` },
           ". E-commerce with a catalogue is ",
-          { em: "£500/mo" },
-          " — there's objectively more work. The deep SEO audit with a developer-ready spec is £450. No hidden extras: the month's work list is in your report.",
+          { em: `from ${eur(SHOP)}/mo` },
+          " — there's objectively more work. The first site review is free. No hidden extras: the month's work list is in your report.",
         ],
       },
       {
@@ -237,7 +245,7 @@ export const SEO_EN: LandingPageContent = {
       {
         q: "Do you promote sites you didn't build?",
         a: [
-          "Yes — after the £450 deep SEO audit. If the site runs on a builder or old WordPress, we'll show you the platform's ceiling honestly and price both routes: promote as-is, or migrate first (£500–2,000).",
+          "Yes — after a free site review. If the site runs on a builder or old WordPress, we'll show you the platform's ceiling honestly and price both routes: promote as-is, or move to a new site first.",
         ],
       },
       {

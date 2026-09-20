@@ -33,7 +33,7 @@ import { buildAlternates } from "@/lib/shared/alternates";
 const META_TITLE =
   "Портфолио веб-разработки — кейсы сайтов | Code-Site.Art";
 const META_DESCRIPTION =
-  "➤ 50+ кастомных сайтов для клиник, юристов, недвижимости и e-commerce ✔️ Реальные результаты: ×3.2 заявок, LCP 0.8с, топ-3 Google ➡ Смотреть проекты.";
+  "25+ сайтов на коде для клиник, юристов, недвижимости и магазинов. Результаты с цифрами: заявки, скорость, позиции в Google. Смотрите проекты.";
 
 export const metadata: Metadata = {
   title: META_TITLE,

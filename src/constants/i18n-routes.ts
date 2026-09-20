@@ -69,7 +69,25 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     "/rozrobka-saitiv-kyiv",
     "/rozrobka-saitiv-odesa",
     "/rozrobka-saitiv-dnipro",
+    "/rozrobka-saitiv-kharkiv",
   ]),
+};
+
+/**
+ * Industry slugs that still exist in Sanity but were retired as industry
+ * pages (TZ v2, Sept 2026): e-commerce is the `shop` package, courses are a
+ * landing. Both 301 in next.config.ts; routes and the sitemap skip them.
+ */
+export const RETIRED_INDUSTRY_SLUGS: ReadonlySet<string> = new Set(["ecommerce", "courses"]);
+
+/**
+ * Pages whose slug differs between locales, so the same-path registry above
+ * can't pair them. Key = default-locale path; value = per-locale paths
+ * (without locale prefix handling — full paths).
+ */
+export const CROSS_SLUG_PAGES: Record<string, Partial<Record<SecondaryLocale, string>>> = {
+  // Google Ads landing (TZ v2 §4): UA + RU ad groups; no EN.
+  "/zamovyty-sait": { ru: "/ru/zakazat-sait" },
 };
 
 /**

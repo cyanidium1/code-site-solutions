@@ -1,288 +1,292 @@
 import type { TimelineStep } from "@/components/blocks/vertical-timeline";
+import {
+  PACKAGES,
+  PAYMENT_TERMS,
+  SERVICES,
+  addonPrice,
+  formatAddonPrice,
+  formatDays,
+  formatPackageTerm,
+  servicePrice,
+} from "@/constants/pricing";
+import { formatPrice } from "@/lib/shared/format-price";
 import type { RichText } from "@/lib/shared/rich-text";
 
-/* ─── 7 timeline steps (EN) ───────────────────────────────────────────────── */
+/*
+ * Process for the business package, day by day. Every number comes from
+ * `@/constants/pricing` (TZ v2): the total term is PACKAGES.business.days,
+ * shop/landing/industry follow the same steps on their own terms.
+ */
+const LOC = "en" as const;
+const D = PACKAGES.business.days.min;
+const DESIGN_DAYS = 2;
+const PREPAY = PAYMENT_TERMS.prepaymentPercent;
+const PENALTY = `${PAYMENT_TERMS.latePenaltyPercentPerDay}% for every day late, up to ${PAYMENT_TERMS.latePenaltyCapPercent}%`;
+const HOSTING = formatPrice(servicePrice("hostingRenewalPerYear", LOC), { locale: LOC });
+const EXTRA_PAGE = formatPrice(addonPrice("extra_page", LOC), { locale: LOC });
+const COPY_PRO = formatPrice(addonPrice("copy_pro", LOC), { locale: LOC });
+const dayRange = (a: number, b: number) => (a === b ? `Day ${a}` : `Days ${a}–${b}`);
 
 export const PROCESS_STEPS: TimelineStep[] = [
   {
     n: "01",
-    title: "Brief",
-    duration: "1 day · free",
-    body: "30-min call or WhatsApp chat. We dig into the task, goals, audience, budget, timeline, references. By the end, an exact price range and tier recommendation.",
+    title: "Request and quote",
+    duration: `within ${SERVICES.auditResponseHours} hours · free`,
+    body: `Fill in the form or message us. Within ${SERVICES.auditResponseHours} hours we reply with the right package, a fixed price and the timeline. A call only if you want one.`,
     weDo: {
       heading: "What we do",
       items: [
-        "Listen to the task and ask follow-up questions",
-        "Analyse 2-3 of your competitors",
-        "Recommend a tier and timeline",
-        "Give you the exact price range",
+        "Go through the task and ask what we need to know",
+        "Pick the package: landing page, business website or online store",
+        "Name a fixed price and the timeline in working days",
       ],
     },
     youDo: {
       heading: "What you do",
       items: [
-        "Tell us about your business and the site's goal",
-        "Share 3-5 reference sites",
-        "Share your budget and deadline (if any)",
+        "Tell us about the business and what the site should do",
+        "Share 2–3 sites you like (if you have any)",
       ],
     },
     deliverable: {
-      heading: "Deliverable",
+      heading: "What you get",
       items: [
-        "Written estimate (PDF) with price range and timeline",
-        "Tier and scope recommendation",
-        "List of next steps and timeline",
+        "A quote: package, price, timeline, what's included",
+        "A list of add-ons, if you need any",
       ],
     },
   },
   {
     n: "02",
-    title: "Contract & deposit",
-    duration: "1-3 days",
-    body: "We sign the contract via DocuSign or a PDF with signature. You pay 50% upfront. The contract locks the price, the deadline, and the 30% rebate for delays.",
+    title: "Contract and deposit",
+    duration: "before the start",
+    body: `A contract with a fixed sum, a deadline and a late penalty: ${PENALTY}. The working days start after the ${PREPAY}% deposit. Pay in full upfront and get ${PAYMENT_TERMS.fullPrepaymentDiscountPercent}% off.`,
     weDo: {
       heading: "What we do",
       items: [
-        "Draft the contract with a fixed sum",
-        "Break it into milestones with deliverables",
-        "Issue a 50% deposit invoice",
-        "Run the kickoff after payment clears",
+        "Draft the contract with a fixed sum and deadline",
+        "Send the deposit invoice",
       ],
     },
     youDo: {
       heading: "What you do",
       items: [
-        "Review the contract, ask questions",
-        "Sign via DocuSign or PDF",
-        "Pay the 50% deposit (bank transfer, card via Stripe, or Direct Debit)",
+        "Read the contract, ask questions",
+        "Sign it electronically or as a PDF",
+        `Pay the ${PREPAY}% deposit (bank transfer or Stripe)`,
       ],
     },
     deliverable: {
-      heading: "Deliverable",
+      heading: "What you get",
       items: [
-        "Signed contract with fixed terms",
-        "Right to 2 full design revision rounds",
-        "Right to a 30% rebate for missed deadlines",
+        "A signed contract with the price and deadline",
+        "A launch date in the calendar",
       ],
     },
   },
   {
     n: "03",
-    title: "Design",
-    duration: "1-2 weeks",
-    body: "We design in Figma. First a moodboard, then the homepage, then internal pages. 2 full rounds of revisions included. You see and approve every milestone.",
+    title: "Structure, copy and design",
+    duration: `${dayRange(1, DESIGN_DAYS)}`,
+    body: "We plan the pages, write the copy from your brief and design the site for phone and desktop. You see it before development starts: approve it or send changes.",
     weDo: {
       heading: "What we do",
       items: [
-        "Gather a moodboard from references and your brand",
-        "Design the homepage (1-3 versions to pick from)",
-        "After approval — design internal pages",
-        "Adapt to mobile (375px) and tablet",
+        "Page and section structure",
+        "Copy written from your brief",
+        "Mobile and desktop design",
       ],
     },
     youDo: {
       heading: "What you do",
       items: [
-        "Approve the moodboard (1-2 iterations)",
-        "Approve the homepage design (2 revision rounds)",
-        "Check the mobile version on your phone",
+        "Approve the structure, copy and design",
+        "Send your logo, photos and contact details",
       ],
     },
     deliverable: {
-      heading: "Deliverable",
+      heading: "What you get",
       items: [
-        "Figma file with full design (all pages + states)",
-        "Mobile + Tablet + Desktop layouts",
-        "Design rights handed over to you",
+        "Approved design for every page",
+        "Copy for every page",
       ],
     },
   },
   {
     n: "04",
     title: "Development",
-    duration: "2-6 weeks",
-    body: "We write code on Next.js + Sanity. Commits in GitHub daily. A weekly screencast of progress (3-5 min). WhatsApp chat every day.",
+    duration: `${dayRange(DESIGN_DAYS + 1, D - 2)}`,
+    body: "We code the site on Next.js, connect Sanity CMS, forms and analytics. A preview link works from the first day of development, so you watch progress live.",
     weDo: {
       heading: "What we do",
       items: [
-        "Write code in your GitHub repo",
-        "Commit daily (full progress visible)",
-        "Record a weekly screencast",
-        "Wire up integrations (CRM, analytics, forms)",
-        "Build the CMS admin (Sanity or Strapi)",
+        "Code in your GitHub repository",
+        "Sanity CMS — edit without a developer",
+        "Forms, enquiry alerts, Google Analytics",
       ],
     },
     youDo: {
       heading: "What you do",
       items: [
-        "Fill in content in the admin",
-        "Watch the weekly screencasts",
-        "Ask on WhatsApp if anything's unclear",
+        "Check the preview and leave comments in the chat",
       ],
     },
     deliverable: {
-      heading: "Deliverable",
+      heading: "What you get",
       items: [
-        "Access to GitHub repo from the first commit",
-        "Staging URL for real-time preview",
-        "Admin with your login credentials",
-        "Documentation on how to edit",
+        "A preview link",
+        "Access to GitHub and the CMS",
       ],
     },
   },
   {
     n: "05",
-    title: "Testing",
-    duration: "1 week",
-    body: "We run a 60-point QA checklist. We test on 5 devices and 3 browsers. We run Lighthouse audit. You run your own 10-point checklist and approve.",
+    title: "Testing and changes",
+    duration: `${dayRange(D - 1, D - 1)}`,
+    body: "We test the site on phones and browsers: speed, forms, metadata, analytics. Then we make your changes.",
     weDo: {
       heading: "What we do",
       items: [
-        "Run the 60-point QA checklist",
-        "Test on iPhone, Android, iPad, Chrome/Safari/Firefox",
-        "Lighthouse — target Performance 90+, SEO/A11y 95+",
-        "Check all forms, integrations, analytics",
-        "Schema.org through the Rich Results Test",
+        "Tests on iPhone, Android and desktop",
+        "Forms, analytics and SEO structure checked",
+        "Changes from your comments",
       ],
     },
     youDo: {
       heading: "What you do",
       items: [
-        "Run our 10-point client checklist (we send it)",
-        "Test all forms with your email",
-        "Approve before launch",
+        "Go through the site and send changes as one list",
       ],
     },
     deliverable: {
-      heading: "Deliverable",
+      heading: "What you get",
       items: [
-        "60-point QA report",
-        "Lighthouse screenshot",
-        "Fix list (if any) with fix date",
+        "A site ready to launch",
       ],
     },
   },
   {
     n: "06",
     title: "Launch",
-    duration: "1 day",
-    body: "We migrate to your domain. We set up Search Console + Analytics + 301 redirects from your old site. You make the final 50% payment and receive all credentials.",
+    duration: `${dayRange(D, D)}`,
+    body: "We connect your domain and SSL, set up Search Console and redirect old URLs. You pay the balance and get every login.",
     weDo: {
       heading: "What we do",
       items: [
-        "Set up the domain (DNS, SSL)",
-        "Production deploy on Vercel/Cloudflare",
+        "Domain, SSL, deployment",
         "301 redirects from old URLs",
-        "Submit sitemap to Search Console",
-        "Hand over credentials (hosting, CMS, GitHub, Analytics)",
+        "Sitemap submitted to Search Console",
+        "Hand over access: hosting, CMS, GitHub, analytics",
       ],
     },
     youDo: {
       heading: "What you do",
       items: [
-        "Make the final 50% payment",
-        "Verify the site on the live domain",
-        "Sign the acceptance protocol",
+        "Pay the balance",
+        "Check the site on your own domain",
       ],
     },
     deliverable: {
-      heading: "Deliverable",
+      heading: "What you get",
       items: [
-        "Live site on your domain",
-        "Access to all systems",
-        "Documentation on how to manage and publish",
-        "1-hour admin training (Zoom)",
+        "The site on your domain",
+        "Every account in your name",
+        "A short guide to editing the site in the CMS",
       ],
     },
   },
   {
     n: "07",
-    title: "Support",
-    duration: "+ 1 year (included)",
-    body: "We fix any bugs for free. We update dependencies. We give advice. If something breaks through no fault of yours, we fix it within 4 business hours.",
+    title: "Warranty and support",
+    duration: "1 year · included",
+    body: `A year of warranty, hosting and support is included in the price: bugs, uptime, security, updates, SSL, backups. After the year: hosting at ${HOSTING}/year or a move to your own account.`,
     weDo: {
       heading: "What we do",
       items: [
-        "Fix bugs (4 business-hour SLA, in business hours)",
-        "Update dependencies",
-        "Help with the admin and content",
-        "Run quarterly security checks",
-        "Take weekly backups",
+        "Fix bugs free of charge",
+        "Update dependencies, watch security",
+        "Hosting, SSL, backups",
       ],
     },
     youDo: {
       heading: "What you do",
       items: [
-        "Write on WhatsApp or email when something's off",
-        "Back up your Sanity content (optional)",
+        "Edit copy, prices and photos yourself in the CMS",
+        "Message us if something is wrong",
       ],
     },
     deliverable: {
-      heading: "Deliverable",
+      heading: "What you get",
       items: [
-        "Free support for 365 days from launch",
-        "Quarterly security check",
-        "Option for a support package after year one (£200-500/mo)",
+        "One year of support from launch day",
+        `A new page after launch: ${EXTRA_PAGE}`,
       ],
     },
   },
 ];
 
-/* ─── FAQ (8 — EN) ───────────────────────────────────────────────────────── */
-
 export const PROCESS_FAQ: { q: string; a: RichText }[] = [
   {
     q: "What if you miss the deadline through your fault?",
     a: [
-      "We pay you a ",
-      { em: "30% rebate" },
-      " from the contract sum, no need to ask. We've done it once in 3 years, and we wired the rebate before the client raised it.",
+      "We pay a penalty of ",
+      { em: `${PENALTY}` },
+      ". It's written into the contract.",
     ],
   },
   {
-    q: "What if I want more than 2 design revisions?",
+    q: "What do changes cost?",
     a: [
-      "Each extra revision round is billed at ",
-      { em: "£40/hr" },
-      ". We tell you upfront if a request crosses the limit.",
+      "Changes within the approved structure are ",
+      { em: "included in the price and timeline" },
+      `. A new page is ${EXTRA_PAGE}, other add-ons are priced in the `,
+      { link: { href: "/en/calculator", text: "calculator" } },
+      ".",
     ],
   },
   {
-    q: "What if I don't like the design result?",
+    q: "What if I don't like the design?",
     a: [
-      "The 2 revision rounds are there for this. We rework it. If after 2 rounds you still don't like it, we talk it through, since the problem usually sits in the brief rather than the design.",
+      "You see the design ",
+      { em: "before development starts" },
+      ". We work through your comments until you approve it. If that moves the deadline, we agree the new date in writing.",
     ],
   },
   {
     q: "What if I need changes after launch?",
     a: [
-      "First year: fixes and small tweaks are in the warranty. New features are separate scope, priced per hour or per project.",
+      { em: "A year of warranty and support" },
+      ` is included: bugs, hosting, SSL, updates. You edit copy, prices and photos yourself in the CMS. A new page is ${EXTRA_PAGE} and takes ${formatDays(SERVICES.newPageDays, LOC)}.`,
     ],
   },
   {
     q: "What if I want to change the scope mid-project?",
     a: [
-      "We pause, re-estimate the new scope, and sign an addendum. The original contract stays for what was agreed; new scope is its own line.",
+      "You can. Add-ons have fixed prices; the new deadline and sum go into a ",
+      { em: "contract addendum" },
+      ".",
     ],
   },
   {
-    q: "What if I don't have time to fill in content?",
+    q: "What if I have no time for the copy?",
     a: [
-      "We have a copywriter as an add-on, ",
-      { em: "£200/page" },
-      ". We can also extend the timeline if you'd rather write it yourself.",
+      "Copy written from your brief is ",
+      { em: "included in the package" },
+      ` — you only answer our questions. Professional copywriting with an interview is ${COPY_PRO}.`,
     ],
   },
   {
-    q: "What if a new project comes up in 6 months?",
+    q: "What if I need the site sooner?",
     a: [
-      "We hold a quarterly slot for repeat clients. Message us on WhatsApp when it's time and we'll schedule it.",
+      "A rush launch is ",
+      { em: `${formatAddonPrice("rush", LOC)}` },
+      ". The shorter deadline goes into the contract.",
     ],
   },
   {
-    q: "What if I need an urgent fix for an event?",
+    q: "Are a landing page or a shop also 7 days?",
     a: [
-      "4-hour SLA in business hours. Outside business hours we charge an emergency rate, but we respond.",
+      `A landing page takes ${formatPackageTerm("landing", LOC)}, an online store ${formatPackageTerm("shop", LOC)}, an industry solution ${formatPackageTerm("industry", LOC)}. Same steps, different scope.`,
     ],
   },
 ];

@@ -16,6 +16,7 @@ import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { ProseSections } from "@/components/blocks/prose-section";
 import { MED_DYZAIN_PROSE_UK } from "@/content/uk/medicine-children-prose";
+import { MED_OFFER_UK as M } from "@/components/industry-page/medicine/offer";
 import { Eye, Accessibility, CalendarCheck, Camera, Coins, Smartphone } from "lucide-react";
 
 /**
@@ -35,9 +36,9 @@ import { Eye, Accessibility, CalendarCheck, Camera, Coins, Smartphone } from "lu
 const PATH = "/sites-for/medicine/dyzain";
 const URL = pageUrl(PATH);
 
-const TITLE = "Дизайн сайту медичного центру і клініки | Code-Site.Art";
+const TITLE = `Дизайн сайту клініки — у ціні сайту ${M.price}`;
 const DESCRIPTION =
-  "➤ Веб-дизайн для медичних сайтів: довіра з першого екрана, доступність для літніх пацієнтів, чесна подача цін ✔️ Дизайн входить у вартість розробки ➡ Безкоштовний розбір вашого сайту.";
+  `Веб-дизайн для медичних сайтів: довіра з першого екрана, доступність для літніх пацієнтів, чесні ціни. Входить у сайт клініки за ${M.price}.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -64,7 +65,7 @@ const DESIGN_FAQ: { q: string; a: RichText }[] = [
     q: "Скільки коштує дизайн сайту медичного центру окремо?",
     a: [
       "Окремо ми дизайн не продаємо — він входить у кожен пакет розробки. Причина проста: макет без верстки й коду не приносить записів, а передавати чужий макет у чужу розробку зазвичай дорожче, ніж зробити наскрізно. Сайт клініки під ключ, разом із дизайном, — ",
-      { link: { href: "/sites-for/medicine", text: "від $2 500" } },
+      { link: { href: "/sites-for/medicine", text: `${M.price} за ${M.term}` } },
       ". Якщо потрібен саме макет під вашу команду розробки — це окремий прорахунок, ",
       { link: { href: "/contacts", text: "напишіть нам" } },
       ".",
@@ -93,7 +94,7 @@ const DESIGN_FAQ: { q: string; a: RichText }[] = [
   {
     q: "Скільки часу займає дизайн?",
     a: [
-      "У межах проєкту клініки на 4–6 тижнів дизайн займає перші півтори-два тижні: структура, головна, ключові внутрішні сторінки. Далі макети йдуть ",
+      `У межах проєкту клініки на ${M.term} дизайн займає перший тиждень: структура, головна, ключові внутрішні сторінки. Далі макети йдуть `,
       { link: { href: "/sites-for/medicine/verstka", text: "у верстку" } },
       ", а дизайнер лишається на проєкті до релізу — правки по ходу неминучі.",
     ],
@@ -103,8 +104,8 @@ const DESIGN_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Тоді це редизайн, і починати треба не з макета, а з розбору: які сторінки зараз приносять пацієнтів, щоб не втратити їх разом зі старим дизайном. Порядок робіт і ціни — ",
       { link: { href: "/redesign", text: "на сторінці редизайну" } },
-      ", а разовий ",
-      { link: { href: "/audit", text: "аудит сайту коштує $150" } },
+      ", а ",
+      { link: { href: "/audit", text: "аудит сайту — безкоштовний" } },
       ".",
     ],
   },
@@ -128,7 +129,7 @@ const jsonLd = buildJsonLd([
       {
         "@type": "Offer",
         name: "Сайт клініки під ключ, дизайн у вартості",
-        price: "2500",
+        price: String(M.priceNum),
         priceCurrency: "USD",
         url: URL,
       },
@@ -159,7 +160,7 @@ export default function MedicineDesignPage() {
         eyebrow="ДИЗАЙН МЕДИЧНОГО САЙТУ"
         headline={
           <>
-            Веб-дизайн для медичних сайтів — <em>довіра, а не краса</em>
+            Веб-дизайн для медичних сайтів — <em>у ціні сайту клініки {M.price}</em>
           </>
         }
         sub={

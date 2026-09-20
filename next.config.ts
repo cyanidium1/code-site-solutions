@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { BLOG_TO_CITY_PAGE } from "./src/constants/city-blog-redirects";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
@@ -128,6 +129,22 @@ const nextConfig: NextConfig = {
       // page with a 200. The canonical already pointed at /, so the duplicate
       // risk was low, but a redirect removes the ambiguity entirely.
       { source: "/index", destination: "/", statusCode: 301 },
+      // Productized pricing (TZ v2, Sept 2026): e-commerce is the `shop`
+      // package and courses are a landing page — neither is an industry
+      // solution any more, so their industry pages fold into the packages.
+      { source: "/sites-for/ecommerce", destination: "/online-store", statusCode: 301 },
+      { source: "/ru/sites-for/ecommerce", destination: "/ru/online-store", statusCode: 301 },
+      { source: "/en/sites-for/ecommerce", destination: "/en/online-store", statusCode: 301 },
+      { source: "/sites-for/courses", destination: "/landing", statusCode: 301 },
+      // City blog posts duplicated the city service pages (TZ v2 §3.14).
+      ...Object.entries(BLOG_TO_CITY_PAGE).flatMap(([uk, { city, ru }]) => [
+        { source: `/blog/${uk}`, destination: city, statusCode: 301 as const },
+        ...(ru
+          ? [{ source: `/ru/blog/${ru}`, destination: `/ru${city}`, statusCode: 301 as const }]
+          : []),
+      ]),
+      { source: "/ru/sites-for/courses", destination: "/ru/landing", statusCode: 301 },
+      { source: "/en/sites-for/courses", destination: "/en/landing", statusCode: 301 },
     ];
   },
   async headers() {

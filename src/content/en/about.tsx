@@ -17,14 +17,24 @@ import {
   CalendarCheck,
   Percent,
 } from "lucide-react";
+import {
+  PAYMENT_TERMS,
+  formatPackagePrice,
+  formatPackageTerm,
+} from "@/constants/pricing";
+
+const PER_DAY = PAYMENT_TERMS.latePenaltyPercentPerDay;
+const CAP = PAYMENT_TERMS.latePenaltyCapPercent;
 
 import type { AboutContent } from "@/components/about/sections";
 
 export const ABOUT_EN: AboutContent = {
+  // TODO(owner): ФОП / ЄДРПОУ (або ІПН) — юрособу не показуємо, доки власник
+  // не підтвердить, що ці дані можна публікувати (ТЗ §3.11). Не рендериться.
   meta: {
-    title: "About the studio — Code Site Art | Custom web development, Kyiv",
+    title: "About Code Site Art — custom-coded websites, Kyiv",
     description:
-      "A boutique custom web development studio. Sites and business systems on Next.js, React and TypeScript that you own: code in your GitHub, 1-year warranty.",
+      `Custom-coded websites for small businesses. A team of 4, 25+ projects in 4 countries. Fixed price, ${formatPackageTerm("business", "en")}, you own the code.`,
   },
 
   hero: {
@@ -36,12 +46,19 @@ export const ABOUT_EN: AboutContent = {
         Built by a <em>developer</em>.
       </>
     ),
-    headlineB: <>Not an account manager.</>,
+    headlineB: (
+      <>
+        A business website for {formatPackagePrice("business", "en")} in{" "}
+        {formatPackageTerm("business", "en")}.
+      </>
+    ),
     sub: (
       <>
-        Code Site Art is a boutique custom web development studio. We design,
-        build and launch websites and business systems that companies actually
-        own and control. You talk directly to the person who writes the code.
+        Code Site Art builds custom-coded websites for small businesses. A team
+        of 4: tech lead, designer, developer, editor. 25+ launched projects in
+        Denmark, South Africa, Albania and Ukraine. Fixed price in the
+        contract, you own the code, no subscriptions. You talk directly to the
+        person who writes the code.
       </>
     ),
     ctaPrimary: { label: "View projects", href: "/en/portfolio" },
@@ -65,7 +82,7 @@ export const ABOUT_EN: AboutContent = {
     ),
     lead: "Code Site Art was founded by Fedir Alpatov, a developer who takes part in the architecture and implementation of every project.",
     paragraphs: [
-      "A graduate of the Kyiv Polytechnic Institute (KPI). Building since 2021, first as a freelancer, then growing into a boutique studio. Code Site Art was founded in 2023.",
+      "A graduate of the Kyiv Polytechnic Institute (KPI). Building since 2021, first as a freelancer, then with a team. Code Site Art was founded in 2023.",
       "The focus is custom websites and business systems on Next.js, React, TypeScript and Sanity CMS. Not templates or page builders. The code solves a concrete business task: leads, sales, content management.",
       "Working with the studio, you don't pass your task down a chain of managers. You talk to the person responsible for the technical decisions and the result.",
     ],
@@ -74,6 +91,7 @@ export const ABOUT_EN: AboutContent = {
       { label: "Developing since", value: "2021" },
       { label: "Studio founded", value: "2023" },
       { label: "Stack", value: "Next.js · TS · Sanity" },
+      { label: "Legal entity", value: "Fedir Alpatov, sole trader (Ukraine), tax ID 3573202876" },
     ],
     profilesLabel: "FOUNDER",
     profiles: [
@@ -116,7 +134,7 @@ export const ABOUT_EN: AboutContent = {
     stackLabel: "STACK",
     stack: ["Next.js", "React", "TypeScript", "Sanity CMS", "Vercel", "Tailwind"],
     regionsLabel: "REGIONS",
-    regions: ["Ukraine", "EU", "Denmark"],
+    regions: ["Denmark", "South Africa", "Albania", "Ukraine"],
   },
 
   philosophy: {
@@ -162,7 +180,7 @@ export const ABOUT_EN: AboutContent = {
         Real businesses. <em>Real launches.</em>
       </>
     ),
-    sub: "Sites that work for real companies across different niches and countries.",
+    sub: "25+ launched projects in 4 countries: Denmark, South Africa, Albania and Ukraine. A few of them below.",
     items: [
       {
         name: "NBYG København",
@@ -258,7 +276,7 @@ export const ABOUT_EN: AboutContent = {
       {
         icon: LifeBuoy,
         title: "Support",
-        body: "Warranty and technical support after launch. We don't leave you alone with the site.",
+        body: "Warranty and support for a year are included in the price: bugs, hosting, SSL, backups.",
       },
     ],
     cms: {
@@ -304,9 +322,9 @@ export const ABOUT_EN: AboutContent = {
       },
       {
         icon: Percent,
-        tag: "−30%",
+        tag: `${PER_DAY}%/day`,
         title: "Rebate for delays",
-        body: "If we miss the deadline through our fault, we return 30%. Our incentive matches yours.",
+        body: `If we miss the deadline through our fault, we pay ${PER_DAY}% per day late, up to ${CAP}%. Our incentive matches yours.`,
       },
     ],
     footnote:
@@ -317,9 +335,9 @@ export const ABOUT_EN: AboutContent = {
     {
       q: "Who will work on my project?",
       a: [
-        "The founder, ",
+        "The founder and tech lead, ",
         { em: "Fedir Alpatov" },
-        ", leads the architecture and development. It's a boutique studio, so you talk to the developer directly, not through an account manager.",
+        ". A team of 4: tech lead, designer, developer, editor. You talk to the developer directly, not through an account manager.",
       ],
     },
     {
@@ -340,25 +358,29 @@ export const ABOUT_EN: AboutContent = {
     {
       q: "Do you work with clients abroad?",
       a: [
-        "Yes. Clients include companies in the ",
-        { em: "EU, including Denmark" },
-        " (NBYG, Copenhagen). We work remotely in your timezone.",
+        "Yes. Clients include companies in ",
+        { em: "Denmark, South Africa and Albania" },
+        " (NBYG, Copenhagen; Right Cars, Johannesburg; Domlivo). We work remotely in your time zone.",
       ],
     },
     {
       q: "What if you miss the deadline?",
       a: [
         "The deadline is fixed in the contract. If we miss it through our fault, ",
-        { em: "we return a 30% rebate" },
+        { em: `we pay ${PER_DAY}% per day late, up to ${CAP}%` },
         ".",
       ],
     },
     {
-      q: "What's the project budget?",
+      q: "How much does a website cost?",
       a: [
-        "Projects are typically in the ",
-        { em: "£3,000–15,000" },
-        " range depending on scope. The exact sum is fixed in the contract before we start.",
+        "A landing page is ",
+        { em: formatPackagePrice("landing", "en") },
+        ", a business website ",
+        { em: formatPackagePrice("business", "en") },
+        ", an online store ",
+        { em: formatPackagePrice("shop", "en") },
+        ". Prices in EUR. The exact sum is fixed in the contract before we start.",
       ],
     },
     {

@@ -25,13 +25,13 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { buildAlternates } from "@/lib/shared/alternates";
 
 const BLOG_DESCRIPTION =
-  "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.";
+  "Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends · Real cases · Actionable strategies Read the latest articles.";
 
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/en/blog",
     locale: "en",
-    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
+    title: "Web Design & Development Blog UK | Code-Site.Art",
     description: BLOG_DESCRIPTION,
     type: "CollectionPage",
   }),
@@ -59,14 +59,14 @@ const jsonLd = buildJsonLd([
 ]);
 
 const baseMetadata: Metadata = {
-  title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
+  title: "Web Design & Development Blog UK | Code-Site.Art",
   description:
-    "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
+    "Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends · Real cases · Actionable strategies Read the latest articles.",
   alternates: buildAlternates({ locale: "en", uaPath: "/blog" }),
   openGraph: {
-    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
+    title: "Web Design & Development Blog UK | Code-Site.Art",
     description:
-      "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
+      "Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends · Real cases · Actionable strategies Read the latest articles.",
     type: "website",
     locale: "en_GB",
     url: "/en/blog",
@@ -74,9 +74,9 @@ const baseMetadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Web Design & Development Blog UK | Code-Site.Art",
+    title: "Web Design & Development Blog UK | Code-Site.Art",
     description:
-      "➤ Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends ✔️ Real cases ✔️ Actionable strategies ➡ Read the latest articles.",
+      "Expert guides on custom website development, Next.js, Sanity CMS & UK web design trends · Real cases · Actionable strategies Read the latest articles.",
     images: [OG_DEFAULT_IMAGE.url],
   },
 };

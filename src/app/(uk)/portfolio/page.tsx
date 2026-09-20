@@ -30,14 +30,14 @@ import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 import { buildAlternates } from "@/lib/shared/alternates";
 
 export const metadata: Metadata = {
-  title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+  title: "Портфоліо: 25+ сайтів кодом | Code-Site.Art",
   description:
-    "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
+    "25+ сайтів кодом для клінік, юристів, нерухомості та магазинів. Результати з цифрами: заявки, швидкість, позиції в Google. Дивіться всі проєкти.",
   alternates: buildAlternates({ locale: "uk", uaPath: "/portfolio" }),
   openGraph: {
-    title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+    title: "Портфоліо: 25+ сайтів кодом | Code-Site.Art",
     description:
-      "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
+      "25+ сайтів кодом для клінік, юристів, нерухомості та магазинів. Результати з цифрами: заявки, швидкість, позиції в Google. Дивіться всі проєкти.",
     type: "website",
     locale: "uk_UA",
     url: "/portfolio",
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+    title: "Портфоліо: 25+ сайтів кодом | Code-Site.Art",
     description:
-      "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
+      "25+ сайтів кодом для клінік, юристів, нерухомості та магазинів. Результати з цифрами: заявки, швидкість, позиції в Google. Дивіться всі проєкти.",
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
@@ -94,9 +94,9 @@ export default async function PortfolioPage({
     webPageNode({
       path: "/portfolio",
       locale: "uk",
-      title: "ᐈ Портфоліо веброзробки | Кейси кастомних сайтів | Code-Site.Art",
+      title: "Портфоліо: 25+ сайтів кодом | Code-Site.Art",
       description:
-        "➤ Понад 50 кастомних сайтів для клінік, юристів, нерухомості та e-commerce ✔️ Реальні результати: ×3.2 заявок, LCP 0.8 с, топ-3 Google ➡ Дивіться всі проєкти.",
+        "25+ сайтів кодом для клінік, юристів, нерухомості та магазинів. Результати з цифрами: заявки, швидкість, позиції в Google. Дивіться всі проєкти.",
       type: "CollectionPage",
       extra: {
         mainEntity: {

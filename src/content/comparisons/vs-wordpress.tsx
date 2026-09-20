@@ -9,6 +9,30 @@ import { Calendar, Gauge, Mail, MessageCircle, Palette, Plug, Server, ShieldAler
 import type { LucideIcon } from "lucide-react";
 import type { TierProps } from "@/types/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
+import type { Locale } from "@/constants/locales";
+import {
+  CORE_PACKAGES,
+  PACKAGES,
+  PAYMENT_TERMS,
+  formatAddonPrice,
+  formatPackagePrice,
+  formatPackageTerm,
+  servicePrice,
+} from "@/constants/pricing";
+import { packageTier } from "@/components/blocks/packages";
+
+/* ─── Figures — our side always comes from the pricing config ───────────── */
+
+const biz = (l: Locale) => formatPackagePrice("business", l);
+const bizTerm = (l: Locale) => formatPackageTerm("business", l);
+const hosting = (l: Locale) =>
+  formatPrice(servicePrice("hostingRenewalPerYear", l), { locale: l });
+const packageTiers = (l: Locale): TierProps[] =>
+  CORE_PACKAGES.map((id) => packageTier(id, l, { source: `vs-wordpress-${id}` }));
+/** Last working day of the business package — the process timeline ends on it. */
+const BIZ_DAYS = PACKAGES.business.days.max;
+const PENALTY_DAY = PAYMENT_TERMS.latePenaltyPercentPerDay;
+const PENALTY_CAP = PAYMENT_TERMS.latePenaltyCapPercent;
 // import { SITE_CONTACT } from "@/constants/site"; // CALENDLY DISABLED — see docs/calendly-disabled.md
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
@@ -137,28 +161,29 @@ export type Content = {
 /* ─── UA copy ───────────────────────────────────────────────────────────── */
 
 export const VS_WORDPRESS_UK: Content = {
-  metaTitle:
-    "Міграція з WordPress на кастомний код сайту | Code-Site.Art",
-  metaDescription:
-    "Мігруємо сайти з WordPress на Next.js за 4–10 тижнів. 50+ проєктів — 0 SEO-падінь. Від $800 за лендінг. Гарантія 1 рік + неустойка 30%.",
+  metaTitle: `Міграція з WordPress на код: сайт за ${bizTerm("uk")}`,
+  metaDescription: `Переносимо сайт з WordPress на Next.js: сайт для бізнесу — ${biz("uk")}, ${bizTerm("uk")}. SEO і контент зберігаємо. Гарантія рік, код ваш.`,
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · WORDPRESS",
     h1Lines: [
-      <>WordPress був правий у 2015.</>,
-      <em key="hero-em">Не у 2026.</em>,
+      <>WordPress був правий у 2015. Не у 2026.</>,
+      <em key="hero-em">
+        Сайт кодом за {biz("uk")} і {bizTerm("uk")}.
+      </em>,
     ],
     lede: (
       <>
-        Мігруємо ваш сайт з WordPress на custom code за 4 тижні.
-        Зберігаємо кожну позицію в Google. 50+ проєктів — 0 SEO-падінь.
+        Переносимо ваш сайт з WordPress на код: сайт для бізнесу —{" "}
+        {biz("uk")} за {bizTerm("uk")}, ціна фіксована в договорі.
+        Зберігаємо кожну позицію в Google. 25+ проєктів — 0 SEO-падінь.
         Без втрати контенту, коментарів і медіа.
       </>
     ),
     badges: [
-      { label: "0 SEO-падінь", sub: "на 50+ проєктах" },
-      { label: "4 тижні", sub: "від брифу до перенесення" },
-      { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
-      { label: "Від $800", sub: "за міграцію лендінга" },
+      { label: "0 SEO-падінь", sub: "на 25+ проєктах" },
+      { label: bizTerm("uk"), sub: "сайт для бізнесу під ключ" },
+      { label: "Гарантія 1 рік", sub: `+ неустойка до ${PENALTY_CAP}% за зрив строку` },
+      { label: biz("uk"), sub: "фікс-ціна в договорі" },
     ],
     ctaPrimary: "Розрахувати міграцію",
     ctaSecondary: "Подивитись як ми мігруємо",
@@ -171,6 +196,8 @@ export const VS_WORDPRESS_UK: Content = {
       </>
     ),
     sub: "Хостинг — це лише верхівка. Ось що ви платите щомісяця, навіть якщо не помічаєте:",
+    // Ринкові діапазони WordPress-витрат, checked 2026-09-20.
+    // TODO(owner): перевірити тариф — Kinsta/WP Engine, ставки розробників орієнтовні.
     items: [
       {
         num: "01",
@@ -217,9 +244,9 @@ export const VS_WORDPRESS_UK: Content = {
     ],
     foot: (
       <>
-        Сума на 36 місяців володіння — від $5 000 до $20 000{" "}
-        <strong>на додачу</strong> до вартості розробки. У нас один платіж і
-        нуль підписок.
+        За 36 місяців це тисячі доларів <strong>на додачу</strong> до вартості
+        розробки. У нас — {biz("uk")} один раз, перший рік хостингу й підтримки
+        включено, далі — {hosting("uk")}/рік.
       </>
     ),
   },
@@ -230,7 +257,7 @@ export const VS_WORDPRESS_UK: Content = {
         WordPress vs Code-Site. <em>Чесно.</em>
       </>
     ),
-    sub: "Без перекручувань. Те, що зустрічаємо щодня на 50+ проєктах.",
+    sub: "Без перекручувань. Те, що зустрічаємо щодня на 25+ проєктах.",
     headers: { criterion: "Критерій", wp: "WordPress", us: "Code-Site" },
     rows: [
       {
@@ -241,7 +268,7 @@ export const VS_WORDPRESS_UK: Content = {
       {
         criterion: "Місячні витрати",
         wp: "$50–200 (плагіни + хостинг + підтримка)",
-        us: "$0–20 (тільки Vercel/Cloudflare)",
+        us: `$0 перший рік, далі хостинг ${hosting("uk")}/рік`,
       },
       {
         criterion: "Безпека",
@@ -266,7 +293,7 @@ export const VS_WORDPRESS_UK: Content = {
       {
         criterion: "Час запуску",
         wp: "2–4 місяці зі студією",
-        us: "4–10 тижнів",
+        us: `${bizTerm("uk")} (сайт для бізнесу)`,
       },
       {
         criterion: "Перенесення на інший стек",
@@ -331,7 +358,7 @@ export const VS_WORDPRESS_UK: Content = {
     sub: "Це питання №1, яке нам ставлять. Ось чесна відповідь:",
     cards: [
       {
-        title: "50+ проєктів · 0 падінь",
+        title: "25+ проєктів · 0 падінь",
         body: (
           <>
             Ми мігрували десятки сайтів з WordPress та інших платформ. Жоден не
@@ -439,7 +466,7 @@ export const VS_WORDPRESS_UK: Content = {
       {
         activity: "Ціна для команди до 5 осіб",
         wp: "$30+/міс хостинг + плагіни",
-        us: "$0",
+        us: "$0 за адмінку",
       },
     ],
     capabilitiesHeading: "6 речей, які робите без розробника",
@@ -494,25 +521,25 @@ export const VS_WORDPRESS_UK: Content = {
       {
         num: "01",
         title: "Аудит",
-        duration: "2 дні · безкоштовно",
+        duration: "до 24 годин · безкоштовно",
         body: "Дивимось ваш WP: сторінки, плагіни, інтеграції, SEO-стан. Складаємо мапу того, що переноситься.",
       },
       {
         num: "02",
         title: "План + редіректи",
-        duration: "1 тиждень",
+        duration: "дні 1–2",
         body: "Мапа 301-редіректів. Wireframes нової структури. Ви підтверджуєте — ідемо в розробку.",
       },
       {
         num: "03",
         title: "Розробка",
-        duration: "2–4 тижні",
-        body: "Custom code на Next.js. Контент імпортуємо з WP. Тиждень — демо.",
+        duration: `дні 3–${BIZ_DAYS - 1}`,
+        body: "Код на Next.js. Контент імпортуємо з WP. Показуємо демо по ходу.",
       },
       {
         num: "04",
         title: "SEO-міст",
-        duration: "запуск тижня",
+        duration: `день ${BIZ_DAYS}`,
         body: "Налаштування 301, Search Console, Analytics, schema.org. Передзапускний QA.",
       },
       {
@@ -534,7 +561,7 @@ export const VS_WORDPRESS_UK: Content = {
     items: [
       {
         title: "Сайти на WooCommerce з 5 000+ SKU",
-        body: "Для таких краще Shopify або custom e-commerce рішення на $20k+.",
+        body: "Для таких краще Shopify або окремий Custom-проєкт.",
       },
       {
         title: "Multi-site мережі (WP-Multisite)",
@@ -545,7 +572,7 @@ export const VS_WORDPRESS_UK: Content = {
         body: "Якщо ваш бізнес залежить від PHP-логіки, переписувати її на TypeScript — окремий проект, скажемо чесно.",
       },
     ],
-    foot: "Якщо ваш кейс не з цього списку — пишіть. На безкоштовному 30-хв дзвінку-знайомстві скажемо, чи маємо сенс ми, чи варто шукати іншого виконавця.",
+    foot: "Якщо ваш випадок не з цього списку — надішліть посилання. У безкоштовному аудиті за 24 години скажемо, чи підходимо ми, чи варто шукати іншого виконавця.",
   },
   pricing: {
     eyebrow: "/ 09 ВАРТІСТЬ МІГРАЦІЇ",
@@ -554,61 +581,9 @@ export const VS_WORDPRESS_UK: Content = {
         Скільки коштує <em>піти з WordPress.</em>
       </>
     ),
-    sub: "Те ж правило, що й скрізь у нас: ціна в брифі, без «під запит».",
-    tiers: [
-      {
-        name: "Лендінг-міграція",
-        price: formatPrice(1000, { locale: "uk" }),
-        weeks: "1–2 тижні",
-        includes: {
-          heading: "Для кого",
-          items: [
-            "Один сайт-візитка / лендінг",
-            "До 5 сторінок",
-            "Без блогу",
-            "301-редіректи + перенесення медіа",
-            "30-денний моніторинг",
-          ],
-        },
-        ctaLabel: "Розрахувати лендінг",
-      },
-      {
-        popular: true,
-        popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
-        name: "Сайт-міграція",
-        price: formatPrice(2500, { locale: "uk" }),
-        weeks: "4–8 тижнів",
-        includes: {
-          heading: "Все з лендінгу +",
-          items: [
-            "До 30 сторінок",
-            "CMS, блог, інтеграції форм",
-            "Перенесення коментарів і медіа-бібліотеки",
-            "Schema.org + Open Graph апгрейд",
-            "Більшість клієнтів сюди",
-          ],
-        },
-        ctaLabel: "Розрахувати сайт",
-      },
-      {
-        name: "Складна міграція",
-        price: formatPrice(5000, { locale: "uk" }),
-        weeks: "6–10 тижнів",
-        includes: {
-          heading: "Все з сайту +",
-          items: [
-            "E-commerce до 5k SKU",
-            "Мульти-мовність",
-            "Custom API",
-            "Складна SEO-структура",
-            "Dedicated team",
-          ],
-        },
-        ctaLabel: "Обговорити складну",
-        ctaGhost: true,
-      },
-    ],
-    foot: "Усі пакети включають: 301-редіректи, перенесення контенту і медіа, schema.org, 30-денний пост-лонч моніторинг, гарантію 1 рік.",
+    sub: `Ціна і строк — фіксовані в договорі. Перенесення з WordPress зі збереженням SEO — ${formatAddonPrice("migration", "uk")} до пакета.`,
+    tiers: packageTiers("uk"),
+    foot: `У кожному пакеті: хостинг, гарантія і підтримка на рік — включені. Далі — хостинг ${hosting("uk")}/рік або переносимо сайт на ваш акаунт. Без підписок.`,
     ctaPrimary: "Розрахувати міграцію",
     ctaSecondary: "Поговорити зі спеціалістом",
   },
@@ -622,7 +597,7 @@ export const VS_WORDPRESS_UK: Content = {
     items: [
       {
         q: "Чи я втрачу позиції в Google після міграції?",
-        a: "Ні. 50+ проєктів — 0 падінь більше ніж на тиждень. Робимо повну мапу 301-редіректів і моніторимо Search Console щодня перші 30 днів.",
+        a: "Ні. 25+ проєктів — 0 падінь більше ніж на тиждень. Робимо повну мапу 301-редіректів і моніторимо Search Console щодня перші 30 днів.",
       },
       {
         q: "Що буде з моїм блогом і коментарями?",
@@ -646,11 +621,11 @@ export const VS_WORDPRESS_UK: Content = {
       },
       {
         q: "Скільки часу займає міграція?",
-        a: "Від 1 тижня (простий лендінг) до 10 тижнів (e-commerce до 5k SKU). Середній проект — 4–6 тижнів.",
+        a: `Лендінг — ${formatPackageTerm("landing", "uk")}, сайт для бізнесу — ${bizTerm("uk")}, інтернет-магазин — ${formatPackageTerm("shop", "uk")}. Великі нестандартні проєкти — ${formatPackageTerm("custom", "uk")}. Строк фіксуємо в договорі.`,
       },
       {
         q: "Що якщо щось зламається після запуску?",
-        a: "Перші 30 днів — щоденний моніторинг, фікси в той самий день. Перший рік — повна гарантія. Якщо зриваємо термін — повертаємо 30%.",
+        a: `Перші 30 днів — щоденний моніторинг. Перший рік — гарантія і підтримка включені. Якщо зриваємо строк — неустойка ${PENALTY_DAY}% за кожен день, до ${PENALTY_CAP}% ціни.`,
       },
     ],
   },
@@ -661,7 +636,7 @@ export const VS_WORDPRESS_UK: Content = {
         Розрахуйте міграцію <em>за 60 секунд.</em>
       </>
     ),
-    sub: "Калькулятор — безкоштовний, без форми, реальна ціна одразу. Або поговоримо на 30-хв розборі: зрозуміємо ваш WP, скажемо чи маємо сенс ми.",
+    sub: "Калькулятор — без форми, ціна одразу. Або надішліть посилання на ваш WP — безкоштовний аудит і розрахунок протягом 24 годин.",
     cards: [
       {
         icon: Calendar,
@@ -683,7 +658,7 @@ export const VS_WORDPRESS_UK: Content = {
       {
         icon: Mail,
         title: "Бриф через форму",
-        body: "Опишіть проєкт детально — повернемось протягом 4 робочих годин.",
+        body: "Опишіть проєкт — відповімо з розрахунком протягом 24 годин.",
         cta: "Заповнити бриф →",
         href: "/contacts",
       },
@@ -695,28 +670,29 @@ export const VS_WORDPRESS_UK: Content = {
 /* ─── EN copy ───────────────────────────────────────────────────────────── */
 
 export const VS_WORDPRESS_EN: Content = {
-  metaTitle:
-    "Migrate off WordPress in 4 weeks · 0 SEO drops | Code-Site.Art",
-  metaDescription:
-    "We migrate WordPress sites to Next.js in 4–10 weeks. 50+ projects — zero SEO drops. From £800 for a landing. 1-year warranty + 30% rebate.",
+  metaTitle: `Move off WordPress: custom-coded site in ${bizTerm("en")}`,
+  metaDescription: `WordPress to custom code: a business website for ${biz("en")} in ${bizTerm("en")}. SEO and content carried over. One-year warranty, you own the code.`,
   hero: {
     eyebrowLabel: "/ COMPARE · WORDPRESS",
     h1Lines: [
-      <>WordPress was the right call in 2015.</>,
-      <em key="hero-em">Not in 2026.</em>,
+      <>WordPress was the right call in 2015. Not in 2026.</>,
+      <em key="hero-em">
+        Custom code for {biz("en")} in {bizTerm("en")}.
+      </em>,
     ],
     lede: (
       <>
-        We migrate your site off WordPress in 4 weeks. Every Google
-        ranking stays put. 50+ projects — zero SEO drops. Your
+        We move your site off WordPress to custom code: a business website
+        for {biz("en")} in {bizTerm("en")}, price fixed in the contract. Every Google
+        ranking stays put. 25+ projects — zero SEO drops. Your
         content, comments, and media come with you.
       </>
     ),
     badges: [
-      { label: "0 SEO drops", sub: "across 50+ projects" },
-      { label: "4 weeks", sub: "brief to live" },
-      { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
-      { label: "From £800", sub: "for a landing migration" },
+      { label: "0 SEO drops", sub: "across 25+ projects" },
+      { label: bizTerm("en"), sub: "business website, turnkey" },
+      { label: "1-year warranty", sub: `+ up to ${PENALTY_CAP}% penalty if we slip` },
+      { label: biz("en"), sub: "fixed price in the contract" },
     ],
     ctaPrimary: "Calculate migration cost",
     ctaSecondary: "See how we migrate",
@@ -729,27 +705,29 @@ export const VS_WORDPRESS_EN: Content = {
       </>
     ),
     sub: "Hosting is just the surface. Here's what you're paying every month — whether you notice it or not:",
+    // Market ranges for WordPress running costs, EUR, checked 2026-09-20.
+    // TODO(owner): перевірити тариф — Kinsta/WP Engine, developer rates are approximate.
     items: [
       {
         num: "01",
         icon: Plug,
         title: "Plugins",
         body: "Yoast Premium, Wordfence, caching, forms, backups. Every plugin is a subscription, an update, and a potential vulnerability.",
-        metric: "£50–150/mo",
+        metric: "€50–150/mo",
       },
       {
         num: "02",
         icon: Server,
         title: "Hosting + CDN",
-        body: "WP-optimised hosting (Kinsta, WP Engine) starts at £30/mo. Cheap hosting = slow site. Either way, you pay.",
-        metric: "£30–200/mo",
+        body: "WP-optimised hosting (Kinsta, WP Engine) starts at €30/mo. Cheap hosting = slow site. Either way, you pay.",
+        metric: "€30–200/mo",
       },
       {
         num: "03",
         icon: ShieldAlert,
         title: "Security",
         body: "WordPress is the #1 target for attackers. Brute-force, XSS, plugin vulnerabilities. Without monthly audits — it's a matter of when, not if.",
-        metric: "1 hack = £500–5,000",
+        metric: "1 hack = €500–5,000",
       },
       {
         num: "04",
@@ -763,21 +741,22 @@ export const VS_WORDPRESS_EN: Content = {
         icon: Palette,
         title: "Theme licenses",
         body: "Premium themes (Avada, Divi, Astra Pro) — yearly subscriptions. Stop paying, support cuts off.",
-        metric: "£60–200/yr",
+        metric: "€60–200/yr",
       },
       {
         num: "06",
         icon: Wrench,
         title: "Developer",
-        body: "Every edit is either DIY in Elementor (risk breaking it) or a call to your dev (£30–80/hr).",
-        metric: "£200–800/mo",
+        body: "Every edit is either DIY in Elementor (risk breaking it) or a call to your dev (€30–80/hr).",
+        metric: "€200–800/mo",
       },
     ],
     foot: (
       <>
-        Total cost over 36 months: £5,000 to £20,000{" "}
-        <strong>on top of</strong> the original build. We charge once. Zero
-        subscriptions.
+        Over 36 months that adds up to thousands{" "}
+        <strong>on top of</strong> the original build. We charge once —{" "}
+        {biz("en")}, first year of hosting and support included, then{" "}
+        {hosting("en")}/yr.
       </>
     ),
   },
@@ -788,7 +767,7 @@ export const VS_WORDPRESS_EN: Content = {
         WordPress vs Code-Site. <em>Honest.</em>
       </>
     ),
-    sub: "No spin. What we actually see across 50+ projects.",
+    sub: "No spin. What we actually see across 25+ projects.",
     headers: { criterion: "Criterion", wp: "WordPress", us: "Code-Site" },
     rows: [
       {
@@ -798,8 +777,8 @@ export const VS_WORDPRESS_EN: Content = {
       },
       {
         criterion: "Monthly cost",
-        wp: "£50–200 (plugins + hosting + maintenance)",
-        us: "£0–20 (Vercel/Cloudflare only)",
+        wp: "€50–200 (plugins + hosting + maintenance)",
+        us: `€0 year one, then hosting ${hosting("en")}/yr`,
       },
       {
         criterion: "Security",
@@ -824,7 +803,7 @@ export const VS_WORDPRESS_EN: Content = {
       {
         criterion: "Time to launch",
         wp: "2–4 months with an agency",
-        us: "4–10 weeks",
+        us: `${bizTerm("en")} (business website)`,
       },
       {
         criterion: "Migrating to another stack later",
@@ -855,13 +834,13 @@ export const VS_WORDPRESS_EN: Content = {
         label: "Local search",
         value: "page 2 of Google for “byggefirma Bornholm”",
       },
-      { label: "Monthly site cost", value: "~£110 (hosting + plugins)" },
+      { label: "Monthly site cost", value: "~€110 (hosting + plugins)" },
     ],
     after: [
       { label: "LCP", value: "0.8 seconds", lift: "5× faster" },
       { label: "Inquiries/month", value: "24", lift: "8×" },
       { label: "Google clicks", value: "1,100", lift: "in 6 months, up from 677" },
-      { label: "Monthly cost", value: "£0", lift: "Vercel hobby tier" },
+      { label: "Monthly cost", value: "€0", lift: "Vercel hobby tier" },
     ],
     quote: (
       <>
@@ -886,7 +865,7 @@ export const VS_WORDPRESS_EN: Content = {
     sub: "This is the #1 question we get. Here's the straight answer:",
     cards: [
       {
-        title: "50+ projects · 0 drops",
+        title: "25+ projects · 0 drops",
         body: (
           <>
             We&apos;ve migrated dozens of sites off WordPress and other platforms. Not
@@ -968,12 +947,12 @@ export const VS_WORDPRESS_EN: Content = {
       },
       {
         activity: "Multi-language",
-        wp: "WPML plugin, £99/year",
+        wp: "WPML plugin, €99/year",
         us: "built in, free",
       },
       {
         activity: "SEO (title, meta, OG, schema)",
-        wp: "Yoast Premium, £99/year",
+        wp: "Yoast Premium, €99/year",
         us: "fields on every document, free",
       },
       {
@@ -993,8 +972,8 @@ export const VS_WORDPRESS_EN: Content = {
       },
       {
         activity: "Cost for a team up to 5",
-        wp: "£30+/mo hosting + plugins",
-        us: "£0",
+        wp: "€30+/mo hosting + plugins",
+        us: "€0 for the admin",
       },
     ],
     capabilitiesHeading: "6 things you do without a developer",
@@ -1027,7 +1006,7 @@ export const VS_WORDPRESS_EN: Content = {
       {
         num: "06",
         title: "Free for teams up to 5",
-        body: "Your marketer + assistant + copywriter + editor + you — £0 per month. Paid tier kicks in at editor #6.",
+        body: "Your marketer + assistant + copywriter + editor + you — €0 per month. Paid tier kicks in at editor #6.",
       },
     ],
     foot: (
@@ -1049,25 +1028,25 @@ export const VS_WORDPRESS_EN: Content = {
       {
         num: "01",
         title: "Audit",
-        duration: "2 days · free",
+        duration: "within 24 hours · free",
         body: "We look at your WP: pages, plugins, integrations, SEO state. Map of what transfers.",
       },
       {
         num: "02",
         title: "Plan + redirects",
-        duration: "1 week",
+        duration: "days 1–2",
         body: "301 redirect map. Wireframes of the new structure. You sign off — we start building.",
       },
       {
         num: "03",
         title: "Build",
-        duration: "2–4 weeks",
-        body: "Custom code on Next.js. Content imported from WP. Weekly demos.",
+        duration: `days 3–${BIZ_DAYS - 1}`,
+        body: "Custom code on Next.js. Content imported from WP. Demos as we go.",
       },
       {
         num: "04",
         title: "SEO bridge",
-        duration: "launch week",
+        duration: `day ${BIZ_DAYS}`,
         body: "301s configured, Search Console, Analytics, schema.org. Pre-launch QA.",
       },
       {
@@ -1089,7 +1068,7 @@ export const VS_WORDPRESS_EN: Content = {
     items: [
       {
         title: "WooCommerce sites with 5,000+ SKUs",
-        body: "Shopify or a £20k+ custom build is the right call.",
+        body: "Shopify or a separate custom project is the right call.",
       },
       {
         title: "WP-Multisite networks",
@@ -1100,7 +1079,7 @@ export const VS_WORDPRESS_EN: Content = {
         body: "If your operation depends on bespoke PHP logic, rewriting it in TypeScript is a separate project. We'll tell you straight.",
       },
     ],
-    foot: "If your case isn't on this list, talk to us. The 30-minute consult is free — we'll tell you if we're a fit or if you should look elsewhere.",
+    foot: "If your case isn't on this list, send us the link. The audit is free and comes within 24 hours — we'll tell you if we're a fit or if you should look elsewhere.",
   },
   pricing: {
     eyebrow: "/ 09 MIGRATION PRICING",
@@ -1109,64 +1088,9 @@ export const VS_WORDPRESS_EN: Content = {
         What it costs to <em>leave WordPress.</em>
       </>
     ),
-    sub: "Same rule as everywhere on this site: price in the brief, no “request a quote.”",
-    tiers: [
-      {
-        name: "Landing migration",
-        price: formatPrice(1000, { locale: "en" }),
-        priceLabel: "from",
-        weeks: "1–2 weeks",
-        includes: {
-          heading: "Who it's for",
-          items: [
-            "One landing or business-card site",
-            "Up to 5 pages",
-            "No blog",
-            "301 redirects + media transfer",
-            "30-day monitoring",
-          ],
-        },
-        ctaLabel: "Estimate landing",
-      },
-      {
-        popular: true,
-        popularLabel: "★ MOST POPULAR",
-        name: "Site migration",
-        price: formatPrice(3500, { locale: "en" }),
-        priceLabel: "from",
-        weeks: "4–8 weeks",
-        includes: {
-          heading: "Everything in landing, plus",
-          items: [
-            "Up to 30 pages",
-            "CMS, blog, form integrations",
-            "Comments + media library carried over",
-            "Schema.org + Open Graph upgrade",
-            "Where most clients land",
-          ],
-        },
-        ctaLabel: "Estimate site",
-      },
-      {
-        name: "Complex migration",
-        price: formatPrice(5000, { locale: "en" }),
-        priceLabel: "from",
-        weeks: "6–10 weeks",
-        includes: {
-          heading: "Everything in site, plus",
-          items: [
-            "E-commerce up to 5k SKUs",
-            "Multi-language",
-            "Custom API",
-            "Complex SEO structure",
-            "Dedicated team",
-          ],
-        },
-        ctaLabel: "Talk through complex",
-        ctaGhost: true,
-      },
-    ],
-    foot: "Every tier includes: 301 redirects, content and media transfer, schema.org, 30-day post-launch monitoring, 1-year warranty.",
+    sub: `Price and timeline are fixed in the contract. Moving off WordPress with SEO intact — ${formatAddonPrice("migration", "en")} on top of the package.`,
+    tiers: packageTiers("en"),
+    foot: `Every package: hosting, warranty and support for a year — included. Then hosting ${hosting("en")}/yr or we move the site to your account. No subscriptions.`,
     ctaPrimary: "Calculate migration cost",
     ctaSecondary: "Talk to a migration specialist",
   },
@@ -1180,7 +1104,7 @@ export const VS_WORDPRESS_EN: Content = {
     items: [
       {
         q: "Will I lose Google rankings after migration?",
-        a: "No. 50+ projects, zero drops longer than a week. We build a complete 301 redirect map and monitor Search Console daily for the first 30 days.",
+        a: "No. 25+ projects, zero drops longer than a week. We build a complete 301 redirect map and monitor Search Console daily for the first 30 days.",
       },
       {
         q: "What about my blog and comments?",
@@ -1204,11 +1128,11 @@ export const VS_WORDPRESS_EN: Content = {
       },
       {
         q: "How long does migration take?",
-        a: "1 week (simple landing) to 10 weeks (e-commerce up to 5k SKUs). Average project — 4–6 weeks.",
+        a: `Landing page — ${formatPackageTerm("landing", "en")}, business website — ${bizTerm("en")}, online store — ${formatPackageTerm("shop", "en")}. Large custom projects — ${formatPackageTerm("custom", "en")}. The timeline goes into the contract.`,
       },
       {
         q: "What if something breaks after launch?",
-        a: "First 30 days — daily monitoring, same-day fixes. First year — full warranty. If we miss the deadline — 30% rebate.",
+        a: `First 30 days — daily monitoring. First year — warranty and support included. If we miss the deadline — ${PENALTY_DAY}% per day, up to ${PENALTY_CAP}% of the price.`,
       },
     ],
   },
@@ -1219,7 +1143,7 @@ export const VS_WORDPRESS_EN: Content = {
         Get a migration estimate <em>in 60 seconds.</em>
       </>
     ),
-    sub: "Calculator is free, no form, real price up front. Or let's talk for 30 minutes — we'll look at your WP and tell you if we're a fit.",
+    sub: "Calculator, no form, price up front. Or send us a link to your WP site — free audit and quote within 24 hours.",
     cards: [
       {
         icon: Calendar,
@@ -1241,7 +1165,7 @@ export const VS_WORDPRESS_EN: Content = {
       {
         icon: Mail,
         title: "Send a brief",
-        body: "Detailed form. Describe the project — we'll come back within 4 business hours.",
+        body: "Describe the project — we reply with a quote within 24 hours.",
         cta: "Fill out brief →",
         href: "/contacts",
       },

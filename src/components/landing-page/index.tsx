@@ -33,10 +33,10 @@ import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
 
 /* Local copy of the em-heading treatment used by turnkey-list — that
    constant is module-private there, so the string lives here too. */
-const HEADING_EM_CLASS =
+export const HEADING_EM_CLASS =
   "[&_em]:not-italic [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
-const ALL_CASES_LINK_CLASS =
+export const ALL_CASES_LINK_CLASS =
   "inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline " +
   "transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40";
 
@@ -71,7 +71,7 @@ function nb(s: string) {
   return s.replace(/(\d) (\d)/g, "$1 $2");
 }
 
-function em([plain, emphasized]: [string, string]) {
+export function em([plain, emphasized]: [string, string]) {
   return (
     <>
       {nb(plain)}
@@ -84,7 +84,7 @@ function em([plain, emphasized]: [string, string]) {
     outlined section numeral behind it were removed on 2026-09-18 — neither
     carried information the heading didn't (owner: "плашки не несуть
     навантаження"). */
-function SectionHead({
+export function SectionHead({
   heading,
   sub,
 }: {
@@ -599,9 +599,9 @@ const SIBLING_LINKS: { href: string; label: Record<Locale, string> }[] = [
   {
     href: "/corporate-site",
     label: {
-      uk: "корпоративний сайт під ключ",
-      en: "corporate website development",
-      ru: "корпоративный сайт под ключ",
+      uk: "сайт для бізнесу під ключ",
+      en: "business website development",
+      ru: "сайт для бизнеса под ключ",
     },
   },
   {
@@ -623,9 +623,9 @@ const SIBLING_LINKS: { href: string; label: Record<Locale, string> }[] = [
   {
     href: "/audit",
     label: {
-      uk: "аудит сайту — від $150",
+      uk: "безкоштовний аудит сайту",
       en: "website audit",
-      ru: "аудит сайта — от $150",
+      ru: "бесплатный аудит сайта",
     },
   },
   {
@@ -680,7 +680,7 @@ const SIBLING_HEADING: Record<Locale, string> = {
   ru: "Смежные услуги",
 };
 
-function SiblingServices({ locale, self }: { locale: Locale; self: string }) {
+export function SiblingServices({ locale, self }: { locale: Locale; self: string }) {
   return (
     <section className="bg-bg px-6 sm:px-8 lg:px-12 py-8 lg:py-12">
       <div className="max-w-container mx-auto">

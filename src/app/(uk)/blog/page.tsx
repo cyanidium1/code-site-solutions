@@ -25,13 +25,13 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { buildAlternates } from "@/lib/shared/alternates";
 
 const BLOG_DESCRIPTION =
-  "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.";
+  "Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну · Реальні кейси · Робочі стратегії Читайте свіжі статті.";
 
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/blog",
     locale: "uk",
-    title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
+    title: "Блог про вебдизайн і розробку | Code-Site.Art",
     description: BLOG_DESCRIPTION,
     type: "CollectionPage",
   }),
@@ -58,14 +58,14 @@ const jsonLd = buildJsonLd([
   },
 ]);
 const baseMetadata: Metadata = {
-  title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
+  title: "Блог про вебдизайн і розробку | Code-Site.Art",
   description:
-    "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
+    "Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну · Реальні кейси · Робочі стратегії Читайте свіжі статті.",
   alternates: buildAlternates({ locale: "uk", uaPath: "/blog" }),
   openGraph: {
-    title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
+    title: "Блог про вебдизайн і розробку | Code-Site.Art",
     description:
-      "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
+      "Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну · Реальні кейси · Робочі стратегії Читайте свіжі статті.",
     type: "website",
     locale: "uk_UA",
     url: "/blog",
@@ -73,9 +73,9 @@ const baseMetadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Блог про вебдизайн і розробку | Code-Site.Art",
+    title: "Блог про вебдизайн і розробку | Code-Site.Art",
     description:
-      "➤ Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну ✔️ Реальні кейси ✔️ Робочі стратегії ➡ Читайте свіжі статті.",
+      "Експертні гайди про розробку кастомних сайтів, Next.js, Sanity CMS і тренди вебдизайну · Реальні кейси · Робочі стратегії Читайте свіжі статті.",
     images: [OG_DEFAULT_IMAGE.url],
   },
 };

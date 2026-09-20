@@ -3,6 +3,12 @@ import type { LeadAttribution } from "@/types/lead";
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+/**
+ * Google Apps Script web-app URL that appends a row to the leads sheet.
+ * Optional: Telegram stays the primary channel, the sheet is the ledger
+ * (date, source, gclid) that Ads offline conversions are reconciled against.
+ */
+const LEADS_WEBHOOK_URL = process.env.LEADS_WEBHOOK_URL;
 
 type LeadPayload = {
   name?: string;
@@ -11,8 +17,14 @@ type LeadPayload = {
   tier?: string;
   budget?: string;
   timeline?: string;
+  hasSite?: string;
+  siteUrl?: string;
   description?: string;
+  /** Calculator configuration: package, add-ons, total, term. */
+  config?: string;
   source?: string;
+  /** Pathname the form was submitted from. */
+  page?: string;
   attribution?: LeadAttribution;
   /** Honeypot — hidden field that only bots fill in. Must stay empty. */
   hp?: string;
@@ -29,7 +41,10 @@ const CAPS = {
   budget: 80,
   timeline: 80,
   source: 120,
+  page: 200,
+  siteUrl: 300,
   description: 1500,
+  config: 1200,
   attrValue: 200,
   journeyEntry: 60,
   journeyJoined: 700,
@@ -104,6 +119,7 @@ function buildAttributionBlock(a: LeadAttribution | undefined): string {
     line("Реферер", cap(a.referrer, CAPS.attrValue) || "прямий захід") +
     line("Перша сторінка", cap(a.landingPage, CAPS.attrValue)) +
     line("UTM", utm || undefined) +
+    line("gclid", cap(a.gclid, CAPS.attrValue)) +
     line("Перший візит", firstVisit) +
     (journey ? `*Шлях по сайту:*\n${escapeMd(journey)}\n` : "");
 
@@ -115,17 +131,21 @@ function buildMessage(d: LeadPayload): string {
     value ? `*${label}:* ${escapeMd(value)}\n` : "";
 
   const description = cap(d.description, CAPS.description);
+  const config = cap(d.config, CAPS.config);
 
   return (
     `🆕 *Нова заявка з сайту*\n\n` +
     line("Джерело форми", cap(d.source, CAPS.source) ?? "/contacts") +
+    line("Сторінка", cap(d.page, CAPS.page)) +
     line("Ім'я", cap(d.name, CAPS.name)) +
     line("Контакт", cap(d.contact, CAPS.contact)) +
-    line("Бізнес", cap(d.business, CAPS.business)) +
-    line("Tier", cap(d.tier, CAPS.tier)) +
+    line("Що потрібно", cap(d.tier, CAPS.tier)) +
     line("Бюджет", cap(d.budget, CAPS.budget)) +
+    line("Сайт зараз", d.hasSite === "yes" ? cap(d.siteUrl, CAPS.siteUrl) ?? "є" : d.hasSite === "no" ? "немає" : undefined) +
+    line("Бізнес", cap(d.business, CAPS.business)) +
     line("Терміни", cap(d.timeline, CAPS.timeline)) +
-    `\n*Опис:*\n${description ? escapeMd(description) : "—"}\n` +
+    (config ? `\n*Конфігурація:*\n${escapeMd(config)}\n` : "") +
+    `\n*Коментар:*\n${description ? escapeMd(description) : "—"}\n` +
     buildAttributionBlock(d.attribution)
   );
 }
@@ -191,9 +211,52 @@ export async function POST(req: Request) {
       console.log("[LEAD]", message);
     }
 
+    await appendToSheet(data);
+
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("Lead error:", e);
     return NextResponse.json({ ok: false }, { status: 500 });
+  }
+}
+
+/**
+ * Append the lead to the Google Sheet ledger. Best-effort: the lead already
+ * reached Telegram, so a sheet failure is logged, never surfaced to the user.
+ */
+async function appendToSheet(d: LeadPayload): Promise<void> {
+  if (!LEADS_WEBHOOK_URL) return;
+  const a = d.attribution;
+  const row = {
+    date: new Date().toISOString(),
+    source: cap(d.source, CAPS.source) ?? "",
+    page: cap(d.page, CAPS.page) ?? "",
+    name: cap(d.name, CAPS.name) ?? "",
+    contact: cap(d.contact, CAPS.contact) ?? "",
+    tier: cap(d.tier, CAPS.tier) ?? "",
+    budget: cap(d.budget, CAPS.budget) ?? "",
+    hasSite: d.hasSite ?? "",
+    siteUrl: cap(d.siteUrl, CAPS.siteUrl) ?? "",
+    config: cap(d.config, CAPS.config) ?? "",
+    comment: cap(d.description, CAPS.description) ?? "",
+    gclid: cap(a?.gclid, CAPS.attrValue) ?? "",
+    utm_source: a?.utm?.utm_source ?? "",
+    utm_medium: a?.utm?.utm_medium ?? "",
+    utm_campaign: a?.utm?.utm_campaign ?? "",
+    utm_term: a?.utm?.utm_term ?? "",
+    utm_content: a?.utm?.utm_content ?? "",
+    referrer: cap(a?.referrer, CAPS.attrValue) ?? "",
+    landingPage: cap(a?.landingPage, CAPS.attrValue) ?? "",
+  };
+  try {
+    const res = await fetch(LEADS_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(row),
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) console.error("Leads sheet error:", res.status, await res.text());
+  } catch (err) {
+    console.error("Leads sheet request failed:", err);
   }
 }
