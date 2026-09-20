@@ -1,5 +1,4 @@
 import { ValueStack } from "@/components/blocks/value-stack";
-import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
   HomeHero,
@@ -13,7 +12,8 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { FounderNote, TrustStrip } from "@/components/homepage/founder-note";
+import { LeadFormCard, PackageCards, UspLine } from "@/components/blocks/packages";
+import { FounderNote } from "@/components/homepage/founder-note";
 import { ORG_ID } from "@/constants/site";
 import {
   buildJsonLd,
@@ -23,45 +23,16 @@ import {
   websiteNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
-import { buildHomepageFaq, HOMEPAGE_TIERS } from "@/content/uk/homepage";
-import {
-  fetchPricingPlans,
-  toHomepagePlanOverride,
-  pricingRange,
-} from "@/lib/server/fetch-pricing-plans";
+import { HOMEPAGE_UK as C } from "@/content/uk/homepage";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
-import { cn } from "@/components/ui";
-import Link from "next/link";
+import { Directions } from "@/components/homepage/directions";
+import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
-/**
- * In-content directions block. Every external link the site earns points at
- * the homepage; this block passes that equity down to the money pages with
- * keyword anchors (footer/nav links don't count for this purpose).
- */
-const DIRECTION_LINKS: { href: string; label: string }[] = [
-  { href: "/sites-for/medicine", label: "Створення медичних сайтів" },
-  { href: "/sites-for/renovation", label: "Розробка сайту для будівельної компанії" },
-  { href: "/pricing", label: "Ціна створення сайту" },
-  { href: "/calculator", label: "Калькулятор вартості сайту" },
-  { href: "/seo", label: "Просування сайту від $300/міс" },
-  { href: "/portfolio", label: "Кейси розробки сайтів" },
-  { href: "/process", label: "Процес розробки сайту" },
-  { href: "/support", label: "Обслуговування сайтів — вартість" },
-];
-
-const HOMEPAGE_DESCRIPTION =
-  "➤ Веб-студія: замовити сайт під ключ для бізнесу ✔️ Фікс-ціна від $800 ✔️ Next.js + Sanity ✔️ Запуск за 1–8 тижнів ➤ Безкоштовний прорахунок за день.";
+// <title>/description for `/` live in `(uk)/layout.tsx` (built from the
+// same `HOMEPAGE_UK.meta`), so the JSON-LD below and the head always agree.
 
 export default async function HomePage() {
-  const [cmsPlans, testimonialSlides] = await Promise.all([
-    fetchPricingPlans("uk"),
-    fetchTestimonialSlides("uk"),
-  ]);
-  const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : HOMEPAGE_TIERS;
-  const planOverride = toHomepagePlanOverride(cmsPlans);
-  const faqItems = buildHomepageFaq(planOverride);
-  const range = pricingRange(cmsPlans, "uk");
+  const testimonialSlides = await fetchTestimonialSlides("uk");
 
   // Reviews attach to the Organization — same slides feed the slider, so
   // Google's "review visible on page" rule is satisfied. Slides missing
@@ -79,15 +50,12 @@ export default async function HomePage() {
 
   const jsonLd = buildJsonLd([
     organizationNode(),
-    websiteNode("uk", HOMEPAGE_DESCRIPTION),
+    websiteNode("uk", C.meta.description),
     webPageNode({
       path: "/",
       locale: "uk",
-      // Ahrefs, 31.08.2026: «кастомний сайт» відсутній у базі повністю,
-      // а «замовити сайт» — 500 запитів при KD 0. Головна бере брендовий
-      // і найм-інтент, головний комерційний кластер тримає /rozrobka-saitiv.
-      title: "ᐈ Веб-студія Code-Site.Art — замовити сайт від $800",
-      description: HOMEPAGE_DESCRIPTION,
+      title: C.meta.title,
+      description: C.meta.description,
       speakableSelectors: [
         '[data-speakable="hero-title"]',
         '[data-speakable="hero-description"]',
@@ -101,41 +69,43 @@ export default async function HomePage() {
       <HpHeader />
 
       <main>
+      {/* TZ v2 §3.1: product + term + price in the H1, the lead form in the
+          first screen (right column from lg, straight under the proofs on
+          phones). */}
       <HomeHero
-        /* Owner, 2026-09-18: the head keyword ("розробка сайтів", ~2950 SV
-           at KD 0–3) was missing from the H1 entirely, and "будь-якої
-           складності" pushed the headline onto a fourth line with a short
-           "СКЛАДНОСТІ," orphan. The claim moves into the lede, which still
-           sets as a single line at the hero's measure. */
         h1Lines={[
-          <>Розробка сайтів,</>,
+          <>{C.hero.h1Line1}</>,
           <>
-            що приводять <em>заявки 24/7.</em>
+            {C.hero.h1Line2Lead}
+            <em>{C.hero.h1Line2Em}</em>
           </>,
         ]}
-        lede={
-          <>
-            Сайти будь-якої складності під ключ за 4–10 тижнів: дизайн,
-            розробка, SEO та запуск.
-          </>
-        }
-        features={[
-          { label: "Заявки 24/7", sub: "Онлайн-форми + Telegram-міст" },
-          { label: "4–10 тижнів", sub: "Від брифу до запуску" },
-          { label: "Гарантія 1 рік", sub: "+ безкоштовна підтримка" },
-        ]}
-        ctaPrimaryLabel="Розрахувати вартість"
-        ctaPrimaryHref="/calculator"
-        ctaSecondaryLabel="Аудит сайту або бізнесу"
-        ctaSecondaryHref="/audit"
+        lede={C.hero.lede}
+        features={C.hero.features}
+        ctaPrimaryLabel={C.hero.ctaPrimary}
+        ctaPrimaryHref="#lead-form"
+        ctaSecondaryLabel={C.hero.ctaSecondary}
+        ctaSecondaryHref="#pricing"
+        ctaFootnote={C.hero.footnote}
         deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Приклад сайту для бізнесу, створеного Code-Site.Art"
+        deviceMockupAlt={C.hero.mockupAlt}
+        aside={<LeadFormCard locale="uk" source="home-hero" />}
       />
 
       {/* Cases right after the hero (owner, 2026-09-17): real sites are the
           strongest proof we have, so they come before any argument. The
           logo line follows as the reach claim. */}
-      <Cases />
+      <Cases
+        eyebrow={C.cases.eyebrow}
+        heading={
+          <>
+            {C.cases.headingLead}
+            <em>{C.cases.headingEm}</em>
+          </>
+        }
+        ctaLabel={C.cases.ctaLabel}
+        ctaHref={C.cases.ctaHref}
+      />
 
       <Marquee />
 
@@ -146,55 +116,49 @@ export default async function HomePage() {
         <div className={hpInnerClass}>
           <div className={hpSectionHeadClass}>
             <h2 className={hpH2Class}>
-              Прозорий прайс — від <em>{range.min}</em>
+              {C.pricing.headingLead}
+              <em>{C.pricing.headingEm}</em>
             </h2>
-            <p className={hpSubClass}>Ви бачите ціну наперед і фіксуєте її до старту робіт.</p>
+            <p className={hpSubClass}>{C.pricing.sub}</p>
           </div>
-          <CmpPricingGrid>
-            {tiers.map((t, i) => (
-              <Tier key={i} {...t} compact />
-            ))}
-          </CmpPricingGrid>
-          <TrustStrip />
+          <PackageCards locale="uk" source="home-pricing" compact />
+          <UspLine locale="uk" className="mt-6 text-center lg:mt-8" />
         </div>
       </section>
 
-      <Industries />
-      <Process />
+      <Industries
+        heading={
+          <>
+            {C.industries.headingLead}
+            <em>{C.industries.headingEm}</em>
+          </>
+        }
+        sub={C.industries.sub}
+        locale="uk"
+      />
+      <Process
+        heading={
+          <>
+            {C.process.headingLead}
+            <br />
+            <em>{C.process.headingEm}</em>
+          </>
+        }
+        sub={C.process.sub}
+        steps={C.process.steps}
+        note={C.process.shopLine}
+        ctaLabel={C.process.ctaLabel}
+        ctaHref={C.process.ctaHref}
+        moreLabel={C.process.moreLabel}
+      />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 
       <FounderNote />
 
-      <section className={hpSectionClass} id="directions">
-        <div className={hpInnerClass}>
-          <div className={hpSectionHeadClass}>
-            <h2 className={hpH2Class}>
-              З чого <em>почати</em>
-            </h2>
-            <p className={hpSubClass}>
-              Сторінки, з яких найчастіше починають: рішення під вашу галузь,
-              ціни і процес роботи.
-            </p>
-          </div>
-          {/* `hpLinkClass` carries a 36px top margin for standalone
-              "see all" links; in a list of eight it stacked to 550px on a
-              phone (design audit 2026-09-06, H10). The gap does the spacing, and
-              the links are pills at every width: at lg they used to turn into
-              underlined text with 32px gaps and no edge to line up with. */}
-          <ul className="m-0 flex list-none flex-wrap gap-2 p-0 lg:gap-2.5">
-            {DIRECTION_LINKS.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className={cn(hpLinkClass, "mt-0 rounded-full border border-line px-3.5 py-2 text-[11px] [&]:border-b hover:border-accent-40 lg:px-4 lg:py-2.5 lg:text-[12px]")}>
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <Directions {...C.directions} />
 
-      <FAQ heading="Питання, які виникають перед стартом" items={faqItems} />
+      <FAQ heading={C.faqHeading} items={C.faq} />
       <LaunchCta locale="uk" />
       </main>
       <HpFooter />

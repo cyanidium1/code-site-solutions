@@ -10,6 +10,13 @@ import { FAQ } from "@/components/blocks/final";
 import { CaseStrip } from "@/components/blocks/case-strip";
 import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
+import {
+  PACKAGES,
+  PAYMENT_TERMS,
+  formatPackagePrice,
+  formatPackageTerm,
+} from "@/constants/pricing";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -19,16 +26,20 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/ru/process";
 import { buildAlternates } from "@/lib/shared/alternates";
-import { OG_DEFAULT_IMAGE } from "@/constants/site";
 
-const META_TITLE = "Процесс — 7 шагов от брифа до запуска | Code-Site.Art";
-const META_DESCRIPTION =
-  "4-10 недель под ключ. Ваше время: 5 часов всего. Фиксированная цена, фиксированный срок, неустойка 30% за срыв. Вот как мы работаем.";
+const LOC = "ru" as const;
+const BUSINESS_TERM = formatPackageTerm("business", LOC);
+const SHOP_TERM = formatPackageTerm("shop", LOC);
+const LANDING_TERM = formatPackageTerm("landing", LOC);
+const BUSINESS_PRICE = formatPackagePrice("business", LOC);
+
+const META_TITLE = `Как мы делаем сайт за ${BUSINESS_TERM} | Code-Site.Art`;
+const META_DESCRIPTION = `Сайт для бизнеса за ${BUSINESS_TERM} и ${BUSINESS_PRICE}, магазин — за ${SHOP_TERM}. Что происходит каждый день, фиксированная цена в договоре, год гарантии.`;
 
 export const metadata: Metadata = {
   title: META_TITLE,
   description: META_DESCRIPTION,
-  alternates: buildAlternates({ locale: "ru", uaPath: "/process" }),
+  alternates: buildAlternates({ locale: LOC, uaPath: "/process" }),
   openGraph: {
     title: META_TITLE,
     description: META_DESCRIPTION,
@@ -50,7 +61,7 @@ export const metadata: Metadata = {
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/ru/process",
-    locale: "ru",
+    locale: LOC,
     title: META_TITLE,
     description: META_DESCRIPTION,
   }),
@@ -58,6 +69,8 @@ const jsonLd = buildJsonLd([
     { name: "Главная", path: "/ru" },
     { name: "Процесс", path: "/ru/process" },
   ]),
+  // SEO audit Aug 2026: the HowTo node was removed (Google retired the HowTo
+  // rich result in 2023). The on-page steps are untouched.
   {
     "@type": "FAQPage",
     mainEntity: PROCESS_FAQ.map((it) => ({
@@ -84,21 +97,24 @@ export default function RuProcessPage() {
           { label: "Главная", href: "/ru" },
           { label: "Процесс" },
         ]}
-        eyebrow="ПРОЦЕСС · 4-10 НЕДЕЛЬ ПОД КЛЮЧ"
+        eyebrow={`ПРОЦЕСС · ${BUSINESS_TERM.toUpperCase()}`}
         headline={
           <>
-            <em>9 вещей</em>, которые мы делаем за вас. Ваше время: меньше 5 часов.
+            Сайт для бизнеса за {BUSINESS_TERM}. <em>Что происходит каждый день</em>.
           </>
         }
-        sub="Вы не пишете ТЗ. Не ищете референсы. Не ловите фотографа. Вы тратите 30 минут на рассказ о бизнесе — и через 4-10 недель у вас готовый сайт."
+        sub={`Вы рассказываете о бизнесе — мы делаем структуру, тексты, дизайн, код и запуск. Цена и срок — в договоре до старта. Лендинг — ${LANDING_TERM}, интернет-магазин — ${SHOP_TERM}.`}
       />
 
       <StatsBar
         items={[
-          { value: <>4-10</>, label: "недель весь срок" },
-          { value: <>5 часов</>, label: "вашего времени всего" },
-          { value: <>100%</>, label: "фиксированная цена" },
-          { value: <>30%</>, label: "неустойка за срыв" },
+          { value: <>{PACKAGES.business.days.min}</>, label: "рабочих дней — сайт для бизнеса" },
+          { value: <>{PACKAGES.shop.days.min}</>, label: "рабочих дней — интернет-магазин" },
+          { value: <>100%</>, label: "фиксированная цена в договоре" },
+          {
+            value: <>{PAYMENT_TERMS.latePenaltyPercentPerDay}%</>,
+            label: `неустойка за день просрочки, до ${PAYMENT_TERMS.latePenaltyCapPercent}%`,
+          },
         ]}
       />
 
@@ -107,16 +123,16 @@ export default function RuProcessPage() {
       {/* Portfolio strip — the page ran seven text-only steps with a
           single photo on it (design audit 2026-09-07). */}
       <CaseStrip
-        locale="ru"
+        locale={LOC}
         slugs={[
           "efedra-clinic",
           "nbyg-kobenhavn",
           "solide-renovation",
-          "aleko-course",
           "glimmer",
           "mono-pools",
+          "kondor-device",
         ]}
-        sub="Семь шагов выше — это то, как сделаны все проекты ниже."
+        sub="Шаги выше — это то, как сделаны проекты ниже."
       />
 
       <ImageText
@@ -128,20 +144,18 @@ export default function RuProcessPage() {
             Как мы <em>общаемся</em> во время проекта
           </>
         }
-        body="Вы не пропадаете на 6 недель, чтобы получить сайт «из ниоткуда». Каждый шаг — контрольная точка, где вы видите и утверждаете."
+        body="Вы не ждете сайт «вслепую». Каждый этап вы видите и согласовываете."
         bulletList={[
-          "Telegram-чат ежедневно — ответ в течение 30 минут в рабочее время",
-          "Еженедельный screencast (3-5 минут)",
-          "Email-отчёт каждую неделю со статусом этапов",
-          "Zoom-звонок раз в спринт (опционально, по вашему запросу)",
-          "GitHub-коммиты видны ежедневно — полная прозрачность",
-          "Staging-URL для просмотра в реальном времени",
-          "Если вы недоступны неделю — проект ставится на паузу, срок сдвигается",
+          "Один Telegram-чат на весь проект — отвечаем в рабочее время",
+          "Тестовая ссылка с первого дня разработки",
+          "Код в вашем GitHub с первого коммита",
+          "Звонок — по вашему запросу, не обязателен",
+          "Если вы не на связи, срок сдвигается на столько же дней",
         ]}
         image={
           <AppImage
             src="/communication.webp"
-            alt="Сайт Mono Pools на ноутбуке и телефоне с готовыми проектами и отзывами клиентов"
+            alt="Сайт Mono Pools на ноутбуке и телефоне — реализованные проекты и отзывы клиентов"
             width={1600}
             height={1289}
             sizes={IMG_SIZES.half}
@@ -150,23 +164,23 @@ export default function RuProcessPage() {
       />
 
       <section className="bg-bg">
-        <FAQ heading="А что если…?" items={PROCESS_FAQ} locale="ru" />
+        <FAQ heading="А что если…?" items={PROCESS_FAQ} locale={LOC} />
       </section>
 
       <CtaBanner
-        eyebrow="ГОТОВЫ?"
+        eyebrow="ГОТОВЫ НАЧАТЬ?"
         heading={
           <>
-            Готовы пройти процесс <em>вместе с нами</em>?
+            Готовы пройти <em>процесс</em> с нами?
           </>
         }
-        sub="Первый шаг бесплатный. 30-мин консультация — и вы знаете вилку цены и срок."
+        sub="Первый шаг бесплатный: расчет за 24 часа — пакет, цена и срок."
         ctaPrimary={{
-          label: "Рассчитать цену →",
+          label: "Рассчитать стоимость →",
           href: "/ru/calculator",
         }}
         ctaSecondary={{
-          label: "Или обсудить с нами",
+          label: "Получить расчет",
           href: "/ru/contacts",
         }}
       />

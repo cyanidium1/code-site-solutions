@@ -6,6 +6,18 @@ import type * as React from "react";
 import type { LucideIcon } from "lucide-react";
 import { Briefcase, Brush, Calendar, Code2, Cpu, Crown, Database, Edit3, FileSignature, FileText, FileX, Ghost, Hourglass, Infinity as InfinityIcon, ListChecks, Mail, MessageCircle, Palette, PenLine, Scale, Server, ShieldAlert, ShieldCheck, TrendingUp, Video, Wallet, Workflow } from "lucide-react";
 import { formatPrice } from "@/lib/shared/format-price";
+import {
+  LOCALE_MARKET,
+  PAYMENT_TERMS,
+  addonPrice,
+  formatPackagePrice,
+  formatPackageTerm,
+  packagePrice,
+} from "@/constants/pricing";
+
+/* ─── Figures — our side always comes from the pricing config ───────────── */
+
+const PENALTY_CAP = PAYMENT_TERMS.latePenaltyCapPercent;
 // import { SITE_CONTACT } from "@/constants/site"; // CALENDLY DISABLED — see docs/calendly-disabled.md
 
 /* ─── Content shape ─────────────────────────────────────────────────────── */
@@ -151,29 +163,181 @@ export type Content = {
 
 /* ─── UA copy ───────────────────────────────────────────────────────────── */
 
+/* ─── Year-one cost of ownership (pricing section) ─────────────────────── */
+
+/**
+ * Freelancer side of the TCO tables — market assumptions, not our prices.
+ * Our side comes from the pricing config, so the verdict is computed: if a
+ * package price moves, the conclusion follows the arithmetic.
+ * TODO(owner): перевірити ставки фрілансерів (UA — Freelancehunt/Upwork,
+ * EU — Malt/Upwork); checked 2026-09-20.
+ */
+const FREELANCER = {
+  ua: { s1Dev: 700, s1SupportMo: 50, s1Bugs: [200, 300], s1Seo: 400, s1Risk: 0.15,
+        s2Dev: 2000, s2SupportMo: 80, s2Integrations: 1200, s2Bugs: 600, s2Risk: 0.25 },
+  intl: { s1Dev: 2000, s1SupportMo: 50, s1Bugs: [200, 300], s1Seo: 400, s1Risk: 0.15,
+          s2Dev: 5000, s2SupportMo: 80, s2Integrations: 1200, s2Bugs: 600, s2Risk: 0.25 },
+} as const;
+
+const TCO_COPY = {
+  uk: {
+    s1Title: "Сценарій 1: сайт для бізнесу на 5 сторінок",
+    s2Title: "Сценарій 2: інтернет-магазин до 100 товарів",
+    dev: "Розробка",
+    support1: "Підтримка перший рік",
+    bugs: "Критичні багфікси (2 за рік)",
+    seo: "Доробка SEO через 6 міс",
+    risk1: "Ризик зникнення / переробки (15%)",
+    support2: "Підтримка",
+    integrations: "Інтеграції (CRM, оплата, доставка)",
+    bugs2: "Багфікси",
+    risk2: "Ризик rescue-проєкту (25% для e-commerce)",
+    mo: "міс",
+    included: "включено",
+    warranty: "гарантія",
+    seoIn: "SEO-структура в пакеті",
+    contract: "договір і неустойка",
+    crm: (p: string) => `${p} (CRM); оплата і доставка — в пакеті`,
+    verdict: (devGap: string | null, diff: number, fmt: (n: number) => string) => (
+      <>
+        {devGap
+          ? `Фрілансер дешевший лише в рядку «розробка» — на ${devGap}. `
+          : "Фрілансер дорожчий уже на етапі розробки. "}
+        За рік володіння різниця —{" "}
+        <strong>
+          {diff >= 0
+            ? `${fmt(diff)} на нашу користь`
+            : `${fmt(-diff)} на користь фрілансера`}
+        </strong>
+        . Цифри фрілансера — типові ринкові, у вашому випадку можуть бути
+        іншими.
+      </>
+    ),
+  },
+  en: {
+    s1Title: "Scenario 1: five-page business website",
+    s2Title: "Scenario 2: online shop, up to 100 products",
+    dev: "Development",
+    support1: "Support, first year",
+    bugs: "Critical bug fixes (2 a year)",
+    seo: "SEO catch-up after 6 months",
+    risk1: "Ghosting / rework risk (15%)",
+    support2: "Support",
+    integrations: "Integrations (CRM, payment, delivery)",
+    bugs2: "Bug fixes",
+    risk2: "Rescue project risk (25% for e-commerce)",
+    mo: "mo",
+    included: "included",
+    warranty: "warranty",
+    seoIn: "SEO structure in the package",
+    contract: "contract and penalty clause",
+    crm: (p: string) => `${p} (CRM); payment and delivery in the package`,
+    verdict: (devGap: string | null, diff: number, fmt: (n: number) => string) => (
+      <>
+        {devGap
+          ? `A freelancer is cheaper only on the development line — by ${devGap}. `
+          : "A freelancer is more expensive already at the build stage. "}
+        Over a year of ownership the difference is{" "}
+        <strong>
+          {diff >= 0
+            ? `${fmt(diff)} in our favour`
+            : `${fmt(-diff)} in the freelancer's favour`}
+        </strong>
+        . Freelancer figures are typical market rates; yours may differ.
+      </>
+    ),
+  },
+} as const;
+
+function tcoTables(locale: keyof typeof TCO_COPY) {
+  const t = TCO_COPY[locale];
+  const f = FREELANCER[LOCALE_MARKET[locale]];
+  const fmt = (n: number) => formatPrice(Math.round(n), { locale });
+  const zero = (why: string) => `${fmt(0)} (${why})`;
+
+  const s1Us = packagePrice("business", locale);
+  const s1Risk = f.s1Dev * f.s1Risk;
+  const s1Fl =
+    f.s1Dev + f.s1SupportMo * 12 + f.s1Bugs[0] + f.s1Bugs[1] + f.s1Seo + s1Risk;
+
+  const crm = addonPrice("crm", locale);
+  const s2Us = packagePrice("shop", locale) + crm;
+  const s2Risk = f.s2Dev * f.s2Risk;
+  const s2Fl =
+    f.s2Dev + f.s2SupportMo * 12 + f.s2Integrations + f.s2Bugs + s2Risk;
+
+  const gap = (fl: number, us: number) => (fl < us ? fmt(us - fl) : null);
+
+  return {
+    s1Title: t.s1Title,
+    s1Rows: [
+      { item: t.dev, freelancer: fmt(f.s1Dev), us: fmt(s1Us) },
+      {
+        item: t.support1,
+        freelancer: `${fmt(f.s1SupportMo)}/${t.mo} × 12 = ${fmt(f.s1SupportMo * 12)}`,
+        us: zero(t.included),
+      },
+      {
+        item: t.bugs,
+        freelancer: `${fmt(f.s1Bugs[0])} + ${fmt(f.s1Bugs[1])} = ${fmt(f.s1Bugs[0] + f.s1Bugs[1])}`,
+        us: zero(t.warranty),
+      },
+      { item: t.seo, freelancer: fmt(f.s1Seo), us: zero(t.seoIn) },
+      {
+        item: t.risk1,
+        freelancer: `${fmt(f.s1Dev)} × ${f.s1Risk} = ${fmt(s1Risk)}`,
+        us: zero(t.contract),
+      },
+    ],
+    s1Total: { freelancer: fmt(s1Fl), us: fmt(s1Us) },
+    s1Verdict: t.verdict(gap(f.s1Dev, s1Us), s1Fl - s1Us, fmt),
+    s2Title: t.s2Title,
+    s2Rows: [
+      { item: t.dev, freelancer: fmt(f.s2Dev), us: fmt(packagePrice("shop", locale)) },
+      {
+        item: t.support2,
+        freelancer: `${fmt(f.s2SupportMo)}/${t.mo} × 12 = ${fmt(f.s2SupportMo * 12)}`,
+        us: zero(t.included),
+      },
+      { item: t.integrations, freelancer: fmt(f.s2Integrations), us: t.crm(fmt(crm)) },
+      { item: t.bugs2, freelancer: fmt(f.s2Bugs), us: zero(t.warranty) },
+      {
+        item: t.risk2,
+        freelancer: `${fmt(f.s2Dev)} × ${f.s2Risk} = ${fmt(s2Risk)}`,
+        us: zero(t.contract),
+      },
+    ],
+    s2Total: { freelancer: fmt(s2Fl), us: fmt(s2Us) },
+    s2Verdict: t.verdict(gap(f.s2Dev, packagePrice("shop", locale)), s2Fl - s2Us, fmt),
+  };
+}
+
+/* ─── UA copy ─── */
+
 export const VS_FREELANCERS_UK: Content = {
-  metaTitle:
-    "Студія проти фрілансера: 12 людей у проєкті | Code-Site.Art",
-  metaDescription:
-    "Studio з 12 людей замість одного фрілансера. Контракт із юр. особою, гарантія 1 рік, неустойка 30%. Rescue-проєкти після фрілансерів — 12 з 50+.",
-  ogTitle: "12 людей у вашому проєкті. Жоден не зникне з аванса. — Code-Site.Art",
+  metaTitle: `Студія чи фрілансер: сайт за ${formatPackagePrice("business", "uk")} з договором`,
+  metaDescription: `Сайт для бізнесу — ${formatPackagePrice("business", "uk")}, ${formatPackageTerm("business", "uk")}, за договором. Гарантія рік, неустойка до ${PENALTY_CAP}% за зрив строку, код ваш.`,
+  ogTitle: "Команда, а не одна людина. Ніхто не зникне з авансом. — Code-Site.Art",
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · ФРІЛАНСЕРИ",
     h1Lines: [
-      <>12 людей у вашому проєкті.</>,
-      <em key="hero-em">Жоден не зникне з оплаченим авансом.</em>,
+      <>
+        Сайт для бізнесу за {formatPackagePrice("business", "uk")} і{" "}
+        {formatPackageTerm("business", "uk")}.
+      </>,
+      <em key="hero-em">Ніхто не зникне з оплаченим авансом.</em>,
     ],
     lede: (
       <>
         Фрілансери чудові — для лендінгу на вечір. Коли йдеться про сайт, від
-        якого залежить виручка, потрібна команда: дизайнер, фронтендер, бекенд,
-        копірайтер, SEO, QA, PM. Контракт із юридичною особою. Гарантія в
+        якого залежить виручка, потрібна команда: Федір Алпатов, засновник і
+        техлід, дизайнер, розробник, редактор. Договір. Гарантія в
         письмовому вигляді. Код у вашому GitHub з першого дня.
       </>
     ),
     badges: [
-      { label: "12 людей", sub: "постійне ядро з 4 + 8 перевірених партнерів" },
-      { label: "Гарантія 1 рік", sub: "+ неустойка 30% за зрив" },
+      { label: "4 людини", sub: "техлід, дизайнер, розробник, редактор" },
+      { label: "Гарантія 1 рік", sub: `+ неустойка до ${PENALTY_CAP}% за зрив строку` },
       { label: "0 акаунт-менеджерів", sub: "говорите з тим, хто пише код" },
       { label: "Договір із ФОП", sub: "не домовленість у Telegram" },
     ],
@@ -229,9 +393,10 @@ export const VS_FREELANCERS_UK: Content = {
     foot: (
       <>
         Кожна з цих 6 — це не виняткова історія. Це{" "}
-        <strong>типовий патерн</strong>. У нас 12 з 50+ проєктів — це rescue
-        після фрілансера або іншої студії. Якщо ви впізнаєте себе — пишіть, на
-        безкоштовному розборі скажемо чесно, що можна врятувати.
+        <strong>типовий патерн</strong>. Частина наших проєктів — це rescue
+        після фрілансера або іншої студії. Якщо ви впізнаєте себе — надішліть
+        посилання: у безкоштовному аудиті за 24 години скажемо чесно, що можна
+        врятувати.
       </>
     ),
   },
@@ -242,15 +407,15 @@ export const VS_FREELANCERS_UK: Content = {
         Коли НЕ треба <em>звертатись до нас.</em>
       </>
     ),
-    sub: "Не для кожного проєкту потрібна студія. Ось 4 ситуації, коли фрілансер за $500 — обʼєктивно правильний вибір. Якщо ви тут — ми не вписуємось, і це нормально.",
+    sub: "Не для кожного проєкту потрібна студія. Ось 4 ситуації, коли фрілансер — обʼєктивно правильний вибір. Якщо ви тут — ми не вписуємось, і це нормально.",
     items: [
       {
         title: "Лендінг до 5 сторінок без інтеграцій",
-        body: "До бюджету $800 — фрілансер на тиждень. Studio-overhead тут — переплата.",
+        body: `Бюджет менший за наш лендінг (${formatPackagePrice("landing", "uk")}) — фрілансер на тиждень. Договір і гарантія тут — переплата.`,
       },
       {
         title: "MVP-лендінг «за вечір» для тесту ідеї",
-        body: "Швидкість > якість, фрілансер доставить за 2 дні, ми — за 2 тижні. Beta-фаза = свобода ламати.",
+        body: `Швидкість > якість: фрілансер зробить за вечір, у нас лендінг — ${formatPackageTerm("landing", "uk")}. Beta-фаза = свобода ламати.`,
       },
       {
         title: "Особистий блог / портфоліо без бізнес-логіки",
@@ -270,18 +435,19 @@ export const VS_FREELANCERS_UK: Content = {
         Фрілансер vs Code-Site. <em>Чесно по фактах.</em>
       </>
     ),
-    sub: "Не «ми кращі за всіх». Ось де фрілансер виграє, а де ми — на основі 50+ проєктів і 12 rescue-кейсів.",
+    sub: "Не «ми кращі за всіх». Ось де фрілансер виграє, а де ми — на основі 25+ проєктів.",
     headers: { criterion: "Критерій", freelancer: "Фрілансер", us: "Code-Site" },
     rows: [
       {
         criterion: "Стартовий бюджет",
+        // Freelancer range — market assumption. TODO(owner): перевірити ставки.
         freelancer: "$300–2 000",
-        us: "$800–6 000+",
+        us: `${formatPackagePrice("landing", "uk")} – ${formatPackagePrice("custom", "uk")}`,
       },
       {
         criterion: "Розмір команди",
         freelancer: "1 людина",
-        us: "4 в постійному ядрі + 8 партнерів",
+        us: "4 людини: техлід, дизайнер, розробник, редактор",
       },
       {
         criterion: "Спеціалізації",
@@ -326,7 +492,7 @@ export const VS_FREELANCERS_UK: Content = {
       {
         criterion: "Швидкість",
         freelancer: "1 людина = 1 потік",
-        us: "12 людей = паралельні треки, швидше",
+        us: `фікс у договорі: сайт для бізнесу — ${formatPackageTerm("business", "uk")}`,
       },
       {
         criterion: "Ризик зникнення",
@@ -342,31 +508,31 @@ export const VS_FREELANCERS_UK: Content = {
         Хто саме <em>на вашому проєкті.</em>
       </>
     ),
-    sub: "Постійне ядро з 4 людей + 8 перевірених партнерів, які підключаються по ролі. Між вами і людьми, які пишуть код, немає аккаунт-менеджерів.",
+    sub: "Команда з 4 людей: Федір Алпатов — засновник і техлід, дизайнер, розробник, редактор. Вузьких фахівців підключаємо під задачу. Між вами і людьми, які пишуть код, немає акаунт-менеджерів.",
     coreHeading: "Постійне ядро",
     core: [
       {
         icon: Crown,
-        role: "Tech Lead / Founder",
+        role: "Техлід і засновник — Федір Алпатов",
         body: "Архітектура проєкту. Технічні рішення. Прямий контакт з клієнтом на брифі.",
       },
       {
         icon: Palette,
-        role: "Senior UI/UX Designer",
+        role: "Дизайнер",
         body: "Дизайн макетів, прототипи, дизайн-система проєкту.",
       },
       {
         icon: Code2,
-        role: "Senior Frontend Developer",
+        role: "Розробник",
         body: "Реалізація дизайну в коді, performance, кросбраузерність.",
       },
       {
         icon: TrendingUp,
-        role: "SEO / B2B Marketing Strategist",
-        body: "SEO-структура, технічна оптимізація, контент-стратегія.",
+        role: "Редактор",
+        body: "Тексти сторінок, SEO-структура, контент-план.",
       },
     ],
-    partnersHeading: "Перевірена мережа партнерів (підключаємо за необхідністю)",
+    partnersHeading: "Кого підключаємо під задачу (не входять у команду)",
     partners: [
       {
         icon: Database,
@@ -418,7 +584,7 @@ export const VS_FREELANCERS_UK: Content = {
         Різниця в ціні — <em>це не годинна ставка.</em>
       </>
     ),
-    sub: "Фрілансер бере $30–60 за годину × 80 годин роботи. Ми беремо більше. Ось за що — окрім самих годин:",
+    sub: "Фрілансер рахує години. У нас — фіксована ціна пакета в договорі. Ось що в неї входить, окрім самих годин:",
     items: [
       {
         num: "01",
@@ -531,7 +697,7 @@ export const VS_FREELANCERS_UK: Content = {
     eyebrow: "/ 08 RESCUE-ПРОЄКТИ",
     heading: (
       <>
-        12 з 50+ наших проєктів — <em>це rescue після фрілансера.</em>
+        Частина наших проєктів — <em>це rescue після фрілансера.</em>
       </>
     ),
     sub: "Це не виняток. Це типовий патерн. Ось що ми бачимо на типовому rescue-кейсі:",
@@ -545,14 +711,14 @@ export const VS_FREELANCERS_UK: Content = {
     ],
     actionHeading: "Що робимо ми",
     action: [
-      "День 1: дзвінок-знайомство 30 хвилин — безкоштовно, дивимось що є",
-      "Тиждень 1: переписуємо проблемні частини, підключаємо інтеграції",
-      "Тиждень 2–4: якщо стек «сирий» — мігруємо на наш custom code",
-      "Тиждень 4–6: запуск + 30 днів моніторингу",
+      "Протягом 24 годин: безкоштовний аудит — дивимось, що є, що працює, що ні",
+      "Фіксуємо ціну і строк у договорі — за пакетом, без погодинки",
+      "Якщо стек «сирий» — переписуємо на наш код, а не латаємо",
+      "Запуск + 30 днів моніторингу, гарантія і підтримка рік",
     ],
     outcomeHeading: "Типовий результат",
     outcome: [
-      "Запуск через 4–6 тижнів замість 1–2 місяців пошуку нового фрілансера",
+      `Запуск за строком пакета (сайт для бізнесу — ${formatPackageTerm("business", "uk")}) замість 1–2 місяців пошуку нового фрілансера`,
       "Сайт остаточно функціональний, з документацією, з гарантією",
       "Витрати клієнта: фрілансеру (вже втрачено) + наш rescue-проєкт = в середньому в 1.5–2× дорожче, ніж якби з нами одразу",
     ],
@@ -576,12 +742,12 @@ export const VS_FREELANCERS_UK: Content = {
     sub: "Навіть для серйозних проєктів ми не для всіх. Ось коли ми скажемо «ні»:",
     items: [
       {
-        title: "Сайт за $300–800",
-        body: "Наш мінімум $800 за лендінг. Фізично не можемо вийти на меншу ціну при наших стандартах якості.",
+        title: `Сайт дешевше за ${formatPackagePrice("landing", "uk")}`,
+        body: `Наш мінімум — ${formatPackagePrice("landing", "uk")} за лендінг. Дешевше — не з нашими гарантіями.`,
       },
       {
         title: "Запуск «до завтра»",
-        body: "Наш мінімум 1 тиждень навіть на найпростішому лендінгу. Якщо горить — фрилансер на ніч.",
+        body: `Наш мінімум — ${formatPackageTerm("landing", "uk")} на лендінг. Якщо горить сьогодні — фрілансер на ніч.`,
       },
       {
         title: "Сайт «схожий на цей, тільки інший» без брифу",
@@ -604,65 +770,7 @@ export const VS_FREELANCERS_UK: Content = {
     sub: "На папері — фрилансер. У реальності за 12 місяців володіння — нерідко навпаки. Подивимось чесно:",
     headers: { item: "Стаття", freelancer: "Фрілансер", us: "Code-Site" },
     totalLabel: "Разом за рік",
-    s1Title: "Сценарій 1: Лендінг для клініки",
-    s1Rows: [
-      { item: "Розробка", freelancer: formatPrice(1500, { locale: "uk" }), us: formatPrice(2500, { locale: "uk" }) },
-      {
-        item: "Підтримка перший рік",
-        freelancer: "$50/міс × 12 = $600",
-        us: "$0 (включено)",
-      },
-      {
-        item: "Виправлення критичних багів (2 за рік)",
-        freelancer: "$200 + $300 = $500",
-        us: "$0 (гарантія)",
-      },
-      {
-        item: "Доробка SEO через 6 міс",
-        freelancer: "$400",
-        us: "$0 (вже зроблено)",
-      },
-      {
-        item: "Ризик зникнення / переробки (15%)",
-        freelancer: "$1 500 × 0.15 = $225",
-        us: "$0",
-      },
-    ],
-    s1Total: { freelancer: formatPrice(3225, { locale: "uk" }), us: formatPrice(2500, { locale: "uk" }) },
-    s1Verdict: (
-      <>
-        Різниця: $725 — і вже <strong>на нашу користь</strong>. Фрілансер
-        дешевший лише в рядку «розробка»; рік володіння з підтримкою, багфіксами
-        і ризиком зникнення виводить його дорожче.
-      </>
-    ),
-    s2Title: "Сценарій 2: Сайт e-commerce малого бізнесу",
-    s2Rows: [
-      { item: "Розробка", freelancer: "$4 000", us: "$5 500" },
-      {
-        item: "Підтримка",
-        freelancer: "$80/міс × 12 = $960",
-        us: "$0",
-      },
-      {
-        item: "Інтеграції (CRM, оплата, доставка)",
-        freelancer: "$1 200",
-        us: "$0 (включено)",
-      },
-      { item: "Багфікси", freelancer: "$600", us: "$0" },
-      {
-        item: "Ризик rescue-проєкту (25% для e-commerce)",
-        freelancer: "$4 000 × 0.25 = $1 000",
-        us: "$0",
-      },
-    ],
-    s2Total: { freelancer: "$11 760", us: "$5 500" },
-    s2Verdict: (
-      <>
-        Різниця: фрілансер у <strong>2.1× дорожче</strong> за рік на середньому
-        e-commerce.
-      </>
-    ),
+    ...tcoTables("uk"),
   },
   faq: {
     eyebrow: "/ 11 ЧАСТІ ПИТАННЯ",
@@ -674,7 +782,7 @@ export const VS_FREELANCERS_UK: Content = {
     items: [
       {
         q: "Я вже працював із фрілансером, він зник. Що робити?",
-        a: "Починаємо з безкоштовного 30-хвилинного дзвінка-знайомства: розкажете, що лишилось. Якщо треба розібратися глибше — аудит сайту за $150: година розбору коду і SEO, запис і PDF. Далі два варіанти: rescue (зберігаємо що можна) або міграція з нуля. Скажемо чесно, що дешевше.",
+        a: "Надішліть посилання і доступи, які лишились. Безкоштовний аудит — протягом 24 годин: код, SEO, що працює. Далі два варіанти: rescue (зберігаємо що можна) або перезбірка з нуля. Скажемо чесно, що дешевше.",
       },
       {
         q: "Можете продовжити незавершену роботу фрілансера?",
@@ -686,7 +794,7 @@ export const VS_FREELANCERS_UK: Content = {
       },
       {
         q: "А якщо ваш Tech Lead захворіє?",
-        a: "Проєкт не зупиняється. Передача всередині команди за день. Ваш SEO/PM/QA/копірайтер — ті самі, тільки технічний контакт міняється на час.",
+        a: "Проєкт не зупиняється. Код, задачі і документація — у спільному репозиторії, розробник і дизайнер ті самі. Строк у договорі не змінюється.",
       },
       {
         q: "Можна спілкуватись з конкретною людиною з команди?",
@@ -697,8 +805,8 @@ export const VS_FREELANCERS_UK: Content = {
         a: "Підпишемо стандартний NDA до брифу безкоштовно. Якщо у вас свій шаблон — теж підпишемо.",
       },
       {
-        q: "Чи правда, що 12 у вашому «12 людей» — це з партнерами?",
-        a: "Так. 4 в постійному ядрі, 8 — перевірена мережа партнерів, які підключаються за роллю. Працюємо віддалено, офісу немає. Чесно: партнери не сидять на проєкті 8 годин на день, але повністю відповідають за свою ділянку.",
+        q: "Скільки людей у команді?",
+        a: "Четверо: Федір Алпатов — засновник і техлід, дизайнер, розробник, редактор. Вузьких фахівців (бекенд, моушн, ілюстрації) підключаємо під задачу. Працюємо віддалено.",
       },
       {
         q: "Скільки у вас аккаунт-менеджерів?",
@@ -713,7 +821,7 @@ export const VS_FREELANCERS_UK: Content = {
         Розрахуйте проєкт <em>за 60 секунд.</em>
       </>
     ),
-    sub: "Калькулятор без форми, ціна одразу. Або поговоримо на 30-хв розборі — поясните проєкт, скажемо чи маємо сенс ми, чи краще фрілансер.",
+    sub: "Калькулятор без форми, ціна одразу. Або надішліть посилання — безкоштовний аудит за 24 години: скажемо, чи підходимо ми, чи краще фрілансер.",
     cards: [
       {
         icon: Calendar,
@@ -735,7 +843,7 @@ export const VS_FREELANCERS_UK: Content = {
       {
         icon: Mail,
         title: "Бриф через форму",
-        body: "Опишіть проєкт детально — повернемось протягом 4 робочих годин.",
+        body: "Опишіть проєкт — відповімо з розрахунком протягом 24 годин.",
         cta: "Заповнити бриф →",
         href: "/contacts",
       },
@@ -747,29 +855,29 @@ export const VS_FREELANCERS_UK: Content = {
 /* ─── EN copy ───────────────────────────────────────────────────────────── */
 
 export const VS_FREELANCERS_EN: Content = {
-  metaTitle:
-    "Studio vs Freelancer: 12 people on your project | Code-Site.Art",
-  metaDescription:
-    "A studio of 12 people instead of one freelancer. Legal-entity contract, 1-year warranty, 30% rebate. Rescue projects after freelancers — 12 of 50+.",
-  ogTitle:
-    "12 people on your project. None of them can ghost you. — Code-Site.Art",
+  metaTitle: `Studio vs freelancer: website for ${formatPackagePrice("business", "en")}, on contract`,
+  metaDescription: `Custom-coded business website for ${formatPackagePrice("business", "en")} in ${formatPackageTerm("business", "en")}, on contract. One-year warranty, up to ${PENALTY_CAP}% penalty if we slip, you own the code.`,
+  ogTitle: "A team, not one person. Nobody ghosts you. — Code-Site.Art",
   hero: {
     eyebrowLabel: "/ COMPARE · FREELANCERS",
     h1Lines: [
-      <>12 people on your project.</>,
-      <em key="hero-em">None of them can ghost you.</em>,
+      <>
+        Business website for {formatPackagePrice("business", "en")} in{" "}
+        {formatPackageTerm("business", "en")}.
+      </>,
+      <em key="hero-em">Nobody ghosts you with your deposit.</em>,
     ],
     lede: (
       <>
         Freelancers are great — for a landing page over a weekend. When it&apos;s
-        a site your revenue depends on, you need a team: designer, frontend,
-        backend, copywriter, SEO, QA, PM. A contract with a legal entity. A
+        a site your revenue depends on, you need a team: Fedir Alpatov, founder
+        and tech lead, a designer, a developer, an editor. A contract. A
         warranty in writing. Code in your GitHub from day one.
       </>
     ),
     badges: [
-      { label: "12 people", sub: "4 in-house + 8 vetted partners" },
-      { label: "1-year warranty", sub: "+ 30% rebate if we slip" },
+      { label: "4 people", sub: "tech lead, designer, developer, editor" },
+      { label: "1-year warranty", sub: `+ up to ${PENALTY_CAP}% penalty if we slip` },
       {
         label: "0 account managers",
         sub: "you talk to the people writing the code",
@@ -804,7 +912,7 @@ export const VS_FREELANCERS_EN: Content = {
         num: "03",
         icon: Wallet,
         title: "Launched and refused support",
-        body: "“That's a separate fee” — the standard reply to any request after handoff. Every text edit — from £50. After 3 months, they stop replying entirely.",
+        body: "“That's a separate fee” — the standard reply to any request after handoff. Every text edit — from €50. After 3 months, they stop replying entirely.",
       },
       {
         num: "04",
@@ -828,10 +936,10 @@ export const VS_FREELANCERS_EN: Content = {
     foot: (
       <>
         Each of these 6 isn&apos;t an exceptional story. It&apos;s a{" "}
-        <strong>typical pattern</strong>. 12 of our 50+ projects are rescues
-        after a freelancer or another agency. If you recognise yourself — talk
-        to us. The free 30-minute consult will tell you straight what&apos;s
-        salvageable.
+        <strong>typical pattern</strong>. Some of our projects are rescues
+        after a freelancer or another agency. If you recognise yourself — send
+        us the link. The free audit comes within 24 hours and tells you
+        straight what&apos;s salvageable.
       </>
     ),
   },
@@ -842,19 +950,19 @@ export const VS_FREELANCERS_EN: Content = {
         When NOT to <em>hire us.</em>
       </>
     ),
-    sub: "Not every project needs a studio. Here are 4 situations where a £500 freelancer is objectively the right call. If you're here — we're not the fit, and that's fine.",
+    sub: "Not every project needs a studio. Here are 4 situations where a freelancer is objectively the right call. If you're here — we're not the fit, and that's fine.",
     items: [
       {
         title: "A landing under 5 pages with no integrations",
-        body: "Budget under £800 — a freelancer for a week. Studio overhead here is overpay.",
+        body: `Budget below our landing page (${formatPackagePrice("landing", "en")}) — a freelancer for a week. A contract and warranty here is overpay.`,
       },
       {
         title: "An MVP landing “over a weekend” to test an idea",
-        body: "Speed > quality, a freelancer ships in 2 days, we ship in 2 weeks. Beta phase = freedom to break things.",
+        body: `Speed > quality: a freelancer ships over a weekend, our landing page takes ${formatPackageTerm("landing", "en")}. Beta phase = freedom to break things.`,
       },
       {
         title: "Personal blog / portfolio without business logic",
-        body: "Tilda or a freelancer for £300. Nothing for a studio to do here.",
+        body: "Tilda or a freelancer for €300. Nothing for a studio to do here.",
       },
       {
         title: "Experimental project with an uncertain future",
@@ -870,18 +978,19 @@ export const VS_FREELANCERS_EN: Content = {
         Freelancer vs Code-Site. <em>Honest, fact-based.</em>
       </>
     ),
-    sub: "Not “we're better than everyone.” Here's where a freelancer wins, and where we do — based on 50+ projects and 12 rescue cases.",
+    sub: "Not “we're better than everyone.” Here's where a freelancer wins, and where we do — based on 25+ projects.",
     headers: { criterion: "Criterion", freelancer: "Freelancer", us: "Code-Site" },
     rows: [
       {
         criterion: "Starting budget",
-        freelancer: "£300–2,000",
-        us: "£800–6,000+",
+        // Freelancer range — market assumption. TODO(owner): перевірити ставки.
+        freelancer: "€300–2,000",
+        us: `${formatPackagePrice("landing", "en")} – ${formatPackagePrice("custom", "en")}`,
       },
       {
         criterion: "Team size",
         freelancer: "1 person",
-        us: "4 in-house + 8 partners",
+        us: "4 people: tech lead, designer, developer, editor",
       },
       {
         criterion: "Specialisations",
@@ -926,7 +1035,7 @@ export const VS_FREELANCERS_EN: Content = {
       {
         criterion: "Speed",
         freelancer: "1 person = 1 stream",
-        us: "12 people = parallel tracks, faster",
+        us: `fixed in the contract: business website — ${formatPackageTerm("business", "en")}`,
       },
       {
         criterion: "Disappearance risk",
@@ -942,7 +1051,7 @@ export const VS_FREELANCERS_EN: Content = {
         Who&apos;s actually <em>on your project.</em>
       </>
     ),
-    sub: "A core in-house team of 4 + a vetted network of 8 partners we bring in by role. No account managers between you and the people writing the code.",
+    sub: "A team of 4: Fedir Alpatov — founder and tech lead, a designer, a developer, an editor. Specialists are brought in per task. No account managers between you and the people writing the code.",
     coreHeading: "Core team",
     core: [
       {
@@ -952,12 +1061,12 @@ export const VS_FREELANCERS_EN: Content = {
       },
       {
         icon: Palette,
-        role: "Senior UI/UX Designer",
+        role: "Designer",
         body: "Design mocks, prototypes, project design system.",
       },
       {
         icon: Code2,
-        role: "Senior Frontend Developer",
+        role: "Developer",
         body: "Translating design to code, performance, cross-browser.",
       },
       {
@@ -966,7 +1075,7 @@ export const VS_FREELANCERS_EN: Content = {
         body: "SEO structure, technical optimisation, content strategy.",
       },
     ],
-    partnersHeading: "Vetted partner network (brought in as needed)",
+    partnersHeading: "Brought in per task (not part of the team)",
     partners: [
       {
         icon: Database,
@@ -1018,7 +1127,7 @@ export const VS_FREELANCERS_EN: Content = {
         The price gap <em>isn&apos;t the hourly rate.</em>
       </>
     ),
-    sub: "A freelancer charges £30–60/hr × 80 hours of work. We charge more. Here's what for — besides the hours:",
+    sub: "A freelancer bills hours. We charge a fixed package price in the contract. Here's what it covers — besides the hours:",
     items: [
       {
         num: "01",
@@ -1060,7 +1169,7 @@ export const VS_FREELANCERS_EN: Content = {
         num: "07",
         icon: Edit3,
         title: "Sanity Studio for self-edits",
-        body: "After launch, you edit content yourself. Without us. Freelancer is usually “message me, I'll fix it — from £50.”",
+        body: "After launch, you edit content yourself. Without us. Freelancer is usually “message me, I'll fix it — from €50.”",
       },
       {
         num: "08",
@@ -1078,7 +1187,7 @@ export const VS_FREELANCERS_EN: Content = {
         <em>Without us. Without a freelancer.</em>
       </>
     ),
-    sub: "The biggest freelancer trap is post-launch dependency. Want to swap a paragraph? £50. Recolor a button? £30. Three months later they stop replying, and you pay the next person to figure out the codebase. We give you Sanity Studio — a full admin where you do it all yourself. From your computer. Or your phone. Free for teams up to 5.",
+    sub: "The biggest freelancer trap is post-launch dependency. Want to swap a paragraph? €50. Recolor a button? €30. Three months later they stop replying, and you pay the next person to figure out the codebase. We give you Sanity Studio — a full admin where you do it all yourself. From your computer. Or your phone. Free for teams up to 5.",
     desktopAlt:
       "Sanity Studio admin interface on desktop — drag-and-drop block editor",
     desktopCaption: "Sanity Studio on desktop — full content control",
@@ -1115,7 +1224,7 @@ export const VS_FREELANCERS_EN: Content = {
       {
         num: "06",
         title: "Free for teams up to 5",
-        body: "Your marketer + assistant + copywriter + editor + you — £0 per month. Paid tier starts at editor #6.",
+        body: "Your marketer + assistant + copywriter + editor + you — €0 per month. Paid tier starts at editor #6.",
       },
     ],
     foot: (
@@ -1130,13 +1239,13 @@ export const VS_FREELANCERS_EN: Content = {
     eyebrow: "/ 08 RESCUE PROJECTS",
     heading: (
       <>
-        12 of our 50+ projects — <em>rescues after a freelancer.</em>
+        Some of our projects — <em>rescues after a freelancer.</em>
       </>
     ),
     sub: "Not an outlier. A typical pattern. Here's what we see on a typical rescue:",
     situationHeading: "Typical situation",
     situation: [
-      "Client paid a freelancer £1,500–3,000 for a landing or site",
+      "Client paid a freelancer €1,500–3,000 for a landing or site",
       "Freelancer finished 60–80% and stopped replying",
       "Site works, but without payment integration / forms / CRM",
       "No code access — the freelancer never handed it off",
@@ -1144,14 +1253,14 @@ export const VS_FREELANCERS_EN: Content = {
     ],
     actionHeading: "What we do",
     action: [
-      "Day 1: a free 30-minute intro call — what's there, what works, what doesn't",
-      "Week 1: rewrite the broken parts, hook up integrations",
-      "Weeks 2–4: if the stack is rough, migrate to our custom code",
-      "Weeks 4–6: launch + 30 days monitoring",
+      "Within 24 hours: a free audit — what's there, what works, what doesn't",
+      "Price and timeline fixed in the contract — per package, not per hour",
+      "If the stack is rough, we rebuild in our code instead of patching",
+      "Launch + 30 days monitoring, a year of warranty and support",
     ],
     outcomeHeading: "Typical outcome",
     outcome: [
-      "Live in 4–6 weeks instead of 1–2 months hunting for a new freelancer",
+      `Live within the package timeline (business website — ${formatPackageTerm("business", "en")}) instead of 1–2 months hunting for a new freelancer`,
       "Site is finally functional, with documentation and warranty",
       "Client's total spend: freelancer (already lost) + our rescue = on average 1.5–2× more expensive than if they'd come to us first",
     ],
@@ -1175,12 +1284,12 @@ export const VS_FREELANCERS_EN: Content = {
     sub: "Even for serious projects, we're not for everyone. Here's when we'll say no:",
     items: [
       {
-        title: "Sites under £300–800",
-        body: "Our minimum is £800 for a landing. Physically can't go lower at our quality standard.",
+        title: `Sites under ${formatPackagePrice("landing", "en")}`,
+        body: `Our minimum is ${formatPackagePrice("landing", "en")} for a landing page. Cheaper doesn't come with our guarantees.`,
       },
       {
         title: "Launch by tomorrow",
-        body: "Our minimum is 1 week even for the simplest landing. If it's urgent, hire a freelancer for the night.",
+        body: `Our minimum is ${formatPackageTerm("landing", "en")} for a landing page. If it has to be live tonight, hire a freelancer for the night.`,
       },
       {
         title: "A site “like this one but different” without a brief",
@@ -1203,61 +1312,7 @@ export const VS_FREELANCERS_EN: Content = {
     sub: "On paper — freelancer. Over 12 months of ownership, often the opposite. Let's look honestly:",
     headers: { item: "Line item", freelancer: "Freelancer", us: "Code-Site" },
     totalLabel: "Total year 1",
-    s1Title: "Scenario 1: Landing for a clinic",
-    s1Rows: [
-      { item: "Development", freelancer: formatPrice(1500, { locale: "en" }), us: formatPrice(3500, { locale: "en" }) },
-      {
-        item: "First-year support",
-        freelancer: "£50/mo × 12 = £600",
-        us: "£0 (included)",
-      },
-      {
-        item: "Critical bug fixes (2/year)",
-        freelancer: "£200 + £300 = £500",
-        us: "£0 (warranty)",
-      },
-      {
-        item: "SEO retrofit at 6 months",
-        freelancer: "£400",
-        us: "£0 (done at launch)",
-      },
-      {
-        item: "Disappearance / rebuild risk (15%)",
-        freelancer: "£1,500 × 0.15 = £225",
-        us: "£0",
-      },
-    ],
-    s1Total: { freelancer: formatPrice(3225, { locale: "en" }), us: formatPrice(3500, { locale: "en" }) },
-    s1Verdict: (
-      <>
-        Difference: £275. That&apos;s the{" "}
-        <strong>base risk premium</strong>. By year 2, the freelancer route can
-        be 30% more expensive.
-      </>
-    ),
-    s2Title: "Scenario 2: Small-business e-commerce",
-    s2Rows: [
-      { item: "Development", freelancer: "£4,000", us: "£5,500" },
-      { item: "Support", freelancer: "£80/mo × 12 = £960", us: "£0" },
-      {
-        item: "Integrations (CRM, payment, delivery)",
-        freelancer: "£1,200",
-        us: "£0 (included)",
-      },
-      { item: "Bug fixes", freelancer: "£600", us: "£0" },
-      {
-        item: "Rescue project risk (25% for e-commerce)",
-        freelancer: "£4,000 × 0.25 = £1,000",
-        us: "£0",
-      },
-    ],
-    s2Total: { freelancer: "£11,760", us: "£5,500" },
-    s2Verdict: (
-      <>
-        Difference: freelancer is <strong>2.1× more expensive</strong> in year
-        one on a typical e-commerce build.
-      </>
-    ),
+    ...tcoTables("en"),
   },
   faq: {
     eyebrow: "/ 11 FAQ",
@@ -1269,7 +1324,7 @@ export const VS_FREELANCERS_EN: Content = {
     items: [
       {
         q: "I worked with a freelancer, they vanished. What now?",
-        a: "We start with a free 30-minute intro call: you tell us what is left. If it needs a closer look, the website audit is $150 — an hour on the code and the SEO, with the recording and a PDF. Then two options: rescue (keep what works) or a full rebuild. We'll tell you straight which is cheaper.",
+        a: "Send us the link and whatever access is left. The audit is free and comes within 24 hours: code, SEO, what works. Then two options: rescue (keep what works) or a full rebuild. We'll tell you straight which is cheaper.",
       },
       {
         q: "Can you finish what a freelancer abandoned?",
@@ -1281,7 +1336,7 @@ export const VS_FREELANCERS_EN: Content = {
       },
       {
         q: "What if your Tech Lead gets sick?",
-        a: "Project doesn't stop. Internal handoff in a day. Your SEO/PM/QA/copywriter stay the same, only the technical contact changes temporarily.",
+        a: "The project doesn't stop. Code, tasks and docs live in a shared repository; the developer and designer stay the same. The contract deadline doesn't move.",
       },
       {
         q: "Can I talk to a specific person on the team?",
@@ -1292,8 +1347,8 @@ export const VS_FREELANCERS_EN: Content = {
         a: "We sign a standard NDA before brief, free. If you have your own template, we'll sign that too.",
       },
       {
-        q: "Is the “12 people” figure including partners?",
-        a: "Yes. 4 in the in-house core (in the office), 8 in the vetted partner network we bring in by role. Honest: partners don't sit on your project 8 hours a day, but they own their slice end-to-end.",
+        q: "How many people are on the team?",
+        a: "Four: Fedir Alpatov — founder and tech lead, a designer, a developer, an editor. Specialists (backend, motion, illustration) are brought in per task. We work remotely.",
       },
       {
         q: "How many account managers do you have?",
@@ -1308,7 +1363,7 @@ export const VS_FREELANCERS_EN: Content = {
         Get an estimate <em>in 60 seconds.</em>
       </>
     ),
-    sub: "Calculator, no form, real price up front. Or let's talk for 30 minutes — explain the project, we'll tell you if we're a fit or if a freelancer is better.",
+    sub: "Calculator, no form, price up front. Or send us a link — free audit within 24 hours: we'll tell you if we're a fit or if a freelancer is better.",
     cards: [
       {
         icon: Calendar,
@@ -1330,7 +1385,7 @@ export const VS_FREELANCERS_EN: Content = {
       {
         icon: Mail,
         title: "Send a brief",
-        body: "Detailed form. Describe the project — we'll come back within 4 business hours.",
+        body: "Describe the project — we reply with a quote within 24 hours.",
         cta: "Fill out brief →",
         href: "/contacts",
       },

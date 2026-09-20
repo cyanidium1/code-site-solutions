@@ -13,7 +13,12 @@ import {
 } from "@/constants/i18n-routes";
 import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
-import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS, SERVICE_PAGE_LINKS } from "@/constants/nav";
+import {
+  HEADER_NAV_LINKS,
+  SERVICE_NAV_LINKS,
+  SERVICE_PAGE_LINKS,
+  servicePageLabelValues,
+} from "@/constants/nav";
 import { useLeadModal } from "@/components/blocks/lead-modal";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileMenu } from "./mobile-menu";
@@ -122,7 +127,7 @@ export function HpHeader() {
     (link) => locale === DEFAULT_LOCALE || LOCALIZED_ROOTS[locale].has(link.uaHref),
   ).map((link) => ({
     href: localizePath(link.uaHref, locale),
-    label: tPages(link.key),
+    label: tPages(link.key, servicePageLabelValues(link.key, locale)),
     key: link.key,
   }));
 

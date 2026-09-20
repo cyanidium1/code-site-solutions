@@ -148,7 +148,7 @@ export function organizationNode(): JsonLdNode {
       height: 512,
     },
     description:
-      "Бутик-студія з розробки кастомних сайтів для бізнесу. 50+ проєктів за 5 років у 7 країнах.",
+      "Студія кастомної веброзробки з Києва: сайти для малого бізнесу з фіксованою ціною і строком у договорі, код належить клієнту. Команда з 4 людей, 25+ проєктів у 4 країнах.",
     foundingDate: "2023",
     foundingLocation: {
       "@type": "Place",
@@ -160,7 +160,7 @@ export function organizationNode(): JsonLdNode {
     },
     numberOfEmployees: {
       "@type": "QuantitativeValue",
-      value: 12,
+      value: 4,
     },
     email: SITE_CONTACT.email,
     contactPoint: [

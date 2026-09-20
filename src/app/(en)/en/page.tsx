@@ -1,7 +1,4 @@
-import { buildAlternates } from "@/lib/shared/alternates";
-import type { Metadata } from "next";
 import { ValueStack } from "@/components/blocks/value-stack";
-import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
   HomeHero,
@@ -11,13 +8,15 @@ import {
   PainPoints,
   Process,
   Cases,
-  Stack,
   PullQuoteSwiper,
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { FounderNote, TrustStrip } from "@/components/homepage/founder-note";
+import { LeadFormCard, PackageCards, UspLine } from "@/components/blocks/packages";
+import { FounderNote } from "@/components/homepage/founder-note";
+import type { Metadata } from "next";
 import { OG_DEFAULT_IMAGE, ORG_ID, SITE_ORIGIN } from "@/constants/site";
+import { buildAlternates } from "@/lib/shared/alternates";
 import {
   buildJsonLd,
   buildReviewNodes,
@@ -26,24 +25,18 @@ import {
   websiteNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
+import { HOMEPAGE_EN as C } from "@/content/en/homepage";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
-import { EN_INDUSTRIES, EN_TIERS, buildEnHomepageFaq } from "@/content/en/homepage";
-import {
-  fetchPricingPlans,
-  toHomepagePlanOverride,
-  pricingRange,
-} from "@/lib/server/fetch-pricing-plans";
+import { Directions } from "@/components/homepage/directions";
 import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
-  title: "ᐈ Custom Website Development Studio | Code-Site.Art",
-  description:
-    "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+  title: { absolute: C.meta.title },
+  description: C.meta.description,
   alternates: buildAlternates({ locale: "en", uaPath: "/" }),
   openGraph: {
-    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
-    description:
-      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+    title: C.meta.title,
+    description: C.meta.description,
     type: "website",
     locale: "en_GB",
     url: `${SITE_ORIGIN}/en`,
@@ -51,28 +44,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
-    description:
-      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+    title: C.meta.title,
+    description: C.meta.description,
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
 
-const HOMEPAGE_EN_DESCRIPTION =
-  "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.";
-
 export default async function HomePageEn() {
-  const [cmsPlans, testimonialSlides] = await Promise.all([
-    fetchPricingPlans("en"),
-    fetchTestimonialSlides("en"),
-  ]);
-  const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : EN_TIERS;
-  const planOverride = toHomepagePlanOverride(cmsPlans);
-  const faqItems = buildEnHomepageFaq(planOverride);
-  const range = pricingRange(cmsPlans, "en");
+  const testimonialSlides = await fetchTestimonialSlides("en");
 
-  // Same slides feed the slider below — Google's "review visible on page"
-  // rule is satisfied. Slides missing rating or date are silently dropped.
+  // Reviews attach to the Organization — same slides feed the slider, so
+  // Google's "review visible on page" rule is satisfied. Slides missing
+  // rating or date are silently dropped by `buildReviewNodes`.
   const reviews = buildReviewNodes(
     testimonialSlides.map((s) => ({
       body: s.quote,
@@ -86,12 +69,12 @@ export default async function HomePageEn() {
 
   const jsonLd = buildJsonLd([
     organizationNode(),
-    websiteNode("en", HOMEPAGE_EN_DESCRIPTION),
+    websiteNode("en", C.meta.description),
     webPageNode({
       path: "/en",
       locale: "en",
-      title: "ᐈ Custom Website Development Studio | Code-Site.Art",
-      description: HOMEPAGE_EN_DESCRIPTION,
+      title: C.meta.title,
+      description: C.meta.description,
       speakableSelectors: [
         '[data-speakable="hero-title"]',
         '[data-speakable="hero-description"]',
@@ -105,138 +88,100 @@ export default async function HomePageEn() {
       <HpHeader />
 
       <main>
+      {/* TZ v2 §3.1: product + term + price in the H1, the lead form in the
+          first screen (right column from lg, straight under the proofs on
+          phones). */}
       <HomeHero
         h1Lines={[
-          <>Website development</>,
+          <>{C.hero.h1Line1}</>,
           <>
-            {/* `nowrap` keeps "in" off the start of the next line: balanced
-                wrapping otherwise set "THAT BRINGS" / "IN LEADS 24/7." */}
-            that <span className="whitespace-nowrap">brings in</span>{" "}
-            <em>leads 24/7.</em>
+            {C.hero.h1Line2Lead}
+            <em>{C.hero.h1Line2Em}</em>
           </>,
         ]}
-        lede={
-          <>
-            Sites of any complexity, turnkey in 4–10 weeks: design, build, SEO
-            and launch.
-          </>
-        }
-        features={[
-          { label: "Leads 24/7", sub: "Web forms + WhatsApp bridge" },
-          { label: "4–10 weeks", sub: "Brief to launch" },
-          { label: "1-year warranty", sub: "+ free support" },
-        ]}
-        ctaPrimaryLabel="Calculate the cost"
-        ctaPrimaryHref="/en/calculator"
-        ctaSecondaryLabel="Website or business audit"
-        ctaSecondaryHref="/en/contacts?source=hero-audit"
+        lede={C.hero.lede}
+        features={C.hero.features}
+        ctaPrimaryLabel={C.hero.ctaPrimary}
+        ctaPrimaryHref="#lead-form"
+        ctaSecondaryLabel={C.hero.ctaSecondary}
+        ctaSecondaryHref="#pricing"
+        ctaFootnote={C.hero.footnote}
         deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Custom business website mockup built by Code-Site.Art"
+        deviceMockupAlt={C.hero.mockupAlt}
+        aside={<LeadFormCard locale="en" source="home-hero" />}
       />
 
       {/* Cases right after the hero (owner, 2026-09-17): real sites are the
           strongest proof we have, so they come before any argument. The
           logo line follows as the reach claim. */}
       <Cases
-        eyebrow="CASES"
+        eyebrow={C.cases.eyebrow}
         heading={
           <>
-            50+ clients <em>ready to recommend us</em>
+            {C.cases.headingLead}
+            <em>{C.cases.headingEm}</em>
           </>
         }
+        ctaLabel={C.cases.ctaLabel}
+        ctaHref={C.cases.ctaHref}
         locale="en"
-        ctaLabel="All cases"
-        ctaHref="/en/portfolio"
+        // Owner brief: the international market sees the Copenhagen build first.
+        lead={["NBYG", "Grønt", "WebBond", "Domlivo", "Clarion", "Right Cars"]}
       />
+
+      {/* Owner brief: Søren Hansen (NBYG) near the top for the EU market. */}
+      <PullQuoteSwiper slides={testimonialSlides} />
 
       <Marquee />
 
       <PainPoints locale="en" />
-
       <ValueStack locale="en" />
 
       <section className={hpSectionClass} id="pricing">
         <div className={hpInnerClass}>
           <div className={hpSectionHeadClass}>
             <h2 className={hpH2Class}>
-              Transparent pricing — from <em>{range.min}</em>
+              {C.pricing.headingLead}
+              <em>{C.pricing.headingEm}</em>
             </h2>
-            <p className={hpSubClass}>
-              You see the price up front and lock it in before we start.
-            </p>
+            <p className={hpSubClass}>{C.pricing.sub}</p>
           </div>
-          <CmpPricingGrid>
-            {tiers.map((t, i) => (
-              <Tier key={i} {...t} compact />
-            ))}
-          </CmpPricingGrid>
-          <TrustStrip locale="en" />
+          <PackageCards locale="en" source="home-pricing" compact />
+          <UspLine locale="en" className="mt-6 text-center lg:mt-8" />
         </div>
       </section>
 
       <Industries
         heading={
           <>
-            Built for <em>your industry.</em>
+            {C.industries.headingLead}
+            <em>{C.industries.headingEm}</em>
           </>
         }
-        sub="A full solution with the integrations and compliance your sector expects."
-        items={EN_INDUSTRIES}
+        sub={C.industries.sub}
+        locale="en"
       />
-
       <Process
-        eyebrow="PROCESS · 4-10 WEEKS"
         heading={
           <>
-            Build. Launch. Grow.
+            {C.process.headingLead}
             <br />
-            <em>Without six months of meetings.</em>
+            <em>{C.process.headingEm}</em>
           </>
         }
-        sub={
-          <>
-            Fixed scope. Fixed timeline. Fixed price.{" "}
-            <span className="text-ink-3">You know up front what you’ll get, when, and for how much.</span>
-          </>
-        }
-        steps={[
-          { n: "01", name: "Brief", duration: "1 day", items: ["Business goals", "Structure", "Competitor analysis"] },
-          { n: "02", name: "Architecture", duration: "1–2 weeks", items: ["Pages", "Funnels", "SEO structure"] },
-          { n: "03", name: "Design & development", duration: "2–6 weeks", items: ["UI", "CMS setup", "Integrations"] },
-          { n: "04", name: "Testing", duration: "~1 week", items: ["QA", "Analytics", "Redirects"] },
-          { n: "05", name: "Launch & support", duration: "1-year support", items: ["Monitoring", "1-year warranty", "Ongoing growth"] },
-        ]}
-        ctaLabel="Full process"
-        ctaHref="/en/process"
+        sub={C.process.sub}
+        steps={C.process.steps}
+        note={C.process.shopLine}
+        ctaLabel={C.process.ctaLabel}
+        ctaHref={C.process.ctaHref}
+        moreLabel={C.process.moreLabel}
       />
-
-      <PullQuoteSwiper slides={testimonialSlides} />
 
       <FounderNote locale="en" />
 
-      <Stack
-        eyebrow="STACK"
-        heading={
-          <>
-            Tools <em>we use.</em>
-          </>
-        }
-        sub="We don't chase trends. We work with 10 tools we know inside out."
-        items={[
-          { name: "Next.js", cat: "Framework" },
-          { name: "Astro", cat: "Static sites" },
-          { name: "React", cat: "UI library" },
-          { name: "TypeScript", cat: "Language" },
-          { name: "Tailwind", cat: "Styling" },
-          { name: "HeroUI", cat: "Components" },
-          { name: "Sanity", cat: "CMS" },
-          { name: "Strapi", cat: "Headless CMS" },
-          { name: "Vercel", cat: "Hosting" },
-          { name: "Cloudflare", cat: "CDN + DNS" },
-        ]}
-      />
+      <Directions {...C.directions} />
 
-      <FAQ heading="Questions that come up before you start" items={faqItems} locale="en" />
+      <FAQ heading={C.faqHeading} items={C.faq} locale="en" />
       <LaunchCta locale="en" />
       </main>
       <HpFooter />

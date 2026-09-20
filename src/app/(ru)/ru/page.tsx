@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
 import { ValueStack } from "@/components/blocks/value-stack";
-import { Tier, CmpPricingGrid } from "@/components/blocks/comparison";
 import { FAQ } from "@/components/blocks/final";
 import {
   HomeHero,
@@ -14,8 +12,11 @@ import {
   HpFooter,
 } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { FounderNote, TrustStrip } from "@/components/homepage/founder-note";
+import { LeadFormCard, PackageCards, UspLine } from "@/components/blocks/packages";
+import { FounderNote } from "@/components/homepage/founder-note";
+import type { Metadata } from "next";
 import { OG_DEFAULT_IMAGE, ORG_ID, SITE_ORIGIN } from "@/constants/site";
+import { buildAlternates } from "@/lib/shared/alternates";
 import {
   buildJsonLd,
   buildReviewNodes,
@@ -24,26 +25,18 @@ import {
   websiteNode,
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
-import { buildAlternates } from "@/lib/shared/alternates";
-import { RU_INDUSTRIES, RU_TIERS, buildRuHomepageFaq } from "@/content/ru/homepage";
-import {
-  fetchPricingPlans,
-  toHomepagePlanOverride,
-  pricingRange,
-} from "@/lib/server/fetch-pricing-plans";
+import { HOMEPAGE_RU as C } from "@/content/ru/homepage";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
+import { Directions } from "@/components/homepage/directions";
 import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
-const HOMEPAGE_RU_DESCRIPTION =
-  "➤ Кастомные сайты под ключ для бизнеса и стартапов ✔️ Фикс-цена от $800 ✔️ Next.js + Sanity ✔️ Запуск за 4–10 недель ✔️ Гарантия 1 год ➤ Закажите бесплатный звонок.";
-
 export const metadata: Metadata = {
-  title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
-  description: HOMEPAGE_RU_DESCRIPTION,
+  title: { absolute: C.meta.title },
+  description: C.meta.description,
   alternates: buildAlternates({ locale: "ru", uaPath: "/" }),
   openGraph: {
-    title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
-    description: HOMEPAGE_RU_DESCRIPTION,
+    title: C.meta.title,
+    description: C.meta.description,
     type: "website",
     locale: "ru_UA",
     url: `${SITE_ORIGIN}/ru`,
@@ -51,24 +44,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
-    description: HOMEPAGE_RU_DESCRIPTION,
+    title: C.meta.title,
+    description: C.meta.description,
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
 
 export default async function HomePageRu() {
-  const [cmsPlans, testimonialSlides] = await Promise.all([
-    fetchPricingPlans("ru"),
-    fetchTestimonialSlides("ru"),
-  ]);
-  const tiers = cmsPlans.length ? cmsPlans.map((p) => p.tier) : RU_TIERS;
-  const planOverride = toHomepagePlanOverride(cmsPlans);
-  const faqItems = buildRuHomepageFaq(planOverride);
-  const range = pricingRange(cmsPlans, "ru");
+  const testimonialSlides = await fetchTestimonialSlides("ru");
 
-  // Same slides feed the slider below — Google's "review visible on page"
-  // rule is satisfied. Slides missing rating or date are silently dropped.
+  // Reviews attach to the Organization — same slides feed the slider, so
+  // Google's "review visible on page" rule is satisfied. Slides missing
+  // rating or date are silently dropped by `buildReviewNodes`.
   const reviews = buildReviewNodes(
     testimonialSlides.map((s) => ({
       body: s.quote,
@@ -82,12 +69,12 @@ export default async function HomePageRu() {
 
   const jsonLd = buildJsonLd([
     organizationNode(),
-    websiteNode("ru", HOMEPAGE_RU_DESCRIPTION),
+    websiteNode("ru", C.meta.description),
     webPageNode({
       path: "/ru",
       locale: "ru",
-      title: "ᐈ Веб-студия Code-Site.Art — заказать сайт от $800",
-      description: HOMEPAGE_RU_DESCRIPTION,
+      title: C.meta.title,
+      description: C.meta.description,
       speakableSelectors: [
         '[data-speakable="hero-title"]',
         '[data-speakable="hero-description"]',
@@ -101,45 +88,43 @@ export default async function HomePageRu() {
       <HpHeader />
 
       <main>
+      {/* TZ v2 §3.1: product + term + price in the H1, the lead form in the
+          first screen (right column from lg, straight under the proofs on
+          phones). */}
       <HomeHero
         h1Lines={[
-          <>Разработка сайтов,</>,
+          <>{C.hero.h1Line1}</>,
           <>
-            которые приводят <em>заявки 24/7.</em>
+            {C.hero.h1Line2Lead}
+            <em>{C.hero.h1Line2Em}</em>
           </>,
         ]}
-        lede={
-          <>
-            Сайты любой сложности под ключ за 4–10 недель: дизайн, разработка,
-            SEO и запуск.
-          </>
-        }
-        features={[
-          { label: "Заявки 24/7", sub: "Онлайн-формы + Telegram-мост" },
-          { label: "4–10 недель", sub: "От брифа до запуска" },
-          { label: "Гарантия 1 год", sub: "+ бесплатная поддержка" },
-        ]}
-        ctaPrimaryLabel="Обсудить проект"
-        ctaPrimaryHref="/ru/contacts"
-        ctaSecondaryLabel="Аудит сайта или бизнеса"
-        ctaSecondaryHref="/ru/audit"
+        lede={C.hero.lede}
+        features={C.hero.features}
+        ctaPrimaryLabel={C.hero.ctaPrimary}
+        ctaPrimaryHref="#lead-form"
+        ctaSecondaryLabel={C.hero.ctaSecondary}
+        ctaSecondaryHref="#pricing"
+        ctaFootnote={C.hero.footnote}
         deviceMockupSrc="/hero/hero-mockup.webp"
-        deviceMockupAlt="Пример сайта для бизнеса, созданного Code-Site.Art"
+        deviceMockupAlt={C.hero.mockupAlt}
+        aside={<LeadFormCard locale="ru" source="home-hero" />}
       />
 
       {/* Cases right after the hero (owner, 2026-09-17): real sites are the
           strongest proof we have, so they come before any argument. The
           logo line follows as the reach claim. */}
       <Cases
-        eyebrow="КЕЙСЫ"
+        eyebrow={C.cases.eyebrow}
         heading={
           <>
-            50+ клиентов <em>готовы нас рекомендовать</em>
+            {C.cases.headingLead}
+            <em>{C.cases.headingEm}</em>
           </>
         }
+        ctaLabel={C.cases.ctaLabel}
+        ctaHref={C.cases.ctaHref}
         locale="ru"
-        ctaLabel="Все кейсы"
-        ctaHref="/ru/portfolio"
       />
 
       <Marquee />
@@ -151,60 +136,49 @@ export default async function HomePageRu() {
         <div className={hpInnerClass}>
           <div className={hpSectionHeadClass}>
             <h2 className={hpH2Class}>
-              Прозрачный прайс — от <em>{range.min}</em>
+              {C.pricing.headingLead}
+              <em>{C.pricing.headingEm}</em>
             </h2>
-            <p className={hpSubClass}>Вы видите цену заранее и фиксируете её до старта работ.</p>
+            <p className={hpSubClass}>{C.pricing.sub}</p>
           </div>
-          <CmpPricingGrid>
-            {tiers.map((t, i) => (
-              <Tier key={i} {...t} compact />
-            ))}
-          </CmpPricingGrid>
-          <TrustStrip locale="ru" />
+          <PackageCards locale="ru" source="home-pricing" compact />
+          <UspLine locale="ru" className="mt-6 text-center lg:mt-8" />
         </div>
       </section>
 
       <Industries
         heading={
           <>
-            Решения для <em>вашей отрасли.</em>
+            {C.industries.headingLead}
+            <em>{C.industries.headingEm}</em>
           </>
         }
-        sub="Полное решение с интеграциями и compliance, которых ждёт ваш сектор."
-        items={RU_INDUSTRIES}
+        sub={C.industries.sub}
+        locale="ru"
       />
-
       <Process
-        eyebrow="ПРОЦЕСС · 4-10 НЕДЕЛЬ"
         heading={
           <>
-            Построить. Запустить. Расти.
+            {C.process.headingLead}
             <br />
-            <em>Без шести месяцев совещаний.</em>
+            <em>{C.process.headingEm}</em>
           </>
         }
-        sub={
-          <>
-            Фиксированный объём. Фиксированный срок. Фиксированная цена.{" "}
-            <span className="text-ink-3">Вы заранее знаете, что получите, когда и за сколько.</span>
-          </>
-        }
-        steps={[
-          { n: "01", name: "Бриф", duration: "1 день", items: ["Цели бизнеса", "Структура", "Анализ конкурентов"] },
-          { n: "02", name: "Архитектура", duration: "1–2 недели", items: ["Страницы", "Воронки", "SEO-структура"] },
-          { n: "03", name: "Дизайн и разработка", duration: "2–6 недель", items: ["UI", "Настройка CMS", "Интеграции"] },
-          { n: "04", name: "Тестирование", duration: "~1 неделя", items: ["QA", "Аналитика", "Редиректы"] },
-          { n: "05", name: "Запуск и поддержка", duration: "год поддержки", items: ["Мониторинг", "Гарантия 1 год", "Постоянный рост"] },
-        ]}
-        ctaLabel="Весь процесс"
-        ctaHref="/ru/process"
+        sub={C.process.sub}
+        steps={C.process.steps}
+        note={C.process.shopLine}
+        ctaLabel={C.process.ctaLabel}
+        ctaHref={C.process.ctaHref}
+        moreLabel={C.process.moreLabel}
       />
 
       <PullQuoteSwiper slides={testimonialSlides} />
 
       <FounderNote locale="ru" />
 
-      <FAQ heading="Вопросы, которые возникают перед стартом" items={faqItems} locale="ru" />
+      <Directions {...C.directions} />
+
+      <FAQ heading={C.faqHeading} items={C.faq} locale="ru" />
       <LaunchCta locale="ru" />
       </main>
       <HpFooter />

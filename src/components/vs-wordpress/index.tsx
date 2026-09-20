@@ -1,5 +1,6 @@
 import type { Locale } from "@/constants/locales";
 import { VS_FAQ_HEADING } from "@/content/comparisons/vs-shared";
+import { UspLine } from "@/components/blocks/packages";
 import { ArrowRight, CheckCircle2, XCircle } from "lucide-react";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { LaunchCta } from "@/components/blocks/launch-cta";
@@ -472,7 +473,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               <Tier key={i} {...t} compact />
             ))}
           </CmpPricingGrid>
-          <p className="mt-7 text-center text-[13px] text-ink-3 max-w-[64ch] mx-auto">
+          <UspLine locale={locale} className="mt-7" />
+          <p className="mt-4 text-center text-[13px] text-ink-3 max-w-[64ch] mx-auto">
             {c.pricing.foot}
           </p>
         </div>

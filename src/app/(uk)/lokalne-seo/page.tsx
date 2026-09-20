@@ -6,6 +6,7 @@ import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import { buildJsonLd, breadcrumbNode, webPageNode } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
+import { servicePrice } from "@/constants/pricing";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { LOCAL_SEO_UK as CONTENT } from "@/content/uk/local-seo";
 
@@ -54,14 +55,14 @@ const jsonLd = buildJsonLd([
       {
         "@type": "Offer",
         name: "Кампанія локального SEO (місяць)",
-        price: "300",
+        price: String(servicePrice("seoServicesFrom", "uk")),
         priceCurrency: "USD",
         url: URL,
       },
       {
         "@type": "Offer",
-        name: "Разовий аудит гео-структури",
-        price: "300",
+        name: "Аудит сайту перед стартом (безкоштовно)",
+        price: "0",
         priceCurrency: "USD",
         url: URL,
       },

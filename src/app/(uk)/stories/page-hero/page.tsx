@@ -1,3 +1,4 @@
+import { formatPackagePrice } from "@/constants/pricing";
 import { PageHero } from "@/components/blocks/page-hero";
 
 export const metadata = { title: "Story · page-hero" };
@@ -16,7 +17,7 @@ export default function PageHeroStory() {
             Невелика команда сильних сеньйорів. Без <em>корпоративної</em> шкарлупи.
           </>
         }
-        sub="Code-Site.Art — бутик-студія з Києва. Робимо custom-coded сайти для бізнесу з 2023 року. Команда в Україні, проєкти в Україні, ЄС, США, Данії."
+        sub="Code-Site.Art — студія з Києва. Робимо custom-coded сайти для бізнесу з 2023 року. Команда в Україні, проєкти в Україні, ЄС, США, Данії."
       />
 
       <hr className="m-0 border-0 border-t border-dashed border-line" />
@@ -29,7 +30,7 @@ export default function PageHeroStory() {
         eyebrow="ЦІНИ"
         headline={
           <>
-            Прозорий прайс — від <em>$800</em> до <em>$6 000+</em>
+            Фікс-ціна — <em>{formatPackagePrice("landing", "uk")}</em>, <em>{formatPackagePrice("business", "uk")}</em>, <em>{formatPackagePrice("shop", "uk")}</em>
           </>
         }
         sub="Без «під запит». Без прихованих платежів. 3 пакети під різні потреби — від лендингу до enterprise-сайту."

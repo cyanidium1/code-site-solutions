@@ -26,26 +26,26 @@ const CHROME = {
   uk: {
     briefHeading: (
       <>
-        Або надішліть <em>бриф</em>
+        Безкоштовний прорахунок <em>за 24 години</em>
       </>
     ),
-    briefToggle: "Або надішліть бриф — 4 поля",
+    briefToggle: "Безкоштовний прорахунок за 24 години",
   },
   en: {
     briefHeading: (
       <>
-        Or send a <em>brief</em>
+        Free quote <em>within 24 hours</em>
       </>
     ),
-    briefToggle: "Or send a brief — 4 fields",
+    briefToggle: "Free quote within 24 hours",
   },
   ru: {
     briefHeading: (
       <>
-        Или отправьте <em>бриф</em>
+        Бесплатный расчет <em>за 24 часа</em>
       </>
     ),
-    briefToggle: "Или отправьте бриф — 4 поля",
+    briefToggle: "Бесплатный расчет за 24 часа",
   },
 } as const;
 

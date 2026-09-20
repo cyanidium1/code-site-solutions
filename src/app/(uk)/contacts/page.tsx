@@ -4,6 +4,7 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
+import { formatPackagePrice } from "@/constants/pricing";
 import { OG_DEFAULT_IMAGE, ORG_ID } from "@/constants/site";
 import {
   buildJsonLd,
@@ -14,15 +15,17 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 
+const META_TITLE = "Безкоштовний прорахунок за 24 години | Code-Site.Art";
+const META_DESCRIPTION =
+  "Безкоштовний прорахунок сайту за 24 години: пакет, фіксована ціна і строк. Форма, Telegram, WhatsApp або email. Пн–Пт 09:00–19:00, Київ.";
+
 export const metadata: Metadata = {
-  title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
-  description:
-    "➤ Безкоштовний 30-хв дзвінок-знайомство ✔️ Відповідь за 24 години ✔️ Стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
+  title: META_TITLE,
+  description: META_DESCRIPTION,
   alternates: buildAlternates({ locale: "uk", uaPath: "/contacts" }),
   openGraph: {
-    title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
-    description:
-      "➤ Безкоштовний 30-хв дзвінок-знайомство ✔️ Відповідь за 24 години ✔️ Стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     type: "website",
     locale: "uk_UA",
     url: "/contacts",
@@ -30,9 +33,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
-    description:
-      "➤ Безкоштовний 30-хв дзвінок-знайомство ✔️ Відповідь за 24 години ✔️ Стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
@@ -41,33 +43,37 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
   {
     q: "Як швидко ви відповідаєте?",
     a: [
-      "Telegram (",
-      { em: "@fedirdev" },
-      "): 30 хв в робочий час, до 2-4 годин у вихідні. Email (hi@code-site.art): 1-2 робочі години.",
+      "Протягом ",
+      { em: "24 годин" },
+      " у робочий час (Пн–Пт, 09:00–19:00 за Києвом). У відповіді — пакет, фіксована ціна і строк.",
     ],
   },
   {
-    q: "Що буде на 30-хв дзвінку?",
+    q: "Що буде після заявки?",
     a: [
-      "Слухаємо вашу задачу 15-20 хв. Показуємо 1-2 релевантні кейси. Озвучуємо ",
-      { em: "вилку ціни" },
-      " і термін. Без презентацій і pitch-deck — просто розмова.",
+      "Уточнимо задачу там, де вам зручно: Telegram, пошта або дзвінок. Назвемо ",
+      { em: "ціну і строк" },
+      ", які впишемо в договір. Без презентацій і без зобов'язань.",
     ],
   },
   {
     q: "Я не визначився з пакетом — що писати у формі?",
     a: [
-      "Поставте «",
-      { em: "Не визначився" },
-      "» і опишіть задачу простими словами. На дзвінку розберемось — Лендінг / Корпоративний сайт / Кастомну платформу підбираємо ми, не клієнт.",
+      "Оберіть «Не знаю, потрібна консультація» і опишіть задачу простими словами. Пакет підберемо ми: лендінг — ",
+      { em: formatPackagePrice("landing", "uk") },
+      ", сайт для бізнесу — ",
+      { em: formatPackagePrice("business", "uk") },
+      ", інтернет-магазин — ",
+      { em: formatPackagePrice("shop", "uk") },
+      ".",
     ],
   },
   {
     q: "Я з-за кордону, ви працюєте?",
     a: [
-      "Так. Активно працюємо з ",
-      { em: "UA, EU, US, DK" },
-      ". Платежі через Stripe (USD/EUR), USDT, або bank transfer на ФОП. Договір англійською або українською — на ваш вибір.",
+      "Так. Серед клієнтів — компанії з ",
+      { em: "Данії, ПАР і Албанії" },
+      ". Оплата через Stripe (USD/EUR), USDT або переказ на ФОП. Договір англійською або українською — на ваш вибір.",
     ],
   },
   {
@@ -75,7 +81,7 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
     a: [
       "Так, надсилайте свій або наш шаблон. Стандартне ",
       { em: "NDA" },
-      " підписуємо за 1 робочий день. Більшість клієнтів NDA не підписують — кейси публічні в портфоліо.",
+      " підписуємо за 1 робочий день. Більшість кейсів і так публічні в портфоліо.",
     ],
   },
 ];
@@ -84,9 +90,8 @@ const jsonLd = buildJsonLd([
   webPageNode({
     path: "/contacts",
     locale: "uk",
-    title: "ᐈ Почати проєкт | Контакти веб-студії Code-Site.Art",
-    description:
-      "➤ Безкоштовний 30-хв дзвінок-знайомство ✔️ Відповідь за 24 години ✔️ Стратегічний дзвінок ✔️ Фіксований кошторис ➡ Email, Telegram або дзвінок — відповідаємо швидко.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     type: "ContactPage",
     extra: { about: { "@id": ORG_ID } },
   }),
@@ -119,17 +124,14 @@ export default function ContactsPage() {
           { label: "Контакти" },
         ]}
         eyebrow="/ КОНТАКТИ"
-        headline={
-          <>
-            Обговоримо ваш проєкт?
-          </>
-        }
+        headline={<>Безкоштовний прорахунок сайту за 24 години</>}
       />
 
-      <ContactSplit source="contacts" variant="compact" foldBrief={false} />
+      {/* The site-wide LeadForm (TZ §5) lives inside ContactSplit. */}
+      <ContactSplit source="contacts" variant="compact" foldBrief={false} locale="uk" />
 
       <section className="bg-bg">
-        <FAQ heading="Часто запитують перед заявкою" items={CONTACTS_FAQ} />
+        <FAQ heading="Часто запитують перед заявкою" items={CONTACTS_FAQ} locale="uk" />
       </section>
 
       <HpFooter />

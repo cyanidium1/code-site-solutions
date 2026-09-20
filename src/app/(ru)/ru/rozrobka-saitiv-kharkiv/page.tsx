@@ -1,0 +1,35 @@
+import type { Metadata } from "next";
+
+import { MoneyPageView } from "@/components/money-page";
+import { HpHeader, HpFooter } from "@/components/homepage";
+import { JsonLd } from "@/components/shared/json-ld";
+import { buildCityJsonLd, buildCityMetadata } from "@/lib/shared/city-page";
+import { CITY_KHARKIV_RU as CONTENT } from "@/content/ru/cities/kharkiv";
+
+const UA_PATH = "/rozrobka-saitiv-kharkiv";
+
+export const metadata: Metadata = buildCityMetadata({
+  content: CONTENT,
+  uaPath: UA_PATH,
+  locale: "ru",
+});
+
+const jsonLd = buildCityJsonLd({
+  content: CONTENT,
+  uaPath: UA_PATH,
+  locale: "ru",
+  cityName: "Харьков",
+  parentLabel: "Разработка сайтов",
+  serviceName: "Разработка сайтов в Харькове",
+});
+
+export default function CityKharkivRuPage() {
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <HpHeader />
+      <MoneyPageView locale="ru" content={CONTENT} source="city-page-kharkiv-ru" />
+      <HpFooter />
+    </>
+  );
+}

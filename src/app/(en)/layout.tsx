@@ -7,6 +7,7 @@ import enMessages from "../../../messages/en.json";
 
 import { Providers } from "../providers";
 import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
+import { HOMEPAGE_EN } from "@/content/en/homepage";
 import { LOCALE_CONFIG } from "@/constants/locales";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { getContentRegistrySafe, toWire } from "@/lib/server/i18n-registry";
@@ -40,15 +41,13 @@ const actay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ᐈ Custom Website Development Studio | Code-Site.Art",
-  description:
-    "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+  title: HOMEPAGE_EN.meta.title,
+  description: HOMEPAGE_EN.meta.description,
   metadataBase: new URL(SITE_ORIGIN),
   alternates: buildAlternates({ locale: "en", uaPath: "/" }),
   openGraph: {
-    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
-    description:
-      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+    title: HOMEPAGE_EN.meta.title,
+    description: HOMEPAGE_EN.meta.description,
     type: "website",
     locale: LOCALE_CONFIG.en.ogLocale,
     url: `${SITE_ORIGIN}/en`,
@@ -56,9 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Custom Website Development Studio | Code-Site.Art",
-    description:
-      "➤ Custom-coded websites for UK SMBs & startups ✔️ Fixed price from £800 ✔️ Next.js + Sanity ✔️ Delivered in 4–10 weeks ✔️ 1-year warranty ➤ Book a free call today.",
+    title: HOMEPAGE_EN.meta.title,
+    description: HOMEPAGE_EN.meta.description,
     images: [OG_DEFAULT_IMAGE.url],
   },
 };

@@ -86,7 +86,7 @@ const CHANNELS_UK: readonly Channel[] = [
     label: "Email",
     handle: SITE_CONTACT.email,
     href: `mailto:${SITE_CONTACT.email}?subject=${encodeURIComponent(EMAIL_SUBJECT_UK)}`,
-    responseTime: "1-2 робочі години",
+    responseTime: "протягом 24 годин",
   },
   {
     kind: "instagram",
@@ -157,7 +157,7 @@ const CHANNELS_EN: readonly Channel[] = [
     label: "Email",
     handle: SITE_CONTACT.email,
     href: `mailto:${SITE_CONTACT.email}?subject=${encodeURIComponent(EMAIL_SUBJECT_EN)}`,
-    responseTime: "within 1-2 business hours",
+    responseTime: "within 24 hours",
   },
   {
     kind: "instagram",
@@ -228,7 +228,7 @@ const CHANNELS_RU: readonly Channel[] = [
     label: "Email",
     handle: SITE_CONTACT.email,
     href: `mailto:${SITE_CONTACT.email}?subject=${encodeURIComponent(EMAIL_SUBJECT_RU)}`,
-    responseTime: "1-2 рабочих часа",
+    responseTime: "в течение 24 часов",
   },
   {
     kind: "instagram",
@@ -268,17 +268,17 @@ export type ContactMeta = {
 export const CONTACT_META_BY_LOCALE: Record<ContactsLocale, ContactMeta> = {
   uk: {
     city: "Київ",
-    hours: "Пн-Пт 09:00-19:00 EET",
+    hours: "Пн-Пт 09:00-19:00 EET · відповідь за 24 години",
     languages: "UA · RU · EN",
   },
   en: {
     city: "Kyiv",
-    hours: "Mon-Fri 09:00-19:00 EET",
+    hours: "Mon-Fri 09:00-19:00 EET · reply within 24 hours",
     languages: "UA · RU · EN",
   },
   ru: {
     city: "Киев",
-    hours: "Пн-Пт 09:00-19:00 EET",
+    hours: "Пн-Пт 09:00-19:00 EET · ответ за 24 часа",
     languages: "UA · RU · EN",
   },
 };

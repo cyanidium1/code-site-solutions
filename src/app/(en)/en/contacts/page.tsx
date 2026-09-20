@@ -4,6 +4,7 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
+import { formatPackagePrice } from "@/constants/pricing";
 import { OG_DEFAULT_IMAGE, ORG_ID } from "@/constants/site";
 import {
   buildJsonLd,
@@ -14,15 +15,17 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 
+const META_TITLE = "Contact us — free quote within 24 hours | Code-Site.Art";
+const META_DESCRIPTION =
+  "A free website quote within 24 hours: package, fixed price and timeline. Use the form, Telegram, WhatsApp or email. Mon–Fri 09:00–19:00 EET.";
+
 export const metadata: Metadata = {
-  title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
-  description:
-    "➤ Book a free 30-min intro call ✔️ No lengthy briefs ✔️ Reply within 24 hours ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+  title: META_TITLE,
+  description: META_DESCRIPTION,
   alternates: buildAlternates({ locale: "en", uaPath: "/contacts" }),
   openGraph: {
-    title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
-    description:
-      "➤ Book a free 30-min intro call ✔️ No lengthy briefs ✔️ Reply within 24 hours ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     type: "website",
     locale: "en_GB",
     url: "/en/contacts",
@@ -30,9 +33,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
-    description:
-      "➤ Book a free 30-min intro call ✔️ No lengthy briefs ✔️ Reply within 24 hours ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
@@ -41,39 +43,45 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
   {
     q: "How fast do you reply?",
     a: [
-      "WhatsApp: within 30 minutes (business hours). Email: 1-2 business hours. Brief form: 4 business hours.",
+      "Within ",
+      { em: "24 hours" },
+      " on business days (Mon–Fri, 09:00–19:00 EET). The reply includes the package, a fixed price and the timeline.",
     ],
   },
   {
-    q: "What happens on the 30-min call?",
+    q: "What happens after I send the form?",
     a: [
-      "You tell us about the project. We ask 5-7 clarifying questions. We give you a ",
-      { em: "price range" },
-      " and timeline. Total: 30 minutes. No pitching.",
+      "We clarify the task wherever suits you: Telegram, email or a call. Then we name ",
+      { em: "the price and the timeline" },
+      " that go into the contract. No sales decks, no obligation.",
     ],
   },
   {
-    q: "I haven't decided on a tier — what do I write in the form?",
+    q: "I haven't picked a package. What do I write?",
     a: [
-      "Write \"",
-      { em: "I don't know yet" },
-      ".\" We'll ask the questions that matter on the call and recommend a tier. Landing / Corporate Website / Custom Platform is our call, not yours.",
+      "Choose “Not sure — I need advice” and describe the task in plain words. We pick the package: a landing page is ",
+      { em: formatPackagePrice("landing", "en") },
+      ", a business website ",
+      { em: formatPackagePrice("business", "en") },
+      ", an online store ",
+      { em: formatPackagePrice("shop", "en") },
+      ".",
     ],
   },
   {
-    q: "I'm abroad — do you work with international clients?",
+    q: "I'm outside Ukraine. Do you work with me?",
     a: [
-      "Yes. Half our work is outside Ukraine, active across ",
-      { em: "UA, EU, US, DK" },
-      ". Payments via Stripe (USD/EUR), USDT, or bank transfer. Contract in English or Ukrainian, your choice.",
+      "Yes. Clients include companies in ",
+      { em: "Denmark, South Africa and Albania" },
+      ". Prices in EUR. Invoices in EUR, USD or GBP on request. Contract in English.",
     ],
   },
   {
-    q: "What if I want to sign an NDA before you show cases?",
+    q: "Can we sign an NDA before you show cases?",
     a: [
-      "Standard. We have a one-page ",
+      "Yes, send yours or use our template. A standard ",
       { em: "NDA" },
-      " template, signable via Diia.Sign or DocuSign in 1 business day. Most clients don't ask, since cases are public in the portfolio.",
+      " is signed within 1 business day. Most of our cases are public in the portfolio anyway.",
     ],
   },
 ];
@@ -82,9 +90,8 @@ const jsonLd = buildJsonLd([
   webPageNode({
     path: "/en/contacts",
     locale: "en",
-    title: "ᐈ Start a Project | Contact Code-Site.Art Web Studio",
-    description:
-      "➤ Book a free 30-min intro call ✔️ No lengthy briefs ✔️ Reply within 24 hours ✔️ Fixed price quote ➡ Email, WhatsApp or book a call — we reply fast.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     type: "ContactPage",
     extra: { about: { "@id": ORG_ID } },
   }),
@@ -117,21 +124,14 @@ export default function EnContactsPage() {
           { label: "Contact" },
         ]}
         eyebrow="CONTACT"
-        headline={
-          <>
-            Want to discuss your project?
-          </>
-        }
+        headline={<>Free website quote within 24 hours</>}
       />
 
+      {/* The site-wide LeadForm (TZ §5) lives inside ContactSplit. */}
       <ContactSplit source="contacts" variant="compact" foldBrief={false} locale="en" />
 
       <section className="bg-bg">
-        <FAQ
-          heading="Common questions before inquiring"
-          items={CONTACTS_FAQ}
-          locale="en"
-        />
+        <FAQ heading="Before you get in touch" items={CONTACTS_FAQ} locale="en" />
       </section>
 
       <HpFooter />

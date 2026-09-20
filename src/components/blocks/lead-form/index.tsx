@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Formik, Form, Field, useFormikContext, type FieldProps } from "formik";
@@ -132,6 +132,8 @@ function LeadFormInner({
   );
   // The comment is the only optional free-text field; compact forms fold it.
   const [showDetails, setShowDetails] = useState<boolean>(!isCompact);
+  // Unique per instance: a page can carry two forms (hero + bottom).
+  const detailsId = useId();
 
   if (status === "success") {
     return (
@@ -321,7 +323,7 @@ function LeadFormInner({
               className={TOGGLE_CLASS}
               onClick={() => setShowDetails((v) => !v)}
               aria-expanded={showDetails}
-              aria-controls="lead-form-details"
+              aria-controls={detailsId}
             >
               <ChevronDown
                 size={14}
@@ -339,7 +341,7 @@ function LeadFormInner({
           )}
 
           {!isDemo && showDetails && (
-            <div id="lead-form-details">
+            <div id={detailsId}>
               <Field name="description">
                 {({ field }: FieldProps) => (
                   <Textarea

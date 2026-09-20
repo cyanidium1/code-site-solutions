@@ -1,5 +1,11 @@
 import { SITE_ORIGIN } from "@/constants/site";
-import { LOCALIZED_ROOTS, localizePath } from "@/constants/i18n-routes";
+import { BLOG_TO_CITY_PAGE } from "@/constants/city-blog-redirects";
+import {
+  CROSS_SLUG_PAGES,
+  LOCALIZED_ROOTS,
+  RETIRED_INDUSTRY_SLUGS,
+  localizePath,
+} from "@/constants/i18n-routes";
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -66,6 +72,7 @@ const STATIC_ROUTES: {
   { path: "/rozrobka-saitiv-kyiv", changeFrequency: "monthly", priority: 0.8 },
   { path: "/rozrobka-saitiv-odesa", changeFrequency: "monthly", priority: 0.8 },
   { path: "/rozrobka-saitiv-dnipro", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/rozrobka-saitiv-kharkiv", changeFrequency: "monthly", priority: 0.8 },
   { path: "/redesign", changeFrequency: "monthly", priority: 0.8 },
   {
     path: "/sites-for/medicine/stomatolohiia",
@@ -186,7 +193,20 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
     });
   }
 
+  for (const [uaPath, paths] of Object.entries(CROSS_SLUG_PAGES)) {
+    const localized: Partial<Record<SecondaryLocale, string>> = {};
+    for (const l of SECONDARY_LOCALES) {
+      const p = paths[l];
+      if (p) localized[l] = `${SITE_ORIGIN}${p}`;
+    }
+    push(absUrl(uaPath, DEFAULT_LOCALE), localized, {
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
+  }
+
   for (const p of industryPages) {
+    if (RETIRED_INDUSTRY_SLUGS.has(p.slug)) continue;
     const uaPath = `/sites-for/${p.slug}`;
     const localized: Partial<Record<SecondaryLocale, string>> = {};
     for (const l of SECONDARY_LOCALES) {
@@ -214,6 +234,7 @@ export function buildEntries(input: BuildEntriesInput): SitemapEntries {
 
   for (const p of blogPosts) {
     const uaSlug = p.slugs?.[DEFAULT_LOCALE]?.current;
+    if (uaSlug && BLOG_TO_CITY_PAGE[uaSlug]) continue; // 301s to a city page
     const modifiedIso = p._updatedAt ?? p.publishedAt;
     const modified = modifiedIso ? new Date(modifiedIso) : undefined;
     if (!uaSlug) {

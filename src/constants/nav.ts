@@ -13,10 +13,13 @@
  * you add a route that only exists in UA, gate it on `LOCALIZED_ROOTS`
  * in `i18n-routes.ts` instead of hardcoding the divergence here.
  *
- * All 8 service industries are live in Sanity with published industryPage
- * docs. Service translation keys live under `ServiceNav`. EN availability
+ * Six industries are sold (TZ v2, Sept 2026); ecommerce and courses were
+ * retired and 301 to /online-store and /landing. Service translation keys live under `ServiceNav`. EN availability
  * is gated by `EN_INDUSTRY_SLUGS` in `@/constants/i18n-routes`.
  */
+
+import type { Locale } from "@/constants/locales";
+import { formatPackagePrice, type PackageId } from "@/constants/pricing";
 
 export type HeaderNavLink = {
   uaHref: string;
@@ -52,11 +55,27 @@ export const SERVICE_PAGE_LINKS: readonly HeaderNavLink[] = [
   { uaHref: "/landing", key: "landing" },
   { uaHref: "/corporate-site", key: "corporateSite" },
   { uaHref: "/online-store", key: "onlineStore" },
-  { uaHref: "/seo", key: "seo" },
+  // /seo is kept out of the main menu (TZ §3.7) — it lives in the footer
+  // and in the upsell block on package pages.
   { uaHref: "/lokalne-seo", key: "localSeo" },
   { uaHref: "/audit", key: "audit" },
+  { uaHref: "/support", key: "support" },
   { uaHref: "/redesign", key: "redesign" },
 ] as const;
+
+/** Package behind a service page — its price goes into the `{price}` slot of
+ *  the `ServicePages` label (never typed by hand in messages/*.json). */
+const SERVICE_PAGE_PACKAGE: Partial<Record<string, PackageId>> = {
+  landing: "landing",
+  corporateSite: "business",
+  onlineStore: "shop",
+};
+
+/** ICU values for a `ServicePages.<key>` label. */
+export function servicePageLabelValues(key: string, locale: Locale): { price: string } {
+  const pkg = SERVICE_PAGE_PACKAGE[key];
+  return { price: pkg ? formatPackagePrice(pkg, locale) : "" };
+}
 
 export type ServiceNavLink = {
   href: string;
@@ -69,8 +88,6 @@ export const SERVICE_NAV_LINKS: readonly ServiceNavLink[] = [
   { href: "/sites-for/renovation", key: "renovation", published: true },
   { href: "/sites-for/legal", key: "legal", published: true },
   { href: "/sites-for/finance", key: "finance", published: true },
-  { href: "/sites-for/ecommerce", key: "ecommerce", published: true },
   { href: "/sites-for/auto", key: "auto", published: true },
   { href: "/sites-for/real-estate", key: "realEstate", published: true },
-  { href: "/sites-for/courses", key: "courses", published: true },
 ] as const;

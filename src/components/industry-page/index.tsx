@@ -33,7 +33,6 @@ import {
   INDUSTRY_PAGES_QUERY,
 } from "@/lib/server/sanity-queries";
 import type {
-  ComparisonSection,
   FaqSection,
   IndustryPageDoc,
   IndustryPageRef,
@@ -45,16 +44,22 @@ import type {
 import { loc } from "@/lib/shared/sanity-locale";
 import { MedBookingDemo } from "@/components/industry-page/medicine/med-booking-demo";
 import { MedPatientFlow } from "@/components/industry-page/medicine/med-patient-flow";
-import { MedPricing } from "@/components/industry-page/medicine/med-pricing";
 import { MedHero } from "@/components/industry-page/medicine/med-hero";
 import { MedVitals } from "@/components/industry-page/medicine/med-vitals";
 import { MedDiagnosis } from "@/components/industry-page/medicine/med-diagnosis";
 import { MedCapabilities } from "@/components/industry-page/medicine/med-capabilities";
-import { MiniCalc } from "@/components/landing-page/mini-calc";
 import {
-  industryCalcContent,
-  industryCalcHeading,
-} from "@/components/industry-page/industry-calcs";
+  IndustryOffer,
+  industryH1,
+  industryH1Text,
+  industryIdForSlug,
+  industryIncludes,
+  industryPricingHeading,
+  industrySeo,
+  industryTiers,
+} from "@/components/industry-page/industry-offer";
+import { industryPrice, type IndustryId } from "@/constants/pricing";
+import { LEAD_FORM_ANCHOR } from "@/components/blocks/packages";
 import { RelatedCard, casesRailClass } from "@/components/blocks/related-card";
 import { MobileFold, READ_MORE_LABEL } from "@/components/shared/mobile-fold";
 import { resolveBlogCover } from "@/lib/shared/blog-cover";
@@ -75,7 +80,7 @@ import { AppImage } from "@/lib/shared/app-image";
 import { IMG_SIZES } from "@/lib/shared/image-sizes";
 import { SanityImg } from "@/lib/shared/sanity-image";
 import { pickLocalized } from "@/lib/shared/pick-localized";
-import { FROM_LABEL, LOCALE_CURRENCY } from "@/lib/shared/format-price";
+import { LOCALE_CURRENCY, formatPrice } from "@/lib/shared/format-price";
 import { ORG_ID, pageUrl, SITE_CONTACT } from "@/constants/site";
 import {
   buildJsonLd,
@@ -87,7 +92,11 @@ import {
 } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { glossaryTerms } from "@/constants/glossary";
-import { localizePath, resolveRootHref } from "@/constants/i18n-routes";
+import {
+  RETIRED_INDUSTRY_SLUGS,
+  localizePath,
+  resolveRootHref,
+} from "@/constants/i18n-routes";
 import { availableLocales, hasLocaleContent } from "@/lib/shared/locale-content";
 import { buildHrefWithParams } from "@/lib/shared/update-search-params";
 
@@ -239,16 +248,14 @@ const INDUSTRY_GLOSSARY_KEYS = [
 function buildIndustryJsonLd(
   doc: IndustryPageDoc,
   locale: Locale,
+  id: IndustryId,
 ): JsonLdNode {
   const path = pathFor(doc.slug, locale);
   const url = pageUrl(path);
-  const title = loc(doc.title, locale);
-  const description = loc(doc.seo?.description, locale) || undefined;
+  const seo = industrySeo(id, locale);
+  const title = industryH1Text(id, locale);
+  const description = seo.description;
 
-  const comparison = findSection<ComparisonSection>(
-    doc.sections,
-    "comparisonBlock",
-  );
   const faq = findSection<FaqSection>(doc.sections, "faqBlock");
   const services = findSection<ServicesSection>(doc.sections, "servicesBlock");
 
@@ -269,43 +276,23 @@ function buildIndustryJsonLd(
       )
     : [];
 
-  const offers =
-    comparison?.tiers?.map((t) => {
-      const priceStr = loc(t.price, locale);
-      // First contiguous run of digits = numeric price (strips "$", "від", spaces, commas)
-      const priceMatch = priceStr.match(/(\d[\d\s,]*\d|\d)/);
-      const priceNumeric = priceMatch
-        ? priceMatch[0].replace(/[\s,]/g, "")
-        : "";
-      return {
-        "@type": "Offer",
-        name: loc(t.title, locale).replace(/\n/g, " "),
-        description:
-          (t.includes ?? [])
-            .slice(0, 3)
-            .map((it) => loc(it, locale).replace(/\*/g, ""))
-            .join(" · ") || undefined,
-        price: priceNumeric || undefined,
-        priceCurrency: LOCALE_CURRENCY[locale],
-        url,
-      };
-    }) ?? [];
-
-  const serviceNode: JsonLdNode | null = offers.length
-    ? {
-        "@type": "Service",
-        "@id": `${url}#service`,
-        name: title,
-        description,
-        provider: { "@id": ORG_ID },
-        areaServed: ["UA", "EU", "US", "DK"],
-        hasOfferCatalog: {
-          "@type": "OfferCatalog",
-          name: title,
-          itemListElement: offers,
-        },
-      }
-    : null;
+  // One Offer: this industry's fixed price from the pricing config.
+  const serviceNode: JsonLdNode = {
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: title,
+    description,
+    provider: { "@id": ORG_ID },
+    areaServed: ["UA", "EU", "US", "DK"],
+    offers: {
+      "@type": "Offer",
+      name: title,
+      description: industryIncludes(id, locale).slice(-2).join(" · "),
+      price: String(industryPrice(id, locale)),
+      priceCurrency: LOCALE_CURRENCY[locale],
+      url,
+    },
+  };
 
   const faqNode: JsonLdNode | null = faq?.items?.length
     ? {
@@ -341,7 +328,7 @@ function buildIndustryJsonLd(
         name: LABELS[locale].solutions,
         path: `${localizePath("/", locale)}#solutions`,
       },
-      { name: title, path },
+      { name: loc(doc.title, locale) || title, path },
     ]),
     serviceNode,
     faqNode,
@@ -376,12 +363,15 @@ function buildOutcomeMock(
  * Mirrors `fetchCaseStudies` in `@/components/case-page`.
  */
 export async function fetchIndustryPages(): Promise<IndustryPageRef[]> {
-  return (
+  const pages =
     (await sanityFetch<IndustryPageRef[]>({
       query: INDUSTRY_PAGES_QUERY,
       revalidate: 3600,
       tags: ["industryPage"],
-    }).catch(() => [])) ?? []
+    }).catch(() => [])) ?? [];
+  // ecommerce / courses are 301'd (next.config.ts); only priced industries render.
+  return pages.filter(
+    (p) => !RETIRED_INDUSTRY_SLUGS.has(p.slug) && industryIdForSlug(p.slug) !== null,
   );
 }
 
@@ -405,10 +395,12 @@ export async function buildIndustryMetadata(
     params: { slug },
     revalidate: 3600,
   });
-  if (!page) return {};
+  const id = industryIdForSlug(slug);
+  if (!page || !id || RETIRED_INDUSTRY_SLUGS.has(slug)) return {};
 
-  const title = loc(page.seo?.title, locale) || loc(page.title, locale);
-  const description = loc(page.seo?.description, locale);
+  // Title/description are built from the pricing config (TZ v2 §6: ≤60/≤155,
+  // no emoji, numbers from one source) — Sanity seo.* is no longer read here.
+  const { title, description } = industrySeo(id, locale);
   const path = pathFor(slug, locale);
 
   const alternates = buildAlternates({
@@ -744,13 +736,21 @@ function SectionBlock({
       );
     }
 
-    case "comparisonBlock":
+    case "comparisonBlock": {
+      // Prices come from the pricing config, never from the CMS tiers
+      // (TZ v2 §3.6). The CMS "custom" column of a cost row carried old
+      // agency ranges; it now shows this industry's fixed price.
+      const id = industryIdForSlug(slug);
+      if (!id) return null;
+      const ourPrice = formatPrice(industryPrice(id, locale), { locale });
+      const isCostRow = (s: string) => /[$€£₴]/.test(s);
       return (
         <Comparison
           locale={locale}
-          // Medicine shows its price twice above this block (MedPricing and
-          // the calculator); on phones the third copy folds away.
-          foldTiersOnPhones={slug === "medicine"}
+          // The offer block under the hero already shows the price and
+          // the form; on phones the tiers fold away.
+          foldTiersOnPhones
+          contactSource={`${slug}-comparison-${locale}`}
           tableHeading={formatLine(loc(section.heading, locale)) || undefined}
           tableLabels={
             section.columns
@@ -762,12 +762,15 @@ function SectionBlock({
                 ]
               : undefined
           }
-          rows={section.rows?.map((r) => ({
-            param: loc(r.param, locale),
-            wp: loc(r.wp, locale),
-            wix: loc(r.wix, locale),
-            custom: loc(r.custom, locale),
-          }))}
+          rows={section.rows?.map((r) => {
+            const custom = loc(r.custom, locale);
+            return {
+              param: loc(r.param, locale),
+              wp: loc(r.wp, locale),
+              wix: loc(r.wix, locale),
+              custom: isCostRow(custom) ? ourPrice : custom,
+            };
+          })}
           tableCtaPrimary={
             loc(section.primaryCta?.label ?? section.tableCtaPrimary, locale) ||
             undefined
@@ -802,35 +805,11 @@ function SectionBlock({
             phoneDigits: SITE_CONTACT.phoneRaw.replace(/[^\d]/g, ""),
             linkCls: "text-accent-soft no-underline font-semibold hover:underline",
           })}
-          pricingHeading={
-            formatLine(loc(section.pricingHeading, locale)) || undefined
-          }
-          tiers={section.tiers?.map((t) => ({
-            name: formatLine(loc(t.title, locale)) ?? "",
-            price: loc(t.price, locale),
-            priceLabel: FROM_LABEL[locale],
-            weeks: loc(t.weeks, locale),
-            popular: t.isPopular,
-            popularLabel: loc(t.popularLabel, locale) || undefined,
-            includes: {
-              heading: loc(t.includesHeading, locale),
-              items:
-                t.includes?.map((it) => formatLine(loc(it, locale))) ?? [],
-            },
-            excludes:
-              t.excludes && t.excludes.length > 0
-                ? {
-                    heading: loc(t.excludesHeading, locale) || undefined,
-                    items: t.excludes.map((it) =>
-                      formatLine(loc(it, locale)),
-                    ),
-                  }
-                : undefined,
-            ctaLabel: loc(t.ctaLabel, locale),
-            ctaGhost: t.ctaGhost,
-          }))}
+          pricingHeading={industryPricingHeading(id, locale)}
+          tiers={industryTiers(id, locale, `${slug}-tier-${locale}`)}
         />
       );
+    }
 
     case "faqBlock": {
       const faqItems =
@@ -901,12 +880,6 @@ function SectionBlock({
   }
 }
 
-const FOLD_CALC_LABEL: Record<Locale, string> = {
-  uk: "Зібрати свою конфігурацію",
-  ru: "Собрать свою конфигурацию",
-  en: "Build your configuration",
-};
-
 /* Caption for the one photo on the medicine page (a real client site). */
 const MED_CASE_FIGURE: Record<Locale, { alt: string; caption: string; link: string }> = {
   uk: {
@@ -933,13 +906,20 @@ export async function IndustryPageView({
   slug: string;
   locale: Locale;
 }) {
+  // Retired niches (ecommerce → /online-store, courses → /landing) are 301'd
+  // in next.config.ts; anything without a price in the config does not render.
+  const industryId = industryIdForSlug(slug);
+  if (!industryId || RETIRED_INDUSTRY_SLUGS.has(slug)) notFound();
+
   const page = await fetchIndustryPage(slug);
 
   if (!page) notFound();
   // EN route 404s if the doc has no English translation
   if (!hasLocaleContent(page, locale)) notFound();
 
-  const jsonLd = buildIndustryJsonLd(page, locale);
+  const jsonLd = buildIndustryJsonLd(page, locale, industryId);
+  const h1 = industryH1(industryId, locale);
+  const offerSource = `industry-${slug}-${locale}`;
   const hero = page.hero;
 
   // Blog cluster for this industry (category slug == industry slug). Empty
@@ -981,71 +961,25 @@ export async function IndustryPageView({
     : ownCases;
   const nicheCasesMixed = nicheCases.length > ownCases.length;
 
-  // Industry mini-calculator (reuses the site-type MiniCalc). Rendered right
-  // after the pricing/comparison section when one exists, otherwise after
-  // the last CMS section.
-  const calcContent = industryCalcContent(page.slug, locale);
-  const calcHeading = industryCalcHeading(page.slug, locale);
-  // Where the calculator lands. Everywhere else it follows the comparison
-  // table; on medicine the comparison is gone from the document and the
-  // calculator belongs straight after the capability list, while the reader
-  // still has the scope in mind. `#calc` is what the price sheet links to.
-  const calcAfterType = page.slug === "medicine" ? "servicesBlock" : "comparisonBlock";
-  const hasCalcAnchor = Boolean(
-    page.sections?.some((sct) => sct._type === calcAfterType),
-  );
-  const calcSection =
-    calcContent && calcHeading ? (
-      <section id="calc" className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none [background:radial-gradient(ellipse_44%_40%_at_20%_80%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%)]" />
-        <div className="relative max-w-container mx-auto">
-          <div className="mx-auto max-w-[640px] text-center mb-8">
-            <h2 className="m-0 font-actay uppercase font-bold text-[clamp(22px,2.6vw,34px)] leading-[1.15] text-ink">
-              {calcHeading.heading}
-            </h2>
-            <p className="mt-3 mb-0 font-sans text-[14.5px] leading-[1.6] text-ink-dim">
-              {calcHeading.sub}
-            </p>
-          </div>
-          <MobileFold
-            className="mx-auto max-w-[620px] text-center lg:text-left"
-            label={FOLD_CALC_LABEL[locale]}
-            labelClassName="w-full justify-center rounded-full border border-accent-40 bg-accent-10 px-5 font-sans text-[14px] normal-case tracking-normal text-ink"
-            bodyClassName="max-lg:mt-4 text-left"
-          >
-            <MiniCalc
-              content={calcContent}
-              locale={locale}
-              source={`${page.slug}-calc-${locale}`}
-            />
-          </MobileFold>
-        </div>
-      </section>
-    ) : null;
+  // The old per-industry mini calculator (industry-calcs.ts) is gone: prices
+  // live in the pricing config and the full calculator is /calculator.
 
   // ── Medicine composition ────────────────────────────────────────────
   // The medicine page runs a bespoke hero and three extra sections; every
   // other industry keeps the shared blocks untouched.
   const isMedicine = page.slug === "medicine";
 
-  /**
-   * Splits the CMS headline into plain lines and the accented one. A line
-   * carrying an `*em*` marker is the accent; the marker itself is stripped
-   * because <MedHero> paints the whole line rather than an inline span.
-   */
-  const heroLines = (() => {
-    const raw = hero?.heading ? loc(hero.heading, locale).split("\n") : [];
-    const plain: React.ReactNode[] = [];
-    let accent: React.ReactNode;
-    raw.forEach((line, i) => {
-      if (line.includes("*") && accent === undefined) {
-        accent = line.replace(/\*+/g, "");
-      } else {
-        plain.push(<Fragment key={i}>{formatLine(line)}</Fragment>);
-      }
-    });
-    return { plain, accent };
-  })();
+  // H1 from the pricing config (TZ v2 §3.6): «Сайт для [галузі] — $X за
+  // 14–21 робочий день, з інтеграцією [...]». The CMS hero.heading is no
+  // longer rendered; h1Num (unsourced "50+ patients" style KPIs) neither.
+  const h1Lines: React.ReactNode[] = [
+    h1.lead,
+    <Fragment key="p">
+      <em>{h1.price}</em> {h1.term}
+    </Fragment>,
+    h1.integration,
+  ];
+  const leadFormHref = `#${LEAD_FORM_ANCHOR}`;
 
   const heroFeatures = hero?.features?.length
     ? hero.features.map((f) => {
@@ -1148,18 +1082,12 @@ export async function IndustryPageView({
         <MedHero
           eyebrow={eyebrowProp?.label}
           eyebrowEm={eyebrowProp?.em || undefined}
-          h1Lines={heroLines.plain}
-          h1Accent={heroLines.accent}
-          kpiValue={hero?.h1Num}
-          kpiLabel={
-            hero?.h1NumLabel
-              ? formatLine(loc(hero.h1NumLabel, locale))
-              : undefined
-          }
+          h1Lines={h1Lines.slice(0, 2)}
+          h1Accent={h1.integration}
           lede={hero?.lede ? formatLine(loc(hero.lede, locale)) : undefined}
           features={heroFeatures}
           ctaPrimaryLabel={loc(hero?.ctaPrimary, locale) || undefined}
-          ctaPrimaryHref={localizePath("/contacts", locale)}
+          ctaPrimaryHref={leadFormHref}
           ctaSecondaryLabel={loc(hero?.ctaSecondary, locale) || undefined}
           ctaSecondaryHref={buildHrefWithParams(
             resolveRootHref("/portfolio", locale),
@@ -1178,19 +1106,7 @@ export async function IndustryPageView({
       ) : (
       <HeroEditorial
         eyebrow={eyebrowProp}
-        h1Lines={
-          hero?.heading
-            ? loc(hero.heading, locale)
-                .split("\n")
-                .map((line) => formatLine(line))
-            : undefined
-        }
-        h1Num={hero?.h1Num}
-        h1NumLabel={
-          hero?.h1NumLabel
-            ? formatLine(loc(hero.h1NumLabel, locale))
-            : undefined
-        }
+        h1Lines={h1Lines}
         lede={hero?.lede ? formatLine(loc(hero.lede, locale)) : undefined}
         features={
           hero?.features?.length
@@ -1207,7 +1123,7 @@ export async function IndustryPageView({
             : undefined
         }
         ctaPrimaryLabel={loc(hero?.ctaPrimary, locale) || undefined}
-        ctaPrimaryHref={localizePath("/contacts", locale)}
+        ctaPrimaryHref={leadFormHref}
         ctaSecondaryLabel={loc(hero?.ctaSecondary, locale) || undefined}
         ctaSecondaryHref={buildHrefWithParams(
           resolveRootHref("/portfolio", locale),
@@ -1238,20 +1154,18 @@ export async function IndustryPageView({
         deviceMockupImage={hero?.deviceMockup ?? undefined}
         deviceMockupAlt={
           loc(hero?.deviceMockup?.alt, locale) ||
-          loc(hero?.heading, locale) ||
-          undefined
+          industryH1Text(industryId, locale)
         }
       />
       )}
+
+      {/* Form right under the H1, beside what the price buys (TZ v2 §3.6). */}
+      <IndustryOffer id={industryId} locale={locale} source={offerSource} />
 
       {isMedicine ? (
         <>
           <MedVitals locale={locale} />
           <MedBookingDemo locale={locale} />
-          {/* Price before the argument, not after it: the demo shows what the
-              clinic gets, the sheet says what it costs, and only then does the
-              page start making its case. */}
-          <MedPricing locale={locale} calcHref="#calc" />
           <MedPatientFlow locale={locale} />
           {/* One real screenshot in the middle of the page: the medicine page
               ran 10 phone screens of text and code-graphics without a photo
@@ -1323,11 +1237,9 @@ export async function IndustryPageView({
             locale={locale}
             slug={page.slug}
           />
-          {section._type === calcAfterType ? calcSection : null}
           {casesAfterServices && section._type === "servicesBlock" ? nicheCasesSection : null}
         </Fragment>
       ))}
-      {!hasCalcAnchor ? calcSection : null}
 
       {casesAfterServices ? null : nicheCasesSection}
 

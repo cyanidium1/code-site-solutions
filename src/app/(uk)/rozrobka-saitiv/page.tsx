@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
-import { LandingPageView } from "@/components/landing-page";
+import { MoneyPageView } from "@/components/money-page";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
+import { packageOffers } from "@/lib/shared/city-page";
 import { buildJsonLd, breadcrumbNode, webPageNode } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
@@ -50,16 +51,8 @@ const jsonLd = buildJsonLd([
     description: CONTENT.metaDescription,
     provider: { "@id": ORG_ID },
     areaServed: ["UA", "EU", "US", "DK"],
-    // Із цього Google будує ціновий сніпет — у видачі за «розробка сайтів»
-    // діапазон показують ifish.com.ua і webnauts.pro, обидва вище нас.
-    offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "USD",
-      lowPrice: 800,
-      highPrice: 6000,
-      offerCount: 3,
-      url: URL,
-    },
+    // One Offer per core package, prices from the pricing config.
+    offers: packageOffers("uk", URL),
   },
   {
     "@type": "FAQPage",
@@ -76,7 +69,7 @@ export default function WebDevelopmentPage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="uk" content={CONTENT} source="web-development-page" selfPath="/rozrobka-saitiv" />
+      <MoneyPageView locale="uk" content={CONTENT} source="web-development-page" />
       <HpFooter />
     </>
   );

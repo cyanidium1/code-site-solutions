@@ -6,6 +6,7 @@ import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import { buildJsonLd, breadcrumbNode, webPageNode } from "@/lib/shared/jsonld";
 import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich } from "@/lib/shared/rich-text";
+import { addonPrice, packagePrice } from "@/constants/pricing";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { REDESIGN_RU as CONTENT } from "@/content/ru/redesign";
 
@@ -53,15 +54,15 @@ const jsonLd = buildJsonLd([
     offers: [
       {
         "@type": "Offer",
-        name: "Редизайн лендинга",
-        price: "800",
+        name: "Редизайн лендинга (пакет + перенос)",
+        price: String(packagePrice("landing", "ru") + addonPrice("migration", "ru")),
         priceCurrency: "USD",
         url: URL,
       },
       {
         "@type": "Offer",
-        name: "Редизайн многостраничного сайта",
-        price: "2500",
+        name: "Редизайн сайта для бизнеса (пакет + перенос)",
+        price: String(packagePrice("business", "ru") + addonPrice("migration", "ru")),
         priceCurrency: "USD",
         url: URL,
       },

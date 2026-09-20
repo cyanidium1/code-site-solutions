@@ -24,9 +24,9 @@ import {
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildAlternates } from "@/lib/shared/alternates";
 
-const BLOG_TITLE = "ᐈ Блог о веб-дизайне и разработке | Code-Site.Art";
+const BLOG_TITLE = "Блог о веб-дизайне и разработке | Code-Site.Art";
 const BLOG_DESCRIPTION =
-  "➤ Экспертные гайды о разработке кастомных сайтов, Next.js, Sanity CMS и трендах веб-дизайна ✔️ Реальные кейсы ✔️ Рабочие стратегии ➡ Читайте свежие статьи.";
+  "Экспертные гайды о разработке кастомных сайтов, Next.js, Sanity CMS и трендах веб-дизайна · Реальные кейсы · Рабочие стратегии Читайте свежие статьи.";
 
 const jsonLd = buildJsonLd([
   webPageNode({

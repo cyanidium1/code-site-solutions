@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { LandingPageView } from "@/components/landing-page";
+import { MoneyPageView } from "@/components/money-page";
 import { HpHeader, HpFooter } from "@/components/homepage";
 import { JsonLd } from "@/components/shared/json-ld";
 import { buildCityJsonLd, buildCityMetadata } from "@/lib/shared/city-page";
@@ -28,7 +28,7 @@ export default function CityOdesaPage() {
     <>
       <JsonLd data={jsonLd} />
       <HpHeader />
-      <LandingPageView locale="uk" content={CONTENT} source="city-page-odesa" />
+      <MoneyPageView locale="uk" content={CONTENT} source="city-page-odesa" />
       <HpFooter />
     </>
   );

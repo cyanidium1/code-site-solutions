@@ -4,13 +4,15 @@ import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import { buildJsonLd, breadcrumbNode, webPageNode } from "@/lib/shared/jsonld";
 import { plainRich } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
-import type { LandingPageContent } from "@/types/landing";
-import { LOCALE_CONFIG } from "@/constants/locales";
+import type { MoneyPageContent } from "@/types/money-page";
+import { CORE_PACKAGES, PACKAGES, packagePrice } from "@/constants/pricing";
+import { LOCALE_CURRENCY } from "@/lib/shared/format-price";
+import { LOCALE_CONFIG, type Locale } from "@/constants/locales";
 import { localizePath } from "@/constants/i18n-routes";
 
 /**
  * Shared metadata + JSON-LD builder for the city pages
- * (`/rozrobka-saitiv-{lviv,kyiv,odesa,dnipro}` and their `/ru` twins).
+ * (`/rozrobka-saitiv-{lviv,kyiv,odesa,dnipro,kharkiv}` and their `/ru` twins).
  *
  * The pages themselves are deliberately NOT generated from a template — each
  * one is hand-written around the cases we actually delivered in that city, per
@@ -27,7 +29,7 @@ import { localizePath } from "@/constants/i18n-routes";
 type CityLocale = "uk" | "ru";
 
 type CityPageParams = {
-  content: LandingPageContent;
+  content: MoneyPageContent;
   /** Ukrainian-rooted path, e.g. `/rozrobka-saitiv-lviv`. */
   uaPath: string;
   locale: CityLocale;
@@ -38,6 +40,21 @@ type CityPageParams = {
   /** Localized `Service.name`, e.g. "Розробка сайтів у Львові". */
   serviceName: string;
 };
+
+/**
+ * One `Offer` per core package (landing / business / shop), prices from the
+ * pricing config — the same fixed prices the cards show. Shared with
+ * `/rozrobka-saitiv`.
+ */
+export function packageOffers(locale: Locale, url: string) {
+  return CORE_PACKAGES.map((id) => ({
+    "@type": "Offer",
+    name: PACKAGES[id].name[locale],
+    price: packagePrice(id, locale),
+    priceCurrency: LOCALE_CURRENCY[locale],
+    url,
+  }));
+}
 
 /** Absolute path as served, i.e. `/ru`-prefixed for the RU locale. */
 export function cityPath(uaPath: string, locale: CityLocale): string {
@@ -103,14 +120,7 @@ export function buildCityJsonLd({
       provider: { "@id": ORG_ID },
       // City, not LocalBusiness — see the note at the top of this file.
       areaServed: { "@type": "City", name: cityName },
-      offers: {
-        "@type": "AggregateOffer",
-        priceCurrency: "USD",
-        lowPrice: 800,
-        highPrice: 6000,
-        offerCount: 3,
-        url,
-      },
+      offers: packageOffers(locale, url),
     },
     {
       "@type": "FAQPage",

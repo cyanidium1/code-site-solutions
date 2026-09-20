@@ -4,6 +4,7 @@ import { PageHero } from "@/components/blocks/page-hero";
 import { ContactSplit } from "@/components/blocks/contact-split";
 import { FAQ } from "@/components/blocks/final";
 import { HpHeader, HpFooter } from "@/components/homepage";
+import { formatPackagePrice } from "@/constants/pricing";
 import { OG_DEFAULT_IMAGE, ORG_ID } from "@/constants/site";
 import {
   buildJsonLd,
@@ -14,9 +15,9 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 
-const META_TITLE = "ᐈ Начать проект | Контакты веб-студии Code-Site.Art";
+const META_TITLE = "Бесплатный расчет сайта за 24 часа | Code-Site.Art";
 const META_DESCRIPTION =
-  "➤ Бесплатный 30-мин звонок-знакомство ✔️ Без длинных брифов ✔️ Ответ за 24 часа ✔️ Стратегический звонок ✔️ Фиксированная цена ➡ Telegram, email или звонок — отвечаем быстро.";
+  "Бесплатный расчет сайта за 24 часа: пакет, фиксированная цена и срок. Форма, Telegram, WhatsApp или email. Пн–Пт 09:00–19:00, Киев.";
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -42,39 +43,45 @@ const CONTACTS_FAQ: { q: string; a: RichText }[] = [
   {
     q: "Как быстро вы отвечаете?",
     a: [
-      "Telegram: в течение 30 минут (в рабочее время). Email: 1-2 рабочих часа. Форма брифа: 4 рабочих часа.",
+      "В течение ",
+      { em: "24 часов" },
+      " в рабочее время (Пн–Пт, 09:00–19:00 по Киеву). В ответе — пакет, фиксированная цена и срок.",
     ],
   },
   {
-    q: "Что происходит на 30-минутном звонке?",
+    q: "Что будет после заявки?",
     a: [
-      "Вы рассказываете о проекте. Мы задаём 5-7 уточняющих вопросов. Даём ",
-      { em: "вилку цены" },
-      " и срок. Итого: 30 минут. Без навязывания.",
+      "Уточним задачу там, где вам удобно: Telegram, почта или звонок. Назовем ",
+      { em: "цену и срок" },
+      ", которые впишем в договор. Без презентаций и без обязательств.",
     ],
   },
   {
     q: "Я не определился с пакетом — что писать в форме?",
     a: [
-      "Пишите «",
-      { em: "пока не знаю" },
-      "». На звонке зададим важные вопросы и порекомендуем пакет. Лендинг / Корпоративный сайт / Кастомная платформа — это наша задача, не ваша.",
+      "Выберите «Не знаю, нужна консультация» и опишите задачу простыми словами. Пакет подберем мы: лендинг — ",
+      { em: formatPackagePrice("landing", "ru") },
+      ", сайт для бизнеса — ",
+      { em: formatPackagePrice("business", "ru") },
+      ", интернет-магазин — ",
+      { em: formatPackagePrice("shop", "ru") },
+      ".",
     ],
   },
   {
-    q: "Я за границей — работаете с международными клиентами?",
+    q: "Я из-за границы, вы работаете?",
     a: [
-      "Да. Половина нашей работы — за пределами Украины, активны в ",
-      { em: "UA, EU, US, DK" },
-      ". Оплата через Stripe (USD/EUR), USDT или банковский перевод. Договор на английском или украинском — на ваш выбор.",
+      "Да. Среди клиентов — компании из ",
+      { em: "Дании, ЮАР и Албании" },
+      ". Оплата через Stripe (USD/EUR), USDT или перевод на ФОП. Договор на английском или украинском — на ваш выбор.",
     ],
   },
   {
-    q: "Что если я хочу подписать NDA до того, как вы покажете кейсы?",
+    q: "А если я хочу подписать NDA до показа кейсов?",
     a: [
-      "Стандартная практика. У нас есть одностраничный шаблон ",
+      "Да, присылайте свой или наш шаблон. Стандартное ",
       { em: "NDA" },
-      ", подписывается через Дія.Підпис или DocuSign за 1 рабочий день. Большинство клиентов не просят — кейсы публичны в портфолио.",
+      " подписываем за 1 рабочий день. Большинство кейсов и так публичны в портфолио.",
     ],
   },
 ];
@@ -117,21 +124,14 @@ export default function RuContactsPage() {
           { label: "Контакты" },
         ]}
         eyebrow="КОНТАКТЫ"
-        headline={
-          <>
-            Хотите обсудить свой проект?
-          </>
-        }
+        headline={<>Бесплатный расчет сайта за 24 часа</>}
       />
 
+      {/* The site-wide LeadForm (TZ §5) lives inside ContactSplit. */}
       <ContactSplit source="contacts" variant="compact" foldBrief={false} locale="ru" />
 
       <section className="bg-bg">
-        <FAQ
-          heading="Частые вопросы перед обращением"
-          items={CONTACTS_FAQ}
-          locale="ru"
-        />
+        <FAQ heading="Частые вопросы перед обращением" items={CONTACTS_FAQ} locale="ru" />
       </section>
 
       <HpFooter />

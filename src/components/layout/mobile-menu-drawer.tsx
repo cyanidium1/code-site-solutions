@@ -14,7 +14,12 @@ import {
   resolveServiceHref,
 } from "@/constants/i18n-routes";
 import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
-import { HEADER_NAV_LINKS, SERVICE_NAV_LINKS, SERVICE_PAGE_LINKS } from "@/constants/nav";
+import {
+  HEADER_NAV_LINKS,
+  SERVICE_NAV_LINKS,
+  SERVICE_PAGE_LINKS,
+  servicePageLabelValues,
+} from "@/constants/nav";
 import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
@@ -133,7 +138,7 @@ export function MobileMenuDrawer({
     (link) => locale === DEFAULT_LOCALE || LOCALIZED_ROOTS[locale].has(link.uaHref),
   ).map((link) => ({
     href: localizePath(link.uaHref, locale),
-    label: tPages(link.key),
+    label: tPages(link.key, servicePageLabelValues(link.key, locale)),
     key: link.key,
   }));
 

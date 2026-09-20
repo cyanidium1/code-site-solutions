@@ -1,254 +1,206 @@
-import {
-  Building,
-  Calculator,
-  Car,
-  GraduationCap,
-  Home,
-  Scale,
-  ShoppingCart,
-  Stethoscope,
-} from "lucide-react";
-
-import type { TierProps } from "@/types/pricing";
-import type { FAQItem } from "@/types/faq";
-import type { Industry } from "@/types/homepage";
-import { formatPrice } from "@/lib/shared/format-price";
-import {
-  TIER_AMOUNTS,
-  TIER_NAMES,
-  TIER_WEEKS,
-  type HomepagePlanInfo,
-  type TierKey,
-} from "@/constants/pricing-tiers";
-
-export const RU_TIERS: TierProps[] = [
-  {
-    name: TIER_NAMES.landing.ru,
-    price: formatPrice(TIER_AMOUNTS.landing, { locale: "ru" }),
-    weeks: TIER_WEEKS.landing.ru,
-    bestFor: "Быстрый запуск одного предложения, MVP, тестирование гипотезы.",
-    includes: {
-      heading: "Что входит",
-      items: [
-        "1 страница-лонгрид",
-        "Адаптивная вёрстка",
-        "SEO-структура",
-        "Интеграция форм",
-        "Гарантия 1 год",
-      ],
-    },
-    ctaLabel: "Выбрать Лендинг",
-  },
-  {
-    popular: true,
-    popularLabel: "★ САМОЕ ПОПУЛЯРНОЕ",
-    name: TIER_NAMES.corporate.ru,
-    price: formatPrice(TIER_AMOUNTS.corporate, { locale: "ru" }),
-    weeks: TIER_WEEKS.corporate.ru,
-    bestFor:
-      "Бизнесу с compliance-требованиями (медицина, право, бухгалтерия), которому нужны отраслевые интеграции.",
-    includes: {
-      heading: "Всё из Лендинга +",
-      items: [
-        "5 страниц включено, дальше +$220/страница",
-        "CMS, блог",
-        "5+ интеграций",
-        "Локальное SEO",
-        "Compliance: МОЗ / RODO / HIPAA-aware",
-        "Многоязычность",
-      ],
-    },
-    ctaLabel: "Выбрать Корпоративный",
-  },
-  {
-    name: TIER_NAMES.custom.ru,
-    price: formatPrice(TIER_AMOUNTS.custom, { locale: "ru" }),
-    weeks: TIER_WEEKS.custom.ru,
-    bestFor:
-      "Сложным продуктам с собственной логикой — SaaS, маркетплейс, B2B-портал.",
-    includes: {
-      heading: "Всё из Корпоративного +",
-      items: [
-        "Без лимита страниц",
-        "Архитектурная сессия",
-        "Выделенная команда",
-        "SLA + поддержка 24/7",
-        "Кастомные интеграции",
-      ],
-    },
-    ctaLabel: "Связаться",
-    ctaGhost: true,
-  },
-];
-
 /**
- * Build the RU homepage FAQ. Pass an `override` map (typically derived from
- * CMS pricingPlan docs) to substitute plan name/price/weeks per tier; missing
- * keys fall back to the static constants in `pricing-tiers.ts`.
+ * Homepage copy (ru) — meaning-translation of `content/uk/homepage.ts`
+ * (TZ v2 §3.1). Every price and term is read from `@/constants/pricing`.
  */
-export function buildRuHomepageFaq(
-  override?: Partial<Record<TierKey, HomepagePlanInfo>>,
-): FAQItem[] {
-  const get = (key: TierKey): HomepagePlanInfo =>
-    override?.[key] ?? {
-      name: TIER_NAMES[key].ru,
-      priceFrom: TIER_AMOUNTS[key],
-      weeks: TIER_WEEKS[key].ru,
-    };
-  const fmt = (n: number) => formatPrice(n, { locale: "ru" });
-  const L = get("landing");
-  const C = get("corporate");
-  const X = get("custom");
 
-  return [
+import type { FAQItem } from "@/types/faq";
+import type { Locale } from "@/constants/locales";
+import {
+  PACKAGES,
+  PAYMENT_TERMS,
+  SERVICES,
+  addonPrice,
+  formatDays,
+  formatPackagePrice,
+  formatPackageTerm,
+  servicePrice,
+} from "@/constants/pricing";
+import { formatPrice } from "@/lib/shared/format-price";
+import { resolveRootHref } from "@/constants/i18n-routes";
+import type { HomepageContent } from "@/content/uk/homepage";
+
+const L: Locale = "ru";
+const fp = (n: number) => formatPrice(n, { locale: L });
+const href = (uaPath: string) => resolveRootHref(uaPath, L);
+
+const LANDING = formatPackagePrice("landing", L);
+const BUSINESS = formatPackagePrice("business", L);
+const SHOP = formatPackagePrice("shop", L);
+const INDUSTRY = formatPackagePrice("industry", L);
+const CUSTOM = formatPackagePrice("custom", L);
+const D = PACKAGES.business.days.min;
+const S = PACKAGES.shop.days.min;
+const HOURS = SERVICES.auditResponseHours;
+const HOSTING = fp(servicePrice("hostingRenewalPerYear", L));
+const EXTRA_PAGE = fp(addonPrice("extra_page", L));
+const NEW_PAGE_DAYS = formatDays(SERVICES.newPageDays, L);
+const PT = PAYMENT_TERMS;
+
+export const HOMEPAGE_RU: HomepageContent = {
+  meta: {
+    title: `Сайт для бизнеса кодом за ${D} дней и ${BUSINESS} | Code-Site.Art`,
+    description: `Сайт под ключ за ${formatPackageTerm("business", L)}, фикс-цена ${BUSINESS} в договоре. Интернет-магазин ${SHOP}. Без подписок, код ваш. Гарантия и поддержка год. Расчёт за ${HOURS} ч`,
+  },
+  hero: {
+    h1Line1: "Сайт для бизнеса кодом —",
+    h1Line2Lead: `за ${D} дней и `,
+    h1Line2Em: BUSINESS,
+    lede: "Без подписок и конструкторов. Код, домен и данные — ваши. Гарантия год, и всё включено.",
+    features: [
+      { label: formatPackageTerm("business", L), sub: "От брифа до запуска" },
+      { label: "Цена в договоре", sub: "Фиксируем до старта работ" },
+      { label: "Гарантия год, поддержка включена", sub: "Хостинг и SSL тоже" },
+    ],
+    ctaPrimary: "Получить бесплатный расчёт",
+    ctaSecondary: "Смотреть цены",
+    footnote: `Ответим с ценой и сроком за ${HOURS} часа. Без обязательств.`,
+    mockupAlt: "Пример сайта для бизнеса, созданного Code-Site.Art",
+  },
+  cases: {
+    eyebrow: "КЕЙСЫ",
+    headingLead: "Сайты, которые мы ",
+    headingEm: "уже запустили",
+    ctaLabel: "Все кейсы",
+    ctaHref: href("/portfolio"),
+  },
+  pricing: {
+    headingLead: "Цены — ",
+    headingEm: "фиксированы в договоре",
+    sub: "Три пакета с готовым составом. Выберите пакет — расчёт придёт с ним уже выбранным.",
+  },
+  industries: {
+    headingLead: "Решения под ",
+    headingEm: "вашу отрасль",
+    sub: "Пакет «Сайт для бизнеса» плюс отраслевая интеграция и требования вашей сферы.",
+  },
+  process: {
+    headingLead: `${D} рабочих дней — `,
+    headingEm: "от брифа до запуска",
+    sub: "Объём, срок и цена зафиксированы в договоре. Вы заранее знаете, что получите, когда и за сколько.",
+    steps: [
+      { n: "01", name: "Бриф и структура", duration: "День 1", items: ["Цели и услуги", "Структура страниц", "Список контента"] },
+      { n: "02", name: "Дизайн на вашем контенте", duration: "Дни 2–3", items: ["Ваши тексты и фото", "Мобильная версия", "Согласование"] },
+      { n: "03", name: "Разработка и наполнение", duration: `Дни 4–${D - 1}`, items: ["Код и CMS", "Формы + Telegram", "SEO-структура"] },
+      { n: "04", name: "Тест и запуск", duration: `День ${D}`, items: ["Проверка на телефонах", "Аналитика", "Домен и SSL"] },
+    ],
+    shopLine: `Интернет-магазин — ${formatPackageTerm("shop", L)}: дни 1–2 бриф и каталог → дни 3–5 дизайн → дни 6–${S - 2} разработка, оплата, доставка и товары → дни ${S - 1}–${S} тест и запуск.`,
+    ctaLabel: "Весь процесс",
+    ctaHref: href("/process"),
+    moreLabel: "Что входит в каждый этап",
+  },
+  directions: {
+    headingLead: "С чего ",
+    headingEm: "начать",
+    sub: "Страницы, с которых чаще всего начинают: аудит, цены, кейсы и пакеты.",
+    links: [
+      { href: href("/audit"), label: "Бесплатный аудит сайта" },
+      { href: href("/pricing"), label: "Цены" },
+      { href: href("/portfolio"), label: "Кейсы" },
+      { href: href("/corporate-site"), label: "Сайт для бизнеса" },
+      { href: href("/online-store"), label: "Интернет-магазин" },
+      { href: href("/vs-constructors"), label: "Сравнить с конструкторами" },
+    ],
+  },
+  faqHeading: "Вопросы, которые возникают перед стартом",
+  faq: [
     {
       q: "Сколько будет стоить мой сайт?",
       a: [
-        "От ",
-        { em: fmt(L.priceFrom) },
-        " за лендинг до ",
-        { em: `${fmt(X.priceFrom)}+` },
-        " за платформу. Точную цифру назовём после короткого разговора и зафиксируем в договоре до старта. Быстрая оценка — ",
-        { link: { href: "/ru/contacts", text: "оставьте заявку" } },
+        "Лендинг — ",
+        { em: LANDING },
+        ", сайт для бизнеса — ",
+        { em: BUSINESS },
+        ", интернет-магазин — ",
+        { em: SHOP },
+        ". Отраслевое решение ",
+        { em: INDUSTRY },
+        ", сложная платформа ",
+        { em: CUSTOM },
+        ". Цена фиксируется в договоре до старта. Сумму с дополнениями посчитает ",
+        { link: { href: href("/calculator"), text: "калькулятор" } },
         ".",
-      ],
-    },
-    {
-      q: "Что если я не знаю точно, что мне нужно?",
-      a: [
-        "Это нормально — и это наша работа. Вы рассказываете о бизнесе; мы предлагаем решение и объясняем, на что не стоит тратить деньги.",
-      ],
-    },
-    {
-      q: "Могу ли я увидеть код до полной оплаты?",
-      a: [
-        "Да. Код, доступы и сайт — ваши с самого начала. Смотрите в любой момент.",
-      ],
-    },
-    {
-      q: "Что если что-то сломается после запуска?",
-      a: [
-        "Год поддержки включён. Ответ — до 4 часов. Исправляем проблемы и помогаем расти.",
-      ],
-    },
-    {
-      q: "Что если вы сорвёте срок?",
-      a: [
-        "Мы платим неустойку. Поэтому уложиться в дедлайн нам важно так же, как и вам.",
-      ],
-    },
-    {
-      q: "Гарантируете топ-1 в Google?",
-      a: [
-        "Нет, и никто честно не может. Гарантируем техническую базу, которую Google учитывает: структуру, скорость, разметку. Остальное — контент и время.",
       ],
     },
     {
       q: "Сколько времени от брифа до запуска?",
       a: [
-        { em: L.name },
-        " — ",
-        { em: L.weeks },
-        ". ",
-        { em: C.name },
-        " — ",
-        { em: C.weeks },
-        ". ",
-        { em: X.name },
-        " — ",
-        { em: X.weeks },
-        ". Это со всеми правками, контентом и SEO. Без сюрпризов — фиксированная дата в договоре.",
+        "Лендинг — ",
+        { em: formatPackageTerm("landing", L) },
+        ", сайт для бизнеса — ",
+        { em: formatPackageTerm("business", L) },
+        ", интернет-магазин — ",
+        { em: formatPackageTerm("shop", L) },
+        ", отраслевое решение — ",
+        { em: formatPackageTerm("industry", L) },
+        ". Дата запуска прописана в договоре.",
       ],
     },
     {
-      q: "Что если мой бюджет меньше вашего минимума?",
+      q: "Почему так дёшево, если это код?",
       a: [
-        "Честно скажем, что не сделаем за эту цену, и посоветуем, к кому обратиться. Не берём проекты, которые не можем сделать качественно за ваши деньги.",
+        "Потому что сайт занимает меньше часов. Мы собираем его из проверенных шаблонов и блоков, рутинный код пишет ИИ под контролем разработчика, а между вами и разработчиком нет менеджеров. Вы платите за работу, а не за совещания.",
       ],
     },
     {
-      q: "Можно начать с лендинга и позже дорасти до полного сайта?",
+      q: "Что будет после года гарантии?",
       a: [
-        "Да. Архитектура, которую мы пишем, ",
+        "Год хостинга, SSL, исправлений и обновлений уже в цене. Дальше — на ваш выбор: продлеваете хостинг у нас за ",
+        { em: `${HOSTING}/год` },
+        " или мы переносим сайт на ваш аккаунт. Код и так ваш.",
+      ],
+    },
+    {
+      q: "Что если через полгода нужна новая страница?",
+      a: [
+        "Новая страница — ",
+        { em: EXTRA_PAGE },
+        ", делаем за ",
+        { em: NEW_PAGE_DAYS },
+        ". Тексты, цены, фото и услуги вы меняете сами в админке — это бесплатно.",
+      ],
+    },
+    {
+      q: "Как оплачивать?",
+      a: [
+        `${PT.prepaymentPercent}% предоплата, ${100 - PT.prepaymentPercent}% после запуска. При 100% предоплате — скидка ${PT.fullPrepaymentDiscountPercent}%. Оплата на ФОП, картой или в USDT.`,
+      ],
+    },
+    {
+      q: "Что если вы сорвёте срок?",
+      a: [
+        "Платим неустойку: ",
+        { em: `${PT.latePenaltyPercentPerDay}% за каждый рабочий день` },
+        `, до ${PT.latePenaltyCapPercent}% от цены. Это прописано в договоре.`,
+      ],
+    },
+    {
+      q: "Могу ли я увидеть код до полной оплаты?",
+      a: ["Да. Код, доступы и сайт — ваши с самого начала. Смотрите в любой момент."],
+    },
+    {
+      q: "Что если я не знаю точно, что мне нужно?",
+      a: [
+        `Это нормально. Оставьте заявку — за ${HOURS} часа ответим, какой пакет подходит, сколько стоит и что можно не делать.`,
+      ],
+    },
+    {
+      q: "Гарантируете топ-1 в Google?",
+      a: [
+        "Нет, и никто честно не может. Мы делаем техническую базу, которую учитывает Google: структуру, скорость, разметку. Остальное — контент и время.",
+      ],
+    },
+    {
+      q: "Можно начать с лендинга и позже вырасти до полного сайта?",
+      a: [
+        "Да. Код ",
         { em: "масштабируется" },
-        ". Стартуете с Лендинга — через год добавляем CMS, блог, дополнительные индустрии — без переписывания с нуля.",
+        ": стартуете с лендинга — позже добавляем страницы, CMS и блог без переписывания с нуля.",
       ],
     },
-    {
-      q: "Что если у меня уже есть дизайнер / контент / логотип?",
-      a: [
-        "Тогда работаем с вашими файлами или Figma. Это ",
-        { em: "-10-15% от цены" },
-        " и более короткий срок. В договоре прописываем, что вы даёте и когда.",
-      ],
-    },
-  ];
+  ],
+};
+
+export function buildRuHomepageFaq(): FAQItem[] {
+  return HOMEPAGE_RU.faq;
 }
 
-/** Homepage industry cards — industry docs carry ru since 2026-07-30. */
-export const RU_INDUSTRIES: Industry[] = [
-  {
-    icon: Stethoscope,
-    title: "Медицина",
-    description: "Сайты для клиник, стоматологий, диагностических центров",
-    tags: ["МИС", "GDPR", "Онлайн-запись"],
-    price: "От $2 500 · 4–10 недель",
-    href: "/ru/sites-for/medicine",
-  },
-  {
-    icon: Building,
-    title: "Строительство / ремонт",
-    description: "Сайты для строительных и ремонтных компаний",
-    tags: ["CRM", "Калькулятор", "Локальное SEO"],
-    price: "От $2 500 · 4–8 недель",
-    href: "/ru/sites-for/renovation",
-  },
-  {
-    icon: Scale,
-    title: "Юристы и адвокаты",
-    description: "Сайты для юридических фирм, адвокатских бюро, частных практик",
-    tags: ["Clio", "DocuSign", "Онлайн-консультации"],
-    price: "От $2 500 · 4–8 недель",
-    href: "/ru/sites-for/legal",
-  },
-  {
-    icon: Calculator,
-    title: "Финансы и бухгалтерия",
-    description: "Сайты для бухгалтерских фирм, финансовых советников, трейдинга",
-    tags: ["Xero", "Stripe", "1С"],
-    price: "От $2 500 · 4–8 недель",
-    href: "/ru/sites-for/finance",
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-commerce",
-    description: "Интернет-магазины, маркетплейсы, B2B-каталоги",
-    tags: ["Stripe", "LiqPay", "Нова пошта"],
-    price: "От $6 000 · 6–10 недель",
-    href: "/ru/sites-for/ecommerce",
-  },
-  {
-    icon: Car,
-    title: "Авто-индустрия",
-    description: "Сайты для автоимпортёров, автосалонов, СТО и автосервисов",
-    tags: ["Аукционы", "PDF-счёт", "Мультиязычность"],
-    price: "От $3 000 · 6–10 недель",
-    href: "/ru/sites-for/auto",
-  },
-  {
-    icon: Home,
-    title: "Недвижимость",
-    description: "Сайты для агентств недвижимости, застройщиков, частных объявлений",
-    tags: ["Каталог", "Карта", "Ипотека"],
-    price: "От $2 500 · 4–8 недель",
-    href: "/ru/sites-for/real-estate",
-  },
-  {
-    icon: GraduationCap,
-    title: "Курсы и лендинги",
-    description: "Сайты для онлайн-школ, курсов, продуктовых лендингов",
-    tags: ["LMS", "Оплата", "Вебинары"],
-    price: "От $1 500 · 1–4 недели",
-    href: "/ru/sites-for/courses",
-  },
-];

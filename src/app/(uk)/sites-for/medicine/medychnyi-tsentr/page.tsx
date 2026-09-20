@@ -20,6 +20,7 @@ import { plainRich, type RichText } from "@/lib/shared/rich-text";
 import { buildAlternates } from "@/lib/shared/alternates";
 import { ProseSections } from "@/components/blocks/prose-section";
 import { MED_TSENTR_PROSE_UK } from "@/content/uk/medicine-children-prose";
+import { MED_OFFER_UK as M } from "@/components/industry-page/medicine/offer";
 import {
   Building2,
   Stethoscope,
@@ -32,9 +33,9 @@ import {
 const PATH = "/sites-for/medicine/medychnyi-tsentr";
 const URL = pageUrl(PATH);
 
-const TITLE = "Розробка сайту для медичного центру під ключ | Code-Site.Art";
+const TITLE = `Сайт для медичного центру — ${M.price} за ${M.term}`;
 const DESCRIPTION =
-  "➤ Замовити створення сайту для медичного центру ✔️ Відділення і каталог лікарів ✔️ Онлайн-запис ✔️ Запуск за 4–6 тижнів ➡ Безкоштовний прорахунок.";
+  `Розробка сайту для медичного центру: відділення, каталог лікарів, онлайн-запис. ${M.price}, запуск за ${M.term}. Прорахунок за 24 години.`;
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -61,8 +62,8 @@ const MED_CENTER_FAQ: { q: string; a: RichText }[] = [
     q: "Скільки коштує розробка сайту для медичного центру?",
     a: [
       "Сайт під ключ для медичного центру — ",
-      { em: "від $2 500" },
-      ": відділення, каталог лікарів, онлайн-запис, прайс. Центр із ДМС-інтеграцією, блогом і медичною CRM — від $6 500, мережа закладів — від $12 000. Швидка вилка — у ",
+      { em: M.price },
+      `, фікс-ціна в договорі: відділення, каталог лікарів, онлайн-запис, прайс, запуск за ${M.term}. Центр із ДМС-інтеграцією і медичною CRM або мережа закладів — окремий проєкт, ${M.custom}. Ціна з додатками — у `,
       { link: { href: "/calculator", text: "калькуляторі вартості сайту" } },
       ", повний прайс — на сторінці ",
       { link: { href: "/pricing", text: "ціни створення сайту" } },
@@ -115,7 +116,7 @@ const jsonLd = buildJsonLd([
       {
         "@type": "Offer",
         name: "Сайт медичного центру під ключ",
-        price: "2500",
+        price: String(M.priceNum),
         priceCurrency: "USD",
         url: URL,
       },
@@ -147,7 +148,7 @@ export default function MedychnyiTsentrPage() {
         headline={
           <>
             Розробка сайту для медичного центру —{" "}
-            <em>відділення, лікарі, запис</em>
+            <em>{M.price} за {M.term}</em>
           </>
         }
         sub={
@@ -206,22 +207,22 @@ export default function MedychnyiTsentrPage() {
           {
             icon: Building2,
             title: "Медичний центр",
-            body: "До 8 сторінок: відділення, лікарі, прайс, онлайн-запис, локальне SEO. Запуск за 4 тижні.",
-            stat: "від $2 500",
+            body: `Відділення, лікарі, прайс, онлайн-запис, локальне SEO. Запуск за ${M.term}.`,
+            stat: M.price,
             span: "2x1",
           },
           {
             icon: Network,
             title: "Центр із ДМС і CRM",
             body: "Розширена структура, страхові програми, медична CRM, блог, аналітика записів.",
-            stat: "від $6 500",
+            stat: M.custom,
             span: "1x1",
           },
           {
             icon: Stethoscope,
             title: "Мережа закладів",
             body: "Кілька філій із спільним каталогом лікарів, єдиним записом і сторінками кожної локації.",
-            stat: "від $12 000",
+            stat: M.custom,
             span: "1x1",
           },
           {
@@ -305,8 +306,8 @@ export default function MedychnyiTsentrPage() {
               Третій пласт — інтеграції. Запис із сайту має падати в ту
               систему, з якою вже працюють ваші адміністратори: Helsi, Medesk,
               KeyCRM чи ваша власна через API. Пацієнт отримує SMS, лікар —
-              сповіщення, адміністратор — картку запису. Запуск базової версії
-              — 4 тижні, розширеної з ДМС-програмами — 6. Рік підтримки після
+              сповіщення, адміністратор — картку запису. Запуск — за {M.term};
+              центр із ДМС-програмами — {M.customTerm}. Рік підтримки після
               запуску вже входить у ціну.
             </p>
           </div>

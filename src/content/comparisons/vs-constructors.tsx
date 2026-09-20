@@ -7,9 +7,55 @@ import type { LucideIcon } from "lucide-react";
 import { ArrowUpRight, Calendar, CreditCard, Gauge, Globe, Layers, Lock, Mail, MessageCircle, Plug, Plus, PlusSquare, Search } from "lucide-react";
 import type { TierProps } from "@/types/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
+import type { Locale } from "@/constants/locales";
+import {
+  CORE_PACKAGES,
+  formatAddonPrice,
+  formatPackagePrice,
+  formatPackageTerm,
+  packagePrice,
+  servicePrice,
+} from "@/constants/pricing";
+import { packageTier } from "@/components/blocks/packages";
 // import { SITE_CONTACT } from "@/constants/site"; // CALENDLY DISABLED — see docs/calendly-disabled.md
 
+/* ─── Figures — our side always comes from the pricing config ───────────── */
+
+const biz = (l: Locale) => formatPackagePrice("business", l);
+const bizTerm = (l: Locale) => formatPackageTerm("business", l);
+const hosting = (l: Locale) =>
+  formatPrice(servicePrice("hostingRenewalPerYear", l), { locale: l });
+const packageTiers = (l: Locale): TierProps[] =>
+  CORE_PACKAGES.map((id) =>
+    packageTier(id, l, { source: `vs-constructors-${id}` }),
+  );
+
+/**
+ * Constructor plan the "3 years" calculation compares against: Wix Business,
+ * USD, annual billing — the cheapest Wix plan that takes online payments.
+ * Public tariff, checked 2026-09-20.
+ * TODO(owner): перевірити тариф на wix.com/plans перед публікацією.
+ */
+export const BUILDER_PLAN = { name: "Wix Business", monthlyUsd: 36 } as const;
+const CALC_MONTHS = 36;
+
 /* ─── Content shape ─────────────────────────────────────────────────────── */
+
+export type CalcColumn = {
+  title: string;
+  lines: { label: string; value: string }[];
+  totalLabel: string;
+  total: string;
+};
+
+export type ThreeYears = {
+  eyebrow: string;
+  heading: React.ReactNode;
+  sub: string;
+  builder: CalcColumn;
+  us: CalcColumn;
+  foot: React.ReactNode;
+};
 
 export type Sign = {
   num: string;
@@ -69,6 +115,8 @@ export type Content = {
     items: Cost[];
     foot: React.ReactNode;
   };
+  /** "3 years of subscription vs one payment" arithmetic (UA market only). */
+  threeYears?: ThreeYears;
   compare: {
     eyebrow: string;
     heading: React.ReactNode;
@@ -144,36 +192,96 @@ export type Content = {
   };
 };
 
+/* ─── 3-year calculation (UA market) ────────────────────────────────────── */
+
+function threeYearsUk(): ThreeYears {
+  const l = "uk";
+  const usd = (n: number) => formatPrice(n, { locale: l });
+  const monthly = BUILDER_PLAN.monthlyUsd;
+  const builderTotal = monthly * CALC_MONTHS;
+  const renewal = servicePrice("hostingRenewalPerYear", l);
+  const usTotal = packagePrice("business", l) + renewal * 2;
+  const diff = builderTotal - usTotal;
+  return {
+    eyebrow: "/ РОЗРАХУНОК НА 3 РОКИ",
+    heading: (
+      <>
+        3 роки підписки <em>vs {biz(l)} один раз.</em>
+      </>
+    ),
+    sub: "Рахуємо тільки тариф конструктора — без платних застосунків, шаблону й домену. Проти нашого сайту для бізнесу разом із хостингом.",
+    builder: {
+      title: `${BUILDER_PLAN.name}, ${CALC_MONTHS} місяців`,
+      lines: [
+        { label: "Тариф (річна оплата)", value: `${usd(monthly)}/міс` },
+        { label: "Розрахунок", value: `${usd(monthly)} × ${CALC_MONTHS}` },
+        { label: "Сайт після відмови від тарифу", value: "залишається на платформі" },
+      ],
+      totalLabel: "За 3 роки",
+      total: usd(builderTotal),
+    },
+    us: {
+      title: "Сайт для бізнесу, 3 роки",
+      lines: [
+        { label: "Пакет, один раз", value: biz(l) },
+        { label: "Рік 1: хостинг, гарантія, підтримка", value: "включено" },
+        {
+          label: "Роки 2–3: хостинг",
+          value: `${usd(renewal)} × 2 = ${usd(renewal * 2)}`,
+        },
+      ],
+      totalLabel: "За 3 роки",
+      total: usd(usTotal),
+    },
+    foot:
+      diff > 0 ? (
+        <>
+          За 3 роки різниця — <strong>{usd(diff)}</strong> на вашу користь, і
+          далі вона росте: конструктор коштує {usd(monthly * 12)}/рік, хостинг у
+          нас — {usd(renewal)}/рік. Або переносимо сайт на ваш акаунт — код
+          ваш.
+        </>
+      ) : (
+        <>
+          За 3 роки суми близькі, а з четвертого року конструктор коштує{" "}
+          {usd(monthly * 12)}/рік, хостинг у нас — {usd(renewal)}/рік. Код
+          ваш.
+        </>
+      ),
+  };
+}
+
 /* ─── UA copy ───────────────────────────────────────────────────────────── */
 
 export const VS_CONSTRUCTORS_UK: Content = {
   // Ahrefs, 31.08.2026: «конструктор сайтів» — 2 700 запитів при KD 13,
   // і ця сторінка відповідає саме на нього. Старий title тримав вузький
   // міграційний інтент і весь цей обсяг проходив повз.
-  metaTitle:
-    "Конструктор сайтів чи власний код: що обрати бізнесу | Code-Site.Art",
-  metaDescription:
-    "Мігруємо сайти з Tilda, Webflow, Wix, Squarespace, Weblium на Next.js за 4–10 тижнів. 50+ проєктів — 0 SEO-падінь. Від $800. Без підписок після запуску.",
+  metaTitle: "Конструктор сайтів чи власний код: що обрати бізнесу",
+  metaDescription: `Tilda, Wix, Webflow чи сайт кодом? Сайт для бізнесу — ${biz("uk")} один раз, ${bizTerm("uk")}. Без підписки, код ваш, SEO і домен зберігаємо.`,
   hero: {
     eyebrowLabel: "/ ПОРІВНЯННЯ · КОНСТРУКТОРИ",
     h1Lines: [
-      <>Конструктори ідеальні.</>,
-      <em key="hero-em">Поки бізнес у них поміщається.</em>,
+      <>Конструктори ідеальні, поки бізнес у них поміщається.</>,
+      <em key="hero-em">
+        Далі — сайт кодом за {biz("uk")} і {bizTerm("uk")}.
+      </em>,
     ],
     lede: (
       <>
         Tilda, Webflow, Wix, Squarespace, Weblium — кожен мав сенс на старті.
         Коли потік клієнтів виріс, конструктор починає заважати: повільне
         завантаження, лок-ін на платформі, місячна підписка, потолок
-        інтеграцій. Мігруємо на custom code за 4 тижні. Зберігаємо
-        все: SEO, контент, домен, аналітику.
+        інтеграцій. Переносимо на код: сайт для бізнесу — {biz("uk")} за{" "}
+        {bizTerm("uk")}, ціна фіксована в договорі. Зберігаємо SEO, контент,
+        домен і аналітику.
       </>
     ),
     badges: [
-      { label: "50+ проєктів", sub: "0 SEO-падінь" },
-      { label: "4 тижні", sub: "від брифу до запуску" },
+      { label: "25+ проєктів", sub: "0 SEO-падінь" },
+      { label: bizTerm("uk"), sub: "сайт для бізнесу під ключ" },
       { label: "0 підписок", sub: "платите один раз" },
-      { label: "Від $800", sub: "за міграцію лендінга" },
+      { label: biz("uk"), sub: "фікс-ціна в договорі" },
     ],
     ctaPrimary: "Розрахувати міграцію",
     ctaSecondary: "Дивитись таблицю порівняння",
@@ -197,7 +305,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         num: "02",
         icon: CreditCard,
         title: "Місячний рахунок поповз вгору",
-        body: "Стартували з $15, зараз $50–80? Це нормальна динаміка конструкторів: додатковий тариф, плагіни, інтеграції, премʼєм-шаблон. За 3 роки володіння — $1 800–3 000 у підписках.",
+        body: `Стартували з базового тарифу, а тепер платите ще за застосунки й дорожчий план? Це нормальна динаміка конструкторів. Лише ${BUILDER_PLAN.name} — ${formatPrice(BUILDER_PLAN.monthlyUsd, { locale: "uk" })}/міс, за 3 роки — ${formatPrice(BUILDER_PLAN.monthlyUsd * CALC_MONTHS, { locale: "uk" })}.`,
       },
       {
         num: "03",
@@ -218,7 +326,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         body: "Платформа закриється, ціна виросте вдвічі, технологія застаріє — ви не власник коду і не власник інфраструктури. Експорт є, але часто це HTML без логіки.",
       },
     ],
-    foot: "Поставили хоча б дві галочки — пишіть. На безкоштовному 30-хв дзвінку-знайомстві скажемо, чи має сенс міграція зараз, чи рано.",
+    foot: "Поставили хоча б дві галочки — надішліть посилання на сайт. Безкоштовний аудит і розрахунок — протягом 24 годин: скажемо, чи є сенс переходити зараз, чи рано.",
   },
   costs: {
     eyebrow: "/ 03 ПРИХОВАНІ ВИТРАТИ",
@@ -228,6 +336,8 @@ export const VS_CONSTRUCTORS_UK: Content = {
       </>
     ),
     sub: "Базова підписка — лише видима частина. Ось що ви платите щомісяця:",
+    // Публічні тарифи конструкторів, checked 2026-09-20.
+    // TODO(owner): перевірити тариф — діапазони застосунків і шаблонів орієнтовні.
     items: [
       {
         num: "01",
@@ -254,7 +364,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         num: "04",
         icon: ArrowUpRight,
         title: "Ліміт сторінок / трафіку",
-        body: "Виросли — переходьте на дорожчий тариф. Tilda Business — $25/міс, Webflow CMS Plus — $39/міс.",
+        body: "Виросли — переходьте на дорожчий тариф. Tilda Business — $25/міс, Webflow Business — $39/міс.",
         metric: "+$20–40/міс",
       },
       {
@@ -268,18 +378,19 @@ export const VS_CONSTRUCTORS_UK: Content = {
         num: "06",
         icon: Plus,
         title: "Втрата при зростанні",
-        body: "Ваш сайт виріс до 100 сторінок? Webflow CMS = $39/міс. Wix VIP = $39/міс. Кожні 100 сторінок — додатковий tier.",
+        body: "Контенту стало більше? На Webflow CMS — ліміт записів CMS, далі тариф Business за $39/міс. На конструкторах обсяг упирається в тариф.",
         metric: "+$20–60/міс",
       },
     ],
     foot: (
       <>
-        За 3 роки на конструкторі ви платите{" "}
-        <strong>від $1 800 до $4 500</strong> у підписках. У нас один платіж —
-        від $800. Через рік ви вже в плюсі.
+        Сайт для бізнесу у нас — <strong>{biz("uk")} один раз</strong>, перший
+        рік хостингу й підтримки включено, далі — {hosting("uk")}/рік. Нижче —
+        розрахунок на 3 роки.
       </>
     ),
   },
+  threeYears: threeYearsUk(),
   compare: {
     eyebrow: "/ 04 ПОРІВНЯННЯ",
     heading: (
@@ -287,7 +398,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         Code-Site vs усі <em>топові конструктори.</em>
       </>
     ),
-    sub: "Чесно по фактах. Без перекручувань. На основі 50+ проєктів і 3 років роботи з кожним з них.",
+    sub: "Чесно по фактах. Без перекручувань. На основі 25+ проєктів і 3 років роботи з кожним з них.",
     criterionHeader: "Критерій",
     builderHeaders: ["Tilda", "Webflow", "Wix", "Squarespace", "Weblium"],
     usHeader: "Code-Site",
@@ -299,8 +410,9 @@ export const VS_CONSTRUCTORS_UK: Content = {
       },
       {
         criterion: "Місячна вартість",
-        values: ["$15–25", "$14–49", "$16–159", "$23–49", "$0–25"],
-        us: "$0–20 (тільки хостинг)",
+        // checked 2026-09-20 — TODO(owner): перевірити тарифи Squarespace і Weblium
+        values: ["$15–25", "$14–49", "$17–159", "$16–99", "$0–25"],
+        us: `$0 перший рік, далі хостинг ${hosting("uk")}/рік`,
       },
       {
         criterion: "Володіння кодом",
@@ -349,7 +461,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
           "1–2 тижні",
           "1 тиждень",
         ],
-        us: "4–10 тижнів зі студією",
+        us: `${bizTerm("uk")} під ключ`,
       },
       {
         criterion: "Експорт коду",
@@ -404,7 +516,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
       {
         name: "Squarespace",
         good: "Найкрасивіші out-of-the-box шаблони. Сильний для креативних бізнесів — фотографи, дизайнери, бутики, ресторани в US/EU.",
-        cap: "$23–49/міс. Мультимовність обмежена. Кастомні інтеграції — складно. SEO непоганий, але потолок є.",
+        cap: "$16–99/міс. Мультимовність обмежена. Кастомні інтеграції — складно. SEO непоганий, але потолок є.",
         when: "Вам потрібна реальна мультимовність, складна e-commerce-логіка, або performance стає важливим.",
       },
       {
@@ -466,9 +578,9 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ],
     foot: (
       <>
-        Ви платили $25–80/міс за платформу + плагіни. Тепер платите{" "}
-        $0/міс за адмінку. Лише хостинг — $0–20 на Vercel/Cloudflare.
-        За рік — економія <strong>$300–960</strong>.
+        Ви платили щомісяця за платформу і застосунки. Тепер за адмінку —{" "}
+        <strong>$0/міс</strong>. Хостинг перший рік включено, далі —{" "}
+        {hosting("uk")}/рік або переносимо сайт на ваш акаунт.
       </>
     ),
   },
@@ -479,7 +591,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         Що ми бачимо <em>на типовій міграції з конструктора.</em>
       </>
     ),
-    sub: "12 наших проєктів — це переходи з Tilda, Webflow, Wix і Squarespace. Тут — типові цифри до/після:",
+    sub: "Що зазвичай змінюється після переходу з Tilda, Webflow, Wix і Squarespace на код:",
     headers: {
       metric: "Метрика",
       before: "До (на конструкторі)",
@@ -492,19 +604,9 @@ export const VS_CONSTRUCTORS_UK: Content = {
         after: "< 1 секунди (×4 швидше)",
       },
       {
-        metric: "Заявок/міс",
-        before: "стабільне плато",
-        after: "+30–80% за 60 днів",
-      },
-      {
-        metric: "Позиції в Google",
-        before: "5–15 за ключовими",
-        after: "переважно Top-5, частина Top-3",
-      },
-      {
-        metric: "Місячна вартість",
-        before: "$25–80",
-        after: "$0–20 (тільки Vercel/Cloudflare)",
+        metric: "Щомісячний платіж",
+        before: "тариф + застосунки",
+        after: `$0; хостинг ${hosting("uk")}/рік з другого року`,
       },
       {
         metric: "Час на правки контенту",
@@ -512,7 +614,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         after: "1–3 хв через Sanity з телефона",
       },
     ],
-    foot: "Точні цифри по вашому проекту скажемо на безкоштовному 30-хв дзвінку-знайомстві — потрібно подивитись ваш сайт і поточну аналітику.",
+    foot: "Точні цифри по вашому сайту — у безкоштовному аудиті протягом 24 годин. Надішліть посилання.",
   },
   filter: {
     eyebrow: "/ 08 ЧЕСНО",
@@ -529,14 +631,14 @@ export const VS_CONSTRUCTORS_UK: Content = {
       },
       {
         title: "Wix VIP з кастом-кодом, який ви самі писали",
-        body: "Якщо ви вже взяли Wix Velo і вкладали туди логіку, це окремий обсяг. Скажемо чесно — або переписуємо як новий проект ($14k+), або залишайтесь.",
+        body: `Якщо ви вже взяли Wix Velo і вкладали туди логіку, це окремий обсяг. Скажемо чесно — або переписуємо як Custom-проєкт (${formatPackagePrice("custom", "uk")}, ${formatPackageTerm("custom", "uk")}), або залишайтесь.`,
       },
       {
         title: "Squarespace магазин з 1 000+ товарів",
         body: "У такому випадку ваш реальний конкурент — Shopify, не custom code. Підкажемо до кого звернутись.",
       },
     ],
-    foot: "Якщо ваш кейс не з цього списку — пишіть. На безкоштовному 30-хв дзвінку-знайомстві скажемо чесно.",
+    foot: "Якщо ваш випадок не з цього списку — надішліть посилання. У безкоштовному аудиті за 24 години скажемо чесно.",
   },
   pricing: {
     eyebrow: "/ 09 ВАРТІСТЬ МІГРАЦІЇ",
@@ -547,68 +649,17 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ),
     sub: (
       <>
-        Зазвичай <strong>дешевше</strong>, ніж міграція з WordPress — менше
-        custom-логіки переносити. Ціна в брифі, без «під запит».
+        Ціна і строк фіксуються в договорі. Перенесення контенту зі старого
+        сайту зі збереженням SEO — {formatAddonPrice("migration", "uk")} до
+        пакета.
       </>
     ),
-    tiers: [
-      {
-        name: "Лендінг-міграція",
-        price: formatPrice(1000, { locale: "uk" }),
-        weeks: "1–2 тижні",
-        includes: {
-          heading: "Для кого",
-          items: [
-            "Tilda / Wix / Webflow одностраничник",
-            "До 5 сторінок",
-            "301-редіректи зі старих URL",
-            "Перенесення медіа",
-            "30-денний моніторинг",
-          ],
-        },
-        ctaLabel: "Розрахувати лендінг",
-      },
-      {
-        popular: true,
-        popularLabel: "★ НАЙПОПУЛЯРНІШЕ",
-        name: "Сайт-міграція",
-        price: formatPrice(3000, { locale: "uk" }),
-        weeks: "3–6 тижнів",
-        includes: {
-          heading: "Все з лендінгу +",
-          items: [
-            "До 30 сторінок",
-            "CMS, блог, форми",
-            "Перенесення інтеграцій (Mailchimp / Stripe / LiqPay)",
-            "Schema.org + Open Graph апгрейд",
-            "Більшість клієнтів сюди",
-          ],
-        },
-        ctaLabel: "Розрахувати сайт",
-      },
-      {
-        name: "Складна міграція",
-        price: formatPrice(5000, { locale: "uk" }),
-        weeks: "6–10 тижнів",
-        includes: {
-          heading: "Все з сайту +",
-          items: [
-            "Webflow CMS з 50+ items",
-            "Squarespace store до 200 SKU",
-            "Мультимовність",
-            "Custom API",
-            "Dedicated team",
-          ],
-        },
-        ctaLabel: "Обговорити складну",
-        ctaGhost: true,
-      },
-    ],
+    tiers: packageTiers("uk"),
     foot: (
       <>
-        Усі пакети включають: 301-редіректи з усіх старих URL, перенесення
-        контенту і медіа, schema.org, 30-денний пост-лонч моніторинг, гарантію
-        1 рік. <strong>Без підписок після запуску.</strong>
+        У кожному пакеті: хостинг, гарантія і підтримка на рік — включені. Далі
+        — хостинг {hosting("uk")}/рік або переносимо сайт на ваш акаунт.{" "}
+        <strong>Без підписок.</strong>
       </>
     ),
     ctaPrimary: "Розрахувати міграцію",
@@ -624,7 +675,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     items: [
       {
         q: "Чи я втрачу позиції в Google після міграції?",
-        a: "Ні. На 50+ проєктах — 0 падінь більше ніж на тиждень. Будуємо повну мапу 301-редіректів зі старих URL на нові. Перші 30 днів моніторимо Search Console щодня.",
+        a: "Будуємо повну мапу 301-редіректів зі старих URL на нові, переносимо title, description і розмітку. Перші 30 днів після запуску стежимо за Search Console.",
       },
       {
         q: "Що з моїм доменом?",
@@ -663,7 +714,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
         Розрахуйте міграцію <em>за 60 секунд.</em>
       </>
     ),
-    sub: "Калькулятор без форми, реальна ціна одразу. Або поговоримо на 30-хв розборі — подивимось ваш конструктор, скажемо термін і ціну.",
+    sub: "Калькулятор без форми, ціна одразу. Або надішліть посилання на сайт — безкоштовний аудит, строк і ціна протягом 24 годин.",
     cards: [
       {
         icon: Calendar,
@@ -685,7 +736,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
       {
         icon: Mail,
         title: "Бриф через форму",
-        body: "Опишіть проєкт детально — повернемось протягом 4 робочих годин.",
+        body: "Опишіть проєкт — відповімо з розрахунком протягом 24 годин.",
         cta: "Заповнити бриф →",
         href: "/contacts",
       },
@@ -697,30 +748,31 @@ export const VS_CONSTRUCTORS_UK: Content = {
 /* ─── EN copy ───────────────────────────────────────────────────────────── */
 
 export const VS_CONSTRUCTORS_EN: Content = {
-  metaTitle:
-    "Migrate from Wix, Webflow, GoDaddy to custom code | Code-Site.Art",
-  metaDescription:
-    "We migrate sites from GoDaddy, Webflow, Wix, Squarespace, Shopify to Next.js in 4–10 weeks. 50+ projects — zero SEO drops. From £800. No subscriptions after launch.",
+  metaTitle: "Website builder vs custom code: Wix, Webflow, Squarespace",
+  metaDescription: `Outgrew Wix, Webflow or Squarespace? Custom-coded business website for ${biz("en")}, ${bizTerm("en")}. Fixed price, you own the code, no subscriptions.`,
   hero: {
     eyebrowLabel: "/ COMPARE · SITE BUILDERS",
     h1Lines: [
-      <>Site builders are great.</>,
-      <em key="hero-em">Until your business outgrows them.</em>,
+      <>Site builders are great, until your business outgrows them.</>,
+      <em key="hero-em">
+        Then — custom code for {biz("en")} in {bizTerm("en")}.
+      </em>,
     ],
     lede: (
       <>
         GoDaddy, Webflow, Wix, Squarespace, Shopify — each made sense at the
         start. As your traffic grows, the builder starts pushing back: slow
         loads, vendor lock-in, monthly subscriptions, integration ceiling. We
-        migrate you to custom code in 4 weeks. Everything carries
-        over — SEO, content, domain, analytics.
+        move you to custom code: a business website for {biz("en")} in{" "}
+        {bizTerm("en")}, price fixed in the contract. SEO, content, domain and
+        analytics carry over.
       </>
     ),
     badges: [
-      { label: "50+ projects", sub: "0 SEO drops" },
-      { label: "4 weeks", sub: "brief to launch" },
+      { label: "25+ projects", sub: "0 SEO drops" },
+      { label: bizTerm("en"), sub: "business website, turnkey" },
       { label: "0 subscriptions", sub: "pay once, own it" },
-      { label: "From £800", sub: "for a landing migration" },
+      { label: biz("en"), sub: "fixed price in the contract" },
     ],
     ctaPrimary: "Calculate migration cost",
     ctaSecondary: "Jump to comparison table",
@@ -744,7 +796,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         num: "02",
         icon: CreditCard,
         title: "Monthly bill keeps creeping up",
-        body: "Started at £15, now you're at £50–80? That's the builder lifecycle: extra tier, plugins, integrations, premium template. Three years in, you've spent £1,800–3,000 on subscriptions.",
+        body: "Started on the basic plan, now paying for apps and a higher tier on top? That's the builder lifecycle: extra tier, plugins, integrations, premium template.",
       },
       {
         num: "03",
@@ -765,7 +817,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         body: "The platform shuts down, doubles the price, the tech goes stale — you don't own the code or the infrastructure. Export exists, but it's usually HTML without the logic.",
       },
     ],
-    foot: "Two or more checkboxes? Talk to us. The free 30-minute consult will tell you if migration makes sense now or if it's too early.",
+    foot: "Two or more checkboxes? Send us your site link. The free audit and quote come within 24 hours — we'll tell you if moving makes sense now or if it's too early.",
   },
   costs: {
     eyebrow: "/ 03 HIDDEN COSTS",
@@ -775,55 +827,58 @@ export const VS_CONSTRUCTORS_EN: Content = {
       </>
     ),
     sub: "The base subscription is just the visible part. Here's what you're paying every month:",
+    // Public builder tariffs, EUR, checked 2026-09-20.
+    // TODO(owner): перевірити тариф — EU prices per plan, app/template ranges are approximate.
     items: [
       {
         num: "01",
         icon: Layers,
         title: "Base subscription",
         body: "GoDaddy Personal, Webflow CMS, Wix Premium, Squarespace Business, Shopify Pro — minimum for a real business site.",
-        metric: "£15–49/mo",
+        metric: "€15–49/mo",
       },
       {
         num: "02",
         icon: Plug,
         title: "Add-on integrations",
         body: "Forms, chat, bookings, CRM connector. Each one — a separate subscription through the platform's app store.",
-        metric: "£10–30/mo each",
+        metric: "€10–30/mo each",
       },
       {
         num: "03",
         icon: PlusSquare,
         title: "Premium template / theme",
         body: "A good template is usually a separate purchase or a higher tier.",
-        metric: "£50–300 one-time",
+        metric: "€50–300 one-time",
       },
       {
         num: "04",
         icon: ArrowUpRight,
         title: "Page / traffic limit",
-        body: "Outgrew it? Move to a pricier tier. GoDaddy Business — £25/mo, Webflow CMS Plus — £39/mo.",
-        metric: "+£20–40/mo",
+        body: "Outgrew it? Move to a pricier tier. Webflow Business — €39/mo, Squarespace Commerce — more again.",
+        metric: "+€20–40/mo",
       },
       {
         num: "05",
         icon: Globe,
         title: "Custom domain on higher tiers",
         body: "Wix and Shopify free tiers don't even support custom domains.",
-        metric: "£10–15/yr + tier",
+        metric: "€10–15/yr + tier",
       },
       {
         num: "06",
         icon: Plus,
         title: "Penalty for growth",
-        body: "Site grew to 100 pages? Webflow CMS — £39/mo. Wix VIP — £39/mo. Every 100 pages, another tier.",
-        metric: "+£20–60/mo",
+        body: "More content? Webflow CMS caps CMS items, the next step is Business at €39/mo. On builders, volume is tied to the plan.",
+        metric: "+€20–60/mo",
       },
     ],
     foot: (
       <>
-        Over 3 years on a builder, you pay <strong>£1,800 to £4,500</strong>{" "}
-        in subscriptions. We charge once — from £800. You break
-        even in year one.
+        We charge once — <strong>{biz("en")}</strong> for a business website,
+        hosting and support for the first year included, then{" "}
+        {hosting("en")}/yr. A builder is cheaper to start; with us you pay for
+        speed, no ceiling and code you own.
       </>
     ),
   },
@@ -834,7 +889,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         Code-Site vs every <em>major builder.</em>
       </>
     ),
-    sub: "Honest, fact-based. Pulled from 50+ projects and 3 years working with each of these.",
+    sub: "Honest, fact-based. Pulled from 25+ projects and 3 years working with each of these.",
     criterionHeader: "Criterion",
     builderHeaders: ["GoDaddy", "Webflow", "Wix", "Squarespace", "Shopify"],
     usHeader: "Code-Site",
@@ -846,8 +901,9 @@ export const VS_CONSTRUCTORS_EN: Content = {
       },
       {
         criterion: "Monthly cost",
-        values: ["£15–25", "£14–49", "£16–159", "£23–49", "£0–25"],
-        us: "£0–20 (hosting only)",
+        // checked 2026-09-20 — TODO(owner): перевірити EU-тарифи
+        values: ["€15–25", "€14–49", "€17–159", "€16–99", "€0–25"],
+        us: `€0 year one, then hosting ${hosting("en")}/yr`,
       },
       {
         criterion: "Code ownership",
@@ -896,7 +952,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
           "1–2 weeks",
           "1 week",
         ],
-        us: "4–10 weeks with us",
+        us: `${bizTerm("en")}, turnkey`,
       },
       {
         criterion: "Code export",
@@ -940,13 +996,13 @@ export const VS_CONSTRUCTORS_EN: Content = {
         good: "Fast launch, large block library, intuitive editor. Ideal for landings and info sites up to 10 pages.",
         cap: "Slow on mobile, limited export, monthly subscription. Custom integrations only via workaround.",
         note: "Aggressive upsells, and you never own the code — leaving later means a rebuild.",
-        when: "Your site is past 15 pages, you're paying £25+/mo, and you need a custom feature GoDaddy doesn't have.",
+        when: "Your site is past 15 pages, you're paying €25+/mo, and you need a custom feature GoDaddy doesn't have.",
       },
       {
         name: "Webflow",
         good: "The best design freedom of any builder. Cleaner code than competitors. Strong for SaaS landings and portfolios.",
-        cap: "£20–40/mo per site plus hosting. CMS is item-limited on lower tiers. Heavy animations hurt performance. Pricing model is tangled (CMS / Business / Enterprise + hosting).",
-        when: "Complex form logic, custom checkout, you need full control over performance, or your monthly bill is north of £50.",
+        cap: "€20–40/mo per site plus hosting. CMS is item-limited on lower tiers. Heavy animations hurt performance. Pricing model is tangled (CMS / Business / Enterprise + hosting).",
+        when: "Complex form logic, custom checkout, you need full control over performance, or your monthly bill is north of €50.",
       },
       {
         name: "Wix",
@@ -957,7 +1013,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       {
         name: "Squarespace",
         good: "Best out-of-the-box templates. Strong for creative businesses — photographers, designers, boutiques, restaurants in the UK and EU.",
-        cap: "£23–49/mo. Multi-language is limited. Custom integrations are hard. SEO is decent but capped.",
+        cap: "€16–99/mo. Multi-language is limited. Custom integrations are hard. SEO is decent but capped.",
         when: "You need real multi-language, complex e-commerce logic, or performance becomes a priority.",
       },
       {
@@ -1009,7 +1065,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       {
         num: "05",
         title: "Free for teams up to 5",
-        body: "GoDaddy Business for a team — from £25/mo. Webflow for a team — from £39/mo. Sanity for up to 5 editors — £0.",
+        body: "GoDaddy Business for a team — from €25/mo. Webflow for a team — from €39/mo. Sanity for up to 5 editors — €0.",
       },
       {
         num: "06",
@@ -1019,9 +1075,9 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ],
     foot: (
       <>
-        You were paying £25–80/mo for the platform + plugins. Now you
-        pay £0/mo for the admin. Only hosting — £0–20 on
-        Vercel/Cloudflare. Annual savings: <strong>£300–960</strong>.
+        You were paying every month for the platform and apps. Now the admin
+        costs <strong>€0/mo</strong>. Hosting is included for the first year,
+        then {hosting("en")}/yr — or we move the site to your own account.
       </>
     ),
   },
@@ -1032,7 +1088,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         What we see <em>on a typical builder migration.</em>
       </>
     ),
-    sub: "12 of our 50+ projects were from GoDaddy, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
+    sub: "12 of our 25+ projects were from GoDaddy, Webflow, Wix, and Squarespace. Here are the typical before/after numbers:",
     headers: {
       metric: "Metric",
       before: "Before (on builder)",
@@ -1045,19 +1101,9 @@ export const VS_CONSTRUCTORS_EN: Content = {
         after: "under 1 second (4× faster)",
       },
       {
-        metric: "Inquiries/month",
-        before: "flat plateau",
-        after: "+30–80% within 60 days",
-      },
-      {
-        metric: "Google rankings",
-        before: "position 5–15 for target keywords",
-        after: "mostly top-5, some top-3",
-      },
-      {
-        metric: "Monthly cost",
-        before: "£25–80",
-        after: "£0–20 (Vercel/Cloudflare only)",
+        metric: "Monthly bill",
+        before: "plan + apps",
+        after: `€0; hosting ${hosting("en")}/yr from year two`,
       },
       {
         metric: "Time to edit content",
@@ -1065,7 +1111,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         after: "1–3 min via Sanity, from your phone",
       },
     ],
-    foot: "Exact numbers for your project after a free 30-minute consult — we'll look at your site and current analytics.",
+    foot: "Exact numbers for your site come with a free audit within 24 hours. Send us the link.",
   },
   filter: {
     eyebrow: "/ 08 STRAIGHT TALK",
@@ -1082,14 +1128,14 @@ export const VS_CONSTRUCTORS_EN: Content = {
       },
       {
         title: "Wix VIP with custom code you wrote in Velo",
-        body: "If you've invested in Wix Velo logic, that's a separate scope. We'll tell you straight — either we rebuild as a new project (£14k+) or you stay.",
+        body: `If you've invested in Wix Velo logic, that's a separate scope. We'll tell you straight — either we rebuild it as a custom project (${formatPackagePrice("custom", "en")}, ${formatPackageTerm("custom", "en")}) or you stay.`,
       },
       {
         title: "Squarespace store with 1,000+ products",
         body: "Your real competitor is Shopify, not custom code. We'll point you to a specialist.",
       },
     ],
-    foot: "If your case isn't on this list, talk to us. The free 30-minute consult will tell you straight.",
+    foot: "If your case isn't on this list, send us the link. The free audit within 24 hours will tell you straight.",
   },
   pricing: {
     eyebrow: "/ 09 MIGRATION PRICING",
@@ -1100,71 +1146,17 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ),
     sub: (
       <>
-        Usually <strong>cheaper</strong> than a WordPress migration — less
-        custom logic to bring over. Price in the brief, no “request a quote.”
+        Price and timeline are fixed in the contract. Moving content from
+        your old site with SEO intact — {formatAddonPrice("migration", "en")}{" "}
+        on top of the package.
       </>
     ),
-    tiers: [
-      {
-        name: "Landing migration",
-        price: formatPrice(1000, { locale: "en" }),
-        priceLabel: "from",
-        weeks: "1–2 weeks",
-        includes: {
-          heading: "Who it's for",
-          items: [
-            "GoDaddy / Wix / Webflow one-pager",
-            "Up to 5 pages",
-            "301 redirects from old URLs",
-            "Media transfer",
-            "30-day monitoring",
-          ],
-        },
-        ctaLabel: "Estimate landing",
-      },
-      {
-        popular: true,
-        popularLabel: "★ MOST POPULAR",
-        name: "Site migration",
-        price: formatPrice(3000, { locale: "en" }),
-        priceLabel: "from",
-        weeks: "3–6 weeks",
-        includes: {
-          heading: "Everything in landing, plus",
-          items: [
-            "Up to 30 pages",
-            "CMS, blog, forms",
-            "Integrations (Mailchimp / Stripe / GoCardless) reconnected",
-            "Schema.org + Open Graph upgrade",
-            "Where most clients land",
-          ],
-        },
-        ctaLabel: "Estimate site",
-      },
-      {
-        name: "Complex migration",
-        price: formatPrice(5000, { locale: "en" }),
-        priceLabel: "from",
-        weeks: "6–10 weeks",
-        includes: {
-          heading: "Everything in site, plus",
-          items: [
-            "Webflow CMS with 50+ items",
-            "Squarespace store up to 200 SKUs",
-            "Multi-language",
-            "Custom API",
-            "Dedicated team",
-          ],
-        },
-        ctaLabel: "Talk through complex",
-        ctaGhost: true,
-      },
-    ],
+    tiers: packageTiers("en"),
     foot: (
       <>
-        Every tier includes: 301 redirects from all old URLs, content and
-        media transfer, schema.org, 30-day post-launch monitoring, 1-year
-        warranty. <strong>No subscriptions after launch.</strong>
+        Every package: hosting, warranty and support for a year — included.
+        Then hosting {hosting("en")}/yr or we move the site to your account.{" "}
+        <strong>No subscriptions.</strong>
       </>
     ),
     ctaPrimary: "Calculate migration cost",
@@ -1180,7 +1172,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     items: [
       {
         q: "Will I lose Google rankings after migration?",
-        a: "No. Across 50+ projects — zero drops longer than a week. We build a complete 301 redirect map from every old URL to the new one. We watch Search Console daily for the first 30 days.",
+        a: "We build a complete 301 redirect map from every old URL to the new one and carry over titles, descriptions and markup. We watch Search Console for the first 30 days after launch.",
       },
       {
         q: "What happens to my domain?",
@@ -1219,7 +1211,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
         Get a migration estimate <em>in 60 seconds.</em>
       </>
     ),
-    sub: "Calculator, no form, real price up front. Or let's talk for 30 minutes — we'll look at your builder and give you a timeline and price.",
+    sub: "Calculator, no form, price up front. Or send us your site link — free audit with timeline and price within 24 hours.",
     cards: [
       {
         icon: Calendar,
@@ -1241,7 +1233,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
       {
         icon: Mail,
         title: "Send a brief",
-        body: "Detailed form. Describe the project — we'll come back within 4 business hours.",
+        body: "Describe the project — we reply with a quote within 24 hours.",
         cta: "Fill out brief →",
         href: "/contacts",
       },

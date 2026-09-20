@@ -82,7 +82,7 @@ export const PACKAGES: Record<PackageId, PackageDef> = {
       en: [
         "One long-form page",
         "Works on phone and tablet",
-        "Contact form with Telegram alerts",
+        "Contact form with email or Telegram alerts",
         "Basic SEO",
         "Copy written from your brief",
         "Hosting and SSL for a year",
@@ -130,7 +130,7 @@ export const PACKAGES: Record<PackageId, PackageDef> = {
       en: [
         "Up to 5 pages",
         "Sanity CMS — edit it yourself, even from your phone",
-        "Forms with Telegram alerts",
+        "Forms with email or Telegram alerts",
         "SEO-ready structure",
         "Copy written from your brief",
         "Google Analytics + Search Console",
@@ -187,7 +187,7 @@ export const PACKAGES: Record<PackageId, PackageDef> = {
         "Delivery integration",
         "Sanity admin panel",
         "Category SEO",
-        "Order alerts in Telegram",
+        "Order alerts by email or Telegram",
         "Hosting and SSL for a year",
         "One-year warranty",
         "No subscriptions, no commission",

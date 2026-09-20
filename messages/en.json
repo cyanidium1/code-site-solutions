@@ -1,7 +1,7 @@
 {
   "Meta": {
-    "title": "Code-Site.Art — Custom websites that book meetings 24/7. Live in 4–10 weeks.",
-    "description": "Boutique studio in Kyiv shipping custom-coded sites for SMBs and startups in the US, EU, and DK. Fixed price from £1,000. 1-year warranty + 30% rebate if we miss the deadline."
+    "title": "Custom-coded website in 7 days for €2,500 | Code-Site.Art",
+    "description": "Custom-coded websites for European small businesses: €2,500 fixed in the contract, live in 7 working days. Online shop €3,900. You own the code."
   },
   "Nav": {
     "services": "Services",
@@ -35,11 +35,13 @@
     "onlineStore": "Online store",
     "seo": "SEO",
     "localSeo": "Local SEO",
-    "audit": "Website audit",
+    "audit": "Free website audit",
+      "support": "Support & warranty",
     "redesign": "Redesign"
   },
   "Footer": {
-    "brandDesc": "Boutique custom website studio — 50+ projects over 5 years across 7 regions: UA · EU · US · DK · ZA · UK · FR.",
+    "brandDesc": "Custom-coded websites for small businesses. A team of 4, 25+ projects in Denmark, South Africa, Albania and Ukraine. Fixed price, you own the code.",
+    "currencyNote": "Prices in EUR. Invoices in EUR, USD or GBP on request.",
     "solutionsHeading": "/ SOLUTIONS",
     "companyHeading": "/ COMPANY",
     "compareHeading": "/ COMPARE",
@@ -58,12 +60,13 @@
       "about": "About",
       "process": "Process",
       "webDevelopment": "Web development",
-      "landing": "Landing from £800",
+      "landing": "Landing page — {price}",
       "corporateSite": "Corporate website",
       "onlineStore": "Online store",
       "seo": "SEO services",
       "localSeo": "Local SEO",
-      "audit": "Website audit",
+      "audit": "Free website audit",
+      "support": "Support & warranty",
       "redesign": "Website redesign",
       "pricing": "Pricing",
       "calculator": "Calculator",

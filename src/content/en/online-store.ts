@@ -1,335 +1,176 @@
+import type { PackagePageContent } from "@/components/landing-page/types";
+import { resolveRootHref } from "@/constants/i18n-routes";
 import {
-  Bell,
-  CreditCard,
-  Filter,
-  Globe,
-  Layers,
-  LayoutDashboard,
-  LayoutList,
-  LifeBuoy,
-  Package,
-  Palette,
-  PenLine,
-  Rocket,
-  Search,
-  ShoppingCart,
-} from "lucide-react";
+  ADDONS,
+  PACKAGES,
+  formatAddonPrice,
+  formatPackagePrice,
+  formatPackageTerm,
+  servicePrice,
+} from "@/constants/pricing";
+import { formatPrice } from "@/lib/shared/format-price";
 
-import type { LandingPageContent } from "@/types/landing";
+const L = "en";
+const price = formatPackagePrice("shop", L);
+const term = formatPackageTerm("shop", L);
+const days = PACKAGES.shop.days.max;
+const landing = formatPackagePrice("landing", L);
+const business = formatPackagePrice("business", L);
+const rush = `“${ADDONS.rush.name[L]}” (${formatAddonPrice("rush", L)})`;
+const hosting = formatPrice(servicePrice("hostingRenewalPerYear", L), { locale: L });
+const eur = (n: number) => formatPrice(n, { locale: L });
 
-export const ONLINE_STORE_EN: LandingPageContent = {
-  metaTitle: "Online Store from £6,000 — E-commerce Development | Code-Site.Art",
-  metaDescription:
-    "➤ Custom-coded online store from £6,000 in 6–10 weeks ✔️ Catalogue, cart, checkout, CMS ✔️ No builder subscriptions ✔️ Fixed price in the contract ➡ Get your quote.",
+/* European builders instead of Horoshop/Prom. The €30–80/month range
+   mirrors the owner's uk range. TODO(owner): перевірити тариф — Shopify
+   Basic is ~€24/mo billed yearly, €32 monthly (third-party summaries,
+   20.09.2026); Wix figures not verified. */
+const SUB = { min: 30, max: 80, months: 36 };
+
+export const ONLINE_STORE_EN: PackagePageContent = {
+  pkg: "shop",
+  rootPath: "/online-store",
+  metaTitle: `Online Shop for ${price} in ${term} | Code-Site.Art`,
+  metaDescription: `A custom-coded online shop for ${price} in ${term}: catalogue, basket, card payments, delivery, admin panel. No subscriptions, no commission.`,
   breadcrumbHome: "Home",
-  breadcrumbSelf: "Online store",
-  hero: {
-    eyebrow: "ONLINE STORE",
-    headline: ["An online store from £6,000 ", "that sells without a manager"],
-    sub: "Catalogue, cart, checkout and a CMS you manage products from yourself. 6–10 weeks from brief to first orders. No monthly builder subscriptions.",
-    badges: [
-      { label: "6–10 weeks", sub: "brief to first orders" },
-      { label: "0 subscriptions", sub: "pay once, own it" },
-      { label: "1-year warranty", sub: "fixes and advice" },
-      { label: "Fixed price", sub: "in the contract upfront" },
-    ],
-  },
-  miniCalc: {
-    tier: "custom",
-    title: "Build your store — the price updates live",
-    baseLabel: "Base online store",
-    baseNote: "catalogue up to ~50 products, cart, checkout, CMS, SEO, launch, 1-year warranty",
-    basePrice: 6000,
-    currency: "£",
-    blocks: {
-      label: "Extra unique pages",
-      note: "brand, B2B, promo landings — +£220; utility pages are included",
-      unitPrice: 220,
-      max: 5,
-    },
-    options: [
-      { id: "payments", label: "Online payments (Stripe / GoCardless)", price: 300 },
-      { id: "catalog500", label: "Catalogue of 50–500 products", price: 500 },
-      { id: "filters", label: "Advanced filters & search", price: 400 },
-      { id: "advanced", label: "Complex logic: configurators, custom flows", price: 700 },
-      { id: "crm", label: "CRM & order notifications", price: 100 },
-      { id: "lang", label: "Second language", price: 250 },
-      { id: "premium", label: "Premium design with custom artwork", price: 400 },
-    ],
-    totalLabel: "Estimated price",
-    totalNote: "An estimate, not an invoice. The final figure is fixed in the contract.",
-    form: {
-      heading: "Get an exact quote — your selection ships with the enquiry",
-      namePlaceholder: "Name",
-      contactPlaceholder: "Email / Telegram / WhatsApp",
-      submitLabel: "Send my configuration",
-      success: "Thank you! We'll reply within 4 working hours with a confirmed price for your selection.",
-      error: "Something went wrong. Try again or email hi@code-site.art.",
-      summaryTitle: "Online store configuration from the mini-calculator:",
-    },
+  breadcrumbSelf: "Online shop",
+  serviceName: "Online shop development",
+  offerName: "Online shop, end-to-end",
+  eyebrow: "Online shop package",
+  h1: `A coded online shop for ${price} in ${term} — no subscriptions, no commission`,
+  sub: "Catalogue, basket, two-click checkout, card payments, delivery integration. You manage products yourself in the admin panel. Pay once — the shop is yours.",
+  badges: [
+    { label: price, sub: "fixed in the contract" },
+    { label: term, sub: "from brief to launch" },
+    { label: "0 subscriptions", sub: "and no platform commission" },
+    { label: "1-year warranty", sub: "included" },
+  ],
+  composition: {
+    heading: ["What the online shop ", `includes for ${price}`],
+    includesTitle: "Included",
+    excludesTitle: "Not included",
+    excludesFoot: `More products: “${ADDONS.sku_500.name[L]}” (${formatAddonPrice("sku_500", L)}) and “${ADDONS.sku_1000.name[L]}” (${formatAddonPrice("sku_1000", L)}). Filters, CRM and a second language — see the add-ons below.`,
   },
   when: {
-    eyebrow: "/ WHEN A STORE FITS",
-    heading: ["When you need an online store — ", "and when you don't"],
-    sub: "A store means products get chosen and ordered without you. If a manager closes every sale, you need a different tool.",
-    fitTitle: "A store is the right call",
+    heading: ["When you need a shop — ", "and when you don't"],
+    fitTitle: "An online shop is the right call",
     fit: [
-      "A product catalogue people browse, compare and order from on their own",
-      "Sales 24/7 without a manager: orders land in your CRM, not your DMs",
-      "You've outgrown Instagram and marketplaces — fees are eating the margin",
-      "A B2B catalogue with price lists and wholesale orders",
+      "A catalogue customers browse and order from on their own",
+      "Orders should reach you instantly, not get lost in DMs",
+      "Platform fees and subscriptions eat into your margin",
+      "You need online payments and delivery",
     ],
-    notFitTitle: "Better with something else",
+    notFitTitle: "Another package fits better",
     notFit: [
-      "1–3 products or an info-product — a landing page with payments is enough (from £800 + £150 for payments)",
-      "Services without a catalogue — that's a corporate website from £3,500",
-      "A marketplace with vendors and complex logistics — that's platform territory, it needs an architectural session",
-    ],
-    foot: "Not sure? Write to us — we'll price it honestly, including whether a store pays off or you should start smaller.",
-  },
-  included: {
-    eyebrow: "END-TO-END",
-    heading: ["What's included ", "at £6,000"],
-    sub: "A fixed sum — a working store. We launch with a catalogue of up to ~50 products and scale once sales are flowing:",
-    items: [
-      {
-        icon: LayoutList,
-        title: "Catalogue & categories",
-        line: "up to ~50 products at launch, structured for your range",
-      },
-      {
-        icon: Package,
-        title: "Product pages",
-        line: "photos, variants, prices, stock status",
-      },
-      {
-        icon: ShoppingCart,
-        title: "Cart & checkout",
-        line: "order in 2 clicks — no forced registration",
-      },
-      {
-        icon: LayoutDashboard,
-        title: "CMS",
-        line: "Sanity: products, prices, promos — managed from your phone",
-      },
-      {
-        icon: PenLine,
-        title: "Launch copywriting",
-        line: "we write the home and category copy",
-      },
-      {
-        icon: Palette,
-        title: "Custom design",
-        line: "no templates; 2 rounds of revisions included",
-      },
-      {
-        icon: Search,
-        title: "Category SEO",
-        line: "\"buy + product\" structure, load time under 1.5s",
-      },
-      {
-        icon: Rocket,
-        title: "Turnkey launch",
-        line: "domain, SSL, hosting, GA4 + Search Console",
-      },
-      {
-        icon: LifeBuoy,
-        title: "1-year warranty",
-        line: "fixes, updates, replies within 4 hours",
-      },
-    ],
-    notIncludedTitle: "Not in the base package",
-    notIncluded: [
-      "Online payments (an option below — many stores launch with pay-on-delivery or invoicing)",
-      "A catalogue of hundreds of products with complex filtering",
-      "ERP integrations and stock management",
-      "Product photography",
-    ],
-    notIncludedFoot:
-      "All of it can be added as options once sales justify it. The base is a complete store that takes orders from day one.",
-  },
-  price: {
-    eyebrow: "/ PRICING",
-    heading: ["What shapes ", "the price"],
-    cells: [
-      {
-        icon: Layers,
-        title: "Base",
-        stat: "£6,000",
-        body: "Catalogue up to ~50 products, cart, checkout, CMS, SEO, launch and a year of warranty. Orders via pay-on-delivery or invoice.",
-        span: "2x1",
-      },
-      {
-        icon: CreditCard,
-        title: "Online payments",
-        stat: "+£300",
-        body: "Stripe or GoCardless — money in your account the moment the order lands.",
-        span: "1x1",
-      },
-      {
-        icon: Package,
-        title: "Catalogue 50–500 products",
-        stat: "+£500",
-        body: "Categories, filters and structure for scaling campaigns.",
-        span: "1x1",
-      },
-      {
-        icon: Filter,
-        title: "Advanced filters & search",
-        stat: "+£400",
-        body: "Catalogue search and parameter filters — buyers find products faster.",
-        span: "1x1",
-      },
-      {
-        icon: Layers,
-        title: "Complex catalogue logic",
-        stat: "+£700",
-        body: "Custom flows, configurators and advanced UX for conversion growth.",
-        span: "1x1",
-      },
-      {
-        icon: Bell,
-        title: "CRM & notifications",
-        stat: "+£50–150",
-        body: "Orders pushed to Telegram, email or straight into your CRM.",
-        span: "1x1",
-      },
-      {
-        icon: Globe,
-        title: "Second language",
-        stat: "+£250",
-        body: "A separate SEO structure and content set per language.",
-        span: "1x1",
-      },
-      {
-        icon: Palette,
-        title: "Premium design",
-        stat: "+£400",
-        body: "Custom artwork and animation on top of the bespoke layout already in the base.",
-        span: "1x1",
-      },
+      `1–3 products or a digital product — a landing page at ${landing} with the payments add-on`,
+      `Services without a catalogue — a business website at ${business}`,
+      "A multi-vendor marketplace with warehousing — Custom",
     ],
   },
-  priceTable: {
-    eyebrow: "/ READY-MADE SETUPS",
-    heading: ["Price table: ", "typical configurations"],
-    headers: ["Configuration", "What's inside", "Price", "Timeline"],
-    rows: [
-      ["Base store", "catalogue up to ~50 products, cart, checkout, CMS, SEO", "£6,000", "6–8 weeks"],
-      ["Store with payments", "base + Stripe/GoCardless + CRM notifications", "£6,400", "6–8 weeks"],
-      ["50–500 product catalogue", "base + big catalogue + filters & search + payments", "£7,200", "8–10 weeks"],
-      ["Fully loaded", "all of the above + complex logic, 2 languages, premium design, +5 pages", "£9,750", "10 weeks"],
-    ],
-    foot: "Beyond £10,000 you're in custom-build territory with an architectural session. Build your own configuration in the calculator above.",
-  },
-  stories: {
-    eyebrow: "/ STORIES",
-    heading: ["How it plays out ", "for real clients"],
-    items: [
-      {
-        slug: "glimmer",
-        kicker: "CASE · BOOKSHOP",
-        title: "Glimmer: paid for itself in about a week",
-        paragraphs: [
-          "A book publisher sells novels, fantasy and thrillers straight to readers. The job: a shopfront that sells on its own — bestsellers, promos and new titles right on the home page.",
-          "Zero extra steps from banner to purchase — and first-week sales covered the development cost.",
-        ],
-        stat: { value: "~1 week", label: "to payback after launch" },
-        ctaLabel: "View the case",
-      },
-      {
-        slug: "kondor-device",
-        kicker: "CASE · ELECTRONICS",
-        title: "Kondor Device: 2 clicks to order",
-        paragraphs: [
-          "An electronics and accessories store with an 8-category catalogue. The old shopfront lost buyers on the way to checkout.",
-          "We cut the path to order down to two clicks and gave the team a CMS to manage products and prices themselves. Sales grew right after launch.",
-        ],
-        stat: { value: "2 clicks", label: "from product to order" },
-        ctaLabel: "View the case",
-      },
+  process: {
+    heading: ["How we build a shop ", `in ${term}`],
+    sub: "The clock starts when we have your brief, the deposit and the product list.",
+    steps: [
+      { from: 1, to: 2, title: "Brief and catalogue structure", body: "Categories, product attributes, delivery and payments. We agree the shop map." },
+      { from: 3, to: 5, title: "Design", body: "Home, category, product page, basket — for mobile and desktop." },
+      { from: 6, to: days - 2, title: "Development", body: "Catalogue, basket, payments, delivery, Sanity admin, category SEO, order alerts." },
+      { from: days - 1, to: days, title: "Test and launch", body: "Test orders and payments, speed checks. Launch and a walkthrough of the admin panel." },
     ],
   },
-  gallery: {
-    eyebrow: "GALLERY",
-    heading: ["Stores ", "we've shipped"],
-    sub: "Books, electronics, skincare, motors, pools — different ranges, one logic: minimum steps to order.",
-    slugs: [
-      "glimmer",
-      "kondor-device",
-      "le-muse-nature",
-      "bravo",
-      "raul-avto",
-      "mono-pools",
+  compare: {
+    heading: ["Code or a builder: ", "what you pay and what you own"],
+    sub: "Shopify, Wix and similar builders charge every month for as long as the shop is open. Ours is a single payment.",
+    theirsTitle: "Subscription builder",
+    theirsLine: `Subscription ${eur(SUB.min)}–${SUB.max}/mo × ${SUB.months} months = ${eur(SUB.min * SUB.months)}–${eur(SUB.max * SUB.months).replace("€", "")}, and the shop still isn't yours`,
+    theirsRows: [
+      // TODO(owner): перевірити тариф — third-party figures, not Shopify's own page.
+      { name: "Shopify Basic", price: "from €24/mo billed yearly" },
+      // TODO(owner): перевірити тариф Wix і вписати ціну.
+      { name: "Wix eCommerce plans", price: "monthly subscription" },
     ],
-    allLabel: "All case studies",
-    allHref: "/en/portfolio",
+    theirsPoints: [
+      "You pay for as long as the shop is open",
+      "Paid apps and transaction fees on top on many plans",
+      "Moving platforms means rebuilding the shop",
+    ],
+    oursTitle: "Code-Site.Art",
+    oursLine: `${price} once — the code and data are yours`,
+    oursPoints: [
+      "No subscriptions and no platform commission",
+      "The code and product database are yours to move anywhere",
+      `Hosting and SSL for a year included; then ${hosting}/year or your own account`,
+      "Warranty and support for a year included",
+    ],
+    checked: "Builder prices from public sources, checked 20.09.2026",
   },
-  calcCta: {
-    heading: ["Price your store ", "in 60 seconds"],
-    sub: "Product count, payments, languages — the calculator shows a range with a full breakdown. No email gate, no sales call.",
-    primaryLabel: "Open the calculator",
-    primaryHref: "/en/calculator",
-    secondaryLabel: "Discuss the project",
-    secondaryHref: "/en/contacts",
+  addons: {
+    heading: ["What you can ", "add to the shop"],
+    sub: `Every add-on has a fixed price. In a hurry? Add ${rush}.`,
+    calcLabel: "Open the calculator",
+    calcHref: resolveRootHref("/calculator", L),
   },
-  examples: {
-    eyebrow: "CASES",
-    heading: ["Stores ", "we've shipped"],
-    sub: "A book publisher, electronics, skincare — different ranges, one logic: minimum steps from shopfront to order.",
+  payment: { heading: ["Payment ", "terms"] },
+  cases: {
+    heading: ["Shops we've ", "already launched"],
+    sub: "A book publisher, electronics, cosmetics. The figures on the cards come from the case studies.",
     slugs: ["glimmer", "kondor-device", "le-muse-nature"],
     allLabel: "All case studies",
-    allHref: "/en/portfolio",
+    allHref: resolveRootHref("/portfolio", L),
   },
   faq: {
-    heading: "Online store FAQ",
+    heading: "Online shop FAQ",
     items: [
       {
-        q: "Can we launch without online payments?",
+        q: `What's included for ${price}?`,
         a: [
-          "Yes, and many stores do: orders with pay-on-delivery or invoicing. Add online payments (+£300) once order volume justifies it — no rebuild needed.",
+          "A catalogue of up to 100 products, product cards with variants, basket and two-click checkout, card payments, delivery integration, Sanity admin, category SEO, order alerts, hosting and SSL for a year, a one-year warranty.",
+        ],
+      },
+      {
+        q: "How long does it take?",
+        a: [`${term} from brief and deposit. Need it sooner? Add ${rush}.`],
+      },
+      {
+        q: "I have more than 100 products. What does that cost?",
+        a: [
+          `${ADDONS.sku_500.name[L]}: ${formatAddonPrice("sku_500", L)}. ${ADDONS.sku_1000.name[L]}: ${formatAddonPrice("sku_1000", L)}. The total is fixed in the contract before we start.`,
         ],
       },
       {
         q: "Why not Shopify or Wix?",
         a: [
-          "Builders charge monthly subscriptions and fees, cap your SEO and design, and migrating off them later costs more than the site itself. Custom code is one payment, your code in your GitHub, zero subscriptions. Full comparison — on the ",
-          { em: "vs site builders" },
-          " page.",
+          "They charge a monthly subscription for as long as the shop runs, and design and SEO are limited by the platform. Here you pay once and own the code and data. More in ",
+          { link: { href: resolveRootHref("/vs-constructors", L), text: "custom code vs website builders" } },
+          ".",
         ],
+      },
+      {
+        q: "Do you take a commission on sales?",
+        a: ["No. Payment providers charge their own processing fees under their own terms."],
       },
       {
         q: "Who adds the products?",
         a: [
-          "You do — from your phone. The CMS lets you add products, change prices and run promos in minutes. A 1-hour training session is included.",
+          `You do, in the Sanity admin — from a computer or your phone. We show you how at launch. Excel import comes with the “${ADDONS.sku_1000.name[L]}” add-on.`,
         ],
       },
       {
-        q: "50 products — what if I have 300?",
+        q: "What happens after launch?",
         a: [
-          "The \"catalogue 50–500 products\" option (+£500) adds categories and filters for a bigger range. Beyond 500 SKUs or complex logic, we scope the architecture separately.",
-        ],
-      },
-      {
-        q: "How long does it take?",
-        a: [
-          "6–10 weeks from brief to first orders. The deadline is fixed in the contract — if we miss it through our own fault, we pay a 30% rebate.",
-        ],
-      },
-      {
-        q: "When does a store pay for itself?",
-        a: [
-          "Honestly: it depends on margin and traffic. Our record is the Glimmer bookshop, which covered its development cost in the first week of sales. A more realistic benchmark for most niches is a few months — and with no builder subscriptions, every month after that works for you.",
-        ],
-      },
-      {
-        q: "Where can I see examples of your stores?",
-        a: [
-          "In the gallery above — six live projects with linked breakdowns, or in the full ",
-          { em: "portfolio" },
-          ": 22 cases with numbers and screenshots.",
+          `Warranty and support are included for a year. After that: hosting renewal at ${hosting}/year, or we move the shop to your own account.`,
         ],
       },
     ],
+  },
+  seo: {
+    href: "/seo",
+    linkLabel: "How our SEO works",
+    line: `After launch: shop SEO from ${eur(servicePrice("seoShopFrom", L))}/month`,
+  },
+  cta: {
+    heading: ["Free quote ", "within 24 hours"],
+    sub: "Describe your range and the task in the form at the top — we'll reply with price, timeline and scope. No obligation.",
+    formLabel: "Fill in the form",
+    calcLabel: "Open the calculator",
+    calcHref: resolveRootHref("/calculator", L),
   },
 };

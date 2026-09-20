@@ -10,7 +10,13 @@ import { FAQ } from "@/components/blocks/final";
 import { CaseStrip } from "@/components/blocks/case-strip";
 import { VerticalTimeline } from "@/components/blocks/vertical-timeline";
 import { HpHeader, HpFooter } from "@/components/homepage";
-import { OG_DEFAULT_IMAGE, pageUrl } from "@/constants/site";
+import { OG_DEFAULT_IMAGE } from "@/constants/site";
+import {
+  PACKAGES,
+  PAYMENT_TERMS,
+  formatPackagePrice,
+  formatPackageTerm,
+} from "@/constants/pricing";
 import {
   buildJsonLd,
   breadcrumbNode,
@@ -21,17 +27,22 @@ import { plainRich } from "@/lib/shared/rich-text";
 import { PROCESS_STEPS as STEPS, PROCESS_FAQ } from "@/content/uk/process";
 import { buildAlternates } from "@/lib/shared/alternates";
 
+const LOC = "uk" as const;
+const BUSINESS_TERM = formatPackageTerm("business", LOC);
+const SHOP_TERM = formatPackageTerm("shop", LOC);
+const LANDING_TERM = formatPackageTerm("landing", LOC);
+const BUSINESS_PRICE = formatPackagePrice("business", LOC);
+
+const META_TITLE = `Як ми робимо сайт за ${BUSINESS_TERM} | Code-Site.Art`;
+const META_DESCRIPTION = `Сайт для бізнесу за ${BUSINESS_TERM} і ${BUSINESS_PRICE}, магазин — за ${SHOP_TERM}. Що відбувається кожного дня, фіксована ціна в договорі, рік гарантії.`;
+
 export const metadata: Metadata = {
-  title:
-    "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
-  description:
-    "Як ми робимо сайти за 4-10 тижнів. Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив. Без сюрпризів.",
-  alternates: buildAlternates({ locale: "uk", uaPath: "/process" }),
+  title: META_TITLE,
+  description: META_DESCRIPTION,
+  alternates: buildAlternates({ locale: LOC, uaPath: "/process" }),
   openGraph: {
-    title:
-      "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
-    description:
-      "Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     type: "website",
     locale: "uk_UA",
     url: "/process",
@@ -39,34 +50,27 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
-    description:
-      "Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив.",
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
 
 /* ─── JSON-LD ────────────────────────────────────────────────────────────── */
 
-const PROCESS_URL = pageUrl("/process");
-
-
 const jsonLd = buildJsonLd([
   webPageNode({
     path: "/process",
-    locale: "uk",
-    title: "Процес роботи — 7 кроків від брифу до запуску | Code-Site.Art",
-    description:
-      "Як ми робимо сайти за 4-10 тижнів. Прозорий процес з фіксованими дедлайнами, гарантією 1 рік і неустойкою 30% за зрив. Без сюрпризів.",
+    locale: LOC,
+    title: META_TITLE,
+    description: META_DESCRIPTION,
   }),
   breadcrumbNode([
     { name: "Головна", path: "/" },
     { name: "Процес", path: "/process" },
   ]),
-  // SEO audit Aug 2026: the HowTo node was removed. Google retired the HowTo
-  // rich result in 2023, so these 7 steps produced nothing in the SERP while
-  // still shipping in every response. The on-page steps are untouched.
+  // SEO audit Aug 2026: the HowTo node was removed (Google retired the HowTo
+  // rich result in 2023). The on-page steps are untouched.
   {
     "@type": "FAQPage",
     mainEntity: PROCESS_FAQ.map((it) => ({
@@ -88,68 +92,65 @@ export default function ProcessPage() {
       <JsonLd data={jsonLd} />
       <HpHeader />
 
-      {/* Section 1: Page hero */}
       <PageHero
         breadcrumbs={[
           { label: "Головна", href: "/" },
           { label: "Процес" },
         ]}
-        eyebrow="/ ПРОЦЕС · 4–10 ТИЖНІВ ПІД КЛЮЧ"
+        eyebrow={`/ ПРОЦЕС · ${BUSINESS_TERM.toUpperCase()}`}
         headline={
           <>
-            <em>9 речей</em>, які ми зробимо за вас. Без вашої участі більше ніж 5 годин.
+            Сайт для бізнесу за {BUSINESS_TERM}. <em>Що відбувається кожного дня</em>.
           </>
         }
-        sub="Не пишете ТЗ. Не шукаєте референси. Не ловите фотографа. Ви розповідаєте про бізнес 30 хвилин — і отримуєте готовий сайт за 4-10 тижнів."
+        sub={`Ви розповідаєте про бізнес — ми робимо структуру, тексти, дизайн, код і запуск. Ціна і строк — у договорі до старту. Лендінг — ${LANDING_TERM}, інтернет-магазин — ${SHOP_TERM}.`}
       />
 
-      {/* Section 2: Stats bar */}
       <StatsBar
         items={[
-          { value: <>4-10</>, label: "тижнів запуск" },
-          { value: <>5 год</>, label: "від замовника total" },
-          { value: <>100%</>, label: "фіксована ціна" },
-          { value: <>30%</>, label: "неустойка за зрив" },
+          { value: <>{PACKAGES.business.days.min}</>, label: "робочих днів — сайт для бізнесу" },
+          { value: <>{PACKAGES.shop.days.min}</>, label: "робочих днів — інтернет-магазин" },
+          { value: <>100%</>, label: "фіксована ціна в договорі" },
+          {
+            value: <>{PAYMENT_TERMS.latePenaltyPercentPerDay}%</>,
+            label: `неустойка за день прострочки, до ${PAYMENT_TERMS.latePenaltyCapPercent}%`,
+          },
         ]}
       />
 
-      {/* Section 3: Vertical timeline (7 steps) */}
       <VerticalTimeline steps={STEPS} />
 
       {/* Portfolio strip — the page ran seven text-only steps with a
           single photo on it (design audit 2026-09-07). */}
       <CaseStrip
-        locale="uk"
+        locale={LOC}
         slugs={[
           "efedra-clinic",
           "nbyg-kobenhavn",
           "solide-renovation",
-          "aleko-course",
           "glimmer",
           "mono-pools",
+          "kondor-device",
         ]}
-        sub="Сім кроків вище — це те, як зроблені всі проєкти нижче."
+        sub="Кроки вище — це те, як зроблені проєкти нижче."
       />
 
-      {/* Section 4: Communication */}
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
         eyebrow="/ КОМУНІКАЦІЯ"
         heading={
           <>
-            Як ми <em>спілкуємось</em> протягом проекту
+            Як ми <em>спілкуємось</em> під час проєкту
           </>
         }
-        body="Ви не зникаєте на 6 тижнів і не отримуєте сайт «зненацька». Кожен етап — checkpoint, де ви бачите і затверджуєте."
+        body="Ви не чекаєте сайт «наосліп». Кожен етап ви бачите і погоджуєте."
         bulletList={[
-          "Telegram-чат щоденно — відповідаємо за 30 хв в робочий час",
-          "Раз на тиждень — screencast прогресу 3-5 хв",
-          "Email-репорт раз на тиждень з milestone-статусом",
-          "Zoom-дзвінок раз на спринт (опційно, на ваш запит)",
-          "GitHub-комміти видно щодня — повна прозорість",
-          "Staging-URL для перегляду в реальному часі",
-          "Якщо вас немає тиждень — пауза проекту, дедлайн зсувається",
+          "Один Telegram-чат на весь проєкт — відповідаємо в робочий час",
+          "Тестове посилання з першого дня розробки",
+          "Код у вашому GitHub з першого коміту",
+          "Дзвінок — за вашим запитом, не обов'язковий",
+          "Якщо ви не на зв'язку, строк зсувається на стільки ж днів",
         ]}
         image={
           <AppImage
@@ -162,12 +163,10 @@ export default function ProcessPage() {
         }
       />
 
-      {/* Section 5: What-if FAQ */}
       <section className="bg-bg">
-        <FAQ heading="Що якщо…?" items={PROCESS_FAQ} />
+        <FAQ heading="Що якщо…?" items={PROCESS_FAQ} locale={LOC} />
       </section>
 
-      {/* Section 6: Final CTA */}
       <CtaBanner
         eyebrow="/ ГОТОВІ ПОЧАТИ?"
         heading={
@@ -175,13 +174,13 @@ export default function ProcessPage() {
             Готові пройти <em>процес</em> з нами?
           </>
         }
-        sub="Перший крок безкоштовний. 30-хв консультація — і ви знаєте точну вилку ціни і термінів."
+        sub="Перший крок безкоштовний: прорахунок за 24 години — пакет, ціна і строк."
         ctaPrimary={{
           label: "Розрахувати вартість →",
           href: "/calculator",
         }}
         ctaSecondary={{
-          label: "Або обговорити з нами",
+          label: "Отримати прорахунок",
           href: "/contacts",
         }}
       />

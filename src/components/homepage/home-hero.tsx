@@ -200,6 +200,18 @@ const MOCKUP_IMG_HOMEPAGE_CLASS =
   "lg:absolute lg:!w-[50vw] lg:-top-[40px] lg:-left-[12%] lg:!-translate-x-[6%] " +
   "min-[1250px]:!w-[clamp(420px,100vw,1200px)] min-[1250px]:-top-[136px] min-[1250px]:-left-[272px] min-[1250px]:!-translate-x-[10%]";
 
+// With an `aside` (the lead form, TZ v2 §3.1 "form in the first screen") the
+// right track holds the form instead of the mockup: a fixed 360–440px column
+// at lg so the form never gets squeezed by the 1000px text track, and on
+// phones the form follows the proofs directly — the first thing under the
+// hero, before any other section.
+const HERO_GRID_ASIDE_CLASS =
+  "grid grid-cols-1 gap-8 items-center max-w-container mx-auto min-h-0 " +
+  "lg:grid-cols-[minmax(0,1fr)_minmax(360px,420px)] lg:gap-10 lg:min-h-[clamp(560px,80vh,720px)] " +
+  "2xl:grid-cols-[minmax(0,1fr)_440px] 2xl:gap-16";
+
+const HERO_ASIDE_CLASS = "relative z-10 min-w-0 w-full";
+
 const HERO_RIGHT_CLASS =
   "relative min-w-0 [aspect-ratio:auto] z-[-1] h-[260px] min-h-[260px] overflow-visible [contain:layout] -mx-6 mt-2 -mb-6 w-[calc(100%+48px)] " +
   "sm:-mx-8 sm:w-[calc(100%+64px)] " +
@@ -263,6 +275,8 @@ export type HomeHeroProps = {
   ctaFootnote?: React.ReactNode;
   deviceMockupSrc: string;
   deviceMockupAlt: string;
+  /** Replaces the device mockup with this node (e.g. `<LeadFormCard>`). */
+  aside?: React.ReactNode;
 };
 
 export function HomeHero({
@@ -276,6 +290,7 @@ export function HomeHero({
   ctaFootnote,
   deviceMockupSrc,
   deviceMockupAlt,
+  aside,
 }: HomeHeroProps) {
   return (
     <>
@@ -284,7 +299,7 @@ export function HomeHero({
 
       <div className={HERO_SHELL_CLASS}>
         <HeroGears className={HERO_GEARS_CLASS} />
-        <div className={HERO_GRID_CLASS}>
+        <div className={aside ? HERO_GRID_ASIDE_CLASS : HERO_GRID_CLASS}>
           <div className={HERO_LEFT_CLASS}>
             <H1 variant="hp" className={HERO_H1_CLASS} data-speakable="hero-title">
               {h1Lines.map((line, i) => (
@@ -317,6 +332,9 @@ export function HomeHero({
             {ctaFootnote ? <p className={CTA_FOOTNOTE_CLASS}>{ctaFootnote}</p> : null}
           </div>
 
+          {aside ? (
+            <div className={HERO_ASIDE_CLASS}>{aside}</div>
+          ) : (
           <div className={HERO_RIGHT_CLASS}>
             <div className={DEVICE_STAGE_CLASS}>
               <div className={DEVICE_GLOW_CLASS} />
@@ -336,6 +354,7 @@ export function HomeHero({
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
     </>

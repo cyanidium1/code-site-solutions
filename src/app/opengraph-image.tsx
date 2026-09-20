@@ -67,10 +67,10 @@ export default function OpengraphImage() {
               maxWidth: 980,
             }}
           >
-            Custom-coded websites that book meetings 24/7
+            Custom-coded websites in 7 business days
           </div>
           <div style={{ fontSize: 30, color: "#b7a8d6" }}>
-            Live in 4–10 weeks · Fixed price · 1-year warranty
+            Fixed price · You own the code · 1-year warranty · No subscriptions
           </div>
         </div>
 

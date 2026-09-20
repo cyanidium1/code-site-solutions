@@ -33,12 +33,12 @@ import { buildAlternates } from "@/lib/shared/alternates";
 export const metadata: Metadata = {
   title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
   description:
-    "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
+    "25+ custom-coded websites for clinics, law firms, real estate and online shops. Results with numbers: leads, speed, Google rankings.",
   alternates: buildAlternates({ locale: "en", uaPath: "/portfolio" }),
   openGraph: {
     title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
     description:
-      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
+      "25+ custom-coded websites for clinics, law firms, real estate and online shops. Results with numbers: leads, speed, Google rankings.",
     type: "website",
     locale: "en_GB",
     url: "/en/portfolio",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
     description:
-      "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
+      "25+ custom-coded websites for clinics, law firms, real estate and online shops. Results with numbers: leads, speed, Google rankings.",
     images: [OG_DEFAULT_IMAGE.url],
   },
 };
@@ -97,7 +97,7 @@ export default async function EnPortfolioPage({
       locale: "en",
       title: "Web Design Portfolio UK — Custom Case Studies | Code-Site.Art",
       description:
-        "➤ Browse 50+ custom-built websites for clinics, law firms, real estate & e-commerce ✔️ Real results: ×3.2 leads, LCP 0.8s, Top-3 Google ➡ See all projects.",
+        "25+ custom-coded websites for clinics, law firms, real estate and online shops. Results with numbers: leads, speed, Google rankings.",
       type: "CollectionPage",
       extra: {
         mainEntity: {

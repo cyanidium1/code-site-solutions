@@ -7,7 +7,6 @@ import { useState } from "react";
 
 import { getAttribution } from "@/lib/client/attribution";
 import { SITE_CONTACT } from "@/constants/site";
-import { formatPrice } from "@/lib/shared/format-price";
 import type { TableRowData, TierProps } from "@/types/pricing";
 import { H2, btnClass } from "@/components/ui";
 import { Tier } from "./tier";
@@ -39,85 +38,11 @@ const DEFAULT_ROWS: TableRowData[] = [
   { param: "Локальне SEO", wp: "плагін Yoast", wix: "базове", custom: "закладено" },
   { param: "Безпека даних пацієнтів", wp: "низька", wix: "середня", custom: "висока (GDPR)" },
   { param: "Юр. коректність МОЗ", wp: "залежить від теми", wix: "обмежено", custom: "перевіряємо юристом" },
-  { param: "TCO за 3 роки", wp: "$4–6k", wix: "$3,5–5k", custom: "$5–7k" },
 ];
 
-const DEFAULT_TIERS: TierProps[] = [
-  {
-    name: <>Базовий сайт<br />клініки</>,
-    price: formatPrice(2500, { locale: "uk" }),
-    weeks: "4 тижні",
-    includes: {
-      heading: "Що входить",
-      items: [
-        "До 8 сторінок",
-        "Онлайн-запис",
-        "Каталог лікарів і послуг",
-        "Прозорий прайс",
-        "Відгуки пацієнтів",
-        "Базове SEO",
-        "Мобільна адаптація",
-      ],
-    },
-    excludes: {
-      items: [
-        "Створення контенту (тексти послуг, описи лікарів)",
-        "Професійна фотозйомка",
-        "ДМС-інтеграція",
-        "Блог",
-      ],
-    },
-    ctaLabel: "Замовити базовий",
-  },
-  {
-    popular: true,
-    name: "Розширений",
-    price: formatPrice(6500, { locale: "uk" }),
-    weeks: "6 тижнів",
-    includes: {
-      heading: "Все з базового +",
-      items: [
-        "Блог і SEO-сторінки",
-        "ДМС-інтеграція",
-        "Фото-кейси до/після",
-        "Історія відвідувань і нагадування",
-        "Онлайн-консультація",
-        "Інтеграція з медичною CRM",
-      ],
-    },
-    excludes: {
-      items: [
-        "Фотозйомка (можемо організувати окремо)",
-        "Контент для блогу (можемо запропонувати копірайтера)",
-        "Багатомовність",
-      ],
-    },
-    ctaLabel: "Замовити розширений",
-  },
-  {
-    name: <>Преміум / мережа<br />клінік</>,
-    price: formatPrice(12000, { locale: "uk" }),
-    weeks: "8–10 тижнів",
-    includes: {
-      heading: "Все з розширеного +",
-      items: [
-        "Багатофіліальна структура",
-        "Повна CRM-інтеграція",
-        "Багатомовність",
-        "Кастомні модулі під вашу спеціалізацію",
-        "Підтримка по SLA",
-      ],
-    },
-    excludes: {
-      items: [
-        "Створення фото/відео контенту",
-        "Юридичний консалтинг (тільки технічна юр-коректність)",
-      ],
-    },
-    ctaLabel: "Обговорити мережу",
-    ctaGhost: true,
-  },
-];
+// No hand-typed fallback tiers: prices live in `@/constants/pricing`, and
+// every caller passes config-driven tiers (see industry-page `industryTiers`).
+const DEFAULT_TIERS: TierProps[] = [];
 
 const CMP_H2_EXTRA =
   "mb-7 text-ink text-balance max-w-[22ch] uppercase md:mb-9 xl:mb-14 " +
