@@ -21,6 +21,13 @@
         "PORT": "3008",
         "NODE_OPTIONS": "--max-old-space-size=4096"
       }
+    },
+    {
+      "name": "Sanity Studio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../code-site-solutions-admin", "run", "dev"],
+      "port": 3333,
+      "autoPort": true
     }
   ]
 }

@@ -189,6 +189,25 @@ const nextConfig: NextConfig = {
         has: [{ type: "host", value: "(?<preview>.*\\.vercel\\.app)" }],
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      // Комерційні пропозиції (/offer/*) — приватні технічні сторінки:
+      // ціна конкретному клієнту, адреса відома лише йому. `noindex` уже
+      // стоїть у metadata, цей заголовок — другий рубіж на випадок, коли
+      // сторінку віддає кеш або робот не дочитує <head>.
+      //
+      // У robots.txt шлях свідомо НЕ закритий: Disallow забороняє ОБХІД, а
+      // не індексацію — робот тоді не побачить самого noindex і може лишити
+      // голий URL у видачі. Дозволити обхід і віддати noindex — єдиний
+      // варіант, який дійсно тримає сторінку поза індексом.
+      // `:path+`, не `:path*`: зірочка матчить і сам «/offer» — а це чинна
+      // публічна оферта, індексована сторінка. Плюс вимагає щонайменше один
+      // сегмент, тобто тільки /offer/<slug>.
+      {
+        source: "/offer/:path+",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
+      },
     ];
   },
   experimental: {

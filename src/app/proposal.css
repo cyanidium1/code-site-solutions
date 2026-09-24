@@ -1,0 +1,79 @@
+/**
+ * Типографіка тіла комерційної пропозиції (/offer/*).
+ *
+ * Окремий файл, а не правила в globals.css: ці стилі потрібні лише в
+ * root-layout групи (offer) і нікуди більше не течуть. Portable text із CMS
+ * приходить голими <p>/<strong>/<a>, тож задаємо їх тут один раз замість
+ * того, щоб обвішувати кожен рендерер класами.
+ */
+
+.proposal-prose {
+  color: var(--color-ink-dim);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.proposal-prose > * + * {
+  margin-top: 0.9em;
+}
+
+.proposal-prose strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.proposal-prose a {
+  color: var(--color-accent-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.proposal-prose a:hover {
+  color: var(--color-ink);
+}
+
+.proposal-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-accent-10);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+/* Друк: КП часто зберігають у PDF просто з браузера. Темний фон на папері
+   з'їдає тонер і робить сірий текст нечитабельним, тому для друку —
+   чорне по білому, а згорнуті блоки розкриваємо (інакше в PDF зникає
+   частина пропозиції, і клієнт цього не помітить). */
+@media print {
+  :root {
+    --color-bg: #fff;
+    --color-surface: #fff;
+    --color-ink: #111;
+    --color-ink-dim: #333;
+    --color-ink-3: #666;
+    --color-line: rgb(0 0 0 / 0.15);
+    --color-line-strong: rgb(0 0 0 / 0.25);
+  }
+
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  /* Розкриваємо згорнуті блоки. Браузери ховають вміст закритого <details>
+     через UA-стилі слота, тому потрібні обидві властивості; у Chrome і
+     Safari працює, у Firefox — як пощастить, тому це підстраховка, а не
+     заміна кнопці «Зберегти в PDF» на нашому боці. */
+  details:not([open]) > *:not(summary) {
+    display: revert !important;
+    content-visibility: visible !important;
+  }
+
+  summary {
+    display: none;
+  }
+
+  .proposal-no-print {
+    display: none !important;
+  }
+}

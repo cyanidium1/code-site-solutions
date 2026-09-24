@@ -470,3 +470,93 @@ export const CALCULATOR_CONFIG_QUERY = /* groq */ `*[_id == "calculatorConfig"][
   "seoOptions": seoOptions[]{ _key, optionKey, label { uk, ru, en }, hint { uk, ru, en }, price, included },
   "featureOptions": features[]{ _key, optionKey, label { uk, ru, en }, hint { uk, ru, en }, price, included, featureGroup }
 }`;
+
+/* ─── proposal document (/offer/<slug>) ──────────────────────────────────
+ *
+ * Mirror of `code-site-solutions-admin/queries/proposal.ts`.
+ *
+ * No localized projections here: a proposal is written for one client in
+ * one language, which lives in `language` on the document.
+ *
+ * There is deliberately no "all proposals" query. The pages are noindex and
+ * unlinked, so the frontend must not build a list of every live proposal URL
+ * (no sitemap entry, no `generateStaticParams`).
+ */
+const PROPOSAL_DETAILS = /* groq */ `{
+  label,
+  body[]
+}`;
+
+export const PROPOSAL_BY_SLUG_QUERY = /* groq */ `
+*[_type == "proposal" && status == "published" && slug.current == $slug][0]{
+  _id,
+  "slug": slug.current,
+  title,
+  language,
+  client{ name, contact, site },
+  meta{
+    preparedBy,
+    preparedByRole,
+    email,
+    telegram,
+    issuedOn,
+    validUntil,
+    currencyNote
+  },
+  hero{
+    eyebrow,
+    heading,
+    lede,
+    highlights[]{ _key, value, label }
+  },
+  sections[]{
+    _type,
+    _key,
+    eyebrow,
+    heading,
+    lede,
+    note,
+    caption,
+    variant,
+    tone,
+    body[],
+    details ${PROPOSAL_DETAILS},
+    columns,
+    rows[]{ _key, cells, emphasis },
+    items[]{ _key, title, text, details ${PROPOSAL_DETAILS} },
+    options[]{
+      _key,
+      key,
+      name,
+      price,
+      priceNote,
+      summary,
+      bullets,
+      badge,
+      recommended,
+      details ${PROPOSAL_DETAILS}
+    },
+    addons[]{
+      _key,
+      key,
+      name,
+      price,
+      summary,
+      details ${PROPOSAL_DETAILS}
+    },
+    primaryLabel,
+    primaryHref,
+    secondaryLabel,
+    secondaryHref,
+    images[]{
+      _key,
+      caption,
+      alt,
+      "asset": image.asset->{ _id, url, metadata { lqip, dimensions, isOpaque } },
+      "hotspot": image.hotspot,
+      "crop": image.crop
+    }
+  },
+  footerNote
+}
+`;
