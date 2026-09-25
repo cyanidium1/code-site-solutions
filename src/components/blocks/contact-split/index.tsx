@@ -20,7 +20,7 @@ const HEADING_EM_CLASS =
 // because it is the one channel people copy or dial rather than tap into an
 // app (owner, 2026-09-18 — the list of seven rows read as a wall).
 const ICON_BTN_CLASS =
-  "inline-flex h-12 w-12 items-center justify-center rounded-xl border border-line bg-[oklch(1_0_0_/_0.03)] text-ink no-underline " +
+  "inline-flex h-12 w-12 items-center justify-center rounded-ctl border border-line bg-[oklch(1_0_0_/_0.03)] text-ink no-underline " +
   "transition-[border-color,background-color,transform] duration-200 hover:-translate-y-px hover:border-line-strong hover:bg-[oklch(1_0_0_/_0.06)]";
 
 const CHROME = {
@@ -81,7 +81,7 @@ export function ContactSplit({
               className="mb-5 flex flex-col gap-1 no-underline"
               {...ctaAttrs(msgId("phone", "contacts"), { unique: true })}
             >
-              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+              <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                 {phone.label}
               </span>
               <span className="font-actay text-[clamp(22px,2.4vw,28px)] font-bold tracking-[-0.01em] text-ink transition-colors duration-200 hover:text-accent-soft">
@@ -108,7 +108,7 @@ export function ContactSplit({
               );
             })}
           </ul>
-          <p className={`m-0 font-mono text-[11.5px] tracking-[0.02em] text-ink-3 ${foldBrief ? "max-md:hidden" : ""}`}>
+          <p className={`m-0 font-mono text-[12px] tracking-[0.02em] text-ink-3 ${foldBrief ? "max-md:hidden" : ""}`}>
             {meta.hours}
           </p>
         </aside>
@@ -126,7 +126,7 @@ export function ContactSplit({
               {chrome.briefHeading}
             </H2>
           </div>
-          <div className="p-5 border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] md:p-7 md:rounded-[22px]">
+          <div className="p-5 border border-line-strong rounded-card bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] md:p-7 md:rounded-frame">
             <LeadForm source={source} variant={variant} locale={locale} />
           </div>
         </MobileFold>

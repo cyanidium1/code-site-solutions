@@ -127,7 +127,7 @@ export default async function PortfolioPage({
           { label: "Головна", href: "/" },
           { label: "Портфоліо" },
         ]}
-        eyebrow="/ ПОРТФОЛІО"
+        eyebrow="ПОРТФОЛІО"
         headline={
           <>
             {portfolioHeadline.count},{" "}
@@ -186,7 +186,7 @@ export default async function PortfolioPage({
       </section>
 
       <CtaBanner
-        eyebrow="/ НОВИЙ ПРОЄКТ"
+        eyebrow="НОВИЙ ПРОЄКТ"
         heading={
           <>
             Хочете <em>такий же результат</em>?

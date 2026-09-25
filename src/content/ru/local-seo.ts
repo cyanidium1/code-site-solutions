@@ -136,7 +136,7 @@ export const LOCAL_SEO_RU: LandingPageContent = {
   },
 
   price: {
-    eyebrow: "/ ЦЕНА",
+    eyebrow: "ЦЕНА",
     heading: ["Сколько стоит ", "локальное SEO"],
     cells: [
       {

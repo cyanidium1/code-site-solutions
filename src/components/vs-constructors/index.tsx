@@ -83,10 +83,10 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               return (
                 <div
                   key={it.num}
-                  className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                  className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
+                    <span className="font-display text-[12px] font-bold tracking-[0.06em] text-ink-3">
                       {it.num}
                     </span>
                     <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
@@ -110,9 +110,9 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                 return (
                   <div
                     key={it.num}
-                    className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
+                    className="border border-line rounded-card px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-22">
+                    <span className="w-9 h-9 shrink-0 rounded-ctl inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-22">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1 font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight">
@@ -144,10 +144,10 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               return (
                 <div
                   key={it.num}
-                  className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                  className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
+                    <span className="font-display text-[12px] font-bold tracking-[0.06em] text-ink-3">
                       {it.num}
                     </span>
                     <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
@@ -187,7 +187,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
                 <div
                   key={col.title}
                   className={
-                    "border rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3 " +
+                    "border rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3 " +
                     (i === 1 ? "border-accent-25" : "border-line")
                   }
                 >
@@ -237,25 +237,25 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             sub={c.compare.sub}
           />
           <div
-            className="border border-line rounded-[18px] bg-[oklch(0.155_0.005_300)] overflow-x-auto"
+            className="border border-line rounded-card bg-[oklch(0.155_0.005_300)] overflow-x-auto"
             role="region"
             aria-label={c.compare.criterionHeader}
           >
             <table className="w-full min-w-[720px] text-left border-collapse">
               <thead>
                 <tr className="border-b border-line">
-                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-ink-3 px-4 py-4 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
+                  <th className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-ink-3 px-4 py-4 sticky left-0 bg-[oklch(0.155_0.005_300)] z-[1]">
                     {c.compare.criterionHeader}
                   </th>
                   {c.compare.builderHeaders.map((b) => (
                     <th
                       key={b}
-                      className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-ink-3 px-4 py-4 whitespace-nowrap"
+                      className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-ink-3 px-4 py-4 whitespace-nowrap"
                     >
                       {b}
                     </th>
                   ))}
-                  <th className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft px-4 py-4 whitespace-nowrap bg-accent-6">
+                  <th className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-accent-soft px-4 py-4 whitespace-nowrap bg-accent-6">
                     {c.compare.usHeader}
                   </th>
                 </tr>
@@ -314,7 +314,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             {c.builders.items.map((b) => (
               <div
                 key={b.name}
-                className="border border-line rounded-[18px] p-7 bg-[oklch(0.155_0.005_300)] flex flex-col gap-4"
+                className="border border-line rounded-card p-7 bg-[oklch(0.155_0.005_300)] flex flex-col gap-4"
               >
                 <h3 className="font-display font-bold text-[24px] tracking-[-0.02em] text-ink">
                   {b.name}
@@ -385,7 +385,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
 
           <div className="grid grid-cols-1 gap-6 mb-12 min-[901px]:grid-cols-[1.5fr_1fr]">
             <figure className="m-0 flex flex-col">
-              <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
+              <div className="relative border border-line rounded-card overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
                 <AppImage
                   src="/sanity-studio/admin-desktop.png"
                   alt={c.admin.desktopAlt}
@@ -399,7 +399,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
               </figcaption>
             </figure>
             <figure className="m-0 flex flex-col">
-              <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[9/16] max-w-[280px] mx-auto w-full">
+              <div className="relative border border-line rounded-card overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[9/16] max-w-[280px] mx-auto w-full">
                 <AppImage
                   src="/sanity-studio/admin-mobile.png"
                   alt={c.admin.mobileAlt}
@@ -421,9 +421,9 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
-                className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
               >
-                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
+                <span className="font-display text-[12px] font-bold tracking-[0.06em] text-ink-3">
                   {cap.num}
                 </span>
                 <h4 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
@@ -451,7 +451,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             heading={c.patterns.heading}
             sub={c.patterns.sub}
           />
-          <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
+          <div className="border border-line rounded-card overflow-hidden bg-[oklch(0.155_0.005_300)]">
             <CmpTable>
               <CmpThead>
                 <tr>
@@ -495,7 +495,7 @@ export function VsConstructorsView({ locale }: { locale: VcLocale }) {
             {c.filter.items.map((it, i) => (
               <li
                 key={i}
-                className="flex gap-4 border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)]"
+                className="flex gap-4 border border-line rounded-card p-5 bg-[oklch(0.13_0.005_300)]"
               >
                 <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(0.55_0.18_25_/_0.12)] text-[oklch(0.7_0.18_25)] border border-[oklch(0.55_0.18_25_/_0.3)]">
                   <XCircle size={15} strokeWidth={1.8} />

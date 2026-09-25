@@ -52,7 +52,7 @@ const META_CLASS =
   "md:gap-x-9 md:gap-y-6";
 
 const META_ITEM_CLASS =
-  "font-mono text-[11px] tracking-[0.04em] text-ink-3 " +
+  "font-mono text-[12px] tracking-[0.04em] text-ink-3 " +
   "[&>strong]:block [&>strong]:font-display [&>strong]:font-semibold [&>strong]:text-[14px] [&>strong]:text-ink [&>strong]:tracking-[-0.01em] [&>strong]:mb-1 [&>strong]:normal-case";
 
 // Compare grid + VS pill ::before. ::before becomes a real centred chip with
@@ -62,13 +62,13 @@ const GRID_CLASS =
   "grid grid-cols-1 gap-[18px] relative " +
   "md:grid-cols-2 md:gap-7 " +
   "md:before:content-['VS'] md:before:absolute md:before:top-1/2 md:before:left-1/2 md:before:-translate-x-1/2 md:before:-translate-y-1/2 md:before:z-[5] " +
-  "md:before:font-display md:before:font-bold md:before:tracking-[0.1em] md:before:text-ink-3 md:before:bg-bg " +
+  "md:before:font-display md:before:font-bold md:before:tracking-[0.06em] md:before:text-ink-3 md:before:bg-bg " +
   "md:before:border md:before:border-line-strong md:before:rounded-full md:before:pointer-events-none " +
   "md:before:text-[14px] md:before:px-3 md:before:py-2.5 " +
   "xl:before:text-[18px] xl:before:px-3.5 xl:before:py-3";
 
 const CARD_BASE_CLASS =
-  "relative border border-line rounded-[24px] bg-[oklch(1_0_0_/_0.015)] p-[18px] flex flex-col overflow-hidden " +
+  "relative border border-line rounded-frame bg-[oklch(1_0_0_/_0.015)] p-[18px] flex flex-col overflow-hidden " +
   "md:p-[22px] xl:p-7";
 
 // "After" card variant. Accent-tinted border, soft gradient bg + outer glow,
@@ -83,7 +83,7 @@ const CARD_AFTER_CLASS =
 const CARD_HEAD_CLASS = "flex items-center justify-between mb-5 gap-3";
 
 const BADGE_BASE_CLASS =
-  "inline-flex items-center gap-2 px-3.5 py-[7px] rounded-full font-display text-[11px] font-bold tracking-[0.12em] uppercase";
+  "inline-flex items-center gap-2 px-3.5 py-[7px] rounded-full font-display text-[12px] font-bold tracking-[0.06em] uppercase";
 
 const BADGE_BEFORE_CLASS =
   "bg-[oklch(1_0_0_/_0.06)] text-ink-dim border border-line-strong";
@@ -95,7 +95,7 @@ const BADGE_DOT_CLASS =
   "w-1.5 h-1.5 rounded-full bg-current opacity-85";
 
 const CARD_NUM_CLASS =
-  "font-mono text-[10px] text-ink-3 tracking-[0.08em]";
+  "font-mono text-[12px] text-ink-3 tracking-[0.06em]";
 
 const TAGLINE_CLASS =
   "font-display font-semibold text-[14px] text-ink m-0 mb-4 tracking-[-0.01em]";
@@ -125,7 +125,7 @@ const CARD_FOOT_CLASS =
 // 1px-gap-as-border trick (gap background colour shows through). Legacy used
 // repeat(4,1fr) → grid-cols-4; mobile reduces to 2 cols.
 const RESULTS_CLASS =
-  "grid grid-cols-2 gap-px mt-8 border border-line rounded-[18px] overflow-hidden bg-line " +
+  "grid grid-cols-2 gap-px mt-8 border border-line rounded-card overflow-hidden bg-line " +
   "md:mt-14 xl:grid-cols-4";
 
 const RESULT_CLASS =
@@ -138,14 +138,14 @@ const RESULT_NUM_CLASS =
   "md:text-[28px] xl:text-[clamp(28px,3vw,44px)]";
 
 const RESULT_LBL_CLASS =
-  "text-[11px] text-ink-dim leading-[1.4] mt-1 md:text-[12px]";
+  "text-[12px] text-ink-dim leading-[1.4] mt-1 md:text-[12px]";
 
 const RESULT_TAG_CLASS =
-  "pm-extra font-mono text-[9px] text-ink-3 tracking-[0.08em] uppercase";
+  "pm-extra font-mono text-[12px] text-ink-3 tracking-[0.06em] uppercase";
 
 // CTA strip: pill on desktop, stacked rounded card on mobile.
 const CTA_CLASS =
-  "flex flex-col items-stretch gap-4 flex-wrap mt-6 p-[18px] border border-line rounded-[18px] bg-[oklch(1_0_0_/_0.02)] " +
+  "flex flex-col items-stretch gap-4 flex-wrap mt-6 p-[18px] border border-line rounded-card bg-[oklch(1_0_0_/_0.02)] " +
   "md:flex-row md:items-center md:justify-between md:gap-6 md:mt-8 md:px-7 md:py-[22px] md:rounded-full";
 
 const CTA_TEXT_CLASS =

@@ -149,7 +149,7 @@ export default async function EnBlogPage({
             { label: "Home", href: "/en" },
             { label: "Blog" },
           ]}
-          eyebrow="/ BLOG"
+          eyebrow="BLOG"
           headline={
             <>
               Blog — <em>breakdowns</em> of real projects with numbers

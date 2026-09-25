@@ -15,7 +15,7 @@ import type { FAQItem } from "@/types/faq";
  * 131+/Safari 18.2+ animate the expand; older browsers toggle instantly.
  */
 export const FAQ_ITEM =
-  "group/faq border border-line rounded-[14px] bg-[oklch(0.16_0.005_300)] overflow-hidden transition-[border-color] duration-200 open:border-line-strong " +
+  "group/faq border border-line rounded-card bg-[oklch(0.16_0.005_300)] overflow-hidden transition-[border-color] duration-200 open:border-line-strong " +
   "[interpolate-size:allow-keywords] " +
   "[&::details-content]:[transition:height_250ms_ease,content-visibility_250ms_allow-discrete] [&::details-content]:overflow-hidden [&::details-content]:h-0 open:[&::details-content]:h-auto " +
   // Respect prefers-reduced-motion: collapse the expand/collapse to an

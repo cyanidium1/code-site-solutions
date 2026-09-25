@@ -37,25 +37,25 @@ const drawerClassNames = {
 const drawerHeadClass =
   "flex items-center justify-between px-[22px] py-[18px] border-b border-line shrink-0";
 const drawerCloseClass =
-  "w-11 h-11 -mr-2.5 border-0 rounded-xl bg-transparent text-ink-dim cursor-pointer inline-flex items-center justify-center transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
+  "w-11 h-11 -mr-2.5 border-0 rounded-ctl bg-transparent text-ink-dim cursor-pointer inline-flex items-center justify-center transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
 const drawerBodyClass =
   "px-[22px] pt-[22px] pb-4 overflow-y-auto min-h-0 flex-1 flex flex-col gap-3.5";
 
 const drawerSectionClass = "flex flex-col gap-2";
 const drawerEyebrowClass =
-  "font-mono text-[10px] tracking-[0.18em] uppercase text-ink-3 px-1";
+  "font-sans text-[12px] font-semibold tracking-[0.06em] uppercase text-ink-3 px-1";
 const drawerListClass = "list-none m-0 p-0 flex flex-col gap-0.5";
 const drawerLinkBaseClass =
-  "flex items-center justify-between gap-3 min-h-11 px-3.5 py-3 rounded-xl " +
+  "flex items-center justify-between gap-3 min-h-11 px-3.5 py-3 rounded-ctl " +
   "font-sans text-[15px] font-medium text-ink no-underline " +
   "transition-[background,color] duration-150 " +
   "hover:bg-[oklch(1_0_0/0.05)] active:bg-[oklch(1_0_0/0.08)] " +
   "[&_svg]:text-ink-3 [&_svg]:transition-[color,transform] [&_svg]:duration-150 " +
   "hover:[&_svg]:text-accent-soft hover:[&_svg]:translate-x-0.5";
 const drawerLinkPrimaryClass =
-  "!font-mono !text-[12px] !tracking-[0.12em] !uppercase";
+  "!font-sans !text-[15px] !font-semibold";
 const drawerLinkMutedClass =
-  "!font-mono !text-[10px] !tracking-[0.14em] !uppercase !text-accent-soft";
+  "!font-sans !text-[13px] !font-semibold !text-accent-soft";
 const drawerLinkDisabledClass =
   "!text-ink-3 cursor-default opacity-55 hover:!bg-transparent";
 
@@ -65,8 +65,8 @@ const drawerDividerClass = "h-px bg-line my-1.5";
 // pages fit the first screen (audit 2026-09-06, C4: with eight industries
 // listed first, «Контакти» sat at 874px on an 844px viewport).
 const drawerDetailsSummaryClass =
-  "flex items-center justify-between gap-3 min-h-11 px-3.5 py-3 rounded-xl cursor-pointer select-none list-none " +
-  "font-mono text-[12px] tracking-[0.12em] uppercase text-ink " +
+  "flex items-center justify-between gap-3 min-h-11 px-3.5 py-3 rounded-ctl cursor-pointer select-none list-none " +
+  "font-sans text-[15px] font-semibold text-ink " +
   "hover:bg-[oklch(1_0_0/0.05)] [&::-webkit-details-marker]:hidden " +
   "[&_svg]:text-ink-3 [&_svg]:transition-transform [&_svg]:duration-200 group-open/ind:[&_svg]:rotate-180";
 

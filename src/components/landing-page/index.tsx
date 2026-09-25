@@ -37,7 +37,7 @@ export const HEADING_EM_CLASS =
   "[&_em]:not-italic [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 export const ALL_CASES_LINK_CLASS =
-  "inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline " +
+  "inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-sans font-semibold text-[13px] text-ink-dim no-underline " +
   "transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40";
 
 /* Monochrome client-logo rail under the hero. Same files + intrinsic
@@ -191,8 +191,8 @@ function NotIncludedFooter({
   content: LandingPageContent["included"];
 }) {
   return (
-    <div className="pm-extra p-[22px_26px_24px] border border-dashed border-line-strong rounded-2xl bg-[oklch(1_0_0_/_0.02)] max-lg:mt-4">
-      <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim mb-[14px]">
+    <div className="pm-extra p-[22px_26px_24px] border border-dashed border-line-strong rounded-card bg-[oklch(1_0_0_/_0.02)] max-lg:mt-4">
+      <div className="font-mono text-[12px] tracking-[0.06em] uppercase text-ink-dim mb-[14px]">
         {content.notIncludedTitle}
       </div>
       <ul
@@ -235,7 +235,7 @@ function IncludedSection({
         />
         <div
           className={
-            "grid grid-cols-1 md:grid-cols-2 rounded-2xl border border-line overflow-hidden mb-0 lg:mb-6 " +
+            "grid grid-cols-1 md:grid-cols-2 rounded-card border border-line overflow-hidden mb-0 lg:mb-6 " +
             "[&>*]:border-line [&>*]:border-t [&>*:first-child]:border-t-0 md:[&>*:nth-child(2)]:border-t-0 md:[&>*:nth-child(2n)]:border-l"
           }
         >
@@ -320,7 +320,7 @@ function PriceGrid({
               return (
                 <div
                   key={cell.title}
-                  className="relative overflow-hidden col-span-full max-lg:border-b max-lg:border-line max-lg:py-3.5 lg:rounded-2xl lg:border lg:border-accent-25 lg:p-6 lg:px-8 lg:[background:linear-gradient(100deg,var(--color-accent-12),oklch(1_0_0_/_0.015)_55%)]"
+                  className="relative overflow-hidden col-span-full max-lg:border-b max-lg:border-line max-lg:py-3.5 lg:rounded-card lg:border lg:border-accent-25 lg:p-6 lg:px-8 lg:[background:linear-gradient(100deg,var(--color-accent-12),oklch(1_0_0_/_0.015)_55%)]"
                 >
                   <div
                     aria-hidden
@@ -352,7 +352,7 @@ function PriceGrid({
             return (
               <div
                 key={cell.title}
-                className={`group relative overflow-hidden border-line transition-colors duration-300 hover:border-accent-40 max-lg:grid max-lg:grid-cols-[1fr_auto] max-lg:gap-x-4 max-lg:border-b max-lg:py-3.5 lg:rounded-2xl lg:border lg:bg-[oklch(1_0_0_/_0.015)] lg:p-6 ${spanClass(cell.span)}`}
+                className={`group relative overflow-hidden border-line transition-colors duration-300 hover:border-accent-40 max-lg:grid max-lg:grid-cols-[1fr_auto] max-lg:gap-x-4 max-lg:border-b max-lg:py-3.5 lg:rounded-card lg:border lg:bg-[oklch(1_0_0_/_0.015)] lg:p-6 ${spanClass(cell.span)}`}
               >
                 <div
                   aria-hidden
@@ -428,7 +428,7 @@ function HubSection({
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
           {content.groups.map((g) => (
             <div key={g.title}>
-              <h3 className="m-0 mb-4 font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 font-medium">
+              <h3 className="m-0 mb-4 font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3 font-medium">
                 {g.title}
               </h3>
               <ul className="list-none m-0 p-0 flex gap-2 max-lg:flex-wrap lg:flex-col lg:gap-2.5">
@@ -436,7 +436,7 @@ function HubSection({
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="group flex items-start justify-between gap-4 border border-line no-underline transition-colors duration-200 hover:border-accent-40 max-lg:rounded-full max-lg:px-3.5 max-lg:py-2 lg:rounded-xl lg:px-4 lg:py-3"
+                      className="group flex items-start justify-between gap-4 border border-line no-underline transition-colors duration-200 hover:border-accent-40 max-lg:rounded-full max-lg:px-3.5 max-lg:py-2 lg:rounded-ctl lg:px-4 lg:py-3"
                     >
                       <span>
                         <span className="block font-sans font-semibold text-[13.5px] lg:text-[14.5px] leading-[1.35] text-ink">
@@ -506,7 +506,7 @@ function CtaBand({
   return (
     <section className={`${hpSectionClass} ${hideOnPhones ? "max-lg:hidden" : ""}`}>
       <div className={hpInnerClass}>
-        <div className="relative overflow-hidden rounded-[28px] px-7 py-12 lg:px-16 lg:py-16 [background:linear-gradient(115deg,oklch(0.32_0.13_290),oklch(0.45_0.2_285)_45%,oklch(0.5_0.19_320))]">
+        <div className="relative overflow-hidden rounded-frame px-7 py-12 lg:px-16 lg:py-16 [background:linear-gradient(115deg,oklch(0.32_0.13_290),oklch(0.45_0.2_285)_45%,oklch(0.5_0.19_320))]">
           <div
             aria-hidden
             className="absolute inset-0 pointer-events-none [background:radial-gradient(ellipse_60%_60%_at_50%_-10%,oklch(1_0_0_/_0.18),transparent_60%)]"
@@ -766,7 +766,7 @@ export async function LandingPageView({
                       href={casePath(c.slug)}
                       tabIndex={idx >= reel.length ? -1 : undefined}
                       aria-hidden={idx >= reel.length ? true : undefined}
-                      className="relative block w-[240px] sm:w-[290px] shrink-0 overflow-hidden rounded-xl border border-line-strong bg-surface transition-[border-color] duration-300 hover:border-accent-40"
+                      className="relative block w-[240px] sm:w-[290px] shrink-0 overflow-hidden rounded-ctl border border-line-strong bg-surface transition-[border-color] duration-300 hover:border-accent-40"
                     >
                       <div className="relative aspect-[16/10]">
                         <SanityImg
@@ -820,7 +820,7 @@ export async function LandingPageView({
                           real portfolio URL, screenshot below. */}
                       <div
                         className={
-                          "relative overflow-hidden rounded-2xl border border-line-strong bg-surface transition-transform duration-500 group-hover:rotate-0 " +
+                          "relative overflow-hidden rounded-card border border-line-strong bg-surface transition-transform duration-500 group-hover:rotate-0 " +
                           (i % 2 === 1 ? "lg:rotate-[1.2deg]" : "lg:rotate-[-1.2deg]")
                         }
                       >
@@ -828,7 +828,7 @@ export async function LandingPageView({
                           <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
                           <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
                           <span aria-hidden className="w-2 h-2 rounded-full bg-[oklch(1_0_0_/_0.14)]" />
-                          <span className="ml-2 font-mono text-[10px] tracking-[0.02em] text-ink-3 truncate">
+                          <span className="ml-2 font-mono text-[12px] tracking-[0.02em] text-ink-3 truncate">
                             code-site.art/portfolio/{story.slug}
                           </span>
                         </div>
@@ -848,7 +848,7 @@ export async function LandingPageView({
                       </div>
                     </Link>
                     <div>
-                      <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3">
+                      <div className="font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3">
                         {story.kicker}
                       </div>
                       <h3 className="mt-3 mb-0 font-actay uppercase font-bold text-[clamp(20px,2.2vw,28px)] leading-[1.2] text-ink">
@@ -873,7 +873,7 @@ export async function LandingPageView({
                           <div className="font-actay font-bold text-[34px] leading-none bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
                             {story.stat.value}
                           </div>
-                          <div className="mt-1.5 font-mono text-[11px] tracking-[0.06em] text-ink-3">
+                          <div className="mt-1.5 font-mono text-[12px] tracking-[0.06em] text-ink-3">
                             {story.stat.label}
                           </div>
                         </div>
@@ -937,7 +937,7 @@ export async function LandingPageView({
                 {content.hero.sub}
               </p>
               {content.hero.badges?.length ? (
-                <p className="lg:hidden mt-4 mb-0 font-mono text-[11px] uppercase tracking-[0.06em] text-ink-3">
+                <p className="lg:hidden mt-4 mb-0 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                   {content.hero.badges.map((b) => b.label).join(" · ")}
                 </p>
               ) : null}
@@ -965,7 +965,7 @@ export async function LandingPageView({
                       <div className="font-actay uppercase font-bold text-[15px] text-ink leading-[1.15]">
                         {b.label}
                       </div>
-                      <div className="mt-1.5 font-mono text-[10.5px] tracking-[0.06em] uppercase text-ink-3">
+                      <div className="mt-1.5 font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3">
                         {b.sub}
                       </div>
                     </div>
@@ -1099,7 +1099,7 @@ export async function LandingPageView({
                   <Link
                     key={c.slug}
                     href={casePath(c.slug)}
-                    className="group relative block overflow-hidden rounded-[18px] border border-line no-underline transition-[border-color,box-shadow] duration-300 hover:border-accent-40 hover:shadow-[0_20px_60px_var(--color-accent-20)]"
+                    className="group relative block overflow-hidden rounded-card border border-line no-underline transition-[border-color,box-shadow] duration-300 hover:border-accent-40 hover:shadow-[0_20px_60px_var(--color-accent-20)]"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <SanityImg

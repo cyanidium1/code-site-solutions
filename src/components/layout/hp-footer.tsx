@@ -114,12 +114,12 @@ const footerInnerClass =
 // 1.3 screens of links under every page (plan 2026-09-16, П7).
 const footerColWrapClass = "max-lg:border-t max-lg:border-line";
 const footerFoldLabelClass =
-  "flex w-full justify-between text-ink-3 text-[12px] tracking-[0.12em]";
+  "flex w-full justify-between text-ink-3 text-[12px] tracking-[0.06em]";
 const footerDescClass = "mt-4 text-[13.5px] leading-[1.55] text-ink-dim max-w-[320px]";
 const footerContactsClass =
   "mt-5 font-mono text-[12px] leading-5 flex flex-col gap-1.5 [&>a]:inline-flex [&>a]:items-center [&>a]:gap-2 [&>a]:h-5 [&>a]:text-ink-dim [&>a]:no-underline [&>a]:transition-colors [&>a]:duration-200 [&>a:hover]:text-ink [&_svg]:shrink-0 [&_svg]:text-ink-3 [&>a:hover_svg]:text-accent-soft [&_svg]:transition-colors [&_svg]:duration-200";
 const footerColHClass =
-  "font-mono text-[12px] tracking-[0.12em] uppercase text-ink-3";
+  "font-sans text-[12px] font-semibold tracking-[0.06em] uppercase text-ink-3";
 const footerColListClass =
   "list-none mt-3 p-0 flex flex-col gap-1 [&_li]:h-5 [&_a]:inline-flex [&_a]:items-center [&_a]:h-5 [&_a]:leading-5 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 const footerDisabledClass =
@@ -129,10 +129,10 @@ const footerDisabledClass =
 // страница — не найдено». Наскрізне посилання з підвалу дає їм вагу з усього
 // сайту і робить їх видимими для краулера.
 const footerCitiesClass =
-  "mx-auto max-w-container lg:mt-10 pt-5 border-t border-line flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] text-ink-3 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
+  "mx-auto max-w-container lg:mt-10 pt-5 border-t border-line flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[12px] text-ink-3 [&_a]:font-sans [&_a]:text-[13px] [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink";
 const footerBottomClass =
   "mx-auto max-w-container mt-6 pt-5 border-t border-line flex justify-between items-center flex-wrap gap-4";
-const footerCopyClass = "font-mono text-[11px] text-ink-3";
+const footerCopyClass = "font-mono text-[12px] text-ink-3";
 
 // Міські сторінки існують лише для uk і ru — під кожною є місцеві кейси.
 // В EN їх немає, тому в англійському підвалі рядок не рендериться взагалі:

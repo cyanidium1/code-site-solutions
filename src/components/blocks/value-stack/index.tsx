@@ -16,10 +16,7 @@ import {
 
 import type { PriceLocale } from "@/lib/shared/format-price";
 import { SectionHead } from "@/components/shared/section-head";
-import { hpInnerClass, hpSectionClass, hpDecorFadeClass } from "@/components/homepage/shared";
-import { ScrollReveal } from "@/components/homepage/scroll-reveal";
-import { SparkleTrio } from "@/components/homepage/sparkle-trio";
-import { cn } from "@/components/ui";
+import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 /* ───────────────────────────────────────────────────────────────────────
    WHAT YOU GET — 2026 redesign of the ValueStack band (Figma «код сайт
@@ -27,15 +24,10 @@ import { cn } from "@/components/ui";
    ABSORBS the former PerformanceProof section: its 0.5s/95+ stat panels
    and the "design that sells" checklist are §1.4/§1.5 of the design, so
    their copy lives here now and the standalone component is retired.
-   Visual system per the design: uniform violet accents (the old per-card
-   GREEN/BLUE/CYAN/AMBER tones are gone), photo fills dimmed to 6%, top
-   hairline divider on cards, glass stat/checklist panels, right-edge
-   chevron decor + one radial-gradient ellipse (docs/glass-ui-patterns.md
-   rules: 0x70 peak alpha, container-anchored stage, overflow-x-clip).
+   Since 2026-09-25 it renders as ruled entries beside one real photo
+   (DESIGN.md); the `small` / `stats` / `bullets` / `img` / `icon` copy fields are
+   kept for content history but not drawn.
    ─────────────────────────────────────────────────────────────────── */
-
-// Design accent — rgba(121,80,201) from the card icon chips (#1729:2741).
-const VIOLET = "#7950c9";
 
 const UNSPLASH = (id: string) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=55`;
@@ -308,73 +300,6 @@ const RU: Copy = {
   ),
 };
 
-// Tileable grain (inlined SVG turbulence — asset-free, no percent escaping).
-const noiseStyle: React.CSSProperties = {
-  backgroundImage:
-    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100' height='100' filter='url(%23n)'/></svg>\")",
-  backgroundSize: "120px 120px",
-};
-
-// Consistent treatment for every card: photo (dimmed to the design's 6%) →
-// scrim → hover glow → grain. Uniform violet accent per the redesign.
-function CardMedia({ src, sizes }: { src: string; sizes: string }) {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      <AppImage
-        src={src}
-        alt=""
-        fill
-        loading="lazy"
-        sizes={sizes}
-        quality={55}
-        className="object-cover opacity-[0.06] saturate-[0.7] scale-[1.05] transition-[scale,opacity] duration-[0.9s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/vs:scale-[1.1] group-hover/vs:opacity-[0.12]"
-      />
-      {/* merged static scrim: vignette (top) + accent wash + dark grade — see homepage-cards.css */}
-      <div className="hp-vs-scrim" />
-      {/* hover accent glow */}
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-[0.5s] ease-[cubic-bezier(0.22,1,0.36,1)] bg-[radial-gradient(420px_220px_at_0%_0%,oklch(from_var(--card-accent)_l_c_h_/_0.25),transparent_70%)] group-hover/vs:opacity-100" />
-      {/* grain — desktop only */}
-      <div
-        className="absolute inset-0 opacity-[0.06] mix-blend-overlay hidden md:block"
-        // eslint-disable-next-line react/forbid-dom-props -- inlined SVG data-uri grain texture
-        style={noiseStyle}
-      />
-    </div>
-  );
-}
-
-// Top hairline divider inside each card (Figma "Horizontal Divider": 1px,
-// inset 29px, just below the border).
-const CARD_DIVIDER = (
-  <span aria-hidden="true" className="absolute left-[29px] right-[29px] top-px z-[1] h-px bg-[oklch(1_0_0/0.08)]" />
-);
-
-// Card shells/entrance/hover live in src/app/homepage-cards.css as
-// `.hp-vs-card` (r26) / `.hp-vs-card-sm` (r20) — both already match the
-// design radii. `group/vs` stays as the marker for descendant group-hovers.
-const featuredBase = "group/vs hp-vs-card";
-
-const accentIconBox =
-  "relative z-[1] inline-flex items-center justify-center rounded-2xl border border-[oklch(from_var(--card-accent)_l_c_h_/_0.35)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.14)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)]";
-
-// ─── Decor (container-anchored stage, pattern-doc rules) ───────────────
-
-const DECOR_STAGE_CLASS =
-  "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-container pointer-events-none";
-// CS-monogram vectors (#1729:2697): the export strips the placement
-// rotation (workflow-doc trap — node box 615×396 vs art 579×326 solves to
-// ≈7.2°; sign resolved visually per the candidate-render protocol: the
-// design's bars RISE to the right ⇒ rotate(-7.2deg)). Wrapper sits at the
-// node box (container-relative 1215,1034), art centered inside at its
-// natural 579×326 and rotated — the rotated bbox reproduces the node box.
-const CHEVRONS_WRAP_CLASS =
-  "hidden lg:flex absolute left-[1215px] top-[1034px] w-[615px] h-[396px] items-center justify-center select-none";
-const CHEVRONS_IMG_CLASS = "w-[579px] max-w-none -rotate-[7.2deg]";
-// Ellipse 822 (#1729:2458): #642DBA blur-266 → radial, 0x70 peak alpha,
-// center container-relative (258, ~1109), footprint 1622×1582.
-const E822_CLASS =
-  "absolute -translate-x-1/2 -translate-y-1/2 rounded-full max-w-none left-[258px] top-[1109px] w-[1622px] aspect-[1622/1582] bg-[radial-gradient(50%_50%_at_50%_50%,#642DBA70_0%,transparent_70%)]";
-
 const COPY_BY_LOCALE: Record<Locale, Copy> = { uk: UK, en: EN, ru: RU };
 
 /* Real screen of the CMS (Sanity Studio) composited into a generated scene —
@@ -403,89 +328,39 @@ export function ValueStack({
 } = {}) {
   const c = COPY_BY_LOCALE[locale];
 
+  // 2026-09-25 (DESIGN.md): four ruled entries beside one real photo. The
+  // icon tiles, dimmed stock-photo fills, grain, chevron vector, glow ellipse
+  // and sparkle trio are gone — none of them said anything the words don't.
+  // The photo stays a cell of the same grid (owner, 2026-09-17: «по сітці»).
   return (
-    // overflow-x-clip + z-[2]: chevrons/ellipse bleed past the viewport and
-    // below the section — pattern-doc rules (h-scroll guard + Figma paint
-    // order over the next section's opaque bg).
-    <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="value">
-      <div className={hpDecorFadeClass}>
-        <div className={DECOR_STAGE_CLASS}>
-          <div className={E822_CLASS} aria-hidden="true" />
-          <span className={CHEVRONS_WRAP_CLASS} aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element -- static SVG decor, no optimizer round-trip */}
-            <img src="/wyg/chevrons.svg" alt="" width={579} height={326} loading="lazy" className={CHEVRONS_IMG_CLASS} />
-          </span>
-        </div>
-      </div>
+    <section className={hpSectionClass} id="value">
       <div className={hpInnerClass}>
-        {/* One column system for the header and the body: from 1100px both use
-            three equal tracks — heading and cards take two, the support line
-            and the photo take the third — so the paragraph, the sparkles and
-            the photo share edges with the grid below instead of floating in
-            their own track (owner feedback 2026-09-17: "картинка не по сетці"). */}
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3 xl:gap-x-4 xl:items-start">
+        <div className="grid grid-cols-1 gap-x-12 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] xl:grid-cols-3">
           <div className="xl:col-span-2">
-            <SectionHead eyebrow={eyebrow ?? c.eyebrow} heading={heading ?? c.heading} />
+            <SectionHead eyebrow={eyebrow ?? c.eyebrow} heading={heading ?? c.heading} sub={sub ?? c.sub} />
+            <ul className="m-0 grid list-none grid-cols-1 gap-x-10 border-t border-line p-0 xl:grid-cols-2 xl:border-t-0">
+              {c.featured.map((card) => (
+                <li key={card.title} className="border-b border-line py-5 xl:border-t xl:border-b-0 xl:pt-6 xl:pb-2">
+                  <h3 className="m-0 font-actay text-[16px] font-bold uppercase leading-[1.2] tracking-[-0.01em] text-ink md:text-[18px]">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2 mb-0 max-w-[46ch] font-sans text-[15px] leading-[1.6] text-ink-dim [text-wrap:pretty]">
+                    {card.desc}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="hidden xl:flex flex-col self-stretch pt-[70px]">
-            <p className="max-w-[508px] text-[16px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
-            {/* Sparkles sit on the right edge of the photo column, clear of
-                the cards by SectionHead's bottom margin. */}
-            <SparkleTrio className="mt-auto flex justify-end pt-10 pb-10" />
+          <div className="relative mt-8 aspect-[4/5] overflow-hidden rounded-frame border border-line md:mt-0 md:aspect-auto md:min-h-[440px]">
+            <AppImage
+              src={VALUE_PHOTO.src}
+              alt={VALUE_PHOTO.alt[locale]}
+              fill
+              sizes="(min-width: 1100px) 33vw, (min-width: 700px) 42vw, 100vw"
+              className="object-cover object-center"
+            />
           </div>
-          {/* Narrow screens: support paragraph in flow (sparkles are desktop decor) */}
-          <p className="xl:hidden -mt-4 mb-2 max-w-[640px] text-[15px] leading-[1.6] text-ink-dim">{sub ?? c.sub}</p>
         </div>
-
-        {/* Plan 2026-09-16: four points and a real screen instead of eight
-            cards, two Core Web Vitals panels and a checklist. The photo is a
-            grid cell, not a floating picture: it spans both card rows, so its
-            top and bottom edges are the cards' edges.
-            - phone: photo, then the four points as rows
-            - 640–1099: photo in the left track across two rows, cards fill the rest
-            - 1100+: cards 2×2 in two tracks, photo in the third */}
-        <ScrollReveal className="group/vs-reveal">
-          <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
-            <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[22px] border border-line sm:row-span-2 sm:mb-0 sm:aspect-auto sm:min-h-[440px] sm:rounded-[26px] xl:col-start-3 xl:row-start-1">
-              <AppImage
-                src={VALUE_PHOTO.src}
-                alt={VALUE_PHOTO.alt[locale]}
-                fill
-                sizes="(min-width: 1100px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover object-center"
-              />
-            </div>
-            {c.featured.map((card, i) => {
-              const Icon = card.icon;
-              return (
-                <div
-                  key={card.title}
-                  className={cn(featuredBase, "max-sm:!min-h-0 max-sm:!rounded-none max-sm:!border-0 max-sm:!border-b max-sm:!border-line max-sm:!bg-transparent max-sm:!px-0 max-sm:!py-4 max-sm:before:!hidden sm:min-h-[220px]")}
-                  // eslint-disable-next-line react/forbid-dom-props -- per-card accent + stagger CSS vars
-                  style={{ "--card-accent": VIOLET, "--i": i } as React.CSSProperties}
-                >
-                  {CARD_DIVIDER}
-                  <div className="max-sm:hidden">
-                    <CardMedia src={card.img} sizes="(min-width:1100px) 33vw, (min-width:640px) 50vw, 1px" />
-                  </div>
-                  <div className="relative z-[1] flex flex-1 flex-row gap-3.5 md:flex-col md:gap-0">
-                    <span className={cn(accentIconBox, "size-10 shrink-0 md:size-12")}>
-                      <Icon size={22} strokeWidth={1.7} />
-                    </span>
-                    <div className="min-w-0 md:contents">
-                      <h3 className="font-actay text-[16px] font-bold uppercase leading-[1.15] tracking-[-0.01em] text-ink md:mt-auto md:pt-8 md:text-[20px] xl:text-[22px]">
-                        {card.title}
-                      </h3>
-                      <p className="mt-1.5 max-w-[42ch] text-[13.5px] leading-[1.55] text-ink-dim [text-wrap:pretty] md:mt-3 md:text-[14.5px] md:leading-[1.6]">
-                        {card.desc}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </ScrollReveal>
       </div>
     </section>
   );

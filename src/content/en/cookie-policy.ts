@@ -13,7 +13,7 @@ export type CookiePolicyCopy = {
 };
 
 export const cookiePolicyEn: CookiePolicyCopy = {
-  eyebrow: "/ LEGAL",
+  eyebrow: "LEGAL",
   title: "Cookie Policy",
   sub: "Which cookies code-site.art uses, why, and how to change your choice.",
   intro:

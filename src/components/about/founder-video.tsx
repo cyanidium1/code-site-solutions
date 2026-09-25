@@ -49,7 +49,7 @@ export function FounderVideo({
           }
           sub={sub}
         />
-        <div className="relative mx-auto aspect-video max-w-container-narrow overflow-hidden rounded-[18px] border border-line bg-[oklch(0_0_0/0.6)]">
+        <div className="relative mx-auto aspect-video max-w-container-narrow overflow-hidden rounded-card border border-line bg-[oklch(0_0_0/0.6)]">
           {playing ? (
             <iframe
               className="absolute inset-0 h-full w-full"
@@ -88,7 +88,7 @@ export function FounderVideo({
                   />
                 </svg>
               </span>
-              <span className="absolute inset-x-0 bottom-0 px-5 py-4 text-left font-mono text-[11px] uppercase tracking-[0.12em] text-[oklch(1_0_0/0.85)]">
+              <span className="absolute inset-x-0 bottom-0 px-5 py-4 text-left font-mono text-[12px] uppercase tracking-[0.06em] text-[oklch(1_0_0/0.85)]">
                 {playLabel}
               </span>
             </button>

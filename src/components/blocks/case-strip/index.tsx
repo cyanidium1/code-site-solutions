@@ -88,7 +88,7 @@ export async function CaseStrip({
         </div>
         <a
           href={resolveRootHref("/portfolio", locale)}
-          className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:border-accent-40 hover:text-accent-soft"
+          className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-sans font-semibold text-[13px] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:border-accent-40 hover:text-accent-soft"
         >
           {l.all}
         </a>

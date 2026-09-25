@@ -47,7 +47,7 @@ export function FaqPage({ locale }: { locale: Locale }) {
           />
           <div className={hpInnerClass}>
             <nav aria-label="breadcrumb" className="mb-6">
-              <ol className="m-0 flex list-none flex-wrap items-center gap-2 p-0 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+              <ol className="m-0 flex list-none flex-wrap items-center gap-2 p-0 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                 <li>
                   <Link
                     href={localizePath("/", locale)}
@@ -78,7 +78,7 @@ export function FaqPage({ locale }: { locale: Locale }) {
             {/* In-page contents. Anchors double as shareable links an answer
                 can be pointed at from a chat. */}
             <nav aria-label={copy.tocHeading} className="mt-8 border-t border-line pt-5">
-              <p className="m-0 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-3">
+              <p className="m-0 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                 {copy.tocHeading}
               </p>
               <ul className="m-0 mt-3 flex list-none flex-wrap gap-2 p-0">
@@ -116,7 +116,7 @@ export function FaqPage({ locale }: { locale: Locale }) {
 
         <section className={hpSectionClass}>
           <div className={hpInnerClass}>
-            <div className="rounded-[20px] border border-line bg-[oklch(1_0_0_/_0.02)] p-6 sm:p-9">
+            <div className="rounded-card border border-line bg-[oklch(1_0_0_/_0.02)] p-6 sm:p-9">
               <h2 className="m-0 font-actay text-[clamp(22px,3vw,32px)] font-bold uppercase leading-[1.1] tracking-[-0.025em] text-ink">
                 {copy.ctaHeading}
               </h2>

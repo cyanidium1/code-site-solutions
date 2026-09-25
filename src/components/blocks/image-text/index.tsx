@@ -106,10 +106,10 @@ export function ImageText({
   const isNaturalFit = !isCentered && imageFit === "natural";
 
   const imageClass = isCentered
-    ? `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[4/3] lg:aspect-[16/9] ${imageImgClass}`
+    ? `rounded-frame overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative max-w-[920px] mx-auto w-full aspect-[4/3] lg:aspect-[16/9] ${imageImgClass}`
     : isNaturalFit
-      ? `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] relative -order-1 min-[961px]:order-none ${naturalImgClass}`
-      : `rounded-[22px] overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] -order-1 min-[961px]:order-none ${imageImgClass}`;
+      ? `rounded-frame overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] relative -order-1 min-[961px]:order-none ${naturalImgClass}`
+      : `rounded-frame overflow-hidden border border-line bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center relative aspect-[4/3] -order-1 min-[961px]:order-none ${imageImgClass}`;
 
   const contentClass = isCentered
     ? "flex flex-col max-w-[720px] mx-auto items-center"

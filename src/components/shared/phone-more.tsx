@@ -38,7 +38,7 @@ export function PhoneMore({
       <label
         htmlFor={id}
         className={cn(
-          "pm-more mt-3 min-h-11 w-full cursor-pointer select-none items-center justify-center rounded-xl border border-dashed border-line-strong font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft",
+          "pm-more mt-3 min-h-11 w-full cursor-pointer select-none items-center justify-center rounded-ctl border border-dashed border-line-strong font-sans font-semibold text-[13px] text-accent-soft",
           labelClassName,
         )}
       >

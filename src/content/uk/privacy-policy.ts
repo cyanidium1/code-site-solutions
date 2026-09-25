@@ -2,7 +2,7 @@ import { SITE_CONTACT } from "@/constants/site";
 import type { LegalDocCopy } from "../en/privacy-policy";
 
 export const privacyPolicyUk: LegalDocCopy = {
-  eyebrow: "/ LEGAL",
+  eyebrow: "LEGAL",
   title: "Політика конфіденційності",
   sub: "Що ми збираємо, коли ви пишете нам, куди це потрапляє і як це видалити.",
   intro:

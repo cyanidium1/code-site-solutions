@@ -101,7 +101,7 @@ export function AuditForm({
   if (status === "success") {
     return (
       <div
-        className="flex flex-col gap-3 p-8 border border-accent-40 rounded-[18px] bg-accent-6"
+        className="flex flex-col gap-3 p-8 border border-accent-40 rounded-card bg-accent-6"
         role="status"
       >
         <h3 className="font-sans text-[22px] font-bold text-ink m-0 tracking-[-0.01em]">
@@ -201,7 +201,7 @@ export function AuditForm({
           </Btn>
           {status === "error" && (
             <div
-              className="py-3 px-4 rounded-xl bg-[oklch(0.30_0.12_25_/_0.18)] border border-[oklch(0.55_0.18_25_/_0.4)] text-[oklch(0.85_0.08_25)] text-[13px] leading-[1.5]"
+              className="py-3 px-4 rounded-ctl bg-[oklch(0.30_0.12_25_/_0.18)] border border-[oklch(0.55_0.18_25_/_0.4)] text-[oklch(0.85_0.08_25)] text-[13px] leading-[1.5]"
               role="alert"
             >
               {t.errorBody}{" "}
@@ -215,7 +215,7 @@ export function AuditForm({
               </a>
             </div>
           )}
-          <p className="font-mono text-[11px] leading-[1.55] tracking-[0.02em] text-ink-3 mt-1 mb-0">
+          <p className="font-mono text-[12px] leading-[1.55] tracking-[0.02em] text-ink-3 mt-1 mb-0">
             {t.privacy}{" "}
             <Link
               href={t.privacyHref}

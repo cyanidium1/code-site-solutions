@@ -168,7 +168,7 @@ export function Reasons({
                   isPrimary
                     ? "row-span-1 p-4 sm:p-7 xl:row-span-2 xl:p-9"
                     : "p-4 sm:p-6 xl:p-7"
-                } border border-line rounded-[20px] bg-[oklch(1_0_0_/_0.02)] flex flex-col gap-3 sm:gap-5`}
+                } border border-line rounded-card bg-[oklch(1_0_0_/_0.02)] flex flex-col gap-3 sm:gap-5`}
               >
                 <header className="flex items-start justify-between gap-4">
                   <div
@@ -211,11 +211,11 @@ export function Reasons({
                   >
                     {r.stat.n}
                   </div>
-                  <div className="text-[11.5px] text-ink-3 leading-[1.4] tracking-[0.02em] flex-1">
+                  <div className="text-[12px] text-ink-3 leading-[1.4] tracking-[0.02em] flex-1">
                     {r.stat.lbl}
                   </div>
                   {r.stat.src ? (
-                    <div className="font-mono text-[9px] text-ink-3 tracking-[0.06em] uppercase shrink-0 hidden sm:block">
+                    <div className="font-mono text-[12px] text-ink-3 tracking-[0.06em] uppercase shrink-0 hidden sm:block">
                       {r.stat.src}
                     </div>
                   ) : null}
@@ -225,7 +225,7 @@ export function Reasons({
           })}
         </ol>
 
-        <div className="flex flex-col items-stretch gap-4 flex-wrap mt-8 p-[18px] border border-line rounded-[18px] bg-[oklch(1_0_0_/_0.02)] sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:mt-12 sm:py-[22px] sm:px-7 sm:rounded-full">
+        <div className="flex flex-col items-stretch gap-4 flex-wrap mt-8 p-[18px] border border-line rounded-card bg-[oklch(1_0_0_/_0.02)] sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:mt-12 sm:py-[22px] sm:px-7 sm:rounded-full">
           <div className="text-[13px] text-ink-dim flex items-center justify-center text-center gap-3 [&_strong]:text-ink [&_strong]:font-semibold sm:text-[14px] sm:justify-normal sm:text-start">
             <span className="inline-block w-2 h-2 [border-right:1.5px_solid_var(--color-accent-soft)] [border-bottom:1.5px_solid_var(--color-accent-soft)] rotate-[-45deg]" />
             <span>{footText}</span>

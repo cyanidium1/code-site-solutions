@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { cn } from "@/components/ui";
-import { hpH2Class, hpInnerClass, hpLinkClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpLinkClass, hpSectionCompactClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 /**
  * "З чого почати" — in-content links from the homepage to the money pages.
@@ -21,7 +21,7 @@ export function Directions({
   links: { href: string; label: string }[];
 }) {
   return (
-    <section className={hpSectionClass} id="directions">
+    <section className={hpSectionCompactClass} id="directions">
       <div className={hpInnerClass}>
         <div className={hpSectionHeadClass}>
           <h2 className={hpH2Class}>
@@ -41,7 +41,7 @@ export function Directions({
                 href={l.href}
                 className={cn(
                   hpLinkClass,
-                  "mt-0 rounded-full border border-line px-3.5 py-2 text-[11px] [&]:border-b hover:border-accent-40 lg:px-4 lg:py-2.5 lg:text-[12px]",
+                  "mt-0 rounded-full border border-line px-3.5 py-2 text-[12px] [&]:border-b hover:border-accent-40 lg:px-4 lg:py-2.5 lg:text-[12px]",
                 )}
               >
                 {l.label}

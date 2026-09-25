@@ -118,9 +118,9 @@
   border: 1px solid var(--med-hair);
   border-radius: 3px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.4;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-ink-3);
   white-space: nowrap;
@@ -186,26 +186,9 @@
   animation-delay: calc(var(--med-pip-i, 0) * 0.42s);
 }
 
-/* ─── Reveal ────────────────────────────────────────────────────────────
-   Driven by <ScrollReveal data-visible>. Transform + opacity only. */
-.med-reveal > * {
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.55s var(--ease-out-soft),
-    transform 0.55s var(--ease-out-soft);
-}
-
-.med-reveal[data-visible="true"] > * {
-  opacity: 1;
-  transform: none;
-}
-
-.med-reveal[data-visible="true"] > *:nth-child(2) { transition-delay: 70ms; }
-.med-reveal[data-visible="true"] > *:nth-child(3) { transition-delay: 140ms; }
-.med-reveal[data-visible="true"] > *:nth-child(4) { transition-delay: 210ms; }
-.med-reveal[data-visible="true"] > *:nth-child(5) { transition-delay: 280ms; }
-.med-reveal[data-visible="true"] > *:nth-child(6) { transition-delay: 350ms; }
+/* (Scroll reveal removed 2026-09-25 — rows appearing on scroll carried no
+   state change. Motion on this page now only explains something: the ECG
+   strip, the patient-route pips, the booking demo's event rail.) */
 
 /* ─── Event rail (booking demo) ─────────────────────────────────────────
    Each backend event slides in as the visitor advances the widget. */
@@ -225,11 +208,5 @@
   .med-pip,
   .med-event {
     animation: none;
-  }
-
-  .med-reveal > * {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 }

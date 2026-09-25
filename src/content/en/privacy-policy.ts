@@ -28,7 +28,7 @@ export type LegalDocCopy = {
  * that route makes. If any of those change, this file changes with them.
  */
 export const privacyPolicyEn: LegalDocCopy = {
-  eyebrow: "/ LEGAL",
+  eyebrow: "LEGAL",
   title: "Privacy Policy",
   sub: "What we collect when you contact us, where it goes, and how to have it removed.",
   intro:

@@ -44,26 +44,25 @@ function TierX() {
   );
 }
 
+// 2026-09-25 (DESIGN.md, pricing): a tier is a column of one ruled sheet —
+// `CmpPricingGrid` draws the frame and the hairlines between columns — not a
+// floating card. No per-tier border, fill, lift or glow; the recommended
+// package differs by its filled CTA only.
 const TIER_BASE =
-  "relative px-[22px] py-[26px] border rounded-[18px] flex flex-col gap-5 transition-[border-color,transform] duration-[250ms] md:px-7 md:py-8 md:gap-6";
+  "relative px-[22px] py-[26px] bg-bg flex flex-col gap-5 md:px-7 md:py-8 md:gap-6";
 
-const TIER_DEFAULT =
-  "border-line bg-[oklch(0.16_0.005_300)] hover:border-line-strong hover:-translate-y-0.5";
-
-const TIER_POP =
-  "border-accent-40 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] translate-y-0 hover:-translate-y-0.5 xl:-translate-y-2 xl:hover:-translate-y-2.5";
 
 const TIER_BTN_BASE =
-  "inline-flex items-center justify-center min-h-11 w-full px-5 py-3.5 rounded-full font-sans text-[11px] font-bold tracking-[0.12em] uppercase cursor-pointer transition-all duration-[250ms]";
+  "inline-flex items-center justify-center min-h-11 w-full px-5 py-3.5 rounded-full font-sans text-[14px] font-semibold cursor-pointer transition-[background-color,border-color,color] duration-200";
 
 const TIER_BTN_PRIMARY =
-  "bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] border-0 shadow-[0_6px_18px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] hover:-translate-y-0.5 hover:shadow-[0_10px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.4)]";
+  "bg-accent text-[oklch(1_0_0_/_0.98)] border-0 hover:bg-accent-2";
 
 const TIER_BTN_GHOST =
   "bg-transparent border border-line-strong text-ink shadow-none hover:border-accent-soft hover:text-accent-soft hover:bg-accent-8";
 
 const TIER_LIST_BASE =
-  "list-none flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[13px] [&>li]:leading-[1.45] [&>li_em]:not-italic";
+  "list-none flex flex-col gap-2.5 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:text-[14px] [&>li]:leading-[1.45] [&>li_em]:not-italic";
 
 const TIER_LIST_DEFAULT = "[&>li]:text-ink-dim";
 
@@ -76,8 +75,6 @@ export function Tier({
   weeks,
   bestFor,
   bestForLabel = "Кому підходить:",
-  popular,
-  popularLabel = "Популярно",
   includes,
   excludes,
   ctaLabel,
@@ -95,27 +92,22 @@ export function Tier({
   const { open } = useLeadModal();
   const locale = useLocale() as Locale;
   return (
-    <div className={`${TIER_BASE} ${popular ? TIER_POP : TIER_DEFAULT}`}>
-      {popular && (
-        <div className="absolute top-[-1px] left-6 px-3 py-[5px] bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] font-display text-[9px] font-bold tracking-[0.14em] uppercase rounded-b-lg shadow-[0_4px_12px_oklch(from_var(--color-accent)_l_c_h_/_0.4)]">
-          {popularLabel}
-        </div>
-      )}
+    <div className={TIER_BASE}>
       <PhoneMore label={SHOW_MORE_LABEL[locale]} className="flex flex-col gap-5 md:gap-6">
       <div className="flex flex-col gap-3.5">
-        <div className="font-display font-bold text-[12px] tracking-[0.14em] uppercase text-ink leading-[1.2] md:text-[13px]">
+        <div className="font-actay font-bold text-[15px] uppercase text-ink leading-[1.2] md:text-[17px]">
           {name}
         </div>
-        <h3 className="font-display font-bold text-[28px] leading-none text-ink tracking-[-0.025em] m-0 [&_em]:not-italic [&_em]:font-medium [&_em]:text-[14px] [&_em]:text-ink-3 [&_em]:tracking-normal [&_em]:block [&_em]:mb-1 md:text-[38px]">
-          <em>{priceLabel}</em>
+        <h3 className="font-display font-bold text-[28px] leading-none text-ink tracking-[-0.025em] tabular-nums m-0 md:text-[38px]">
+          <span className="mb-1.5 block font-sans text-[12px] font-medium normal-case tracking-normal text-ink-3">{priceLabel}</span>
           {price}
         </h3>
-        <div className="text-[12px] text-ink-3 tracking-[0.04em]">
+        <div className="font-mono text-[12px] text-ink-3">
           {weeks}
         </div>
         {bestFor ? (
           <div className={`mt-1 pt-3 border-t border-line ${compact ? "pm-extra" : ""}`}>
-            <div className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-1.5">
+            <div className="font-sans text-[12px] font-semibold tracking-[0.06em] uppercase text-ink-3 mb-1.5">
               {bestForLabel}
             </div>
             <p className="m-0 text-[12.5px] leading-[1.5] text-ink-dim">
@@ -126,7 +118,7 @@ export function Tier({
       </div>
 
       <div>
-        <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-accent-soft mb-3">
+        <h4 className="font-sans text-[12px] font-semibold tracking-[0.06em] uppercase text-ink-3 mb-3">
           {includes.heading}
         </h4>
         <ul className={`${TIER_LIST_BASE} ${TIER_LIST_DEFAULT} ${compact ? "pm-cap-3" : ""}`}>
@@ -144,7 +136,7 @@ export function Tier({
           {/* Phones fold the "not included" list behind "show more". */}
           <div className="pm-extra h-px bg-line m-0" />
           <div className="pm-extra">
-            <h4 className="font-display text-[10px] font-bold tracking-[0.14em] uppercase text-ink-3 mb-3">
+            <h4 className="font-sans text-[12px] font-semibold tracking-[0.06em] uppercase text-ink-3 mb-3">
               {excludes.heading ?? "Не входить"}
             </h4>
             <ul className={`${TIER_LIST_BASE} ${TIER_LIST_MUTED}`}>
@@ -163,7 +155,7 @@ export function Tier({
 
       <div className="mt-auto pt-2">
         {discountLine ? (
-          <div className="mb-2.5 text-center font-display text-[11px] font-bold uppercase tracking-[0.1em] text-accent-soft">
+          <div className="mb-2.5 text-center font-sans text-[13px] font-semibold text-accent-soft">
             {discountLine}
           </div>
         ) : null}

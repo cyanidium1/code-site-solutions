@@ -66,14 +66,14 @@ const CMP_CONTACT_BG =
 // Below-table CTA pair + contact-form submit. All three are 250+ char
 // inline strings; hoisting moves the literal off the render path.
 const CMP_CTA_PRIMARY_CLASS =
-  "inline-flex items-center justify-center min-h-11 bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] border-0 w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-bold tracking-[0.1em] uppercase cursor-pointer transition-all duration-[250ms] shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_oklch(from_var(--color-accent)_l_c_h_/_0.45)] md:w-auto md:px-[22px] md:text-[11px]";
+  "inline-flex items-center justify-center min-h-11 bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] border-0 w-full px-[18px] py-[13px] rounded-full font-sans text-[12px] font-bold tracking-[0.06em] uppercase cursor-pointer transition-all duration-[250ms] shadow-[0_8px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_oklch(from_var(--color-accent)_l_c_h_/_0.45)] md:w-auto md:px-[22px] md:text-[12px]";
 
 const CMP_CTA_GHOST_CLASS =
-  "inline-flex items-center justify-center min-h-11 bg-transparent text-ink border border-line-strong w-full px-[18px] py-[13px] rounded-full font-sans text-[10px] font-semibold tracking-[0.1em] uppercase cursor-pointer transition-all duration-200 hover:border-ink-dim hover:bg-[oklch(1_0_0_/_0.04)] md:w-auto md:px-5 md:py-3 md:text-[11px]";
+  "inline-flex items-center justify-center min-h-11 bg-transparent text-ink border border-line-strong w-full px-[18px] py-[13px] rounded-full font-sans text-[12px] font-semibold tracking-[0.06em] uppercase cursor-pointer transition-all duration-200 hover:border-ink-dim hover:bg-[oklch(1_0_0_/_0.04)] md:w-auto md:px-5 md:py-3 md:text-[12px]";
 
 // Gradient submit pill via the `gradient` Btn variant; overrides are this
 // button's base size + its md: tightening ladder (see Btn.tsx `gradient` note).
-const CMP_CONTACT_SUBMIT_CLASS = btnClass("gradient", "mt-1.5 px-[18px] text-[11px] md:px-[22px] md:py-4 md:text-[12px]");
+const CMP_CONTACT_SUBMIT_CLASS = btnClass("gradient", "mt-1.5 px-[18px] text-[12px] md:px-[22px] md:py-4 md:text-[12px]");
 
 export function Comparison({
   tableHeading = (
@@ -174,7 +174,7 @@ export function Comparison({
             the longest photo-less stretch (density check 2026-09-18). The
             links stay in the HTML for crawlers. */}
         <PhoneMore label={SHOW_MORE_LABEL[locale]} className="mb-14 md:mb-20 xl:mb-[120px]" labelClassName="mt-0 rounded-t-none border-t-0">
-        <div className="border border-line rounded-[14px] overflow-hidden bg-[oklch(0.155_0.005_300)] md:rounded-[18px]">
+        <div className="border border-line rounded-card overflow-hidden bg-[oklch(0.155_0.005_300)] md:rounded-card">
           <CmpTable>
             <CmpThead>
               <tr>
@@ -219,7 +219,7 @@ export function Comparison({
         </div>
         </PhoneMore>
 
-        <div className={`max-lg:hidden relative px-[22px] py-9 mb-14 border border-line-strong rounded-[18px] overflow-hidden text-center md:px-8 md:py-12 md:mb-20 md:rounded-3xl xl:px-12 xl:py-16 xl:mb-[120px] ${CMP_CONTACT_BG}`}>
+        <div className={`max-lg:hidden relative px-[22px] py-9 mb-14 border border-line-strong rounded-card overflow-hidden text-center md:px-8 md:py-12 md:mb-20 md:rounded-frame xl:px-12 xl:py-16 xl:mb-[120px] ${CMP_CONTACT_BG}`}>
           <div className="max-w-[560px] mx-auto">
             <H2
               variant="comparison-contact"
@@ -255,7 +255,7 @@ export function Comparison({
                 disabled={busy}
               />
               <textarea
-                className={`${CMP_INPUT_BASE} rounded-[22px] resize-none min-h-[110px] md:py-4`}
+                className={`${CMP_INPUT_BASE} rounded-frame resize-none min-h-[110px] md:py-4`}
                 placeholder={contactBrief}
                 aria-label={contactBrief}
                 value={form.brief}

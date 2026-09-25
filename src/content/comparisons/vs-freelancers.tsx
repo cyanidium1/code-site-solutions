@@ -319,7 +319,7 @@ export const VS_FREELANCERS_UK: Content = {
   metaDescription: `Сайт для бізнесу — ${formatPackagePrice("business", "uk")}, ${formatPackageTerm("business", "uk")}, за договором. Гарантія рік, неустойка до ${PENALTY_CAP}% за зрив строку, код ваш.`,
   ogTitle: "Команда, а не одна людина. Ніхто не зникне з авансом. — Code-Site.Art",
   hero: {
-    eyebrowLabel: "/ ПОРІВНЯННЯ · ФРІЛАНСЕРИ",
+    eyebrowLabel: "ПОРІВНЯННЯ · ФРІЛАНСЕРИ",
     h1Lines: [
       <>
         Сайт для бізнесу за {formatPackagePrice("business", "uk")} і{" "}
@@ -345,7 +345,7 @@ export const VS_FREELANCERS_UK: Content = {
     ctaSecondary: "Подивитись як ми працюємо",
   },
   horrorStories: {
-    eyebrow: "/ 02 ВИ ЧУЛИ ЦЕ",
+    eyebrow: "02 ВИ ЧУЛИ ЦЕ",
     heading: (
       <>
         6 історій, які <em>ви, мабуть, чули.</em>
@@ -401,7 +401,7 @@ export const VS_FREELANCERS_UK: Content = {
     ),
   },
   rightChoice: {
-    eyebrow: "/ 03 КОЛИ ФРІЛАНСЕР — ПРАВИЛЬНИЙ ВИБІР",
+    eyebrow: "03 КОЛИ ФРІЛАНСЕР — ПРАВИЛЬНИЙ ВИБІР",
     heading: (
       <>
         Коли НЕ треба <em>звертатись до нас.</em>
@@ -429,7 +429,7 @@ export const VS_FREELANCERS_UK: Content = {
     foot: "Якщо ваш проєкт у цьому списку — пишіть фрилансеру на Upwork. У нас є рекомендації перевірених UA-фрилансерів, можемо звести. Без жартів — ми за чесний вибір.",
   },
   compare: {
-    eyebrow: "/ 04 ПОРІВНЯННЯ",
+    eyebrow: "04 ПОРІВНЯННЯ",
     heading: (
       <>
         Фрілансер vs Code-Site. <em>Чесно по фактах.</em>
@@ -502,7 +502,7 @@ export const VS_FREELANCERS_UK: Content = {
     ],
   },
   team: {
-    eyebrow: "/ 05 КОМАНДА",
+    eyebrow: "05 КОМАНДА",
     heading: (
       <>
         Хто саме <em>на вашому проєкті.</em>
@@ -578,7 +578,7 @@ export const VS_FREELANCERS_UK: Content = {
     foot: "Хочете спілкуватись з конкретною людиною з команди? Скажіть на брифі — налаштуємо. Між вами і виконавцем немає прошарків.",
   },
   payFor: {
-    eyebrow: "/ 06 ЗА ЩО ПЛАТИТЕ",
+    eyebrow: "06 ЗА ЩО ПЛАТИТЕ",
     heading: (
       <>
         Різниця в ціні — <em>це не годинна ставка.</em>
@@ -637,7 +637,7 @@ export const VS_FREELANCERS_UK: Content = {
     ],
   },
   admin: {
-    eyebrow: "/ 07 ПІСЛЯ ЗАПУСКУ",
+    eyebrow: "07 ПІСЛЯ ЗАПУСКУ",
     heading: (
       <>
         Редагуєте сайт самі. <em>Без нас. Без фрилансера.</em>
@@ -694,7 +694,7 @@ export const VS_FREELANCERS_UK: Content = {
     ),
   },
   caseStudy: {
-    eyebrow: "/ 08 RESCUE-ПРОЄКТИ",
+    eyebrow: "08 RESCUE-ПРОЄКТИ",
     heading: (
       <>
         Частина наших проєктів — <em>це rescue після фрілансера.</em>
@@ -733,7 +733,7 @@ export const VS_FREELANCERS_UK: Content = {
     ),
   },
   filter: {
-    eyebrow: "/ 09 ЧЕСНО",
+    eyebrow: "09 ЧЕСНО",
     heading: (
       <>
         Чого ми <em>не робимо.</em>
@@ -761,7 +761,7 @@ export const VS_FREELANCERS_UK: Content = {
     foot: "Якщо ваш кейс із цього списку — будемо чесні і не візьмемо проєкт. Краще скажемо «ні» зараз, ніж розчаруємо вас потім.",
   },
   pricing: {
-    eyebrow: "/ 10 ПОРІВНЯННЯ ВИТРАТ",
+    eyebrow: "10 ПОРІВНЯННЯ ВИТРАТ",
     heading: (
       <>
         Що дешевше: <em>фрілансер чи студія?</em>
@@ -773,7 +773,7 @@ export const VS_FREELANCERS_UK: Content = {
     ...tcoTables("uk"),
   },
   faq: {
-    eyebrow: "/ 11 ЧАСТІ ПИТАННЯ",
+    eyebrow: "11 ЧАСТІ ПИТАННЯ",
     heading: (
       <>
         Що питають <em>найчастіше.</em>
@@ -815,7 +815,7 @@ export const VS_FREELANCERS_UK: Content = {
     ],
   },
   cta: {
-    eyebrow: "/ 12 ГОТОВІ ОБГОВОРИТИ?",
+    eyebrow: "12 ГОТОВІ ОБГОВОРИТИ?",
     heading: (
       <>
         Розрахуйте проєкт <em>за 60 секунд.</em>
@@ -859,7 +859,7 @@ export const VS_FREELANCERS_EN: Content = {
   metaDescription: `Custom-coded business website for ${formatPackagePrice("business", "en")} in ${formatPackageTerm("business", "en")}, on contract. One-year warranty, up to ${PENALTY_CAP}% penalty if we slip, you own the code.`,
   ogTitle: "A team, not one person. Nobody ghosts you. — Code-Site.Art",
   hero: {
-    eyebrowLabel: "/ COMPARE · FREELANCERS",
+    eyebrowLabel: "COMPARE · FREELANCERS",
     h1Lines: [
       <>
         Business website for {formatPackagePrice("business", "en")} in{" "}
@@ -888,7 +888,7 @@ export const VS_FREELANCERS_EN: Content = {
     ctaSecondary: "See how we work",
   },
   horrorStories: {
-    eyebrow: "/ 02 YOU'VE HEARD THESE",
+    eyebrow: "02 YOU'VE HEARD THESE",
     heading: (
       <>
         6 stories you&apos;ve <em>probably heard.</em>
@@ -944,7 +944,7 @@ export const VS_FREELANCERS_EN: Content = {
     ),
   },
   rightChoice: {
-    eyebrow: "/ 03 WHEN A FREELANCER IS THE RIGHT CHOICE",
+    eyebrow: "03 WHEN A FREELANCER IS THE RIGHT CHOICE",
     heading: (
       <>
         When NOT to <em>hire us.</em>
@@ -972,7 +972,7 @@ export const VS_FREELANCERS_EN: Content = {
     foot: "If your project is on this list — go hire on Upwork. We have a list of vetted freelancers we can refer you to. No jokes — we're for honest fit.",
   },
   compare: {
-    eyebrow: "/ 04 SIDE BY SIDE",
+    eyebrow: "04 SIDE BY SIDE",
     heading: (
       <>
         Freelancer vs Code-Site. <em>Honest, fact-based.</em>
@@ -1045,7 +1045,7 @@ export const VS_FREELANCERS_EN: Content = {
     ],
   },
   team: {
-    eyebrow: "/ 05 THE TEAM",
+    eyebrow: "05 THE TEAM",
     heading: (
       <>
         Who&apos;s actually <em>on your project.</em>
@@ -1121,7 +1121,7 @@ export const VS_FREELANCERS_EN: Content = {
     foot: "Want to talk to a specific person on the team? Say so at brief — we'll arrange it. There are no layers between you and the executor.",
   },
   payFor: {
-    eyebrow: "/ 06 WHAT YOU PAY FOR",
+    eyebrow: "06 WHAT YOU PAY FOR",
     heading: (
       <>
         The price gap <em>isn&apos;t the hourly rate.</em>
@@ -1180,7 +1180,7 @@ export const VS_FREELANCERS_EN: Content = {
     ],
   },
   admin: {
-    eyebrow: "/ 07 AFTER LAUNCH",
+    eyebrow: "07 AFTER LAUNCH",
     heading: (
       <>
         You edit the site yourself.{" "}
@@ -1236,7 +1236,7 @@ export const VS_FREELANCERS_EN: Content = {
     ),
   },
   caseStudy: {
-    eyebrow: "/ 08 RESCUE PROJECTS",
+    eyebrow: "08 RESCUE PROJECTS",
     heading: (
       <>
         Some of our projects — <em>rescues after a freelancer.</em>
@@ -1275,7 +1275,7 @@ export const VS_FREELANCERS_EN: Content = {
     ),
   },
   filter: {
-    eyebrow: "/ 09 STRAIGHT TALK",
+    eyebrow: "09 STRAIGHT TALK",
     heading: (
       <>
         What we <em>don&apos;t do.</em>
@@ -1303,7 +1303,7 @@ export const VS_FREELANCERS_EN: Content = {
     foot: "If your case is on this list, we'll be honest and pass on the project. Better to say no now than disappoint you later.",
   },
   pricing: {
-    eyebrow: "/ 10 COST COMPARISON",
+    eyebrow: "10 COST COMPARISON",
     heading: (
       <>
         What&apos;s cheaper: <em>freelancer or studio?</em>
@@ -1315,7 +1315,7 @@ export const VS_FREELANCERS_EN: Content = {
     ...tcoTables("en"),
   },
   faq: {
-    eyebrow: "/ 11 FAQ",
+    eyebrow: "11 FAQ",
     heading: (
       <>
         What people <em>ask most.</em>
@@ -1357,7 +1357,7 @@ export const VS_FREELANCERS_EN: Content = {
     ],
   },
   cta: {
-    eyebrow: "/ 12 READY TO TALK?",
+    eyebrow: "12 READY TO TALK?",
     heading: (
       <>
         Get an estimate <em>in 60 seconds.</em>

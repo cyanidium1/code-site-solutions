@@ -40,7 +40,7 @@ function SectionHead({
   return (
     <header className="flex flex-col gap-3">
       {eyebrow ? (
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-soft">
+        <p className="font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
           {eyebrow}
         </p>
       ) : null}
@@ -115,7 +115,7 @@ function ImageRow({ images }: { images: ProposalImage[] }) {
           // eslint-disable-next-line react/forbid-dom-props -- частка ряду рахується з пропорцій зображення, яке лежить у CMS; класом це не виразити
           style={single ? undefined : ({ "--ratio": ratios[i] } as CSSProperties)}
         >
-          <span className="block overflow-hidden rounded-xl border border-line bg-[oklch(1_0_0/0.02)]">
+          <span className="block overflow-hidden rounded-ctl border border-line bg-[oklch(1_0_0/0.02)]">
             <SanityImg
               image={img}
               alt={img.alt || img.caption || ""}
@@ -124,7 +124,7 @@ function ImageRow({ images }: { images: ProposalImage[] }) {
             />
           </span>
           {img.caption ? (
-            <figcaption className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+            <figcaption className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
               {img.caption}
             </figcaption>
           ) : null}
@@ -203,12 +203,12 @@ function TableSection({
         lede={section.lede}
         id={headingId}
       />
-      <div className="md:overflow-x-auto md:rounded-2xl md:border md:border-line">
+      <div className="md:overflow-x-auto md:rounded-card md:border md:border-line">
         <table className="w-full border-collapse text-left max-md:block md:min-w-[620px]">
           <thead className="max-md:sr-only">
             <tr className="bg-accent-6">
               {numbered ? (
-                <th className="w-10 border-b border-line px-4 py-3.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-ink-3">
+                <th className="w-10 border-b border-line px-4 py-3.5 font-mono text-[12px] font-medium uppercase tracking-[0.06em] text-ink-3">
                   #
                 </th>
               ) : null}
@@ -216,7 +216,7 @@ function TableSection({
                 <th
                   key={ci}
                   className={cn(
-                    "border-b border-line px-5 py-3.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em]",
+                    "border-b border-line px-5 py-3.5 font-mono text-[12px] font-medium uppercase tracking-[0.06em]",
                     ci === accentCol ? "bg-accent-10 text-accent-soft" : "text-ink-3",
                   )}
                 >
@@ -238,7 +238,7 @@ function TableSection({
                   key={row._key}
                   className={cn(
                     "border-b border-line last:border-b-0",
-                    "max-md:block max-md:rounded-xl max-md:border max-md:border-line max-md:bg-[oklch(1_0_0/0.015)] max-md:px-4 max-md:py-3 max-md:last:border-b",
+                    "max-md:block max-md:rounded-ctl max-md:border max-md:border-line max-md:bg-[oklch(1_0_0/0.015)] max-md:px-4 max-md:py-3 max-md:last:border-b",
                     row.emphasis && "bg-accent-6 max-md:border-accent-25",
                   )}
                 >
@@ -259,7 +259,7 @@ function TableSection({
                         "max-md:block max-md:px-0 max-md:py-0",
                         ci === 0
                           ? "max-md:mb-2 max-md:text-[15px]"
-                          : "max-md:mt-1.5 max-md:before:mb-0.5 max-md:before:block max-md:before:font-mono max-md:before:text-[10px] max-md:before:uppercase max-md:before:tracking-[0.12em] max-md:before:text-ink-3 max-md:before:content-[attr(data-label)]",
+                          : "max-md:mt-1.5 max-md:before:mb-0.5 max-md:before:block max-md:before:font-mono max-md:before:text-[12px] max-md:before:uppercase max-md:before:tracking-[0.06em] max-md:before:text-ink-3 max-md:before:content-[attr(data-label)]",
                       )}
                     >
                       {ci === 0 && numbered ? (
@@ -375,7 +375,7 @@ function CtaSection({
   headingId: string;
 }) {
   return (
-    <div className="rounded-3xl border border-accent-25 bg-accent-6 p-6 shadow-[0_0_60px_-30px_var(--color-accent-55)] sm:p-9">
+    <div className="rounded-frame border border-accent-25 bg-accent-6 p-6 shadow-[0_0_60px_-30px_var(--color-accent-55)] sm:p-9">
       <div className="flex flex-col gap-5">
         <SectionHead
           eyebrow={section.eyebrow}

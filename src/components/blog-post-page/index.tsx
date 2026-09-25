@@ -139,10 +139,10 @@ const LABELS: Record<
   uk: {
     home: "Головна",
     blog: "Блог",
-    eyebrow: "/ БЛОГ",
+    eyebrow: "БЛОГ",
     updated: "Оновлено",
     minRead: (n) => `${n} хв читання`,
-    moreReadingEyebrow: "/ ЩЕ ПОЧИТАТИ",
+    moreReadingEyebrow: "ЩЕ ПОЧИТАТИ",
     relatedHeading: (
       <>
         Схожі <em>статті</em>
@@ -153,10 +153,10 @@ const LABELS: Record<
   en: {
     home: "Home",
     blog: "Blog",
-    eyebrow: "/ BLOG",
+    eyebrow: "BLOG",
     updated: "Updated",
     minRead: (n) => `${n} min read`,
-    moreReadingEyebrow: "/ MORE READING",
+    moreReadingEyebrow: "MORE READING",
     relatedHeading: (
       <>
         Related <em>articles</em>
@@ -167,10 +167,10 @@ const LABELS: Record<
   ru: {
     home: "Главная",
     blog: "Блог",
-    eyebrow: "/ БЛОГ",
+    eyebrow: "БЛОГ",
     updated: "Обновлено",
     minRead: (n) => `${n} мин чтения`,
-    moreReadingEyebrow: "/ ЕЩЁ ПОЧИТАТЬ",
+    moreReadingEyebrow: "ЕЩЁ ПОЧИТАТЬ",
     relatedHeading: (
       <>
         Похожие <em>статьи</em>
@@ -429,7 +429,7 @@ export async function BlogPostPageView({
                 alt={heroCover.alt}
                 sizes={IMG_SIZES.prose}
                 priority
-                className="w-full h-auto max-h-[300px] sm:max-h-[380px] lg:max-h-[440px] object-cover rounded-2xl border border-line block"
+                className="w-full h-auto max-h-[300px] sm:max-h-[380px] lg:max-h-[440px] object-cover rounded-card border border-line block"
               />
             </div>
           </section>
@@ -451,7 +451,7 @@ export async function BlogPostPageView({
           {/* Byline sits on the prose measure, not the page container: it
               belongs to the article, and its bottom rule now reads as the
               line the body starts under (audit 2026-09-06, C6). */}
-          <div className="max-w-container-prose mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11.5px] tracking-[0.1em] uppercase text-ink-3 border-b border-line">
+          <div className="max-w-container-prose mx-auto py-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3 border-b border-line">
             {post.author?.name ? (
               <span className="flex items-center gap-2.5">
                 {post.author.photoUrl ? (
@@ -523,7 +523,7 @@ export async function BlogPostPageView({
                   {BLOG_FORM_COPY[locale].sub}
                 </p>
               </div>
-              <div className="p-5 border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] md:p-7 md:rounded-[22px]">
+              <div className="p-5 border border-line-strong rounded-card bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] md:p-7 md:rounded-frame">
                 <LeadForm
                   source={`blog-${locale}:${slug}`}
                   variant="compact"

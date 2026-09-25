@@ -84,10 +84,10 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               return (
                 <div
                   key={it.num}
-                  className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                  className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
+                    <span className="font-display text-[12px] font-bold tracking-[0.06em] text-ink-3">
                       {it.num}
                     </span>
                     <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
@@ -114,9 +114,9 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                 return (
                   <div
                     key={it.num}
-                    className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
+                    className="border border-line rounded-card px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-22">
+                    <span className="w-9 h-9 shrink-0 rounded-ctl inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-22">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1">
@@ -147,7 +147,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             heading={c.compare.heading}
             sub={c.compare.sub}
           />
-          <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
+          <div className="border border-line rounded-card overflow-hidden bg-[oklch(0.155_0.005_300)]">
             <CmpTable>
               <CmpThead>
                 <tr>
@@ -183,12 +183,12 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             eyebrow={c.caseStudy.eyebrow}
             heading={c.caseStudy.heading}
           />
-          <div className="text-center -mt-8 mb-10 font-mono text-[12px] tracking-[0.14em] uppercase text-ink-3">
+          <div className="text-center -mt-8 mb-10 font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3">
             {c.caseStudy.subEyebrow}
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            <div className="border border-line rounded-[18px] p-7 bg-[oklch(0.13_0.005_300)]">
-              <div className="font-display text-[11px] font-bold tracking-[0.18em] uppercase text-ink-3 mb-5">
+            <div className="border border-line rounded-card p-7 bg-[oklch(0.13_0.005_300)]">
+              <div className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-ink-3 mb-5">
                 {c.caseStudy.beforeLabel}
               </div>
               <ul className="list-none flex flex-col gap-4">
@@ -197,7 +197,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                     key={i}
                     className="flex items-baseline justify-between gap-4 text-[13px]"
                   >
-                    <span className="text-ink-3 tracking-[0.02em] uppercase font-mono text-[11px]">
+                    <span className="text-ink-3 tracking-[0.02em] uppercase font-mono text-[12px]">
                       {b.label}
                     </span>
                     <span className="text-ink-dim text-right">
@@ -207,8 +207,8 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                 ))}
               </ul>
             </div>
-            <div className="border border-accent-40 rounded-[18px] p-7 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)]">
-              <div className="font-display text-[11px] font-bold tracking-[0.18em] uppercase text-accent-soft mb-5">
+            <div className="border border-accent-40 rounded-card p-7 bg-[linear-gradient(180deg,oklch(0.18_0.04_295)_0%,oklch(0.13_0.03_295)_100%)] shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)]">
+              <div className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-accent-soft mb-5">
                 {c.caseStudy.afterLabel}
               </div>
               <ul className="list-none flex flex-col gap-4">
@@ -217,13 +217,13 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                     key={i}
                     className="flex items-baseline justify-between gap-4 text-[13px]"
                   >
-                    <span className="text-ink-3 tracking-[0.02em] uppercase font-mono text-[11px]">
+                    <span className="text-ink-3 tracking-[0.02em] uppercase font-mono text-[12px]">
                       {a.label}
                     </span>
                     <span className="text-right">
                       <span className="text-ink font-semibold">{a.value}</span>
                       {a.lift ? (
-                        <span className="block text-[11px] mt-0.5 text-accent-soft font-mono">
+                        <span className="block text-[12px] mt-0.5 text-accent-soft font-mono">
                           {a.lift}
                         </span>
                       ) : null}
@@ -274,7 +274,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             {c.seo.cards.map((card, i) => (
               <div
                 key={i}
-                className="border border-line rounded-[18px] p-7 bg-[oklch(0.155_0.005_300)] flex gap-4"
+                className="border border-line rounded-card p-7 bg-[oklch(0.155_0.005_300)] flex gap-4"
               >
                 <span className="w-8 h-8 shrink-0 rounded-full inline-flex items-center justify-center bg-accent-18 text-accent-soft border border-accent-30">
                   <CheckCircle2 size={16} strokeWidth={1.6} />
@@ -310,7 +310,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               /vs-constructors and /vs-freelancers, same screenshots. */}
           <div className="grid grid-cols-1 gap-6 mb-12 min-[901px]:grid-cols-[1.5fr_1fr]">
             <figure className="m-0 flex flex-col">
-              <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
+              <div className="relative border border-line rounded-card overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
                 <AppImage
                   src="/sanity-studio/admin-desktop.png"
                   alt={c.admin.desktopAlt}
@@ -324,7 +324,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
               </figcaption>
             </figure>
             <figure className="m-0 flex flex-col">
-              <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[9/16] max-w-[280px] mx-auto w-full">
+              <div className="relative border border-line rounded-card overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[9/16] max-w-[280px] mx-auto w-full">
                 <AppImage
                   src="/sanity-studio/admin-mobile.png"
                   alt={c.admin.mobileAlt}
@@ -339,7 +339,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             </figure>
           </div>
           {/* Mobile-safe table — horizontal scroll wrapper for narrow viewports */}
-          <div className="border border-line rounded-[18px] overflow-x-auto bg-[oklch(0.155_0.005_300)] mb-12 md:overflow-hidden">
+          <div className="border border-line rounded-card overflow-x-auto bg-[oklch(0.155_0.005_300)] mb-12 md:overflow-hidden">
             <CmpTable className="min-w-[600px]">
               <CmpThead>
                 <tr>
@@ -373,9 +373,9 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
-                className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
               >
-                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
+                <span className="font-display text-[12px] font-bold tracking-[0.06em] text-ink-3">
                   {cap.num}
                 </span>
                 <h4 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
@@ -406,7 +406,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             {c.process.steps.map((s) => (
               <li
                 key={s.num}
-                className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
               >
                 <span className="font-display text-[28px] font-bold text-accent-soft leading-none">
                   {s.num}
@@ -414,7 +414,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
                 <h3 className="font-display font-bold text-[16px] text-ink">
                   {s.title}
                 </h3>
-                <span className="font-mono text-[11px] tracking-[0.04em] text-ink-3">
+                <span className="font-mono text-[12px] tracking-[0.04em] text-ink-3">
                   {s.duration}
                 </span>
                 <p className="text-[12.5px] leading-[1.55] text-ink-dim">
@@ -438,7 +438,7 @@ export function VsWordpressView({ locale }: { locale: VsLocale }) {
             {c.filter.items.map((it, i) => (
               <li
                 key={i}
-                className="flex gap-4 border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)]"
+                className="flex gap-4 border border-line rounded-card p-5 bg-[oklch(0.13_0.005_300)]"
               >
                 <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(0.55_0.18_25_/_0.12)] text-[oklch(0.7_0.18_25)] border border-[oklch(0.55_0.18_25_/_0.3)]">
                   <XCircle size={15} strokeWidth={1.8} />

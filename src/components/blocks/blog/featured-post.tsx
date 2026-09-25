@@ -34,7 +34,7 @@ export type FeaturedPostProps = {
 };
 
 const LINK_CLASS =
-  "group/feat mb-5 grid grid-cols-1 overflow-hidden rounded-[22px] border border-line " +
+  "group/feat mb-5 grid grid-cols-1 overflow-hidden rounded-frame border border-line " +
   "bg-[oklch(1_0_0_/_0.02)] text-inherit no-underline " +
   "transition-[transform,border-color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] " +
   "hover:-translate-y-0.5 hover:border-line-strong lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]";
@@ -66,7 +66,7 @@ export function FeaturedPost({
         ) : generatedCover ? (
           <GeneratedCover {...generatedCover} />
         ) : null}
-        <span className="absolute left-4 top-4 rounded-full border border-[oklch(1_0_0/0.18)] bg-[oklch(0_0_0/0.45)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[oklch(1_0_0/0.9)] backdrop-blur-md">
+        <span className="absolute left-4 top-4 rounded-full border border-[oklch(1_0_0/0.18)] bg-[oklch(0_0_0/0.45)] px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.06em] text-[oklch(1_0_0/0.9)] backdrop-blur-md">
           {badge}
         </span>
       </div>
@@ -87,7 +87,7 @@ export function FeaturedPost({
         {sub ? (
           <p className="text-[15px] leading-[1.6] text-ink-dim line-clamp-3">{sub}</p>
         ) : null}
-        <span className="mt-1 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.1em] text-accent-soft">
+        <span className="mt-1 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
           {readLabel}
           <ArrowUpRight
             size={15}

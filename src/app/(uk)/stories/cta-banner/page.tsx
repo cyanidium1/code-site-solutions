@@ -9,7 +9,7 @@ export default function CtaBannerStory() {
     <>
       {/* 1. з eyebrow + 2 кнопки (calculator promo для /pricing) */}
       <CtaBanner
-        eyebrow="/ CALCULATOR"
+        eyebrow="CALCULATOR"
         heading={
           <>
             Не впевнені, який <em>пакет</em> підходить?

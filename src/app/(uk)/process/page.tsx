@@ -97,7 +97,7 @@ export default function ProcessPage() {
           { label: "Головна", href: "/" },
           { label: "Процес" },
         ]}
-        eyebrow={`/ ПРОЦЕС · ${BUSINESS_TERM.toUpperCase()}`}
+        eyebrow={`ПРОЦЕС · ${BUSINESS_TERM.toUpperCase()}`}
         headline={
           <>
             Сайт для бізнесу за {BUSINESS_TERM}. <em>Що відбувається кожного дня</em>.
@@ -138,7 +138,7 @@ export default function ProcessPage() {
       <ImageText
         variant="side-with-list"
         imageVariant="imageRight"
-        eyebrow="/ КОМУНІКАЦІЯ"
+        eyebrow="КОМУНІКАЦІЯ"
         heading={
           <>
             Як ми <em>спілкуємось</em> під час проєкту
@@ -168,7 +168,7 @@ export default function ProcessPage() {
       </section>
 
       <CtaBanner
-        eyebrow="/ ГОТОВІ ПОЧАТИ?"
+        eyebrow="ГОТОВІ ПОЧАТИ?"
         heading={
           <>
             Готові пройти <em>процес</em> з нами?

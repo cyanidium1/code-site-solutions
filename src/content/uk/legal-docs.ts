@@ -35,7 +35,7 @@ const REQUISITES: LegalDocCopy["sections"][number] = {
 };
 
 export const legalUk: LegalDocCopy = {
-  eyebrow: "/ LEGAL",
+  eyebrow: "LEGAL",
   title: "Юридична інформація",
   sub: "Реквізити для договорів, рахунків і актів виконаних робіт.",
   intro:
@@ -81,7 +81,7 @@ export const legalUk: LegalDocCopy = {
 };
 
 export const publicContractUk: LegalDocCopy = {
-  eyebrow: "/ LEGAL",
+  eyebrow: "LEGAL",
   title: "Публічний договір",
   sub: "Умови надання послуг з розробки веб-сайтів.",
   intro:
@@ -168,7 +168,7 @@ export const publicContractUk: LegalDocCopy = {
 };
 
 export const offerUk: LegalDocCopy = {
-  eyebrow: "/ LEGAL",
+  eyebrow: "LEGAL",
   title: "Публічна оферта",
   sub: "Пропозиція укласти договір на розробку сайту.",
   intro:

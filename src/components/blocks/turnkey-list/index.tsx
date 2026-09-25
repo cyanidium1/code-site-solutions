@@ -89,11 +89,11 @@ const HEADING_EM_CLASS =
   "[&_em]:italic [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const CELL_CLASS =
-  "relative flex items-start gap-4 pt-[22px] pr-[22px] pb-6 pl-[22px] border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
+  "relative flex items-start gap-4 pt-[22px] pr-[22px] pb-6 pl-[22px] border border-line rounded-card bg-[oklch(1_0_0_/_0.02)] " +
   "transition-[transform,border-color,background-color,box-shadow] duration-200";
 
 const ICON_BOX_CLASS =
-  "flex-shrink-0 w-10 h-10 inline-flex items-center justify-center border border-accent-25 rounded-xl bg-accent-8 text-accent";
+  "flex-shrink-0 w-10 h-10 inline-flex items-center justify-center border border-accent-25 rounded-ctl bg-accent-8 text-accent";
 
 const NOT_LIST_CLASS =
   "list-none m-0 p-0 grid grid-cols-1 gap-y-2 gap-x-7 md:grid-cols-2 " +
@@ -101,8 +101,8 @@ const NOT_LIST_CLASS =
   "[&_li]:before:content-['—'] [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-0 [&_li]:before:text-ink-3";
 
 const DEFAULT_FOOTER = (
-  <div className="p-[22px_26px_24px] border border-dashed border-line-strong rounded-2xl bg-[oklch(1_0_0_/_0.02)]">
-    <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim mb-[14px]">
+  <div className="p-[22px_26px_24px] border border-dashed border-line-strong rounded-card bg-[oklch(1_0_0_/_0.02)]">
+    <div className="font-mono text-[12px] tracking-[0.06em] uppercase text-ink-dim mb-[14px]">
       Чого ми не робимо
     </div>
     <ul className={NOT_LIST_CLASS}>
@@ -166,7 +166,7 @@ export function TurnkeyList({
             const num = String(i + 1).padStart(2, "0");
             return (
               <div className={CELL_CLASS} key={`${it.title}-${i}`}>
-                <span className="absolute top-[14px] right-4 font-mono text-[10px] tracking-[0.14em] text-ink-3">
+                <span className="absolute top-[14px] right-4 font-mono text-[12px] tracking-[0.06em] text-ink-3">
                   {num}
                 </span>
                 <div className={ICON_BOX_CLASS} aria-hidden="true">

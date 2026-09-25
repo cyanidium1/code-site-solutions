@@ -15,8 +15,19 @@
 // Section wrapper — vertical rhythm + horizontal gutter, dark bg, overflow
 // hidden so per-section glow halos don't leak. `tight` variant uses the
 // shorter tight spacing scale.
+//
+// Three tiers, not one padding for every section (DESIGN.md → Layout,
+// 2026-09-25). Every section used to be 44 / 56 / 100px, so the page read as
+// a stack of equal slabs.
+//   major   — sections the visitor decides on: cases, prices, closing form
+//   (normal)— the default argument sections
+//   compact — connective strips: founder note, "where to start" links
 export const hpSectionClass =
-  "relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg";
+  "relative py-11 sm:py-14 lg:py-[88px] px-6 sm:px-8 lg:px-12 bg-bg";
+export const hpSectionMajorClass =
+  "relative py-16 sm:py-20 lg:py-[136px] px-6 sm:px-8 lg:px-12 bg-bg";
+export const hpSectionCompactClass =
+  "relative py-8 sm:py-10 lg:py-14 px-6 sm:px-8 lg:px-12 bg-bg";
 
 // Max-width container, centred, with positioning context for inner overlays.
 export const hpInnerClass = "relative max-w-container mx-auto z-[1]";
@@ -24,8 +35,9 @@ export const hpInnerClass = "relative max-w-container mx-auto z-[1]";
 
 // Section-level H2. Mirrors the FONT / SIZE / LEADING of `H2 variant="hp"` in
 // `@/components/ui` (Heading.tsx → `sizes[2].hp`) and adds the layout properties
-// the legacy `.hp-h2` selector carried (mt-6, max-width, default ink colour,
-// `<em>` text-gradient). Use `<H2 variant="hp">` when you want ONLY the
+// the legacy `.hp-h2` selector carried (mt-6, max-width, default ink colour).
+// Since 2026-09-25 an H2 <em> is not painted (DESIGN.md «The One Highlight
+// Rule», enforced unlayered in globals.css). Use `<H2 variant="hp">` when you want ONLY the
 // typography; use this constant when you also need the `.hp-h2` layout.
 //
 // SINGLE SOURCE OF TRUTH — keep the clamp sizes here in sync with
@@ -38,8 +50,7 @@ export const hpInnerClass = "relative max-w-container mx-auto z-[1]";
 //     it via GLOBAL_HEADING_STYLE, and globals.css uppercases raw headings).
 export const hpH2Class =
   "font-actay font-bold uppercase text-[clamp(24px,6vw,32px)] leading-[1.05] " +
-  "mt-0 max-w-container-narrow text-ink md:text-[clamp(34px,4vw,56px)] " +
-  "[&_em]:not-italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent";
+  "mt-0 max-w-container-narrow text-ink md:text-[clamp(34px,4vw,56px)]";
 
 // Standard sub-paragraph beneath an H2. 16px Manrope, ink-2 colour, capped
 // at 640px so it doesn't run too wide. `mt-5` mirrors the legacy `20px`.
@@ -50,7 +61,7 @@ export const hpSubClass =
 // colour on hover. Arrow icons inside translate-x on hover via Tailwind
 // group-hover.
 export const hpLinkClass =
-  "inline-flex items-center gap-2 mt-9 font-mono text-[12px] uppercase tracking-[0.08em] " +
+  "inline-flex items-center gap-2 mt-9 font-sans text-[14px] font-semibold " +
   "text-ink-dim no-underline border-b border-line pb-2 " +
   "transition-[color,border-color] duration-200 hover:text-ink hover:border-accent " +
   "[&_svg]:transition-transform [&_svg]:duration-[0.25s] [&_svg]:ease-[cubic-bezier(0.2,0.8,0.2,1)] " +

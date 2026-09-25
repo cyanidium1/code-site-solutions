@@ -14,7 +14,7 @@ import type { GuideBlock, GuideContent } from "@/types/guide";
  * because the reader is hunting for that exact word on their own screen.
  */
 
-const CARD = "rounded-[14px] border border-line bg-[oklch(1_0_0_/_0.02)]";
+const CARD = "rounded-card border border-line bg-[oklch(1_0_0_/_0.02)]";
 
 function Blocks({ blocks }: { blocks: GuideBlock[] }) {
   return (
@@ -82,7 +82,7 @@ function Blocks({ blocks }: { blocks: GuideBlock[] }) {
                 key={i}
                 className={`${CARD} flex flex-wrap items-baseline justify-between gap-3 px-3.5 py-2.5`}
               >
-                <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+                <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                   {b.label}
                 </span>
                 <code className="font-mono text-[13px] text-ink">{b.value}</code>
@@ -96,7 +96,7 @@ function Blocks({ blocks }: { blocks: GuideBlock[] }) {
                 href={b.href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-[10px] border border-line bg-[oklch(1_0_0_/_0.03)] px-3.5 py-2.5 font-mono text-[13px] text-ink no-underline transition-colors duration-200 hover:border-accent-40"
+                className="inline-flex w-fit items-center gap-2 rounded-ctl border border-line bg-[oklch(1_0_0_/_0.03)] px-3.5 py-2.5 font-mono text-[13px] text-ink no-underline transition-colors duration-200 hover:border-accent-40"
               >
                 {b.label}
                 <ChevronRight size={14} strokeWidth={2} aria-hidden="true" />
@@ -107,7 +107,7 @@ function Blocks({ blocks }: { blocks: GuideBlock[] }) {
             return (
               <div
                 key={i}
-                className="flex gap-3 rounded-[12px] border border-line bg-[oklch(1_0_0_/_0.03)] px-4 py-3"
+                className="flex gap-3 rounded-ctl border border-line bg-[oklch(1_0_0_/_0.03)] px-4 py-3"
               >
                 <Info
                   size={15}
@@ -122,7 +122,7 @@ function Blocks({ blocks }: { blocks: GuideBlock[] }) {
           case "image":
             return (
               <figure key={i} className="m-0">
-                <div className="relative overflow-hidden rounded-[14px] border border-line bg-[oklch(0_0_0/0.4)]">
+                <div className="relative overflow-hidden rounded-card border border-line bg-[oklch(0_0_0/0.4)]">
                   <AppImage
                     src={b.src}
                     alt={b.alt}
@@ -151,7 +151,7 @@ function Blocks({ blocks }: { blocks: GuideBlock[] }) {
                   ) : null}
                 </div>
                 {b.caption ? (
-                  <figcaption className="mt-2 font-mono text-[11.5px] leading-[1.5] text-ink-3">
+                  <figcaption className="mt-2 font-mono text-[12px] leading-[1.5] text-ink-3">
                     {b.caption}
                   </figcaption>
                 ) : null}

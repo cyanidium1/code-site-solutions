@@ -20,8 +20,6 @@ import type { Locale } from "@/constants/locales";
 const SECTIONS_CSS = `
 .csb-about-hero-bg{background-image:radial-gradient(ellipse 60% 60% at 80% 20%,oklch(from var(--color-accent) l c h / 0.06),transparent 70%),radial-gradient(ellipse 40% 50% at 10% 100%,oklch(from var(--color-accent-2) l c h / 0.04),transparent 70%)}
 .csb-about-hero-bg::before{background-image:linear-gradient(to right,oklch(1 0 0 / 0.022) 1px,transparent 1px),linear-gradient(to bottom,oklch(1 0 0 / 0.022) 1px,transparent 1px)}
-.csb-about-proj-glow{background-image:radial-gradient(360px 200px at 0% 0%,oklch(from var(--card-accent) l c h / 0.12),transparent 70%)}
-.csb-about-top-wash{background-image:radial-gradient(ellipse 70% 60% at 50% 0%,oklch(from var(--color-accent) l c h / 0.07),transparent 70%)}
 `;
 
 function SectionsCss() {
@@ -146,13 +144,18 @@ export type AboutContent = {
 /* ─── Small shared bits ───────────────────────────────────────────────────── */
 
 const cardBase =
-  "relative overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] p-7";
-/* Phones: cards become ruled rows (plan 2026-09-16, П4). */
-const PHONE_ROW_CLASS =
-  "max-[700px]:rounded-none max-[700px]:border-0 max-[700px]:border-b max-[700px]:border-line max-[700px]:bg-transparent max-[700px]:px-0 max-[700px]:py-4 max-[700px]:[&>span:first-child]:hidden max-[700px]:[&>h3]:mt-0";
+  "relative overflow-hidden rounded-frame border border-line bg-[oklch(1_0_0_/_0.02)] p-7";
+
+/* Ruled rows (DESIGN.md, 2026-09-25) — the /about lists used to be three
+   grids of identical icon cards. Title holds a left track from md. */
+const RULED_LIST_CLASS = "m-0 list-none border-t border-line p-0";
+const RULED_ROW_CLASS =
+  "grid grid-cols-1 gap-x-10 gap-y-2 border-b border-line py-5 md:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] md:py-6";
+const ROW_TITLE_CLASS = "m-0 font-sans text-[18px] font-semibold leading-[1.3] text-ink";
+const ROW_BODY_CLASS = "m-0 max-w-[62ch] font-sans text-[15px] leading-[1.6] text-ink-dim";
 
 const accentIconBox =
-  "inline-flex h-11 w-11 items-center justify-center rounded-[12px] border border-accent-30 bg-accent-10 text-accent-soft";
+  "inline-flex h-11 w-11 items-center justify-center rounded-ctl border border-accent-30 bg-accent-10 text-accent-soft";
 
 /* ─── 1. Hero ─────────────────────────────────────────────────────────────── */
 
@@ -165,7 +168,7 @@ export function AboutHero({ c }: { c: AboutContent["hero"] }) {
         <div className="grid grid-cols-1 items-center gap-9 min-[961px]:grid-cols-[minmax(0,1fr)_minmax(0,440px)] min-[961px]:gap-10 min-[1081px]:gap-14">
           <div className="flex flex-col">
             <nav
-              className="mb-6 flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3 lg:mb-9"
+              className="mb-6 flex flex-wrap items-center gap-2 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3 lg:mb-9"
               aria-label="Breadcrumbs"
             >
               <Link
@@ -201,7 +204,7 @@ export function AboutHero({ c }: { c: AboutContent["hero"] }) {
 
           {/* Founder portrait — framed, with an identity caption + badge chips */}
           <div className="relative order-first max-w-[420px] min-[961px]:[order:0] min-[961px]:max-w-none">
-            <div className="relative overflow-hidden rounded-[24px] border border-line bg-[oklch(1_0_0_/_0.02)]">
+            <div className="relative overflow-hidden rounded-frame border border-line bg-[oklch(1_0_0_/_0.02)]">
               <div className="relative aspect-[4/5] w-full">
                 <AppImage
                   src={c.portrait.src}
@@ -217,10 +220,10 @@ export function AboutHero({ c }: { c: AboutContent["hero"] }) {
                   <div className="font-actay text-[20px] font-bold uppercase leading-none tracking-[-0.01em] text-ink">
                     {c.portrait.name}
                   </div>
-                  <div className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-accent-soft">
+                  <div className="mt-1.5 font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
                     {c.portrait.role}
                   </div>
-                  <div className="mt-1 font-mono text-[11px] tracking-[0.04em] text-ink-3">
+                  <div className="mt-1 font-mono text-[12px] tracking-[0.04em] text-ink-3">
                     {c.portrait.location}
                   </div>
                 </div>
@@ -230,7 +233,7 @@ export function AboutHero({ c }: { c: AboutContent["hero"] }) {
               {c.portrait.badges.map((b) => (
                 <span
                   key={b}
-                  className="inline-flex items-center rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.06em] text-ink-dim"
+                  className="inline-flex items-center rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-dim"
                 >
                   {b}
                 </span>
@@ -252,7 +255,7 @@ export function Founder({ c }: { c: AboutContent["founder"] }) {
         <div className="grid grid-cols-1 items-start gap-9 min-[961px]:grid-cols-[minmax(0,360px)_minmax(0,1fr)] min-[961px]:gap-10 min-[1081px]:gap-14">
           {/* Fact panel */}
           <div className={cn(cardBase, "p-0")}>
-            <div className="border-b border-line px-6 py-4 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
+            <div className="border-b border-line px-6 py-4 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
               / {c.profilesLabel}
             </div>
             <dl className="flex flex-col">
@@ -261,7 +264,7 @@ export function Founder({ c }: { c: AboutContent["founder"] }) {
                   key={f.label}
                   className="flex items-baseline justify-between gap-4 border-b border-line px-6 py-3.5 last:border-b-0"
                 >
-                  <dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-ink-3">
+                  <dt className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                     {f.label}
                   </dt>
                   <dd className="text-right font-sans text-[13.5px] font-medium text-ink">
@@ -279,7 +282,7 @@ export function Founder({ c }: { c: AboutContent["founder"] }) {
                     href={p.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex items-center gap-3 rounded-[12px] border border-line bg-[oklch(1_0_0_/_0.02)] px-3.5 py-3 no-underline transition-[border-color,transform] duration-200 hover:-translate-y-px hover:border-accent-40"
+                    className="group flex items-center gap-3 rounded-ctl border border-line bg-[oklch(1_0_0_/_0.02)] px-3.5 py-3 no-underline transition-[border-color,transform] duration-200 hover:-translate-y-px hover:border-accent-40"
                   >
                     <span className="inline-flex h-8 w-8 items-center justify-center rounded-[9px] border border-line bg-[oklch(1_0_0_/_0.04)] text-ink">
                       <Icon size={15} strokeWidth={1.7} />
@@ -288,7 +291,7 @@ export function Founder({ c }: { c: AboutContent["founder"] }) {
                       <span className="font-sans text-[13px] font-semibold text-ink">
                         {p.label}
                       </span>
-                      <span className="font-mono text-[11px] text-ink-3">
+                      <span className="font-mono text-[12px] text-ink-3">
                         {p.handle}
                       </span>
                     </span>
@@ -354,7 +357,7 @@ export function TrackRecord({ c }: { c: AboutContent["trackRecord"] }) {
                     <path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.79 2.74 1.27 3.41.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.42.36.8 1.08.8 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z" />
                   </svg>
                 </span>
-                <span className="rounded-full border border-accent-40 bg-accent-10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-accent-soft">
+                <span className="rounded-full border border-accent-40 bg-accent-10 px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
                   {c.github.repoHint}
                 </span>
               </div>
@@ -365,7 +368,7 @@ export function TrackRecord({ c }: { c: AboutContent["trackRecord"] }) {
                 {c.github.body}
               </p>
             </div>
-            <span className="mt-7 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.1em] text-ink-dim transition-colors duration-200 group-hover:text-ink">
+            <span className="mt-7 inline-flex items-center gap-2 font-sans font-semibold text-[13px] text-ink-dim transition-colors duration-200 group-hover:text-ink">
               {c.github.cta}
               <ArrowUpRight
                 size={15}
@@ -378,14 +381,14 @@ export function TrackRecord({ c }: { c: AboutContent["trackRecord"] }) {
           {/* Stack + regions */}
           <div className="grid grid-rows-2 gap-4">
             <div className={cardBase}>
-              <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
+              <div className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                 / {c.stackLabel}
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
                 {c.stack.map((s) => (
                   <span
                     key={s}
-                    className="inline-flex items-center rounded-[10px] border border-line bg-[oklch(1_0_0_/_0.03)] px-3 py-1.5 font-mono text-[12px] tracking-[0.02em] text-ink"
+                    className="inline-flex items-center rounded-ctl border border-line bg-[oklch(1_0_0_/_0.03)] px-3 py-1.5 font-mono text-[12px] tracking-[0.02em] text-ink"
                   >
                     {s}
                   </span>
@@ -393,7 +396,7 @@ export function TrackRecord({ c }: { c: AboutContent["trackRecord"] }) {
               </div>
             </div>
             <div className={cardBase}>
-              <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
+              <div className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                 / {c.regionsLabel}
               </div>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -422,39 +425,24 @@ export function Philosophy({ c }: { c: AboutContent["philosophy"] }) {
       <div className={hpInnerClass}>
 <PhoneMore label={SHOW_MORE_LABEL[useLocale() as Locale]}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-1 gap-4 max-[700px]:gap-0 min-[701px]:grid-cols-2 lg:grid-cols-4">
-          {c.pillars.map((p) => {
-            const Icon = p.icon;
-            return (
-              <div key={p.title} className={cn(cardBase, "flex flex-col", PHONE_ROW_CLASS)}>
-                <span className={accentIconBox}>
-                  <Icon size={20} strokeWidth={1.7} />
-                </span>
-                <h3 className="mt-5 font-sans text-[18px] font-semibold leading-[1.25] text-ink">
-                  {p.title}
-                </h3>
-                <p className="mt-2 font-sans text-[13.5px] leading-[1.6] text-ink-dim">
-                  {p.body}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+        {/* 2026-09-25 (DESIGN.md): ruled rows, not four icon cards. */}
+        <ul className={RULED_LIST_CLASS}>
+          {c.pillars.map((p) => (
+            <li key={p.title} className={RULED_ROW_CLASS}>
+              <h3 className={ROW_TITLE_CLASS}>{p.title}</h3>
+              <p className={ROW_BODY_CLASS}>{p.body}</p>
+            </li>
+          ))}
+        </ul>
 
         {/* Warning panel */}
-        <div className="pm-extra mt-4 flex flex-col items-start gap-3 rounded-[22px] border border-[oklch(0.65_0.18_25_/_0.3)] bg-[oklch(0.65_0.18_25_/_0.06)] p-7 min-[701px]:flex-row min-[701px]:gap-4">
-          <span
-            aria-hidden="true"
-            className="mt-0.5 inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-[oklch(0.7_0.18_25)] shadow-[0_0_10px_oklch(0.7_0.18_25_/_0.6)]"
-          />
-          <div>
-            <h3 className="font-sans text-[17px] font-semibold text-ink">
-              {c.warning.title}
-            </h3>
-            <p className="mt-2 max-w-[80ch] font-sans text-[14.5px] leading-[1.65] text-ink-dim">
-              {c.warning.body}
-            </p>
-          </div>
+        <div className="pm-extra mt-10 max-w-[80ch]">
+          <h3 className="m-0 font-sans text-[17px] font-semibold text-[oklch(0.78_0.12_25)]">
+            {c.warning.title}
+          </h3>
+          <p className="mt-2 mb-0 font-sans text-[15px] leading-[1.65] text-ink-dim">
+            {c.warning.body}
+          </p>
         </div>
       </PhoneMore>
 </div>
@@ -493,12 +481,6 @@ export function RealProjects({
             const inner = (
               <>
                 <SectionsCss />
-                <div
-                  aria-hidden="true"
-                  // eslint-disable-next-line react/forbid-dom-props -- per-card accent glow
-                  style={{ "--card-accent": p.accent } as React.CSSProperties}
-                  className="pointer-events-none absolute inset-0 csb-about-proj-glow opacity-70 transition-opacity duration-300 group-hover/proj:opacity-100"
-                />
                 <div className="relative z-[1] flex h-full flex-col">
                   {coverOf(p.href) ? (
                     <div className="relative -mx-7 -mt-7 mb-5 aspect-[16/10] overflow-hidden border-b border-line">
@@ -533,7 +515,7 @@ export function RealProjects({
                       />
                     ) : null}
                   </div>
-                  <div className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+                  <div className="mt-1.5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                     {p.meta}
                   </div>
                   <p className="mt-4 flex-1 font-sans text-[13.5px] leading-[1.6] text-ink-dim">
@@ -543,7 +525,7 @@ export function RealProjects({
                     {p.tags.map((t) => (
                       <span
                         key={t}
-                        className="inline-flex items-center rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.06em] text-ink-dim"
+                        className="inline-flex items-center rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-dim"
                       >
                         {t}
                       </span>
@@ -580,27 +562,17 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
       <div className={hpInnerClass}>
 <PhoneMore label={SHOW_MORE_LABEL[useLocale() as Locale]}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-1 gap-4 pm-cap-3 max-[700px]:gap-0 min-[601px]:grid-cols-2 min-[961px]:grid-cols-3">
-          {c.items.map((it) => {
-            const Icon = it.icon;
-            return (
-              <div key={it.title} className={cn(cardBase, "flex flex-col", PHONE_ROW_CLASS)}>
-                <span className={accentIconBox}>
-                  <Icon size={20} strokeWidth={1.7} />
-                </span>
-                <h3 className="mt-5 font-sans text-[17px] font-semibold leading-[1.25] text-ink">
-                  {it.title}
-                </h3>
-                <p className="mt-2 font-sans text-[13.5px] leading-[1.6] text-ink-dim">
-                  {it.body}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+        <ul className={cn(RULED_LIST_CLASS, "pm-cap-3")}>
+          {c.items.map((it) => (
+            <li key={it.title} className={RULED_ROW_CLASS}>
+              <h3 className={ROW_TITLE_CLASS}>{it.title}</h3>
+              <p className={ROW_BODY_CLASS}>{it.body}</p>
+            </li>
+          ))}
+        </ul>
 
         {/* CMS / ownership proof with the real Sanity Studio screenshot */}
-        <div className="mt-4 grid grid-cols-1 items-center gap-7 rounded-[24px] border border-line bg-[oklch(1_0_0_/_0.02)] p-7 lg:p-9 min-[961px]:grid-cols-2 min-[961px]:gap-10">
+        <div className="mt-12 grid grid-cols-1 items-center gap-7 min-[961px]:grid-cols-2 min-[961px]:gap-10">
           <div className="flex flex-col">
             <h3 className="font-actay text-[clamp(22px,2.6vw,30px)] font-bold uppercase leading-[1.12] tracking-[-0.01em] text-ink">
               {c.cms.title}
@@ -630,7 +602,7 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
               ))}
             </ul>
           </div>
-          <div className="overflow-hidden rounded-[16px] border border-line bg-[oklch(1_0_0_/_0.02)]">
+          <div className="overflow-hidden rounded-frame border border-line">
             <AppImage
               src={c.cms.src}
               alt={c.cms.alt}
@@ -651,44 +623,25 @@ export function WhatYouBuy({ c }: { c: AboutContent["whatYouBuy"] }) {
 
 export function Guarantees({ c }: { c: AboutContent["guarantees"] }) {
   return (
-    <section className={cn(hpSectionClass, "border-y border-line")} id="guarantees">
-      <SectionsCss />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 csb-about-top-wash"
-      />
+    <section className={hpSectionClass} id="guarantees">
       <div className={hpInnerClass}>
         <SectionHead eyebrow={c.eyebrow} heading={c.heading} sub={c.sub} />
-        <div className="grid grid-cols-1 gap-4 min-[701px]:grid-cols-2 lg:grid-cols-4">
-          {c.items.map((g) => {
-            const Icon = g.icon;
-            return (
-              <div
-                key={g.title}
-                className="relative flex flex-col overflow-hidden rounded-[22px] border border-accent-25 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.04)] p-7"
-              >
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-7 top-0 h-px bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.5),transparent)]"
-                />
-                <div className="flex items-center justify-between">
-                  <span className={accentIconBox}>
-                    <Icon size={20} strokeWidth={1.7} />
-                  </span>
-                  <span className="font-actay text-[26px] font-bold leading-none tracking-[-0.02em] text-ink [font-feature-settings:'tnum'_1]">
-                    {g.tag}
-                  </span>
-                </div>
-                <h3 className="mt-6 font-sans text-[18px] font-semibold leading-[1.25] text-ink">
-                  {g.title}
-                </h3>
-                <p className="mt-2 font-sans text-[13.5px] leading-[1.6] text-ink-dim">
-                  {g.body}
-                </p>
+        <ul className="m-0 grid list-none grid-cols-1 gap-x-12 border-t border-line p-0 lg:grid-cols-2">
+          {c.items.map((g) => (
+            <li
+              key={g.title}
+              className="grid grid-cols-[96px_minmax(0,1fr)] gap-x-6 border-b border-line py-6 sm:grid-cols-[120px_minmax(0,1fr)]"
+            >
+              <span className="font-actay text-[26px] font-bold leading-none tracking-[-0.02em] text-ink [font-feature-settings:'tnum'_1] sm:text-[32px]">
+                {g.tag}
+              </span>
+              <div>
+                <h3 className="m-0 font-sans text-[18px] font-semibold leading-[1.25] text-ink">{g.title}</h3>
+                <p className="mt-2 mb-0 font-sans text-[15px] leading-[1.6] text-ink-dim">{g.body}</p>
               </div>
-            );
-          })}
-        </div>
+            </li>
+          ))}
+        </ul>
         <p className="mt-6 max-w-[80ch] font-sans text-[13.5px] leading-[1.6] text-ink-3">
           {c.footnote}
         </p>

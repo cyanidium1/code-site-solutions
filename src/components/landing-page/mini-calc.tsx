@@ -12,7 +12,7 @@ type MiniCalcContent = NonNullable<LandingPageContent["miniCalc"]>;
 /* "Lit glass" panel: gradient hairline ring (glass-ring), soft blur fill and
    a top edge highlight — the underglow pool is painted by the hero wrapper. */
 const CARD_CLASS =
-  "relative p-6 md:p-7 rounded-[22px] glass-ring bg-[oklch(0.14_0.008_300_/_0.75)] backdrop-blur-[10px] " +
+  "relative p-6 md:p-7 rounded-frame glass-ring bg-[oklch(0.14_0.008_300_/_0.75)] backdrop-blur-[10px] " +
   "shadow-[0_30px_90px_oklch(0_0_0_/_0.5)] " +
   "after:content-[''] after:absolute after:inset-x-8 after:top-0 after:h-px after:rounded-full " +
   "after:bg-[linear-gradient(90deg,transparent,oklch(1_0_0_/_0.3),transparent)] after:pointer-events-none";
@@ -123,7 +123,7 @@ export function MiniCalc({
 
   return (
     <div className={CARD_CLASS}>
-      <div className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 mb-4">
+      <div className="font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3 mb-4">
         {content.title}
       </div>
 
@@ -207,21 +207,21 @@ export function MiniCalc({
       {/* Total */}
       <div className="flex items-end justify-between gap-3 pt-4">
         <div>
-          <div className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3">
+          <div className="font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3">
             {content.totalLabel}
           </div>
           <div className="font-actay font-bold text-[clamp(26px,2.4vw,34px)] leading-none mt-1 whitespace-nowrap bg-[linear-gradient(90deg,oklch(0.72_0.16_250),oklch(0.72_0.16_295),oklch(0.66_0.18_320))] bg-clip-text text-transparent">
             {fmt(content.currency, total)}
           </div>
         </div>
-        <div className="font-sans text-[11.5px] leading-[1.45] text-ink-3 max-w-[180px] text-right">
+        <div className="font-sans text-[12px] leading-[1.45] text-ink-3 max-w-[180px] text-right">
           {content.totalNote}
         </div>
       </div>
 
       {/* Inline lead form */}
       <form onSubmit={onSubmit} className="mt-5 flex flex-col gap-2.5">
-        <div className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3">
+        <div className="font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3">
           {content.form.heading}
         </div>
         {status === "ok" ? (

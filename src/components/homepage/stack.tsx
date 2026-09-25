@@ -37,7 +37,7 @@ export function Stack({
     <section className={hpSectionClass} id="stack">
       <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} sub={sub} />
-        <div className="relative overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] [background-image:radial-gradient(circle,oklch(1_0_0_/_0.03)_1px,transparent_1px)] [background-size:24px_24px]">
+        <div className="relative overflow-hidden rounded-frame border border-line bg-[oklch(1_0_0_/_0.02)] [background-image:radial-gradient(circle,oklch(1_0_0_/_0.03)_1px,transparent_1px)] [background-size:24px_24px]">
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {items.map((it) => (
               <div
@@ -45,7 +45,7 @@ export function Stack({
                 key={it.name}
               >
                 <div className="font-sans text-lg font-semibold text-ink">{it.name}</div>
-                <div className="mt-1 font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3">
+                <div className="mt-1 font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3">
                   {it.cat}
                 </div>
               </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -13,8 +13,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/components/ui";
-import { SparkleTrio } from "@/components/homepage/sparkle-trio";
-import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass, hpDecorFadeClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass} from "@/components/homepage/shared";
 import { PhoneMore } from "@/components/shared/phone-more";
 
 /* 2026 redesign restyle (Figma «код сайт арт» #1729:2937 + CTA #1729:3085;
@@ -30,21 +29,6 @@ const PROCESS_CTA_CLASS =
   "backdrop-blur-[12px] lg:backdrop-blur-[22px] " +
   "transition-colors duration-200 hover:bg-[oklch(1_0_0/0.04)] " +
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
-
-// Decor stage — mirrors the content container; y offsets are the Figma
-// container-relative centres PLUS the section's 100px top padding (the
-// convention the Problem section uses; Why Us missed it — see audit §4).
-const DECOR_STAGE_CLASS =
-  "absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-container pointer-events-none";
-const ELLIPSE_BASE =
-  "absolute -translate-x-1/2 -translate-y-1/2 rounded-full max-w-none w-[1622px] aspect-[1622/1582]";
-// #1729:2077 — violet, upper right; the glow that sits between Why Us and
-// this section (73% of its height lands here, hence it ships with Process).
-const ELLIPSE_VIOLET_CLASS =
-  `${ELLIPSE_BASE} left-[1547px] top-[220px] bg-[radial-gradient(50%_50%_at_50%_50%,#642DBA70_0%,transparent_70%)]`;
-// #1729:2076 — deep indigo, lower left, bleeding off-canvas.
-const ELLIPSE_INDIGO_CLASS =
-  `${ELLIPSE_BASE} left-[-183px] top-[681px] bg-[radial-gradient(50%_50%_at_50%_50%,#19004D70_0%,transparent_70%)]`;
 
 type ProcessStep = {
   n: string;
@@ -133,16 +117,7 @@ export function Process({
   }, []);
 
   return (
-    // overflow-x-clip: both ellipses bleed past the viewport (body clip does
-    // not stop html-level h-scroll, job #141). z-[2] keeps the downward bleed
-    // above the next section's opaque bg (job #142).
-    <section className={`${hpSectionClass} overflow-x-clip z-[2]`} id="process">
-      <div className={hpDecorFadeClass}>
-        <div className={DECOR_STAGE_CLASS}>
-          <div className={ELLIPSE_VIOLET_CLASS} aria-hidden="true" />
-          <div className={ELLIPSE_INDIGO_CLASS} aria-hidden="true" />
-        </div>
-      </div>
+    <section className={hpSectionClass} id="process">
       <div className={hpInnerClass}>
         <div className={hpSectionHeadClass}>
           {/* Figma #1729:2945: the second line is one 1105px run that deliberately
@@ -161,11 +136,13 @@ export function Process({
             aria-hidden="true"
             className="pointer-events-none absolute top-7 right-7 left-7 z-0 h-px bg-[linear-gradient(90deg,transparent,var(--color-line-strong)_8%,var(--color-line-strong)_92%,transparent)] hidden lg:block"
           >
-            <div className="relative h-full w-0 bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.55)_12%,var(--color-accent)_100%)] [transition:width_3s_cubic-bezier(0.2,0.8,0.2,1)] [will-change:width] group-data-[visible=true]/proc:w-full motion-reduce:w-full motion-reduce:transition-none">
-              <span className="absolute top-1/2 -right-5 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[rgba(124,84,205,0.5)] bg-surface text-accent-soft opacity-0 [filter:drop-shadow(0_0_7px_rgba(124,84,205,0.55))] transition-opacity duration-[600ms] delay-[300ms] group-data-[visible=true]/proc:opacity-100 motion-reduce:opacity-100 motion-reduce:transition-none">
-                <Rocket size={16} strokeWidth={1.8} />
-              </span>
-            </div>
+            {/* The one moment on this section: the line fills brief → launch
+                once, when the timeline enters the viewport — it shows that the
+                steps are one sequence. Transform, not width (no layout work). */}
+            <div className="h-full w-full origin-left scale-x-0 bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.55)_12%,var(--color-accent)_100%)] [transition:transform_1.6s_cubic-bezier(0.2,0.8,0.2,1)] group-data-[visible=true]/proc:scale-x-100 motion-reduce:scale-x-100 motion-reduce:transition-none" />
+            <span className="absolute top-1/2 -right-5 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-accent-50 bg-surface text-accent-soft">
+              <Rocket size={16} strokeWidth={1.8} />
+            </span>
           </div>
           <PhoneMore label={moreLabel}>
           <ol className={`relative m-0 grid list-none grid-cols-1 items-start gap-4 p-0 before:absolute before:top-6 before:bottom-6 before:left-6 before:w-px before:bg-[linear-gradient(180deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.4)_15%,oklch(from_var(--color-accent)_l_c_h_/_0.4)_85%,transparent)] before:content-[''] lg:gap-6 lg:before:content-none ${GRID_COLS[steps.length] ?? "lg:grid-cols-5"}`}>
@@ -175,9 +152,7 @@ export function Process({
               return (
                 <li
                   key={s.n}
-                  // eslint-disable-next-line react/forbid-dom-props -- dynamic stagger-index CSS var
-                  style={{ "--i": i } as CSSProperties}
-                  className="relative z-[1] grid min-w-0 translate-y-2.5 grid-cols-[48px_1fr] items-start gap-x-[18px] text-left opacity-30 [transition:opacity_0.7s_ease,transform_0.7s_ease] [transition-delay:calc(var(--i,0)*0.15s)] group-data-[visible=true]/proc:translate-y-0 group-data-[visible=true]/proc:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none lg:flex lg:flex-col lg:items-center lg:text-center"
+                  className="relative z-[1] grid min-w-0 grid-cols-[48px_1fr] items-start gap-x-[18px] text-left lg:flex lg:flex-col lg:items-center lg:text-center"
                 >
                   <div
                     className={cn(
@@ -185,7 +160,7 @@ export function Process({
                       !isLast && RING[Math.min(i, RING.length - 1)],
                       !isLast && "font-semibold text-accent-soft [border-color:oklch(from_var(--color-accent)_l_c_h_/_0.35)] [box-shadow:0_0_0_4px_var(--color-bg)] lg:font-normal lg:text-ink lg:[box-shadow:none]",
                       isLast &&
-                        "border-transparent bg-brand-gradient font-semibold text-bg [box-shadow:0_0_0_4px_var(--color-bg)] [filter:drop-shadow(0_0_15px_rgba(124,84,205,0.5))] lg:[box-shadow:none]",
+                        "border-transparent bg-accent font-semibold text-ink [box-shadow:0_0_0_4px_var(--color-bg)] lg:[box-shadow:none]",
                     )}
                   >
                     {s.n}
@@ -210,7 +185,7 @@ export function Process({
                       {s.items.map((it) => (
                         <li
                           key={it}
-                          className="flex items-center gap-1.5 font-mono text-[11px] leading-[1.3] text-ink-dim"
+                          className="flex items-center gap-1.5 font-mono text-[12px] leading-[1.3] text-ink-dim"
                         >
                           <span className="h-1 w-1 shrink-0 rounded-full bg-[oklch(from_var(--color-accent)_l_c_h_/_0.55)]" />
                           {it}
@@ -218,7 +193,7 @@ export function Process({
                       ))}
                     </ul>
 
-                    <div className="mt-1.5 lg:mt-3 inline-flex h-[25.75px] items-center gap-1.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 font-mono text-[10.5px] tracking-[0.04em] text-ink-3">
+                    <div className="mt-1.5 lg:mt-3 inline-flex h-[25.75px] items-center gap-1.5 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] px-2.5 font-mono text-[12px] tracking-[0.04em] text-ink-3">
                       <StepIcon size={12} strokeWidth={1.8} className="text-accent-soft" />
                       {s.duration}
                     </div>
@@ -230,18 +205,16 @@ export function Process({
           </PhoneMore>
         </div>
         {note ? (
-          <p className="mt-0 mb-[30px] rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] px-4 py-3 font-mono text-[12px] leading-[1.6] text-ink-dim sm:px-5 sm:text-[12.5px]">
+          <p className="mt-0 mb-[30px] rounded-card border border-line bg-[oklch(1_0_0_/_0.02)] px-4 py-3 font-mono text-[12px] leading-[1.6] text-ink-dim sm:px-5 sm:text-[12.5px]">
             {note}
           </p>
         ) : null}
-        {/* CTA row — Figma #1729:3085: link left, sparkle trio right-aligned
-            to the container edge (#1729:3092). */}
+        {/* CTA row. */}
         <div className="flex items-center justify-between gap-8">
           <Link href={ctaHref} className={PROCESS_CTA_CLASS}>
             <span>{ctaLabel}</span>
             <ArrowRight size={15} strokeWidth={1.8} />
           </Link>
-          <SparkleTrio className="hidden xl:flex" />
         </div>
       </div>
     </section>

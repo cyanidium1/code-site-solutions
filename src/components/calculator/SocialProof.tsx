@@ -37,13 +37,13 @@ export function SocialProof() {
               {socialLogos.map((logo) => (
                 <span
                   key={logo}
-                  className="font-sans font-bold text-[13px] tracking-[0.04em] uppercase px-[14px] py-2 border border-line rounded-[10px] text-ink-dim bg-[oklch(1_0_0_/_0.02)]"
+                  className="font-sans font-bold text-[13px] tracking-[0.04em] uppercase px-[14px] py-2 border border-line rounded-ctl text-ink-dim bg-[oklch(1_0_0_/_0.02)]"
                 >
                   {logo}
                 </span>
               ))}
             </div>
-            <figure className="mt-[6px] max-w-[720px] flex flex-col items-center gap-[14px] px-[22px] pt-[18px] pb-[22px] border border-line rounded-2xl bg-[oklch(0.18_0.008_300)]">
+            <figure className="mt-[6px] max-w-[720px] flex flex-col items-center gap-[14px] px-[22px] pt-[18px] pb-[22px] border border-line rounded-card bg-[oklch(0.18_0.008_300)]">
               <Quote size={18} strokeWidth={1.6} className="text-accent-soft" />
               <blockquote className="m-0 font-sans text-[18px] leading-[1.5] text-ink font-medium italic [&>strong]:text-accent-soft [&>strong]:font-bold [&>strong]:not-italic">
                 {t.rich("social.testimonialQuote", {
@@ -52,7 +52,7 @@ export function SocialProof() {
               </blockquote>
               <figcaption className="flex flex-col gap-[2px]">
                 <span className="text-[13px] text-ink font-semibold">{t("social.testimonialName")}</span>
-                <span className="text-[11px] text-ink-3 tracking-[0.04em] uppercase">{t("social.testimonialRole")}</span>
+                <span className="text-[12px] text-ink-3 tracking-[0.04em] uppercase">{t("social.testimonialRole")}</span>
               </figcaption>
             </figure>
           </div>

@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: var(--radius-frame);
   border: 1px solid var(--color-line);
   /* 20px below sm: the card is a row there (icon left, copy right), and the
      Figma 28/37px insets left six cards eating 2 135px of the mobile
@@ -131,7 +131,7 @@
   min-height: 132px;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: var(--radius-card);
   border: 1px solid var(--color-line);
   background-color: oklch(1 0 0 / 0.02);
   padding: 16px;
@@ -150,40 +150,12 @@
   }
 }
 
-/* ::before radial overlay + ::after top gradient line (both hover-revealed).
-   Their transition ease inherits the card's cubic-bezier via the original
-   --tw-ease custom-property inheritance — written out literally here. */
-.hp-ind-card::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(400px 200px at 0% 0%, oklch(from var(--accent-color, var(--color-accent)) l c h / 0.10), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.hp-ind-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 1px;
-  background-image: linear-gradient(90deg, transparent, var(--accent-color, var(--color-accent)), transparent);
-  opacity: 0;
-  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
+/* Hover = lift + accent border only (2026-09-25). The ::before radial glow
+   and ::after gradient top line that also faded in were decoration. */
 @media (hover: hover) {
   a.hp-ind-card:hover {
     translate: 0 calc(var(--spacing) * -1.5);
     border-color: oklch(from var(--accent-color, var(--color-accent)) l c h / 0.5);
-  }
-
-  a.hp-ind-card:hover::before,
-  a.hp-ind-card:hover::after {
-    opacity: 1;
   }
 }
 
@@ -199,7 +171,7 @@
   min-height: 0;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 26px;
+  border-radius: var(--radius-frame);
   border: 1px solid var(--color-line);
   background-color: var(--color-surface);
   padding: calc(var(--spacing) * 5);
@@ -270,7 +242,7 @@
   min-height: 0;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: var(--radius-card);
   border: 1px solid var(--color-line);
   background-color: var(--color-surface);
   padding: calc(var(--spacing) * 4);
@@ -377,7 +349,9 @@
   }
 }
 
-/* Merged static scrim layers — Industries cards (vignette + accent wash).
+/* Industries card scrim — vignette only. The per-industry accent wash was
+   removed 2026-09-25 (DESIGN.md: one glow per page, not one per card).
+   Was: merged static scrim layers — vignette + accent wash.
    One multi-background div replaces two stacked siblings; the FIRST layer
    paints on top, reproducing the old "wash below vignette" sibling order.
    The hover-animated dark grade (with its per-card dimClass override) and
@@ -387,9 +361,7 @@
 .hp-ind-scrim {
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(120% 115% at 50% -10%, transparent 45%, oklch(0.07 0 0 / 0.6) 100%),
-    linear-gradient(130deg, oklch(from var(--accent-color, var(--color-accent)) l c h / 0.2), transparent 55%);
+  background-image: radial-gradient(120% 115% at 50% -10%, transparent 45%, oklch(0.07 0 0 / 0.6) 100%);
 }
 
 /* Merged static scrim layers — ValueStack cards (vignette + accent wash +

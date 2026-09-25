@@ -203,7 +203,7 @@ function threeYearsUk(): ThreeYears {
   const usTotal = packagePrice("business", l) + renewal * 2;
   const diff = builderTotal - usTotal;
   return {
-    eyebrow: "/ РОЗРАХУНОК НА 3 РОКИ",
+    eyebrow: "РОЗРАХУНОК НА 3 РОКИ",
     heading: (
       <>
         3 роки підписки <em>vs {biz(l)} один раз.</em>
@@ -260,7 +260,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
   metaTitle: "Конструктор сайтів чи власний код: що обрати бізнесу",
   metaDescription: `Tilda, Wix, Webflow чи сайт кодом? Сайт для бізнесу — ${biz("uk")} один раз, ${bizTerm("uk")}. Без підписки, код ваш, SEO і домен зберігаємо.`,
   hero: {
-    eyebrowLabel: "/ ПОРІВНЯННЯ · КОНСТРУКТОРИ",
+    eyebrowLabel: "ПОРІВНЯННЯ · КОНСТРУКТОРИ",
     h1Lines: [
       <>Конструктори ідеальні, поки бізнес у них поміщається.</>,
       <em key="hero-em">
@@ -287,7 +287,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ctaSecondary: "Дивитись таблицю порівняння",
   },
   outgrew: {
-    eyebrow: "/ 02 ВИ ПЕРЕРОСЛИ",
+    eyebrow: "02 ВИ ПЕРЕРОСЛИ",
     heading: (
       <>
         5 ознак, що конструктор <em>вас гальмує.</em>
@@ -329,7 +329,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     foot: "Поставили хоча б дві галочки — надішліть посилання на сайт. Безкоштовний аудит і розрахунок — протягом 24 годин: скажемо, чи є сенс переходити зараз, чи рано.",
   },
   costs: {
-    eyebrow: "/ 03 ПРИХОВАНІ ВИТРАТИ",
+    eyebrow: "03 ПРИХОВАНІ ВИТРАТИ",
     heading: (
       <>
         Скільки конструктор <em>коштує насправді.</em>
@@ -392,7 +392,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
   },
   threeYears: threeYearsUk(),
   compare: {
-    eyebrow: "/ 04 ПОРІВНЯННЯ",
+    eyebrow: "04 ПОРІВНЯННЯ",
     heading: (
       <>
         Code-Site vs усі <em>топові конструктори.</em>
@@ -482,7 +482,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ],
   },
   builders: {
-    eyebrow: "/ 05 ЧЕСНО ПО КОЖНОМУ",
+    eyebrow: "05 ЧЕСНО ПО КОЖНОМУ",
     heading: (
       <>
         Що кожен конструктор <em>робить добре. І де його потолок.</em>
@@ -528,7 +528,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ],
   },
   admin: {
-    eyebrow: "/ 06 АДМІНКА ПІСЛЯ МІГРАЦІЇ",
+    eyebrow: "06 АДМІНКА ПІСЛЯ МІГРАЦІЇ",
     heading: (
       <>
         Не втрачаєте drag-and-drop.{" "}
@@ -585,7 +585,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ),
   },
   patterns: {
-    eyebrow: "/ 07 НА РЕАЛЬНИХ МІГРАЦІЯХ",
+    eyebrow: "07 НА РЕАЛЬНИХ МІГРАЦІЯХ",
     heading: (
       <>
         Що ми бачимо <em>на типовій міграції з конструктора.</em>
@@ -617,7 +617,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     foot: "Точні цифри по вашому сайту — у безкоштовному аудиті протягом 24 годин. Надішліть посилання.",
   },
   filter: {
-    eyebrow: "/ 08 ЧЕСНО",
+    eyebrow: "08 ЧЕСНО",
     heading: (
       <>
         Чого ми <em>не робимо.</em>
@@ -641,7 +641,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     foot: "Якщо ваш випадок не з цього списку — надішліть посилання. У безкоштовному аудиті за 24 години скажемо чесно.",
   },
   pricing: {
-    eyebrow: "/ 09 ВАРТІСТЬ МІГРАЦІЇ",
+    eyebrow: "09 ВАРТІСТЬ МІГРАЦІЇ",
     heading: (
       <>
         Скільки коштує <em>піти з конструктора.</em>
@@ -666,7 +666,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ctaSecondary: "Поговорити зі спеціалістом",
   },
   faq: {
-    eyebrow: "/ 10 ЧАСТІ ПИТАННЯ",
+    eyebrow: "10 ЧАСТІ ПИТАННЯ",
     heading: (
       <>
         Що питають <em>найчастіше.</em>
@@ -708,7 +708,7 @@ export const VS_CONSTRUCTORS_UK: Content = {
     ],
   },
   cta: {
-    eyebrow: "/ 11 ГОТОВІ ПЕРЕЇХАТИ?",
+    eyebrow: "11 ГОТОВІ ПЕРЕЇХАТИ?",
     heading: (
       <>
         Розрахуйте міграцію <em>за 60 секунд.</em>
@@ -751,7 +751,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
   metaTitle: "Website builder vs custom code: Wix, Webflow, Squarespace",
   metaDescription: `Outgrew Wix, Webflow or Squarespace? Custom-coded business website for ${biz("en")}, ${bizTerm("en")}. Fixed price, you own the code, no subscriptions.`,
   hero: {
-    eyebrowLabel: "/ COMPARE · SITE BUILDERS",
+    eyebrowLabel: "COMPARE · SITE BUILDERS",
     h1Lines: [
       <>Site builders are great, until your business outgrows them.</>,
       <em key="hero-em">
@@ -778,7 +778,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ctaSecondary: "Jump to comparison table",
   },
   outgrew: {
-    eyebrow: "/ 02 OUTGROWN",
+    eyebrow: "02 OUTGROWN",
     heading: (
       <>
         5 signs your builder <em>is holding you back.</em>
@@ -820,7 +820,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     foot: "Two or more checkboxes? Send us your site link. The free audit and quote come within 24 hours — we'll tell you if moving makes sense now or if it's too early.",
   },
   costs: {
-    eyebrow: "/ 03 HIDDEN COSTS",
+    eyebrow: "03 HIDDEN COSTS",
     heading: (
       <>
         What a builder <em>actually costs you.</em>
@@ -883,7 +883,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ),
   },
   compare: {
-    eyebrow: "/ 04 SIDE BY SIDE",
+    eyebrow: "04 SIDE BY SIDE",
     heading: (
       <>
         Code-Site vs every <em>major builder.</em>
@@ -979,7 +979,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ],
   },
   builders: {
-    eyebrow: "/ 05 EACH BUILDER, HONEST",
+    eyebrow: "05 EACH BUILDER, HONEST",
     heading: (
       <>
         What each builder <em>does well. And where it caps out.</em>
@@ -1025,7 +1025,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ],
   },
   admin: {
-    eyebrow: "/ 06 ADMIN AFTER MIGRATION",
+    eyebrow: "06 ADMIN AFTER MIGRATION",
     heading: (
       <>
         You don&apos;t lose drag-and-drop.{" "}
@@ -1082,7 +1082,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ),
   },
   patterns: {
-    eyebrow: "/ 07 ACROSS REAL MIGRATIONS",
+    eyebrow: "07 ACROSS REAL MIGRATIONS",
     heading: (
       <>
         What we see <em>on a typical builder migration.</em>
@@ -1114,7 +1114,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     foot: "Exact numbers for your site come with a free audit within 24 hours. Send us the link.",
   },
   filter: {
-    eyebrow: "/ 08 STRAIGHT TALK",
+    eyebrow: "08 STRAIGHT TALK",
     heading: (
       <>
         What we <em>don&apos;t do.</em>
@@ -1138,7 +1138,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     foot: "If your case isn't on this list, send us the link. The free audit within 24 hours will tell you straight.",
   },
   pricing: {
-    eyebrow: "/ 09 MIGRATION PRICING",
+    eyebrow: "09 MIGRATION PRICING",
     heading: (
       <>
         What it costs to <em>leave a builder.</em>
@@ -1163,7 +1163,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ctaSecondary: "Talk to a migration specialist",
   },
   faq: {
-    eyebrow: "/ 10 FAQ",
+    eyebrow: "10 FAQ",
     heading: (
       <>
         What people <em>ask most.</em>
@@ -1205,7 +1205,7 @@ export const VS_CONSTRUCTORS_EN: Content = {
     ],
   },
   cta: {
-    eyebrow: "/ 11 READY TO MIGRATE?",
+    eyebrow: "11 READY TO MIGRATE?",
     heading: (
       <>
         Get a migration estimate <em>in 60 seconds.</em>

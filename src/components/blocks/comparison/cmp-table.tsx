@@ -51,9 +51,9 @@ export function CmpThead({ children }: { children: ReactNode }) {
 // Standard <th> for the comparison table.
 const TH_BASE =
   "text-left px-4 py-3.5 border-b border-line-strong " +
-  "font-sans font-bold text-[10px] tracking-[0.12em] uppercase text-ink-3 " +
+  "font-sans font-bold text-[12px] tracking-[0.06em] uppercase text-ink-3 " +
   "bg-[oklch(1_0_0_/_0.02)] " +
-  "xl:px-6 xl:py-5 xl:text-[11px]";
+  "xl:px-6 xl:py-5 xl:text-[12px]";
 
 // Highlighted "good" column header.
 const TH_GOOD =
@@ -94,7 +94,7 @@ const TD_BASE =
 
 const TD_PARAM =
   // Mobile: param row is the card title — uppercase, small, dimmer.
-  "font-semibold text-ink-3 text-[11px] tracking-[0.1em] uppercase pb-1.5 " +
+  "font-semibold text-ink-3 text-[12px] tracking-[0.06em] uppercase pb-1.5 " +
   // md+: param is the first column cell — regular size, plain casing.
   "md:font-medium md:text-ink md:text-[12px] md:tracking-normal md:normal-case md:pb-0 " +
   "xl:text-[13px]";
@@ -111,7 +111,7 @@ const TD_GOOD =
 // Mobile data-label pseudo — renders `<data-label>: ` before the cell
 // value. Disabled at md+ where the thead row provides labels.
 const TD_LABEL_BEFORE =
-  "before:content-[attr(data-label)_':_'] before:text-ink-3 before:text-[11px] before:mr-1.5 before:uppercase before:tracking-[0.06em] " +
+  "before:content-[attr(data-label)_':_'] before:text-ink-3 before:text-[12px] before:mr-1.5 before:uppercase before:tracking-[0.06em] " +
   "md:before:content-none";
 
 // Last row of tbody: remove desktop border-bottom. At mobile each row
@@ -161,7 +161,10 @@ export function CmpPricingGrid({
         // 3-up from 960px: at 1024 the 2-up grid left the third tier alone
         // on its own row. Between md and 960 a lone last tier spans both
         // columns instead of sitting next to an empty cell.
-        "grid grid-cols-1 gap-3.5 items-stretch md:grid-cols-2 md:[&>*:last-child:nth-child(odd)]:col-span-2 min-[960px]:grid-cols-3 min-[960px]:[&>*:last-child:nth-child(odd)]:col-span-1 xl:gap-[18px]",
+        // 2026-09-25: one ruled sheet, not three floating cards — the same
+        // frame + hairlines as PackagesTable, drawn by a 1px gap over a
+        // line-coloured backdrop so the rules follow any column count.
+        "grid grid-cols-1 gap-px items-stretch overflow-hidden rounded-card border border-line bg-line md:grid-cols-2 md:[&>*:last-child:nth-child(odd)]:col-span-2 min-[960px]:grid-cols-3 min-[960px]:[&>*:last-child:nth-child(odd)]:col-span-1",
         className,
       )}
     >

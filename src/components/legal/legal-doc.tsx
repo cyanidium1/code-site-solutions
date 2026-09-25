@@ -19,7 +19,7 @@ import type { LegalDocCopy } from "@/content/en/privacy-policy";
  */
 
 const tableClass =
-  "w-full mt-4 border-collapse text-[13.5px] leading-[1.5] [&_th]:text-left [&_th]:font-mono [&_th]:text-[10.5px] [&_th]:tracking-[0.14em] [&_th]:uppercase [&_th]:text-ink-3 [&_th]:pb-2 [&_td]:py-2.5 [&_td]:pr-4 [&_td]:border-t [&_td]:border-line [&_td]:text-ink-dim [&_td:first-child]:text-ink";
+  "w-full mt-4 border-collapse text-[13.5px] leading-[1.5] [&_th]:text-left [&_th]:font-mono [&_th]:text-[12px] [&_th]:tracking-[0.06em] [&_th]:uppercase [&_th]:text-ink-3 [&_th]:pb-2 [&_td]:py-2.5 [&_td]:pr-4 [&_td]:border-t [&_td]:border-line [&_td]:text-ink-dim [&_td:first-child]:text-ink";
 
 const proseClass = "text-[14.5px] leading-[1.65] text-ink-dim";
 
@@ -92,7 +92,7 @@ export function LegalDoc({ copy }: { copy: LegalDocCopy }) {
             </p>
           )}
 
-          <p className="mt-6 font-mono text-[11px] text-ink-3">{copy.updated}</p>
+          <p className="mt-6 font-mono text-[12px] text-ink-3">{copy.updated}</p>
         </div>
       </section>
       <HpFooter />

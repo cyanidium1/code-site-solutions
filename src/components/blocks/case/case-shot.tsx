@@ -10,7 +10,7 @@ const SHOT_CSS = `
 // preserved at 3/2 across breakpoints (legacy media queries repeated the same
 // value, so single utility suffices).
 const SHOT_CLASS =
-  "relative rounded-[14px] overflow-hidden bg-[oklch(0.18_0.005_300)] border border-line-strong mb-[18px] aspect-[3/2] " +
+  "relative rounded-card overflow-hidden bg-[oklch(0.18_0.005_300)] border border-line-strong mb-[18px] aspect-[3/2] " +
   "md:mb-6";
 
 const SHOT_IMG_WRAP_CLASS = "absolute inset-0 overflow-hidden";

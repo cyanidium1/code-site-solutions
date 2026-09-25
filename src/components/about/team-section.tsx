@@ -283,13 +283,13 @@ function MemberCard({
   moreLabel: string;
 }) {
   return (
-    <article className="group flex flex-col rounded-2xl border border-line bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-accent-40 hover:-translate-y-0.5">
+    <article className="group flex flex-col rounded-card border border-line bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-accent-40 hover:-translate-y-0.5">
       <MemberPhoto member={member} variant="card" />
       <div className="px-5 pt-5 pb-5 flex flex-col flex-1">
         <h3 className="font-display font-semibold text-[18px] tracking-[-0.01em] text-ink">
           {member.name}
         </h3>
-        <div className="mt-1 font-mono text-[10.5px] tracking-[0.12em] uppercase text-accent-soft">
+        <div className="mt-1 font-mono text-[12px] tracking-[0.06em] uppercase text-accent-soft">
           {member.role}
         </div>
         <p className="mt-3 font-sans text-[13px] leading-[1.55] text-ink-dim flex-1">
@@ -298,7 +298,7 @@ function MemberCard({
         <Btn
           variant="ghost"
           onClick={onOpen}
-          className="mt-5 w-auto self-start justify-center min-h-11 px-4 py-2 font-mono font-normal tracking-[0.06em] text-[11px] border-line hover:border-accent-50 hover:bg-transparent text-ink-dim hover:text-ink"
+          className="mt-5 w-auto self-start justify-center min-h-11 px-4 py-2 font-mono font-normal tracking-[0.06em] text-[12px] border-line hover:border-accent-50 hover:bg-transparent text-ink-dim hover:text-ink"
         >
           {moreLabel}
         </Btn>
@@ -336,7 +336,7 @@ function TeamModal({
               <span className="font-display font-semibold text-[20px] tracking-[-0.01em] text-ink leading-tight">
                 {member.name}
               </span>
-              <span className="mt-1 font-mono text-[10.5px] tracking-[0.12em] uppercase text-accent-soft">
+              <span className="mt-1 font-mono text-[12px] tracking-[0.06em] uppercase text-accent-soft">
                 {member.role}
               </span>
             </div>
@@ -352,7 +352,7 @@ function TeamModal({
                 {member.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center px-2.5 py-1 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] font-mono text-[10.5px] tracking-[0.06em] uppercase text-ink-dim"
+                    className="inline-flex items-center px-2.5 py-1 rounded-full border border-line bg-[oklch(1_0_0_/_0.03)] font-mono text-[12px] tracking-[0.06em] uppercase text-ink-dim"
                   >
                     {tag}
                   </span>
@@ -364,7 +364,7 @@ function TeamModal({
             <Btn
               variant="ghost"
               onClick={() => onOpenChange(false)}
-              className="w-auto justify-center min-h-11 px-5 py-2 font-mono font-normal tracking-[0.06em] text-[11px] border-transparent bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] hover:border-transparent text-ink"
+              className="w-auto justify-center min-h-11 px-5 py-2 font-mono font-normal tracking-[0.06em] text-[12px] border-transparent bg-[oklch(1_0_0_/_0.04)] hover:bg-[oklch(1_0_0_/_0.08)] hover:border-transparent text-ink"
             >
               {closeLabel}
             </Btn>
@@ -408,7 +408,7 @@ export function TeamSection({
         {(eyebrow || heading || sub) && (
           <header className="flex flex-col mb-10 lg:mb-16">
             {heading ? (
-              <h2 className="mt-0 font-display font-bold text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] text-ink max-w-[760px] [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+              <h2 className="mt-0 font-display font-bold text-[clamp(28px,3.4vw,44px)] leading-[1.1] tracking-[-0.02em] text-ink max-w-[760px] [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
                 {heading}
               </h2>
             ) : null}

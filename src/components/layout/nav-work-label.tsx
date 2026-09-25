@@ -4,7 +4,7 @@ import { NAV_CASE_COUNT_LINK_KEY } from "@/constants/nav";
 import { useCaseCount } from "./case-count-provider";
 
 const caseCountClass =
-  "bg-brand-gradient bg-clip-text text-transparent font-normal";
+  "font-mono font-normal text-ink-3";
 
 /** Appends `[n]` to the Cases/Кейси nav label (published portfolio index size). */
 export function NavWorkLabel({

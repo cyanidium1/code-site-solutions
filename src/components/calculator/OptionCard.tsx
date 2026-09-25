@@ -14,7 +14,7 @@ type OptionCardProps = {
 // Shared base + selected ring for OptionCard. The button variant adds
 // text-align/hover/translate; the div variant skips the interactive bits.
 const CARD_BASE =
-  "border border-line rounded-[14px] bg-[oklch(0.18_0.008_300)] p-[14px]";
+  "border border-line rounded-card bg-[oklch(0.18_0.008_300)] p-[14px]";
 const CARD_BUTTON =
   "text-left text-ink cursor-pointer transition-[border-color,transform] duration-200 " +
   "hover:border-line-strong hover:-translate-y-[1px]";

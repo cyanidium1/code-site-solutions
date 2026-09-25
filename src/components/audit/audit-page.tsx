@@ -88,13 +88,13 @@ export function AuditPageView({
                 </li>
               ))}
             </ul>
-            <p className="m-0 mt-8 inline-flex rounded-full border border-line-strong px-4 py-2 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim">
+            <p className="m-0 mt-8 inline-flex rounded-full border border-line-strong px-4 py-2 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-dim">
               {content.get.limit}
             </p>
           </div>
           <div
             id={AUDIT_FORM_ANCHOR}
-            className="scroll-mt-20 self-start rounded-2xl border border-line-strong bg-[oklch(0.13_0.005_300_/_0.85)] p-5 backdrop-blur-[8px] md:rounded-[22px] md:p-7"
+            className="scroll-mt-20 self-start rounded-card border border-line-strong bg-[oklch(0.13_0.005_300_/_0.85)] p-5 backdrop-blur-[8px] md:rounded-frame md:p-7"
           >
             <h2 className="m-0 font-actay text-[20px] font-bold uppercase leading-[1.15] text-ink">
               {content.form.heading}
@@ -112,8 +112,8 @@ export function AuditPageView({
           <SectionHead heading={content.steps.heading} />
           <ol className="m-0 grid list-none gap-6 p-0 md:grid-cols-3">
             {content.steps.items.map((s, i) => (
-              <li key={s.title} className="rounded-[18px] border border-line p-6">
-                <span className="font-mono text-[12px] tracking-[0.08em] text-ink-3">
+              <li key={s.title} className="rounded-card border border-line p-6">
+                <span className="font-mono text-[12px] tracking-[0.06em] text-ink-3">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <p className="m-0 mt-3 font-sans text-[17px] font-semibold text-ink">{s.title}</p>

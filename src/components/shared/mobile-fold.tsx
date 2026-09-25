@@ -43,7 +43,7 @@ export function MobileFold({
       <label
         htmlFor={id}
         className={cn(
-          "lg:hidden inline-flex min-h-11 cursor-pointer select-none items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft",
+          "lg:hidden inline-flex min-h-11 cursor-pointer select-none items-center gap-2 font-sans font-semibold text-[13px] text-accent-soft",
           "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent",
           "peer-checked:[&_svg]:rotate-180",
           labelClassName,

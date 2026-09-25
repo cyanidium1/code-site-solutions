@@ -34,9 +34,12 @@ import {
   hpInnerClass,
   hpSectionClass,
   hpSectionHeadClass,
+  hpSectionMajorClass,
   hpSubClass,
 } from "@/components/homepage/shared";
 import { cn } from "@/components/ui";
+import { AppImage } from "@/lib/shared/app-image";
+import { useTranslations } from "next-intl";
 
 /** Anchor every "get a quote" CTA on a page scrolls to. */
 export const LEAD_FORM_ANCHOR = "lead-form";
@@ -102,7 +105,7 @@ export function UspLine({ locale, className }: { locale: Locale; className?: str
   return (
     <p
       className={cn(
-        "m-0 font-mono text-[11.5px] uppercase leading-[1.7] tracking-[0.06em] text-ink-3",
+        "m-0 font-sans text-[13px] leading-[1.7] text-ink-3",
         className,
       )}
     >
@@ -111,7 +114,10 @@ export function UspLine({ locale, className }: { locale: Locale; className?: str
   );
 }
 
-/** Section with the site-wide lead form; `#lead-form` is the CTA target. */
+/** Section with the site-wide lead form; `#lead-form` is the CTA target.
+ *  `devices` sets the launch photo beside the form — used where the page used
+ *  to close with the form AND a LaunchCta banner whose button opened the same
+ *  form (homepage, merged 2026-09-25: one closing CTA, not two). */
 export function LeadFormSection({
   locale,
   source,
@@ -121,6 +127,7 @@ export function LeadFormSection({
   variant = "full",
   id = LEAD_FORM_ANCHOR,
   className,
+  devices = false,
 }: {
   locale: Locale;
   source: string;
@@ -130,18 +137,45 @@ export function LeadFormSection({
   variant?: LeadFormVariant;
   id?: string;
   className?: string;
+  devices?: boolean;
 }) {
   const ui = PACKAGES_UI[locale];
-  return (
-    <section id={id} className={cn(hpSectionClass, "scroll-mt-20", className)}>
-      <div className={cn(hpInnerClass, "max-w-[760px]")}>
-        <h2 className={hpH2Class}>{title ?? ui.formTitle}</h2>
-        <p className={cn(hpSubClass, "mb-8")}>{sub ?? ui.formSub}</p>
-        <div className="rounded-2xl border border-line-strong bg-[oklch(0.13_0.005_300_/_0.7)] p-5 md:rounded-[22px] md:p-7">
-          <LeadForm source={source} locale={locale} tier={tier} variant={variant} />
-        </div>
+  const form = (
+    <div className={cn(hpInnerClass, devices ? "mx-0 max-w-none" : "max-w-[760px]")}>
+      <h2 className={hpH2Class}>{title ?? ui.formTitle}</h2>
+      <p className={cn(hpSubClass, "mb-8")}>{sub ?? ui.formSub}</p>
+      <div className="rounded-card border border-line-strong bg-surface p-5 md:p-7">
+        <LeadForm source={source} locale={locale} tier={tier} variant={variant} />
       </div>
+    </div>
+  );
+  return (
+    <section id={id} className={cn(hpSectionMajorClass, "scroll-mt-20", className)}>
+      {devices ? (
+        <div className="mx-auto grid max-w-container grid-cols-1 items-center gap-10 xl:grid-cols-[minmax(0,760px)_minmax(0,1fr)] xl:gap-12">
+          {form}
+          <LaunchDevices />
+        </div>
+      ) : (
+        form
+      )}
     </section>
+  );
+}
+
+function LaunchDevices() {
+  const t = useTranslations("LaunchCta");
+  return (
+    <div className="hidden xl:block">
+      <AppImage
+        src="/home/launch-cta-devices.webp"
+        alt={t("imageAlt")}
+        width={2074}
+        height={1355}
+        sizes="(min-width: 1440px) 560px, 40vw"
+        className="h-auto w-full"
+      />
+    </div>
   );
 }
 
@@ -161,7 +195,7 @@ export function LeadFormCard({
     <div
       id={LEAD_FORM_ANCHOR}
       className={cn(
-        "scroll-mt-20 rounded-2xl border border-line-strong bg-[oklch(0.13_0.005_300_/_0.85)] p-5 backdrop-blur-[8px] md:rounded-[22px] md:p-6",
+        "scroll-mt-20 rounded-card border border-line-strong bg-surface p-5 md:p-6",
         className,
       )}
     >
@@ -170,9 +204,9 @@ export function LeadFormCard({
   );
 }
 
-const TABLE_WRAP = "overflow-x-auto rounded-2xl border border-line";
+const TABLE_WRAP = "overflow-x-auto rounded-card border border-line";
 const TABLE = "w-full min-w-[560px] border-collapse text-left font-sans text-[14px]";
-const TH = "border-b border-line px-4 py-3 font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-ink-3";
+const TH = "border-b border-line px-4 py-3 font-mono text-[12px] font-normal uppercase tracking-[0.06em] text-ink-3";
 const TD = "border-b border-line px-4 py-3 align-top text-ink-dim";
 
 /** All packages with price, term and composition (for /pricing). */
@@ -204,7 +238,6 @@ export function PackagesTable({
               <tr key={id}>
                 <td className={cn(TD, "font-semibold text-ink")}>
                   {p.name[locale]}
-                  {p.popular ? <span className="ml-1 text-accent-soft">★</span> : null}
                 </td>
                 <td className={cn(TD, "whitespace-nowrap text-ink tabular-nums")}>
                   {formatPrice(price, { locale, withPrefix: p.fromPrice })}
@@ -287,8 +320,8 @@ export function AddonsTable({
 export function PaymentTerms({ locale, className }: { locale: Locale; className?: string }) {
   const ui = PACKAGES_UI[locale];
   return (
-    <div className={cn("rounded-2xl border border-line p-5 md:p-6", className)}>
-      <h3 className="m-0 mb-3 font-display text-[12px] font-bold uppercase tracking-[0.14em] text-accent-soft">
+    <div className={cn("rounded-card border border-line p-5 md:p-6", className)}>
+      <h3 className="m-0 mb-3 font-sans text-[12px] font-semibold uppercase tracking-[0.06em] text-ink-3">
         {ui.paymentTitle}
       </h3>
       <ul className="m-0 flex list-none flex-col gap-2 p-0 text-[14.5px] leading-[1.55] text-ink-dim">

@@ -98,7 +98,7 @@ const FEAT_CHECK_CLASS =
 const FEAT_LABEL_CLASS =
   "text-xs font-semibold text-ink leading-[1.2] 2xl:text-[13px]";
 const FEAT_SUB_CLASS =
-  "text-[10px] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[11px]";
+  "text-[12px] text-ink-3 mt-0.5 tracking-[0.02em] 2xl:text-[12px]";
 
 // U — CTA row. Stacks as stretched-column buttons at mobile, becomes
 // a wrapped flex-row at sm+; mb climbs sm → 2xl.
@@ -114,10 +114,10 @@ const CTA_FOOTNOTE_CLASS =
 // dividers. Translucent bg with backdrop-blur. Gap/padding/radius
 // grow with viewport.
 const STATS_CLASS =
-  "flex items-center gap-3 px-4 py-3.5 border border-line rounded-[14px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
+  "flex items-center gap-3 px-4 py-3.5 border border-line rounded-card w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] " +
   "sm:gap-3.5 " +
   "min-[1081px]:gap-[18px] min-[1081px]:px-5 min-[1081px]:py-4 " +
-  "2xl:gap-6 2xl:px-7 2xl:py-5 2xl:rounded-[18px]";
+  "2xl:gap-6 2xl:px-7 2xl:py-5 2xl:rounded-card";
 
 const STAT_CLASS = "flex-1 flex flex-col gap-1.5";
 // Values are CMS strings and can be full phrases ("Service calculators"),
@@ -127,7 +127,7 @@ const STAT_NUM_CLASS =
   "font-sans font-bold text-[16px] tracking-[-0.03em] leading-none text-ink " +
   "sm:text-[22px] min-[1081px]:text-2xl 2xl:text-[28px]";
 const STAT_LBL_CLASS =
-  "text-[9px] text-ink-3 uppercase tracking-[0.08em] leading-[1.3] sm:text-[10px]";
+  "text-[12px] text-ink-3 uppercase tracking-[0.06em] leading-[1.3] sm:text-[12px]";
 const STAT_DIV_CLASS =
   "w-px h-[30px] bg-line sm:h-10";
 
@@ -203,7 +203,7 @@ const MOCKUP_IMG_INSIDE =
 // + linear-gradient background mimics a device screen; drop-shadow
 // matches the real .mockup img so layout stays balanced.
 const MOCKUP_PLACEHOLDER_CLASS =
-  "w-[110%] [aspect-ratio:16/10] translate-x-[2%] rounded-[14px] border border-[oklch(1_0_0_/_0.06)] relative overflow-hidden " +
+  "w-[110%] [aspect-ratio:16/10] translate-x-[2%] rounded-card border border-[oklch(1_0_0_/_0.06)] relative overflow-hidden " +
   "bg-[radial-gradient(ellipse_at_28%_24%,oklch(from_var(--color-accent)_l_c_h_/_0.22)_0%,transparent_55%),radial-gradient(ellipse_at_78%_78%,oklch(0.5_0.18_280_/_0.18)_0%,transparent_55%),linear-gradient(160deg,oklch(0.18_0.012_240)_0%,oklch(0.12_0.006_250)_100%)] " +
   "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))]";
 

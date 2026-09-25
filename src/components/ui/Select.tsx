@@ -65,7 +65,7 @@ export type SelectProps = {
 const LABEL_BASE = "text-ink-dim font-medium text-[13px] tracking-[0.005em]";
 
 const TRIGGER_BASE =
-  "flex w-full items-center justify-between gap-2 rounded-xl min-h-12 md:min-h-10 px-3 py-2 " +
+  "flex w-full items-center justify-between gap-2 rounded-ctl min-h-12 md:min-h-10 px-3 py-2 " +
   "border border-line-strong bg-[oklch(0.16_0.005_300/0.7)] cursor-pointer " +
   "transition-[border-color,background-color] duration-200 " +
   "hover:border-ink-3 hover:bg-[oklch(0.16_0.005_300/0.9)] " +
@@ -80,13 +80,13 @@ const VALUE_BASE =
 const PLACEHOLDER_CLASS = "text-ink-3";
 
 const LISTBOX_BASE =
-  "absolute inset-x-0 top-[calc(100%+6px)] z-50 max-h-64 overflow-auto rounded-xl p-1.5 " +
+  "absolute inset-x-0 top-[calc(100%+6px)] z-50 max-h-64 overflow-auto rounded-ctl p-1.5 " +
   "bg-[oklch(0.13_0.005_300/0.98)] border border-line-strong " +
   "shadow-[0_18px_48px_oklch(0_0_0/0.5),0_0_0_1px_oklch(1_0_0/0.04)_inset] backdrop-blur-[16px] " +
   "transition-[opacity] duration-150 starting:opacity-0 motion-reduce:transition-none";
 
 const OPTION_BASE =
-  "flex items-center rounded-lg px-2.5 py-2 cursor-pointer " +
+  "flex items-center rounded-ctl px-2.5 py-2 cursor-pointer " +
   "text-ink-dim font-sans text-[14px] transition-[background-color,color] duration-150 " +
   "data-[active=true]:bg-[rgba(255,255,255,0.06)] data-[active=true]:text-ink " +
   "aria-selected:bg-accent-20 aria-selected:text-ink " +

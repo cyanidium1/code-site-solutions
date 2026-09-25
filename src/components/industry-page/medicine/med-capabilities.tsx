@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
 import type { Locale } from "@/constants/locales";
-import { ScrollReveal } from "@/components/homepage/scroll-reveal";
 import { MedAdminArt } from "./med-admin-art";
 import { MED_COPY } from "./copy";
 
@@ -70,8 +69,8 @@ export function MedCapabilities({
       <div className="relative mx-auto max-w-container">
         {/* ── Client quote — an editorial pull-quote, not a floating card ── */}
         {testimonialQuote ? (
-          <ScrollReveal className="med-reveal mb-14 border-l border-accent-40 pl-6 lg:mb-20 lg:pl-8">
-            <blockquote className="m-0 max-w-[46ch] font-actay text-[clamp(19px,2.3vw,30px)] font-bold uppercase leading-[1.2] text-ink [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent">
+          <div className="mb-14 border-l border-accent-40 pl-6 lg:mb-20 lg:pl-8">
+            <blockquote className="m-0 max-w-[46ch] font-actay text-[clamp(19px,2.3vw,30px)] font-bold uppercase leading-[1.2] text-ink [&_em]:text-accent-soft">
               {testimonialQuote}
             </blockquote>
             {testimonialAuthorName ? (
@@ -80,17 +79,17 @@ export function MedCapabilities({
                   {testimonialAuthorName}
                 </span>
                 {testimonialAuthorRole ? (
-                  <span className="font-mono text-[11px] text-ink-3">
+                  <span className="font-mono text-[12px] text-ink-3">
                     {testimonialAuthorRole}
                   </span>
                 ) : null}
               </div>
             ) : null}
-          </ScrollReveal>
+          </div>
         ) : null}
 
         {/* ── Capabilities ───────────────────────────────────────────────── */}
-        <ScrollReveal className="med-reveal">
+        <div>
           <div className="grid grid-cols-1 gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:items-end">
             {heading ? (
               <h2 className="m-0 max-w-[18ch] font-actay text-[clamp(24px,3.2vw,42px)] font-bold uppercase leading-[1.08] text-ink [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent">
@@ -103,7 +102,7 @@ export function MedCapabilities({
               </p>
             ) : null}
           </div>
-        </ScrollReveal>
+        </div>
 
         <div className="mt-10 grid grid-cols-1 gap-10 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,470px)] lg:gap-14">
           {/* Ruled specification list. Phones: the first three capabilities
@@ -112,9 +111,9 @@ export function MedCapabilities({
           <PhoneMore>
           <div className="border-t border-line">
             {capabilities?.map((cap, i) => (
-              <ScrollReveal
+              <div
                 key={cap.title}
-                className={`med-reveal grid grid-cols-1 gap-x-8 gap-y-3 border-b border-line py-6 sm:grid-cols-[minmax(0,210px)_minmax(0,1fr)] ${i >= 3 ? "pm-extra" : ""}`}
+                className={`grid grid-cols-1 gap-x-8 gap-y-3 border-b border-line py-6 sm:grid-cols-[minmax(0,210px)_minmax(0,1fr)] ${i >= 3 ? "pm-extra" : ""}`}
               >
                 <div className="flex items-start gap-3">
                   <span className="mt-px shrink-0 text-accent-soft [&_svg]:h-[18px] [&_svg]:w-[18px]">
@@ -134,7 +133,7 @@ export function MedCapabilities({
                     </li>
                   ))}
                 </ul>
-              </ScrollReveal>
+              </div>
             ))}
           </div>
           </PhoneMore>
@@ -143,10 +142,10 @@ export function MedCapabilities({
           {/* Decorative drawing of the admin — desktop only; on phones it was
               a screen of skeleton bars between the list and the integrations. */}
           <div className="max-lg:hidden lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-[18px] border border-line bg-[var(--med-panel)] p-3 shadow-[0_0_70px_oklch(from_var(--color-accent)_l_c_h_/_0.1)]">
+            <div className="rounded-card border border-line bg-[var(--med-panel)] p-3 shadow-[0_0_70px_oklch(from_var(--color-accent)_l_c_h_/_0.1)]">
               <MedAdminArt />
             </div>
-            <p className="mt-3 m-0 font-mono text-[10.5px] leading-[1.5] text-ink-3">
+            <p className="mt-3 m-0 font-mono text-[12px] leading-[1.5] text-ink-3">
               {bus.hubTitle} · {bus.hubSub}
             </p>
           </div>
@@ -155,7 +154,7 @@ export function MedCapabilities({
         {/* ── Integration bus ────────────────────────────────────────────── */}
         {integrations?.length ? (
           <div className="mt-16 lg:mt-24">
-            <ScrollReveal className="med-reveal">
+            <div>
               <div className="grid grid-cols-1 gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:items-end">
                 {integrationsHeading ? (
                   <h2 className="m-0 max-w-[18ch] font-actay text-[clamp(22px,2.8vw,36px)] font-bold uppercase leading-[1.1] text-ink [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent">
@@ -168,7 +167,7 @@ export function MedCapabilities({
                   </p>
                 ) : null}
               </div>
-            </ScrollReveal>
+            </div>
 
             <div className="mt-10 grid grid-cols-1 items-center gap-6 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-8">
               <BusColumn
@@ -178,11 +177,11 @@ export function MedCapabilities({
               />
 
               {/* Hub */}
-              <div className="relative mx-auto w-full max-w-[260px] rounded-[16px] border border-accent-40 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] px-5 py-5 text-center shadow-[0_0_50px_oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
+              <div className="relative mx-auto w-full max-w-[260px] rounded-card border border-accent-40 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.08)] px-5 py-5 text-center shadow-[0_0_50px_oklch(from_var(--color-accent)_l_c_h_/_0.22)]">
                 <span className="block font-actay text-[15px] font-bold uppercase leading-[1.15] text-ink">
                   {bus.hubTitle}
                 </span>
-                <span className="mt-1.5 block font-mono text-[10.5px] uppercase tracking-[0.1em] text-accent-soft">
+                <span className="mt-1.5 block font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
                   {bus.hubSub}
                 </span>
               </div>
@@ -221,7 +220,7 @@ function BusColumn({
   return (
     <div>
       <span
-        className={`mb-3 block font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3 ${
+        className={`mb-3 block font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3 ${
           alignRight ? "lg:text-right" : ""
         }`}
       >
@@ -236,7 +235,7 @@ function BusColumn({
               alignRight ? "lg:flex-row-reverse" : ""
             }`}
           >
-            <span className="shrink-0 rounded-[6px] border border-line px-3 py-2 font-mono text-[11px] uppercase tracking-[0.06em] text-ink-dim">
+            <span className="shrink-0 rounded-[6px] border border-line px-3 py-2 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-dim">
               {name}
             </span>
             <span

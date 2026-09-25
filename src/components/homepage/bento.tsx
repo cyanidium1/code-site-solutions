@@ -16,7 +16,6 @@ import type { PriceLocale } from "@/lib/shared/format-price";
 import { CORE_PACKAGES, PACKAGES, formatPackagePrice } from "@/constants/pricing";
 import { SectionHead } from "@/components/shared/section-head";
 import { cn } from "@/components/ui";
-import { ScrollReveal } from "./scroll-reveal";
 import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
 
 // Shared sub-visual wrapper class — every visual sits below its cell's
@@ -55,7 +54,7 @@ function LighthouseVisual() {
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center font-sans">
           <strong className="text-[32px] font-extrabold text-ink">98</strong>
-          <small className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.2em] text-ink-3">
+          <small className="mt-0.5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
             score
           </small>
         </div>
@@ -66,7 +65,7 @@ function LighthouseVisual() {
 
 function MigrationVisual() {
   const pillBase =
-    "inline-flex shrink-0 items-center gap-1.5 rounded-[10px] border px-3 py-2 font-mono text-[11px]";
+    "inline-flex shrink-0 items-center gap-1.5 rounded-ctl border px-3 py-2 font-mono text-[12px]";
   return (
     <div className="mt-[18px] flex flex-nowrap items-center gap-2">
       <div
@@ -160,7 +159,7 @@ function StackVisual({ locale }: { locale: PriceLocale }) {
           <span className="inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border border-accent-30 bg-[oklch(from_var(--color-accent)_l_c_h_/_0.14)] text-accent-soft">
             <Check size={11} strokeWidth={2.4} />
           </span>
-          <span className="font-mono text-[11.5px] tracking-[0.04em] text-ink-dim">{l}</span>
+          <span className="font-mono text-[12px] tracking-[0.04em] text-ink-dim">{l}</span>
         </div>
       ))}
     </div>
@@ -175,13 +174,13 @@ function CommitLogVisual() {
   ];
   return (
     <div
-      className={cn(VIS_CLASS, "flex flex-col gap-1.5 font-mono text-[11.5px] leading-[1.4] text-ink-dim")}
+      className={cn(VIS_CLASS, "flex flex-col gap-1.5 font-mono text-[12px] leading-[1.4] text-ink-dim")}
       aria-hidden="true"
     >
       {rows.map((r) => (
         <div
           key={r.msg}
-          className="flex items-baseline gap-2 rounded-lg border border-[oklch(1_0_0_/_0.05)] bg-[oklch(1_0_0_/_0.025)] px-2.5 py-[5px]"
+          className="flex items-baseline gap-2 rounded-ctl border border-[oklch(1_0_0_/_0.05)] bg-[oklch(1_0_0_/_0.025)] px-2.5 py-[5px]"
         >
           <span className="font-semibold text-[oklch(0.78_0.16_145)]">feat:</span>
           <span className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-ink-dim">
@@ -189,7 +188,7 @@ function CommitLogVisual() {
           </span>
           <span
             className={cn(
-              "ml-auto text-[10.5px] text-ink-3",
+              "ml-auto text-[12px] text-ink-3",
               r.accent && "font-semibold text-[oklch(from_var(--color-accent)_0.85_0.18_h)]",
             )}
           >
@@ -205,7 +204,7 @@ function WeeksProgressVisual({ locale }: { locale: PriceLocale }) {
   const steps = WEEK_STEPS[locale];
   return (
     <div
-      className={cn(VIS_CLASS, "flex flex-col gap-1.5 font-mono text-[11.5px] text-ink-dim")}
+      className={cn(VIS_CLASS, "flex flex-col gap-1.5 font-mono text-[12px] text-ink-dim")}
       aria-hidden="true"
     >
       {steps.map((s) => (
@@ -223,7 +222,7 @@ function WeeksProgressVisual({ locale }: { locale: PriceLocale }) {
           />
           <span
             className={cn(
-              "text-right text-[10.5px] tracking-[0.04em] text-ink-3",
+              "text-right text-[12px] tracking-[0.04em] text-ink-3",
               s.target && "font-semibold text-[oklch(0.85_0.10_295)]",
             )}
           >
@@ -296,7 +295,7 @@ function WarrantyTimelineVisual({ locale }: { locale: PriceLocale }) {
               />
               <span
                 className={cn(
-                  "font-mono text-[10.5px] uppercase tracking-[0.06em] text-ink-3",
+                  "font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3",
                   p.end && "text-[oklch(0.85_0.10_295)]",
                 )}
               >
@@ -306,7 +305,7 @@ function WarrantyTimelineVisual({ locale }: { locale: PriceLocale }) {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-between gap-2.5 rounded-[10px] border border-[oklch(1_0_0_/_0.06)] bg-[oklch(1_0_0_/_0.025)] px-3 py-2 font-mono text-[11px] tracking-[0.04em]">
+      <div className="flex items-center justify-between gap-2.5 rounded-ctl border border-[oklch(1_0_0_/_0.06)] bg-[oklch(1_0_0_/_0.025)] px-3 py-2 font-mono text-[12px] tracking-[0.04em]">
         <span className="text-ink-3">{footL}</span>
         <span className="font-semibold text-ink-3">→</span>
         <span className="font-bold text-[oklch(0.78_0.18_25)] [font-feature-settings:'tnum'_1]">−30%</span>
@@ -318,7 +317,7 @@ function WarrantyTimelineVisual({ locale }: { locale: PriceLocale }) {
 function SupportTimerVisual({ locale }: { locale: PriceLocale }) {
   const sub = SLA_SUB[locale];
   const segBase =
-    "rounded-[10px] border border-[oklch(1_0_0_/_0.08)] bg-[oklch(1_0_0_/_0.04)] px-2.5 py-1 [font-feature-settings:'tnum'_1]";
+    "rounded-ctl border border-[oklch(1_0_0_/_0.08)] bg-[oklch(1_0_0_/_0.04)] px-2.5 py-1 [font-feature-settings:'tnum'_1]";
   return (
     <div className={cn(VIS_CLASS, "flex flex-col items-center gap-2.5")} aria-hidden="true">
       <div className="flex items-baseline justify-center gap-1 font-mono text-[32px] font-bold tracking-[0.04em] text-ink-dim">
@@ -335,7 +334,7 @@ function SupportTimerVisual({ locale }: { locale: PriceLocale }) {
         <span className="font-normal text-ink-3">:</span>
         <span className={segBase}>00</span>
       </div>
-      <div className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-ink-3">{sub}</div>
+      <div className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">{sub}</div>
     </div>
   );
 }
@@ -439,20 +438,10 @@ const DEFAULT_BENTO: BentoCell[] = [
 // Cell base — every span variant gets the same border/background/transition.
 // Padding lives per-span (in `spanClass`/`mobile1x1`) so each variant can set
 // its own mobile padding without colliding with a base `p-7`.
+// 2026-09-25: no blur/offset entrance, corner glow or fading accent line —
+// the cells are static content (DESIGN.md: motion only for state change).
 const cellBase =
-  "group/bento-cell relative flex flex-col overflow-hidden rounded-[22px] border border-line " +
-  "[background:radial-gradient(220px_140px_at_0%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),oklch(1_0_0_/_0.02)] " +
-  // Per-cell stacking context above any decoration painted inside the section.
-  "z-[1] " +
-  // entrance: blurred + offset until grid reaches viewport, then settle.
-  "opacity-0 translate-y-6 scale-[0.97] blur-[6px] " +
-  "[transition:opacity_0.85s_cubic-bezier(0.2,0.8,0.2,1),transform_0.85s_cubic-bezier(0.2,0.8,0.2,1),filter_0.85s_cubic-bezier(0.2,0.8,0.2,1)] " +
-  "[transition-delay:calc(var(--i,0)*0.09s)] " +
-  "group-data-[visible=true]/bento-reveal:opacity-100 group-data-[visible=true]/bento-reveal:translate-y-0 group-data-[visible=true]/bento-reveal:scale-100 group-data-[visible=true]/bento-reveal:blur-none " +
-  "motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:blur-none motion-reduce:transition-none " +
-  // ::before top accent line that fades in after the entrance settles
-  "before:pointer-events-none before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-[linear-gradient(90deg,transparent,oklch(from_var(--color-accent)_l_c_h_/_0.45),transparent)] before:opacity-0 before:transition-opacity before:duration-[600ms] before:[transition-delay:calc(var(--i,0)*0.09s+0.4s)] " +
-  "group-data-[visible=true]/bento-reveal:before:opacity-100 motion-reduce:before:opacity-100 motion-reduce:before:transition-none";
+  "group/bento-cell relative z-[1] flex flex-col overflow-hidden rounded-card border border-line bg-[oklch(1_0_0_/_0.02)]";
 
 // Mobile-first: at base every cell stacks in the parent's single column.
 // At lg+ the parent grid becomes multi-column and span values take effect.
@@ -504,7 +493,7 @@ export function Bento({
       <div className={cn(hpInnerClass, "relative")}>
         {decoration}
         <SectionHead eyebrow={eyebrow} heading={heading} />
-        <ScrollReveal className="group/bento-reveal grid grid-cols-1 gap-4 [grid-auto-rows:auto] lg:grid-cols-2 lg:[grid-auto-rows:minmax(280px,auto)] xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 [grid-auto-rows:auto] lg:grid-cols-2 lg:[grid-auto-rows:minmax(280px,auto)] xl:grid-cols-4">
           {cells.map((c, i) => {
             const Icon = c.icon;
             const isOneByOne = c.span === "1x1";
@@ -534,7 +523,7 @@ export function Bento({
                 >
                   <div
                     className={cn(
-                      "inline-flex items-center justify-center rounded-[10px]",
+                      "inline-flex items-center justify-center rounded-ctl",
                       isOneByOne
                         ? "col-start-1 row-span-2 self-start h-9 w-9 border border-accent-30 bg-accent-10 text-accent-soft lg:col-auto lg:row-auto lg:self-auto lg:h-10 lg:w-10 lg:border-line lg:bg-[oklch(1_0_0_/_0.04)] lg:text-ink"
                         : "h-10 w-10 border border-line bg-[oklch(1_0_0_/_0.04)] text-ink",
@@ -545,7 +534,7 @@ export function Bento({
                   {c.stat ? (
                     <span
                       className={cn(
-                        "whitespace-nowrap rounded-full border border-accent-40 bg-accent-10 px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-[oklch(from_var(--color-accent)_0.92_0.12_h)]",
+                        "whitespace-nowrap rounded-full border border-accent-40 bg-accent-10 px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.06em] text-[oklch(from_var(--color-accent)_0.92_0.12_h)]",
                         isOneByOne
                           ? "col-start-2 row-start-3 ml-0 self-start pt-1.5 lg:col-auto lg:row-auto lg:ml-auto lg:self-auto lg:pt-0"
                           : "ml-auto",
@@ -590,7 +579,7 @@ export function Bento({
               </div>
             );
           })}
-        </ScrollReveal>
+        </div>
       </div>
     </section>
   );

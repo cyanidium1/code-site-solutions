@@ -190,7 +190,7 @@ const VIS_COPY = {
    Restrained, div + icon visuals. Hidden on mobile so small screens get a
    clean icon → title → body stack. All colour comes from `--card-accent`. */
 
-const panel = "rounded-xl border border-line bg-[oklch(1_0_0_/_0.025)] p-3";
+const panel = "rounded-ctl border border-line bg-[oklch(1_0_0_/_0.025)] p-3";
 const accBg = "bg-[oklch(from_var(--card-accent)_l_c_h_/_0.12)]";
 const accBorder = "border-[oklch(from_var(--card-accent)_l_c_h_/_0.3)]";
 const accText = "text-[oklch(from_var(--card-accent)_0.85_0.12_h)]";
@@ -202,7 +202,7 @@ function DealVisual({ t }: { t: (typeof VIS_COPY)[PriceLocale] }) {
       <div className="flex items-center justify-between border-b border-line pb-2.5">
         <span className="font-mono text-[12px] text-ink-3">{t.contract}</span>
         <span
-          className={`inline-flex items-center gap-1.5 rounded-full border ${accBorder} ${accBg} px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.1em] ${accText}`}
+          className={`inline-flex items-center gap-1.5 rounded-full border ${accBorder} ${accBg} px-2 py-0.5 font-mono text-[12px] uppercase tracking-[0.06em] ${accText}`}
         >
           <FileSignature size={11} /> {t.official}
         </span>
@@ -211,7 +211,7 @@ function DealVisual({ t }: { t: (typeof VIS_COPY)[PriceLocale] }) {
         {t.dealChips.map((c) => (
           <span
             key={c}
-            className="rounded-lg border border-line bg-[oklch(1_0_0_/_0.03)] px-2 py-1 text-[12px] text-ink-dim"
+            className="rounded-ctl border border-line bg-[oklch(1_0_0_/_0.03)] px-2 py-1 text-[12px] text-ink-dim"
           >
             {c}
           </span>
@@ -289,7 +289,7 @@ function LaunchVisual({ t }: { t: (typeof VIS_COPY)[PriceLocale] }) {
         return (
           <span key={s} className="flex items-center gap-1.5">
             <span
-              className={`rounded-lg border px-2 py-1 text-[12px] ${
+              className={`rounded-ctl border px-2 py-1 text-[12px] ${
                 last
                   ? `${accBorder} ${accBg} ${accText}`
                   : "border-line bg-[oklch(1_0_0_/_0.03)] text-ink-dim"
@@ -309,7 +309,7 @@ function SupportVisual({ t }: { t: (typeof VIS_COPY)[PriceLocale] }) {
   return (
     <div className={`flex items-center gap-3 ${panel}`} aria-hidden="true">
       <span
-        className={`inline-flex size-9 shrink-0 items-center justify-center rounded-lg border ${accBorder} ${accBg} ${accText}`}
+        className={`inline-flex size-9 shrink-0 items-center justify-center rounded-ctl border ${accBorder} ${accBg} ${accText}`}
       >
         <Headset size={17} />
       </span>
@@ -486,11 +486,11 @@ export function BusinessValue({
                 />
 
                 <div className="relative flex items-center gap-3">
-                  <span className="inline-flex size-11 items-center justify-center rounded-2xl border border-[oklch(from_var(--card-accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.12)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)] sm:size-14">
+                  <span className="inline-flex size-11 items-center justify-center rounded-card border border-[oklch(from_var(--card-accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.12)] text-[oklch(from_var(--card-accent)_0.85_0.12_h)] [box-shadow:inset_0_1px_0_oklch(1_0_0_/_0.06)] sm:size-14">
                     <Icon size={26} strokeWidth={1.6} />
                   </span>
                   {c.label ? (
-                    <span className="ml-auto rounded-full border border-[oklch(from_var(--card-accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.1)] px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.16em] text-[oklch(from_var(--card-accent)_0.85_0.1_h)]">
+                    <span className="ml-auto rounded-full border border-[oklch(from_var(--card-accent)_l_c_h_/_0.3)] bg-[oklch(from_var(--card-accent)_l_c_h_/_0.1)] px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.06em] text-[oklch(from_var(--card-accent)_0.85_0.1_h)]">
                       {c.label}
                     </span>
                   ) : null}

@@ -82,10 +82,10 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               return (
                 <div
                   key={it.num}
-                  className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                  className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
+                    <span className="font-display text-[12px] font-bold tracking-[0.06em] text-ink-3">
                       {it.num}
                     </span>
                     <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-[oklch(0.55_0.18_25_/_0.12)] text-[oklch(0.78_0.15_25)] border border-[oklch(0.55_0.18_25_/_0.3)]">
@@ -109,9 +109,9 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
                 return (
                   <div
                     key={it.num}
-                    className="border border-line rounded-[14px] px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
+                    className="border border-line rounded-card px-4 py-3.5 bg-[oklch(0.155_0.005_300)] flex items-center gap-3.5"
                   >
-                    <span className="w-9 h-9 shrink-0 rounded-lg inline-flex items-center justify-center bg-[oklch(0.55_0.18_25_/_0.12)] text-[oklch(0.78_0.15_25)] border border-[oklch(0.55_0.18_25_/_0.3)]">
+                    <span className="w-9 h-9 shrink-0 rounded-ctl inline-flex items-center justify-center bg-[oklch(0.55_0.18_25_/_0.12)] text-[oklch(0.78_0.15_25)] border border-[oklch(0.55_0.18_25_/_0.3)]">
                       <Icon size={16} strokeWidth={1.6} />
                     </span>
                     <div className="min-w-0 flex-1 font-display font-bold text-[13px] tracking-[0.04em] uppercase text-ink leading-tight">
@@ -141,7 +141,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             {c.rightChoice.items.map((it, i) => (
               <li
                 key={i}
-                className="flex gap-4 border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)]"
+                className="flex gap-4 border border-line rounded-card p-5 bg-[oklch(0.13_0.005_300)]"
               >
                 <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-accent-15 text-accent-soft border border-accent-30">
                   <CheckCircle2 size={15} strokeWidth={1.8} />
@@ -171,7 +171,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             heading={c.compare.heading}
             sub={c.compare.sub}
           />
-          <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
+          <div className="border border-line rounded-card overflow-hidden bg-[oklch(0.155_0.005_300)]">
             <CmpTable>
               <CmpThead>
                 <tr>
@@ -224,7 +224,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             sub={c.team.sub}
           />
 
-          <h3 className="font-display text-[12px] font-bold tracking-[0.16em] uppercase text-accent-soft mb-4 text-center">
+          <h3 className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-accent-soft mb-4 text-center">
             {c.team.coreHeading}
           </h3>
           <div className="grid grid-cols-1 gap-4 mb-12 md:grid-cols-2">
@@ -233,7 +233,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               return (
                 <div
                   key={p.role}
-                  className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex gap-4 items-start"
+                  className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex gap-4 items-start"
                 >
                   <span className="w-10 h-10 shrink-0 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
                     <Icon size={18} strokeWidth={1.6} />
@@ -251,7 +251,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             })}
           </div>
 
-          <h3 className="font-display text-[12px] font-bold tracking-[0.16em] uppercase text-ink-3 mb-4 text-center max-w-[64ch] mx-auto">
+          <h3 className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-ink-3 mb-4 text-center max-w-[64ch] mx-auto">
             {c.team.partnersHeading}
           </h3>
           {/* Phones: the heading and foot line carry the point; eight partner
@@ -262,7 +262,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               return (
                 <div
                   key={p.role}
-                  className="border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)] flex flex-col gap-2"
+                  className="border border-line rounded-card p-5 bg-[oklch(0.13_0.005_300)] flex flex-col gap-2"
                 >
                   <span className="w-8 h-8 rounded-full inline-flex items-center justify-center bg-[oklch(0.18_0.005_300)] text-ink-dim border border-line">
                     <Icon size={15} strokeWidth={1.6} />
@@ -300,10 +300,10 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               return (
                 <div
                   key={it.num}
-                  className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                  className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
+                    <span className="font-display text-[12px] font-bold tracking-[0.06em] text-ink-3">
                       {it.num}
                     </span>
                     <span className="w-9 h-9 rounded-full inline-flex items-center justify-center bg-accent-12 text-accent-soft border border-accent-25">
@@ -336,7 +336,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
 
           <div className="grid grid-cols-1 gap-6 mb-12 min-[901px]:grid-cols-[1.5fr_1fr]">
             <figure className="m-0 flex flex-col">
-              <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
+              <div className="relative border border-line rounded-card overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[16/9]">
                 <AppImage
                   src="/sanity-studio/admin-desktop.png"
                   alt={c.admin.desktopAlt}
@@ -350,7 +350,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               </figcaption>
             </figure>
             <figure className="m-0 flex flex-col">
-              <div className="relative border border-line rounded-[14px] overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[9/16] max-w-[280px] mx-auto w-full">
+              <div className="relative border border-line rounded-card overflow-hidden bg-[oklch(0.13_0.005_300)] aspect-[9/16] max-w-[280px] mx-auto w-full">
                 <AppImage
                   src="/sanity-studio/admin-mobile.png"
                   alt={c.admin.mobileAlt}
@@ -372,9 +372,9 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             {c.admin.capabilities.map((cap) => (
               <div
                 key={cap.num}
-                className="border border-line rounded-[18px] p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
+                className="border border-line rounded-card p-6 bg-[oklch(0.155_0.005_300)] flex flex-col gap-3"
               >
-                <span className="font-display text-[11px] font-bold tracking-[0.18em] text-ink-3">
+                <span className="font-display text-[12px] font-bold tracking-[0.06em] text-ink-3">
                   {cap.num}
                 </span>
                 <h4 className="font-display font-bold text-[17px] tracking-[-0.01em] text-ink">
@@ -411,14 +411,14 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             ].map((col, i) => (
               <div
                 key={i}
-                className={`border rounded-[18px] p-6 flex flex-col gap-4 ${
+                className={`border rounded-card p-6 flex flex-col gap-4 ${
                   col.tone === "good"
                     ? "border-accent-30 bg-accent-6"
                     : "border-line bg-[oklch(0.155_0.005_300)]"
                 }`}
               >
                 <h3
-                  className={`font-display text-[12px] font-bold tracking-[0.16em] uppercase ${
+                  className={`font-display text-[12px] font-bold tracking-[0.06em] uppercase ${
                     col.tone === "good" ? "text-accent-soft" : "text-ink-3"
                   }`}
                 >
@@ -462,7 +462,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
             {c.filter.items.map((it, i) => (
               <li
                 key={i}
-                className="flex gap-4 border border-line rounded-[14px] p-5 bg-[oklch(0.13_0.005_300)]"
+                className="flex gap-4 border border-line rounded-card p-5 bg-[oklch(0.13_0.005_300)]"
               >
                 <span className="w-7 h-7 shrink-0 rounded-full inline-flex items-center justify-center bg-[oklch(0.55_0.18_25_/_0.12)] text-[oklch(0.7_0.18_25)] border border-[oklch(0.55_0.18_25_/_0.3)]">
                   <XCircle size={15} strokeWidth={1.8} />
@@ -511,7 +511,7 @@ export function VsFreelancersView({ locale }: { locale: VfLocale }) {
               <h3 className="font-display font-bold text-[clamp(18px,2.4vw,22px)] tracking-[-0.01em] text-ink mb-4">
                 {scenario.title}
               </h3>
-              <div className="border border-line rounded-[18px] overflow-hidden bg-[oklch(0.155_0.005_300)]">
+              <div className="border border-line rounded-card overflow-hidden bg-[oklch(0.155_0.005_300)]">
                 <CmpTable>
                   <CmpThead>
                     <tr>

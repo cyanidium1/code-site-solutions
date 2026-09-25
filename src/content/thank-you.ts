@@ -30,7 +30,7 @@ export const THANK_YOU_COPY: Record<Locale, ThankYouCopy> = {
     metaTitle: "Дякуємо — заявку прийнято | Code-Site.Art",
     metaDescription:
       "Заявка у нас. Прорахунок — пакет, ціна і строк — надішлемо протягом 24 годин у робочий час.",
-    eyebrow: "/ ЗАЯВКУ ПРИЙНЯТО",
+    eyebrow: "ЗАЯВКУ ПРИЙНЯТО",
     headingLead: "Дякуємо. Заявка ",
     headingEm: "вже у нас",
     lede:
@@ -68,7 +68,7 @@ export const THANK_YOU_COPY: Record<Locale, ThankYouCopy> = {
     metaTitle: "Спасибо — заявка принята | Code-Site.Art",
     metaDescription:
       "Заявка у нас. Расчёт — пакет, цена и срок — пришлём в течение 24 часов в рабочее время.",
-    eyebrow: "/ ЗАЯВКА ПРИНЯТА",
+    eyebrow: "ЗАЯВКА ПРИНЯТА",
     headingLead: "Спасибо. Заявка ",
     headingEm: "уже у нас",
     lede:
@@ -106,7 +106,7 @@ export const THANK_YOU_COPY: Record<Locale, ThankYouCopy> = {
     metaTitle: "Thank you — we have your enquiry | Code-Site.Art",
     metaDescription:
       "Your enquiry is in. We send the quote — package, price and timeline — within 24 hours during working hours.",
-    eyebrow: "/ ENQUIRY RECEIVED",
+    eyebrow: "ENQUIRY RECEIVED",
     headingLead: "Thank you. Your enquiry ",
     headingEm: "is with us",
     lede:

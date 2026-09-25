@@ -28,7 +28,7 @@ function GradPlaceholder({
         className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-60"
       />
       {label ? (
-        <span className="relative font-mono text-[11px] uppercase tracking-[0.14em] text-white/85">
+        <span className="relative font-mono text-[12px] uppercase tracking-[0.06em] text-white/85">
           {label}
         </span>
       ) : null}

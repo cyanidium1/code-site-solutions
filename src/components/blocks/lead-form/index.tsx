@@ -141,11 +141,11 @@ function LeadFormInner({
     return (
       <div
         id={id}
-        className="flex flex-col gap-3 p-8 border border-accent-40 rounded-[18px] bg-accent-6"
+        className="flex flex-col gap-3 p-8 border border-accent-40 rounded-card bg-accent-6"
         role="status"
       >
         <div
-          className="w-11 h-11 rounded-[14px] inline-flex items-center justify-center bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] mb-1"
+          className="w-11 h-11 rounded-card inline-flex items-center justify-center bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] mb-1"
           aria-hidden="true"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -310,8 +310,8 @@ function LeadFormInner({
           )}
 
           {!isDemo && values.config && (
-            <div className="flex flex-col gap-1.5 p-[14px] border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)]">
-              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+            <div className="flex flex-col gap-1.5 p-[14px] border border-line rounded-card bg-[oklch(1_0_0_/_0.02)]">
+              <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                 {strings.configLabel}
               </span>
               <pre className="m-0 whitespace-pre-wrap font-sans text-[13px] leading-[1.55] text-ink-dim">
@@ -373,7 +373,7 @@ function LeadFormInner({
 
           {status === "error" && (
             <div
-              className="py-3 px-4 rounded-xl bg-[oklch(0.30_0.12_25_/_0.18)] border border-[oklch(0.55_0.18_25_/_0.4)] text-[oklch(0.85_0.08_25)] text-[13px] leading-[1.5]"
+              className="py-3 px-4 rounded-ctl bg-[oklch(0.30_0.12_25_/_0.18)] border border-[oklch(0.55_0.18_25_/_0.4)] text-[oklch(0.85_0.08_25)] text-[13px] leading-[1.5]"
               role="alert"
             >
               {strings.errorBody}{" "}
@@ -388,7 +388,7 @@ function LeadFormInner({
             </div>
           )}
 
-          <p className="font-mono text-[11px] leading-[1.55] tracking-[0.02em] text-ink-3 mt-1 mb-0">
+          <p className="font-mono text-[12px] leading-[1.55] tracking-[0.02em] text-ink-3 mt-1 mb-0">
             {strings.privacy}{" "}
             {/*
               GDPR Art. 13 wants the notice available where the data is

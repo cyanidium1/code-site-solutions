@@ -48,7 +48,7 @@ function MarkerCircle({ n, size = "lg" }: { n: string; size?: "lg" | "sm" }) {
 function ColumnList({ col }: { col: TimelineColumn }) {
   return (
     <div className="flex flex-col">
-      <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 mb-3.5">
+      <div className="font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3 mb-3.5">
         {col.heading}
       </div>
       <ul className="flex flex-col gap-2.5">
@@ -127,7 +127,7 @@ export function VerticalTimeline({
                     <h3 className="font-display font-bold text-[clamp(20px,2.2vw,26px)] leading-[1.2] tracking-[-0.01em] text-ink m-0 [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
                       {s.title}
                     </h3>
-                    <span className="inline-flex items-center px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[10.5px] tracking-[0.08em] uppercase text-ink-3">
+                    <span className="inline-flex items-center px-2.5 py-1 border border-line rounded-full bg-[oklch(1_0_0_/_0.03)] font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3">
                       {s.duration}
                     </span>
                   </div>
@@ -139,7 +139,7 @@ export function VerticalTimeline({
                   {/* Phones: three checklists per step made the timeline 6.4
                       screens; they fold under one toggle (plan 2026-09-16). */}
                   <MobileFold label={detailsLabel} bodyClassName="max-lg:mt-3">
-                  <div className="grid grid-cols-1 gap-5 px-5 py-6 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] md:grid-cols-2 md:gap-6 lg:px-6 lg:py-7 lg:rounded-[18px] min-[1080px]:grid-cols-3 min-[1080px]:gap-7">
+                  <div className="grid grid-cols-1 gap-5 px-5 py-6 border border-line rounded-card bg-[oklch(1_0_0_/_0.02)] md:grid-cols-2 md:gap-6 lg:px-6 lg:py-7 lg:rounded-card min-[1080px]:grid-cols-3 min-[1080px]:gap-7">
                     <ColumnList col={s.weDo} />
                     <ColumnList col={s.youDo} />
                     <ColumnList col={s.deliverable} />

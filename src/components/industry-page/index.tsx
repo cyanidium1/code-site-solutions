@@ -1062,7 +1062,7 @@ export async function IndustryPageView({
             </div>
             <a
               href={resolveRootHref("/portfolio", locale)}
-              className="inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40"
+              className="inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-sans font-semibold text-[13px] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40"
             >
               {LABELS[locale].nicheCasesAll}
             </a>
@@ -1148,7 +1148,7 @@ export async function IndustryPageView({
                 width={1600}
                 height={1000}
                 sizes={IMG_SIZES.half}
-                className="block h-auto w-full rounded-[22px] border border-line lg:w-1/2"
+                className="block h-auto w-full rounded-frame border border-line lg:w-1/2"
               />
               <figcaption className="m-0 font-sans text-[14.5px] leading-[1.6] text-ink-dim lg:w-1/2">
                 {MED_CASE_FIGURE[locale].caption}{" "}
@@ -1255,7 +1255,7 @@ export async function IndustryPageView({
             </div>
             <a
               href={resolveRootHref("/blog", locale)}
-              className="inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40"
+              className="inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-sans font-semibold text-[13px] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40"
             >
               {LABELS[locale].articlesAll}
             </a>

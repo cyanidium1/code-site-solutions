@@ -1,7 +1,7 @@
 import type { CookiePolicyCopy } from "../en/cookie-policy";
 
 export const cookiePolicyUk: CookiePolicyCopy = {
-  eyebrow: "/ LEGAL",
+  eyebrow: "LEGAL",
   title: "Політика cookies",
   sub: "Які cookies використовує code-site.art, навіщо та як змінити свій вибір.",
   intro:

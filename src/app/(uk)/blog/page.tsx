@@ -150,7 +150,7 @@ export default async function BlogPage({
             { label: "Головна", href: "/" },
             { label: "Блог" },
           ]}
-          eyebrow="/ БЛОГ"
+          eyebrow="БЛОГ"
           headline={
             <>
               Блог — <em>розбори</em> реальних проєктів з цифрами

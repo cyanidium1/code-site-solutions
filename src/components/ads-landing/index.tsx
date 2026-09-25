@@ -78,7 +78,7 @@ export function AdsLandingView({
             )}
           >
             <div className="flex flex-col gap-5 lg:pt-6">
-              <p className="m-0 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-3">
+              <p className="m-0 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                 {c.hero.eyebrow}
               </p>
               <h1 className="m-0 font-actay text-[clamp(28px,7.4vw,40px)] font-bold uppercase leading-[1.05] text-ink lg:text-[clamp(40px,4vw,58px)]">
@@ -154,7 +154,7 @@ export function AdsLandingView({
                   return (
                     <li
                       key={cs.slug}
-                      className="overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)]"
+                      className="overflow-hidden rounded-frame border border-line bg-[oklch(1_0_0_/_0.02)]"
                     >
                       <div className="relative aspect-[4/3] overflow-hidden bg-[oklch(0.16_0.006_300)]">
                         {cs.coverImage?.asset?.url ? (
@@ -173,7 +173,7 @@ export function AdsLandingView({
                           {name}
                         </h3>
                         {meta ? (
-                          <p className="mt-1 mb-0 font-mono text-[11px] text-ink-3">{meta}</p>
+                          <p className="mt-1 mb-0 font-mono text-[12px] text-ink-3">{meta}</p>
                         ) : null}
                         {metrics.length ? (
                           <ul className="mt-4 mb-0 flex list-none flex-col gap-1.5 p-0">
@@ -203,15 +203,15 @@ export function AdsLandingView({
               <h2 className={hpH2Class}>{c.comparison.title}</h2>
               <p className={cn(hpSubClass, "mt-0")}>{c.comparison.sub}</p>
             </div>
-            <div className="overflow-x-auto rounded-2xl border border-line">
+            <div className="overflow-x-auto rounded-card border border-line">
               <table className="w-full min-w-[560px] border-collapse text-left font-sans text-[14.5px]">
                 <thead>
                   <tr>
                     <th className="border-b border-line px-4 py-3" />
-                    <th className="border-b border-line px-4 py-3 font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-accent-soft">
+                    <th className="border-b border-line px-4 py-3 font-mono text-[12px] font-normal uppercase tracking-[0.06em] text-accent-soft">
                       {c.comparison.colUs}
                     </th>
-                    <th className="border-b border-line px-4 py-3 font-mono text-[11px] font-normal uppercase tracking-[0.08em] text-ink-3">
+                    <th className="border-b border-line px-4 py-3 font-mono text-[12px] font-normal uppercase tracking-[0.06em] text-ink-3">
                       {c.comparison.colBuilder}
                     </th>
                   </tr>
@@ -242,8 +242,8 @@ export function AdsLandingView({
             </div>
             <ol className="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
               {c.process.steps.map((s) => (
-                <li key={s.days} className="flex flex-col gap-2 rounded-[18px] border border-line bg-[oklch(0.16_0.006_300)] p-5">
-                  <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-accent-soft">
+                <li key={s.days} className="flex flex-col gap-2 rounded-card border border-line bg-[oklch(0.16_0.006_300)] p-5">
+                  <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
                     {s.days}
                   </span>
                   <h3 className="m-0 font-sans text-[17px] font-semibold text-ink">{s.title}</h3>

@@ -8,7 +8,7 @@ import {
 import { getContentRegistrySafe } from "@/lib/server/i18n-registry";
 import type { Locale } from "@/types/sanity";
 import { SectionHead } from "@/components/shared/section-head";
-import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { hpInnerClass, hpSectionMajorClass } from "@/components/homepage/shared";
 
 import {
   CasesGridAndFilters,
@@ -93,7 +93,7 @@ export async function Cases({
   const pillLabels = PILL_LABELS_BY_LOCALE[locale];
 
   return (
-    <section className={hpSectionClass} id="cases">
+    <section className={hpSectionMajorClass} id="cases">
       <div className={hpInnerClass}>
         <SectionHead eyebrow={eyebrow} heading={heading} />
         <CasesGridAndFilters

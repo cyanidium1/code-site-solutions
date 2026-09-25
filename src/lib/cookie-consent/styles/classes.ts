@@ -58,7 +58,7 @@ export const overlayClass =
    of the dialog and was cut off by the screen edge (audit 2026-09-06, C7).
    Padding lives on the three slots below, not here. */
 export const dialogClass =
-  "flex w-full flex-col overflow-hidden sm:max-w-[560px] max-h-[92vh] sm:max-h-[85vh] rounded-t-[22px] sm:rounded-[22px] border border-line bg-[oklch(0.13_0.005_300)] text-ink";
+  "flex w-full flex-col overflow-hidden sm:max-w-[560px] max-h-[92vh] sm:max-h-[85vh] rounded-t-frame sm:rounded-frame border border-line bg-[oklch(0.13_0.005_300)] text-ink";
 
 export const dialogHeadClass = "shrink-0 px-6 pt-6 pb-2 sm:px-7 sm:pt-7";
 
@@ -77,7 +77,7 @@ export const categoryLabelClass = "font-sans text-[14.5px] font-semibold text-in
 export const categoryDescClass = "mt-0.5 text-[13px] leading-[1.5] text-ink-dim";
 
 export const alwaysOnClass =
-  "font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-3 whitespace-nowrap pt-1";
+  "font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3 whitespace-nowrap pt-1";
 
 /* Below sm the three actions form a 2-row grid — Reject | Accept share the
    first row, Save spans the second — so every label has room at 375px.

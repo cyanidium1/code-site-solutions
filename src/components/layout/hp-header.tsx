@@ -78,17 +78,17 @@ const navDdChevronClass =
 // the menu labelled "Послуги" listed only industries; the service pages
 // were reachable from the footer alone).
 const navDdPanelClass =
-  "absolute top-[calc(100%+34px)] left-0 w-[max-content] min-w-[520px] p-2 rounded-[14px] border border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60] grid grid-cols-2 gap-x-2";
+  "absolute top-[calc(100%+34px)] left-0 w-[max-content] min-w-[520px] p-2 rounded-card border border-line bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60] grid grid-cols-2 gap-x-2";
 const navDdColClass = "flex min-w-[240px] flex-col";
 const navDdColHeadClass =
-  "px-3 pt-1.5 pb-1 font-mono text-[11px] tracking-[0.12em] uppercase text-ink-3";
+  "px-3 pt-1.5 pb-1 font-sans text-[12px] font-semibold tracking-[0.06em] uppercase text-ink-3";
 const navDdLinkBaseClass =
-  "block px-3 py-2.5 rounded-[10px] font-sans text-[13px] font-medium normal-case text-ink-dim no-underline transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
+  "block px-3 py-2.5 rounded-ctl font-sans text-[13px] font-medium normal-case text-ink-dim no-underline transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink";
 const navDdLinkActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.1)] text-ink";
 const navDdLinkDisabledClass =
   "text-ink-3 cursor-default opacity-55 hover:bg-transparent hover:text-ink-3";
 const navDdFooterClass =
-  "block mt-1 px-3 py-2.5 rounded-[10px] border-t border-line font-mono text-[11px] tracking-[0.08em] uppercase font-semibold text-accent-soft no-underline hover:bg-[oklch(from_var(--color-accent)_l_c_h/0.12)]";
+  "block mt-1 px-3 py-2.5 rounded-ctl border-t border-line font-sans font-semibold text-[13px] text-accent-soft no-underline hover:bg-[oklch(from_var(--color-accent)_l_c_h/0.12)]";
 
 export function HpHeader() {
   const ddRef = useRef<HTMLDetailsElement>(null);

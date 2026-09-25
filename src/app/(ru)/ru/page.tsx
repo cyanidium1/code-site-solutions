@@ -11,7 +11,6 @@ import {
   PullQuoteSwiper,
   HpFooter,
 } from "@/components/homepage";
-import { LaunchCta } from "@/components/blocks/launch-cta";
 import { LeadFormSection, PackageCards, UspLine } from "@/components/blocks/packages";
 import { FounderNote } from "@/components/homepage/founder-note";
 import type { Metadata } from "next";
@@ -28,7 +27,7 @@ import { JsonLd } from "@/components/shared/json-ld";
 import { HOMEPAGE_RU as C } from "@/content/ru/homepage";
 import { fetchTestimonialSlides } from "@/lib/server/fetch-testimonials";
 import { Directions } from "@/components/homepage/directions";
-import { hpH2Class, hpInnerClass, hpSectionClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
+import { hpH2Class, hpInnerClass, hpSectionMajorClass, hpSectionHeadClass, hpSubClass } from "@/components/homepage/shared";
 
 export const metadata: Metadata = {
   title: { absolute: C.meta.title },
@@ -131,7 +130,7 @@ export default async function HomePageRu() {
       <PainPoints locale="ru" />
       <ValueStack locale="ru" />
 
-      <section className={hpSectionClass} id="pricing">
+      <section className={hpSectionMajorClass} id="pricing">
         <div className={hpInnerClass}>
           <div className={hpSectionHeadClass}>
             <h2 className={hpH2Class}>
@@ -178,8 +177,7 @@ export default async function HomePageRu() {
       <Directions {...C.directions} />
 
       <FAQ heading={C.faqHeading} items={C.faq} locale="ru" />
-      <LeadFormSection locale="ru" source="home-form" />
-      <LaunchCta locale="ru" />
+      <LeadFormSection locale="ru" source="home-form" devices />
       </main>
       <HpFooter />
     </>

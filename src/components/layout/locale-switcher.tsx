@@ -29,13 +29,13 @@ const localeChevronClass = "w-3.5 h-3.5 xl:w-3 xl:h-3";
 // Panel offset clears the glass pill's bottom edge (anchor is centered in the
 // 60px pill, so 100% + 20px ≈ 12px below the pill; was +12px on the old bar).
 const localePanelClass =
-  "hidden group-open/locale:flex absolute top-[calc(100%+20px)] right-0 min-w-[148px] p-2 border border-line rounded-[14px] " +
+  "hidden group-open/locale:flex absolute top-[calc(100%+20px)] right-0 min-w-[148px] p-2 border border-line rounded-card " +
   "bg-[oklch(from_var(--color-bg)_l_c_h/0.95)] backdrop-blur-[16px] shadow-[0_18px_48px_oklch(0_0_0/0.35),0_0_0_1px_oklch(1_0_0/0.04)_inset] z-[60] flex-col gap-0.5 " +
   "lg:min-w-[132px] lg:p-1.5";
 const localePanelItemBaseClass =
-  "inline-flex items-center w-full min-h-12 px-4 py-2.5 rounded-[10px] font-mono text-[13px] tracking-[0.14em] uppercase text-ink-dim no-underline " +
+  "inline-flex items-center w-full min-h-12 px-4 py-2.5 rounded-ctl font-mono text-[13px] tracking-[0.06em] uppercase text-ink-dim no-underline " +
   "cursor-pointer transition-[background,color] duration-150 hover:bg-[oklch(1_0_0/0.06)] hover:text-ink " +
-  "lg:min-h-11 lg:px-3 lg:py-2 lg:text-[11px] lg:tracking-[0.12em]";
+  "lg:min-h-11 lg:px-3 lg:py-2 lg:text-[12px] lg:tracking-[0.06em]";
 const localePanelItemActiveClass = "bg-[oklch(from_var(--color-accent)_l_c_h/0.12)] text-ink";
 const localePanelItemDisabledClass =
   "text-ink-3 opacity-40 cursor-not-allowed pointer-events-none hover:bg-transparent hover:text-ink-3";

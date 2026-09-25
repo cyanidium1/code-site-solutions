@@ -59,7 +59,7 @@ export function MedVitals({ locale }: { locale: Locale }) {
   return (
     <section className="med relative overflow-hidden border-y border-line bg-bg px-6 py-6 sm:px-8 lg:px-12">
       <div className="relative mx-auto flex max-w-container flex-col gap-5 lg:flex-row lg:items-center lg:gap-8">
-        <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
+        <span className="shrink-0 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
           {c.label}
         </span>
 
@@ -104,7 +104,7 @@ export function MedVitals({ locale }: { locale: Locale }) {
                   </span>
                 ) : null}
               </span>
-              <span className="font-sans text-[11px] leading-[1.3] text-ink-3">
+              <span className="font-sans text-[12px] leading-[1.3] text-ink-3">
                 {it.label}
               </span>
             </div>

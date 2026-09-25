@@ -123,7 +123,7 @@ export default function ContactsPage() {
           { label: "Головна", href: "/" },
           { label: "Контакти" },
         ]}
-        eyebrow="/ КОНТАКТИ"
+        eyebrow="КОНТАКТИ"
         headline={<>Безкоштовний прорахунок сайту за 24 години</>}
       />
 

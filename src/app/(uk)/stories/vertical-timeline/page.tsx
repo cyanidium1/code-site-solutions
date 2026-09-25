@@ -101,7 +101,7 @@ const STEPS: TimelineStep[] = [
 export default function VerticalTimelineStory() {
   return (
     <VerticalTimeline
-      eyebrow="/ STORY"
+      eyebrow="STORY"
       heading={
         <>
           7 кроків від <em>брифу</em> до запуску

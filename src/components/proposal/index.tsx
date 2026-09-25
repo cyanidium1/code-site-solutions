@@ -72,7 +72,7 @@ export async function buildProposalMetadata(slug: string): Promise<Metadata> {
 function MetaRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-1">
-      <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-3">
+      <dt className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
         {label}
       </dt>
       <dd className="text-[14px] leading-[1.5] text-ink">{value}</dd>
@@ -119,11 +119,11 @@ export async function ProposalView({ slug }: { slug: string }) {
           йти, окрім як вниз до наступного кроку. */}
       <header className="border-b border-line">
         <div className="mx-auto flex max-w-[960px] flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-8">
-          <span className="font-actay text-[13px] uppercase tracking-[0.08em] text-ink">
+          <span className="font-actay text-[13px] uppercase tracking-[0.06em] text-ink">
             Code-Site.Art
           </span>
           {doc.client?.name ? (
-            <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+            <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
               {t.proposalFor} {doc.client.name}
             </span>
           ) : null}
@@ -133,7 +133,7 @@ export async function ProposalView({ slug }: { slug: string }) {
       <main className="mx-auto max-w-[960px] px-5 pb-24 pt-10 sm:px-8 sm:pt-16">
         <div className="flex flex-col gap-6">
           {doc.hero?.eyebrow ? (
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-soft">
+            <p className="font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
               {doc.hero.eyebrow}
             </p>
           ) : null}
@@ -184,7 +184,7 @@ export async function ProposalView({ slug }: { slug: string }) {
                   href={`#${entry.id}`}
                   className="inline-flex min-h-9 items-center gap-2 rounded-full border border-line px-3.5 text-[12px] text-ink-dim no-underline transition hover:border-line-strong hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
-                  <span className="font-mono text-[10px] text-ink-3">{i + 1}</span>
+                  <span className="font-mono text-[12px] text-ink-3">{i + 1}</span>
                   {entry.label}
                 </a>
               ))}

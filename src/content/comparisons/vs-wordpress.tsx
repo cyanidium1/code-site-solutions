@@ -164,7 +164,7 @@ export const VS_WORDPRESS_UK: Content = {
   metaTitle: `Міграція з WordPress на код: сайт за ${bizTerm("uk")}`,
   metaDescription: `Переносимо сайт з WordPress на Next.js: сайт для бізнесу — ${biz("uk")}, ${bizTerm("uk")}. SEO і контент зберігаємо. Гарантія рік, код ваш.`,
   hero: {
-    eyebrowLabel: "/ ПОРІВНЯННЯ · WORDPRESS",
+    eyebrowLabel: "ПОРІВНЯННЯ · WORDPRESS",
     h1Lines: [
       <>WordPress був правий у 2015. Не у 2026.</>,
       <em key="hero-em">
@@ -189,7 +189,7 @@ export const VS_WORDPRESS_UK: Content = {
     ctaSecondary: "Подивитись як ми мігруємо",
   },
   costs: {
-    eyebrow: "/ 02 ПРИХОВАНІ ВИТРАТИ",
+    eyebrow: "02 ПРИХОВАНІ ВИТРАТИ",
     heading: (
       <>
         Скільки насправді коштує <em>сайт на WordPress.</em>
@@ -251,7 +251,7 @@ export const VS_WORDPRESS_UK: Content = {
     ),
   },
   compare: {
-    eyebrow: "/ 03 ПОРІВНЯННЯ",
+    eyebrow: "03 ПОРІВНЯННЯ",
     heading: (
       <>
         WordPress vs Code-Site. <em>Чесно.</em>
@@ -308,7 +308,7 @@ export const VS_WORDPRESS_UK: Content = {
     ],
   },
   caseStudy: {
-    eyebrow: "/ 04 РЕАЛЬНА МІГРАЦІЯ",
+    eyebrow: "04 РЕАЛЬНА МІГРАЦІЯ",
     heading: (
       <>
         NBYG København. <em>З WordPress на Next.js за 6 тижнів.</em>
@@ -349,7 +349,7 @@ export const VS_WORDPRESS_UK: Content = {
     ctaHref: "/portfolio/nbyg-kobenhavn",
   },
   seo: {
-    eyebrow: "/ 05 SEO-АНКСІЯ",
+    eyebrow: "05 SEO-АНКСІЯ",
     heading: (
       <>
         «А що буде з моїм SEO?» <em>Нічого. Усе залишається.</em>
@@ -403,7 +403,7 @@ export const VS_WORDPRESS_UK: Content = {
       "Перші 30 днів після запуску ми моніторимо ваш Search Console щодня. Якщо щось іде не так — фіксимо в той самий день. Це включено в гарантію.",
   },
   admin: {
-    eyebrow: "/ 06 АДМІНКА",
+    eyebrow: "06 АДМІНКА",
     heading: (
       <>
         Sanity Studio. <em>Адмінка, з якою працюєш — а не воюєш.</em>
@@ -511,7 +511,7 @@ export const VS_WORDPRESS_UK: Content = {
     ),
   },
   process: {
-    eyebrow: "/ 07 ПРОЦЕС МІГРАЦІЇ",
+    eyebrow: "07 ПРОЦЕС МІГРАЦІЇ",
     heading: (
       <>
         Як це відбувається. <em>5 кроків.</em>
@@ -551,7 +551,7 @@ export const VS_WORDPRESS_UK: Content = {
     ],
   },
   filter: {
-    eyebrow: "/ 08 ЧЕСНО",
+    eyebrow: "08 ЧЕСНО",
     heading: (
       <>
         Чого ми <em>не робимо.</em>
@@ -575,7 +575,7 @@ export const VS_WORDPRESS_UK: Content = {
     foot: "Якщо ваш випадок не з цього списку — надішліть посилання. У безкоштовному аудиті за 24 години скажемо, чи підходимо ми, чи варто шукати іншого виконавця.",
   },
   pricing: {
-    eyebrow: "/ 09 ВАРТІСТЬ МІГРАЦІЇ",
+    eyebrow: "09 ВАРТІСТЬ МІГРАЦІЇ",
     heading: (
       <>
         Скільки коштує <em>піти з WordPress.</em>
@@ -588,7 +588,7 @@ export const VS_WORDPRESS_UK: Content = {
     ctaSecondary: "Поговорити зі спеціалістом",
   },
   faq: {
-    eyebrow: "/ 10 ЧАСТІ ПИТАННЯ",
+    eyebrow: "10 ЧАСТІ ПИТАННЯ",
     heading: (
       <>
         Що питають <em>найчастіше.</em>
@@ -630,7 +630,7 @@ export const VS_WORDPRESS_UK: Content = {
     ],
   },
   cta: {
-    eyebrow: "/ 11 ГОТОВІ ПЕРЕЇХАТИ?",
+    eyebrow: "11 ГОТОВІ ПЕРЕЇХАТИ?",
     heading: (
       <>
         Розрахуйте міграцію <em>за 60 секунд.</em>
@@ -673,7 +673,7 @@ export const VS_WORDPRESS_EN: Content = {
   metaTitle: `Move off WordPress: custom-coded site in ${bizTerm("en")}`,
   metaDescription: `WordPress to custom code: a business website for ${biz("en")} in ${bizTerm("en")}. SEO and content carried over. One-year warranty, you own the code.`,
   hero: {
-    eyebrowLabel: "/ COMPARE · WORDPRESS",
+    eyebrowLabel: "COMPARE · WORDPRESS",
     h1Lines: [
       <>WordPress was the right call in 2015. Not in 2026.</>,
       <em key="hero-em">
@@ -698,7 +698,7 @@ export const VS_WORDPRESS_EN: Content = {
     ctaSecondary: "See how we migrate",
   },
   costs: {
-    eyebrow: "/ 02 HIDDEN COSTS",
+    eyebrow: "02 HIDDEN COSTS",
     heading: (
       <>
         What WordPress <em>actually costs you.</em>
@@ -761,7 +761,7 @@ export const VS_WORDPRESS_EN: Content = {
     ),
   },
   compare: {
-    eyebrow: "/ 03 SIDE BY SIDE",
+    eyebrow: "03 SIDE BY SIDE",
     heading: (
       <>
         WordPress vs Code-Site. <em>Honest.</em>
@@ -818,7 +818,7 @@ export const VS_WORDPRESS_EN: Content = {
     ],
   },
   caseStudy: {
-    eyebrow: "/ 04 REAL MIGRATION",
+    eyebrow: "04 REAL MIGRATION",
     heading: (
       <>
         NBYG København. <em>From WordPress to Next.js in 6 weeks.</em>
@@ -856,7 +856,7 @@ export const VS_WORDPRESS_EN: Content = {
     ctaHref: "/en/portfolio/nbyg-kobenhavn",
   },
   seo: {
-    eyebrow: "/ 05 THE SEO QUESTION",
+    eyebrow: "05 THE SEO QUESTION",
     heading: (
       <>
         “What about my SEO?” <em>Nothing happens. It all stays.</em>
@@ -910,7 +910,7 @@ export const VS_WORDPRESS_EN: Content = {
       "For the first 30 days post-launch, we watch your Search Console daily. If something goes sideways, we fix it the same day. It's covered under your warranty.",
   },
   admin: {
-    eyebrow: "/ 06 THE ADMIN",
+    eyebrow: "06 THE ADMIN",
     heading: (
       <>
         Sanity Studio. <em>The admin you work with, not against.</em>
@@ -1018,7 +1018,7 @@ export const VS_WORDPRESS_EN: Content = {
     ),
   },
   process: {
-    eyebrow: "/ 07 HOW WE MIGRATE",
+    eyebrow: "07 HOW WE MIGRATE",
     heading: (
       <>
         How it works. <em>5 steps.</em>
@@ -1058,7 +1058,7 @@ export const VS_WORDPRESS_EN: Content = {
     ],
   },
   filter: {
-    eyebrow: "/ 08 STRAIGHT TALK",
+    eyebrow: "08 STRAIGHT TALK",
     heading: (
       <>
         What we <em>don&apos;t do.</em>
@@ -1082,7 +1082,7 @@ export const VS_WORDPRESS_EN: Content = {
     foot: "If your case isn't on this list, send us the link. The audit is free and comes within 24 hours — we'll tell you if we're a fit or if you should look elsewhere.",
   },
   pricing: {
-    eyebrow: "/ 09 MIGRATION PRICING",
+    eyebrow: "09 MIGRATION PRICING",
     heading: (
       <>
         What it costs to <em>leave WordPress.</em>
@@ -1095,7 +1095,7 @@ export const VS_WORDPRESS_EN: Content = {
     ctaSecondary: "Talk to a migration specialist",
   },
   faq: {
-    eyebrow: "/ 10 FAQ",
+    eyebrow: "10 FAQ",
     heading: (
       <>
         What people <em>ask most.</em>
@@ -1137,7 +1137,7 @@ export const VS_WORDPRESS_EN: Content = {
     ],
   },
   cta: {
-    eyebrow: "/ 11 READY TO MIGRATE?",
+    eyebrow: "11 READY TO MIGRATE?",
     heading: (
       <>
         Get a migration estimate <em>in 60 seconds.</em>

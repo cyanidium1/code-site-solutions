@@ -144,7 +144,7 @@ export function IndustryHero({
                     <div className="text-balance font-actay text-[clamp(13px,1.35vw,16px)] font-bold uppercase leading-[1.15] tracking-[-0.02em] text-ink">
                       {s.num}
                     </div>
-                    <div className="mt-1.5 max-w-[24ch] font-mono text-[10px] uppercase leading-[1.45] tracking-[0.05em] text-ink-3">
+                    <div className="mt-1.5 max-w-[24ch] font-mono text-[12px] uppercase leading-[1.45] tracking-[0.05em] text-ink-3">
                       {s.lbl}
                     </div>
                   </div>

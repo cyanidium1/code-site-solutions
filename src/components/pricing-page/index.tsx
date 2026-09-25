@@ -168,7 +168,7 @@ function CtaLine({ copy }: { copy: PricingCopy }) {
 function ServicesList({ copy }: { copy: PricingCopy }) {
   const s = copy.services;
   return (
-    <div className="overflow-hidden rounded-2xl border border-line">
+    <div className="overflow-hidden rounded-card border border-line">
       <dl className="m-0">
         {s.rows.map((row) => (
           <div
@@ -192,7 +192,7 @@ function CompareTable({ copy }: { copy: PricingCopy }) {
   const [param, ours, wp, builder] = c.headers;
   return (
     <>
-      <div className="overflow-hidden rounded-2xl border border-line">
+      <div className="overflow-hidden rounded-card border border-line">
         <CmpTable>
           <CmpThead>
             <tr>

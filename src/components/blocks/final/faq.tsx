@@ -77,13 +77,6 @@ const DEFAULT_FAQ_UK: FAQItem[] = [
   },
 ];
 
-// FAQ section backdrop — layered relative-color OKLCH radial gradients.
-// Same `oklch(from var(--color-accent) l c h / 0.06)` pattern as the
-// rest of the refactor; uses `--color-*` (the `@theme` tokens), not
-// the legacy `--accent` aliases.
-const FAQ_BG =
-  "bg-[radial-gradient(ellipse_40%_50%_at_5%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.06),transparent_70%),radial-gradient(ellipse_40%_60%_at_95%_80%,oklch(from_var(--color-accent-2)_l_c_h_/_0.05),transparent_70%)]";
-
 // Row markup + its class stack live in ./faq-item so the /faq hub page
 // renders identical accordions.
 
@@ -157,7 +150,6 @@ export function FAQ({
 
   return (
     <section className={hpSectionClass}>
-      <div className={`absolute inset-0 z-0 pointer-events-none ${FAQ_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className="mb-7 text-ink uppercase md:mb-12">
           {resolvedHeading}
@@ -183,7 +175,7 @@ export function FAQ({
             <button
               type="button"
               onClick={() => setExpanded((v) => !v)}
-              className="inline-flex items-center gap-2.5 min-h-11 px-6 py-3 border border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] font-mono text-[11px] tracking-[0.14em] uppercase text-ink-dim cursor-pointer hover:border-accent-soft hover:text-ink transition-colors duration-200"
+              className="inline-flex items-center gap-2.5 min-h-11 px-6 py-3 border border-line-strong rounded-full bg-[oklch(1_0_0_/_0.02)] font-sans font-semibold text-[13px] text-ink-dim cursor-pointer hover:border-accent-soft hover:text-ink transition-colors duration-200"
               aria-expanded={expanded}
             >
               {toggleLabel}

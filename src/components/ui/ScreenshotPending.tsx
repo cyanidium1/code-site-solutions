@@ -16,12 +16,12 @@ export function ScreenshotPending({
   return (
     <div
       className={cn(
-        "relative grid aspect-[16/9] w-full place-items-center overflow-hidden rounded-2xl",
+        "relative grid aspect-[16/9] w-full place-items-center overflow-hidden rounded-card",
         "bg-[linear-gradient(135deg,#1a1620,#2a1f3a)]",
         className,
       )}
     >
-      <span className="font-mono text-xs uppercase tracking-wider text-ink-muted">
+      <span className="font-mono text-xs uppercase tracking-[0.04em] text-ink-muted">
         {label}
       </span>
     </div>

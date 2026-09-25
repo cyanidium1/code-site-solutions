@@ -42,10 +42,10 @@
   "Footer": {
     "brandDesc": "Custom-coded websites for small businesses. A team of 4, 25+ projects in Denmark, South Africa, Albania and Ukraine. Fixed price, you own the code.",
     "currencyNote": "Prices in EUR. Invoices in EUR, USD or GBP on request.",
-    "solutionsHeading": "/ SOLUTIONS",
-    "companyHeading": "/ COMPANY",
-    "compareHeading": "/ COMPARE",
-    "legalHeading": "/ LEGAL",
+    "solutionsHeading": "SOLUTIONS",
+    "companyHeading": "COMPANY",
+    "compareHeading": "COMPARE",
+    "legalHeading": "LEGAL",
     "solutions": {
       "healthcare": "Healthcare",
       "renovation": "Construction / Renovation",
@@ -118,7 +118,7 @@
     "pageHero": {
       "breadcrumbHome": "Home",
       "breadcrumbSelf": "Calculator",
-      "eyebrow": "/ CALCULATOR",
+      "eyebrow": "CALCULATOR",
       "title": "Website calculator: <em>a fixed price in a minute</em>",
       "sub": "Three steps: package, add-ons, price. No multipliers, no \"price on request\" — the figure you see is the figure in the contract."
     },

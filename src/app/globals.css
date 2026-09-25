@@ -47,8 +47,8 @@
 
   --color-ink: oklch(0.97 0.005 300);
   --color-ink-dim: oklch(0.78 0.012 300);
-  --color-ink-3: oklch(0.55 0.01 300);
-  --color-ink-muted: oklch(0.55 0.01 70);
+  --color-ink-3: oklch(0.62 0.01 300);
+  --color-ink-muted: oklch(0.62 0.01 70);
 
   --color-line: oklch(1 0 0 / 0.08);
   --color-line-strong: oklch(1 0 0 / 0.14);
@@ -95,6 +95,22 @@
   --spacing-section-y: 56px;         /* mobile baseline */
   --spacing-section-y-md: 36px;      /* tight variant mobile */
   --spacing-section-y-lg: 72px;      /* lg variant mobile */
+
+  /* Radius system (DESIGN.md → Shapes, 2026-09-25). The site had grown
+     twelve radii (6/8/10/12/14/16/18/20/22/24/26px + full). Three roles plus
+     the pill; generates `rounded-ctl`, `rounded-card`, `rounded-frame`.
+     Named by role, not size, so they never collide with Tailwind's own
+     `rounded-sm/md/lg` scale that older call sites still use.
+       ctl   — inputs, selects, menu rows, small controls, tables' inner bits
+       card  — cards, panels, FAQ rows, the form shell, the pricing sheet
+       frame — large media: case photos, photo cells beside text
+     Migration is per component, not a project-wide find/replace. */
+  --radius-ctl: 10px;
+  --radius-card: 18px;
+  --radius-frame: 26px;
+
+  /* Section rhythm, three tiers (DESIGN.md → Layout). Consumed through
+     `hpSectionClass` / `hpSectionMajorClass` / `hpSectionCompactClass`. */
 
   /* Shadows */
   --shadow-accent-glow:
@@ -243,6 +259,24 @@ h3 em {
   padding-inline-end: 0.16em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
+  /* DESIGN.md «The No Italic Swap Rule»: an <em> in a heading is never
+     italic. Unlayered on purpose — it beats every `[&_em]:italic` utility
+     still sitting in block class strings. */
+  font-style: normal;
+}
+
+/* DESIGN.md «The One Highlight Rule» (2026-09-25): a coloured / gradient
+   highlight inside display type belongs to the page's H1 only. Every section
+   H2 used to paint its second half violet, which made the whole site read as
+   one repeated template. H2/H3 <em> keeps its semantics and weight, loses the
+   colour. Unlayered so it beats the `[&_em]:bg-clip-text text-transparent`
+   utilities in the per-block heading classes. */
+h2 em,
+h3 em {
+  padding-inline-end: 0;
+  background: none;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
 }
 
 h1,

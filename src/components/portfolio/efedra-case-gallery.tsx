@@ -25,7 +25,7 @@ export type EfedraGalleryTile = {
 
 // Tailwind utility strings extracted to constants to keep the JSX readable.
 const FIGURE_CLASS =
-  "relative m-0 aspect-[16/10] overflow-hidden rounded-[22px] border border-line bg-[oklch(0.08_0.02_280)] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2";
+  "relative m-0 aspect-[16/10] overflow-hidden rounded-frame border border-line bg-[oklch(0.08_0.02_280)] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2";
 
 // Плитку можна відкрити на весь екран, але без підказки вона читається як
 // частина декору — особливо коли зображення вписане і навколо є поля.
@@ -33,7 +33,7 @@ const ZOOM_BADGE_CLASS =
   "pointer-events-none absolute right-3 top-3 z-[2] inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-[oklch(0_0_0/0.55)] text-[oklch(1_0_0/0.85)] backdrop-blur-sm";
 
 const CAPTION_CLASS =
-  "pointer-events-none absolute inset-x-0 bottom-0 z-[2] bg-[linear-gradient(transparent,oklch(0_0_0/0.65))] px-3.5 py-2.5 font-mono text-[11px] tracking-[0.06em] text-[oklch(1_0_0/0.92)]";
+  "pointer-events-none absolute inset-x-0 bottom-0 z-[2] bg-[linear-gradient(transparent,oklch(0_0_0/0.65))] px-3.5 py-2.5 font-mono text-[12px] tracking-[0.06em] text-[oklch(1_0_0/0.92)]";
 
 export function EfedraCaseGallery({ tiles }: { tiles: EfedraGalleryTile[] }) {
   const [lightboxIndex, setLightboxIndex] = useState(-1);

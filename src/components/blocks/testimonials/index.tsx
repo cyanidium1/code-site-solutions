@@ -53,7 +53,7 @@ export function TestimonialCards({
           {items.map((s) => (
             <li
               key={s.key}
-              className="flex flex-col gap-4 rounded-[18px] border border-line bg-[oklch(0.16_0.006_300)] p-5 md:p-6"
+              className="flex flex-col gap-4 rounded-card border border-line bg-[oklch(0.16_0.006_300)] p-5 md:p-6"
             >
               <blockquote className="m-0 flex-1 font-sans text-[15px] leading-[1.6] text-ink">
                 «{s.quote}»

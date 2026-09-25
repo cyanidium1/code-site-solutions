@@ -36,7 +36,7 @@ export function StackTable({
   return (
     <div
       className={cn(
-        "md:overflow-x-auto md:rounded-2xl md:border md:border-line",
+        "md:overflow-x-auto md:rounded-card md:border md:border-line",
         capped &&
           "max-md:[&_tbody>tr:nth-child(n+5)]:hidden max-md:[&:has(>input:checked)_tbody>tr]:!block max-md:[&:has(>input:checked)>label]:hidden",
         className,
@@ -51,7 +51,7 @@ export function StackTable({
             {headers.map((h) => (
               <th
                 key={h}
-                className="border-b border-line px-5 py-3.5 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-ink-3"
+                className="border-b border-line px-5 py-3.5 font-mono text-[12px] font-medium uppercase tracking-[0.06em] text-ink-3"
               >
                 {h}
               </th>
@@ -62,7 +62,7 @@ export function StackTable({
           {rows.map((row, ri) => (
             <tr
               key={ri}
-              className="border-b border-line last:border-b-0 max-md:block max-md:rounded-xl max-md:border max-md:border-line max-md:bg-[oklch(1_0_0_/_0.015)] max-md:px-4 max-md:py-3 max-md:last:border-b"
+              className="border-b border-line last:border-b-0 max-md:block max-md:rounded-ctl max-md:border max-md:border-line max-md:bg-[oklch(1_0_0_/_0.015)] max-md:px-4 max-md:py-3 max-md:last:border-b"
             >
               {row.map((cell, ci) => (
                 <td
@@ -72,7 +72,7 @@ export function StackTable({
                     "px-5 py-3.5 align-top font-sans text-[13.5px] leading-[1.5] max-md:block max-md:p-0",
                     ci === 0
                       ? "font-semibold text-ink max-md:mb-1.5 max-md:text-[14.5px]"
-                      : "text-ink-dim max-md:mt-1 max-md:before:mr-1.5 max-md:before:font-mono max-md:before:text-[10.5px] max-md:before:uppercase max-md:before:tracking-[0.08em] max-md:before:text-ink-3 max-md:before:content-[attr(data-label)]",
+                      : "text-ink-dim max-md:mt-1 max-md:before:mr-1.5 max-md:before:font-mono max-md:before:text-[12px] max-md:before:uppercase max-md:before:tracking-[0.06em] max-md:before:text-ink-3 max-md:before:content-[attr(data-label)]",
                     accentCol === ci && "font-mono font-semibold text-accent-soft md:whitespace-nowrap",
                   )}
                 >
@@ -86,7 +86,7 @@ export function StackTable({
       {capped ? (
         <label
           htmlFor={id}
-          className="md:hidden mt-2.5 flex min-h-11 cursor-pointer items-center justify-center rounded-xl border border-dashed border-line-strong font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-accent"
+          className="md:hidden mt-2.5 flex min-h-11 cursor-pointer items-center justify-center rounded-ctl border border-dashed border-line-strong font-sans font-semibold text-[13px] text-accent-soft peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-accent"
         >
           {moreLabel!(rows.length - PHONE_ROWS)}
         </label>

@@ -63,7 +63,7 @@ export function GeneratedCover({
       />
       <div className={caseCoverDotsClass} />
       <div className="absolute inset-0 flex flex-col justify-between p-6">
-        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[oklch(1_0_0/0.55)]">
+        <div className="flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.06em] text-[oklch(1_0_0/0.55)]">
           <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.72_0.16_295)] shadow-[0_0_8px_oklch(0.72_0.16_295/0.8)]" />
           {category ?? "BLOG"}
         </div>
@@ -72,7 +72,7 @@ export function GeneratedCover({
         </div>
         <div className="flex items-center justify-between">
           <span className="h-[5px] w-16 rounded-full bg-[linear-gradient(90deg,oklch(0.55_0.18_250),oklch(0.55_0.18_295),oklch(0.5_0.19_320))]" />
-          <span className="font-mono text-[10px] tracking-[0.14em] text-[oklch(1_0_0/0.35)]">
+          <span className="font-mono text-[12px] tracking-[0.06em] text-[oklch(1_0_0/0.35)]">
             {brand}
           </span>
         </div>
@@ -85,13 +85,13 @@ export function GeneratedCover({
 // (e.g. case-page/index.tsx) that compose their own JSX out of the same
 // hp-case-* visual primitives.
 export const caseLinkClass =
-  "group/case block overflow-hidden rounded-[22px] border border-line bg-[oklch(1_0_0_/_0.02)] text-inherit no-underline transition-[transform,border-color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:border-line-strong";
+  "group/case block overflow-hidden rounded-frame border border-line bg-[oklch(1_0_0_/_0.02)] text-inherit no-underline transition-[transform,border-color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:border-line-strong";
 export const caseCoverClass = "relative aspect-[4/3] overflow-hidden";
 export const caseCoverBgClass = "absolute inset-0";
 export const caseCoverDotsClass =
   "absolute inset-0 [background-image:radial-gradient(circle,oklch(1_0_0_/_0.10)_1px,transparent_1px)] [background-size:20px_20px] opacity-50";
 export const caseShotClass =
-  "absolute inset-7 overflow-hidden rounded-[10px] border border-[oklch(1_0_0_/_0.12)] bg-[oklch(0_0_0_/_0.30)] backdrop-blur-md";
+  "absolute inset-7 overflow-hidden rounded-ctl border border-[oklch(1_0_0_/_0.12)] bg-[oklch(0_0_0_/_0.30)] backdrop-blur-md";
 export const caseShotBarClass =
   "flex items-center gap-1.5 border-b border-[oklch(1_0_0_/_0.10)] px-3 py-2";
 export const caseShotDotClass = "h-[7px] w-[7px] rounded-full bg-[oklch(1_0_0_/_0.25)]";
@@ -103,7 +103,7 @@ export const caseShotLineS3 = cn(caseShotLineClass, "w-[48%] bg-[oklch(1_0_0_/_0
 export const caseBodyClass = "px-6 py-[22px]";
 export const caseChipsClass = "flex flex-wrap gap-1.5";
 export const caseChipClass =
-  "inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-2 py-[3px] font-mono text-[10.5px] text-ink-3";
+  "inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-2 py-[3px] font-mono text-[12px] text-ink-3";
 export const caseNameRowClass = "mt-3.5 flex items-start justify-between gap-3";
 // Line-clamps below prevent layout shift when card sets swap behind a filter
 // (homepage Cases pills, /portfolio dropdowns): all variable text regions
@@ -113,7 +113,7 @@ export const caseNameClass =
   "font-actay uppercase text-xl font-semibold leading-[1.2] text-ink line-clamp-2";
 export const caseArrowClass =
   "shrink-0 text-ink-3 transition-[transform,color] duration-[0.25s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/case:translate-x-1 group-hover/case:-translate-y-1 group-hover/case:text-ink";
-export const caseMetaClass = "mt-1 font-mono text-[11px] text-ink-3 line-clamp-2";
+export const caseMetaClass = "mt-1 font-mono text-[12px] text-ink-3 line-clamp-2";
 export const caseMetricsClass = "mt-4 text-[13px] leading-[1.55] text-ink-dim line-clamp-3";
 // 3-up grid wrapper. Used by Cases (homepage), case-page related grid,
 // portfolio listings. 2-up from 640 (iPad mini portrait is 744): a single
@@ -189,7 +189,7 @@ export function RelatedCard({
         </>
       )}
       {disabled ? (
-        <span className="absolute right-3.5 top-3.5 rounded-full border border-[oklch(1_0_0/0.18)] bg-[oklch(0_0_0/0.4)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[oklch(1_0_0/0.85)] backdrop-blur-md">
+        <span className="absolute right-3.5 top-3.5 rounded-full border border-[oklch(1_0_0/0.18)] bg-[oklch(0_0_0/0.4)] px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.06em] text-[oklch(1_0_0/0.85)] backdrop-blur-md">
           Coming soon
         </span>
       ) : null}

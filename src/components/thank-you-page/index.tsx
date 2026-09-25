@@ -58,10 +58,10 @@ export function ThankYouPage({ locale }: { locale: Locale }) {
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_18%_0%,oklch(from_var(--color-accent)_l_c_h_/_0.14),transparent_70%)]"
           />
           <div className={hpInnerClass}>
-            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-[16px] bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)]">
+            <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-card bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)]">
               {CHECK}
             </div>
-            <p className="m-0 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
+            <p className="m-0 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
               {copy.eyebrow}
             </p>
             <H1 variant="page-hero" className="mt-4 max-w-[18ch] text-ink">
@@ -91,7 +91,7 @@ export function ThankYouPage({ locale }: { locale: Locale }) {
                     i > 0 ? "md:border-l md:pl-7" : ""
                   } ${i > 0 ? "md:pr-7" : "md:pr-7"}`}
                 >
-                  <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-accent-soft">
+                  <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
                     {s.when}
                   </span>
                   <h3 className="m-0 mt-3 font-actay text-[19px] font-bold uppercase leading-[1.15] tracking-[-0.02em] text-ink">
@@ -108,7 +108,7 @@ export function ThankYouPage({ locale }: { locale: Locale }) {
 
         <section className="bg-bg px-6 pb-11 sm:px-8 sm:pb-14 lg:px-12 lg:pb-20">
           <div className={hpInnerClass}>
-            <div className="rounded-[20px] border border-line bg-[oklch(1_0_0_/_0.02)] p-6 sm:p-8">
+            <div className="rounded-card border border-line bg-[oklch(1_0_0_/_0.02)] p-6 sm:p-8">
               <h2 className="m-0 font-actay text-[22px] font-bold uppercase leading-[1.1] tracking-[-0.02em] text-ink sm:text-[26px]">
                 {copy.fasterHeading}
               </h2>
@@ -141,7 +141,7 @@ export function ThankYouPage({ locale }: { locale: Locale }) {
 
         <section className="bg-bg px-6 pb-14 sm:px-8 lg:px-12 lg:pb-24">
           <div className={hpInnerClass}>
-            <h2 className="m-0 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">
+            <h2 className="m-0 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
               {copy.nextHeading}
             </h2>
             <div className="mt-5 grid grid-cols-1 gap-0 sm:grid-cols-2 lg:grid-cols-4">
@@ -164,7 +164,7 @@ export function ThankYouPage({ locale }: { locale: Locale }) {
             </div>
             <Link
               href={localizePath("/", locale)}
-              className="mt-8 inline-flex min-h-11 items-center rounded-full border border-line-strong px-5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:border-accent-40 hover:text-accent-soft"
+              className="mt-8 inline-flex min-h-11 items-center rounded-full border border-line-strong px-5 font-sans font-semibold text-[13px] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:border-accent-40 hover:text-accent-soft"
             >
               {copy.homeLabel}
             </Link>

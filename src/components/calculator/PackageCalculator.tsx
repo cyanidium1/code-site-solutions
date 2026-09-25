@@ -41,7 +41,7 @@ type Pkg = EstimateInput["pkg"];
 const PACKAGE_CHOICES: Pkg[] = ["landing", "business", "shop", "industry"];
 
 const STEP_LABEL =
-  "m-0 mb-1 font-mono text-[11px] uppercase tracking-[0.12em] text-accent-soft";
+  "m-0 mb-1 font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft";
 const STEP_HINT = "m-0 mb-4 text-[13px] leading-[1.5] text-ink-3";
 
 const CHIP =
@@ -52,7 +52,7 @@ const CHIP_ON = "border-accent-55 bg-accent-12 text-ink";
 const BTN_PRIMARY =
   "inline-flex w-full items-center justify-center rounded-full border-none " +
   "bg-[linear-gradient(135deg,var(--color-accent-soft),var(--color-accent))] text-[oklch(1_0_0_/_0.98)] " +
-  "px-[18px] py-[14px] font-sans text-[12px] font-bold uppercase tracking-[0.1em] no-underline cursor-pointer " +
+  "px-[18px] py-[14px] font-sans text-[12px] font-bold uppercase tracking-[0.06em] no-underline cursor-pointer " +
   "shadow-[0_6px_18px_oklch(from_var(--color-accent)_l_c_h_/_0.3)] transition-[transform,box-shadow] duration-200 " +
   "hover:-translate-y-[1px] hover:shadow-[0_10px_24px_oklch(from_var(--color-accent)_l_c_h_/_0.4)] " +
   "focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-2";
@@ -155,7 +155,7 @@ export function PackageCalculator({
   const summary = (
     <aside
       id="calc-summary"
-      className="xl:sticky xl:top-24 flex flex-col gap-4 rounded-[18px] border border-line-strong bg-[oklch(0.15_0.006_300)] p-5 md:p-6"
+      className="xl:sticky xl:top-24 flex flex-col gap-4 rounded-card border border-line-strong bg-[oklch(0.15_0.006_300)] p-5 md:p-6"
     >
       <p className={STEP_LABEL}>{ui.step3}</p>
       <dl className="m-0 flex flex-col gap-2 text-[13.5px]">
@@ -185,7 +185,7 @@ export function PackageCalculator({
         ) : null}
       </dl>
       <div className="border-t border-line pt-4">
-        <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-3">{ui.total}</div>
+        <div className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">{ui.total}</div>
         <div className="font-sans text-[34px] font-bold leading-none tracking-[-0.02em] tabular-nums bg-[linear-gradient(180deg,var(--color-accent-soft),var(--color-accent))] bg-clip-text text-transparent">
           {f(result.total)}
         </div>
@@ -263,7 +263,7 @@ export function PackageCalculator({
                       <li key={id}>
                         <label
                           className={cn(
-                            "flex min-h-[52px] cursor-pointer items-center gap-3 rounded-[14px] border border-line bg-[oklch(0.18_0.008_300)] px-[14px] py-[10px] transition-[border-color] duration-200 hover:border-line-strong",
+                            "flex min-h-[52px] cursor-pointer items-center gap-3 rounded-card border border-line bg-[oklch(0.18_0.008_300)] px-[14px] py-[10px] transition-[border-color] duration-200 hover:border-line-strong",
                             on && "border-accent-55 bg-accent-12",
                           )}
                         >
@@ -362,12 +362,12 @@ export function PackageCalculator({
         )}
       >
         <span className="flex flex-col leading-tight">
-          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-3">
+          <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
             {ui.mobileTotal} · {formatDays(result.days, locale)}
           </span>
           <strong className="font-sans text-[19px] font-bold tabular-nums text-ink">{f(result.total)}</strong>
         </span>
-        <span className="inline-flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-accent-soft">
+        <span className="inline-flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[0.06em] text-accent-soft">
           {ui.fix}
           <ChevronRight size={16} />
         </span>

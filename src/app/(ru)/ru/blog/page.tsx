@@ -147,7 +147,7 @@ export default async function RuBlogPage({
             { label: "Главная", href: "/ru" },
             { label: "Блог" },
           ]}
-          eyebrow="/ БЛОГ"
+          eyebrow="БЛОГ"
           headline={
             <>
               Блог — <em>разборы</em> реальных проектов с цифрами

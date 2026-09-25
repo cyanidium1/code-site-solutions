@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import type { Locale } from "@/constants/locales";
 import { resolveRootHref } from "@/constants/i18n-routes";
 import { AppImage } from "@/lib/shared/app-image";
-import { hpInnerClass, hpSectionClass } from "@/components/homepage/shared";
+import { hpInnerClass, hpSectionCompactClass } from "@/components/homepage/shared";
 
 /**
  * One real face on the homepage. The studio sells "the developer builds your
@@ -40,13 +40,13 @@ const COPY: Record<Locale, { eyebrow: string; title: string; body: string; link:
 export function FounderNote({ locale = "uk" }: { locale?: Locale }) {
   const c = COPY[locale];
   return (
-    <section className={hpSectionClass}>
+    <section className={hpSectionCompactClass}>
       <div className={hpInnerClass}>
         {/* A full-width panel on the container grid: the text block used to
             stop at 880px and leave the right half of the row empty. The link
             becomes a button on the panel's right edge from lg. */}
-        <div className="grid grid-cols-[96px_1fr] items-center gap-x-5 gap-y-4 rounded-[26px] border border-line bg-[oklch(1_0_0_/_0.02)] p-5 sm:grid-cols-[140px_1fr] sm:gap-x-8 sm:p-7 lg:grid-cols-[180px_1fr_auto] lg:gap-x-10 lg:p-8">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line-strong">
+        <div className="grid grid-cols-[96px_1fr] items-center gap-x-5 gap-y-4 rounded-frame border border-line bg-[oklch(1_0_0_/_0.02)] p-5 sm:grid-cols-[140px_1fr] sm:gap-x-8 sm:p-7 lg:grid-cols-[180px_1fr_auto] lg:gap-x-10 lg:p-8">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-card border border-line-strong">
             <AppImage
               src="/team/fedir.jpg"
               alt={c.alt}
@@ -64,7 +64,7 @@ export function FounderNote({ locale = "uk" }: { locale?: Locale }) {
             </p>
             <Link
               href={resolveRootHref("/about", locale)}
-              className="mt-5 hidden items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft no-underline hover:text-ink sm:inline-flex lg:hidden"
+              className="mt-5 hidden items-center gap-2 font-sans font-semibold text-[13px] text-accent-soft no-underline hover:text-ink sm:inline-flex lg:hidden"
             >
               {c.link}
               <ArrowRight size={14} aria-hidden="true" />
@@ -72,7 +72,7 @@ export function FounderNote({ locale = "uk" }: { locale?: Locale }) {
           </div>
           <Link
             href={resolveRootHref("/about", locale)}
-            className="hidden items-center gap-2 self-center whitespace-nowrap rounded-full border border-line px-5 py-3 font-mono text-[12px] uppercase tracking-[0.08em] text-ink no-underline transition-[border-color,color] duration-200 hover:border-accent-40 hover:text-accent-soft lg:inline-flex"
+            className="hidden items-center gap-2 self-center whitespace-nowrap rounded-full border border-line px-5 py-3 font-sans font-semibold text-[13px] text-ink no-underline transition-[border-color,color] duration-200 hover:border-accent-40 hover:text-accent-soft lg:inline-flex"
           >
             {c.link}
             <ArrowRight size={14} aria-hidden="true" />
@@ -80,7 +80,7 @@ export function FounderNote({ locale = "uk" }: { locale?: Locale }) {
           <p className="col-span-2 m-0 text-[14px] leading-[1.6] text-ink-dim sm:hidden">{c.body}</p>
           <Link
             href={resolveRootHref("/about", locale)}
-            className="col-span-2 inline-flex items-center gap-2 whitespace-nowrap font-mono text-[12px] uppercase tracking-[0.08em] text-accent-soft no-underline hover:text-ink sm:hidden"
+            className="col-span-2 inline-flex items-center gap-2 whitespace-nowrap font-sans font-semibold text-[13px] text-accent-soft no-underline hover:text-ink sm:hidden"
           >
             {c.link}
             <ArrowRight size={14} aria-hidden="true" />

@@ -26,7 +26,7 @@ const BENEFIT_ROW_REVERSE_ORDER =
 const BENEFIT_TEXT = "px-0 xl:px-2";
 
 const BENEFIT_ROW_NUM =
-  "font-mono text-[11px] text-ink-3 tracking-[0.08em] mb-3.5 inline-flex items-center gap-2.5 before:content-[''] before:w-[22px] before:h-px before:bg-accent-soft";
+  "font-mono text-[12px] text-ink-3 tracking-[0.06em] mb-3.5 inline-flex items-center gap-2.5 before:content-[''] before:w-[22px] before:h-px before:bg-accent-soft";
 
 const BENEFIT_H3 =
   "font-display font-bold text-[22px] leading-[1.1] tracking-[-0.025em] mb-6 text-ink text-balance max-w-full md:text-[clamp(24px,2.6vw,32px)] xl:max-w-[18ch] [&_em]:italic [&_em]:font-light [&_em]:text-accent-soft";
@@ -87,7 +87,7 @@ export function Outcome({
         {recapEyebrow || recapText ? (
           <div className="max-w-[760px] mx-auto mb-14 text-center relative xl:mb-20">
             {recapEyebrow ? (
-              <div className="inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-line-strong rounded-full text-[11px] font-medium tracking-[0.12em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-7">
+              <div className="inline-flex items-center gap-2.5 pl-3 pr-3.5 py-[7px] border border-line-strong rounded-full text-[12px] font-medium tracking-[0.06em] text-ink-dim bg-[oklch(1_0_0_/_0.025)] mb-7">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
                 <span>{recapEyebrow}</span>
               </div>
@@ -101,9 +101,9 @@ export function Outcome({
         ) : null}
 
         {/* Directions card */}
-        <article className={`relative border border-line-strong rounded-[18px] bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] px-5 py-6 mb-14 overflow-hidden md:p-8 md:mb-20 md:rounded-3xl xl:pt-11 xl:px-12 xl:pb-11 xl:mb-[120px] before:content-[''] before:absolute before:top-0 before:right-0 before:w-[200px] before:h-[200px] before:pointer-events-none csb-outcome-quote-glow`}>
+        <article className={`relative border border-line-strong rounded-card bg-[linear-gradient(180deg,oklch(1_0_0_/_0.02),oklch(1_0_0_/_0.005))] px-5 py-6 mb-14 overflow-hidden md:p-8 md:mb-20 md:rounded-frame xl:pt-11 xl:px-12 xl:pb-11 xl:mb-[120px] before:content-[''] before:absolute before:top-0 before:right-0 before:w-[200px] before:h-[200px] before:pointer-events-none csb-outcome-quote-glow`}>
           {directionsEyebrow ? (
-            <div className="inline-flex items-center gap-2.5 font-mono text-[10px] tracking-[0.12em] text-accent-soft uppercase mb-3.5 before:content-[''] before:w-[22px] before:h-px before:bg-accent-soft">
+            <div className="inline-flex items-center gap-2.5 font-mono text-[12px] tracking-[0.06em] text-accent-soft uppercase mb-3.5 before:content-[''] before:w-[22px] before:h-px before:bg-accent-soft">
               {directionsEyebrow}
             </div>
           ) : null}
@@ -115,7 +115,7 @@ export function Outcome({
           </p>
           <div className="grid grid-cols-1 gap-7 pt-[22px] border-t border-dashed border-line md:grid-cols-2 md:gap-8 md:pt-7 xl:gap-12">
             <div>
-              <h4 className="font-display text-[11px] font-bold tracking-[0.15em] uppercase text-ink-3 mb-[18px] flex items-center gap-2.5">
+              <h4 className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-ink-3 mb-[18px] flex items-center gap-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.65_0.05_60)]" />
                 {replaceLabel}
               </h4>
@@ -131,7 +131,7 @@ export function Outcome({
               </ul>
             </div>
             <div>
-              <h4 className="font-display text-[11px] font-bold tracking-[0.15em] uppercase text-ink-3 mb-[18px] flex items-center gap-2.5">
+              <h4 className="font-display text-[12px] font-bold tracking-[0.06em] uppercase text-ink-3 mb-[18px] flex items-center gap-2.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-soft shadow-[0_0_8px_var(--color-accent-soft)]" />
                 {allowedLabel}
               </h4>
@@ -165,7 +165,7 @@ export function Outcome({
             rendering an empty gradient frame for industries that don't ship
             a hero metric. */}
         {hasHero ? (
-          <div className={`grid grid-cols-1 gap-[22px] items-center px-[22px] py-6 mb-8 border border-accent-35 rounded-[18px] csb-outcome-callout relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] md:gap-7 md:p-8 md:rounded-3xl xl:grid-cols-2 xl:gap-12 xl:py-11 xl:px-12 before:content-[''] before:absolute before:top-[-40%] before:right-[-20%] before:w-[60%] before:h-[180%] before:pointer-events-none`}>
+          <div className={`grid grid-cols-1 gap-[22px] items-center px-[22px] py-6 mb-8 border border-accent-35 rounded-card csb-outcome-callout relative overflow-hidden shadow-[0_30px_60px_oklch(from_var(--color-accent)_l_c_h_/_0.18)] md:gap-7 md:p-8 md:rounded-frame xl:grid-cols-2 xl:gap-12 xl:py-11 xl:px-12 before:content-[''] before:absolute before:top-[-40%] before:right-[-20%] before:w-[60%] before:h-[180%] before:pointer-events-none`}>
             <div className="relative z-[2]">
               <div className="font-display font-bold text-[48px] leading-[0.85] tracking-[-0.05em] bg-brand-gradient bg-clip-text text-transparent tabular-nums mb-3.5 md:text-[clamp(52px,7vw,80px)] min-[1080px]:text-[clamp(56px,8vw,96px)]">
                 {benefitHeroValue}
@@ -173,7 +173,7 @@ export function Outcome({
               <div className="text-[14px] leading-[1.5] text-ink font-medium mb-2 md:text-[15px]">
                 {benefitHeroLede}
               </div>
-              <div className="font-mono text-[11px] text-ink-3 tracking-[0.04em]">
+              <div className="font-mono text-[12px] text-ink-3 tracking-[0.04em]">
                 {benefitHeroSource}
               </div>
             </div>

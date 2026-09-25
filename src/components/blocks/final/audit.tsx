@@ -138,7 +138,7 @@ export function Audit({
           </p>
         </div>
         <form
-          className="px-5 py-[22px] max-w-[460px] border border-line-strong rounded-2xl bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] flex flex-col gap-3 md:px-7 md:py-7 md:pt-8 md:rounded-[22px] xl:max-w-none"
+          className="px-5 py-[22px] max-w-[460px] border border-line-strong rounded-card bg-[oklch(0.13_0.005_300_/_0.7)] backdrop-blur-[8px] flex flex-col gap-3 md:px-7 md:py-7 md:pt-8 md:rounded-frame xl:max-w-none"
           onSubmit={onSubmit}
         >
           <HoneypotField value={hp} onChange={setHp} />
@@ -192,7 +192,7 @@ export function Audit({
               Не вдалося надіслати. Спробуйте ще раз або напишіть напряму.
             </div>
           ) : null}
-          <div className="text-[11px] leading-[1.5] text-ink-3 mt-2">
+          <div className="text-[12px] leading-[1.5] text-ink-3 mt-2">
             {disclaim}
           </div>
         </form>

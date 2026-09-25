@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { ScrollReveal } from "@/components/homepage/scroll-reveal";
 
 import "./medicine.css";
 
@@ -52,7 +51,7 @@ export function MedDiagnosis({
       <div className="med-streaks" />
 
       <div className="relative mx-auto max-w-container">
-        <ScrollReveal className="med-reveal">
+        <div>
           <div className="grid grid-cols-1 gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             {heading ? (
               <h2 className="m-0 max-w-[20ch] font-actay text-[clamp(24px,3.2vw,42px)] font-bold uppercase leading-[1.08] text-ink [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent">
@@ -64,7 +63,7 @@ export function MedDiagnosis({
                 {metaRows.map((m) => (
                   <span
                     key={m}
-                    className="font-mono text-[11px] leading-[1.5] text-ink-3"
+                    className="font-mono text-[12px] leading-[1.5] text-ink-3"
                   >
                     {m}
                   </span>
@@ -72,21 +71,21 @@ export function MedDiagnosis({
               </div>
             ) : null}
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* Ruled sheet — one row per finding, no cards */}
         <div className="mt-10 border-t border-line lg:mt-14">
           {items.map((it, i) => (
-            <ScrollReveal
+            <div
               key={it.n || i}
-              className="med-reveal grid grid-cols-1 gap-x-10 gap-y-4 border-b border-line py-7 lg:grid-cols-[92px_minmax(0,1fr)_260px] lg:py-9"
+              className="grid grid-cols-1 gap-x-10 gap-y-4 border-b border-line py-7 lg:grid-cols-[92px_minmax(0,1fr)_260px] lg:py-9"
             >
               {/* Left margin: index + tag */}
               <div className="flex items-baseline gap-3 lg:flex-col lg:items-start lg:gap-2">
                 <span className="font-actay text-[30px] font-bold leading-none text-ink-3 lg:text-[38px]">
                   {it.n}
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-3">
+                <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                   {it.tag}
                 </span>
               </div>
@@ -110,14 +109,14 @@ export function MedDiagnosis({
                   <span className="max-w-[26ch] font-sans text-[12px] leading-[1.4] text-ink-3">
                     {it.stat.lbl}
                     {it.stat.src ? (
-                      <span className="mt-1 block font-mono text-[10px] text-ink-muted">
+                      <span className="mt-1 block font-mono text-[12px] text-ink-muted">
                         {it.stat.src}
                       </span>
                     ) : null}
                   </span>
                 </div>
               ) : null}
-            </ScrollReveal>
+            </div>
           ))}
         </div>
 
@@ -131,7 +130,7 @@ export function MedDiagnosis({
             {footCtaLabel ? (
               <Link
                 href={footCtaHref}
-                className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:border-accent-40 hover:text-accent-soft"
+                className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-sans font-semibold text-[13px] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:border-accent-40 hover:text-accent-soft"
               >
                 {footCtaLabel}
               </Link>

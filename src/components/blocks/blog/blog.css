@@ -68,7 +68,7 @@
   @apply font-actay text-ink font-bold uppercase;
   font-size: clamp(26px, 3vw, 34px);
   line-height: 1.2;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   margin-top: 56px;
   margin-bottom: 16px;
 }
@@ -76,14 +76,14 @@
   @apply font-actay text-ink font-semibold uppercase;
   font-size: clamp(20px, 2.2vw, 24px);
   line-height: 1.25;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   margin-top: 40px;
   margin-bottom: 12px;
 }
 .blog-prose .blog-h4 {
   @apply font-actay text-ink font-semibold uppercase;
   font-size: 17px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   margin-top: 28px;
   margin-bottom: 8px;
 }
@@ -164,7 +164,7 @@
   @apply w-full border border-line;
   border-collapse: collapse;
   margin: 28px auto;
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   font-size: 13px;
 }
@@ -178,8 +178,8 @@
 .blog-table tr:last-child td { border-bottom: none; }
 .blog-table th {
   @apply font-display font-bold uppercase text-ink-3 border-b border-line-strong;
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  font-size: 12px;
+  letter-spacing: 0.06em;
   background: oklch(1 0 0 / 0.02);
 }
 .blog-table td {
@@ -198,19 +198,20 @@
   .blog-table td { padding: 14px 18px; }
 }
 
-/* ─── TL;DR box — light accent-bordered callout ─────────────────────────── */
+/* ─── TL;DR box — tinted panel with a hairline accent frame (was a 3px
+   left side-tab until 2026-09-25) ─────────────────────────── */
 .blog-tldr {
-  @apply border-l-[3px] border-accent;
+  @apply border border-accent-30;
   margin: 32px auto;
   padding: 22px 26px;
   background: oklch(from var(--color-accent) l c h / 0.06);
-  border-radius: 0 14px 14px 0;
+  border-radius: var(--radius-card);
 }
 .blog-tldr-title {
   @apply block font-mono font-semibold uppercase text-accent-soft;
   margin: 0 0 12px;
-  font-size: 11px;
-  letter-spacing: 0.12em;
+  font-size: 12px;
+  letter-spacing: 0.06em;
 }
 .blog-tldr ul {
   margin: 0;
@@ -238,7 +239,7 @@
   @apply relative border border-line text-center overflow-hidden;
   margin: 40px auto;
   padding: 24px 20px;
-  border-radius: 22px;
+  border-radius: var(--radius-frame);
   background: oklch(1 0 0 / 0.02);
 }
 .blog-cta::before {
@@ -255,8 +256,8 @@
   padding: 5px 11px;
   border-radius: 999px;
   background: oklch(1 0 0 / 0.03);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
+  font-size: 12px;
+  letter-spacing: 0.06em;
   margin-bottom: 14px;
 }
 .blog-cta-heading {
@@ -264,7 +265,7 @@
   margin: 0 0 8px;
   font-size: clamp(22px, 2.4vw, 28px);
   line-height: 1.2;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 .blog-cta-sub {
   @apply relative text-ink-dim;
@@ -312,7 +313,7 @@
 .blog-video-frame {
   @apply relative w-full overflow-hidden border border-line;
   aspect-ratio: 16 / 9;
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   background: oklch(0 0 0 / 0.6);
 }
 .blog-video-iframe {
@@ -335,7 +336,7 @@
   transform: translate(-50%, -50%);
   width: 72px;
   height: 52px;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   background: oklch(0 0 0 / 0.65);
   border: 1px solid oklch(1 0 0 / 0.2);
   transition: background-color 0.2s, transform 0.2s;
@@ -359,7 +360,7 @@
 }
 .blog-image img {
   @apply w-full border border-line object-cover;
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   max-height: 360px;
 }
 .blog-image figcaption {

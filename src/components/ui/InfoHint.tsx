@@ -70,7 +70,7 @@ export function InfoHint({ text, label = "More info" }: InfoHintProps) {
           role="tooltip"
           className={
             "absolute z-50 left-1/2 -translate-x-1/2 bottom-[calc(100%+6px)] " +
-            "w-[220px] max-w-[60vw] rounded-[10px] border border-line " +
+            "w-[220px] max-w-[60vw] rounded-ctl border border-line " +
             "bg-[oklch(0.14_0.005_300)] px-3 py-2 text-[12px] leading-[1.45] text-ink-dim " +
             "shadow-[0_8px_24px_oklch(0_0_0_/_0.4)] pointer-events-none"
           }

@@ -62,9 +62,9 @@ function SectionHead({ heading, sub }: { heading: string | [string, string]; sub
   );
 }
 
-const CARD = "rounded-[18px] border border-line bg-[oklch(0.16_0.006_300)] p-5 md:p-6";
+const CARD = "rounded-card border border-line bg-[oklch(0.16_0.006_300)] p-5 md:p-6";
 const LINK_PILL =
-  "inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline " +
+  "inline-flex items-center gap-2 min-h-11 py-2.5 px-5 border border-line-strong rounded-full font-sans font-semibold text-[13px] text-ink-dim no-underline " +
   "transition-[color,border-color] duration-200 hover:text-accent-soft hover:border-accent-40";
 
 export async function MoneyPageView({
@@ -111,7 +111,7 @@ export async function MoneyPageView({
           <div>
             <nav
               aria-label="Breadcrumbs"
-              className="mb-6 flex flex-wrap items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim [&_a]:text-ink-dim [&_a]:no-underline [&_a:hover]:text-ink"
+              className="mb-6 flex flex-wrap items-center gap-2 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-dim [&_a]:text-ink-dim [&_a]:no-underline [&_a:hover]:text-ink"
             >
               {crumbs.map((c, i) => (
                 <span key={c.label} className="contents">
@@ -176,7 +176,7 @@ export async function MoneyPageView({
             <ol className="m-0 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2 xl:grid-cols-4">
               {content.process.steps.map((s) => (
                 <li key={s.when} className={CARD}>
-                  <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent-soft">{s.when}</div>
+                  <div className="font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">{s.when}</div>
                   <h3 className="mt-3 mb-0 font-actay text-[17px] font-bold uppercase leading-[1.2] text-ink">{s.title}</h3>
                   <p className="mt-3 mb-0 font-sans text-[14.5px] leading-[1.6] text-ink-dim">{nb(s.body)}</p>
                 </li>
@@ -284,7 +284,7 @@ export async function MoneyPageView({
                   >
                     <Link
                       href={casePath(story.slug)}
-                      className="relative block overflow-hidden rounded-2xl border border-line-strong bg-surface"
+                      className="relative block overflow-hidden rounded-card border border-line-strong bg-surface"
                     >
                       {image ? (
                         <div className="relative aspect-[16/10]">
@@ -301,7 +301,7 @@ export async function MoneyPageView({
                       )}
                     </Link>
                     <div>
-                      <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-3">{story.kicker}</div>
+                      <div className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">{story.kicker}</div>
                       <h3 className="mt-3 mb-0 font-actay text-[clamp(20px,2.2vw,28px)] font-bold uppercase leading-[1.2] text-ink">
                         {story.title}
                       </h3>
@@ -318,7 +318,7 @@ export async function MoneyPageView({
                       <div className="mt-6 flex flex-wrap items-end gap-5">
                         <div>
                           <div className="font-actay text-[34px] font-bold leading-none text-ink">{story.stat.value}</div>
-                          <div className="mt-1.5 font-mono text-[11px] tracking-[0.06em] text-ink-3">{story.stat.label}</div>
+                          <div className="mt-1.5 font-mono text-[12px] tracking-[0.06em] text-ink-3">{story.stat.label}</div>
                         </div>
                         <Link href={casePath(story.slug)} className={LINK_PILL}>
                           {story.ctaLabel}
@@ -379,7 +379,7 @@ export async function MoneyPageView({
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
               {content.hub.groups.map((g) => (
                 <div key={g.title}>
-                  <h3 className="m-0 mb-4 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-3">
+                  <h3 className="m-0 mb-4 font-mono text-[12px] font-medium uppercase tracking-[0.06em] text-ink-3">
                     {g.title}
                   </h3>
                   <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
@@ -387,7 +387,7 @@ export async function MoneyPageView({
                       <li key={l.href}>
                         <Link
                           href={l.href}
-                          className="group flex items-start justify-between gap-4 rounded-xl border border-line px-4 py-3 no-underline transition-colors duration-200 hover:border-accent-40"
+                          className="group flex items-start justify-between gap-4 rounded-ctl border border-line px-4 py-3 no-underline transition-colors duration-200 hover:border-accent-40"
                         >
                           <span>
                             <span className="block font-sans text-[14.5px] font-semibold leading-[1.35] text-ink">

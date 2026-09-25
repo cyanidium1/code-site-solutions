@@ -52,7 +52,7 @@ const LABEL_BASE = "text-ink-dim font-medium text-[13px] tracking-[0.005em]";
 const REQUIRED_STAR_CLASS = "text-accent-soft";
 
 const WRAPPER_BASE =
-  "flex rounded-xl border border-line-strong bg-[oklch(0.16_0.005_300/0.7)] " +
+  "flex rounded-ctl border border-line-strong bg-[oklch(0.16_0.005_300/0.7)] " +
   "transition-[border-color,background-color] duration-200 " +
   "hover:border-ink-3 hover:bg-[oklch(0.16_0.005_300/0.9)] " +
   "focus-within:border-accent-soft focus-within:bg-[oklch(0.18_0.01_300/0.95)] " +

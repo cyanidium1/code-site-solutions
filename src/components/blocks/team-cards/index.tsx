@@ -112,7 +112,7 @@ function SocialIcon({ kind }: { kind: TeamSocialKind }) {
 
 function TeamCard({ m }: { m: TeamMember }) {
   return (
-    <article className="relative flex flex-col basis-[65vw] grow-0 shrink-0 max-w-[280px] snap-start border border-line rounded-[22px] bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-line-strong hover:-translate-y-0.5 lg:basis-auto lg:grow lg:shrink lg:max-w-none lg:snap-none">
+    <article className="relative flex flex-col basis-[65vw] grow-0 shrink-0 max-w-[280px] snap-start border border-line rounded-frame bg-[oklch(1_0_0_/_0.02)] overflow-hidden transition-[border-color,transform] duration-[250ms] ease-out-soft hover:border-line-strong hover:-translate-y-0.5 lg:basis-auto lg:grow lg:shrink lg:max-w-none lg:snap-none">
       <div className="aspect-square overflow-hidden relative bg-[linear-gradient(135deg,oklch(0.30_0.10_290)_0%,oklch(0.20_0.06_270)_100%)] flex items-center justify-center">
         {m.photo ? (
           <AppImage
@@ -134,7 +134,7 @@ function TeamCard({ m }: { m: TeamMember }) {
           </span>
         )}
         {m.tag ? (
-          <span className="absolute bottom-3.5 left-3.5 inline-flex items-center gap-1.5 px-2.5 py-[5px] rounded-full border border-[oklch(1_0_0_/_0.14)] bg-[oklch(0_0_0_/_0.4)] backdrop-blur-[8px] font-mono text-[10px] tracking-[0.12em] uppercase text-ink before:content-[''] before:w-[5px] before:h-[5px] before:rounded-full before:bg-[oklch(0.7_0.16_145)] before:shadow-[0_0_6px_oklch(0.7_0.16_145_/_0.6)]">
+          <span className="absolute bottom-3.5 left-3.5 inline-flex items-center gap-1.5 px-2.5 py-[5px] rounded-full border border-[oklch(1_0_0_/_0.14)] bg-[oklch(0_0_0_/_0.4)] backdrop-blur-[8px] font-mono text-[12px] tracking-[0.06em] uppercase text-ink before:content-[''] before:w-[5px] before:h-[5px] before:rounded-full before:bg-[oklch(0.7_0.16_145)] before:shadow-[0_0_6px_oklch(0.7_0.16_145_/_0.6)]">
             {m.tag}
           </span>
         ) : null}
@@ -143,11 +143,11 @@ function TeamCard({ m }: { m: TeamMember }) {
         <h3 className="font-display font-semibold text-[17px] tracking-[-0.01em] text-ink lg:text-[19px]">
           {m.name}
         </h3>
-        <div className="mt-1 font-mono text-[10.5px] tracking-[0.12em] uppercase text-accent-soft">
+        <div className="mt-1 font-mono text-[12px] tracking-[0.06em] uppercase text-accent-soft">
           {m.role}
         </div>
         {(m.experience || m.location) && (
-          <div className="mt-3.5 flex flex-wrap gap-x-2.5 gap-y-1.5 font-mono text-[11px] text-ink-3">
+          <div className="mt-3.5 flex flex-wrap gap-x-2.5 gap-y-1.5 font-mono text-[12px] text-ink-3">
             {m.experience ? <span>{m.experience}</span> : null}
             {m.experience && m.location ? (
               <span className="text-line-strong">·</span>
@@ -170,7 +170,7 @@ function TeamCard({ m }: { m: TeamMember }) {
             </span>
           </blockquote>
         ) : m.socials && m.socials.length > 0 ? (
-          <div className="flex gap-3 mt-4.5 pt-4 border-t border-line [&_a]:text-ink-3 [&_a]:inline-flex [&_a]:items-center [&_a]:justify-center [&_a]:w-7 [&_a]:h-7 [&_a]:rounded-lg [&_a]:transition-[color,background] [&_a]:duration-200 [&_a:hover]:text-ink [&_a:hover]:bg-[oklch(1_0_0_/_0.04)]">
+          <div className="flex gap-3 mt-4.5 pt-4 border-t border-line [&_a]:text-ink-3 [&_a]:inline-flex [&_a]:items-center [&_a]:justify-center [&_a]:w-7 [&_a]:h-7 [&_a]:rounded-ctl [&_a]:transition-[color,background] [&_a]:duration-200 [&_a:hover]:text-ink [&_a:hover]:bg-[oklch(1_0_0_/_0.04)]">
             {m.socials.map((s, i) => (
               <a
                 key={i}
@@ -225,7 +225,7 @@ export function TeamCards({
         {groupList.map((g, gi) => (
           <div className={cn(gi > 0 && "mt-14")} key={gi}>
             {g.label ? (
-              <div className="mb-6 font-mono text-[11px] tracking-[0.14em] uppercase text-ink-3 flex items-center gap-3 after:content-[''] after:flex-1 after:h-px after:bg-line">
+              <div className="mb-6 font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3 flex items-center gap-3 after:content-[''] after:flex-1 after:h-px after:bg-line">
                 <span>{g.label}</span>
               </div>
             ) : null}

@@ -186,7 +186,7 @@ const MODAL_BASE =
   // Centered top-layer panel. `m-auto` centers because a modal dialog's
   // default position is a fixed-pos grid over the viewport.
   "m-auto w-[calc(100vw-2rem)] flex-col max-h-[calc(100dvh-4rem)] " +
-  "rounded-[22px] border border-line bg-[oklch(0.13_0.005_300)] text-ink p-0 " +
+  "rounded-frame border border-line bg-[oklch(0.13_0.005_300)] text-ink p-0 " +
   // display:flex only while open — <dialog> must stay display:none when closed.
   "open:flex " +
   // Entry/exit: fade + slight scale. @starting-style drives the entry; the

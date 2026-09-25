@@ -149,7 +149,7 @@ export const LOCAL_SEO_UK: LandingPageContent = {
   },
 
   price: {
-    eyebrow: "/ ЦІНА",
+    eyebrow: "ЦІНА",
     heading: ["Скільки коштує ", "локальне SEO"],
     cells: [
       {

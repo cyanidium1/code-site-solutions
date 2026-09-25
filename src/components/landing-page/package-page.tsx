@@ -110,7 +110,7 @@ function packagePageJsonLd(c: PackagePageContent, locale: Locale) {
 
 const LIST_CLASS = "m-0 flex list-none flex-col gap-3 p-0";
 const LI_CLASS = "flex items-start gap-2.5 font-sans text-[15px] leading-[1.55]";
-const CARD_CLASS = "rounded-2xl border border-line p-5 md:rounded-[22px] md:p-7";
+const CARD_CLASS = "rounded-card border border-line p-5 md:rounded-frame md:p-7";
 
 function Bullets({ items, tone }: { items: string[]; tone: "yes" | "no" }) {
   const Icon = tone === "yes" ? Check : Minus;
@@ -170,16 +170,15 @@ export async function PackagePageView({
         </div>
         <div className="relative mx-auto grid max-w-container grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_0.92fr] lg:gap-12 xl:grid-cols-[1.05fr_0.95fr] xl:gap-16">
           <div>
-            <nav aria-label="breadcrumb" className="mb-5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+            <nav aria-label="breadcrumb" className="mb-5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
               <Link href={localizePath("/", locale)} className="text-ink-3 no-underline hover:text-ink">
                 {c.breadcrumbHome}
               </Link>
               <span aria-hidden> / </span>
               <span>{c.breadcrumbSelf}</span>
             </nav>
-            <p className="m-0 mb-4 font-mono text-[11.5px] uppercase tracking-[0.14em] text-accent-soft">
-              {c.eyebrow}
-            </p>
+            {/* No eyebrow: «Пакет «Лендінг»» above an H1 that opens with the same
+                name only repeated it (DESIGN.md, 2026-09-25). */}
             <h1 className="m-0 font-actay text-[clamp(28px,4.2vw,50px)] font-bold uppercase leading-[1.08] text-ink [text-wrap:balance]">
               {c.h1}
             </h1>
@@ -187,18 +186,8 @@ export async function PackagePageView({
               {c.sub}
             </p>
             <UspLine locale={locale} className="mt-5 max-w-[540px]" />
-            <div className="mt-8 grid max-w-[520px] grid-cols-2 gap-x-7 gap-y-6 max-lg:hidden">
-              {c.badges.map((b, i) => (
-                <div key={b.label} className={i % 2 === 1 ? "border-l border-line pl-7" : ""}>
-                  <div className="font-actay text-[15px] font-bold uppercase leading-[1.15] text-ink">
-                    {b.label}
-                  </div>
-                  <div className="mt-1.5 font-mono text-[10.5px] uppercase tracking-[0.06em] text-ink-3">
-                    {b.sub}
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* The 2×2 badge grid (price / term / warranty / code) is gone: the
+                H1 already carries price and term, UspLine the other two. */}
           </div>
           <LeadFormCard locale={locale} source={source} tier={c.pkg} />
         </div>
@@ -210,13 +199,13 @@ export async function PackagePageView({
           <SectionHead heading={c.composition.heading} />
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.4fr_1fr] lg:gap-6">
             <div className={CARD_CLASS}>
-              <h3 className="m-0 mb-5 font-mono text-[12px] font-normal uppercase tracking-[0.1em] text-ink-3">
+              <h3 className="m-0 mb-5 font-mono text-[12px] font-normal uppercase tracking-[0.06em] text-ink-3">
                 {c.composition.includesTitle}
               </h3>
               <Bullets items={pkg.includes[locale]} tone="yes" />
             </div>
             <div className={CARD_CLASS}>
-              <h3 className="m-0 mb-5 font-mono text-[12px] font-normal uppercase tracking-[0.1em] text-ink-3">
+              <h3 className="m-0 mb-5 font-mono text-[12px] font-normal uppercase tracking-[0.06em] text-ink-3">
                 {c.composition.excludesTitle}
               </h3>
               <Bullets items={pkg.excludes[locale]} tone="no" />
@@ -258,7 +247,7 @@ export async function PackagePageView({
           <ol className="m-0 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2 xl:grid-cols-4">
             {c.process.steps.map((s) => (
               <li key={s.from} className={CARD_CLASS}>
-                <div className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-accent-soft">
+                <div className="font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
                   {DAY_LABEL[locale](s.from, s.to)}
                 </div>
                 <h3 className="m-0 mt-3 font-actay text-[17px] font-bold uppercase leading-[1.2] text-ink">
@@ -278,7 +267,7 @@ export async function PackagePageView({
             <SectionHead heading={c.compare.heading} sub={c.compare.sub} />
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
               <div className={CARD_CLASS}>
-                <h3 className="m-0 font-mono text-[12px] font-normal uppercase tracking-[0.1em] text-ink-3">
+                <h3 className="m-0 font-mono text-[12px] font-normal uppercase tracking-[0.06em] text-ink-3">
                   {c.compare.theirsTitle}
                 </h3>
                 <p className="m-0 mt-4 font-actay text-[clamp(18px,1.8vw,22px)] font-bold uppercase leading-[1.25] text-ink">
@@ -300,7 +289,7 @@ export async function PackagePageView({
                 </div>
               </div>
               <div className={`${CARD_CLASS} border-accent-40`}>
-                <h3 className="m-0 font-mono text-[12px] font-normal uppercase tracking-[0.1em] text-accent-soft">
+                <h3 className="m-0 font-mono text-[12px] font-normal uppercase tracking-[0.06em] text-accent-soft">
                   {c.compare.oursTitle}
                 </h3>
                 <p className="m-0 mt-4 font-actay text-[clamp(18px,1.8vw,22px)] font-bold uppercase leading-[1.25] text-ink">
@@ -311,7 +300,7 @@ export async function PackagePageView({
                 </div>
               </div>
             </div>
-            <p className="m-0 mt-5 font-mono text-[11px] uppercase tracking-[0.06em] text-ink-3">
+            <p className="m-0 mt-5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
               {c.compare.checked}
             </p>
           </div>

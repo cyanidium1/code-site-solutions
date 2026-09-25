@@ -14,7 +14,7 @@ import {
 import { TeamSection } from "@/components/about/team-section";
 import { FAQ } from "@/components/blocks/final";
 import { LaunchCta } from "@/components/blocks/launch-cta";
-import { HpHeader, HpFooter, Marquee, PullQuote } from "@/components/homepage";
+import { HpHeader, HpFooter, PullQuote } from "@/components/homepage";
 import { OG_DEFAULT_IMAGE, ORG_ID, pageUrl } from "@/constants/site";
 import {
   buildJsonLd,
@@ -158,7 +158,6 @@ export default async function EnAboutPage() {
 
         {/* 5 — Real projects + partner logos + client testimonial */}
         <RealProjects c={C.projects} covers={covers} />
-        <Marquee />
         <PullQuote
           quote={
             <>

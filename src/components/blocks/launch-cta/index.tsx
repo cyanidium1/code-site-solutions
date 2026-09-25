@@ -35,11 +35,6 @@ export function LaunchCta({
       <div className="relative mx-auto max-w-container grid grid-cols-[minmax(0,1fr)] items-center gap-10 min-h-0 lg:min-h-[420px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-0 xl:min-h-[480px]">
         <div className="relative z-[2] flex max-w-none flex-col gap-[18px] md:gap-6 lg:max-w-[570px]">
           <div className="flex flex-col gap-7">
-            <div className="flex flex-row items-center gap-2" aria-hidden="true">
-              <span className="block w-3 h-3 rounded-[3px] bg-[#7c54cd] shadow-[0_0_8px_rgba(124,84,205,0.6)]" />
-              <span className="block w-3 h-3 rounded-[3px] bg-[#7c54cd] shadow-[0_0_8px_rgba(124,84,205,0.6)]" />
-              <span className="block w-3 h-3 rounded-[3px] bg-[#7c54cd] shadow-[0_0_8px_rgba(124,84,205,0.6)]" />
-            </div>
             <H2 id="launch-cta-heading" variant="launch-cta" className="text-ink">
               {heading ?? t("heading")}
             </H2>
@@ -50,7 +45,7 @@ export function LaunchCta({
           <LeadCtaButton
             source="launch-cta"
             locale={locale}
-            className="self-start inline-flex items-center gap-2.5 px-[22px] py-3 rounded-full bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] text-white font-sans font-semibold text-[13px] tracking-[0.01em] no-underline cursor-pointer transition-[transform,box-shadow] duration-200 shadow-[0_12px_30px_oklch(from_var(--color-accent)_l_c_h_/_0.25)] hover:-translate-y-px hover:shadow-[0_16px_36px_oklch(from_var(--color-accent)_l_c_h_/_0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-[3px] md:px-7 md:py-3.5 md:text-[14px]"
+            className="self-start inline-flex items-center gap-2.5 px-[22px] py-3 rounded-full bg-accent text-white font-sans font-semibold text-[13px] tracking-[0.01em] no-underline cursor-pointer transition-colors duration-200 hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-soft focus-visible:outline-offset-[3px] md:px-7 md:py-3.5 md:text-[14px]"
           >
             {t("button")}
           </LeadCtaButton>

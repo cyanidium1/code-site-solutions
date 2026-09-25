@@ -71,7 +71,7 @@ export function Services({
           }
         >
           {hasVisual ? (
-            <div className="relative aspect-[16/10] rounded-[14px] max-w-[600px] border border-line-strong bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] md:rounded-[22px] xl:aspect-[5/4] xl:max-w-none before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:24px_24px]">
+            <div className="relative aspect-[16/10] rounded-card max-w-[600px] border border-line-strong bg-[linear-gradient(135deg,oklch(0.18_0.005_300),oklch(0.13_0.006_300))] overflow-hidden shadow-[0_40px_80px_oklch(0_0_0_/_0.5)] md:rounded-frame xl:aspect-[5/4] xl:max-w-none before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_1px_1px,oklch(1_0_0_/_0.04)_1px,transparent_0)] before:bg-[length:24px_24px]">
               <SanityImg
                 image={testimonialVisual}
                 alt=""
@@ -93,10 +93,10 @@ export function Services({
                 {authorInitials}
               </div>
               <div className={hasVisual ? "" : "text-left"}>
-                <div className="font-display font-bold text-[11px] tracking-[0.12em] uppercase text-ink md:text-[12px]">
+                <div className="font-display font-bold text-[12px] tracking-[0.06em] uppercase text-ink md:text-[12px]">
                   {testimonialAuthorName}
                 </div>
-                <div className="text-[11px] text-ink-3 mt-[3px] md:text-[12px]">
+                <div className="text-[12px] text-ink-3 mt-[3px] md:text-[12px]">
                   {testimonialAuthorRole}
                 </div>
               </div>
@@ -145,7 +145,7 @@ export function Services({
               {integrations.map((name, i) => (
                 <div
                   key={i}
-                  className="relative h-11 border border-line rounded-[10px] bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[10px] tracking-[0.06em] uppercase text-ink-dim overflow-hidden md:h-[52px] md:text-[11px] md:tracking-[0.1em] [&>span]:relative [&>span]:z-[2]"
+                  className="relative h-11 border border-line rounded-ctl bg-[oklch(1_0_0_/_0.02)] flex items-center justify-center font-display font-semibold text-[12px] tracking-[0.06em] uppercase text-ink-dim overflow-hidden md:h-[52px] md:text-[12px] md:tracking-[0.06em] [&>span]:relative [&>span]:z-[2]"
                 >
                   <span>{name}</span>
                 </div>

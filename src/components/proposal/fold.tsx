@@ -28,7 +28,7 @@ export function ProposalFold({
       <summary
         className={cn(
           "inline-flex min-h-11 cursor-pointer select-none list-none items-center gap-2",
-          "font-mono text-[11px] uppercase tracking-[0.1em] text-accent-soft",
+          "font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft",
           "marker:hidden [&::-webkit-details-marker]:hidden",
           "hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
         )}

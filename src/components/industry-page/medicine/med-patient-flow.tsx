@@ -10,7 +10,6 @@ import {
 
 import type { Locale } from "@/constants/locales";
 import { localizePath } from "@/constants/i18n-routes";
-import { ScrollReveal } from "@/components/homepage/scroll-reveal";
 import { MED_COPY, type FlowNode } from "./copy";
 
 import "./medicine.css";
@@ -46,7 +45,7 @@ export function MedPatientFlow({ locale }: { locale: Locale }) {
       <div className="med-streaks" data-flip="true" />
 
       <div className="relative mx-auto max-w-container">
-        <ScrollReveal className="med-reveal">
+        <div>
           <div className="grid grid-cols-1 gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-end">
             <h2 className="m-0 font-actay text-[clamp(24px,3vw,40px)] font-bold uppercase leading-[1.1] text-ink">
               {c.heading.split("\n").map((line, i) => (
@@ -59,7 +58,7 @@ export function MedPatientFlow({ locale }: { locale: Locale }) {
               {c.lede}
             </p>
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* ── Desktop: horizontal rail, two registers ────────────────── */}
         <div className="mt-12 hidden lg:block">
@@ -82,7 +81,7 @@ export function MedPatientFlow({ locale }: { locale: Locale }) {
                   <div className="font-actay text-[15px] font-bold uppercase leading-[1.15] text-ink">
                     {n.label}
                   </div>
-                  <div className="mt-1.5 font-mono text-[11px] leading-[1.45] text-[var(--med-signal)]">
+                  <div className="mt-1.5 font-mono text-[12px] leading-[1.45] text-[var(--med-signal)]">
                     {n.meta}
                   </div>
                 </div>
@@ -167,7 +166,7 @@ export function MedPatientFlow({ locale }: { locale: Locale }) {
                       {n.label}
                     </span>
                   </div>
-                  <div className="mt-1.5 font-mono text-[11px] leading-[1.45] text-[var(--med-signal)]">
+                  <div className="mt-1.5 font-mono text-[12px] leading-[1.45] text-[var(--med-signal)]">
                     {n.meta}
                   </div>
                   {n.leak ? (
@@ -195,7 +194,7 @@ export function MedPatientFlow({ locale }: { locale: Locale }) {
           </p>
           <Link
             href={`${localizePath("/", locale)}#site-audit`}
-            className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:border-accent-40 hover:text-accent-soft"
+            className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-sans font-semibold text-[13px] text-ink-dim no-underline transition-[color,border-color] duration-200 hover:border-accent-40 hover:text-accent-soft"
           >
             {c.ctaLabel}
           </Link>
@@ -207,7 +206,7 @@ export function MedPatientFlow({ locale }: { locale: Locale }) {
 
 function Legend({ tone, text }: { tone: "vital" | "muted"; text: string }) {
   return (
-    <span className="inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-3">
+    <span className="inline-flex items-center gap-2.5 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
       <span
         className={
           tone === "vital"

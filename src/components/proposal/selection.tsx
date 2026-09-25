@@ -118,7 +118,7 @@ export function ProposalOptionCards({
           <label
             key={option._key}
             className={cn(
-              "group relative flex cursor-pointer flex-col gap-4 rounded-2xl border p-5 transition sm:p-6",
+              "group relative flex cursor-pointer flex-col gap-4 rounded-card border p-5 transition sm:p-6",
               "has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent",
               isSelected
                 ? "border-accent-soft bg-accent-8 shadow-[0_0_0_1px_var(--color-accent-40),0_18px_50px_-24px_var(--color-accent-55)]"
@@ -137,7 +137,7 @@ export function ProposalOptionCards({
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 {option.badge ? (
-                  <span className="mb-2 inline-block rounded-full border border-accent-30 bg-accent-10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-accent-soft">
+                  <span className="mb-2 inline-block rounded-full border border-accent-30 bg-accent-10 px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft">
                     {option.badge}
                   </span>
                 ) : null}
@@ -164,7 +164,7 @@ export function ProposalOptionCards({
                   {option.price}
                 </span>
                 {option.priceNote ? (
-                  <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
+                  <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-ink-3">
                     {option.priceNote}
                   </span>
                 ) : null}
@@ -215,7 +215,7 @@ export function ProposalOptionCards({
 
             <span
               className={cn(
-                "mt-auto inline-flex min-h-9 items-center justify-center rounded-full px-4 font-mono text-[11px] uppercase tracking-[0.1em] transition",
+                "mt-auto inline-flex min-h-9 items-center justify-center rounded-full px-4 font-mono text-[12px] uppercase tracking-[0.06em] transition",
                 isSelected
                   ? "bg-accent-soft text-bg"
                   : "border border-line-strong text-ink-dim group-hover:text-ink",
@@ -250,7 +250,7 @@ export function ProposalAddonCards({
           <label
             key={addon._key}
             className={cn(
-              "flex cursor-pointer gap-4 rounded-2xl border p-5 transition",
+              "flex cursor-pointer gap-4 rounded-card border p-5 transition",
               "has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent",
               isOn
                 ? "border-accent-soft bg-accent-8"
@@ -393,7 +393,7 @@ export function ProposalCtaActions({
     <div className="flex flex-col gap-3">
       {selectedName || addons.length ? (
         <p
-          className="font-mono text-[11px] uppercase tracking-[0.1em] text-accent-soft"
+          className="font-mono text-[12px] uppercase tracking-[0.06em] text-accent-soft"
           aria-live="polite"
         >
           {[

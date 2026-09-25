@@ -14,7 +14,7 @@ export default function TeamCardsStory() {
       sub="Постійне ядро + перевірена мережа партнерів, з якими ми вже робили спільні проекти 2+ років."
       groups={[
         {
-          label: "/ CORE TEAM",
+          label: "CORE TEAM",
           members: [
             {
               name: "Fedir Alpatov",
@@ -60,7 +60,7 @@ export default function TeamCardsStory() {
           ],
         },
         {
-          label: "/ EXTENDED NETWORK · ON-DEMAND",
+          label: "EXTENDED NETWORK · ON-DEMAND",
           members: [
             {
               name: "Marta Veselovska",

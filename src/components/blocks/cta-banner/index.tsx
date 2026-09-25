@@ -43,7 +43,7 @@ export function CtaBanner({
     <section className="relative bg-bg px-6 py-14 lg:px-12 lg:py-[100px]">
       <div className="mx-auto max-w-container">
         <div
-          className={`relative flex flex-col items-center overflow-hidden rounded-[22px] border border-line px-6 py-11 text-center lg:rounded-[28px] lg:px-12 lg:py-16 ${CARD_BG} ${TOP_ACCENT}`}
+          className={`relative flex flex-col items-center overflow-hidden rounded-frame border border-line px-6 py-11 text-center lg:rounded-frame lg:px-12 lg:py-16 ${CARD_BG} ${TOP_ACCENT}`}
         >
           <h2 className="relative max-w-[780px] font-display text-[clamp(24px,6.5vw,34px)] font-bold leading-[1.1] tracking-[-0.02em] text-ink lg:text-[clamp(28px,3.6vw,48px)] [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:italic [&_em]:text-transparent">
             {heading}

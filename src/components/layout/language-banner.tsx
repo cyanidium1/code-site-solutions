@@ -93,7 +93,7 @@ export function LanguageBanner() {
         href={href}
         hrefLang={LOCALE_CONFIG[locale].hreflang}
         onClick={dismiss}
-        className="font-mono text-[11.5px] tracking-[0.1em] uppercase text-accent-soft underline underline-offset-4 hover:text-ink"
+        className="font-sans font-semibold text-[13px] text-accent-soft underline underline-offset-4 hover:text-ink"
       >
         {COPY[locale].cta}
       </Link>

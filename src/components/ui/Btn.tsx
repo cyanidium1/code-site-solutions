@@ -25,11 +25,10 @@ const base =
 const variantClass: Record<BtnVariant, string> = {
   primary: cn(
     "relative overflow-hidden bg-ink text-bg font-semibold w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-6 2xl:py-4 2xl:text-sm",
-    "shadow-accent-glow",
+    // No resting violet halo (2026-09-25): a zero-offset colored glow is
+    // decoration; the offset shadow below answers hover only.
     "hover:-translate-y-0.5 hover:shadow-[0_8px_30px_oklch(0.55_0.18_295/0.35),0_0_0_1px_oklch(1_0_0/0.1)_inset]",
-    // Shimmer pseudo-element — primitive wraps children in a <span> so this paints behind text.
-    "before:content-[''] before:absolute before:inset-0 before:-translate-x-full before:bg-[linear-gradient(105deg,transparent_30%,oklch(0.55_0.18_295/0.4)_50%,transparent_70%)] before:transition-transform before:duration-[600ms]",
-    "hover:before:translate-x-full",
+    // (2026-09-25) The hover shimmer sweep is gone: decoration, not state.
   ),
   ghost: cn(
     "bg-transparent text-ink border border-line-strong font-medium w-full justify-center text-[13px] px-[18px] py-[14px] sm:w-auto sm:justify-normal sm:py-[13px] 2xl:px-[22px] 2xl:py-[15px] 2xl:text-sm",
@@ -69,7 +68,7 @@ const variantClass: Record<BtnVariant, string> = {
 // variant class and BEFORE any caller `extra`.
 const sizeClass: Record<BtnSize, string> = {
   md: "",
-  sm: "px-3.5 py-2 text-[10.5px] xl:px-4 xl:py-[9px] xl:text-[11px] 2xl:px-[18px] 2xl:py-2.5 2xl:text-[12px]",
+  sm: "px-3.5 py-2 text-[12px] xl:px-4 xl:py-[9px] 2xl:px-[18px] 2xl:py-2.5",
 };
 
 /**

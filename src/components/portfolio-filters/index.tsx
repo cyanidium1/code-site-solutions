@@ -129,12 +129,12 @@ export function PortfolioFilters({
         aria-expanded={open}
         aria-controls="portfolio-filters"
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-2.5 self-start rounded-full border border-line px-4 py-2.5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-dim transition-colors hover:border-accent-40 hover:text-ink sm:hidden"
+        className="inline-flex items-center gap-2.5 self-start rounded-full border border-line px-4 py-2.5 font-sans font-semibold text-[13px] text-ink-dim transition-colors hover:border-accent-40 hover:text-ink sm:hidden"
       >
         <SlidersHorizontal size={15} strokeWidth={1.8} aria-hidden="true" />
         {FILTERS_TOGGLE_LABEL[locale]}
         {activeCount ? (
-          <span className="inline-flex size-5 items-center justify-center rounded-full bg-accent text-[11px] text-white">
+          <span className="inline-flex size-5 items-center justify-center rounded-full bg-accent text-[12px] text-white">
             {activeCount}
           </span>
         ) : null}

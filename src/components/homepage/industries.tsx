@@ -26,8 +26,6 @@ import { formatPrice } from "@/lib/shared/format-price";
 import type { Industry } from "@/types/homepage";
 import { cn } from "@/components/ui";
 import { hpH2Class, hpInnerClass, hpSectionClass, hpSubClass } from "@/components/homepage/shared";
-import { GradientRule } from "@/components/homepage/gradient-rule";
-import { SparkleTrio } from "@/components/homepage/sparkle-trio";
 import { industryAccent } from "@/constants/industry-colors";
 
 /* 2026 redesign restyle (Figma «код сайт арт» #1729:2120; audit:
@@ -41,15 +39,11 @@ import { industryAccent } from "@/constants/industry-colors";
 
 // Header — Figma #1729:2121. No eyebrow badge in the design.
 const HEADER_CLASS = "mb-10";
-// Heading row: H2 then the rule filling the rest of the track. At the design
-// width this lands the rule at exactly 575px (1440 container − 821px heading
-// − 44px gap), so no magic numbers are needed.
+// Heading row. (The dot-capped gradient rule that filled the track is gone —
+// DESIGN.md, 2026-09-25: decoration without information.)
 const HEADING_ROW_CLASS = "flex items-center gap-8 2xl:gap-11";
-const HEADER_RULE_CLASS = "hidden xl:flex flex-1 min-w-0";
-// Sub row: paragraph left, sparkle trio right — the design bottom-aligns
-// them (both end at y145).
+// Sub row under the heading.
 const SUB_ROW_CLASS = "mt-5 flex items-end justify-between gap-8";
-const SPARKLES_CLASS = "hidden xl:flex";
 
 // Six industry variants of the `industry` package (TZ v2 §3.6). Price and
 // term come from the pricing config; only the card copy lives here. Online
@@ -134,12 +128,6 @@ const MEDIA_TUNE: Record<string, { img?: string; dim?: string }> = {
 
 // Tileable monochrome grain. Inlined SVG turbulence keeps it asset-free and
 // avoids the percent-sign escaping that breaks Tailwind arbitrary url() values.
-const noiseStyle: React.CSSProperties = {
-  backgroundImage:
-    "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100' height='100' filter='url(%23n)'/></svg>\")",
-  backgroundSize: "120px 120px",
-};
-
 // Layered atmospheric background: photo → dark grade + accent wash → vignette →
 // grain, plus a hover-only accent glow and a subtle image push (parallax feel).
 // `aria-hidden` + empty alt: decorative only, content stays the accessible layer.
@@ -147,7 +135,7 @@ function CardMedia({ src, imgClass, dimClass }: { src: string; imgClass?: string
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[18px]"
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-card"
     >
       <AppImage
         src={src}
@@ -165,14 +153,6 @@ function CardMedia({ src, imgClass, dimClass }: { src: string; imgClass?: string
       <div className={cn("absolute inset-0 bg-[linear-gradient(180deg,oklch(0.13_0_0_/_0.58)_0%,oklch(0.12_0_0_/_0.82)_55%,oklch(0.1_0_0_/_0.94)_100%)] transition-opacity duration-[0.55s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/ind:opacity-90", dimClass)} />
       {/* merged static scrim: vignette (top) + per-industry accent wash — see homepage-cards.css */}
       <div className="hp-ind-scrim" />
-      {/* hover accent glow (replaces the photo-occluded ::before radial) */}
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-[0.55s] ease-[cubic-bezier(0.22,1,0.36,1)] bg-[radial-gradient(420px_220px_at_0%_0%,oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.30),transparent_70%)] group-hover/ind:opacity-100" />
-      {/* grain — desktop only, mobile keeps it simpler */}
-      <div
-        className="absolute inset-0 opacity-[0.06] mix-blend-overlay hidden md:block"
-        // eslint-disable-next-line react/forbid-dom-props -- inlined SVG data-uri grain texture
-        style={noiseStyle}
-      />
     </div>
   );
 }
@@ -208,11 +188,9 @@ export function Industries({
         <div className={HEADER_CLASS}>
           <div className={HEADING_ROW_CLASS}>
             <h2 className={cn(hpH2Class, "mt-0")}>{heading}</h2>
-            <GradientRule className={HEADER_RULE_CLASS} flip />
           </div>
           <div className={SUB_ROW_CLASS}>
             <p className={cn(hpSubClass, "mt-0")}>{sub}</p>
-            <SparkleTrio className={SPARKLES_CLASS} />
           </div>
         </div>
         {/* Two-up from the smallest screen — see `.hp-ind-card` in
@@ -221,12 +199,8 @@ export function Industries({
             against 1 400px on a 390px phone (design audit 2026-09-07). */}
         <div className="grid grid-cols-2 gap-2.5 sm:gap-4 xl:grid-cols-3">
           {items.map((ind, i) => {
-            const Icon = ind.icon;
             const inner = (
               <>
-                <div className="mb-2.5 inline-flex h-9 w-9 items-center justify-center rounded-[12px] border border-line bg-[oklch(from_var(--accent-color,var(--color-accent))_l_c_h_/_0.12)] text-[var(--accent-color,var(--color-accent))] sm:mb-5 sm:h-11 sm:w-11">
-                  <Icon size={20} strokeWidth={1.6} />
-                </div>
                 <h3 className="m-0 font-sans text-[13px] font-bold uppercase leading-[1.25] text-ink sm:text-[17px] sm:leading-[25.5px]">{ind.title}</h3>
                 {/* Description and stack tags are desktop-only: at a 163px
                     tile they would wrap to six lines and bury the price. */}
@@ -235,14 +209,14 @@ export function Industries({
                   {ind.tags.map((t) => (
                     <span
                       key={t}
-                      className="inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-[9px] py-[3px] font-mono text-[10.5px] text-ink-3"
+                      className="inline-flex rounded-md border border-line bg-[oklch(1_0_0_/_0.03)] px-[9px] py-[3px] font-mono text-[12px] text-ink-3"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
                 <div className="mt-auto flex items-center justify-between gap-2 border-t border-line pt-3 sm:pt-5">
-                  <span className="font-mono text-[10px] leading-[1.3] text-ink-3 sm:text-[11px]">{ind.price}</span>
+                  <span className="font-mono text-[12px] leading-[1.3] text-ink-3 sm:text-[12px]">{ind.price}</span>
                   {ind.href ? (
                     <ArrowUpRight
                       size={16}

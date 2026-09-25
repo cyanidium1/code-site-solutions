@@ -37,7 +37,7 @@ export function CasePageHero({
     <div>
       {breadcrumbs.length > 0 && (
         <nav
-          className="flex flex-wrap gap-2 items-center font-mono text-[11px] tracking-[0.1em] uppercase text-ink-3 mb-6 lg:mb-9 [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink"
+          className="flex flex-wrap gap-2 items-center font-mono text-[12px] tracking-[0.06em] uppercase text-ink-3 mb-6 lg:mb-9 [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink"
           aria-label="Breadcrumbs"
         >
           {breadcrumbs.map((c, i) => {

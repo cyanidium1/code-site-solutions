@@ -39,7 +39,7 @@ export function PullQuote({
           className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_800px_360px_at_50%_50%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%)]"
         />
         <div className="relative z-[1] mx-auto max-w-container-prose px-6">
-          <p className="font-sans text-[clamp(22px,2.5vw,32px)] font-medium leading-[1.4] text-ink [&_em]:not-italic [&_em]:bg-text-gradient [&_em]:bg-clip-text [&_em]:text-transparent [&_em]:italic">
+          <p className="font-sans text-[clamp(22px,2.5vw,32px)] font-medium leading-[1.4] text-ink [&_em]:not-italic [&_em]:text-accent-soft">
             «{quote}»
           </p>
           <div className="mt-9 inline-flex flex-col items-center gap-3">
@@ -50,12 +50,12 @@ export function PullQuote({
             ) : null}
             <div>
               <div className="font-sans text-base font-semibold text-ink">{name}</div>
-              <div className="mt-0.5 font-mono text-[11px] text-ink-3">{role}</div>
+              <div className="mt-0.5 font-mono text-[12px] text-ink-3">{role}</div>
             </div>
             {liHref ? (
               <a
                 href={liHref}
-                className="mt-2 inline-flex items-center gap-1.5 font-mono text-[11px] text-ink-dim transition-colors duration-200 hover:text-ink"
+                className="mt-2 inline-flex items-center gap-1.5 font-mono text-[12px] text-ink-dim transition-colors duration-200 hover:text-ink"
                 target="_blank"
                 rel="noreferrer"
               >

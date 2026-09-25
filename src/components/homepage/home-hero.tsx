@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { AppImage } from "@/lib/shared/app-image";
-import { HeroGears } from "@/components/homepage/hero-gears";
 import { btnClass, H1 } from "@/components/ui";
 import { ctaAttrs, ctaId, intentFromHref } from "@/constants/conversion-ids";
 
@@ -21,26 +20,13 @@ import { ctaAttrs, ctaId, intentFromHref } from "@/constants/conversion-ids";
 // Fixed page backdrop: dual accent radials + linear base, plus the grain
 // overlay (.hero-grain in blocks/hero/hero-effects.css — still imported
 // globally). Kept on home during the redesign transition (user decision).
+// 2026-09-25: the radial backdrop is anchored to the hero (absolute), not
+// the viewport — as a fixed layer it glowed behind every section of the
+// page (DESIGN.md «The One Glow Rule»). The grain stays page-wide.
 const HERO_BG_CLASS =
-  "fixed inset-0 z-0 pointer-events-none " +
+  "absolute inset-x-0 top-0 h-[min(130vh,1200px)] z-0 pointer-events-none " +
   "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg)_100%)]";
 
-// Gear mechanism (hero-gears.tsx) — placement only; the rotation, the mesh
-// and the neon strokes live in the component and hero-effects.css. The
-// cluster runs up-and-right (big wheel bottom-left, small ones top-right),
-// so it is anchored to the right edge and bleeds past it: the small fast
-// wheels are cut by the viewport and the big slow one stays whole (owner,
-// 2026-09-18 — "слегка вправо за край экрана", "поднять выше"). The
-// overhang is clipped by the component's own layer (see hero-gears.tsx),
-// which also carries the z-[-2] that keeps it behind the device mockup
-// (z-[-1] in the mobile stack).
-const HERO_GEARS_CLASS =
-  "-right-[34%] top-[2%] w-[330px] opacity-70 " +
-  "xs:-right-[26%] xs:w-[370px] " +
-  "sm:-right-[16%] sm:top-[1%] sm:w-[460px] " +
-  "lg:-right-[14%] lg:top-[-4%] lg:w-[520px] lg:opacity-100 " +
-  "xl:-right-[10%] xl:w-[620px] " +
-  "2xl:-right-[7%] 2xl:w-[720px]";
 
 // `pt-6` below sm replaces the clearance the studio badge used to provide:
 // with the badge gone the H1 is the first element of the column and its cap
@@ -94,7 +80,7 @@ const HERO_H1_CLASS =
   // 6.4vw keeps the longest locale line (en, 21 chars) inside the 24px
   // gutters from 360 up, and the 20px floor holds the old 320px screens.
   "max-md:text-[clamp(20px,6.4vw,40px)] lg:text-[clamp(30px,7.4cqw,56px)] " +
-  "[&_em]:italic [&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
+  "[&_em]:font-medium [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:[-webkit-text-fill-color:transparent]";
 
 // The measure is in `em`, so it scales with the headline instead of with
 // the viewport and behaves the same in uk/ru/en. 13em is set by the widest
@@ -135,7 +121,7 @@ const LEDE_CLASS =
 // line. Now the row falls back to the bordered card whenever its column is
 // too narrow, at any viewport.
 const FEATURES_CLASS =
-  "order-4 lg:order-none grid grid-cols-2 items-start gap-x-3 gap-y-2 mb-0 max-w-full px-3 py-2.5 border border-line rounded-2xl bg-[oklch(1_0_0_/_0.02)] " +
+  "order-4 lg:order-none grid grid-cols-2 items-start gap-x-3 gap-y-2 mb-0 max-w-full px-3 py-2.5 border border-line rounded-card bg-[oklch(1_0_0_/_0.02)] " +
   "@min-[560px]:gap-x-4 @min-[560px]:gap-y-0 @min-[560px]:px-0 @min-[560px]:py-0 @min-[560px]:border-0 @min-[560px]:rounded-none @min-[560px]:bg-transparent " +
   // Equal tracks across the full headline measure: the row ends on the same
   // line the H1 box ends on. Two proofs, not three — the pair below the CTA
@@ -159,7 +145,7 @@ const FEAT_CHECK_CLASS =
 const FEAT_LABEL_CLASS =
   "text-xs font-semibold text-ink leading-[1.2] lg:text-[13px] 2xl:text-sm";
 const FEAT_SUB_CLASS =
-  "text-[11px] leading-[1.35] text-ink-3 mt-0.5 tracking-[0.02em] lg:text-[11px] 2xl:text-xs";
+  "text-[12px] leading-[1.35] text-ink-3 mt-0.5 tracking-[0.02em] lg:text-[12px] 2xl:text-xs";
 
 const CTA_ROW_CLASS =
   "order-2 lg:order-none flex flex-col flex-wrap gap-2.5 items-stretch mb-3 " +
@@ -310,7 +296,6 @@ export function HomeHero({
       <div className="hero-grain" />
 
       <div className={HERO_SHELL_CLASS}>
-        <HeroGears className={HERO_GEARS_CLASS} />
         <div className={aside ? HERO_GRID_ASIDE_CLASS : HERO_GRID_CLASS}>
           <div className={HERO_LEFT_CLASS}>
             <H1 variant="hp" className={HERO_H1_CLASS} data-speakable="hero-title">

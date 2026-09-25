@@ -35,7 +35,7 @@ export function PageHero({
   actions?: { primary: PageHeroAction; secondary?: PageHeroAction };
 }) {
   const statsCard = stats?.length ? (
-    <div className="mt-8 lg:mt-10 flex flex-wrap items-center gap-3.5 px-[18px] py-4 border border-line rounded-[18px] w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] lg:flex-nowrap lg:gap-6 lg:px-7 lg:py-5">
+    <div className="mt-8 lg:mt-10 flex flex-wrap items-center gap-3.5 px-[18px] py-4 border border-line rounded-card w-full max-w-full bg-[oklch(1_0_0_/_0.02)] backdrop-blur-[8px] lg:flex-nowrap lg:gap-6 lg:px-7 lg:py-5">
       {stats.map((it, i) => (
         <div
           key={i}
@@ -44,10 +44,10 @@ export function PageHero({
             i > 0 && "lg:border-l lg:border-line lg:pl-6",
           )}
         >
-          <span className="font-display font-bold text-[22px] tracking-[-0.03em] leading-none text-ink lg:text-[28px] [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
+          <span className="font-display font-bold text-[22px] tracking-[-0.03em] leading-none text-ink lg:text-[28px] [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent">
             {it.value}
           </span>
-          <span className="font-sans text-[9px] text-ink-3 uppercase tracking-[0.08em] leading-[1.3] lg:text-[10px]">
+          <span className="font-sans text-[12px] text-ink-3 uppercase tracking-[0.06em] leading-[1.3] lg:text-[12px]">
             {it.label}
           </span>
         </div>
@@ -68,7 +68,7 @@ export function PageHero({
     <div>
       {breadcrumbs.length > 0 && (
         <nav
-          className="flex flex-wrap gap-2 items-center font-mono text-[12px] tracking-[0.08em] uppercase text-ink-dim mb-6 lg:mb-9 [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink"
+          className="flex flex-wrap gap-2 items-center font-mono text-[12px] tracking-[0.06em] uppercase text-ink-dim mb-6 lg:mb-9 [&_a]:text-ink-dim [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-200 [&_a:hover]:text-ink"
           aria-label="Breadcrumbs"
         >
           {breadcrumbs.map((c, i) => {
@@ -91,7 +91,7 @@ export function PageHero({
       <H1
         variant="page-hero"
         className={cn(
-          "mt-0 text-ink [&_em]:italic [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent",
+          "mt-0 text-ink [&_em]:bg-brand-gradient [&_em]:bg-clip-text [&_em]:text-transparent",
           constrainText && "max-w-full min-[961px]:max-w-[600px]",
         )}
       >

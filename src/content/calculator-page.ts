@@ -54,7 +54,7 @@ export function calculatorPage(l: Locale): CalculatorPage {
       description: `Оберіть пакет і додатки — ціну і строк видно одразу. Лендінг ${p("landing")}, сайт для бізнесу ${p("business")}, магазин ${p("shop")}. Ціна в договорі.`,
       breadcrumbHome: "Головна",
       breadcrumbSelf: "Калькулятор",
-      eyebrow: "/ КАЛЬКУЛЯТОР",
+      eyebrow: "КАЛЬКУЛЯТОР",
       h1: ["Калькулятор сайту: ", "фікс-ціна за 1 хвилину"],
       sub: "Три кроки: пакет, додатки, ціна. Жодних множників і «під запит» — сума, яку ви побачите, піде в договір.",
       stats: [
@@ -100,7 +100,7 @@ export function calculatorPage(l: Locale): CalculatorPage {
       description: `Выберите пакет и дополнения — цена и срок видны сразу. Лендинг ${p("landing")}, сайт для бизнеса ${p("business")}, магазин ${p("shop")}. Цена в договоре.`,
       breadcrumbHome: "Главная",
       breadcrumbSelf: "Калькулятор",
-      eyebrow: "/ КАЛЬКУЛЯТОР",
+      eyebrow: "КАЛЬКУЛЯТОР",
       h1: ["Калькулятор сайта: ", "фикс-цена за 1 минуту"],
       sub: "Три шага: пакет, дополнения, цена. Никаких множителей и «по запросу» — сумма, которую вы увидите, пойдёт в договор.",
       stats: [
@@ -141,7 +141,7 @@ export function calculatorPage(l: Locale): CalculatorPage {
     description: `Pick a package and add-ons and see price and timeline at once. Landing page ${p("landing")}, business website ${p("business")}, online shop ${p("shop")}.`,
     breadcrumbHome: "Home",
     breadcrumbSelf: "Calculator",
-    eyebrow: "/ CALCULATOR",
+    eyebrow: "CALCULATOR",
     h1: ["Website calculator: ", "a fixed price in a minute"],
     sub: "Three steps: package, add-ons, price. No multipliers, no “price on request” — the figure you see is the figure in the contract.",
     stats: [
