@@ -22,7 +22,7 @@ const HEADING_EM_CLASS =
   "[&_em]:not-italic [&_em]:font-light [&_em]:bg-[linear-gradient(180deg,var(--color-accent-soft)_0%,var(--color-accent)_100%)] [&_em]:bg-clip-text [&_em]:text-transparent";
 
 const SECTION_CLASS =
-  "relative overflow-hidden bg-bg py-11 sm:py-[72px] lg:py-[120px] px-[18px] md:px-8 xl:px-12";
+  "relative overflow-hidden bg-bg py-11 sm:py-[72px] lg:py-[120px] px-6 sm:px-8 lg:px-12";
 
 // Values byte-identical to the arbitrary-value utilities they replaced.
 const CASE_CSS = `

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { ctaAttrs, ctaId, intentFromHref } from "@/constants/conversion-ids";
 import { btnClass, cn, H1 } from "@/components/ui";
 
 // React-hoisted style (see blocks/case/index.tsx for the rationale): costs
@@ -111,11 +112,24 @@ export function PageHero({
       ) : null}
       {actions ? (
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-          <Link href={actions.primary.href} className={btnClass("primary")}>
+          <Link
+            href={actions.primary.href}
+            className={btnClass("primary")}
+            {...ctaAttrs(ctaId("hero", intentFromHref(actions.primary.href)), {
+              unique: true,
+            })}
+          >
             <span>{actions.primary.label}</span>
           </Link>
           {actions.secondary ? (
-            <Link href={actions.secondary.href} className={btnClass("ghost")}>
+            <Link
+              href={actions.secondary.href}
+              className={btnClass("ghost")}
+              {...ctaAttrs(
+                ctaId("hero", intentFromHref(actions.secondary.href), "secondary"),
+                { unique: true },
+              )}
+            >
               <span>{actions.secondary.label}</span>
             </Link>
           ) : null}

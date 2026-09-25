@@ -63,7 +63,7 @@ export const CITY_AUDIT_FOOT_UK =
 export const CITY_RELATED_UK: NonNullable<MoneyPageContent["related"]> = {
   heading: "Перед замовленням",
   links: [
-    { label: "Ціни і додатки", href: "/pricing" },
+    { label: "Скільки коштує зробити сайт", href: "/pricing" },
     { label: "Калькулятор вартості", href: "/calculator" },
     { label: "Безкоштовний аудит сайту", href: "/audit" },
     { label: "Розробка сайтів під ключ", href: "/rozrobka-saitiv" },

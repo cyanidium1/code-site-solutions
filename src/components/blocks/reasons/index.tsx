@@ -138,7 +138,7 @@ export function Reasons({
   locale?: LeadFormLocale;
 }) {
   return (
-    <section className="relative py-11 sm:py-[72px] lg:py-[120px] px-[18px] sm:px-8 xl:px-12 bg-bg overflow-hidden">
+    <section className="relative py-11 sm:py-[72px] lg:py-[120px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
       <style href="csb-reasons" precedence="csb">{REASONS_CSS}</style>
       <div className={REASONS_BG_CLASS} />
 

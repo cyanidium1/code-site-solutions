@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { GTM_ID } from "@/constants/site";
+import { GTM_ID, SITE_ORIGIN } from "@/constants/site";
 
 /**
  * Google Tag Manager container. GTM hosts the rest of the marketing stack
@@ -23,6 +23,19 @@ import { GTM_ID } from "@/constants/site";
  */
 const IDLE_FALLBACK_MS = 8000;
 
+/**
+ * Only the live host is measured. The same container is embedded in the
+ * redesign preview (`code-site-frontend.vercel.app`) and runs on localhost,
+ * and both were landing in the real reports: ~48 of 498 Clarity sessions and
+ * 49 GA4 pageviews of `/uk`, a path production does not have
+ * (`code-site.art-audit/ANALYTICS-2026-09-22.md`, §4).
+ */
+const PROD_HOST = new URL(SITE_ORIGIN).hostname;
+
+function isMeasuredHost(): boolean {
+  return window.location.hostname === PROD_HOST;
+}
+
 type WindowWithGtm = Window & {
   dataLayer?: unknown[];
   __gtmInjected?: boolean;
@@ -42,6 +55,7 @@ function injectGtm() {
 
 export function GoogleTagManager() {
   useEffect(() => {
+    if (!isMeasuredHost()) return;
     if ((window as WindowWithGtm).__gtmInjected) return;
     const events: (keyof WindowEventMap)[] = [
       "pointerdown",

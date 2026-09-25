@@ -8,6 +8,7 @@ import { H2 } from "@/components/ui";
 import { HeroAuditBanner } from "./HeroAuditBanner";
 import { MobileFold } from "@/components/shared/mobile-fold";
 import { BrandIcon } from "./brand-icons";
+import { ctaAttrs, msgId } from "@/constants/conversion-ids";
 
 // Brand-gradient italic em (horizontal 3-stop blue→purple→magenta). Distinct
 // from the vertical accent-soft→accent gradient used elsewhere; preserved as
@@ -68,7 +69,7 @@ export function ContactSplit({
   const meta = CONTACT_META_BY_LOCALE[locale];
   const chrome = CHROME[locale];
   return (
-    <section className="relative py-11 sm:py-14 lg:py-20 px-[18px] md:px-8 xl:px-12 bg-[linear-gradient(180deg,var(--color-bg)_0%,oklch(0.13_0.02_300)_100%)]">
+    <section className="relative py-11 sm:py-14 lg:py-20 px-6 sm:px-8 lg:px-12 bg-[linear-gradient(180deg,var(--color-bg)_0%,oklch(0.13_0.02_300)_100%)]">
       {/* HeroAuditBanner is a client component that reads locale via
           next-intl useLocale — no need to thread the prop. */}
       <HeroAuditBanner />
@@ -78,6 +79,7 @@ export function ContactSplit({
             <a
               href={phone.href}
               className="mb-5 flex flex-col gap-1 no-underline"
+              {...ctaAttrs(msgId("phone", "contacts"), { unique: true })}
             >
               <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-3">
                 {phone.label}
@@ -98,6 +100,7 @@ export function ContactSplit({
                     aria-label={`${c.label} — ${c.handle}`}
                     title={`${c.label} · ${c.handle}`}
                     className={ICON_BTN_CLASS}
+                    {...ctaAttrs(msgId(c.kind, "contacts"), { unique: true })}
                   >
                     <BrandIcon kind={c.kind} />
                   </a>

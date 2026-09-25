@@ -239,7 +239,7 @@ export const WEB_DEVELOPMENT_UK: MoneyPageContent = {
           { label: "Сайт для бізнесу", href: "/corporate-site", note: `${price("business")} · ${term("business")}` },
           { label: "Інтернет-магазин", href: "/online-store", note: `${price("shop")} · ${term("shop")}` },
           { label: "Редизайн сайту", href: "/redesign", note: "за ціною пакета + перенос" },
-          { label: "Ціни і додатки", href: "/pricing" },
+          { label: "Вартість створення сайту", href: "/pricing" },
         ],
       },
       {

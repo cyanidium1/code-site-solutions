@@ -232,7 +232,7 @@ export const WEB_DEVELOPMENT_RU: MoneyPageContent = {
           { label: "Сайт для бизнеса", href: "/ru/corporate-site", note: `${price("business")} · ${term("business")}` },
           { label: "Интернет-магазин", href: "/ru/online-store", note: `${price("shop")} · ${term("shop")}` },
           { label: "Редизайн сайта", href: "/ru/redesign", note: "по цене пакета + перенос" },
-          { label: "Цены и дополнения", href: "/ru/pricing" },
+          { label: "Стоимость создания сайта", href: "/ru/pricing" },
         ],
       },
       {

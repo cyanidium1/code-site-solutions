@@ -60,7 +60,7 @@ export const CITY_AUDIT_FOOT_RU =
 export const CITY_RELATED_RU: NonNullable<MoneyPageContent["related"]> = {
   heading: "Перед заказом",
   links: [
-    { label: "Цены и дополнения", href: "/ru/pricing" },
+    { label: "Сколько стоит сделать сайт", href: "/ru/pricing" },
     { label: "Калькулятор стоимости", href: "/ru/calculator" },
     { label: "Бесплатный аудит сайта", href: "/ru/audit" },
     { label: "Разработка сайтов под ключ", href: "/ru/rozrobka-saitiv" },

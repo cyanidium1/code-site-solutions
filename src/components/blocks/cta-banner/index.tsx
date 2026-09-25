@@ -1,3 +1,5 @@
+import { ctaAttrs, ctaId, intentFromHref } from "@/constants/conversion-ids";
+
 export type CtaBannerAction = { label: string; href: string };
 
 const ARROW = (
@@ -52,9 +54,14 @@ export function CtaBanner({
             </p>
           ) : null}
           <div className="relative mt-7 w-full flex flex-col items-stretch flex-wrap justify-center gap-3 lg:mt-9 lg:w-auto lg:flex-row lg:items-center">
+            {/* The closing CTA of whatever page this sits on; the intent is
+                read off the destination so no call site has to pass one. */}
             <a
               href={ctaPrimary.href}
               className={`${BTN_BASE} bg-brand-gradient text-white shadow-[0_4px_24px_oklch(0.55_0.18_295/_0.35)] hover:-translate-y-px hover:shadow-[0_6px_32px_oklch(0.55_0.18_295/_0.45)]`}
+              {...ctaAttrs(ctaId("final", intentFromHref(ctaPrimary.href)), {
+                unique: true,
+              })}
             >
               {ctaPrimary.label}
               {ARROW}
@@ -63,6 +70,9 @@ export function CtaBanner({
               <a
                 href={ctaSecondary.href}
                 className={`${BTN_BASE} border border-line-strong bg-transparent text-ink hover:border-accent-50 hover:bg-[oklch(1_0_0_/_0.04)]`}
+                {...ctaAttrs(ctaId("final", intentFromHref(ctaSecondary.href), "secondary"), {
+                  unique: true,
+                })}
               >
                 {ctaSecondary.label}
               </a>

@@ -38,6 +38,7 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     "/blog",
     "/cookies",
     "/policy",
+    "/faq",
   ]),
   // RU surface. Grows as content/ru pages ship (vs-*).
   ru: new Set([
@@ -70,6 +71,7 @@ export const LOCALIZED_ROOTS: Record<SecondaryLocale, ReadonlySet<string>> = {
     "/rozrobka-saitiv-odesa",
     "/rozrobka-saitiv-dnipro",
     "/rozrobka-saitiv-kharkiv",
+    "/faq",
   ]),
 };
 

@@ -35,6 +35,7 @@ import {
   headerDividerClass,
 } from "./header-classes";
 import { CtaArrow } from "./cta-arrow";
+import { ctaAttrs, ctaId } from "@/constants/conversion-ids";
 import { useI18nRegistry } from "./i18n-registry-provider";
 import { NavWorkLabel } from "./nav-work-label";
 
@@ -236,6 +237,7 @@ export function HpHeader() {
             closeDd();
             openLeadModal({ source: "header", locale });
           }}
+          {...ctaAttrs(ctaId("header", "lead"), { unique: true })}
         >
           <span className={headerCtaTextClass}>{t("cta")}</span>
           <CtaArrow className={headerCtaArrowClass} />

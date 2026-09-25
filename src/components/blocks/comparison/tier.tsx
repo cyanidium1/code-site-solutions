@@ -7,6 +7,7 @@ import { useLocale } from "next-intl";
 import type { TierProps } from "@/types/pricing";
 import { useLeadModal } from "@/components/blocks/lead-modal";
 import { PhoneMore, SHOW_MORE_LABEL } from "@/components/shared/phone-more";
+import { ctaAttrs } from "@/constants/conversion-ids";
 
 function TierCheck() {
   return (
@@ -166,10 +167,15 @@ export function Tier({
             {discountLine}
           </div>
         ) : null}
+        {/* One id per package, so a campaign can see which card people press
+            rather than a single "pricing" number. Not `unique`: /pricing
+            renders five of these on one page, and the tier key is what makes
+            each id distinct. */}
         {ctaHref ? (
           <Link
             href={ctaHref}
             className={`${TIER_BTN_BASE} ${ctaGhost ? TIER_BTN_GHOST : TIER_BTN_PRIMARY} inline-flex items-center justify-center text-center no-underline`}
+            {...ctaAttrs(`cta-package-${tierKey ?? "custom"}`)}
           >
             {ctaLabel}
           </Link>
@@ -184,6 +190,7 @@ export function Tier({
               })
             }
             className={`${TIER_BTN_BASE} ${ctaGhost ? TIER_BTN_GHOST : TIER_BTN_PRIMARY}`}
+            {...ctaAttrs(`cta-package-${tierKey ?? "custom"}`)}
           >
             {ctaLabel}
           </button>

@@ -58,6 +58,9 @@ const STATIC_ROUTES: {
   { path: "/contacts", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
   { path: "/calculator", changeFrequency: "monthly", priority: 0.7 },
+  // /thank-you is deliberately absent: noindex, reachable only by submitting
+  // a form, and the Google Ads destination conversion.
+  { path: "/faq", changeFrequency: "monthly", priority: 0.7 },
   { path: "/landing", changeFrequency: "monthly", priority: 0.8 },
   { path: "/corporate-site", changeFrequency: "monthly", priority: 0.8 },
   { path: "/online-store", changeFrequency: "monthly", priority: 0.8 },

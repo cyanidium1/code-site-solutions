@@ -36,7 +36,7 @@
     "seo": "SEO",
     "localSeo": "Local SEO",
     "audit": "Free website audit",
-      "support": "Support & warranty",
+    "support": "Support & warranty",
     "redesign": "Redesign"
   },
   "Footer": {
@@ -70,6 +70,7 @@
       "redesign": "Website redesign",
       "pricing": "Pricing",
       "calculator": "Calculator",
+      "faq": "FAQ",
       "portfolio": "Cases",
       "blog": "Blog",
       "contacts": "Contact"

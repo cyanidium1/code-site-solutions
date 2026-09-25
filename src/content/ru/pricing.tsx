@@ -15,6 +15,7 @@ import {
   formatPackageTerm,
   packagePrice,
   servicePrice,
+  uahApprox,
 } from "@/constants/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
 import { PRICING_PROSE_RU } from "@/content/ru/pricing-prose";
@@ -47,12 +48,15 @@ const ours3y = usd(packagePrice("business", L) + 2 * servicePrice("hostingRenewa
 export const PRICING_COPY_RU: PricingCopy = {
   path: "/ru/pricing",
   ogLocale: "ru_UA",
-  title: `Цены на сайт 2026: лендинг ${landing}, сайт ${business}, магазин ${shop}`,
-  description: `Лендинг ${landing} за ${formatPackageTerm("landing", L)}, сайт для бизнеса ${business}, магазин ${shop}. Цена в договоре, код ваш, гарантия год включена.`,
+  // Под кластер «сколько стоит сделать сайт» / «стоимость сайта» — за 28 дней
+  // 111 показов на 39-й позиции только у «стоимость сайта»
+  // (code-site.art-audit/ANALYTICS-2026-09-22.md, §1.4).
+  title: `Сколько стоит сделать сайт 2026: цены от ${landing}`,
+  description: `Стоимость создания сайта: лендинг ${landing} за ${formatPackageTerm("landing", L)}, сайт для бизнеса ${business}, магазин ${shop}. Цена в договоре, код ваш, гарантия год включена.`,
   crumbs: { home: "Главная", homeHref: "/ru", self: "Цены" },
   eyebrow: "ЦЕНЫ",
-  h1: ["Цены на сайты 2026 —", "фиксированные, в договоре"],
-  heroSub: `Лендинг ${landing}, сайт для бизнеса ${business}, интернет-магазин ${shop}. Сумма и срок — в договоре до старта. Хостинг, SSL, гарантия и поддержка на год уже в цене. Код — ваш.`,
+  h1: ["Сколько стоит сделать сайт —", "фиксированные цены 2026"],
+  heroSub: `Создать сайт под ключ: лендинг ${landing}, сайт для бизнеса ${business}, интернет-магазин ${shop}. Сумма и срок — в договоре до старта. Хостинг, SSL, гарантия и поддержка на год уже в цене. Код — ваш.`,
   heroActions: { primary: "Бесплатный расчёт за 24 часа", secondary: "Все пакеты и цены" },
   cta: {
     button: "Получить расчёт",
@@ -201,6 +205,26 @@ export const PRICING_COPY_RU: PricingCopy = {
         ` за ${formatPackageTerm("business", L)}, интернет-магазин — `,
         { em: formatPackagePrice("shop", L) },
         ` за ${formatPackageTerm("shop", L)}. Отраслевое решение — ${formatPackagePrice("industry", L)}, платформа на заказ — ${formatPackagePrice("custom", L)}. В цену входят дизайн, разработка, тексты на основе брифа, хостинг и SSL на год, гарантия год.`,
+      ],
+    },
+    {
+      q: "Сколько стоит создать сайт с нуля?",
+      a: [
+        "Столько же, сколько пакет: создание с нуля — это и есть наша работа, шаблоны мы не переделываем. Лендинг — ",
+        { em: `${landing} (${uahApprox(packagePrice("landing", L))})` },
+        ", сайт для бизнеса — ",
+        { em: `${business} (${uahApprox(packagePrice("business", L))})` },
+        `, интернет-магазин — ${shop} (${uahApprox(packagePrice("shop", L))}). В сумму входят структура, дизайн, тексты на основе брифа, разработка и запуск.`,
+      ],
+    },
+    {
+      q: "От чего зависит стоимость разработки сайта?",
+      a: [
+        "От объёма, а не от красоты дизайна: сколько страниц, нужны ли CMS, второй язык, каталог, онлайн-запись или интеграция с CRM. У каждого дополнения фиксированная цена в таблице выше, поэтому стоимость разработки сайта считается как ",
+        { em: "пакет + дополнения" },
+        " и после подписания договора не растёт. Посчитать свою конфигурацию можно в ",
+        { link: { href: "/ru/calculator", text: "калькуляторе" } },
+        ".",
       ],
     },
     {
