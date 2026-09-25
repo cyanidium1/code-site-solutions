@@ -24,6 +24,7 @@ import Logo from "./logo/logo";
 import { headerBrandClass } from "./header-classes";
 import { useI18nRegistry } from "./i18n-registry-provider";
 import { NavWorkLabel } from "./nav-work-label";
+import { ctaAttrs, ctaId } from "@/constants/conversion-ids";
 
 // ui/Drawer slot classes (native <dialog>; z-index/backdrop handled by the
 // top layer — no wrapper juggling needed).
@@ -270,6 +271,7 @@ export function MobileMenuDrawer({
           href={ctaHref}
           className={drawerCtaClass}
           onClick={close}
+          {...ctaAttrs(ctaId("mobile-menu", "lead"), { unique: true })}
         >
           {t("cta")}
         </Link>

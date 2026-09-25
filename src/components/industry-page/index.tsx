@@ -7,8 +7,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { HpHeader } from "@/components/layout/hp-header";
+import { IndustryHero } from "@/components/industry-page/industry-hero";
+import { INDUSTRY_HERO_LEDE } from "@/content/industry-hero";
 import { HpFooter } from "@/components/layout/hp-footer";
-import { HeroEditorial } from "@/components/blocks/hero";
 import { ImageText } from "@/components/blocks/image-text";
 import { Reasons } from "@/components/blocks/reasons";
 import {
@@ -1104,23 +1105,11 @@ export async function IndustryPageView({
           }
         />
       ) : (
-      <HeroEditorial
-        eyebrow={eyebrowProp}
-        h1Lines={h1Lines}
-        lede={hero?.lede ? formatLine(loc(hero.lede, locale)) : undefined}
-        features={
-          hero?.features?.length
-            ? hero.features.map((f) => {
-                const str = loc(f, locale);
-                const pipeIdx = str.indexOf(" | ");
-                return pipeIdx > -1
-                  ? {
-                      label: str.slice(0, pipeIdx),
-                      sub: str.slice(pipeIdx + 3),
-                    }
-                  : { label: str, sub: "" };
-              })
-            : undefined
+      <IndustryHero
+        h1={h1}
+        lede={
+          INDUSTRY_HERO_LEDE[industryId]?.[locale] ??
+          (hero?.lede ? formatLine(loc(hero.lede, locale)) : undefined)
         }
         ctaPrimaryLabel={loc(hero?.ctaPrimary, locale) || undefined}
         ctaPrimaryHref={leadFormHref}
@@ -1129,28 +1118,8 @@ export async function IndustryPageView({
           resolveRootHref("/portfolio", locale),
           { industry: page.slug },
         )}
-        stats={
-          hero?.stats?.length
-            ? hero.stats.map((s) => ({
-                num: loc(s.value, locale),
-                lbl: formatLine(loc(s.label, locale)),
-              }))
-            : undefined
-        }
-        tickerItems={
-          hero?.tickerItems?.length
-            ? hero.tickerItems.map((t) => loc(t, locale))
-            : undefined
-        }
-        deviceTags={
-          hero?.deviceTags?.length
-            ? hero.deviceTags.map((dt) => ({
-                kind: dt.kind ?? "default",
-                primary: loc(dt.primary, locale),
-                mini: dt.mini,
-              }))
-            : undefined
-        }
+        stats={heroStats}
+        tickerItems={heroTicker}
         deviceMockupImage={hero?.deviceMockup ?? undefined}
         deviceMockupAlt={
           loc(hero?.deviceMockup?.alt, locale) ||

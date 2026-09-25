@@ -14,6 +14,11 @@ import {
 import { DEFAULT_LOCALE, type Locale } from "@/constants/locales";
 import { CookieSettingsLink } from "@/lib/cookie-consent";
 import { SITE_CONTACT } from "@/constants/site";
+import {
+  ctaAttrs,
+  msgId,
+  type ConversionChannel,
+} from "@/constants/conversion-ids";
 import { LOCALE_MARKET, formatPackagePrice } from "@/constants/pricing";
 import { MobileFold } from "@/components/shared/mobile-fold";
 import Logo from "./logo/logo";
@@ -56,15 +61,16 @@ const DEFAULT_SOCIALS: SocialDef[] = [
 // `currentColor` so they fade/hover in sync with the label.
 type ContactIcon = ComponentType<{ size?: number; strokeWidth?: number }>;
 const FOOTER_CONTACTS: Array<{
+  channel: ConversionChannel;
   Icon: ContactIcon;
   href: string;
   label: string;
   external?: boolean;
 }> = [
-  { Icon: WhatsAppIcon, href: `https://wa.me/${SITE_CONTACT.whatsapp}`, label: SITE_CONTACT.whatsappDisplay, external: true },
-  { Icon: Mail, href: `mailto:${SITE_CONTACT.email}`, label: SITE_CONTACT.email },
-  { Icon: Send, href: SITE_CONTACT.telegram, label: SITE_CONTACT.telegramHandle, external: true },
-  { Icon: Phone, href: `tel:${SITE_CONTACT.phoneRaw}`, label: SITE_CONTACT.phone },
+  { channel: "whatsapp", Icon: WhatsAppIcon, href: `https://wa.me/${SITE_CONTACT.whatsapp}`, label: SITE_CONTACT.whatsappDisplay, external: true },
+  { channel: "email", Icon: Mail, href: `mailto:${SITE_CONTACT.email}`, label: SITE_CONTACT.email },
+  { channel: "telegram", Icon: Send, href: SITE_CONTACT.telegram, label: SITE_CONTACT.telegramHandle, external: true },
+  { channel: "phone", Icon: Phone, href: `tel:${SITE_CONTACT.phoneRaw}`, label: SITE_CONTACT.phone },
 ];
 
 // Six industries (TZ v2, Sept 2026): ecommerce and courses were retired —
@@ -200,6 +206,7 @@ export function HpFooter({
   const companyLinks = [
     { key: "pricing", root: "/pricing" },
     { key: "calculator", root: "/calculator" },
+    { key: "faq", root: "/faq" },
     { key: "audit", root: "/audit" },
     { key: "support", root: "/support" },
     { key: "portfolio", root: "/portfolio" },
@@ -234,12 +241,13 @@ export function HpFooter({
           <Logo href={homeHref} className={headerBrandClass} />
           <p className={footerDescClass}>{t("brandDesc")}</p>
           <div className={footerContactsClass}>
-            {FOOTER_CONTACTS.map(({ Icon, href, label, external }) => (
+            {FOOTER_CONTACTS.map(({ channel, Icon, href, label, external }) => (
               <a
                 key={href}
                 href={href}
                 target={external ? "_blank" : undefined}
                 rel={external ? "noreferrer" : undefined}
+                {...ctaAttrs(msgId(channel, "footer"), { unique: true })}
               >
                 <Icon size={14} strokeWidth={1.6} />
                 <span>{label}</span>

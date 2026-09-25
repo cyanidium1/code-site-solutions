@@ -15,6 +15,7 @@ import {
   formatPackageTerm,
   packagePrice,
   servicePrice,
+  uahApprox,
 } from "@/constants/pricing";
 import { formatPrice } from "@/lib/shared/format-price";
 import { PRICING_PROSE_UK } from "@/content/uk/pricing-prose";
@@ -50,13 +51,16 @@ const ours3y = usd(packagePrice("business", L) + 2 * servicePrice("hostingRenewa
 export const PRICING_COPY_UK: PricingCopy = {
   path: "/pricing",
   ogLocale: "uk_UA",
-  // ≤ 60 символів: повна формула ТЗ «Ціни на створення сайту…» — 71.
-  title: `Ціни на сайт 2026: лендінг ${landing}, сайт ${business}, магазин ${shop}`,
-  description: `Лендінг ${landing} за ${formatPackageTerm("landing", L)}, сайт для бізнесу ${business}, магазин ${shop}. Ціна в договорі, код ваш, гарантія рік включена.`,
+  // Заголовок під головний запит кластера, а не під слово «ціни»: за 28 днів
+  // «скільки коштує зробити сайт» і «створити сайт ціна» дали 1 339 показів
+  // на позиціях 49–73, і ні title, ні H1 цієї фрази не містили
+  // (code-site.art-audit/ANALYTICS-2026-09-22.md, §1.4).
+  title: `Скільки коштує зробити сайт 2026: ціни від ${landing}`,
+  description: `Вартість створення сайту: лендінг ${landing} за ${formatPackageTerm("landing", L)}, сайт для бізнесу ${business}, магазин ${shop}. Ціна в договорі, код ваш, гарантія рік включена.`,
   crumbs: { home: "Головна", homeHref: "/", self: "Ціни" },
   eyebrow: "ЦІНИ",
-  h1: ["Ціни на сайти 2026 —", "фіксовані, в договорі"],
-  heroSub: `Лендінг ${landing}, сайт для бізнесу ${business}, інтернет-магазин ${shop}. Сума і строк — у договорі до старту. Хостинг, SSL, гарантія і підтримка на рік уже в ціні. Код — ваш.`,
+  h1: ["Скільки коштує зробити сайт —", "фіксовані ціни 2026"],
+  heroSub: `Створити сайт під ключ: лендінг ${landing}, сайт для бізнесу ${business}, інтернет-магазин ${shop}. Сума і строк — у договорі до старту. Хостинг, SSL, гарантія і підтримка на рік уже в ціні. Код — ваш.`,
   heroActions: { primary: "Безкоштовний прорахунок за 24 год", secondary: "Усі пакети і ціни" },
   cta: {
     button: "Отримати прорахунок",
@@ -207,6 +211,26 @@ export const PRICING_COPY_UK: PricingCopy = {
         ` за ${formatPackageTerm("business", L)}, інтернет-магазин — `,
         { em: formatPackagePrice("shop", L) },
         ` за ${formatPackageTerm("shop", L)}. Галузеве рішення — ${formatPackagePrice("industry", L)}, платформа на замовлення — ${formatPackagePrice("custom", L)}. У ціну входять дизайн, розробка, тексти на основі брифу, хостинг і SSL на рік, гарантія рік.`,
+      ],
+    },
+    {
+      q: "Скільки коштує створити сайт з нуля?",
+      a: [
+        "Стільки ж, скільки пакет: створення з нуля — це і є наша робота, шаблони ми не переробляємо. Лендінг — ",
+        { em: `${landing} (${uahApprox(packagePrice("landing", L))})` },
+        ", сайт для бізнесу — ",
+        { em: `${business} (${uahApprox(packagePrice("business", L))})` },
+        `, інтернет-магазин — ${shop} (${uahApprox(packagePrice("shop", L))}). У суму входять структура, дизайн, тексти на основі брифу, розробка й запуск.`,
+      ],
+    },
+    {
+      q: "Від чого залежить вартість розробки сайту?",
+      a: [
+        "Від обсягу, а не від краси дизайну: скільки сторінок, чи потрібні CMS, друга мова, каталог, онлайн-запис або інтеграція з CRM. Кожен додаток має фіксовану ціну в таблиці вище, тому вартість розробки сайту рахується як ",
+        { em: "пакет + додатки" },
+        " і після підпису договору не росте. Порахувати свою конфігурацію можна в ",
+        { link: { href: "/calculator", text: "калькуляторі" } },
+        ".",
       ],
     },
     {

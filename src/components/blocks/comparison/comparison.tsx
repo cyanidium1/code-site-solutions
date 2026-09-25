@@ -1,6 +1,7 @@
 "use client";
 
 import type { Locale } from "@/constants/locales";
+import { goToThankYou } from "@/lib/client/go-to-thank-you";
 import Link from "next/link";
 import type * as React from "react";
 import { useState } from "react";
@@ -156,13 +157,14 @@ export function Comparison({
       });
       if (!res.ok) throw new Error("Lead endpoint returned non-OK");
       setStatus("success");
+      goToThankYou(locale);
     } catch {
       setStatus("error");
     }
   };
 
   return (
-    <section className="relative py-11 sm:py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
+    <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
       <div className={`absolute inset-0 z-0 pointer-events-none ${CMP_BG}`} />
       <div className="relative z-[2] max-w-container mx-auto">
         <H2 variant="comparison" className={CMP_H2_EXTRA}>{tableHeading}</H2>

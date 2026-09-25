@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AppImage } from "@/lib/shared/app-image";
 import { HeroGears } from "@/components/homepage/hero-gears";
 import { btnClass, H1 } from "@/components/ui";
+import { ctaAttrs, ctaId, intentFromHref } from "@/constants/conversion-ids";
 
 /* ───────────────────────────────────────────────────────────────────────
    HOME HERO — standalone hero for the 3 home pages (uk/en/ru), split out
@@ -329,13 +330,25 @@ export function HomeHero({
             </div>
 
             <div className={CTA_ROW_CLASS}>
-              <Link href={ctaPrimaryHref} className={btnClass("primary")}>
+              <Link
+                href={ctaPrimaryHref}
+                className={btnClass("primary")}
+                {...ctaAttrs(ctaId("hero", intentFromHref(ctaPrimaryHref)), {
+                  unique: true,
+                })}
+              >
                 <span>{ctaPrimaryLabel}</span>
                 {ARROW_ICON}
               </Link>
               {/* A bordered button, not a text link: as plain text the audit
                   offer read as a caption (owner, 2026-09-18). */}
-              <Link href={ctaSecondaryHref} className={btnClass("ghost")}>
+              <Link
+                href={ctaSecondaryHref}
+                className={btnClass("ghost")}
+                {...ctaAttrs(ctaId("hero", intentFromHref(ctaSecondaryHref), "secondary"), {
+                  unique: true,
+                })}
+              >
                 <span>{ctaSecondaryLabel}</span>
                 {SECONDARY_ARROW_ICON}
               </Link>

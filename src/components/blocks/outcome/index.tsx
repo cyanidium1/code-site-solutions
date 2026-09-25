@@ -79,7 +79,7 @@ export function Outcome({
     benefitHeroValue || benefitHeroLede || benefitHeroBullets.length > 0,
   );
   return (
-    <section className="relative py-11 sm:py-14 lg:py-[100px] px-[18px] md:px-8 xl:px-12 bg-bg overflow-hidden">
+    <section className="relative py-11 sm:py-14 lg:py-[100px] px-6 sm:px-8 lg:px-12 bg-bg overflow-hidden">
       <style href="csb-outcome" precedence="csb">{OUTCOME_CSS}</style>
       <div className="absolute inset-0 z-0 pointer-events-none csb-outcome-bg" />
       <div className="relative z-[2] max-w-container mx-auto">

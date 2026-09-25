@@ -10,6 +10,7 @@ import { BUDGET_OPTS_BY_LOCALE } from "@/constants/form-options";
 import { SITE_CONTACT } from "@/constants/site";
 import { HoneypotField } from "@/components/blocks/honeypot-field";
 import { submitLead } from "@/components/blocks/lead-form/submit";
+import { goToThankYou } from "@/lib/client/go-to-thank-you";
 import { INITIAL_LEAD_VALUES } from "@/components/blocks/lead-form/validation";
 import type { LeadValues } from "@/types/lead";
 
@@ -127,6 +128,7 @@ export function AuditForm({
         try {
           await submitLead({ ...values, siteUrl: values.siteUrl.trim() }, source);
           setStatus("success");
+          goToThankYou(locale);
         } catch {
           setStatus("error");
         } finally {

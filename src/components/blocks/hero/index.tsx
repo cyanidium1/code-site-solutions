@@ -15,7 +15,7 @@ import { btnClass, H1, PLAY_ICON_CLASS } from "@/components/ui";
 // U — fixed background with dual accent radials + linear base. The gradient
 // layers use raw OKLCH because they are oklch(from var(--color-accent) ...)
 // relative-color functions that no @theme token captures.
-const HERO_BG_CLASS =
+export const HERO_BG_CLASS =
   "fixed inset-0 z-0 pointer-events-none " +
   "bg-[radial-gradient(ellipse_60%_50%_at_80%_30%,oklch(from_var(--color-accent)_l_c_h_/_0.10),transparent_70%),radial-gradient(ellipse_50%_70%_at_10%_90%,oklch(from_var(--color-accent-2)_l_c_h_/_0.06),transparent_70%),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg)_100%)]";
 
@@ -191,6 +191,14 @@ const MOCKUP_IMG_CONTAINED =
   "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))] " +
   "lg:w-[clamp(420px,50vw,1000px)] lg:max-w-none lg:max-h-none lg:-translate-x-[10%]";
 
+// U — fully contained industry mockup: never wider than its own column, so it
+// cannot slide under the headline. MOCKUP_IMG_CONTAINED keeps the legacy
+// lg+ bleed (clamp width + 10% left nudge) which overlapped the text column at
+// wide viewports; this variant drops it.
+const MOCKUP_IMG_INSIDE =
+  "max-w-full max-h-full w-auto h-auto " +
+  "[filter:drop-shadow(0_44px_54px_oklch(0_0_0_/_0.6))]";
+
 // U — placeholder used when no mockup src is provided. 3-layer radial
 // + linear-gradient background mimics a device screen; drop-shadow
 // matches the real .mockup img so layout stays balanced.
@@ -249,6 +257,7 @@ export function DeviceMockup({
   alt = "",
   width,
   height,
+  contain = false,
 }: {
   /** Static /public mockup (vs-* device strip) — in-flow placement, AppImage. */
   src?: string;
@@ -261,20 +270,30 @@ export function DeviceMockup({
    *  aspect ratio. */
   width?: number;
   height?: number;
+  /** Keep the mockup inside its own grid column at every breakpoint (industry hero). */
+  contain?: boolean;
 }) {
   // A Sanity-hosted industry screenshot uses the contained placement at every
   // breakpoint below lg (so it isn't blown up + cropped by the stage bleed
   // offsets); static strip mockups keep MOCKUP_CLASS.
-  const isContained = Boolean(image?.asset);
+  const isContained = contain || Boolean(image?.asset);
   return (
-    <div className={isContained ? MOCKUP_WRAP_CONTAINED : MOCKUP_CLASS}>
+    <div
+      className={
+        contain
+          ? "absolute inset-0 flex items-center justify-center z-[2] pointer-events-none"
+          : isContained
+            ? MOCKUP_WRAP_CONTAINED
+            : MOCKUP_CLASS
+      }
+    >
       {image?.asset ? (
         <SanityImg
           image={image}
           alt={alt}
           priority
           sizes="(max-width: 640px) 100vw, 50vw"
-          className={MOCKUP_IMG_CONTAINED}
+          className={contain ? MOCKUP_IMG_INSIDE : MOCKUP_IMG_CONTAINED}
         />
       ) : src ? (
         <AppImage

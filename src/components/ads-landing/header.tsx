@@ -3,6 +3,7 @@ import { Phone, Send } from "lucide-react";
 import LogoSVG from "@/components/layout/logo/logo-svg";
 import { SITE_CONTACT } from "@/constants/site";
 import type { AdsLandingContent } from "./types";
+import { ctaAttrs, msgId } from "@/constants/conversion-ids";
 
 /**
  * Ads-landing header (TZ v2 §4): logo + phone + Telegram, no menu and no
@@ -22,6 +23,7 @@ export function AdsLandingHeader({ content }: { content: AdsLandingContent["head
             href={`tel:${SITE_CONTACT.phoneRaw}`}
             aria-label={`${content.phoneAria} ${SITE_CONTACT.phoneDisplay}`}
             className="inline-flex min-h-11 items-center gap-2 rounded-full px-3 font-sans text-[14px] font-medium text-ink no-underline transition-colors hover:text-accent-soft"
+            {...ctaAttrs(msgId("phone", "header"), { unique: true })}
           >
             <Phone size={16} strokeWidth={1.8} aria-hidden />
             <span className="hidden sm:inline">{SITE_CONTACT.phoneDisplay}</span>
@@ -31,6 +33,7 @@ export function AdsLandingHeader({ content }: { content: AdsLandingContent["head
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-4 font-sans text-[14px] font-medium text-ink no-underline transition-colors hover:border-accent"
+            {...ctaAttrs(msgId("telegram", "header"), { unique: true })}
           >
             <Send size={15} strokeWidth={1.8} aria-hidden />
             {content.telegramLabel}
@@ -50,7 +53,11 @@ export function AdsLandingFooter({ content }: { content: AdsLandingContent["foot
           © {new Date().getFullYear()} {content.rights}
         </span>
         <div className="flex flex-wrap items-center gap-4">
-          <a href={`mailto:${SITE_CONTACT.email}`} className="text-ink-3 no-underline hover:text-ink">
+          <a
+            href={`mailto:${SITE_CONTACT.email}`}
+            className="text-ink-3 no-underline hover:text-ink"
+            {...ctaAttrs(msgId("email", "footer"), { unique: true })}
+          >
             {SITE_CONTACT.email}
           </a>
           <a href={content.contractHref} className="text-ink-dim underline underline-offset-4 hover:text-ink">

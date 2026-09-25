@@ -5,11 +5,21 @@ import type { Locale } from "@/constants/locales";
 import type { ReactNode } from "react";
 import { useLocale } from "next-intl";
 import { useLeadModal, type OpenLeadModalOptions } from "./index";
+import { ctaAttrs } from "@/constants/conversion-ids";
 
 type LeadCtaButtonProps = {
   children: ReactNode;
   className?: string;
   "aria-label"?: string;
+  /**
+   * Conversion id for ads (see `@/constants/conversion-ids`). Defaults to
+   * `cta-<source>`, which is right for nearly every call site: the source is
+   * already the name the lead travels under. Pass an explicit id only when
+   * two buttons share a source but a campaign has to tell them apart.
+   */
+  ctaId?: string;
+  /** Adds a matching `id`. Only where the button cannot repeat on a page. */
+  ctaUnique?: boolean;
 } & OpenLeadModalOptions;
 
 /**
@@ -28,6 +38,8 @@ export function LeadCtaButton({
   title,
   sub,
   formVariant,
+  ctaId,
+  ctaUnique,
   ...rest
 }: LeadCtaButtonProps) {
   const { open } = useLeadModal();
@@ -40,6 +52,7 @@ export function LeadCtaButton({
       onClick={() =>
         open({ source, locale: resolvedLocale, tier, title, sub, formVariant })
       }
+      {...ctaAttrs(ctaId ?? `cta-${source ?? "unknown"}`, { unique: ctaUnique })}
       {...rest}
     >
       {children}

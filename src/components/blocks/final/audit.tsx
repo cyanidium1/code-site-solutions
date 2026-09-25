@@ -3,6 +3,7 @@
 import type * as React from "react";
 import { useState } from "react";
 import { getAttribution } from "@/lib/client/attribution";
+import { goToThankYou } from "@/lib/client/go-to-thank-you";
 import { HoneypotField } from "@/components/blocks/honeypot-field";
 import { btnClass } from "@/components/ui";
 
@@ -100,6 +101,8 @@ export function Audit({
       });
       if (!res.ok) throw new Error("Lead endpoint returned non-OK");
       setStatus("success");
+      // Без пропа locale: блок отримує тексти, а не мову — беремо з адреси.
+      goToThankYou();
     } catch {
       setStatus("error");
     }

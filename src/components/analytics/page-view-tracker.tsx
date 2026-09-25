@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { recordPageView } from "@/lib/client/attribution";
-import { trackContactClick } from "@/lib/client/analytics";
+import { trackContactClick, trackCtaClick } from "@/lib/client/analytics";
 import { normalizePathname } from "@/lib/shared/normalize-pathname";
 
 /**
@@ -17,13 +17,24 @@ export function PageViewTracker() {
     recordPageView(pathname);
   }, [pathname]);
 
-  // One delegated listener covers every phone / messenger link on the site,
-  // including ones rendered later by CMS content.
+  // One delegated listener covers every phone / messenger link and every
+  // `data-cta` button on the site, including ones rendered later by CMS
+  // content. Delegation is the point: a per-element onClick would have to be
+  // threaded through every block, and CMS-authored links would never get one.
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      const a = (e.target as Element | null)?.closest?.("a[href]");
+      const target = e.target as Element | null;
+      const a = target?.closest?.("a[href]");
       const channel = a ? contactChannel(a.getAttribute("href") ?? "") : null;
-      if (channel) trackContactClick(channel, window.location.pathname);
+      const cta = target?.closest?.("[data-cta]");
+      const ctaId = cta?.getAttribute("data-cta") ?? undefined;
+      const page = window.location.pathname;
+      if (channel) {
+        // A contact link reports once, as a contact click carrying its id.
+        trackContactClick(channel, page, ctaId);
+        return;
+      }
+      if (ctaId) trackCtaClick(ctaId, page);
     };
     document.addEventListener("click", onClick, { capture: true });
     return () => document.removeEventListener("click", onClick, { capture: true });

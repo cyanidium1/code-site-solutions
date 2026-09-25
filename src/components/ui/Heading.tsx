@@ -13,6 +13,7 @@ type Variant =
   | "launch-cta"
   | "turnkey"
   | "contact-split"
+  | "industry-hero"
   | "calc-card"
   | "calc-intro"
   | "calc-summary"
@@ -65,6 +66,13 @@ const sizes: Record<Level, Record<Variant, string>> = {
     "launch-cta": "font-actay text-[clamp(32px,3.4vw,48px)] leading-[1.2] tracking-[-0.025em] font-bold",
     turnkey: "font-actay text-[clamp(34px,4vw,52px)] leading-[1.05] tracking-[-0.02em] font-bold",
     "contact-split": "font-actay text-[clamp(28px,3.2vw,36px)] leading-[1.05] tracking-[-0.02em] font-bold",
+    // /sites-for/* headline. Smaller than `hp` on purpose: this H1 carries the
+    // whole offer sentence (industry + price + term + integration), so at the
+    // 64px `hp` size it ran six uppercase lines and collided with the device
+    // column. The display register stops at the industry name; the price and
+    // term live in a spec row inside the same <h1> at 0.42em / 0.22em.
+    "industry-hero":
+      "font-actay font-bold text-[clamp(23px,5.8vw,29px)] leading-[1] tracking-[-0.03em] md:text-[clamp(27px,2.9vw,40px)] md:leading-[0.98]",
     "calc-card": "font-actay text-[17px] font-bold tracking-[-0.01em] text-ink",
     "calc-intro": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink",
     "calc-summary": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink",
@@ -91,6 +99,7 @@ const sizes: Record<Level, Record<Variant, string>> = {
       "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-[1.2] tracking-[-0.025em] uppercase text-balance md:text-[clamp(32px,3.4vw,48px)]",
     turnkey: "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-[1.05] tracking-[-0.02em] md:text-[clamp(34px,4vw,52px)]",
     "contact-split": "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-[1.05] tracking-[-0.02em] md:text-[clamp(28px,3.2vw,36px)]",
+    "industry-hero": "font-actay font-bold text-[clamp(24px,6vw,32px)] leading-[1.05] tracking-[-0.02em] md:text-[clamp(34px,4vw,56px)]",
     "calc-card": "font-actay text-[17px] font-bold tracking-[-0.01em] text-ink",
     "calc-intro": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink",
     "calc-summary": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink",
@@ -108,6 +117,7 @@ const sizes: Record<Level, Record<Variant, string>> = {
     "launch-cta": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     turnkey: "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     "contact-split": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
+    "industry-hero": "font-actay text-[28px] leading-[1.2] tracking-[-0.005em] font-bold",
     "calc-card": "font-actay text-[17px] font-bold tracking-[-0.01em] text-ink m-0",
     "calc-intro": "font-actay text-[18px] font-bold tracking-[-0.01em] text-ink m-0",
     "calc-summary": "font-actay text-[16px] font-bold tracking-[-0.01em] text-ink m-0",
