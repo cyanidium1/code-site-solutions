@@ -19,6 +19,8 @@ import {
 } from "@/constants/form-options";
 import { LEAD_FORM_STRINGS_BY_LOCALE as STRINGS_BY_LOCALE } from "@/content/lead-form";
 import { HoneypotField } from "@/components/blocks/honeypot-field";
+import { ctaAttrs, formId } from "@/constants/conversion-ids";
+import { goToThankYou } from "@/lib/client/go-to-thank-you";
 import { INITIAL_LEAD_VALUES as INITIAL, buildValidationSchema } from "./validation";
 import { submitLead } from "./submit";
 
@@ -184,6 +186,7 @@ function LeadFormInner({
         try {
           await submitLead(values, resolvedSource);
           setStatus("success");
+          goToThankYou(locale);
         } catch {
           setStatus("error");
         } finally {
@@ -355,11 +358,15 @@ function LeadFormInner({
             </div>
           )}
 
+          {/* The submitted form is the conversion; the id carries the same
+              `source` the lead reaches Telegram with. Not `unique`: a page
+              can hold two forms (hero + bottom). */}
           <Btn
             variant="gradient"
             type="submit"
             isLoading={isSubmitting || status === "submitting"}
             className={SUBMIT_BUTTON_CLASS}
+            {...ctaAttrs(formId(resolvedSource))}
           >
             {isDemo ? strings.submitDemo : strings.submit}
           </Btn>
