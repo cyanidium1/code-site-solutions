@@ -6,7 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import enMessages from "../../../messages/en.json";
 
 import { Providers } from "../providers";
-import { OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
+import { FB_DOMAIN_VERIFICATION, OG_DEFAULT_IMAGE, SITE_ORIGIN } from "@/constants/site";
 import { HOMEPAGE_EN } from "@/content/en/homepage";
 import { LOCALE_CONFIG } from "@/constants/locales";
 import { buildAlternates } from "@/lib/shared/alternates";
@@ -45,6 +45,9 @@ export const metadata: Metadata = {
   description: HOMEPAGE_EN.meta.description,
   metadataBase: new URL(SITE_ORIGIN),
   alternates: buildAlternates({ locale: "en", uaPath: "/" }),
+  verification: {
+    other: { "facebook-domain-verification": FB_DOMAIN_VERIFICATION },
+  },
   openGraph: {
     title: HOMEPAGE_EN.meta.title,
     description: HOMEPAGE_EN.meta.description,

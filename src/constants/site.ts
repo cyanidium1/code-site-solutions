@@ -2,6 +2,21 @@ export const SITE_ORIGIN = "https://www.code-site.art";
 
 export const GTM_ID = "GTM-TRCVT2FH";
 
+/**
+ * Токен підтвердження домену в Meta Business (видано 24.09.2026).
+ *
+ * Рендериться як <meta name="facebook-domain-verification"> у кореневих
+ * layout'ах усіх трьох локалей. Meta перевіряє головну сторінку, але тег
+ * стоїть на всіх — щоб верифікація не злетіла, якщо колись зміниться те,
+ * яку саме адресу вони смикають.
+ *
+ * Токен виданий стороннім портфоліо (Marketing.i3.com.ua): підтвердження
+ * домену віддає ЙОМУ право вирішувати, хто може редагувати посилання на
+ * code-site.art у рекламі й публікаціях. Змінювати агентство — міняти
+ * і цей токен.
+ */
+export const FB_DOMAIN_VERIFICATION = "77j9c972zkox1kofkph6246cl7puxs";
+
 export const ORG_ID = `${SITE_ORIGIN}/#organization`;
 export const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
 
